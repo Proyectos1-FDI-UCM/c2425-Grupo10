@@ -8,3 +8,4 @@
 # Issues
 
 - Issue #1 corregido
+- Issue #2 ha sido corregido
