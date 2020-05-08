@@ -4,3 +4,7 @@
 - Cambios del desarrollador 1
 - Cambios del desarrollador 2
 - Más cambios del desarrollador 1
+
+# Issues
+
+- Issue #1 corregido
