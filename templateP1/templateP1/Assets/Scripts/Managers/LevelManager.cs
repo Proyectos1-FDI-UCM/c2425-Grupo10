@@ -31,6 +31,18 @@ public class LevelManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+
+    // Herramientas y semillas del jugador (serialized pq aun no se pueden cambiar desde el juego)
+    [SerializeField]
+    int Herramienta = 1; // Herramientas - Guantes = 1, Semillas = 5
+
+    [SerializeField]
+    int Semillas = 1; // Semillas - 
+
+    // Prefab 
+    [SerializeField]
+    GameObject PrefabSemilla1;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -58,6 +70,14 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        
+    }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -76,6 +96,15 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public void Plantar(Vector3 position)
+    {
+        if (Herramienta == 5)
+        {
+            Debug.Log("LevelManager");
+            GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
+        }
+    }
+
     /// <summary>
     /// Devuelve cierto si la instancia del singleton está creada y
     /// falso en otro caso.
@@ -84,12 +113,13 @@ public class LevelManager : MonoBehaviour
     /// destruído antes de tiempo.
     /// </summary>
     /// <returns>Cierto si hay instancia creada.</returns>
+    
+    #endregion
+
     public static bool HasInstance()
     {
         return _instance != null;
     }
-
-    #endregion
 
     // ---- MÉTODOS PRIVADOS ----
 

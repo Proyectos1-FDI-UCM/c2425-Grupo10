@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
         // Normaliza la entrada para evitar movimiento diagonal más rápido.
         moveInput = new Vector2(moveX, moveY).normalized;
+
     }
 
     #endregion
