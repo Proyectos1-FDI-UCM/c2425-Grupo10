@@ -36,8 +36,10 @@ public class VisionTiles : MonoBehaviour
     // Ejemplo: _maxHealthPoints
     public Tilemap tilemap;
     public float transparentAlpha = 0.5f;
-    private int playersInside = 0;
-    private bool isPlayerOverTile = false;
+    public Visibility visibility;
+    public int playersInside = 0;
+    public Collider2D playerCollider;
+    public bool isTransparent = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -55,6 +57,8 @@ public class VisionTiles : MonoBehaviour
     {
         if (tilemap == null)
             tilemap = GetComponent<Tilemap>();
+
+        InvokeRepeating(nameof(CheckPlayerOnTile), 0f, 0.05f); // Solo iniciar si no está en ejecución
     }
 
 
@@ -74,7 +78,7 @@ public class VisionTiles : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void SetTilemapAlpha(float alpha)
+    private void SetTilemapAlpha(float alpha)
     {
         if (tilemap != null)
         {
@@ -96,36 +100,77 @@ public class VisionTiles : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playersInside++;
-            isPlayerOverTile = true; // El jugador está sobre los tiles
+            playerCollider = other; // Guardamos el colisionador del jugador
 
-            // Si es el primer jugador en entrar, hacemos transparente el Tilemap
-            if (playersInside == 1)
+            if (!isTransparent)
             {
+                isTransparent = true;
                 SetTilemapAlpha(transparentAlpha);
+                visibility.visibility(0.5f);
             }
         }
     }
-
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             playersInside--;
-
-            // Verificamos si el jugador sigue en los tiles
-            isPlayerOverTile = CheckIfPlayerIsOnTile(other.transform.position);
-
-            if (playersInside <= 0 && !isPlayerOverTile)
+            if (playersInside <= 0)
             {
-                playersInside = 0; // Asegurar que no sea negativo
-                SetTilemapAlpha(1f); // Volver a ser opaco solo si el jugador realmente salió de los tiles
+                playersInside = 0; // Evita valores negativos
+
+                // 🔹 Verificar si el jugador sigue tocando el Tilemap antes de restaurar opacidad
+                if (!IsAnyPartOfPlayerOnTile(other))
+                {
+                    SetTilemapAlpha(1f);
+                    visibility.visibility(1f);
+                    isTransparent = false;
+                }
             }
         }
     }
-    private bool CheckIfPlayerIsOnTile(Vector3 playerPosition)
+
+    private void CheckPlayerOnTile()
     {
-        Vector3Int cellPosition = tilemap.WorldToCell(playerPosition);
-        return tilemap.HasTile(cellPosition);
+        if (playerCollider == null || playersInside <= 0)
+        {
+            CancelInvoke(nameof(CheckPlayerOnTile));
+            return;
+        }
+
+        if (!IsAnyPartOfPlayerOnTile(playerCollider))
+        {
+            SetTilemapAlpha(1f);
+            visibility.visibility(1f);
+            isTransparent = false;
+            playerCollider = null;
+            CancelInvoke(nameof(CheckPlayerOnTile)); // Detener el ciclo
+        }
+    }
+
+    private bool IsAnyPartOfPlayerOnTile(Collider2D player)
+    {
+        if (player == null) return false;
+
+        Bounds bounds = player.bounds;
+        Vector3[] checkPoints = new Vector3[]
+        {
+            bounds.center, // Centro
+            bounds.min, // Esquina inferior izquierda
+            bounds.max, // Esquina superior derecha
+            new Vector3(bounds.min.x, bounds.max.y, 0), // Esquina superior izquierda
+            new Vector3(bounds.max.x, bounds.min.y, 0)  // Esquina inferior derecha
+        };
+
+        foreach (var point in checkPoints)
+        {
+            Vector3Int cellPosition = tilemap.WorldToCell(point);
+            if (tilemap.HasTile(cellPosition))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     #endregion
