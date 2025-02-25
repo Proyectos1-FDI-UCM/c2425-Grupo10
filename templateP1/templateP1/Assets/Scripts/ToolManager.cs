@@ -73,13 +73,7 @@ public class ToolManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        if (SeedTool != null) SeedTool.SetActive(false);
-        if (ShovelTool != null) ShovelTool.SetActive(false);
-        if (GlovesTool != null) GlovesTool.SetActive(false);
-        if (WateringCanTool != null) WateringCanTool.SetActive(false);
-        if (HoeTool != null) HoeTool.SetActive(false);
-
-        _currentTool = null;
+        DeselectCurrentTool();
     }
 
     /// <summary>
@@ -89,27 +83,27 @@ public class ToolManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            SelectTool(SeedTool);
+            ToggleTool(SeedTool);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SelectTool(ShovelTool);
+            ToggleTool(ShovelTool);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SelectTool(GlovesTool);
+            ToggleTool(GlovesTool);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SelectTool(WateringCanTool);
+            ToggleTool(WateringCanTool);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SelectTool(HoeTool);
+            ToggleTool(HoeTool);
         }
     }
     #endregion
@@ -126,6 +120,24 @@ public class ToolManager : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+
+    /// <summary>
+    /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
+    /// </summary>
+    /// <param name="newTool">Herramienta a activar o desactivar</param>
+    private void ToggleTool(GameObject newTool)
+    {
+        if (_currentTool == newTool)
+        {
+            DeselectCurrentTool();
+        }
+        else
+        {
+            SelectTool(newTool);
+        }
+    }
+
+
     /// <summary>
     /// Activa la herramienta seleccionada y desactiva la anterior si la hay.
     /// </summary>
@@ -135,10 +147,7 @@ public class ToolManager : MonoBehaviour
         if (newTool == null) return;
 
         // Desactiva la herramienta actualmente seleccionada
-        if (_currentTool != null)
-        {
-            _currentTool.SetActive(false);
-        }
+        DeselectCurrentTool();
 
         // Activa la nueva herramienta y la establece como actual
         _currentTool = newTool;
@@ -150,6 +159,18 @@ public class ToolManager : MonoBehaviour
         _currentTool.transform.localRotation = Quaternion.identity; // Resetear rotación si es necesario
     }
 
+    /// <summary>
+    /// Deselecciona la herramienta actualmente en uso, dejando las manos vacías.
+    /// </summary>
+    private void DeselectCurrentTool()
+    {
+        if (_currentTool != null)
+        {
+            _currentTool.SetActive(false);
+            _currentTool.transform.SetParent(null);
+            _currentTool = null;
+        }
+    }
 
     #endregion
 }
