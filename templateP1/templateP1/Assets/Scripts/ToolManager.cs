@@ -38,6 +38,16 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject GlovesTool;
 
     /// <summary>
+    /// Referencia al objeto que representa la herramienta "Regadera".
+    /// </summary>
+    [SerializeField] private GameObject WateringCanTool;
+
+    /// <summary>
+    /// Referencia al objeto que representa la herramienta "Azada".
+    /// </summary>
+    [SerializeField] private GameObject HoeTool;
+
+    /// <summary>
     /// Referencia al transform de la mano del jugador donde se mostrarán las herramientas.
     /// </summary>
     [SerializeField] private Transform HandPosition;
@@ -66,6 +76,8 @@ public class ToolManager : MonoBehaviour
         if (SeedTool != null) SeedTool.SetActive(false);
         if (ShovelTool != null) ShovelTool.SetActive(false);
         if (GlovesTool != null) GlovesTool.SetActive(false);
+        if (WateringCanTool != null) WateringCanTool.SetActive(false);
+        if (HoeTool != null) HoeTool.SetActive(false);
 
         _currentTool = null;
     }
@@ -88,6 +100,16 @@ public class ToolManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             SelectTool(GlovesTool);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SelectTool(WateringCanTool);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SelectTool(HoeTool);
         }
     }
     #endregion
