@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Objeto Colisionable
+  - ObjetoTransicion
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: fondo tiendas
+    uniqueID: 1623947203
+    locked: 0
   - name: Background 0
     uniqueID: 760765215
     locked: 0
@@ -68,4 +72,7 @@ TagManager:
     locked: 0
   - name: Tejados
     uniqueID: 2024382575
+    locked: 0
+  - name: Transicion
+    uniqueID: 1732977205
     locked: 0
