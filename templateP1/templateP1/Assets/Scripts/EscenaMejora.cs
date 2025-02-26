@@ -14,7 +14,7 @@ using UnityEngine.SceneManagement;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class EscenaVenta : MonoBehaviour
+public class EscenaMejora : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -25,7 +25,7 @@ public class EscenaVenta : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -34,7 +34,6 @@ public class EscenaVenta : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
     #endregion
     
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -73,8 +72,8 @@ public class EscenaVenta : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            SceneManager.LoadScene("Escena_Venta");
-            Debug.Log("Colisión con jugador en venta");
+            SceneManager.LoadScene("Escena_Mejora");
+            Debug.Log("Colisión con jugador en mejora");
         }
     }
     #endregion
