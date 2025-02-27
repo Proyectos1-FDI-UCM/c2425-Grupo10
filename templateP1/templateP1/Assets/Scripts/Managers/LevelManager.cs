@@ -104,10 +104,6 @@ public class LevelManager : MonoBehaviour
             GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
         }
     }
-    public void CambioHerramientas(int c)
-    {
-        Herramienta = c;
-    }
 
     /// <summary>
     /// Devuelve cierto si la instancia del singleton está creada y
@@ -117,14 +113,13 @@ public class LevelManager : MonoBehaviour
     /// destruído antes de tiempo.
     /// </summary>
     /// <returns>Cierto si hay instancia creada.</returns>
-
+    
     #endregion
 
     public static bool HasInstance()
     {
         return _instance != null;
     }
-   
 
     // ---- MÉTODOS PRIVADOS ----
 
