@@ -7,38 +7,44 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
 
-
-/// <summary>
-/// Clase que gestiona la aparición y desaparición del inventario.
-/// Permite mostrar el inventario al pulsar TAB y ocultarlo al pulsar 
-/// nuevamente TAB o ESC.
-/// </summary>
-public class NewBehaviourScript : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-    [SerializeField] private RectTransform inventoryPanel; // Panel del inventario
-    [SerializeField] private float visibleY = 0f; // Posición Y cuando el inventario es visible
-    [SerializeField] private float hiddenY = -300f; // Posición Y cuando el inventario está oculto
-    [SerializeField] private float transitionSpeed = 5f; // Velocidad de movimiento
+    [SerializeField] private RectTransform inventoryPanel; // Panel del inventario completo
+    [SerializeField] private RectTransform quickAccessBar; // Barra de acceso rápido (siempre visible)
+    [SerializeField] private float visibleY = 0f; // Posición cuando el inventario es visible
+    [SerializeField] private float hiddenY = -300f; // Posición cuando el inventario está oculto
+    [SerializeField] private float quickBarVisibleY = -250f; // Posición cuando la barra está siempre visible
+    [SerializeField] private float transitionSpeed = 10f; // Velocidad de animación
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    /// <summary>
-    /// Indica si el inventario está actualmente visible.
-    /// </summary>
-    private bool _isInventoryVisible = false;
+
+    private bool _isInventoryVisible = false; // Estado del inventario
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
+    /// <summary>
+    /// Inicializa la UI dejando la barra visible pero el inventario oculto.
+    /// </summary>
+    void Start()
+    {
+        // Inicializa posiciones
+        inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, hiddenY);
+        quickAccessBar.anchoredPosition = new Vector2(quickAccessBar.anchoredPosition.x, quickBarVisibleY);
+    }
+
+    /// <summary>
+    /// Detecta la pulsación de teclas para mostrar u ocultar el inventario.
+    /// </summary>
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
@@ -46,24 +52,25 @@ public class NewBehaviourScript : MonoBehaviour
             ToggleInventory();
         }
 
-        // Movimiento suave del inventario
-        float targetY = _isInventoryVisible ? visibleY : hiddenY;
-        inventoryPanel.anchoredPosition = Vector2.Lerp(inventoryPanel.anchoredPosition, new Vector2(inventoryPanel.anchoredPosition.x, targetY), Time.deltaTime * transitionSpeed);
-    }
-    #endregion
+        // Define posiciones objetivo
+        float targetInventoryY = _isInventoryVisible ? visibleY : hiddenY;
+        float targetQuickBarY = _isInventoryVisible ? visibleY : quickBarVisibleY;
 
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+        // Aplica interpolación suave (Lerp) para animación
+        inventoryPanel.anchoredPosition = Vector2.Lerp(inventoryPanel.anchoredPosition,
+            new Vector2(inventoryPanel.anchoredPosition.x, targetInventoryY),
+            Time.deltaTime * transitionSpeed);
+
+        quickAccessBar.anchoredPosition = Vector2.Lerp(quickAccessBar.anchoredPosition,
+            new Vector2(quickAccessBar.anchoredPosition.x, targetQuickBarY),
+            Time.deltaTime * transitionSpeed);
+    }
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+
     /// <summary>
     /// Cambia la visibilidad del inventario.
     /// </summary>
@@ -75,4 +82,3 @@ public class NewBehaviourScript : MonoBehaviour
     #endregion
 
 } // class InventoryUI
-
