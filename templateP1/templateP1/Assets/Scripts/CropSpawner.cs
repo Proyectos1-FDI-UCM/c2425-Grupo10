@@ -80,17 +80,16 @@ public class CropSpawner : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D()
     {
-        //PlayerMovement script = other.GetComponent<PlayerMovement>(); // Ducktyping
+        // PlayerMovement script = other.GetComponent<PlayerMovement>(); // Ducktyping
         Debug.Log("Collision");
-        //if (script != null)
-        //{
-            if (Input.GetKey(KeyCode.E)) 
+            if (InputManager.Instance.UsarWasPressedThisFrame())
             {
                 LevelManager.Instance.Plantar(transform.position);
                 Destroy(this.gameObject);
             }
+        
 
     }
 

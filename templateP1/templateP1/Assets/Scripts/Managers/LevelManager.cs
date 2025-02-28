@@ -96,12 +96,20 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Método para comprobar la herramienta del jugador (si es semilla planta)
+    /// Más adelante plantará en función de la semilla seleccionada
+    /// </summary>
+
     public void Plantar(Vector3 position)
     {
         if (Herramienta == 5)
         {
-            Debug.Log("LevelManager");
-            GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
+            if (Semillas != 0)
+            {
+                Debug.Log("LevelManager");
+                GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
+            }
         }
     }
 

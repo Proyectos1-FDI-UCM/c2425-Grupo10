@@ -66,6 +66,7 @@ public class InputManager : MonoBehaviour
     /// conocer el estado del botón)
     /// </summary>
     private InputAction _fire;
+    private InputAction _usar;
 
     #endregion
 
@@ -175,6 +176,17 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para saber si el botón de usar (Usar) se ha pulsado en este frame
+    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool UsarWasPressedThisFrame()
+    {
+        return _usar.WasPressedThisFrame();
+    }
+
+    /// <summary>
     /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse
     /// durante este frame
     /// <returns>Devuelve true, si el botón se ha dejado de pulsar en
@@ -213,6 +225,12 @@ public class InputManager : MonoBehaviour
         // tenemos (FireIsPressed, FireWasPressedThisFrame 
         // y FireWasReleasedThisFrame)
         _fire = _theController.Player.Fire;
+
+        // Para el disparo solo cacheamos la acción de disparo.
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // tenemos (FireIsPressed, FireWasPressedThisFrame 
+        // y FireWasReleasedThisFrame)
+        _usar = _theController.Player.Usar;
     }
 
     /// <summary>
