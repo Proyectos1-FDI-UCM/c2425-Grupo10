@@ -55,6 +55,69 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select1"",
+                    ""type"": ""Button"",
+                    ""id"": ""39fd4aad-df3d-420c-b310-9b3f5c948c19"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select2"",
+                    ""type"": ""Button"",
+                    ""id"": ""38f2a60a-2697-471e-bc86-f1064044551b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select3"",
+                    ""type"": ""Button"",
+                    ""id"": ""1133b9e5-7a9f-47ba-9646-6460cf49d711"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select4"",
+                    ""type"": ""Button"",
+                    ""id"": ""e555c2bb-a25a-4acd-8421-9f8cef5c32da"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Select5"",
+                    ""type"": ""Button"",
+                    ""id"": ""7e235f0e-de43-42ee-b2b3-7f812a19b70e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Tab"",
+                    ""type"": ""Button"",
+                    ""id"": ""5f4f6d97-4330-47bb-8275-09c95103e15a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Esc"",
+                    ""type"": ""Button"",
+                    ""id"": ""b7fa44a7-f3bc-4207-8e82-6a6da45ec8a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -231,6 +294,83 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Usar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8d443f39-156f-4a7a-bf49-c9e45971875f"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b5e7274e-ca70-46f2-b804-be56659a1f0d"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0a77a1e6-1d6a-49bf-83b4-21f9d6b2d514"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b7b14ea4-8eec-4085-b5c3-5d416a606123"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select4"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""309a7f93-afcf-412c-aad2-0f1b0d8924b6"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""591e4d44-186e-4bad-a610-80814d8d8f95"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4b5c576b-1c51-4b9a-af07-c1945c696bc2"",
+                    ""path"": ""<Keyboard>/{Escape}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esc"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -821,6 +961,13 @@ namespace UnityEngine.InputSystem
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
             m_Player_Usar = m_Player.FindAction("Usar", throwIfNotFound: true);
+            m_Player_Select1 = m_Player.FindAction("Select1", throwIfNotFound: true);
+            m_Player_Select2 = m_Player.FindAction("Select2", throwIfNotFound: true);
+            m_Player_Select3 = m_Player.FindAction("Select3", throwIfNotFound: true);
+            m_Player_Select4 = m_Player.FindAction("Select4", throwIfNotFound: true);
+            m_Player_Select5 = m_Player.FindAction("Select5", throwIfNotFound: true);
+            m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
+            m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -897,6 +1044,13 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Fire;
         private readonly InputAction m_Player_Usar;
+        private readonly InputAction m_Player_Select1;
+        private readonly InputAction m_Player_Select2;
+        private readonly InputAction m_Player_Select3;
+        private readonly InputAction m_Player_Select4;
+        private readonly InputAction m_Player_Select5;
+        private readonly InputAction m_Player_Tab;
+        private readonly InputAction m_Player_Esc;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -904,6 +1058,13 @@ namespace UnityEngine.InputSystem
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputAction @Usar => m_Wrapper.m_Player_Usar;
+            public InputAction @Select1 => m_Wrapper.m_Player_Select1;
+            public InputAction @Select2 => m_Wrapper.m_Player_Select2;
+            public InputAction @Select3 => m_Wrapper.m_Player_Select3;
+            public InputAction @Select4 => m_Wrapper.m_Player_Select4;
+            public InputAction @Select5 => m_Wrapper.m_Player_Select5;
+            public InputAction @Tab => m_Wrapper.m_Player_Tab;
+            public InputAction @Esc => m_Wrapper.m_Player_Esc;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -922,6 +1083,27 @@ namespace UnityEngine.InputSystem
                 @Usar.started += instance.OnUsar;
                 @Usar.performed += instance.OnUsar;
                 @Usar.canceled += instance.OnUsar;
+                @Select1.started += instance.OnSelect1;
+                @Select1.performed += instance.OnSelect1;
+                @Select1.canceled += instance.OnSelect1;
+                @Select2.started += instance.OnSelect2;
+                @Select2.performed += instance.OnSelect2;
+                @Select2.canceled += instance.OnSelect2;
+                @Select3.started += instance.OnSelect3;
+                @Select3.performed += instance.OnSelect3;
+                @Select3.canceled += instance.OnSelect3;
+                @Select4.started += instance.OnSelect4;
+                @Select4.performed += instance.OnSelect4;
+                @Select4.canceled += instance.OnSelect4;
+                @Select5.started += instance.OnSelect5;
+                @Select5.performed += instance.OnSelect5;
+                @Select5.canceled += instance.OnSelect5;
+                @Tab.started += instance.OnTab;
+                @Tab.performed += instance.OnTab;
+                @Tab.canceled += instance.OnTab;
+                @Esc.started += instance.OnEsc;
+                @Esc.performed += instance.OnEsc;
+                @Esc.canceled += instance.OnEsc;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -935,6 +1117,27 @@ namespace UnityEngine.InputSystem
                 @Usar.started -= instance.OnUsar;
                 @Usar.performed -= instance.OnUsar;
                 @Usar.canceled -= instance.OnUsar;
+                @Select1.started -= instance.OnSelect1;
+                @Select1.performed -= instance.OnSelect1;
+                @Select1.canceled -= instance.OnSelect1;
+                @Select2.started -= instance.OnSelect2;
+                @Select2.performed -= instance.OnSelect2;
+                @Select2.canceled -= instance.OnSelect2;
+                @Select3.started -= instance.OnSelect3;
+                @Select3.performed -= instance.OnSelect3;
+                @Select3.canceled -= instance.OnSelect3;
+                @Select4.started -= instance.OnSelect4;
+                @Select4.performed -= instance.OnSelect4;
+                @Select4.canceled -= instance.OnSelect4;
+                @Select5.started -= instance.OnSelect5;
+                @Select5.performed -= instance.OnSelect5;
+                @Select5.canceled -= instance.OnSelect5;
+                @Tab.started -= instance.OnTab;
+                @Tab.performed -= instance.OnTab;
+                @Tab.canceled -= instance.OnTab;
+                @Esc.started -= instance.OnEsc;
+                @Esc.performed -= instance.OnEsc;
+                @Esc.canceled -= instance.OnEsc;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1120,6 +1323,13 @@ namespace UnityEngine.InputSystem
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnUsar(InputAction.CallbackContext context);
+            void OnSelect1(InputAction.CallbackContext context);
+            void OnSelect2(InputAction.CallbackContext context);
+            void OnSelect3(InputAction.CallbackContext context);
+            void OnSelect4(InputAction.CallbackContext context);
+            void OnSelect5(InputAction.CallbackContext context);
+            void OnTab(InputAction.CallbackContext context);
+            void OnEsc(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

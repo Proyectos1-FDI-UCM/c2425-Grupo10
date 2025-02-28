@@ -67,6 +67,13 @@ public class InputManager : MonoBehaviour
     /// </summary>
     private InputAction _fire;
     private InputAction _usar;
+    private InputAction _select1;
+    private InputAction _select2;
+    private InputAction _select3;
+    private InputAction _select4;
+    private InputAction _select5; 
+    private InputAction _tab;
+    private InputAction _esc;
 
     #endregion
 
@@ -165,6 +172,62 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para saber si el botón de usar (Usar) está pulsado
+    /// Devolverá true en todos los frames en los que se mantenga pulsado
+    /// <returns>True, si el botón está pulsado</returns>
+    /// </summary>
+    public bool UsarIsPressed()
+    {
+        return _usar.IsPressed();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Select (1/2/3/4/5) está pulsado
+    /// Devolverá true en todos los frames en los que se mantenga pulsado
+    /// <returns>True, si el botón está pulsado</returns>
+    /// </summary>
+    public bool Select1IsPressed()
+    {
+        return _select1.IsPressed();
+    }
+    public bool Select2IsPressed()
+    {
+        return _select2.IsPressed();
+    }
+    public bool Select3IsPressed()
+    {
+        return _select3.IsPressed();
+    }
+    public bool Select4IsPressed()
+    {
+        return _select4.IsPressed();
+    }
+    public bool Select5IsPressed()
+    {
+        return _select5.IsPressed();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Tab está pulsado
+    /// Devolverá true en todos los frames en los que se mantenga pulsado
+    /// <returns>True, si el botón está pulsado</returns>
+    /// </summary>
+    public bool TabIsPressed()
+    {
+        return _tab.IsPressed();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Esc está pulsado
+    /// Devolverá true en todos los frames en los que se mantenga pulsado
+    /// <returns>True, si el botón está pulsado</returns>
+    /// </summary>
+    public bool EscIsPressed()
+    {
+        return _esc.IsPressed();
+    }
+
+    /// <summary>
     /// Método para saber si el botón de disparo (Fire) se ha pulsado en este frame
     /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
     /// y false, en otro caso
@@ -184,16 +247,6 @@ public class InputManager : MonoBehaviour
     public bool UsarWasPressedThisFrame()
     {
         return _usar.WasPressedThisFrame();
-    }
-
-    /// <summary>
-    /// Método para saber si el botón de usar (Usar) está pulsado
-    /// Devolverá true en todos los frames en los que se mantenga pulsado
-    /// <returns>True, si el botón está pulsado</returns>
-    /// </summary>
-    public bool UsarIsPressed()
-    {
-        return _usar.IsPressed();
     }
 
     /// <summary>
@@ -236,11 +289,29 @@ public class InputManager : MonoBehaviour
         // y FireWasReleasedThisFrame)
         _fire = _theController.Player.Fire;
 
-        // Para el disparo solo cacheamos la acción de disparo.
+        // Usar input system
         // El estado lo consultaremos a través de los métodos públicos que 
-        // tenemos (FireIsPressed, FireWasPressedThisFrame 
-        // y FireWasReleasedThisFrame)
+        // (UsarIsPressed, UsarWasPressedThisFrame )
         _usar = _theController.Player.Usar;
+
+        // Select input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (SelectIsPressed, SelectWasPressedThisFrame )
+        _select1 = _theController.Player.Select1;
+        _select2 = _theController.Player.Select2;
+        _select3 = _theController.Player.Select3;
+        _select4 = _theController.Player.Select4;
+        _select5 = _theController.Player.Select5;
+
+        // Tab input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (TabIsPressed, TabWasPressedThisFrame )
+        _tab = _theController.Player.Tab;
+
+        // Esc input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (EscIsPressed, EscWasPressedThisFrame )
+        _esc = _theController.Player.Esc;
     }
 
     /// <summary>

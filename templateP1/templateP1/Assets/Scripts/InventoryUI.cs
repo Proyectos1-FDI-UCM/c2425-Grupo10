@@ -47,7 +47,7 @@ public class InventoryUI : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
+        if (InputManager.Instance.TabIsPressed() || InputManager.Instance.EscIsPressed())
         {
             ToggleInventory();
         }
