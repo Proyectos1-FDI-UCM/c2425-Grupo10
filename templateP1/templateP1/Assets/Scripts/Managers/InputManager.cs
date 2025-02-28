@@ -187,6 +187,16 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para saber si el botón de usar (Usar) está pulsado
+    /// Devolverá true en todos los frames en los que se mantenga pulsado
+    /// <returns>True, si el botón está pulsado</returns>
+    /// </summary>
+    public bool UsarIsPressed()
+    {
+        return _usar.IsPressed();
+    }
+
+    /// <summary>
     /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse
     /// durante este frame
     /// <returns>Devuelve true, si el botón se ha dejado de pulsar en

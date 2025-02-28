@@ -84,7 +84,7 @@ public class CropSpawner : MonoBehaviour
     {
         // PlayerMovement script = other.GetComponent<PlayerMovement>(); // Ducktyping
         Debug.Log("Collision");
-            if (InputManager.Instance.UsarWasPressedThisFrame())
+            if (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed())
             {
                 LevelManager.Instance.Plantar(transform.position);
                 Destroy(this.gameObject);
