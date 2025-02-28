@@ -26,26 +26,52 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject SeedTool;
 
     /// <summary>
+    /// Referencia al GameObject que representa el selector de "Semilla".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private GameObject SeedSelector;
+
+    /// <summary>
     /// Referencia al GameObject que representa la herramienta "Pala".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
     [SerializeField] private GameObject ShovelTool;
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Pala".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private GameObject ShovelSelector;
 
     /// <summary>
     /// Referencia al GameObject que representa la herramienta "Guantes".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
     [SerializeField] private GameObject GlovesTool;
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Guantes".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private GameObject GlovesSelector;
 
     /// <summary>
     /// Referencia al objeto que representa la herramienta "Regadera".
     /// </summary>
     [SerializeField] private GameObject WateringCanTool;
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Regadera".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private GameObject WateringCanSelector;
 
     /// <summary>
-    /// Referencia al objeto que representa la herramienta "Azada".
+    /// Referencia al objeto que representa la herramienta "Hoz".
     /// </summary>
     [SerializeField] private GameObject HoeTool;
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Hoz".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private GameObject HoeSelector;
 
     /// <summary>
     /// Referencia al transform de la mano del jugador donde se mostrarán las herramientas.
@@ -74,6 +100,9 @@ public class ToolManager : MonoBehaviour
     void Start()
     {
         DeselectCurrentTool();
+        EnableSelector(GlovesSelector);
+        ToggleTool(GlovesTool);
+        DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
     }
 
     /// <summary>
@@ -84,26 +113,36 @@ public class ToolManager : MonoBehaviour
         if (InputManager.Instance.Select5WasPressedThisFrame())
         {
             ToggleTool(SeedTool);
+            EnableSelector(SeedSelector);
+            DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, HoeSelector);
         }
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
         {
+            EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
+            DisableSelector(SeedSelector, GlovesSelector, WateringCanSelector, HoeSelector);
         }
 
         if (InputManager.Instance.Select1WasPressedThisFrame())
         {
+            EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
+            DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
         }
 
         if (InputManager.Instance.Select2WasPressedThisFrame())
         {
             ToggleTool(WateringCanTool);
+            EnableSelector(WateringCanSelector);
+            DisableSelector(ShovelSelector, GlovesSelector, SeedSelector, HoeSelector);
         }
 
         if (InputManager.Instance.Select3WasPressedThisFrame())
         {
             ToggleTool(HoeTool);
+            EnableSelector(HoeSelector);
+            DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, SeedSelector);
         }
     }
     #endregion
@@ -127,14 +166,11 @@ public class ToolManager : MonoBehaviour
     /// <param name="newTool">Herramienta a activar o desactivar</param>
     private void ToggleTool(GameObject newTool)
     {
-        if (_currentTool == newTool)
-        {
-            DeselectCurrentTool();
-        }
-        else
+        if (_currentTool != newTool)
         {
             SelectTool(newTool);
         }
+        
     }
 
 
@@ -172,6 +208,18 @@ public class ToolManager : MonoBehaviour
         }
     }
 
+    private void EnableSelector(GameObject herramienta)
+    {
+        herramienta.SetActive(true);
+    }
+
+    private void DisableSelector(GameObject herramienta1, GameObject herramienta2, GameObject herramienta3, GameObject herramienta4)
+    {
+        herramienta1.SetActive(false);
+        herramienta2.SetActive(false);
+        herramienta3.SetActive(false);
+        herramienta4.SetActive(false);
+    }
     #endregion
 }
  // class ToolManager 
