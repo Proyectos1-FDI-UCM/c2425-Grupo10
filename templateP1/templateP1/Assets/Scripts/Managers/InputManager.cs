@@ -182,29 +182,29 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método para saber si el botón de Select (1/2/3/4/5) está pulsado
+    /// Método para saber si el botón de Select (1/2/3/4/5) se ha pulsado en este frame
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
     /// </summary>
-    public bool Select1IsPressed()
+    public bool Select1WasPressedThisFrame()
     {
-        return _select1.IsPressed();
+        return _select1.WasPressedThisFrame();
     }
-    public bool Select2IsPressed()
+    public bool Select2WasPressedThisFrame()
     {
-        return _select2.IsPressed();
+        return _select2.WasPressedThisFrame();
     }
-    public bool Select3IsPressed()
+    public bool Select3WasPressedThisFrame()
     {
-        return _select3.IsPressed();
+        return _select3.WasPressedThisFrame();
     }
-    public bool Select4IsPressed()
+    public bool Select4WasPressedThisFrame()
     {
-        return _select4.IsPressed();
+        return _select4.WasPressedThisFrame();
     }
-    public bool Select5IsPressed()
+    public bool Select5WasPressedThisFrame()
     {
-        return _select5.IsPressed();
+        return _select5.WasPressedThisFrame();
     }
 
     /// <summary>

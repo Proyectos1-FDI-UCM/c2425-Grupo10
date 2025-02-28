@@ -81,27 +81,27 @@ public class ToolManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.Select5IsPressed())
+        if (InputManager.Instance.Select5WasPressedThisFrame())
         {
             ToggleTool(SeedTool);
         }
 
-        if (InputManager.Instance.Select4IsPressed())
+        if (InputManager.Instance.Select4WasPressedThisFrame())
         {
             ToggleTool(ShovelTool);
         }
 
-        if (InputManager.Instance.Select1IsPressed())
+        if (InputManager.Instance.Select1WasPressedThisFrame())
         {
             ToggleTool(GlovesTool);
         }
 
-        if (InputManager.Instance.Select2IsPressed())
+        if (InputManager.Instance.Select2WasPressedThisFrame())
         {
             ToggleTool(WateringCanTool);
         }
 
-        if (InputManager.Instance.Select3IsPressed())
+        if (InputManager.Instance.Select3WasPressedThisFrame())
         {
             ToggleTool(HoeTool);
         }
