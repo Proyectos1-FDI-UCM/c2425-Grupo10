@@ -250,6 +250,28 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para saber si el botón de Tab está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool TabWasPressedThisFrame()
+    {
+        return _tab.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Tab está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool EscWasPressedThisFrame()
+    {
+        return _esc.WasPressedThisFrame();
+    }
+
+    /// <summary>
     /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse
     /// durante este frame
     /// <returns>Devuelve true, si el botón se ha dejado de pulsar en
