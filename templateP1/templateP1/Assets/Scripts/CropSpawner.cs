@@ -51,7 +51,7 @@ public class CropSpawner : MonoBehaviour
             PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
             if (plantaEvolucion != null)
             {
-                //plantaEvolucion.Planta();  // Ahora solo inicia el proceso de crecimiento si se riega la planta
+                plantaEvolucion.Planta();  
             }
             else
             {

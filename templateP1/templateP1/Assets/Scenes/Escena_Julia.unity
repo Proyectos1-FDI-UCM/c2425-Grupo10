@@ -662,6 +662,14 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -765,6 +773,14 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1951866
@@ -49511,6 +49527,14 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.1951866
@@ -49586,8 +49610,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Herramienta: 5
-  Semillas: 1
-  Regadera: 100
+  CantidadSemillas: 100
+  AguaRegadera: 50
   PrefabSemilla1: {fileID: 0}
 --- !u!4 &541681577
 Transform:
@@ -49704,6 +49728,14 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.1951866
@@ -52572,6 +52604,14 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1951866
@@ -70579,6 +70619,14 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1951866
