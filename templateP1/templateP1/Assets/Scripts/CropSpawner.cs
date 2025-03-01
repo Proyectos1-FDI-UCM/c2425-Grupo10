@@ -31,7 +31,7 @@ public class CropSpawner : MonoBehaviour
         if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 5 && LevelManager.Instance.Semillas() > 0)
         {
             // Llama a la función que planta la planta en la posición determinada
-            // Plantar(spawnPosition); - No lo llama porque ahora las plantas crecen cuando se riegan
+            Plantar(spawnPosition); 
             Destroy(this.gameObject);
             LevelManager.Instance.Plantar(); // Llama al método que controla las semillas
         }
@@ -51,7 +51,7 @@ public class CropSpawner : MonoBehaviour
             PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
             if (plantaEvolucion != null)
             {
-                plantaEvolucion.Planta();  // Inicia el proceso de plantación
+                //plantaEvolucion.Planta();  // Ahora solo inicia el proceso de crecimiento si se riega la planta
             }
             else
             {

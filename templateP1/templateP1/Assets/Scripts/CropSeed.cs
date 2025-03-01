@@ -85,15 +85,7 @@ public class CropSeed : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void OnCollisionStay2D()
-    {
-        Debug.Log("CollisionConPlanta");
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Regar() && LevelManager.Instance.Herramientas() == 2)
-        {
-                Estado++;
-        }
 
-    }
 
     #endregion   
 
