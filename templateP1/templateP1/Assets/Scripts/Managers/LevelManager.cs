@@ -123,14 +123,10 @@ public class LevelManager : MonoBehaviour
     /// Más adelante plantará en función de la semilla seleccionada
     /// </summary>
 
-    public void Plantar(Vector3 position)
+    public bool Plantar()
     {
         // Se activa la animación de plantar
-        if (Semillas != 0)
-        {
-            Debug.Log("LevelManagerPlantar");
-            GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
-        }
+        return (Semillas != 0);
         
     }
 

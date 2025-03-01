@@ -56,7 +56,7 @@ public class CropSeed : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public class CropSeed : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+
     }
     #endregion
 
@@ -88,21 +88,11 @@ public class CropSeed : MonoBehaviour
     private void OnCollisionStay2D()
     {
         Debug.Log("CollisionConPlanta");
-        if (InputManager.Instance.UsarWasPressedThisFrame() && LevelManager.Instance.Herramientas() == 2)
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Regar() && LevelManager.Instance.Herramientas() == 2)
         {
-           if (LevelManager.Instance.Regar() && Estado != EstadoMax)
-            {
                 Estado++;
-            }
-           else if (!LevelManager.Instance.Regar())
-            {
-                // Reegadera Vacía
-            }
-           else
-            {
-                // Planta crecimiento máximo
-            }
         }
+
     }
 
     #endregion   

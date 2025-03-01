@@ -15,6 +15,9 @@ public class CropSpawner : MonoBehaviour
 
     private Vector3 spawnPosition;
 
+    [SerializeField]
+    private Transform Plantas;
+
     private void Start()
     {
         // Asigna la posición de la maceta (u objeto que tiene este script)
@@ -23,12 +26,15 @@ public class CropSpawner : MonoBehaviour
 
     private void OnTriggerStay2D()
     {
-        // Si el jugador presiona la tecla E
-        if (Input.GetKeyDown(KeyCode.E))
+
+        // Si el jugador presiona la tecla E, hay semillas 
+        if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 5) // && LevelManager.Instance.Plantar()
         {
             // Llama a la función que planta la planta en la posición determinada
             Plantar(spawnPosition);
+            Destroy(this.gameObject);
         }
+        
     }
 
     private void Plantar(Vector3 position)
@@ -38,6 +44,8 @@ public class CropSpawner : MonoBehaviour
         {
             // Instancia la planta
             GameObject planta = Instantiate(PrefabSemilla1, position, Quaternion.identity);
+            planta.transform.SetParent(Plantas);
+
             // Verifica si la planta tiene el script PlantaEvolucion
             PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
             if (plantaEvolucion != null)
