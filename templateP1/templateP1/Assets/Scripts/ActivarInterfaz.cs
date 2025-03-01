@@ -142,7 +142,7 @@ public class ActivarInterfaz : MonoBehaviour
     public void ButtonRegaderaPressed()
     {
         algoSeleccionado = true;
-        MostrarDescripcion("Mejora la velocidad de riego.", mejorasRegadera, maxMejorasRegadera);
+        MostrarDescripcion("Aumenta la capacidad de agua.", mejorasRegadera, maxMejorasRegadera);
     }
 
     public void ButtonHuertoPressed()
