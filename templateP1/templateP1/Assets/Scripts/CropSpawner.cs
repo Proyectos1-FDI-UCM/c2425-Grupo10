@@ -21,7 +21,7 @@ public class CropSpawner : MonoBehaviour
         spawnPosition = transform.position;
     }
 
-    private void OnTriggerStay2D(Collider2D other)
+    private void OnTriggerStay2D()
     {
         // Si el jugador presiona la tecla E
         if (Input.GetKeyDown(KeyCode.E))
@@ -55,4 +55,3 @@ public class CropSpawner : MonoBehaviour
         }
     }
 }
-

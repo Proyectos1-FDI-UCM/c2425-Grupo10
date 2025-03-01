@@ -115,6 +115,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, HoeSelector);
+            LevelManager.Instance.CambioHerramienta(5);
         }
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
@@ -122,6 +123,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(SeedSelector, GlovesSelector, WateringCanSelector, HoeSelector);
+            LevelManager.Instance.CambioHerramienta(4);
         }
 
         if (InputManager.Instance.Select1WasPressedThisFrame())
@@ -129,6 +131,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
+            LevelManager.Instance.CambioHerramienta(1);
         }
 
         if (InputManager.Instance.Select2WasPressedThisFrame())
@@ -136,6 +139,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelSelector, GlovesSelector, SeedSelector, HoeSelector);
+            LevelManager.Instance.CambioHerramienta(2);
         }
 
         if (InputManager.Instance.Select3WasPressedThisFrame())
@@ -143,6 +147,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(HoeTool);
             EnableSelector(HoeSelector);
             DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, SeedSelector);
+            LevelManager.Instance.CambioHerramienta(3);
         }
     }
     #endregion
