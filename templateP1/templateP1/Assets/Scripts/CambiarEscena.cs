@@ -67,7 +67,7 @@ public class CambiarEscena : MonoBehaviour
             }
             else
             {
-                Debug.LogError("No se encontró un objeto con la etiqueta 'ObjetoTransicion'.");
+                Debug.Log("No se encontró un objeto con la etiqueta 'ObjetoTransicion'.");
             }
         }
     }
