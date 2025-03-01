@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6958483464381630285}
   - component: {fileID: 1622597509756534023}
   - component: {fileID: 9042110776354154709}
+  - component: {fileID: 9007558753862505675}
   m_Layer: 7
   m_Name: Maceta
   m_TagString: Untagged
@@ -73,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 571459705
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
   m_Color: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b067bb94b44044439390a8f32950d80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PrefabSemilla1: {fileID: 124868202611176040, guid: 1dfedf67bd359aa45abd54b5854d5f88, type: 3}
 --- !u!61 &9042110776354154709
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -143,3 +145,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &9007558753862505675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054808982056633637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc4789b51c0ae34a9f9f1a6d120f9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlantaFase1: {fileID: -428956757, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  PlantaFase2: {fileID: -499090312, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  PlantaFase3: {fileID: -2026104264, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}

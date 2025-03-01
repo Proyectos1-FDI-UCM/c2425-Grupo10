@@ -9,8 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2530773032546695375}
+  - component: {fileID: 3434970646266774294}
   - component: {fileID: 4720917672018168310}
   - component: {fileID: 791901775301750481}
+  - component: {fileID: 4041275417881248606}
   m_Layer: 7
   m_Name: Crops(Basic)
   m_TagString: Untagged
@@ -33,6 +35,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3434970646266774294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124868202611176040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50582e1bf8b9ae0468bb1d87fdff9637, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Estado: 0
+  EstadoMax: 5
 --- !u!212 &4720917672018168310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72,7 +88,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -699558223
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 903672913, guid: c2a33677e0ccb2e4e8dcf7a5e772b937, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -120,3 +136,18 @@ CircleCollider2D:
   m_Offset: {x: 0.0024975778, y: -0.007947016}
   serializedVersion: 2
   m_Radius: 0.05956483
+--- !u!114 &4041275417881248606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 124868202611176040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3cc4789b51c0ae34a9f9f1a6d120f9f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlantaFase1: {fileID: -428956757, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  PlantaFase2: {fileID: -499090312, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  PlantaFase3: {fileID: -2026104264, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}

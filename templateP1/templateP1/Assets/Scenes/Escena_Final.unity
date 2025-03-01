@@ -51753,7 +51753,7 @@ Transform:
   m_GameObject: {fileID: 778691863}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.14, y: -11.72, z: -10}
+  m_LocalPosition: {x: 13.33, y: 3.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59253,7 +59253,7 @@ Transform:
   m_GameObject: {fileID: 1340924985}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.14, y: -11.72, z: 0}
+  m_LocalPosition: {x: 13.33, y: 3.1, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -66154,7 +66154,7 @@ Transform:
   m_GameObject: {fileID: 1841403071}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.14, y: -11.72, z: -10}
+  m_LocalPosition: {x: 13.33, y: 3.1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -69235,10 +69235,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SeedTool: {fileID: 110037155}
+  SeedSelector: {fileID: 0}
   ShovelTool: {fileID: 739330549}
+  ShovelSelector: {fileID: 0}
   GlovesTool: {fileID: 2013197076}
+  GlovesSelector: {fileID: 0}
   WateringCanTool: {fileID: 1493812199}
+  WateringCanSelector: {fileID: 0}
   HoeTool: {fileID: 548491428}
+  HoeSelector: {fileID: 0}
   HandPosition: {fileID: 0}
 --- !u!4 &2083844128
 Transform:
