@@ -34,10 +34,13 @@ public class LevelManager : MonoBehaviour
 
     // Herramientas y semillas del jugador (serialized pq aun no se pueden cambiar desde el juego)
     [SerializeField]
-    int Herramienta = 1; // Herramientas - Guantes = 1, Semillas = 5
+    int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
 
     [SerializeField]
-    int Semillas = 1; // Semillas - 
+    int Semillas = 1; // Semillas -
+                      
+    [SerializeField]
+    int Regadera = 5; // Regadera (lleno) - 
 
     // Prefab 
     [SerializeField]
@@ -97,20 +100,55 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método para comprobar la herramienta del jugador (si es semilla planta)
+    /// Método para comprobar que herramienta tiene el jugador
+    /// </summary>
+
+    public int Herramientas()
+    { 
+        return Herramienta;
+    }
+
+    /// <summary>
+    /// Método para cambiar la herramienta del jugador
+    /// </summary>
+
+    public void CambioHerramienta(int i)
+    {
+        Herramienta = i;
+    }
+
+
+    /// <summary>
+    /// Método que planta una semilla en una casilla con posición = position
     /// Más adelante plantará en función de la semilla seleccionada
     /// </summary>
 
     public void Plantar(Vector3 position)
     {
-        if (Herramienta == 5)
+        // Se activa la animación de plantar
+        if (Semillas != 0)
         {
-            if (Semillas != 0)
-            {
-                Debug.Log("LevelManager");
-                GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
-            }
+            Debug.Log("LevelManagerPlantar");
+            GameObject planta1 = Instantiate(PrefabSemilla1, position, Quaternion.identity);
         }
+        
+    }
+
+    /// <summary>
+    /// Método que riega una planta
+    /// Más adelante plantará en función de la semilla seleccionada
+    /// </summary>
+    public bool Regar()
+    {
+        // Se comprueba la herramienta en la colisión (CropSeed - Script)
+        // Se comprueba si la regadera tiene agua
+        // Se activa la animación de regar (dependiendo del agua en la regadera)
+        
+        if (Regadera != 0)
+        {
+            Regadera--;
+        }
+        return (Regadera != 0);
     }
 
     /// <summary>
@@ -121,7 +159,7 @@ public class LevelManager : MonoBehaviour
     /// destruído antes de tiempo.
     /// </summary>
     /// <returns>Cierto si hay instancia creada.</returns>
-    
+
     #endregion
 
     public static bool HasInstance()

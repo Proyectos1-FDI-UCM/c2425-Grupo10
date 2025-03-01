@@ -82,15 +82,12 @@ public class CropSpawner : MonoBehaviour
 
     private void OnTriggerStay2D()
     {
-        // PlayerMovement script = other.GetComponent<PlayerMovement>(); // Ducktyping
-        Debug.Log("Collision");
-            if (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed())
-            {
-                LevelManager.Instance.Plantar(transform.position);
-                Destroy(this.gameObject);
-            }
-        
 
+            if (InputManager.Instance.UsarWasPressedThisFrame() && LevelManager.Instance.Herramientas() == 5)
+            {
+            LevelManager.Instance.Plantar(transform.position);
+            Destroy(this.gameObject);
+            }
     }
 
 
