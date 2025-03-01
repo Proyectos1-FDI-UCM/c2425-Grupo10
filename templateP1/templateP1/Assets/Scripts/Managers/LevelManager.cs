@@ -37,10 +37,10 @@ public class LevelManager : MonoBehaviour
     int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
 
     [SerializeField]
-    int Semillas = 1; // Semillas -
+    int CantidadSemillas = 100; // Semillas -
                       
     [SerializeField]
-    int Regadera = 5; // Regadera (lleno) - 
+    int AguaRegadera = 50; // Regadera (lleno) - 
 
     // Prefab 
     [SerializeField]
@@ -109,6 +109,26 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para comprobar las semillas que tiene el jugador
+    /// </summary>
+
+    public int Semillas()
+    {
+        return CantidadSemillas;
+    }
+
+    /// <summary>
+    /// Método para comprobar el agua de la regadera
+    /// </summary>
+
+    public int Regadera()
+    {
+        return AguaRegadera;
+    }
+
+
+
+    /// <summary>
     /// Método para cambiar la herramienta del jugador
     /// </summary>
 
@@ -123,28 +143,23 @@ public class LevelManager : MonoBehaviour
     /// Más adelante plantará en función de la semilla seleccionada
     /// </summary>
 
-    public bool Plantar()
+    public void Plantar()
     {
         // Se activa la animación de plantar
-        return (Semillas != 0);
-        
+        CantidadSemillas--;
+
     }
 
     /// <summary>
     /// Método que riega una planta
     /// Más adelante plantará en función de la semilla seleccionada
     /// </summary>
-    public bool Regar()
+    public void Regar()
     {
         // Se comprueba la herramienta en la colisión (CropSeed - Script)
         // Se comprueba si la regadera tiene agua
         // Se activa la animación de regar (dependiendo del agua en la regadera)
-        
-        if (Regadera != 0)
-        {
-            Regadera--;
-        }
-        return (Regadera != 0);
+        AguaRegadera--;  
     }
 
     /// <summary>

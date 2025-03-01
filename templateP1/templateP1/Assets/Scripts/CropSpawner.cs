@@ -26,13 +26,14 @@ public class CropSpawner : MonoBehaviour
 
     private void OnTriggerStay2D()
     {
-
+        int Semillas = LevelManager.Instance.Semillas();
         // Si el jugador presiona la tecla E, hay semillas 
-        if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 5) // && LevelManager.Instance.Plantar()
+        if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 5 && LevelManager.Instance.Semillas() > 0)
         {
             // Llama a la función que planta la planta en la posición determinada
-            Plantar(spawnPosition);
+            // Plantar(spawnPosition); - No lo llama porque ahora las plantas crecen cuando se riegan
             Destroy(this.gameObject);
+            LevelManager.Instance.Plantar(); // Llama al método que controla las semillas
         }
         
     }

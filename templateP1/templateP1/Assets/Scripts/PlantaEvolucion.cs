@@ -20,6 +20,8 @@ public class PlantaEvolucion : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private int faseActual = 0;
 
+    private bool _riego = false;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -34,7 +36,9 @@ public class PlantaEvolucion : MonoBehaviour
     public void Planta()
     {
         // Llama a la función de evolución con un retardo
-        Invoke("EvolucionarPlanta", 3f);  // Primer cambio a los 3 segundos
+        // Invoke("EvolucionarPlanta", 3f);  // Primer cambio a los 3 segundos
+        
+        
     }
 
     private void EvolucionarPlanta()
@@ -43,12 +47,26 @@ public class PlantaEvolucion : MonoBehaviour
         {
             spriteRenderer.sprite = PlantaFase2;  // Cambia a la fase 2
             faseActual = 1;
-            Invoke("EvolucionarPlanta", 3f);  // Siguiente fase después de otros 3 segundos
+            _riego = false;
+            // Invoke("EvolucionarPlanta", 3f);  // Siguiente fase después de otros 3 segundos
         }
         else if (faseActual == 1)
         {
             spriteRenderer.sprite = PlantaFase3;  // Cambia a la fase 3
             faseActual = 2;
         }
+    }
+
+    private void OnCollisionStay2D()
+    {
+        Debug.Log("CollisionConPlanta");
+        int Regadera = LevelManager.Instance.Regadera();
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && _riego == false)
+        {
+            Invoke("EvolucionarPlanta", 3f);
+            LevelManager.Instance.Regar();
+            _riego = true;
+        }
+
     }
 }
