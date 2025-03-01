@@ -6,95 +6,53 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
 
-
-/// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
-/// </summary>
 public class CropSpawner : MonoBehaviour
 {
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    // Prefab de la semilla (asegúrate de que esté en el Inspector)
+    [SerializeField]
+    private GameObject PrefabSemilla1;  // Aquí defines el prefab
 
-    #endregion
+    private Vector3 spawnPosition;
 
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
-
-    private bool _plantar;
-
-    #endregion
-
-    // ---- MÉTODOS DE MONOBEHAVIOUR ----
-    #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
-    void Start()
+    private void Start()
     {
-        
+        // Asigna la posición de la maceta (u objeto que tiene este script)
+        spawnPosition = transform.position;
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
+    private void OnTriggerStay2D(Collider2D other)
     {
-   
+        // Si el jugador presiona la tecla E
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            // Llama a la función que planta la planta en la posición determinada
+            Plantar(spawnPosition);
+        }
     }
-    #endregion
 
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
-    #endregion
-    
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-
-    private void OnTriggerStay2D()
+    private void Plantar(Vector3 position)
     {
-        // PlayerMovement script = other.GetComponent<PlayerMovement>(); // Ducktyping
-        Debug.Log("Collision");
-            if (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed())
+        // Verifica que el prefab no sea null antes de instanciarlo
+        if (PrefabSemilla1 != null)
+        {
+            // Instancia la planta
+            GameObject planta = Instantiate(PrefabSemilla1, position, Quaternion.identity);
+            // Verifica si la planta tiene el script PlantaEvolucion
+            PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
+            if (plantaEvolucion != null)
             {
-                LevelManager.Instance.Plantar(transform.position);
-                Destroy(this.gameObject);
+                plantaEvolucion.Planta();  // Inicia el proceso de plantación
             }
-        
-
+            else
+            {
+                Debug.LogError("El prefab de la planta no tiene el script PlantaEvolucion.");
+            }
+        }
+        else
+        {
+            Debug.LogError("PrefabSemilla1 no ha sido asignado en el Inspector");
+        }
     }
+}
 
-
-    #endregion   
-
-} // class CropSpawner 
-// namespace
