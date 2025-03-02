@@ -28,6 +28,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
     [SerializeField] int CantidadSemillas = 100; // Semillas
     [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
+    [SerializeField] int mejorasRegadera = 0;
+    [SerializeField] int mejorasHuerto = 0;
+    [SerializeField] int mejorasInventario = 0;
     [SerializeField] GameObject PrefabSemilla1;
 
     #endregion
@@ -45,6 +48,9 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private Dictionary<string, int> inventario = new Dictionary<string, int>();
 
+    private int maxMejorasRegadera = 3;
+    private int maxMejorasHuerto = 4;
+    private int maxMejorasInventario = 3;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -55,7 +61,12 @@ public class LevelManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
+            DontDestroyOnLoad(gameObject); // Hace que LevelManager persista entre escenas
             Init();
+        }
+        else
+        {
+            Destroy(gameObject); // Si ya existe otro LevelManager, elimina el duplicado
         }
     }
 
@@ -68,7 +79,14 @@ public class LevelManager : MonoBehaviour
     {
         get
         {
-            Debug.Assert(_instance != null);
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType<LevelManager>();
+                if (_instance == null)
+                {
+                    Debug.LogError("No existe un LevelManager en la escena actual.");
+                }
+            }
             return _instance;
         }
     }
@@ -97,6 +115,33 @@ public class LevelManager : MonoBehaviour
         Debug.Log(nombrePlanta + " añadida al inventario. Cantidad: " + inventario[nombrePlanta]);
     }
 
+    public int GetMejorasRegadera() { return mejorasRegadera; }
+    public int GetMejorasHuerto() { return mejorasHuerto; }
+    public int GetMejorasInventario() { return mejorasInventario; }
+
+    public void MejorarHuerto()
+    {
+        if (mejorasHuerto < maxMejorasHuerto)
+        {
+            mejorasHuerto++;
+        }
+    }
+
+    public void MejorarInventario()
+    {
+        if (mejorasInventario < maxMejorasInventario)
+        {
+            mejorasInventario++;
+        }
+    }
+
+    public void MejorarRegadera()
+    {
+        if (mejorasRegadera < maxMejorasRegadera)
+        {
+            mejorasRegadera++;
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

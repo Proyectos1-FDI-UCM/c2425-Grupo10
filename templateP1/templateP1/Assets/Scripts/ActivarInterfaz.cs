@@ -52,19 +52,18 @@ public class ActivarInterfaz : MonoBehaviour
     // Ejemplo: _maxHealthPoints
     private bool colisionando = false;
     private bool interfazActiva = false;
-    private bool isMejoraSelected = true;  // Siempre inicia en "Mejorar"
+    private bool isMejoraSelected = true;
     private bool isAmpliarSelected = false;
-    private bool algoSeleccionado = false; // Controla si hay algo seleccionado para comprar
-
-    // Contadores de mejoras
-    private int mejorasRegadera = 0;
-    private int mejorasHuerto = 0;
-    private int mejorasInventario = 0;
+    private bool seleccionRegadera = false;
+    private bool seleccionHuerto = false;
+    private bool seleccionInventario = false;
+    [SerializeField] private bool algoSeleccionado = false; // Controla si hay algo seleccionado para comprar
 
     // Máximo de mejoras por objeto
     private const int maxMejorasRegadera = 3;
     private const int maxMejorasHuerto = 4;
     private const int maxMejorasInventario = 3;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -142,43 +141,55 @@ public class ActivarInterfaz : MonoBehaviour
 
     public void ButtonRegaderaPressed()
     {
+        seleccionRegadera = true;
+        seleccionHuerto = false;
+        seleccionInventario = false;
         algoSeleccionado = true;
-        MostrarDescripcion("Aumenta la capacidad de agua.", mejorasRegadera, maxMejorasRegadera);
+
+        MostrarDescripcion("Aumenta la capacidad de agua.", LevelManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
     }
 
     public void ButtonHuertoPressed()
     {
+        seleccionRegadera = false;
+        seleccionHuerto = true;
+        seleccionInventario = false;
         algoSeleccionado = true;
-        MostrarDescripcion("Expande el terreno de cultivos.", mejorasHuerto, maxMejorasHuerto);
+
+        MostrarDescripcion("Expande el terreno de cultivos.", LevelManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
     }
 
     public void ButtonInventarioPressed()
     {
+        seleccionRegadera = false;
+        seleccionHuerto = false;
+        seleccionInventario = true;
         algoSeleccionado = true;
-        MostrarDescripcion("Expande la capacidad de almacenamiento.", mejorasInventario, maxMejorasInventario);
+
+        MostrarDescripcion("Expande la capacidad de almacenamiento.", LevelManager.Instance.GetMejorasInventario(), maxMejorasInventario);
     }
 
     public void ComprarMejora()
     {
         if (isMejoraSelected && algoSeleccionado)
         {
-            if (RegaderaButton.activeSelf && mejorasRegadera < maxMejorasRegadera)
+            if (seleccionRegadera)
             {
-                mejorasRegadera++;
-                MostrarDescripcion("Aumenta la capacidad de agua.", mejorasRegadera, maxMejorasRegadera);
+                LevelManager.Instance.MejorarRegadera();
+                MostrarDescripcion("Aumenta la capacidad de agua.", LevelManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
             }
         }
         else if (isAmpliarSelected && algoSeleccionado)
         {
-            if (HuertoButton.activeSelf && mejorasHuerto < maxMejorasHuerto)
+            if (seleccionHuerto)
             {
-                mejorasHuerto++;
-                MostrarDescripcion("Expande el terreno de cultivos.", mejorasHuerto, maxMejorasHuerto);
+                LevelManager.Instance.MejorarHuerto();
+                MostrarDescripcion("Expande el terreno de cultivos.", LevelManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
             }
-            else if (InventarioButton.activeSelf && mejorasInventario < maxMejorasInventario)
+            else if (seleccionInventario)
             {
-                mejorasInventario++;
-                MostrarDescripcion("Expande la capacidad de almacenamiento.", mejorasInventario, maxMejorasInventario);
+                LevelManager.Instance.MejorarInventario();
+                MostrarDescripcion("Expande la capacidad de almacenamiento.", LevelManager.Instance.GetMejorasInventario(), maxMejorasInventario);
             }
         }
     }
