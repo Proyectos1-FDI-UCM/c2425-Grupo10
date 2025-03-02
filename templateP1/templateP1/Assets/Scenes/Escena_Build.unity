@@ -803,6 +803,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maceta (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: Plantas
+      value: 
+      objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -902,6 +918,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maceta (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: Plantas
+      value: 
+      objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1951866
@@ -49362,63 +49394,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1001 &475680487
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1689720327843243917, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1869420097154670770, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
-      propertyPath: m_Name
-      value: InputManager
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bccf4d20e67084cd6bf813eea5af27d5, type: 3}
 --- !u!1 &530308432
 GameObject:
   m_ObjectHideFlags: 0
@@ -49857,6 +49832,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maceta (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: Plantas
+      value: 
+      objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.1951866
@@ -49902,6 +49893,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+--- !u!1001 &536871864
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3508149303559959704, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_Name
+      value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.458826
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.12971503
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.058967065
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3639006963915896903, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
 --- !u!1 &537728213
 GameObject:
   m_ObjectHideFlags: 0
@@ -49986,54 +50034,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 35216632}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &541681575
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 541681577}
-  - component: {fileID: 541681576}
-  m_Layer: 0
-  m_Name: LevelManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &541681576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541681575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e33e01ec70e04582af05f46ca63b3b9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Herramienta: 5
-  CantidadSemillas: 100
-  AguaRegadera: 50
-  PrefabSemilla1: {fileID: 124868202611176040, guid: 1dfedf67bd359aa45abd54b5854d5f88, type: 3}
---- !u!4 &541681577
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 541681575}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.708422, y: 5.5054774, z: 0.051697034}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &573034962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50046,6 +50046,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maceta (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: Plantas
+      value: 
+      objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.1951866
@@ -52859,6 +52875,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maceta (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: Plantas
+      value: 
+      objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1951866
@@ -67619,6 +67651,67 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1001 &1823001408
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 927798592250953839, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_Name
+      value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5178372893561834649, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: Herramienta
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 16.708422
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.5054774
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.051697034
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771234163581991692, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 104415ae255456f4aad896e11cbb9d66, type: 3}
 --- !u!1 &1834208927
 GameObject:
   m_ObjectHideFlags: 0
@@ -68363,7 +68456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1882459586}
   m_Layer: 0
-  m_Name: Macetas
+  m_Name: Plantas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71319,6 +71412,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maceta
       objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: Plantas
+      value: 
+      objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: PrefabSuelo
+      value: 
+      objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.1951866
@@ -71371,10 +71480,10 @@ SceneRoots:
   - {fileID: 778691867}
   - {fileID: 1340924986}
   - {fileID: 1841403073}
+  - {fileID: 1823001408}
   - {fileID: 1766216839}
   - {fileID: 1630574777}
   - {fileID: 808854058}
-  - {fileID: 541681577}
   - {fileID: 1882459586}
   - {fileID: 144959491}
   - {fileID: 843119702}
@@ -71384,4 +71493,4 @@ SceneRoots:
   - {fileID: 35216632}
   - {fileID: 1473903520}
   - {fileID: 1389844273}
-  - {fileID: 475680487}
+  - {fileID: 536871864}

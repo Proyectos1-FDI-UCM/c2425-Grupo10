@@ -208,7 +208,7 @@ public class ToolManager : MonoBehaviour
         if (_currentTool != null)
         {
             _currentTool.SetActive(false);
-            _currentTool.transform.SetParent(null);
+            _currentTool.transform.SetParent(transform);
             _currentTool = null;
         }
     }
