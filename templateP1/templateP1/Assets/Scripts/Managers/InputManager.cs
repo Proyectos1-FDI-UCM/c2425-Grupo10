@@ -74,6 +74,7 @@ public class InputManager : MonoBehaviour
     private InputAction _select5; 
     private InputAction _tab;
     private InputAction _esc;
+    private InputAction _salir;
 
     #endregion
 
@@ -180,6 +181,10 @@ public class InputManager : MonoBehaviour
     {
         return _usar.IsPressed();
     }
+    public bool SalirIsPressed()
+    {
+        return _salir.IsPressed();
+    }
 
     /// <summary>
     /// Método para saber si el botón de Select (1/2/3/4/5) se ha pulsado en este frame
@@ -205,6 +210,10 @@ public class InputManager : MonoBehaviour
     public bool Select5WasPressedThisFrame()
     {
         return _select5.WasPressedThisFrame();
+    }
+    public bool SalirWasPressedThisFrame()
+    {
+        return _salir.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -282,6 +291,10 @@ public class InputManager : MonoBehaviour
     {
         return _fire.WasReleasedThisFrame();
     }
+    public bool SalirWasReleasedThisFrame()
+    {
+        return _salir.WasReleasedThisFrame();
+    }
 
     #endregion
 
@@ -315,6 +328,11 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UsarIsPressed, UsarWasPressedThisFrame )
         _usar = _theController.Player.Usar;
+
+        // Salir input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (SalirIsPressed, SalirWasPressedThisFrame, SalirWasReleasedThisFrame )
+        _salir = _theController.Player.Salir;
 
         // Select input system
         // El estado lo consultaremos a través de los métodos públicos que 

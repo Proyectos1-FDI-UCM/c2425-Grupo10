@@ -118,6 +118,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Salir"",
+                    ""type"": ""Button"",
+                    ""id"": ""4b96e919-dae7-4693-bb62-446817c69d18"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -371,6 +380,17 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Esc"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8fc50d89-1062-40e0-ab54-2fcfa376b05d"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Salir"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -968,6 +988,7 @@ namespace UnityEngine.InputSystem
             m_Player_Select5 = m_Player.FindAction("Select5", throwIfNotFound: true);
             m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
             m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
+            m_Player_Salir = m_Player.FindAction("Salir", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1051,6 +1072,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Select5;
         private readonly InputAction m_Player_Tab;
         private readonly InputAction m_Player_Esc;
+        private readonly InputAction m_Player_Salir;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1065,6 +1087,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Select5 => m_Wrapper.m_Player_Select5;
             public InputAction @Tab => m_Wrapper.m_Player_Tab;
             public InputAction @Esc => m_Wrapper.m_Player_Esc;
+            public InputAction @Salir => m_Wrapper.m_Player_Salir;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1104,6 +1127,9 @@ namespace UnityEngine.InputSystem
                 @Esc.started += instance.OnEsc;
                 @Esc.performed += instance.OnEsc;
                 @Esc.canceled += instance.OnEsc;
+                @Salir.started += instance.OnSalir;
+                @Salir.performed += instance.OnSalir;
+                @Salir.canceled += instance.OnSalir;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1138,6 +1164,9 @@ namespace UnityEngine.InputSystem
                 @Esc.started -= instance.OnEsc;
                 @Esc.performed -= instance.OnEsc;
                 @Esc.canceled -= instance.OnEsc;
+                @Salir.started -= instance.OnSalir;
+                @Salir.performed -= instance.OnSalir;
+                @Salir.canceled -= instance.OnSalir;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1330,6 +1359,7 @@ namespace UnityEngine.InputSystem
             void OnSelect5(InputAction.CallbackContext context);
             void OnTab(InputAction.CallbackContext context);
             void OnEsc(InputAction.CallbackContext context);
+            void OnSalir(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

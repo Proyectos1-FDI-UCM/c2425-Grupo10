@@ -91,7 +91,7 @@ public class ActivarInterfaz : MonoBehaviour
         {
             EnableInterfaz();
         }
-        if (interfazActiva && Input.GetKeyDown(KeyCode.Escape))
+        if (interfazActiva && InputManager.Instance.SalirIsPressed())
         {
             DisableInterfaz();
         }
