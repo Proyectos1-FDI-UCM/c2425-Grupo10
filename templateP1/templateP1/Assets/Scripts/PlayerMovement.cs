@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     /// Referencia al Rigidbody2D del jugador para manejar la física.
     /// </summary>
     private Rigidbody2D playerRb;
+    public bool enablemovement = true;
 
     /// <summary>
     /// Vector que contiene la entrada del jugador para el movimiento 
@@ -83,8 +84,13 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
-        playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
+       if(enablemovement)
+        {
+            // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
+
+            playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
+
+        }
     }
 
     #endregion

@@ -1468,6 +1468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 4
+  enablemovement: 1
 --- !u!212 &230413356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2073,6 +2074,7 @@ MonoBehaviour:
   ComprarButton: {fileID: 669749680}
   DescripcionTexto: {fileID: 1856980369}
   ContadorTexto: {fileID: 366144407}
+  playerMovement: {fileID: 230413355}
 --- !u!1 &485763184
 GameObject:
   m_ObjectHideFlags: 3

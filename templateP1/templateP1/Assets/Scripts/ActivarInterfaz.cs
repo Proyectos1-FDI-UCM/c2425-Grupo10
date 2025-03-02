@@ -34,6 +34,7 @@ public class ActivarInterfaz : MonoBehaviour
     [SerializeField] private GameObject ComprarButton;
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
+    [SerializeField] private PlayerMovement playerMovement; 
 
 
 
@@ -148,7 +149,7 @@ public class ActivarInterfaz : MonoBehaviour
     public void ButtonHuertoPressed()
     {
         algoSeleccionado = true;
-        MostrarDescripcion("Aumenta el espacio para más cultivos.", mejorasHuerto, maxMejorasHuerto);
+        MostrarDescripcion("Expande el terreno de cultivos.", mejorasHuerto, maxMejorasHuerto);
     }
 
     public void ButtonInventarioPressed()
@@ -164,7 +165,7 @@ public class ActivarInterfaz : MonoBehaviour
             if (RegaderaButton.activeSelf && mejorasRegadera < maxMejorasRegadera)
             {
                 mejorasRegadera++;
-                MostrarDescripcion("Mejora la velocidad de riego.", mejorasRegadera, maxMejorasRegadera);
+                MostrarDescripcion("Aumenta la capacidad de agua.", mejorasRegadera, maxMejorasRegadera);
             }
         }
         else if (isAmpliarSelected && algoSeleccionado)
@@ -172,7 +173,7 @@ public class ActivarInterfaz : MonoBehaviour
             if (HuertoButton.activeSelf && mejorasHuerto < maxMejorasHuerto)
             {
                 mejorasHuerto++;
-                MostrarDescripcion("Aumenta el espacio para más cultivos.", mejorasHuerto, maxMejorasHuerto);
+                MostrarDescripcion("Expande el terreno de cultivos.", mejorasHuerto, maxMejorasHuerto);
             }
             else if (InventarioButton.activeSelf && mejorasInventario < maxMejorasInventario)
             {
@@ -213,6 +214,7 @@ public class ActivarInterfaz : MonoBehaviour
         isAmpliarSelected = false;
         algoSeleccionado = false;
         ActualizarInterfaz();
+        playerMovement.enablemovement = false;
     }
 
     private void DisableInterfaz()
@@ -221,6 +223,8 @@ public class ActivarInterfaz : MonoBehaviour
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
         colisionando = true;
+        playerMovement.enablemovement = true;
+
     }
 
     private void ActualizarInterfaz()
