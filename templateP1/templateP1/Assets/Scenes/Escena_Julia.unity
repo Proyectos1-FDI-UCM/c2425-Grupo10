@@ -662,13 +662,25 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: PrefabSuelo
       value: 
       objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: TiempoCrecimiento
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalScale.x
@@ -718,7 +730,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -773,13 +786,25 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: PrefabSuelo
       value: 
       objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: TiempoCrecimiento
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -821,7 +846,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -49527,13 +49553,25 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: PrefabSuelo
       value: 
       objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: TiempoCrecimiento
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49575,7 +49613,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -49728,13 +49767,25 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: PrefabSuelo
       value: 
       objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: TiempoCrecimiento
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -49776,7 +49827,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -52604,13 +52656,25 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: PrefabSuelo
       value: 
       objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: TiempoCrecimiento
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -52652,7 +52716,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -70619,13 +70684,25 @@ PrefabInstance:
       propertyPath: Plantas
       value: 
       objectReference: {fileID: 1882459586}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1622597509756534023, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoCrecimiento
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: PrefabSuelo
       value: 
       objectReference: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
     - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
+      propertyPath: TiempoRegado
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: TiempoCrecimiento
-      value: 10
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9036148908251591773, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -70667,7 +70744,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 9007558753862505675, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

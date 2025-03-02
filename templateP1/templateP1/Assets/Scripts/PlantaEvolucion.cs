@@ -18,8 +18,8 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private Sprite PlantaFase3;
     [SerializeField] private GameObject PrefabSuelo;
 
-    [SerializeField] private float TiempoRegado = 3f;
-    [SerializeField] private float TiempoCrecimiento = 3f;
+    private float _tiempoRegado;
+    private float _tiempoCrecimiento;
 
     private SpriteRenderer spriteRenderer;
     private int faseActual = 0;
@@ -37,10 +37,12 @@ public class PlantaEvolucion : MonoBehaviour
     /// Método que inicia la evolución de la planta.
     /// Cambia el sprite de la planta después de 3 segundos en cada fase.
     /// </summary>
-    public void Planta()
+    public void Planta(float TiempoCrecimiento, float TiempoRegado)
     {
+        _tiempoCrecimiento = TiempoCrecimiento;
+        _tiempoRegado = TiempoRegado;
         // Llama a la función de evolución con un retardo
-        Invoke("EvolucionarPlanta", TiempoCrecimiento);  // Primer cambio 
+        Invoke("EvolucionarPlanta", _tiempoCrecimiento);  // Primer cambio 
 
     }
 
@@ -52,8 +54,13 @@ public class PlantaEvolucion : MonoBehaviour
         GameObject suelo = Instantiate(PrefabSuelo, transform.position, Quaternion.identity);
         suelo.transform.SetParent(transform);
 
-        _riego = false;
+        Invoke("ActivaRiego", _tiempoRegado);
 
+    }
+
+    void ActivaRiego()
+    {
+        _riego = false;
     }
 
     private void EvolucionarPlanta()
@@ -62,8 +69,7 @@ public class PlantaEvolucion : MonoBehaviour
         {
             spriteRenderer.sprite = PlantaFase2;  // Cambia a la fase 2
             faseActual = 1;
-            Invoke("EvolucionarPlanta", TiempoCrecimiento);
-            _riego = false;
+            Invoke("EvolucionarPlanta", _tiempoCrecimiento);
             
         }
         else if (faseActual == 1)
@@ -77,7 +83,7 @@ public class PlantaEvolucion : MonoBehaviour
     {
         Debug.Log("CollisionConPlanta");
         int Regadera = LevelManager.Instance.Regadera();
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && _riego == false)
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !_riego)
         {
             _riego = true;
             LevelManager.Instance.Regar();

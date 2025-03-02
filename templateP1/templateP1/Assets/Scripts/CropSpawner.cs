@@ -18,6 +18,13 @@ public class CropSpawner : MonoBehaviour
     [SerializeField]
     private Transform Plantas;
 
+    [SerializeField]
+    private float TiempoRegado;
+    
+    [SerializeField]
+    private float TiempoCrecimiento;
+
+
     private void Start()
     {
         // Asigna la posición de la maceta (u objeto que tiene este script)
@@ -51,7 +58,7 @@ public class CropSpawner : MonoBehaviour
             PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
             if (plantaEvolucion != null)
             {
-                plantaEvolucion.Planta();  
+                plantaEvolucion.Planta(TiempoCrecimiento, TiempoRegado);  
             }
             else
             {
