@@ -42,7 +42,7 @@ public class PlantaEvolucion : MonoBehaviour
         _tiempoCrecimiento = TiempoCrecimiento;
         _tiempoRegado = TiempoRegado;
         // Llama a la función de evolución con un retardo
-        Invoke("EvolucionarPlanta", _tiempoCrecimiento);  // Primer cambio 
+        //Invoke("EvolucionarPlanta", _tiempoCrecimiento);  // Primer cambio 
 
     }
 
@@ -55,6 +55,8 @@ public class PlantaEvolucion : MonoBehaviour
         suelo.transform.SetParent(transform);
 
         Invoke("ActivaRiego", _tiempoRegado);
+
+        if (faseActual == 0) Invoke("EvolucionarPlanta", _tiempoCrecimiento);  // Primer cambio 
 
     }
 
