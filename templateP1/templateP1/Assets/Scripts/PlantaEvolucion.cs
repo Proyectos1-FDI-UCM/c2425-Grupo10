@@ -20,6 +20,7 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private Sprite PlantaFase2;
     [SerializeField] private Sprite PlantaFase3;
     [SerializeField] private GameObject PrefabSuelo;
+    [SerializeField] private GameObject PrefabRiego;
     [SerializeField] private string NombrePlanta = "Cultivo";
 
     #endregion
@@ -33,6 +34,7 @@ public class PlantaEvolucion : MonoBehaviour
     private int faseActual = 0;
     private bool _riego = false;
     private bool _listaParaCosechar = false;
+    private GameObject _avisoRiego;
 
     #endregion
 
@@ -75,6 +77,13 @@ public class PlantaEvolucion : MonoBehaviour
         }
     }
 
+    public void ActivaRiego()
+    {
+        _avisoRiego = Instantiate(PrefabRiego, transform.position, Quaternion.identity);
+        _avisoRiego.transform.SetParent(transform);
+        _riego = false;
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -83,10 +92,7 @@ public class PlantaEvolucion : MonoBehaviour
     /// <summary>
     /// Vuelve a activar la posibilidad de riego
     /// </summary>
-    private void ActivaRiego()
-    {
-        _riego = false;
-    }
+
 
     /// <summary>
     /// Cambia la fase de la planta según su crecimiento.
@@ -133,6 +139,7 @@ public class PlantaEvolucion : MonoBehaviour
         int Regadera = LevelManager.Instance.Regadera();
         if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !_riego)
         {
+            Destroy(_avisoRiego);
             _riego = true;
             LevelManager.Instance.Regar();
             Regar();
