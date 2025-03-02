@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Responsable: Javier Librada
+// Nombre del juego: Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -146,7 +146,7 @@ public class ActivarInterfaz : MonoBehaviour
         seleccionInventario = false;
         algoSeleccionado = true;
 
-        MostrarDescripcion("Aumenta la capacidad de agua.", LevelManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+        MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
     }
 
     public void ButtonHuertoPressed()
@@ -156,7 +156,7 @@ public class ActivarInterfaz : MonoBehaviour
         seleccionInventario = false;
         algoSeleccionado = true;
 
-        MostrarDescripcion("Expande el terreno de cultivos.", LevelManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
+        MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
     }
 
     public void ButtonInventarioPressed()
@@ -166,7 +166,7 @@ public class ActivarInterfaz : MonoBehaviour
         seleccionInventario = true;
         algoSeleccionado = true;
 
-        MostrarDescripcion("Expande la capacidad de almacenamiento.", LevelManager.Instance.GetMejorasInventario(), maxMejorasInventario);
+        MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetMejorasInventario(), maxMejorasInventario);
     }
 
     public void ComprarMejora()
@@ -175,21 +175,21 @@ public class ActivarInterfaz : MonoBehaviour
         {
             if (seleccionRegadera)
             {
-                LevelManager.Instance.MejorarRegadera();
-                MostrarDescripcion("Aumenta la capacidad de agua.", LevelManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+                GameManager.Instance.MejorarRegadera();
+                MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
             }
         }
         else if (isAmpliarSelected && algoSeleccionado)
         {
             if (seleccionHuerto)
             {
-                LevelManager.Instance.MejorarHuerto();
-                MostrarDescripcion("Expande el terreno de cultivos.", LevelManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
+                GameManager.Instance.MejorarHuerto();
+                MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
             }
             else if (seleccionInventario)
             {
-                LevelManager.Instance.MejorarInventario();
-                MostrarDescripcion("Expande la capacidad de almacenamiento.", LevelManager.Instance.GetMejorasInventario(), maxMejorasInventario);
+                GameManager.Instance.MejorarInventario();
+                MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetMejorasInventario(), maxMejorasInventario);
             }
         }
     }

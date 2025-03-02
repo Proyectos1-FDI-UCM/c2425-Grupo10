@@ -31,6 +31,10 @@ public class GameManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    [SerializeField] int MejorasRegadera = 0;
+    [SerializeField] int MejorasHuerto = 0;
+    [SerializeField] int MejorasInventario = 0;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -41,6 +45,10 @@ public class GameManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static GameManager _instance;
+
+    private int _maxMejorasRegadera = 3;
+    private int _maxMejorasHuerto = 4;
+    private int _maxMejorasInventario = 3;
 
     #endregion
 
@@ -150,6 +158,34 @@ public class GameManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene(index);
         System.GC.Collect();
     } // ChangeScene
+
+    public int GetMejorasRegadera() { return MejorasRegadera; }
+    public int GetMejorasHuerto() { return MejorasHuerto; }
+    public int GetMejorasInventario() { return MejorasInventario; }
+
+    public void MejorarHuerto()
+    {
+        if (MejorasHuerto < _maxMejorasHuerto)
+        {
+            MejorasHuerto++;
+        }
+    }
+
+    public void MejorarInventario()
+    {
+        if (MejorasInventario < _maxMejorasInventario)
+        {
+            MejorasInventario++;
+        }
+    }
+
+    public void MejorarRegadera()
+    {
+        if (MejorasRegadera < _maxMejorasRegadera)
+        {
+            MejorasRegadera++;
+        }
+    }
 
     #endregion
 

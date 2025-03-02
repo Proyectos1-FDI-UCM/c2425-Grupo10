@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Cambiar de una escena a otra
+// Responsable: Javier Librada
+// Nombre del juego: Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

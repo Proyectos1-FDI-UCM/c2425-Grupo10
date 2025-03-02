@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Script para manejar la evolución y recolección de la planta.
-// Responsable: Alexia Pérez Santana
+// Responsable: Natalia Nita, Julia Vera y Alexia Pérez Santana
 // Nombre del juego: Roots of Life
 // Curso 2024-25
 //---------------------------------------------------------
@@ -20,7 +20,7 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private Sprite PlantaFase2;
     [SerializeField] private Sprite PlantaFase3;
     [SerializeField] private GameObject PrefabSuelo;
-    [SerializeField] private string nombrePlanta = "Cultivo";
+    [SerializeField] private string NombrePlanta = "Cultivo";
 
     #endregion
 
@@ -29,7 +29,7 @@ public class PlantaEvolucion : MonoBehaviour
 
     private float _tiempoRegado;
     private float _tiempoCrecimiento;
-    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer _spriteRenderer;
     private int faseActual = 0;
     private bool _riego = false;
     private bool _listaParaCosechar = false;
@@ -41,8 +41,8 @@ public class PlantaEvolucion : MonoBehaviour
 
     private void Start()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
     }
 
     #endregion
@@ -71,7 +71,7 @@ public class PlantaEvolucion : MonoBehaviour
 
         if (faseActual == 0)
         {
-            Invoke("EvolucionarPlanta", _tiempoCrecimiento);
+            Invoke("EvolucionarPlanta", _tiempoCrecimiento); // Si es la primera vez que se riega activa su crecimiento
         }
     }
 
@@ -80,6 +80,9 @@ public class PlantaEvolucion : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
+    /// <summary>
+    /// Vuelve a activar la posibilidad de riego
+    /// </summary>
     private void ActivaRiego()
     {
         _riego = false;
@@ -92,13 +95,13 @@ public class PlantaEvolucion : MonoBehaviour
     {
         if (faseActual == 0)
         {
-            spriteRenderer.sprite = PlantaFase2;
+            _spriteRenderer.sprite = PlantaFase2;
             faseActual = 1;
             Invoke("EvolucionarPlanta", _tiempoCrecimiento);
         }
         else if (faseActual == 1)
         {
-            spriteRenderer.sprite = PlantaFase3;
+            _spriteRenderer.sprite = PlantaFase3;
             faseActual = 2;
             _listaParaCosechar = true;  // Marca la planta como lista para cosechar
         }
@@ -110,7 +113,7 @@ public class PlantaEvolucion : MonoBehaviour
     private void Cosechar()
     {
         Debug.Log("Cosechando planta...");
-        LevelManager.Instance.AgregarAlInventario(nombrePlanta);
+        LevelManager.Instance.AgregarAlInventario(NombrePlanta);
         Destroy(gameObject); // Elimina la planta del mapa tras recogerla
     }
 
