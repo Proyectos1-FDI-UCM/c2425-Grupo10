@@ -136,7 +136,7 @@ public class PlantaEvolucion : MonoBehaviour
         }
 
         // Si la planta está lista para cosechar y el jugador tiene guantes (Herramienta 1), la recoge
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 1 && _listaParaCosechar)
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3 && _listaParaCosechar)
         {
             Cosechar();
         }
