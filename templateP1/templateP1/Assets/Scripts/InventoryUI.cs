@@ -41,6 +41,7 @@ public class InventoryUI : MonoBehaviour
 
     void Update()
     {
+        //la subida del inventario se puede activar tanto con el RAB como con el ESC
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleInventory();

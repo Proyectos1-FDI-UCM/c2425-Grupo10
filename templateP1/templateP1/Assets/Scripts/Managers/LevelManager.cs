@@ -1,95 +1,69 @@
 //---------------------------------------------------------
 // Gestor de escena. Podemos crear uno diferente con un
 // nombre significativo para cada escena, si es necesario
-// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
+// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín, Alexia Pérez Santana
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
+using System.Collections.Generic; // Necesario para manejar el inventario
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
 /// Este componente es un singleton, para que sea accesible para todos
 /// los objetos de la escena, pero no tiene el comportamiento de
 /// DontDestroyOnLoad, ya que solo vive en una escena.
-///
+/// 
 /// Contiene toda la información propia de la escena y puede comunicarse
 /// con el GameManager para transferir información importante para
 /// la gestión global del juego (información que ha de pasar entre
-/// escenas)
+/// escenas).
 /// </summary>
 public class LevelManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-
     #region Atributos del Inspector (serialized fields)
 
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
-
-    // Herramientas y semillas del jugador (serialized pq aun no se pueden cambiar desde el juego)
-    [SerializeField]
-    int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
-
-    [SerializeField]
-    int CantidadSemillas = 100; // Semillas -
-                      
-    [SerializeField]
-    int AguaRegadera = 50; // Regadera (lleno) - 
-
-    // Prefab 
-    [SerializeField]
-    GameObject PrefabSemilla1;
+    [SerializeField] int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
+    [SerializeField] int CantidadSemillas = 100; // Semillas
+    [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
+    [SerializeField] GameObject PrefabSemilla1;
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
-
-    #region Atributos Privados (private fields)
+    #region Atributos Privados
 
     /// <summary>
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static LevelManager _instance;
 
+    /// <summary>
+    /// Inventario de cultivos recolectados.
+    /// </summary>
+    private Dictionary<string, int> inventario = new Dictionary<string, int>();
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
-
     #region Métodos de MonoBehaviour
 
     protected void Awake()
     {
         if (_instance == null)
         {
-            // Somos la primera y única instancia
             _instance = this;
             Init();
         }
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
-    }
-
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
-
     #region Métodos públicos
 
-    /// <summary>
-    /// Propiedad para acceder a la única instancia de la clase.
-    /// </summary>
     public static LevelManager Instance
     {
         get
@@ -99,97 +73,39 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    public int Herramientas() { return Herramienta; }
+    public int Semillas() { return CantidadSemillas; }
+    public int Regadera() { return AguaRegadera; }
+    public void CambioHerramienta(int i) { Herramienta = i; }
+    public void Plantar() { CantidadSemillas--; }
+    public void Regar() { AguaRegadera--; }
+    public static bool HasInstance() { return _instance != null; }
+
     /// <summary>
-    /// Método para comprobar que herramienta tiene el jugador
+    /// Agrega una planta al inventario cuando se recolecta.
     /// </summary>
-
-    public int Herramientas()
-    { 
-        return Herramienta;
-    }
-
-    /// <summary>
-    /// Método para comprobar las semillas que tiene el jugador
-    /// </summary>
-
-    public int Semillas()
+    public void AgregarAlInventario(string nombrePlanta)
     {
-        return CantidadSemillas;
+        if (inventario.ContainsKey(nombrePlanta))
+        {
+            inventario[nombrePlanta]++;
+        }
+        else
+        {
+            inventario[nombrePlanta] = 1;
+        }
+        Debug.Log(nombrePlanta + " añadida al inventario. Cantidad: " + inventario[nombrePlanta]);
     }
-
-    /// <summary>
-    /// Método para comprobar el agua de la regadera
-    /// </summary>
-
-    public int Regadera()
-    {
-        return AguaRegadera;
-    }
-
-
-
-    /// <summary>
-    /// Método para cambiar la herramienta del jugador
-    /// </summary>
-
-    public void CambioHerramienta(int i)
-    {
-        Herramienta = i;
-    }
-
-
-    /// <summary>
-    /// Método que planta una semilla en una casilla con posición = position
-    /// Más adelante plantará en función de la semilla seleccionada
-    /// </summary>
-
-    public void Plantar()
-    {
-        // Se activa la animación de plantar
-        CantidadSemillas--;
-
-    }
-
-    /// <summary>
-    /// Método que riega una planta
-    /// Más adelante plantará en función de la semilla seleccionada
-    /// </summary>
-    public void Regar()
-    {
-        // Se comprueba la herramienta en la colisión (CropSeed - Script)
-        // Se comprueba si la regadera tiene agua
-        // Se activa la animación de regar (dependiendo del agua en la regadera)
-        AguaRegadera--;  
-    }
-
-    /// <summary>
-    /// Devuelve cierto si la instancia del singleton está creada y
-    /// falso en otro caso.
-    /// Lo normal es que esté creada, pero puede ser útil durante el
-    /// cierre para evitar usar el LevelManager que podría haber sido
-    /// destruído antes de tiempo.
-    /// </summary>
-    /// <returns>Cierto si hay instancia creada.</returns>
 
     #endregion
-
-    public static bool HasInstance()
-    {
-        return _instance != null;
-    }
 
     // ---- MÉTODOS PRIVADOS ----
-
     #region Métodos Privados
 
-    /// <summary>
-    /// Dispara la inicialización.
-    /// </summary>
     private void Init()
     {
-        // De momento no hay nada que inicializar
+        inventario = new Dictionary<string, int>();
     }
 
     #endregion
-} // class LevelManager 
-// namespace
+}
