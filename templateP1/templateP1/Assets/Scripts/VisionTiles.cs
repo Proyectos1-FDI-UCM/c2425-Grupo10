@@ -57,8 +57,6 @@ public class VisionTiles : MonoBehaviour
     {
         if (tilemap == null)
             tilemap = GetComponent<Tilemap>();
-
-        InvokeRepeating(nameof(CheckPlayerOnTile), 0f, 0.05f); // Solo iniciar si no está en ejecución
     }
 
 
@@ -95,84 +93,34 @@ public class VisionTiles : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            playersInside++;
-            playerCollider = other; // Guardamos el colisionador del jugador
+            playersInside = 1; // Como solo hay un jugador en el trigger, lo fijamos en 1
+            playerCollider = other;
 
             if (!isTransparent)
             {
                 isTransparent = true;
                 SetTilemapAlpha(transparentAlpha);
-                visibility.visibility(0.5f);
+                if (visibility != null)
+                    visibility.visibility(0.5f);
             }
         }
     }
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            playersInside--;
-            if (playersInside <= 0)
-            {
-                playersInside = 0; // Evita valores negativos
-
-                // 🔹 Verificar si el jugador sigue tocando el Tilemap antes de restaurar opacidad
-                if (!IsAnyPartOfPlayerOnTile(other))
-                {
-                    SetTilemapAlpha(1f);
-                    visibility.visibility(1f);
-                    isTransparent = false;
-                }
-            }
-        }
-    }
-
-    private void CheckPlayerOnTile()
-    {
-        if (playerCollider == null || playersInside <= 0)
-        {
-            CancelInvoke(nameof(CheckPlayerOnTile));
-            return;
-        }
-
-        if (!IsAnyPartOfPlayerOnTile(playerCollider))
-        {
-            SetTilemapAlpha(1f);
-            visibility.visibility(1f);
+            playersInside = 0;
             isTransparent = false;
-            playerCollider = null;
-            CancelInvoke(nameof(CheckPlayerOnTile)); // Detener el ciclo
+            SetTilemapAlpha(1f);
+            if (visibility != null)
+                visibility.visibility(1f);
         }
     }
-
-    private bool IsAnyPartOfPlayerOnTile(Collider2D player)
-    {
-        if (player == null) return false;
-
-        Bounds bounds = player.bounds;
-        Vector3[] checkPoints = new Vector3[]
-        {
-            bounds.center, // Centro
-            bounds.min, // Esquina inferior izquierda
-            bounds.max, // Esquina superior derecha
-            new Vector3(bounds.min.x, bounds.max.y, 0), // Esquina superior izquierda
-            new Vector3(bounds.max.x, bounds.min.y, 0)  // Esquina inferior derecha
-        };
-
-        foreach (var point in checkPoints)
-        {
-            Vector3Int cellPosition = tilemap.WorldToCell(point);
-            if (tilemap.HasTile(cellPosition))
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     #endregion
 
 } // class VisionTiles 
