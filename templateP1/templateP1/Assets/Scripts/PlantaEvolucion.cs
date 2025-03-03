@@ -26,6 +26,7 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private GameObject PrefabMaceta;
     [SerializeField] private string NombrePlanta = "Cultivo";
 
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -141,7 +142,7 @@ public class PlantaEvolucion : MonoBehaviour
         LevelManager.Instance.AgregarAlInventario(NombrePlanta);
         GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
         Maceta.transform.SetParent(transform);
-        Destroy(gameObject); // Elimina la planta del mapa tras recogerla
+        Destroy(this.gameObject); // Elimina la planta del mapa tras recogerla
     }
 
     #endregion
