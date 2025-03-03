@@ -19,8 +19,11 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private Sprite PlantaFase1;
     [SerializeField] private Sprite PlantaFase2;
     [SerializeField] private Sprite PlantaFase3;
+    [SerializeField] private Sprite PlantaFase4;
     [SerializeField] private GameObject PrefabSuelo;
     [SerializeField] private GameObject PrefabRiego;
+    [SerializeField] private GameObject PrefabRecolecta;
+    [SerializeField] private GameObject PrefabMaceta;
     [SerializeField] private string NombrePlanta = "Cultivo";
 
     #endregion
@@ -34,7 +37,7 @@ public class PlantaEvolucion : MonoBehaviour
     private int faseActual = 0;
     private bool _riego = false;
     private bool _listaParaCosechar = false;
-    private GameObject _avisoRiego;
+    private GameObject _avisos;
 
     #endregion
 
@@ -79,9 +82,19 @@ public class PlantaEvolucion : MonoBehaviour
 
     public void ActivaRiego()
     {
-        _avisoRiego = Instantiate(PrefabRiego, transform.position, Quaternion.identity);
-        _avisoRiego.transform.SetParent(transform);
-        _riego = false;
+        if (!_listaParaCosechar) {
+            _avisos = Instantiate(PrefabRiego, transform.position, Quaternion.identity);
+            _avisos.transform.SetParent(transform);
+            _riego = false; }
+    }
+
+    public void ActivaRecolecta()
+    {
+        Destroy(_avisos);
+        _avisos = Instantiate(PrefabRecolecta, transform.position, Quaternion.identity);
+        _avisos.transform.SetParent(transform);
+        _riego = true;
+        _listaParaCosechar = true;
     }
 
     #endregion
@@ -109,7 +122,13 @@ public class PlantaEvolucion : MonoBehaviour
         {
             _spriteRenderer.sprite = PlantaFase3;
             faseActual = 2;
-            _listaParaCosechar = true;  // Marca la planta como lista para cosechar
+            Invoke("EvolucionarPlanta", _tiempoCrecimiento);
+        }
+        else if (faseActual == 2)
+        {
+            _spriteRenderer.sprite = PlantaFase4;
+            faseActual = 3;
+            ActivaRecolecta();
         }
     }
 
@@ -120,6 +139,8 @@ public class PlantaEvolucion : MonoBehaviour
     {
         Debug.Log("Cosechando planta...");
         LevelManager.Instance.AgregarAlInventario(NombrePlanta);
+        GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
+        Maceta.transform.SetParent(transform);
         Destroy(gameObject); // Elimina la planta del mapa tras recogerla
     }
 
@@ -139,7 +160,7 @@ public class PlantaEvolucion : MonoBehaviour
         int Regadera = LevelManager.Instance.Regadera();
         if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !_riego)
         {
-            Destroy(_avisoRiego);
+            Destroy(_avisos);
             _riego = true;
             LevelManager.Instance.Regar();
             Regar();

@@ -49170,6 +49170,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1340924986}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &440223594
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 440223595}
+  m_Layer: 0
+  m_Name: Objetos del Mundo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &440223595
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 440223594}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1767190182}
+  - {fileID: 1630574777}
+  m_Father: {fileID: 1766216839}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &444373112
 GameObject:
   m_ObjectHideFlags: 0
@@ -69053,12 +69086,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1630574773}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -4.5, y: -13.33, z: 0}
   m_LocalScale: {x: 7, y: 7, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 440223595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!68 &1630574778
 EdgeCollider2D:
@@ -70121,6 +70154,7 @@ Transform:
   - {fileID: 7285944}
   - {fileID: 2032016559}
   - {fileID: 812306749}
+  - {fileID: 440223595}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767190181
@@ -70171,7 +70205,7 @@ Transform:
   - {fileID: 1268843498}
   - {fileID: 511241852}
   - {fileID: 310643914}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 440223595}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1773352013
 GameObject:
@@ -74138,7 +74172,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1883458066
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -78193,8 +78227,6 @@ SceneRoots:
   - {fileID: 1841403073}
   - {fileID: 1823001408}
   - {fileID: 1766216839}
-  - {fileID: 1630574777}
-  - {fileID: 1767190182}
   - {fileID: 1882459586}
   - {fileID: 144959491}
   - {fileID: 843119702}
