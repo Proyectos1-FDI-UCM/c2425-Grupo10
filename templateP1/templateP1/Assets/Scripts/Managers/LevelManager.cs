@@ -80,6 +80,7 @@ public class LevelManager : MonoBehaviour
     public int Semillas() { return CantidadSemillas; }
     public int Regadera() { return AguaRegadera; }
     public void CambioHerramienta(int i) { Herramienta = i; }
+    public void LlenarRegadera(int i) { AguaRegadera = i; }
     public void Plantar() { CantidadSemillas--; }
     public void Regar() { AguaRegadera--; }
     public static bool HasInstance() { return _instance != null; }
