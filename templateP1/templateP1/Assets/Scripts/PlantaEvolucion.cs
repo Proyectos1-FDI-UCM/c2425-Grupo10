@@ -39,6 +39,7 @@ public class PlantaEvolucion : MonoBehaviour
     private bool _riego = false;
     private bool _listaParaCosechar = false;
     private GameObject _avisos;
+    private Transform _plantas;
 
     #endregion
 
@@ -59,10 +60,11 @@ public class PlantaEvolucion : MonoBehaviour
     /// <summary>
     /// Inicializa la evolución de la planta con tiempos específicos.
     /// </summary>
-    public void Planta(float TiempoCrecimiento, float TiempoRegado)
+    public void Planta(float TiempoCrecimiento, float TiempoRegado, Transform plantas)
     {
         _tiempoCrecimiento = TiempoCrecimiento;
         _tiempoRegado = TiempoRegado;
+        _plantas = plantas;
     }
 
     /// <summary>
@@ -141,7 +143,7 @@ public class PlantaEvolucion : MonoBehaviour
         Debug.Log("Cosechando planta...");
         LevelManager.Instance.AgregarAlInventario(NombrePlanta);
         GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
-        Maceta.transform.SetParent(transform);
+        Maceta.transform.SetParent(_plantas);
         Destroy(this.gameObject); // Elimina la planta del mapa tras recogerla
     }
 
