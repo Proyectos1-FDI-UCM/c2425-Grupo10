@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Cambiar la opacidad del tejado.
+// Javier Librada Jerez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -23,7 +23,7 @@ public class Visibility : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-
+    [SerializeField] private Tilemap Tilemap;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -34,7 +34,6 @@ public class Visibility : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private Tilemap tilemap;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -50,7 +49,7 @@ public class Visibility : MonoBehaviour
     /// </summary>
     void Start()
     {
-        tilemap = GetComponent<Tilemap>();
+        Tilemap = GetComponent<Tilemap>();
     }
 
     /// <summary>
@@ -71,11 +70,11 @@ public class Visibility : MonoBehaviour
     // Ejemplo: GetPlayerController
     public void visibility(float amount)
     {
-        if (tilemap != null)
+        if (Tilemap != null)
         {
-            Color color = tilemap.color;
+            Color color = Tilemap.color;
             color.a = amount;
-            tilemap.color = color;
+            Tilemap.color = color;
         }
     }
     #endregion

@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Transicion antes del cambio de escena.
+// Javier Librada Jerez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -23,7 +23,8 @@ public class SceneTransition : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-
+    [SerializeField] private SceneTransition Instance;
+    [SerializeField] private SpriteRenderer FadeSprite;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -34,13 +35,22 @@ public class SceneTransition : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    public static SceneTransition instance;
-    public SpriteRenderer fadeSprite;
-    public float fadeSpeed =5f;
+    
+    /// <summary>
+    /// Velocidad de degradado.
+    /// </summary>
+    private float _fadeSpeed =5f;
 
-    private bool fadingOut = false;
-    private bool fadingIn = true;
-    private string sceneToLoad;
+    /// <summary>
+    /// Booleanos para saber si se esta degradando para salir de escena o para entrar.
+    /// </summary>
+    private bool _fadingOut = false;
+    private bool _fadingIn = true;
+
+    /// <summary>
+    /// Nombre de la escena a la que quieres cambiar.
+    /// </summary>
+    private string _sceneToLoad;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -56,9 +66,9 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     void Start()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -73,29 +83,29 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (fadingIn)
+        if (_fadingIn)
         {
-            float alpha = Mathf.MoveTowards(fadeSprite.color.a, 0, fadeSpeed * Time.deltaTime);
-            fadeSprite.color = new Color(0, 0, 0, alpha);
+            float alpha = Mathf.MoveTowards(FadeSprite.color.a, 0, _fadeSpeed * Time.deltaTime);
+            FadeSprite.color = new Color(0, 0, 0, alpha);
 
             if (alpha <= 0.01f)
             {
-                fadeSprite.color = new Color(0, 0, 0, 0);
-                fadingIn = false;
+                FadeSprite.color = new Color(0, 0, 0, 0);
+                _fadingIn = false;
             }
         }
 
-        if (fadingOut)
+        if (_fadingOut)
         {
-            float alpha = Mathf.MoveTowards(fadeSprite.color.a, 1, fadeSpeed * Time.deltaTime);
-            fadeSprite.color = new Color(0, 0, 0, alpha);
+            float alpha = Mathf.MoveTowards(FadeSprite.color.a, 1, _fadeSpeed * Time.deltaTime);
+            FadeSprite.color = new Color(0, 0, 0, alpha);
 
             if (alpha >= 0.99f)
             {
-                fadeSprite.color = new Color(0, 0, 0, 1);
-                fadingOut = false;
-                SceneManager.LoadScene(sceneToLoad);
-                fadingIn = true; // Iniciar el Fade In en la nueva escena
+                FadeSprite.color = new Color(0, 0, 0, 1);
+                _fadingOut = false;
+                SceneManager.LoadScene(_sceneToLoad);
+                _fadingIn = true; // Iniciar el Fade In en la nueva escena
             }
         }
     }
@@ -108,10 +118,14 @@ public class SceneTransition : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    /// <summary>
+    /// Metodo para cambiar de escena.
+    /// </summary>
     public void ChangeScene(string sceneName)
     {
-        sceneToLoad = sceneName;
-        fadingOut = true;
+        _sceneToLoad = sceneName;
+        _fadingOut = true;
     }
     #endregion
 

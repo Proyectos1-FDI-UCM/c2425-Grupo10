@@ -2549,12 +2549,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 294553647}
-  transparentAlpha: 0.5
-  visibility: {fileID: 1500152957}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 294553647}
+  Visibility: {fileID: 1500152957}
+  PlayerCollider: {fileID: 1340924987}
 --- !u!60 &294553649
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -49187,7 +49184,6 @@ GameObject:
   - component: {fileID: 444373117}
   - component: {fileID: 444373116}
   - component: {fileID: 444373115}
-  - component: {fileID: 444373114}
   - component: {fileID: 444373120}
   m_Layer: 3
   m_Name: Tejado
@@ -49211,18 +49207,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 651571014}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &444373114
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 444373112}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b328af953e876f648af2fc2b541e55b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!66 &444373115
 CompositeCollider2D:
   m_ObjectHideFlags: 0
@@ -50080,6 +50064,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &470981450
 GameObject:
   m_ObjectHideFlags: 0
@@ -52194,12 +52179,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 651571019}
-  transparentAlpha: 0.5
-  visibility: {fileID: 444373120}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 651571019}
+  Visibility: {fileID: 444373120}
+  PlayerCollider: {fileID: 1340924987}
 --- !u!60 &651571021
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -59533,6 +59515,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &1092582056
 GameObject:
   m_ObjectHideFlags: 0
@@ -64117,12 +64100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1327670174}
-  transparentAlpha: 0.5
-  visibility: {fileID: 2011306877}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 1327670174}
+  Visibility: {fileID: 2011306877}
+  PlayerCollider: {fileID: 1340924987}
 --- !u!61 &1327670176
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -65678,12 +65658,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1460065444}
-  transparentAlpha: 0.5
-  visibility: {fileID: 1069807477}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 1460065444}
+  Visibility: {fileID: 1069807477}
+  PlayerCollider: {fileID: 1340924987}
 --- !u!60 &1460065446
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -67438,6 +67415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &1507914762
 GameObject:
   m_ObjectHideFlags: 0
@@ -74240,8 +74218,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68588176b81fd0468f02752cec4f011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSprite: {fileID: 1883458066}
-  fadeSpeed: 1
+  Instance: {fileID: 0}
+  FadeSprite: {fileID: 1883458066}
 --- !u!1 &1889930073
 GameObject:
   m_ObjectHideFlags: 0
@@ -76517,6 +76495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &2019100288
 GameObject:
   m_ObjectHideFlags: 0

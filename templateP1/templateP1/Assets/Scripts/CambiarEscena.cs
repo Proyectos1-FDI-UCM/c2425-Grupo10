@@ -1,7 +1,7 @@
 //---------------------------------------------------------
 // Cambiar de una escena a otra
-// Responsable: Javier Librada
-// Nombre del juego: Roots of Life
+// Javier Librada Jerez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 

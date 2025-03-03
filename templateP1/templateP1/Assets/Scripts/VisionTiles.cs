@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Detectar colision del jugador con el tejado.
+// Javier Librada Jerez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -23,9 +23,13 @@ public class VisionTiles : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+    [SerializeField] private Tilemap Tilemap;
+    [SerializeField] private Visibility Visibility;
+    [SerializeField] private Collider2D PlayerCollider;
+
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     // Documentar cada atributo que aparece aquí.
@@ -34,12 +38,21 @@ public class VisionTiles : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    public Tilemap tilemap;
-    public float transparentAlpha = 0.5f;
-    public Visibility visibility;
-    public int playersInside = 0;
-    public Collider2D playerCollider;
-    public bool isTransparent = false;
+
+    /// <summary>
+    /// Cantidad de opacidad para el tilemap.
+    /// </summary>
+    private float _transparentAlpha = 0.5f;
+
+    /// <summary>
+    /// Cantidad de jugadores dentro del collider.
+    /// </summary>
+    private int playersInside = 0;
+
+    /// <summary>
+    /// Booleano para saber si el tejado es transparente o no.
+    /// </summary>
+    private bool _isTransparent = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -55,8 +68,10 @@ public class VisionTiles : MonoBehaviour
     /// </summary>
     void Start()
     {
-        if (tilemap == null)
-            tilemap = GetComponent<Tilemap>();
+        if (Tilemap == null)
+        {
+            Tilemap = GetComponent<Tilemap>();
+        }
     }
 
 
@@ -76,15 +91,6 @@ public class VisionTiles : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    private void SetTilemapAlpha(float alpha)
-    {
-        if (tilemap != null)
-        {
-            Color color = tilemap.color;
-            color.a = alpha;
-            tilemap.color = color;
-        }
-    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -93,32 +99,36 @@ public class VisionTiles : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador esta dentro del collider.
+    /// </summary>
     private void OnTriggerStay2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             playersInside = 1; // Como solo hay un jugador en el trigger, lo fijamos en 1
-            playerCollider = other;
+            PlayerCollider = other;
 
-            if (!isTransparent)
+            if (!_isTransparent)
             {
-                isTransparent = true;
-                SetTilemapAlpha(transparentAlpha);
-                if (visibility != null)
-                    visibility.visibility(0.5f);
+                _isTransparent = true;
+                if (Visibility != null)
+                    Visibility.visibility(0.5f);
             }
         }
     }
-
+    /// <summary>
+    /// Metodo para detectar cuando el jugador sale del collider.
+    /// </summary>
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
             playersInside = 0;
-            isTransparent = false;
-            SetTilemapAlpha(1f);
-            if (visibility != null)
-                visibility.visibility(1f);
+            _isTransparent = false;
+            if (Visibility != null)
+                Visibility.visibility(1f);
         }
     }
     #endregion

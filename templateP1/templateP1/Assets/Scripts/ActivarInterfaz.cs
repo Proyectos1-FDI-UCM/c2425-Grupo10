@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable: Javier Librada
+// Responsable: Javier Librada Jerez
 // Nombre del juego: Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -34,7 +34,7 @@ public class ActivarInterfaz : MonoBehaviour
     [SerializeField] private GameObject ComprarButton;
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
-    [SerializeField] private PlayerMovement playerMovement; 
+    [SerializeField] private PlayerMovement PlayerMovement; 
 
 
 
@@ -50,19 +50,19 @@ public class ActivarInterfaz : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private bool colisionando = false;
-    private bool interfazActiva = false;
-    private bool isMejoraSelected = true;
-    private bool isAmpliarSelected = false;
-    private bool seleccionRegadera = false;
-    private bool seleccionHuerto = false;
-    private bool seleccionInventario = false;
-    [SerializeField] private bool algoSeleccionado = false; // Controla si hay algo seleccionado para comprar
+    private bool _colisionando = false;
+    private bool _interfazActiva = false;
+    private bool _isMejoraSelected = true;
+    private bool _isAmpliarSelected = false;
+    private bool _seleccionRegadera = false;
+    private bool _seleccionHuerto = false;
+    private bool _seleccionInventario = false;
+    private bool _algoSeleccionado = false; // Controla si hay algo seleccionado para comprar
 
     // Máximo de mejoras por objeto
-    private const int maxMejorasRegadera = 3;
-    private const int maxMejorasHuerto = 4;
-    private const int maxMejorasInventario = 3;
+    private int maxMejorasRegadera = 3;
+    private int maxMejorasHuerto = 4;
+    private int maxMejorasInventario = 3;
 
     #endregion
 
@@ -87,11 +87,11 @@ public class ActivarInterfaz : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (colisionando && InputManager.Instance.UsarIsPressed())
+        if (_colisionando && InputManager.Instance.UsarIsPressed())
         {
             EnableInterfaz();
         }
-        if (interfazActiva && InputManager.Instance.SalirIsPressed())
+        if (_interfazActiva && InputManager.Instance.SalirIsPressed())
         {
             DisableInterfaz();
         }
@@ -105,88 +105,113 @@ public class ActivarInterfaz : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    /// <summary>
+    /// Detectar cuando el jugador esta en el collider.
+    /// </summary>
     public void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             Interactuar.SetActive(true);
-            colisionando = true;
+            _colisionando = true;
         }
     }
 
+    /// <summary>
+    /// Detectar cuando el jugador sale del collider.
+    /// </summary>
     public void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
             Interactuar.SetActive(false);
-            colisionando = false;
+            _colisionando = false;
         }
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Ampliar".
+    /// </summary>
     public void ButtonAmpliarPressed()
     {
-        isMejoraSelected = false;
-        isAmpliarSelected = true;
-        algoSeleccionado = false; // Aún no ha elegido Huerto/Inventario
+        _isMejoraSelected = false;
+        _isAmpliarSelected = true;
+        _algoSeleccionado = false; // Aún no se ha presionado "Huerto" o "Inventario".
         ActualizarInterfaz();
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Mejorar".
+    /// </summary>
     public void ButtonMejorarPressed()
     {
-        isMejoraSelected = true;
-        isAmpliarSelected = false;
-        algoSeleccionado = false; // Aún no ha elegido Regadera
+        _isMejoraSelected = true;
+        _isAmpliarSelected = false;
+        _algoSeleccionado = false; // Aún no se ha presionado "Regadera".
         ActualizarInterfaz();
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Regadera".
+    /// </summary>
     public void ButtonRegaderaPressed()
     {
-        seleccionRegadera = true;
-        seleccionHuerto = false;
-        seleccionInventario = false;
-        algoSeleccionado = true;
+        _seleccionRegadera = true;
+        _seleccionHuerto = false;
+        _seleccionInventario = false;
+        _algoSeleccionado = true;
 
         MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Huerto".
+    /// </summary>
     public void ButtonHuertoPressed()
     {
-        seleccionRegadera = false;
-        seleccionHuerto = true;
-        seleccionInventario = false;
-        algoSeleccionado = true;
+        _seleccionRegadera = false;
+        _seleccionHuerto = true;
+        _seleccionInventario = false;
+        _algoSeleccionado = true;
 
         MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Inventario".
+    /// </summary>
     public void ButtonInventarioPressed()
     {
-        seleccionRegadera = false;
-        seleccionHuerto = false;
-        seleccionInventario = true;
-        algoSeleccionado = true;
+        _seleccionRegadera = false;
+        _seleccionHuerto = false;
+        _seleccionInventario = true;
+        _algoSeleccionado = true;
 
         MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetMejorasInventario(), maxMejorasInventario);
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Comprar".
+    /// </summary>
     public void ComprarMejora()
     {
-        if (isMejoraSelected && algoSeleccionado)
+        if (_isMejoraSelected && _algoSeleccionado)
         {
-            if (seleccionRegadera)
+            if (_seleccionRegadera)
             {
                 GameManager.Instance.MejorarRegadera();
                 MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
             }
         }
-        else if (isAmpliarSelected && algoSeleccionado)
+        else if (_isAmpliarSelected && _algoSeleccionado)
         {
-            if (seleccionHuerto)
+            if (_seleccionHuerto)
             {
                 GameManager.Instance.MejorarHuerto();
                 MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
             }
-            else if (seleccionInventario)
+            else if (_seleccionInventario)
             {
                 GameManager.Instance.MejorarInventario();
                 MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetMejorasInventario(), maxMejorasInventario);
@@ -197,11 +222,10 @@ public class ActivarInterfaz : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
 
+    /// <summary>
+    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
+    /// </summary>
     private void MostrarDescripcion(string texto, int mejorasActuales, int maxMejoras)
     {
         if (mejorasActuales >= maxMejoras)
@@ -216,41 +240,54 @@ public class ActivarInterfaz : MonoBehaviour
         }
         ContadorTexto.text = mejorasActuales + "/" + maxMejoras;
     }
+
+    /// <summary>
+    /// Metodo para activar la interfaz cuando el jugador pulse "E".
+    /// </summary>
     private void EnableInterfaz()
     {
-        interfazActiva = true;
+        _interfazActiva = true;
         Interactuar.SetActive(false);
         Interfaz.SetActive(true);
-        isMejoraSelected = true; // Siempre inicia en "Mejorar"
-        isAmpliarSelected = false;
-        algoSeleccionado = false;
+        _isMejoraSelected = true; // Siempre inicia en "Mejorar"
+        _isAmpliarSelected = false;
+        _algoSeleccionado = false;
         ActualizarInterfaz();
-        playerMovement.enablemovement = false;
+        PlayerMovement.enablemovement = false;
     }
 
+    /// <summary>
+    /// Metodo para desactivar la interfaz cuando el jugador pulse "Q".
+    /// </summary>
     private void DisableInterfaz()
     {
-        interfazActiva = false;
+        _interfazActiva = false;
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
-        colisionando = true;
-        playerMovement.enablemovement = true;
+        _colisionando = true;
+        PlayerMovement.enablemovement = true;
 
     }
 
+    /// <summary>
+    /// Metodo para actualizar la interfaz dependiendo del boton seleccionado.
+    /// </summary>
     private void ActualizarInterfaz()
     {
         // Mostrar los botones según la pestaña activa
-        RegaderaButton.SetActive(isMejoraSelected);
-        HuertoButton.SetActive(isAmpliarSelected);
-        InventarioButton.SetActive(isAmpliarSelected);
+        RegaderaButton.SetActive(_isMejoraSelected);
+        HuertoButton.SetActive(_isAmpliarSelected);
+        InventarioButton.SetActive(_isAmpliarSelected);
 
         // Ocultar comprar hasta que el jugador seleccione algo
-        ComprarButton.SetActive(algoSeleccionado);
+        ComprarButton.SetActive(_algoSeleccionado);
         DescripcionTexto.text = "";
         ContadorTexto.text = "";
     }
 
+    /// <summary>
+    /// Metodo para resetear la interfaz cada vez que la abrimos.
+    /// </summary>
     private void ResetInterfaz()
     {
         Interactuar.SetActive(false);

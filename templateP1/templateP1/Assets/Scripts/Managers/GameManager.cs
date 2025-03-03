@@ -31,8 +31,19 @@ public class GameManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    /// <summary>
+    /// Numero de mejoras activas de la Regadera.
+    /// <summary>
     [SerializeField] int MejorasRegadera = 0;
+
+    /// <summary>
+    /// Numero de mejoras activas del Huerto.
+    /// <summary>
     [SerializeField] int MejorasHuerto = 0;
+
+    /// <summary>
+    /// Numero de mejoras activas del Inventario.
+    /// <summary>
     [SerializeField] int MejorasInventario = 0;
 
     #endregion
@@ -46,8 +57,19 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
+    /// <summary>
+    /// Numero de máximo de mejoras para la Regadera.
+    /// <summary>
     private int _maxMejorasRegadera = 3;
+
+    /// <summary>
+    /// Numero de máximo de mejoras para el Huerto.
+    /// <summary>
     private int _maxMejorasHuerto = 4;
+
+    /// <summary>
+    /// Numero de máximo de mejoras para el Inventario.
+    /// <summary>
     private int _maxMejorasInventario = 3;
 
     #endregion
@@ -159,10 +181,16 @@ public class GameManager : MonoBehaviour
         System.GC.Collect();
     } // ChangeScene
 
+    /// <summary>
+    /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventario.
+    /// <summary>
     public int GetMejorasRegadera() { return MejorasRegadera; }
     public int GetMejorasHuerto() { return MejorasHuerto; }
     public int GetMejorasInventario() { return MejorasInventario; }
 
+    /// <summary>
+    /// Metodo para aumentar +1 la mejora del Huerto.
+    /// <summary>
     public void MejorarHuerto()
     {
         if (MejorasHuerto < _maxMejorasHuerto)
@@ -171,6 +199,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para aumentar +1 la mejora del Inventario.
+    /// <summary>
     public void MejorarInventario()
     {
         if (MejorasInventario < _maxMejorasInventario)
@@ -179,6 +210,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para aumentar +1 la mejora de la Regadera.
+    /// <summary>
     public void MejorarRegadera()
     {
         if (MejorasRegadera < _maxMejorasRegadera)
