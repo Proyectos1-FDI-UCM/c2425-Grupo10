@@ -62,7 +62,7 @@ public class CropSpawner : MonoBehaviour
             PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
             if (plantaEvolucion != null)
             {
-                plantaEvolucion.Planta(TiempoCrecimiento, TiempoRegado);  
+                plantaEvolucion.Planta(TiempoCrecimiento, TiempoRegado, Plantas);  
             }
             else
             {
