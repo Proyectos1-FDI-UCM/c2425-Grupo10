@@ -6,9 +6,8 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using UnityEngine.UI;
 
-public class InventoryCultivos : MonoBehaviour
+public class InventoryUI : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector
@@ -19,13 +18,6 @@ public class InventoryCultivos : MonoBehaviour
     [SerializeField] private float hiddenY = -300f;         // Posición Y del inventario cuando está oculto
     [SerializeField] private float transitionSpeed = 10f;   // Velocidad de animación
     [SerializeField] private float quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
-
-
-
-    [SerializeField] private CultivosManager inventario;  // El inventario del jugador
-    [SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
-    [SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
-    [SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades
 
     #endregion
 
@@ -45,13 +37,11 @@ public class InventoryCultivos : MonoBehaviour
 
         // Inicializamos la posición del inventario en oculto
         inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, hiddenY);
-
-        ActualizarInventario();
     }
 
     void Update()
     {
-        //la subida del inventario se puede activar tanto con el TAB como con el ESC
+        //la subida del inventario se puede activar tanto con el RAB como con el ESC
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleInventory();
@@ -76,31 +66,8 @@ public class InventoryCultivos : MonoBehaviour
             new Vector2(quickAccessBar.anchoredPosition.x, targetQuickBarY),
             Time.deltaTime * transitionSpeed
         );
-
-
     }
 
-
-
-    // Método que actualiza la UI del inventario
-    public void ActualizarInventario()
-    {
-        for (int i = 0; i < casillasInventario.Length; i++)
-        {
-            // Si hay un cultivo en esta casilla
-            if (inventario.inventario[i] != null)
-            {
-                CultivosLista cultivo = inventario.inventario[i];
-                imagenesCultivos[i].sprite = cultivo.sprite;
-                cantidadesCultivos[i].text = cultivo.cantidad.ToString();
-                casillasInventario[i].SetActive(true);  // Mostrar la casilla
-            }
-            else
-            {
-                casillasInventario[i].SetActive(false);  // Ocultar la casilla si está vacía
-            }
-        }
-    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
