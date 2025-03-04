@@ -24,8 +24,9 @@ public class InventoryCultivos : MonoBehaviour
 
     [SerializeField] private CultivosManager inventario;  // El inventario del jugador
     [SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
+    //[SerializeField] private GameObject[] filasCasillas;
     [SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
-    [SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades
+    [SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
 
     #endregion
 
@@ -33,6 +34,8 @@ public class InventoryCultivos : MonoBehaviour
     #region Atributos Privados
     private bool _isInventoryVisible = false; // Estado del inventario
     private float quickBarBaseY; // Posición base de la QuickAccessBar (se mantiene siempre visible)
+
+   
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -55,6 +58,8 @@ public class InventoryCultivos : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleInventory();
+            ActualizarInventario();
+
         }
 
         // Define la posición objetivo del inventario
@@ -80,9 +85,6 @@ public class InventoryCultivos : MonoBehaviour
 
     }
 
-
-
-    // Método que actualiza la UI del inventario
     public void ActualizarInventario()
     {
         for (int i = 0; i < casillasInventario.Length; i++)
@@ -101,6 +103,7 @@ public class InventoryCultivos : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

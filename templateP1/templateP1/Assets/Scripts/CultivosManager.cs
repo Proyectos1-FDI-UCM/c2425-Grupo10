@@ -32,8 +32,7 @@ public class CultivosManager : MonoBehaviour
     /// Solo una herramienta puede estar activa a la vez.
     /// </summary>
     private bool _espaciovacio;
-    private int _count = 0;
-    public CultivosLista[] inventario = new CultivosLista[10];  // Arreglo fijo con 10 casillas
+    public CultivosLista[] inventario = new CultivosLista[24];  // Arreglo fijo con 10 casillas
     public int maxItemsPorCasilla = 10;  // Número máximo de items por casilla
 
     #endregion
@@ -82,14 +81,19 @@ public class CultivosManager : MonoBehaviour
         }
 
         // Si no se encontró el cultivo, busca una casilla vacía
-        for (int i = 0; i < inventario.Length; i++)
-        {
-            if (inventario[i] == null)
+        
+        
+            for (int i = 0; i < inventario.Length; i++)
             {
-                inventario[i] = nuevoCultivo;  // Asigna el cultivo en la casilla vacía
-                return;
+                if (inventario[i] == null)
+                {
+                    inventario[i] = nuevoCultivo;  // Asigna el cultivo en la casilla vacía
+
+                } return;
+                
             }
-        }
+        
+        
 
         // Si no hay espacio (todo el inventario está lleno), destruye el cultivo
         Destroy(nuevoCultivo);

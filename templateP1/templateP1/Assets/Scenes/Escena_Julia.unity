@@ -1924,12 +1924,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 294553647}
-  transparentAlpha: 0.5
-  visibility: {fileID: 1500152957}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 0}
+  Visibility: {fileID: 0}
+  PlayerCollider: {fileID: 0}
 --- !u!1 &315805247
 GameObject:
   m_ObjectHideFlags: 0
@@ -48837,6 +48834,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &470981450
 GameObject:
   m_ObjectHideFlags: 0
@@ -50603,12 +50601,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 651571019}
-  transparentAlpha: 0.5
-  visibility: {fileID: 444373120}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 0}
+  Visibility: {fileID: 0}
+  PlayerCollider: {fileID: 0}
 --- !u!1 &654911042
 GameObject:
   m_ObjectHideFlags: 0
@@ -56343,6 +56338,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &1084905565
 GameObject:
   m_ObjectHideFlags: 0
@@ -60002,12 +59998,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1327670174}
-  transparentAlpha: 0.5
-  visibility: {fileID: 2011306877}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 0}
+  Visibility: {fileID: 0}
+  PlayerCollider: {fileID: 0}
 --- !u!1 &1340924985
 GameObject:
   m_ObjectHideFlags: 0
@@ -60984,12 +60977,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50edfd02843a58d4e87bfd842585acf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 1460065444}
-  transparentAlpha: 0.5
-  visibility: {fileID: 1069807477}
-  playersInside: 0
-  playerCollider: {fileID: 1340924987}
-  isTransparent: 0
+  Tilemap: {fileID: 0}
+  Visibility: {fileID: 0}
+  PlayerCollider: {fileID: 0}
 --- !u!1 &1467758815
 GameObject:
   m_ObjectHideFlags: 0
@@ -62647,6 +62637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &1590144537
 GameObject:
   m_ObjectHideFlags: 0
@@ -67489,8 +67480,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 171.09894, y: -84.989525}
-  m_SizeDelta: {x: 280, y: 70}
+  m_AnchoredPosition: {x: 168.3474, y: -209.3697}
+  m_SizeDelta: {x: 284.7851, y: 376.2427}
   m_Pivot: {x: 0.5000002, y: 0.5}
 --- !u!114 &1933906561
 MonoBehaviour:
@@ -67512,7 +67503,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1834767075, guid: d21eca765db69dd44ba69a68ac78b112, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d21eca765db69dd44ba69a68ac78b112, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -69359,6 +69350,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98388c0e4ca916c45b07cdd8b61ed172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Tilemap: {fileID: 0}
 --- !u!1 &2013197076
 GameObject:
   m_ObjectHideFlags: 0

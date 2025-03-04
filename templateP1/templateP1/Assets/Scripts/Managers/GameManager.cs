@@ -221,6 +221,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public bool Cosechado()
+    {
+        bool _cosechado = true;
+        return _cosechado;
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
