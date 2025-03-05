@@ -33,7 +33,8 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Referencia al Rigidbody2D del jugador para manejar la física.
     /// </summary>
-    private Rigidbody2D playerRb;
+    private Rigidbody2D _playerRb;
+    private Animator _playerAnimator;
     public bool enablemovement = true;
 
     /// <summary>
@@ -52,7 +53,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         // Obtiene la referencia al Rigidbody2D del jugador.
-        playerRb = GetComponent<Rigidbody2D>();
+        _playerRb = GetComponent<Rigidbody2D>();
+        _playerAnimator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -60,11 +62,26 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Captura la entrada del jugador para los ejes horizontal y vertical.
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
-        // Normaliza la entrada para evitar movimiento diagonal más rápido.
-        moveInput = new Vector2(moveX, moveY).normalized;
+        float moveX = InputManager.Instance.MovementVector.x;
+        float moveY = InputManager.Instance.MovementVector.y;
+
+        Vector2 moveInput = InputManager.Instance.MovementVector.normalized;
+        Vector2 lastMoveDirection = Vector2.down;
+        
+        if (moveInput != Vector2.zero)
+        {
+            lastMoveDirection = moveInput;
+            _playerAnimator.SetFloat("Horizontal", moveX);
+            _playerAnimator.SetFloat("Vertical", moveY);
+        }
+
+        if (moveInput == Vector2.zero)
+        {
+            _playerAnimator.SetFloat("Horizontal", lastMoveDirection.x);
+            _playerAnimator.SetFloat("Vertical", lastMoveDirection.y);
+        }
+
+        _playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
 
     }
 
@@ -84,11 +101,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-       if(enablemovement)
+        if (enablemovement)
         {
             // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
 
-            playerRb.MovePosition(playerRb.position + moveInput * speed * Time.fixedDeltaTime);
+            _playerRb.MovePosition(_playerRb.position + InputManager.Instance.MovementVector * speed * Time.fixedDeltaTime);
 
         }
     }
