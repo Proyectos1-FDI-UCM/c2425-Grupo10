@@ -113,7 +113,13 @@ public class GameManager : MonoBehaviour
             Init();
         } // if-else somos instancia nueva o no.
     }
-
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
     /// <summary>
     /// Método llamado cuando se destruye el componente.
     /// </summary>
@@ -124,6 +130,8 @@ public class GameManager : MonoBehaviour
             // Éramos la instancia de verdad, no un clon.
             _instance = null;
         } // if somos la instancia principal
+        
+        
     }
 
     #endregion
