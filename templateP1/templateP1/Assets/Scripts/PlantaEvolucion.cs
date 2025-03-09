@@ -5,6 +5,7 @@
 // Curso 2024-25
 //---------------------------------------------------------
 
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -141,6 +142,7 @@ public class PlantaEvolucion : MonoBehaviour
     private void Cosechar()
     {
         Debug.Log("Cosechando planta...");
+        GameManager.Instance.Cosechado();
         LevelManager.Instance.AgregarAlInventario(NombrePlanta);
         GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
         Maceta.transform.SetParent(_plantas);
