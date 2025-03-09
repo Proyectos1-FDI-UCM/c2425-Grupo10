@@ -155,7 +155,6 @@ RectTransform:
   m_Children:
   - {fileID: 1349412015}
   - {fileID: 1032769232}
-  - {fileID: 1967942905}
   m_Father: {fileID: 1491233559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -633,7 +632,7 @@ GameObject:
   - component: {fileID: 444847631}
   - component: {fileID: 444847630}
   m_Layer: 0
-  m_Name: UI
+  m_Name: GestorDeVenta
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10076,11 +10075,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 94477140}
+  m_Father: {fileID: 1976077700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 153, y: -35.118}
+  m_AnchoredPosition: {x: -2.7100372, y: -35.118}
   m_SizeDelta: {x: 97.6133, y: 32.448}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967942906
@@ -10212,6 +10211,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 917977476}
+  - {fileID: 1967942905}
   m_Father: {fileID: 1491233559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
