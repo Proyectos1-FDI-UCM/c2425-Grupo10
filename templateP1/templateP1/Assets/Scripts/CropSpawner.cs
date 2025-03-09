@@ -62,5 +62,8 @@ public class CropSpawner : MonoBehaviour
         // Verifica si la planta tiene el script PlantaEvolucion
         PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
         plantaEvolucion.Planta();
+
+        //Huerto huerto = GetComponentInParent<Huerto>();
+        //huerto.CambioPlanta(transform, planta);
     }
 }
