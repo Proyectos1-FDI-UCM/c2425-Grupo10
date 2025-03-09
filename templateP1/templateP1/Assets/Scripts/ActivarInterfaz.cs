@@ -29,6 +29,7 @@ public class ActivarInterfaz : MonoBehaviour
     [SerializeField] private GameObject MejoraButton;
     [SerializeField] private GameObject AmpliarButton;
     [SerializeField] private GameObject RegaderaButton;
+   
     [SerializeField] private GameObject InventarioButton; 
     [SerializeField] private GameObject HuertoButton;
     [SerializeField] private GameObject ComprarButton;
@@ -57,12 +58,14 @@ public class ActivarInterfaz : MonoBehaviour
     private bool _seleccionRegadera = false;
     private bool _seleccionHuerto = false;
     private bool _seleccionInventario = false;
-    private bool _algoSeleccionado = false; // Controla si hay algo seleccionado para comprar
+    private bool _algoSeleccionado = false; // Controla si hay algo seleccionado para comprar 
+  
 
     // Máximo de mejoras por objeto
     private int maxMejorasRegadera = 3;
     private int maxMejorasHuerto = 4;
     private int maxMejorasInventario = 3;
+  
 
     #endregion
 
@@ -218,6 +221,9 @@ public class ActivarInterfaz : MonoBehaviour
             }
         }
     }
+
+
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -278,9 +284,11 @@ public class ActivarInterfaz : MonoBehaviour
         RegaderaButton.SetActive(_isMejoraSelected);
         HuertoButton.SetActive(_isAmpliarSelected);
         InventarioButton.SetActive(_isAmpliarSelected);
+       
 
         // Ocultar comprar hasta que el jugador seleccione algo
         ComprarButton.SetActive(_algoSeleccionado);
+        
         DescripcionTexto.text = "";
         ContadorTexto.text = "";
     }
