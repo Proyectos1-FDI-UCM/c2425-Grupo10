@@ -31,6 +31,7 @@ public class VentaInterfaz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
     [SerializeField] private PlayerMovement PlayerMovement;
+    [SerializeField] private ContadorDinero ContadorDinero;
 
     #endregion
 
@@ -79,6 +80,14 @@ public class VentaInterfaz : MonoBehaviour
         if (_interfazActiva && InputManager.Instance.SalirIsPressed())
         {
             DisableInterfaz();
+        }
+        if (ContadorDinero == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+            }
         }
     }
     #endregion
@@ -149,21 +158,25 @@ public class VentaInterfaz : MonoBehaviour
         {
             _coste = 90;
             MostrarDescripcion(LevelManager.Instance.GetVenderMaiz(), _maxMaiz, _coste);
+            ContadorDinero.MaizVendido();
         }
         if (_isLechugaSelected)
         {
             _coste = 20;
             MostrarDescripcion(LevelManager.Instance.GetVenderLechuga(), _maxLechuga, _coste);
+            ContadorDinero.LechugaVendida();
         }
         if (_isZanahoriaSelected)
         {
             _coste = 65;
             MostrarDescripcion(LevelManager.Instance.GetVenderZanahoria(), _maxZanahoria, _coste);
+            ContadorDinero.ZanahoriaVendida();
         }
         if (_isFresasSelected)
         {
             _coste = 40;
             MostrarDescripcion(LevelManager.Instance.GetVenderFresas(), _maxFresas, _coste);
+            ContadorDinero.FresaVendida();
         }
     }
     #endregion
