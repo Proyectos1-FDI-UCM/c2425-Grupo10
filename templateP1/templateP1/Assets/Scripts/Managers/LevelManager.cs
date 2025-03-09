@@ -30,15 +30,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
     [SerializeField] GameObject PrefabSemilla1;
 
-    [SerializeField] int ActualMaiz = 0; // Maiz que quieres vender
-    [SerializeField] int ActualLechuga = 0;
-    [SerializeField] int ActualZanahoria = 0;
-    [SerializeField] int ActualFresas = 0;
-
-    [SerializeField] int MaxMaiz = 0; // Cantidad de maiz que hay en el inventario
-    [SerializeField] int MaxLechuga = 0;
-    [SerializeField] int MaxZanahoria = 0;
-    [SerializeField] int MaxFresas = 0;
+    #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
@@ -106,64 +98,8 @@ public class LevelManager : MonoBehaviour
         {
             inventario[nombrePlanta] = 1;
         }
-       // GuardarCultivos(nombrePlanta, inventario[nombrePlanta]);
         Debug.Log(nombrePlanta + " añadida al inventario. Cantidad: " + inventario[nombrePlanta]);
     }
-
-    //   public (string, int) GuardarCultivos(string nombre, int max)
-    //   {
-    //       return (nombre, max);
-    //
-    //  }
-
-
-    public int GetVenderMaiz() { return ActualMaiz; }
-    public int GetVenderLechuga() { return ActualLechuga; }
-    public int GetVenderZanahoria() { return ActualZanahoria; }
-    public int GetVenderFresas() { return ActualMaiz; }
-
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (maiz).
-    /// <summary>
-    public void VenderMaiz()
-    {
-        if (ActualMaiz < MaxMaiz)
-        {
-            ActualMaiz++;
-        }
-    }
-
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (lechuga).
-    /// <summary>
-    public void VenderLechuga()
-    {
-        if (ActualLechuga < MaxLechuga)
-        {
-            ActualLechuga++;
-        }
-    }
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (zanahoria).
-    /// <summary>
-    public void VenderZanahoria()
-    {
-        if (ActualZanahoria < MaxZanahoria)
-        {
-            ActualZanahoria++;
-        }
-    }
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (fresas).
-    /// <summary>
-    public void VenderFresas()
-    {
-        if (ActualFresas < MaxFresas)
-        {
-            ActualFresas++;
-        }
-    }
-
 
     #endregion
 
@@ -177,4 +113,3 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 }
-#endregion
