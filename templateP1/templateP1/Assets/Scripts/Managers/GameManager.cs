@@ -46,7 +46,6 @@ public class GameManager : MonoBehaviour
     /// <summary>
     [SerializeField] int MejorasInventario = 0;
 
-
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -72,11 +71,6 @@ public class GameManager : MonoBehaviour
     /// Numero de máximo de mejoras para el Inventario.
     /// <summary>
     private int _maxMejorasInventario = 3;
-
-    /// <summary>
-    /// Numero de máximo de mejoras para el Inventario.
-    /// <summary>
-    private int _maxVenderMaiz = 3;
 
     #endregion
 
