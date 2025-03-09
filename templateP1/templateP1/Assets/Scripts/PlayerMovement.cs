@@ -41,9 +41,10 @@ public class PlayerMovement : MonoBehaviour
     /// Vector que contiene la entrada del jugador para el movimiento 
     /// </summary>
     private Vector2 moveInput;
+    private Vector2 lastMoveDirection = Vector2.down;
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
@@ -66,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         float moveY = InputManager.Instance.MovementVector.y;
 
         Vector2 moveInput = InputManager.Instance.MovementVector.normalized;
-        Vector2 lastMoveDirection = Vector2.down;
         
         if (moveInput != Vector2.zero)
         {
