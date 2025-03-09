@@ -24,9 +24,10 @@ public class PlayerMovement : MonoBehaviour
     /// Se puede ajustar desde el Inspector de Unity.
     /// </summary>
     [SerializeField] private float speed = 3f;
+    [SerializeField] GameObject hand;
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
 
@@ -44,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastMoveDirection = Vector2.down;
 
     private bool facingRight = true;
+    private bool facingUp = true;
 
     #endregion
 
@@ -80,6 +82,12 @@ public class PlayerMovement : MonoBehaviour
             if ((moveX < 0 && facingRight) || (moveX > 0 && !facingRight))
             {
                 Flip();
+                if (!facingUp) Capas();
+            }
+            
+            if ((moveY < 0 && facingUp) || (moveY > 0 && !facingUp))
+            {
+                Capas();
             }
         }
 
@@ -119,12 +127,24 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Flip()
     {
-        Debug.Log("Flip");
-
         facingRight = !facingRight;
         Vector3 scale = transform.localScale;
         scale.x *= -1;
         transform.localScale = scale;
+    }
+
+    private void Capas()
+    {
+        Debug.Log("Capas");
+        facingUp = !facingUp;
+        string Capa;
+
+        if (facingUp) Capa = "Background 2";
+        else Capa = "Crops";
+
+        SpriteRenderer spriteRenderers = hand.GetComponentInChildren<SpriteRenderer>();
+
+        spriteRenderers.sortingLayerName = Capa;
     }
 
 
