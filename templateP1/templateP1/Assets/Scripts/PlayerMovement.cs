@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lastMoveDirection = Vector2.down;
 
+    private bool facingRight = true;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -67,12 +69,18 @@ public class PlayerMovement : MonoBehaviour
         float moveY = InputManager.Instance.MovementVector.y;
 
         Vector2 moveInput = InputManager.Instance.MovementVector.normalized;
-        
+
+
         if (moveInput != Vector2.zero)
         {
             lastMoveDirection = moveInput;
             _playerAnimator.SetFloat("Horizontal", moveX);
             _playerAnimator.SetFloat("Vertical", moveY);
+
+            if ((moveX < 0 && facingRight) || (moveX > 0 && !facingRight))
+            {
+                Flip();
+            }
         }
 
         if (moveInput == Vector2.zero)
@@ -109,6 +117,16 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+    private void Flip()
+    {
+        Debug.Log("Flip");
+
+        facingRight = !facingRight;
+        Vector3 scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
+    }
+
 
     #endregion
 } // class PlayerMovement 
