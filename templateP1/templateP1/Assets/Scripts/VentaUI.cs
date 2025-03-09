@@ -1,6 +1,6 @@
 //---------------------------------------------------------
-// Script para gestionar la interfaz de venta en el juego.
-// Responsable: Natalia
+// Controlador de la venta de productos
+// Responsable: Natalia Nita
 // Nombre del juego: Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -10,16 +10,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// Clase que gestiona la interfaz de venta, permitiendo actualizar
-/// el precio del botón "Vender" según el producto seleccionado.
+/// Gestiona la interfaz de venta, cambiando la descripción
+/// según el producto seleccionado.
 /// </summary>
 public class VentaUI : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
+    #region Atributos del Inspector
 
-    /// <summary> Texto del botón "Vender". </summary>
-    [SerializeField] private TextMeshProUGUI TextoBotonVender;
+    [SerializeField] private TextMeshProUGUI textoDescripcionVenta; // Texto encima del botón de vender
 
     #endregion
 
@@ -27,13 +26,23 @@ public class VentaUI : MonoBehaviour
     #region Métodos Públicos
 
     /// <summary>
-    /// Cambia el texto del botón de vender según el producto seleccionado.
+    /// Método que se llama cuando el jugador selecciona un producto.
+    /// Cambia la descripción de la venta.
     /// </summary>
-    /// <param name="precio">Precio del producto seleccionado.</param>
-    public void SeleccionarProducto(int precio)
+    public void SeleccionarProducto(string nombreProducto, int precio)
     {
-        TextoBotonVender.text = $"Vender por: {precio} Rc";
+        textoDescripcionVenta.text = $"Vender {nombreProducto} por {precio} RC";
+    }
+
+    public void SeleccionarFresas()
+    {
+        SeleccionarProducto("Fresas", 40);
+    }
+
+    public void SeleccionarZanahorias()
+    {
+        SeleccionarProducto("Zanahorias", 65);
     }
 
     #endregion
-} // class VentaUI
+}
