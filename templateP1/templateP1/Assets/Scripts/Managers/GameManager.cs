@@ -88,8 +88,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private int dinero = 100; // Valor inicial de dinero
 
-    private List<string> inventario = new List<string>();
-    private int capacidadMaxima = 20;
 
     #endregion
 
@@ -287,50 +285,6 @@ public class GameManager : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    /// <summary>
-    /// Añade un objeto al inventario si hay espacio disponible.
-    /// </summary>
-    /// <param name="objeto">El objeto a añadir.</param>
-    /// <returns>True si se añadió correctamente, false si el inventario está lleno.</returns>
-    public bool AñadirObjeto(string objeto, int cantidad)
-    {
-        for (int i = 0; i < cantidad; i++)
-        {
-            if (inventario.Count >= capacidadMaxima)
-                return false; // Inventario lleno
-
-            inventario.Add(objeto);
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Remueve una cantidad específica de un objeto del inventario.
-    /// </summary>
-    /// <param name="objeto">El objeto a remover.</param>
-    /// <param name="cantidad">La cantidad de objetos a remover.</param>
-    /// <returns>True si se eliminaron los objetos correctamente, false si no hay suficientes.</returns>
-    public bool RemoverObjeto(string objeto, int cantidad)
-    {
-        int contador = 0;
-
-        // Intenta eliminar la cantidad solicitada del inventario
-        for (int i = 0; i < cantidad; i++)
-        {
-            if (inventario.Contains(objeto))
-            {
-                inventario.Remove(objeto);
-                contador++;
-            }
-            else
-            {
-                return false; // Si en algún momento no hay más objetos, la operación falla
-            }
-        }
-
-        return contador == cantidad; // Retorna true solo si eliminó la cantidad completa
     }
 
 
