@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
     /// Referencia al script que maneja el dinero
     /// <summary>
     [SerializeField] private ContadorDinero ContadorDinero;
+    /// <summary>
+    /// Referencia al script que maneja la barra de agua
+    /// <summary>
+    [SerializeField] private ToolManager ToolManager;
 
 
     #endregion
@@ -286,6 +290,7 @@ public class GameManager : MonoBehaviour
         // entre escenas
     }
 
+    
     #endregion
 } // class GameManager 
 // namespace

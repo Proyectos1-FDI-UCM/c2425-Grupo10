@@ -7,6 +7,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -81,7 +82,12 @@ public class ToolManager : MonoBehaviour
     /// Referencia al GameObject que representa el selector de "Hoz".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
-    [SerializeField] private GameObject WaterBar;
+    [SerializeField] private Slider WaterBar;
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Hoz".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private LevelManager LevelManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -169,7 +175,10 @@ public class ToolManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
+    public void BarraAgua(float AguaActual, float MaxAgua)
+    {
+        WaterBar.value = AguaActual / MaxAgua;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -235,6 +244,8 @@ public class ToolManager : MonoBehaviour
         herramienta3.SetActive(false);
         herramienta4.SetActive(false);
     }
+
+    
     #endregion
 }
  // class ToolManager 

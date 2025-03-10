@@ -30,6 +30,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
     [SerializeField] GameObject PrefabSemilla1;
     [SerializeField] GameManager GameManager;
+    [SerializeField] ToolManager ToolManager;
 
     [SerializeField] int ActualMaiz = 0; // Maiz que quieres vender
     [SerializeField] int ActualLechuga = 0;
@@ -76,6 +77,8 @@ public class LevelManager : MonoBehaviour
             }
         }
         GetMejorasRegadera();
+        ToolManager.BarraAgua(AguaRegadera, MaxAgua);
+
     }
 
     #endregion
@@ -101,7 +104,11 @@ public class LevelManager : MonoBehaviour
     public void CambioHerramienta(int i) { Herramienta = i; }
     public void LlenarRegadera(int i) { AguaRegadera = i; }
     public void Plantar() { CantidadSemillas--; }
-    public void Regar() { AguaRegadera--; }
+    public void Regar() 
+    { 
+        AguaRegadera--;
+        ToolManager.BarraAgua(AguaRegadera, MaxAgua);
+    }
     public static bool HasInstance() { return _instance != null; }
 
     /// <summary>
