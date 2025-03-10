@@ -1,12 +1,13 @@
 //---------------------------------------------------------
 // Contiene el componente GameManager
-// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
+// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín, Alexia
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI; // Necesario para manejar la UI del contador de dinero
 
 /// <summary>
 /// Componente responsable de la gestión global del juego. Es un singleton
@@ -46,6 +47,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     [SerializeField] int MejorasInventario = 0;
 
+    /// <summary>
+    /// Referencia al texto de la UI que muestra el dinero del jugador.
+    /// </summary>
+    [SerializeField] private Text contadorDineroText;
 
     #endregion
 
@@ -77,6 +82,14 @@ public class GameManager : MonoBehaviour
     /// Numero de máximo de mejoras para el Inventario.
     /// <summary>
     private int _maxVenderMaiz = 3;
+
+    /// <summary>
+    /// Cantidad de dinero del jugador.
+    /// </summary>
+    private int dinero = 100; // Valor inicial de dinero
+
+    private List<string> inventario = new List<string>();
+    private int capacidadMaxima = 20;
 
     #endregion
 
@@ -241,6 +254,96 @@ public class GameManager : MonoBehaviour
         return _cosechado;
     }
 
+    /// <summary>
+    /// Obtiene la cantidad actual de dinero del jugador.
+    /// </summary>
+    /// <returns>Cantidad de dinero.</returns>
+    public int GetDinero()
+    {
+        return dinero;
+    }
+
+    /// <summary>
+    /// Añade una cantidad de dinero al jugador y actualiza la UI.
+    /// </summary>
+    /// <param name="cantidad">Cantidad de dinero a añadir.</param>
+    public void AñadirDinero(int cantidad)
+    {
+        dinero += cantidad;
+        ActualizarUI();
+    }
+
+    /// <summary>
+    /// Resta una cantidad de dinero al jugador si tiene suficiente y actualiza la UI.
+    /// </summary>
+    /// <param name="cantidad">Cantidad de dinero a restar.</param>
+    /// <returns>True si la operación fue exitosa, false si no había suficiente dinero.</returns>
+    public bool RestarDinero(int cantidad)
+    {
+        if (dinero >= cantidad)
+        {
+            dinero -= cantidad;
+            ActualizarUI();
+            return true;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Añade un objeto al inventario si hay espacio disponible.
+    /// </summary>
+    /// <param name="objeto">El objeto a añadir.</param>
+    /// <returns>True si se añadió correctamente, false si el inventario está lleno.</returns>
+    public bool AñadirObjeto(string objeto, int cantidad)
+    {
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (inventario.Count >= capacidadMaxima)
+                return false; // Inventario lleno
+
+            inventario.Add(objeto);
+        }
+        return true;
+    }
+
+    /// <summary>
+    /// Remueve una cantidad específica de un objeto del inventario.
+    /// </summary>
+    /// <param name="objeto">El objeto a remover.</param>
+    /// <param name="cantidad">La cantidad de objetos a remover.</param>
+    /// <returns>True si se eliminaron los objetos correctamente, false si no hay suficientes.</returns>
+    public bool RemoverObjeto(string objeto, int cantidad)
+    {
+        int contador = 0;
+
+        // Intenta eliminar la cantidad solicitada del inventario
+        for (int i = 0; i < cantidad; i++)
+        {
+            if (inventario.Contains(objeto))
+            {
+                inventario.Remove(objeto);
+                contador++;
+            }
+            else
+            {
+                return false; // Si en algún momento no hay más objetos, la operación falla
+            }
+        }
+
+        return contador == cantidad; // Retorna true solo si eliminó la cantidad completa
+    }
+
+
+    /// <summary>
+    /// Actualiza la UI del contador de dinero.
+    /// </summary>
+    private void ActualizarUI()
+    {
+        if (contadorDineroText != null)
+        {
+            contadorDineroText.text = "$" + dinero.ToString();
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -252,7 +355,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        // De momento no hay nada que inicializar
+        ActualizarUI();
     }
 
     private void TransferSceneState()

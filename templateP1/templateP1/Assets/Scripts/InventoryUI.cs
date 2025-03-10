@@ -28,6 +28,8 @@ public class InventoryCultivos : MonoBehaviour
     [SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
     [SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
 
+    [SerializeField] private AudioSource sonidoInventario; // (Opcional) Sonido al abrir/cerrar
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -58,8 +60,6 @@ public class InventoryCultivos : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
-            ActualizarInventario();
-
         }
 
         // Define la posición objetivo del inventario
@@ -114,7 +114,20 @@ public class InventoryCultivos : MonoBehaviour
     private void ToggleInventory()
     {
         _isInventoryVisible = !_isInventoryVisible;
+
+        // Reproducir sonido opcional al abrir/cerrar el inventario
+        if (sonidoInventario != null)
+        {
+            sonidoInventario.Play();
+        }
+
+        // Solo actualizar si el inventario se está mostrando
+        if (_isInventoryVisible)
+        {
+            ActualizarInventario();
+        }
     }
+
     #endregion
 
 } // class InventoryUI
