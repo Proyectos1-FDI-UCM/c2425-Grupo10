@@ -105,6 +105,7 @@ public class PlantaEvolucion : MonoBehaviour
 
         _cropSpawner = _maceta.GetComponent<CropSpawner>();
 
+        _spriteRenderer = GetComponent<SpriteRenderer>();
         _spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
 
         EstadoCrecimiento = 0;
