@@ -5,6 +5,7 @@
 // Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +22,7 @@ public class InventoryCultivos : MonoBehaviour
     [SerializeField] private float quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
 
 
-
-    [SerializeField] private CultivosManager inventario;  // El inventario del jugador
+    [SerializeField] private CultivosLista cultivosLista; // El inventario del jugador
     [SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
     //[SerializeField] private GameObject[] filasCasillas;
     [SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
@@ -34,8 +34,8 @@ public class InventoryCultivos : MonoBehaviour
     #region Atributos Privados
     private bool _isInventoryVisible = false; // Estado del inventario
     private float quickBarBaseY; // Posición base de la QuickAccessBar (se mantiene siempre visible)
+    private List<(string, int, Sprite)> inventario = new List<(string, int, Sprite)>();
 
-   
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -87,19 +87,20 @@ public class InventoryCultivos : MonoBehaviour
 
     public void ActualizarInventario()
     {
+        inventario = cultivosLista.GetCultivosDisponibles();
+
         for (int i = 0; i < casillasInventario.Length; i++)
         {
-            // Si hay un cultivo en esta casilla
-            if (inventario.inventario[i] != null)
+            if (i < inventario.Count)
             {
-                CultivosLista cultivo = inventario.inventario[i];
-                imagenesCultivos[i].sprite = cultivo.sprite;
-                cantidadesCultivos[i].text = cultivo.cantidad.ToString();
-                casillasInventario[i].SetActive(true);  // Mostrar la casilla
+                var cultivo = inventario[i];
+                imagenesCultivos[i].sprite = cultivo.Item3;
+                cantidadesCultivos[i].text = cultivo.Item2.ToString();
+                casillasInventario[i].SetActive(true);
             }
             else
             {
-                casillasInventario[i].SetActive(false);  // Ocultar la casilla si está vacía
+                casillasInventario[i].SetActive(false);
             }
         }
     }

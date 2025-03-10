@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -66,6 +67,9 @@ public class GameManager : MonoBehaviour
     /// Instancia única de la clase (singleton).
     /// </summary>
     private static GameManager _instance;
+
+
+    private Dictionary<string, int> _inventario = new Dictionary<string, int>();
 
     /// <summary>
     /// Numero de máximo de mejoras para la Regadera.
@@ -269,6 +273,49 @@ public class GameManager : MonoBehaviour
         bool _cosechado = true;
         return _cosechado;
     }
+
+    public void RecogerCultivo(string tipo)
+    {
+        if (!_inventario.ContainsKey(tipo))
+        {
+            _inventario[tipo] = 0;
+        }
+
+        if (_inventario[tipo] < 10)
+        {
+            _inventario[tipo]++;
+        }
+        else
+        {
+            Debug.Log("Inventario lleno para " + tipo);
+        }
+    }
+
+    public void VenderCultivo(string tipo, int cantidad)
+    {
+        if (_inventario.ContainsKey(tipo) && _inventario[tipo] >= cantidad)
+        {
+            _inventario[tipo] -= cantidad;
+            ContadorDinero.ActualizarContador();  // Actualiza el texto después de modificar el dinero
+        }
+        else
+        {
+            Debug.Log("No hay suficiente " + tipo + " para vender");
+        }
+    }
+
+    private int ObtenerPrecioCultivo(string tipo)
+    {
+        switch (tipo)
+        {
+            case "zanahoria": return 5;
+            case "lechuga": return 3;
+            case "fresa": return 7;
+            case "maíz": return 4;
+            default: return 1;
+        }
+    }
+
 
     #endregion
 

@@ -185,6 +185,12 @@ public class ContadorDinero : MonoBehaviour
             Contador -= 10000;
         }
     }
+
+
+    public void ActualizarContador() // Cambiado a public
+    {
+        textoDinero.text = "x" + Contador; // Actualiza el texto con el valor del contador
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -193,10 +199,7 @@ public class ContadorDinero : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void ActualizarContador()
-    {
-        textoDinero.text = "x" + Contador; // Actualiza el texto con el valor del contador
-    }
+
     #endregion
 
 } // class ContadorDinero 

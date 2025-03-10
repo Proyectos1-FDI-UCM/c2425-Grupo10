@@ -1,99 +1,197 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
-// Proyectos 1 - Curso 2024-25
+// Archivo que gestiona la lista de cultivos en el juego.
+// Responsable: Alexia Pérez Santana
+// Juego: Roots of Life
+// Proyecto 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
-
+using System.Collections.Generic; // Necesario para listas
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase que representa la lista de cultivos disponibles en el juego.
+/// Se encarga de almacenar los diferentes tipos de cultivos y su información,
+/// como el nombre, el sprite y la cantidad disponible.
 /// </summary>
-/// 
 [System.Serializable]
 public class CultivosLista : MonoBehaviour
 {
-
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-
-    #endregion
-
     // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+    #region Atributos Privados
 
-    public string nombre;       // Nombre del cultivo
-    public Sprite sprite;       // Sprite del cultivo
-    public int cantidad;        // Cantidad de cultivos recolectados
+    /// <summary>
+    /// Lista de cultivos disponibles en el juego.
+    /// </summary>
+    [SerializeField] private List<Cultivo> _cultivosDisponibles;
+
+    /// <summary>
+    /// Clase interna que representa un cultivo individual.
+    /// Contiene el nombre del cultivo, su sprite y la cantidad en el inventario.
+    /// </summary>
+    [System.Serializable]
+    private class Cultivo
+    {
+        [SerializeField] private string _nombre;    // Nombre del cultivo
+        [SerializeField] private Sprite _sprite;   // Imagen del cultivo
+        [SerializeField] private int _cantidad;    // Cantidad recolectada
+
+        /// <summary>
+        /// Constructor de un cultivo.
+        /// </summary>
+        /// <param name="nombre">Nombre del cultivo.</param>
+        /// <param name="sprite">Imagen representativa del cultivo.</param>
+        public Cultivo(string nombre, Sprite sprite)
+        {
+            _nombre = nombre;
+            _sprite = sprite;
+            _cantidad = 1;  // Al recolectar un cultivo, comienza con 1 unidad
+        }
+
+        /// <summary>
+        /// Incrementa la cantidad de este cultivo en el inventario.
+        /// </summary>
+        public void IncrementarCantidad()
+        {
+            _cantidad++;
+        }
+
+        /// <summary>
+        /// Reduce la cantidad del cultivo en el inventario.
+        /// </summary>
+        /// <param name="cantidad">Cantidad a reducir.</param>
+        /// <returns>True si se pudo reducir, False si no hay suficientes unidades.</returns>
+        public bool ReducirCantidad(int cantidad)
+        {
+            if (_cantidad >= cantidad)
+            {
+                _cantidad -= cantidad;
+                return true; // Venta o uso exitoso
+            }
+            return false; // No hay suficientes cultivos
+        }
+
+        /// <summary>
+        /// Obtiene el nombre del cultivo.
+        /// </summary>
+        public string GetNombre()
+        {
+            return _nombre;
+        }
+
+        /// <summary>
+        /// Obtiene la cantidad disponible del cultivo.
+        /// </summary>
+        public int GetCantidad()
+        {
+            return _cantidad;
+        }
+
+        /// <summary>
+        /// Obtiene el sprite del cultivo.
+        /// </summary>
+        public Sprite GetSprite()
+        {
+            return _sprite;
+        }
+    }
 
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Start se ejecuta antes de la primera actualización de fotogramas.
+    /// Inicializa la lista de cultivos con los cultivos predefinidos.
     /// </summary>
-
-    public CultivosLista(string nombre, Sprite sprite)
-        {
-            this.nombre = nombre;
-            this.sprite = sprite;
-            this.cantidad = 1;  // Al recolectar, iniciamos con 1
-        }
-    
-    void Start()
+    private void Start()
     {
-        
+        InicializarCultivos();
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
-    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+
+    /// <summary>
+    /// Devuelve una copia de la lista de cultivos disponibles.
+    /// No se devuelve la lista original para evitar modificaciones externas.
+    /// </summary>
+    public List<(string, int, Sprite)> GetCultivosDisponibles()
+    {
+        List<(string, int, Sprite)> copiaLista = new List<(string, int, Sprite)>();
+        foreach (Cultivo cultivo in _cultivosDisponibles)
+        {
+            copiaLista.Add((cultivo.GetNombre(), cultivo.GetCantidad(), cultivo.GetSprite()));
+        }
+        return copiaLista;
+    }
+
+    /// <summary>
+    /// Busca un cultivo en la lista de cultivos disponibles.
+    /// </summary>
+    /// <param name="nombreCultivo">Nombre del cultivo a buscar.</param>
+    /// <returns>Objeto Cultivo si existe, null si no se encuentra.</returns>
+    private Cultivo BuscarCultivo(string nombreCultivo)
+    {
+        foreach (Cultivo cultivo in _cultivosDisponibles)
+        {
+            if (cultivo.GetNombre() == nombreCultivo)
+            {
+                return cultivo;
+            }
+        }
+        return null;
+    }
+
+    /// <summary>
+    /// Añade un cultivo al inventario. Si ya existe, aumenta su cantidad.
+    /// </summary>
+    /// <param name="nombreCultivo">Nombre del cultivo a añadir.</param>
+    public void AgregarCultivo(string nombreCultivo)
+    {
+        Cultivo cultivo = BuscarCultivo(nombreCultivo);
+        if (cultivo != null)
+        {
+            cultivo.IncrementarCantidad();
+        }
+    }
+
+    /// <summary>
+    /// Reduce la cantidad de un cultivo en el inventario.
+    /// </summary>
+    /// <param name="nombreCultivo">Nombre del cultivo.</param>
+    /// <param name="cantidad">Cantidad a reducir.</param>
+    /// <returns>True si se pudo vender, False si no hay suficientes unidades.</returns>
+    public bool VenderCultivo(string nombreCultivo, int cantidad)
+    {
+        Cultivo cultivo = BuscarCultivo(nombreCultivo);
+        if (cultivo != null)
+        {
+            return cultivo.ReducirCantidad(cantidad);
+        }
+        return false;
+    }
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+
+    /// <summary>
+    /// Inicializa la lista de cultivos con los cultivos predeterminados del juego.
+    /// </summary>
+    private void InicializarCultivos()
+    {
+        _cultivosDisponibles = new List<Cultivo>
+        {
+            new Cultivo("Zanahoria", null), // Se pueden asignar sprites desde el Inspector
+            new Cultivo("Maíz", null),
+            new Cultivo("Fresa", null),
+            new Cultivo("Lechuga", null)
+        };
+    }
 
     #endregion   
-
-} // class CultivosLista 
-// namespace
+} // class CultivosLista

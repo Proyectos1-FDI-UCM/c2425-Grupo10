@@ -52,7 +52,7 @@ public class CultivosManager : MonoBehaviour
     /// <summary>
     /// Escucha la entrada del jugador en cada fotograma para cambiar de herramienta.
     /// </summary>
-    
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -64,57 +64,62 @@ public class CultivosManager : MonoBehaviour
     // Ejemplo: GetPlayerController
 
     // Método para añadir un cultivo al inventario
-    public void AñadirCultivo(CultivosLista nuevoCultivo)
+    public void AñadirCultivo(string nombreCultivo)
     {
-        // Verificar si el cultivo ya existe en alguna casilla
+        // Buscar si el cultivo ya existe en el inventario
         for (int i = 0; i < inventario.Length; i++)
         {
-            if (inventario[i] != null && inventario[i].nombre == nuevoCultivo.nombre)
+            if (inventario[i] != null)
             {
-                // Si el cultivo ya existe y no supera el límite de cantidad
-                if (inventario[i].cantidad < maxItemsPorCasilla)
+                // Buscar el cultivo dentro de la lista de cultivos disponibles
+                var cultivos = inventario[i].GetCultivosDisponibles();
+                foreach (var cultivo in cultivos)
                 {
-                    inventario[i].cantidad++;
-                    return;
+                    if (cultivo.Item1 == nombreCultivo) // Item1 es el nombre en la tupla
+                    {
+                        // Si la cantidad es menor que el máximo, aumentar la cantidad
+                        if (cultivo.Item2 < maxItemsPorCasilla)
+                        {
+                            inventario[i].AgregarCultivo(nombreCultivo);
+                            return;
+                        }
+                    }
                 }
             }
         }
 
-        // Si no se encontró el cultivo, busca una casilla vacía
-        
-        
-            for (int i = 0; i < inventario.Length; i++)
+        // Si no se encontró el cultivo, buscar una casilla vacía
+        for (int i = 0; i < inventario.Length; i++)
+        {
+            if (inventario[i] == null)
             {
-                if (inventario[i] == null)
-                {
-                    inventario[i] = nuevoCultivo;  // Asigna el cultivo en la casilla vacía
-
-                } return;
-                
+                inventario[i] = new CultivosLista(); // Crear nueva instancia
+                inventario[i].AgregarCultivo(nombreCultivo);
+                return;
             }
-        
-        
+        }
 
-        // Si no hay espacio (todo el inventario está lleno), destruye el cultivo
-        Destroy(nuevoCultivo);
-        #endregion
+        // Si el inventario está lleno, el cultivo se destruye
+        Debug.Log("Inventario lleno. Cultivo no añadido.");
     }
 
-        // ---- MÉTODOS PRIVADOS ----
-        #region Métodos Privados
+    #endregion
 
-        /// <summary>
-        /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
-        /// </summary>
-       
-   
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+
+    /// <summary>
+    /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
+    /// </summary>
+
+
 
 
     /// <summary>
     /// Deselecciona la herramienta actualmente en uso, dejando las manos vacías.
     /// </summary>
-   
+
     #endregion
 }
- // class ToolManager 
+// class ToolManager 
 // namespace
