@@ -10,25 +10,38 @@ using UnityEngine;
 public class CropSpawner : MonoBehaviour
 {
     // Prefab de la semilla (asegúrate de que esté en el Inspector)
-    [SerializeField]
-    private GameObject PrefabSemilla1;  // Aquí defines el prefab
+    [SerializeField] private GameObject PrefabSemilla1;  // Aquí defines el prefab
+    [SerializeField] private GameObject PrefabMalasHierbas;
 
-    private Transform _plantas; // Para que los prefabs se asignen en la carpeta correcta
+    private int _maxProb = 3;
 
     private bool b = true;
 
 
     private void Start()
     {
-        _plantas = transform.parent;
+        
     }
 
     /// <summary>
-    /// Reactiva la maceta para que se vuelva a poder usar, se activa desde el método cosechar
+    /// Reactiva la maceta para que se vuelva a poder usar, se activa desde el método cosechar - LLama al método crear malas hierbas si se cumple la probabilidad
     /// </summary>
     public void Reactivar()
     {
         b = true;
+        int i = UnityEngine.Random.Range(0, _maxProb);
+
+        if (i == 0) MalasHierbas();
+    }
+
+    /// <summary>
+    /// Planta la mala hierba  si se cumplen las condiciones
+    /// </summary>
+    private void MalasHierbas()
+    {
+        GameObject planta = Instantiate(PrefabMalasHierbas, transform.position, Quaternion.identity);
+        planta.transform.SetParent(transform);
+        b = false;
     }
 
     /// <summary>
