@@ -79,16 +79,12 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 15)
         {
             Contador -= 15;
-            gameManager.AñadirObjeto("Lechuga", 5);
         }
     }
 
     public void LechugaVendida()
     {
-        if (gameManager.RemoverObjeto("Lechuga", 1))
-        {
             Contador += 20;
-        }
     }
 
     public void ComprarSemillasFresas()
@@ -96,16 +92,12 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 30)
         {
             Contador -= 30;
-            gameManager.AñadirObjeto("Fresa", 5);
         }
     }
 
     public void FresaVendida()
     {
-        if (gameManager.RemoverObjeto("Fresa", 1))
-        {
             Contador += 40;
-        }
     }
 
     public void ComprarSemillasZanahoria()
@@ -113,16 +105,12 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 50)
         {
             Contador -= 50;
-            gameManager.AñadirObjeto("Zanahoria", 5);
         }
     }
 
     public void ZanahoriaVendida()
     {
-        if (gameManager.RemoverObjeto("Zanahoria", 1))
-        {
             Contador += 65;
-        }
     }
 
     public void ComprarSemillasMaiz()
@@ -130,16 +118,12 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 70)
         {
             Contador -= 70;
-            gameManager.AñadirObjeto("Maiz", 5);
         }
     }
 
     public void MaizVendido()
     {
-        if (gameManager.RemoverObjeto("Maiz", 1))
-        {
             Contador += 90;
-        }
     }
 
     public void ComprarAbono()
@@ -147,7 +131,6 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 70)
         {
             Contador -= 70;
-            gameManager.AñadirObjeto("Abono", 5);
         }
     }
 
