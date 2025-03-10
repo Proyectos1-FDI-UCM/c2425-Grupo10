@@ -284,7 +284,7 @@ public class GameManager : MonoBehaviour
         
     }
 
-<<<<<<< HEAD
+
     public void RecogerCultivo(string tipo)
     {
         if (!_inventario.ContainsKey(tipo))
@@ -328,12 +328,12 @@ public class GameManager : MonoBehaviour
     }
 
 
-=======
+
     public int LastWaterAmount()
     {
         return _amountWater;
     }
->>>>>>> 0ae1a3ca9219e5da8c27d386030db78f981789fc
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
