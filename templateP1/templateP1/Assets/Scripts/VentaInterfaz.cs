@@ -1,0 +1,257 @@
+//---------------------------------------------------------
+// Breve descripción del contenido del archivo
+// Responsable de la creación de este archivo: Iria Docampo
+// Nombre del juego
+// Proyectos 1 - Curso 2024-25
+//---------------------------------------------------------
+
+using TMPro;
+using UnityEngine;
+// Añadir aquí el resto de directivas using
+
+
+/// <summary>
+/// Antes de cada class, descripción de qué es y para qué sirve,
+/// usando todas las líneas que sean necesarias.
+/// </summary>
+public class VentaInterfaz : MonoBehaviour
+{
+    // ---- ATRIBUTOS DEL INSPECTOR ----
+    #region Atributos del Inspector (serialized fields)
+    [SerializeField] private GameObject Interactuar;
+    [SerializeField] private GameObject Interfaz;
+
+    [SerializeField] private GameObject MaizButton;
+    [SerializeField] private GameObject LechugaButton;
+    [SerializeField] private GameObject ZanahoriaButton;
+    [SerializeField] private GameObject FresasButton;
+
+    [SerializeField] private GameObject VenderButton;
+
+    [SerializeField] private TextMeshProUGUI DescripcionTexto;
+    [SerializeField] private TextMeshProUGUI ContadorTexto;
+    [SerializeField] private PlayerMovement PlayerMovement;
+    [SerializeField] private ContadorDinero ContadorDinero;
+
+    #endregion
+
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
+    private bool _colisionando = false;
+    private bool _interfazActiva = false;
+
+    private bool _isMaizSelected = false;
+    private bool _isLechugaSelected = false;
+    private bool _isZanahoriaSelected = false;
+    private bool _isFresasSelected = false;
+    private bool _isVenderPressed = false;
+
+    // Variables para el número de cada cultivo en el inventario
+    private int _maxMaiz;
+    private int _maxLechuga;
+    private int _maxZanahoria;
+    private int _maxFresas;
+
+    // Precio de cada cultivo
+    private int _coste; 
+    #endregion
+
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
+    #region Métodos de MonoBehaviour
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before 
+    /// any of the Update methods are called the first time.
+    /// </summary>
+    void Start()
+    {
+        ResetInterfaz();
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        if (_colisionando && InputManager.Instance.UsarIsPressed())
+        {
+            EnableInterfaz();
+        }
+        if (_interfazActiva && InputManager.Instance.SalirIsPressed())
+        {
+            DisableInterfaz();
+        }
+        if (ContadorDinero == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+            }
+        }
+    }
+    #endregion
+
+    // ---- MÉTODOS PÚBLICOS ----
+    #region Métodos públicos
+    public void OnTriggerStay2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Interactuar.SetActive(true);
+            _colisionando = true;
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            Interactuar.SetActive(false);
+            _colisionando = false;
+        }
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Maiz".
+    /// </summary>
+    public void ButtonMaizPressed()
+    {
+        _isMaizSelected = true;
+        DescripcionTexto.text = "1 maíz = 90 RootCoins.";
+
+    }
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Lechuga".
+    /// </summary>
+    public void ButtonLechugaPressed()
+    {
+        _isLechugaSelected = true;
+        DescripcionTexto.text = "1 lechuga = 20 RootCoins.";
+    }
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Zanahoria".
+    /// </summary>
+    public void ButtonZanahoriaPressed()
+    {
+        _isZanahoriaSelected = true;
+        DescripcionTexto.text = "1 zanahoria = 65 RootCoins.";
+    }
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Fresas".
+    /// </summary>
+    public void ButtonFresasPressed()
+    {
+        _isFresasSelected = true;
+        DescripcionTexto.text = "1 fresa = 40 RootCoins.";
+    }
+
+    /// <summary>
+    /// Metodo para cuando el jugador pulsa el boton "Vender".
+    /// </summary>
+
+    public void ButtonVenderPressed()
+    {
+        _isVenderPressed = true;
+        Debug.Log("Vender presionado");
+        if (_isMaizSelected)
+        {
+            _coste = 90;
+            MostrarDescripcion(LevelManager.Instance.GetVenderMaiz(), _maxMaiz, _coste);
+            ContadorDinero.MaizVendido();
+        }
+        if (_isLechugaSelected)
+        {
+            _coste = 20;
+            MostrarDescripcion(LevelManager.Instance.GetVenderLechuga(), _maxLechuga, _coste);
+            ContadorDinero.LechugaVendida();
+        }
+        if (_isZanahoriaSelected)
+        {
+            _coste = 65;
+            MostrarDescripcion(LevelManager.Instance.GetVenderZanahoria(), _maxZanahoria, _coste);
+            ContadorDinero.ZanahoriaVendida();
+        }
+        if (_isFresasSelected)
+        {
+            _coste = 40;
+            MostrarDescripcion(LevelManager.Instance.GetVenderFresas(), _maxFresas, _coste);
+            ContadorDinero.FresaVendida();
+        }
+    }
+    #endregion
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+
+    /// <summary>
+    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
+    /// </summary>
+    private void MostrarDescripcion(int actual, int max, int coste)
+    {
+        if (actual >= max)
+        {
+            DescripcionTexto.text = "Ya no tienes más cultivos para vender.";
+            VenderButton.SetActive(false);
+        }
+        else
+        {
+            DescripcionTexto.text = "TOTAL: " + actual * coste + "RC";
+            VenderButton.SetActive(true);
+        }
+        ContadorTexto.text = actual + "/" + max;
+    }
+
+    /// <summary>
+    /// Metodo para activar la interfaz cuando el jugador pulse "E".
+    /// </summary>
+    private void EnableInterfaz()
+    {
+        _interfazActiva = true;
+        Interactuar.SetActive(false);
+        Interfaz.SetActive(true);
+        _isMaizSelected = true;
+        _isVenderPressed = true;
+        ActualizarInterfaz();
+        PlayerMovement.enablemovement = false;
+    }
+
+    /// <summary>
+    /// Metodo para desactivar la interfaz cuando el jugador pulse "Q".
+    /// </summary>
+    private void DisableInterfaz()
+    {
+        _interfazActiva = false;
+        Interfaz.SetActive(false);
+        Interactuar.SetActive(true);
+        _colisionando = true;
+        PlayerMovement.enablemovement = true;
+
+    }
+
+    /// <summary>
+    /// Metodo para actualizar la interfaz dependiendo del boton seleccionado.
+    /// </summary>
+    private void ActualizarInterfaz()
+    {
+        VenderButton.SetActive(_isVenderPressed);
+        DescripcionTexto.text = "";
+        ContadorTexto.text = "";
+    }
+
+    /// <summary>
+    /// Metodo para resetear la interfaz cada vez que la abrimos.
+    /// </summary>
+    private void ResetInterfaz()
+    {
+        Interactuar.SetActive(false);
+        Interfaz.SetActive(false);
+        VenderButton.SetActive(false);
+        DescripcionTexto.text = "";
+        ContadorTexto.text = "";
+    }
+
+    #endregion
+
+} // class ActivarInterfazVenta 
+// namespace
