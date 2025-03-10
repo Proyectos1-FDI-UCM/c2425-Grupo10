@@ -71,7 +71,7 @@ public class ContadorDinero : MonoBehaviour
             LechugaVendida();
         }
         ActualizarContador();
-        Debug.Log(Contador);
+        //Debug.Log(Contador);
         if (textoDinero == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("TextoContador");
