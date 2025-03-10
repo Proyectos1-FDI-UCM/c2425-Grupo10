@@ -58,6 +58,14 @@ public class ContadorDinero : MonoBehaviour
         {
             LechugaVendida();
         }
+        if (textoDinero == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("TextoContador");
+            if (ObjetoTexto != null)
+            {
+                textoDinero = ObjetoTexto.GetComponent<TextMeshProUGUI>();
+            }
+        }
         ActualizarContador();
     }
 
