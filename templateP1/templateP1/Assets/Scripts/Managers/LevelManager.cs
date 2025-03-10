@@ -78,6 +78,7 @@ public class LevelManager : MonoBehaviour
         }
         GetMejorasRegadera();
         ToolManager.BarraAgua(AguaRegadera, MaxAgua);
+        AguaRegadera = GameManager.Instance.LastWaterAmount();
 
     }
 
@@ -102,12 +103,18 @@ public class LevelManager : MonoBehaviour
     public int Semillas() { return CantidadSemillas; }
     public int Regadera() { return AguaRegadera; }
     public void CambioHerramienta(int i) { Herramienta = i; }
-    public void LlenarRegadera(int i) { AguaRegadera = i; }
+    public void LlenarRegadera(int i)
+    {
+        AguaRegadera = i;
+        ToolManager.BarraAgua(AguaRegadera, MaxAgua);
+        GameManager.Instance.UpdateWaterAmount();
+    }
     public void Plantar() { CantidadSemillas--; }
     public void Regar() 
     { 
         AguaRegadera--;
         ToolManager.BarraAgua(AguaRegadera, MaxAgua);
+        GameManager.Instance.UpdateWaterAmount();
     }
     public static bool HasInstance() { return _instance != null; }
 
