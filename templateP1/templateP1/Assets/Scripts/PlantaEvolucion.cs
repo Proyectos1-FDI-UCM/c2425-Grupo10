@@ -39,8 +39,8 @@ public class PlantaEvolucion : MonoBehaviour
 
     private SpriteRenderer _spriteRenderer;
     private GameObject _avisos;
-    private Transform _plantas;
     private GameObject _maceta;
+    private CropSpawner _cropSpawner;
 
     private int EstadoCrecimiento;
     private bool EstadoRiego;
@@ -55,12 +55,14 @@ public class PlantaEvolucion : MonoBehaviour
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _plantas = transform.parent;
-
+        
+        //_plantas = transform.parent;
+        
         // Se cambia en plantar - para poder implementar un nuevo metodo de inicializacion si es necesario
 
         //_spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
         //EstadoCrecimiento = 0;
+        
         EstadoRiego = false;
         TimerCrecimiento = TiempoCrecimiento;
         
@@ -100,6 +102,9 @@ public class PlantaEvolucion : MonoBehaviour
     public void Planta(GameObject maceta)
     {
         _maceta = maceta;
+
+        _cropSpawner = _maceta.GetComponent<CropSpawner>();
+
         _spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
 
         EstadoCrecimiento = 0;
@@ -163,13 +168,10 @@ public class PlantaEvolucion : MonoBehaviour
     private void Cosechar()
     {
         Destroy(_avisos);
-
         LevelManager.Instance.AgregarAlInventario(NombrePlanta);
-        
-        _maceta.SetActive(true);
-        //GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
-        //Maceta.transform.SetParent(_plantas);
-        
+
+        _cropSpawner.Reactivar();
+
         Destroy(gameObject); // Elimina la planta del mapa tras recogerla
     }
 
