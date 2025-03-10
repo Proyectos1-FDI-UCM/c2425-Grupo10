@@ -15,7 +15,7 @@ using UnityEngine.UI;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class ActivarInterfaz : MonoBehaviour
+public class MejoraInterfaz : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -35,7 +35,8 @@ public class ActivarInterfaz : MonoBehaviour
     [SerializeField] private GameObject ComprarButton;
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
-    [SerializeField] private PlayerMovement PlayerMovement; 
+    [SerializeField] private PlayerMovement PlayerMovement;
+    [SerializeField] private ContadorDinero ContadorDinero;
 
 
 
@@ -97,6 +98,14 @@ public class ActivarInterfaz : MonoBehaviour
         if (_interfazActiva && InputManager.Instance.SalirIsPressed())
         {
             DisableInterfaz();
+        }
+        if (ContadorDinero == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+            }
         }
     }
     #endregion
@@ -201,7 +210,17 @@ public class ActivarInterfaz : MonoBehaviour
     {
         if (_isMejoraSelected && _algoSeleccionado)
         {
-            if (_seleccionRegadera)
+            if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 1000) && (GameManager.Instance.GetMejorasInventario() == 0))
+            {
+                GameManager.Instance.MejorarRegadera();
+                MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+            }
+            else if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 5000) && (GameManager.Instance.GetMejorasInventario() == 1))
+            {
+                GameManager.Instance.MejorarRegadera();
+                MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+            }
+            else if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 10000) && (GameManager.Instance.GetMejorasInventario() == 2))
             {
                 GameManager.Instance.MejorarRegadera();
                 MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
@@ -309,5 +328,5 @@ public class ActivarInterfaz : MonoBehaviour
     }
     #endregion
 
-} // class ActivarInterfaz 
+} // class MejoraInterfaz 
 // namespace

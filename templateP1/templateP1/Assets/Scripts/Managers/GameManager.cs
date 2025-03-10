@@ -46,6 +46,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     [SerializeField] int MejorasInventario = 0;
 
+    /// <summary>
+    /// Referencia al script que maneja el dinero
+    /// <summary>
+    [SerializeField] private ContadorDinero ContadorDinero;
+
 
     #endregion
 
@@ -124,6 +129,14 @@ public class GameManager : MonoBehaviour
         if (Input.GetKey(KeyCode.Escape))
         {
             Application.Quit();
+        }
+        if (ContadorDinero == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+            }
         }
     }
     /// <summary>
@@ -232,6 +245,18 @@ public class GameManager : MonoBehaviour
         if (MejorasRegadera < _maxMejorasRegadera)
         {
             MejorasRegadera++;
+        }
+        if (MejorasRegadera == 1)
+        {
+            ContadorDinero.Mejora1Regadera();
+        }
+        else if (MejorasRegadera == 2)
+        {
+            ContadorDinero.Mejora2Regadera();
+        }
+        else if (MejorasRegadera == 3)
+        {
+            ContadorDinero.Mejora3Regadera();
         }
     }
 

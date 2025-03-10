@@ -39,8 +39,8 @@ public class CropSpawner : MonoBehaviour
         // Si el jugador presiona la tecla E, hay semillas 
         if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 5 && LevelManager.Instance.Semillas() > 0 && b)
         {
-            Debug.Log("Destruir maceta");
-            Destroy(gameObject);
+            Debug.Log("Desactivar maceta");
+            gameObject.SetActive(false);
 
             b = false;
             Plantar(); // Llama a la función que planta la semilla en la posición determinada
@@ -61,7 +61,7 @@ public class CropSpawner : MonoBehaviour
 
         // Verifica si la planta tiene el script PlantaEvolucion
         PlantaEvolucion plantaEvolucion = planta.GetComponent<PlantaEvolucion>();
-        plantaEvolucion.Planta();
+        plantaEvolucion.Planta(gameObject);
 
         //Huerto huerto = GetComponentInParent<Huerto>();
         //huerto.CambioPlanta(transform, planta);

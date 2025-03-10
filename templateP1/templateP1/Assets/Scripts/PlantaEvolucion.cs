@@ -40,6 +40,7 @@ public class PlantaEvolucion : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private GameObject _avisos;
     private Transform _plantas;
+    private GameObject _maceta;
 
     private int EstadoCrecimiento;
     private bool EstadoRiego;
@@ -96,8 +97,9 @@ public class PlantaEvolucion : MonoBehaviour
     /// <summary>
     /// Se activa cuando la planta inicia desde una semilla, establece el estado de crecimiento y de riego y el tiempo de crecimiento.
     /// </summary>
-    public void Planta()
+    public void Planta(GameObject maceta)
     {
+        _maceta = maceta;
         _spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
 
         EstadoCrecimiento = 0;
@@ -164,8 +166,9 @@ public class PlantaEvolucion : MonoBehaviour
 
         LevelManager.Instance.AgregarAlInventario(NombrePlanta);
         
-        GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
-        Maceta.transform.SetParent(_plantas);
+        _maceta.SetActive(true);
+        //GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
+        //Maceta.transform.SetParent(_plantas);
         
         Destroy(gameObject); // Elimina la planta del mapa tras recogerla
     }

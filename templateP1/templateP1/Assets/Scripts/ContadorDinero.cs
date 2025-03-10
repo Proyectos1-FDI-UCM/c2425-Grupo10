@@ -90,6 +90,11 @@ public class ContadorDinero : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    public int GetContadorDinero()
+    { 
+        return Contador; 
+    }
     public void ComprarSemillasLechuga()
     {
         if (Contador >= 15)
@@ -102,7 +107,7 @@ public class ContadorDinero : MonoBehaviour
     }
     public void LechugaVendida()
     {
-        Contador += 20;
+        Contador += 1000;
     }
     //-------------------------
     public void ComprarSemillasFresas()
@@ -158,7 +163,28 @@ public class ContadorDinero : MonoBehaviour
 
         }
     }
-
+    //------------------------
+    public void Mejora1Regadera()
+    {
+        if (Contador >= 1000)
+        {
+            Contador -= 1000;
+        }
+    }
+    public void Mejora2Regadera()
+    {
+        if (Contador >= 5000)
+        {
+            Contador -= 5000;
+        }
+    }
+    public void Mejora3Regadera()
+    {
+        if (Contador >= 10000)
+        {
+            Contador -= 10000;
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

@@ -29,6 +29,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int CantidadSemillas = 100; // Semillas
     [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
     [SerializeField] GameObject PrefabSemilla1;
+    [SerializeField] GameManager GameManager;
 
     [SerializeField] int ActualMaiz = 0; // Maiz que quieres vender
     [SerializeField] int ActualLechuga = 0;
@@ -39,6 +40,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int MaxLechuga = 0;
     [SerializeField] int MaxZanahoria = 0;
     [SerializeField] int MaxFresas = 0;
+    [SerializeField] int MaxAgua;
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
@@ -65,6 +67,15 @@ public class LevelManager : MonoBehaviour
             _instance = this;
             Init();
         }
+        if (GameManager == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                GameManager = ObjetoTexto.GetComponent<GameManager>();
+            }
+        }
+        GetMejorasRegadera();
     }
 
     #endregion
@@ -121,6 +132,8 @@ public class LevelManager : MonoBehaviour
     public int GetVenderLechuga() { return ActualLechuga; }
     public int GetVenderZanahoria() { return ActualZanahoria; }
     public int GetVenderFresas() { return ActualMaiz; }
+    public int GetMaxAgua() { return MaxAgua; }
+
 
     /// <summary>
     /// Metodo para aumentar +1 los cultivos seleccionados (maiz).
@@ -164,6 +177,25 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para aumentar +1 los cultivos seleccionados (fresas).
+    /// <summary>
+    public void Mejora0Regadera()
+    {
+        MaxAgua = 6;
+    }
+    public void Mejora1Regadera()
+    {
+        MaxAgua = 9;
+    }
+    public void Mejora2Regadera()
+    {
+        MaxAgua = 15;
+    }
+    public void Mejora3Regadera()
+    {
+        MaxAgua = 20;
+    }
 
     #endregion
 
@@ -174,7 +206,25 @@ public class LevelManager : MonoBehaviour
     {
         inventario = new Dictionary<string, int>();
     }
-
+    private void GetMejorasRegadera()
+    {
+        if((GameManager.GetMejorasRegadera() == 0)) 
+        {
+            Mejora0Regadera();
+        }
+        if ((GameManager.GetMejorasRegadera() == 1))
+        {
+            Mejora1Regadera();
+        }
+        if ((GameManager.GetMejorasRegadera() == 2))
+        {
+            Mejora2Regadera();
+        }
+        if ((GameManager.GetMejorasRegadera() == 3))
+        {
+            Mejora3Regadera();
+        }
+    }
     #endregion
 }
 #endregion
