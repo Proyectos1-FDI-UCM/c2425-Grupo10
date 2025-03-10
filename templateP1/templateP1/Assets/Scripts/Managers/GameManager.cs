@@ -90,6 +90,10 @@ public class GameManager : MonoBehaviour
     /// Numero de máximo de mejoras para el Inventario.
     /// <summary>
     private int _maxVenderMaiz = 3;
+    /// <summary>
+    /// Cantidad de agua de la regadera.
+    /// <summary>
+    private int _amountWater = 6;
 
     #endregion
 
@@ -273,7 +277,14 @@ public class GameManager : MonoBehaviour
         bool _cosechado = true;
         return _cosechado;
     }
+    public int UpdateWaterAmount()
+    {
+        _amountWater = LevelManager.Instance.Regadera();
+        return _amountWater;
+        
+    }
 
+<<<<<<< HEAD
     public void RecogerCultivo(string tipo)
     {
         if (!_inventario.ContainsKey(tipo))
@@ -317,6 +328,12 @@ public class GameManager : MonoBehaviour
     }
 
 
+=======
+    public int LastWaterAmount()
+    {
+        return _amountWater;
+    }
+>>>>>>> 0ae1a3ca9219e5da8c27d386030db78f981789fc
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
