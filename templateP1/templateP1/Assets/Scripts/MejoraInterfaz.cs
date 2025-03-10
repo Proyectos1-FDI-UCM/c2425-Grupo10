@@ -210,17 +210,17 @@ public class MejoraInterfaz : MonoBehaviour
     {
         if (_isMejoraSelected && _algoSeleccionado)
         {
-            if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 1000) && (GameManager.Instance.GetMejorasInventario() == 0))
+            if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 1000) && (GameManager.Instance.GetMejorasRegadera() == 0))
             {
                 GameManager.Instance.MejorarRegadera();
                 MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
             }
-            else if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 5000) && (GameManager.Instance.GetMejorasInventario() == 1))
+            else if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 5000) && (GameManager.Instance.GetMejorasRegadera() == 1))
             {
                 GameManager.Instance.MejorarRegadera();
                 MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
             }
-            else if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 10000) && (GameManager.Instance.GetMejorasInventario() == 2))
+            else if (_seleccionRegadera && (ContadorDinero.GetContadorDinero() >= 10000) && (GameManager.Instance.GetMejorasRegadera() == 2))
             {
                 GameManager.Instance.MejorarRegadera();
                 MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);

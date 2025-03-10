@@ -256,7 +256,7 @@ public class GameManager : MonoBehaviour
     {
         if (MejorasRegadera < _maxMejorasRegadera)
         {
-            MejorasRegadera++;
+            MejorasRegadera += 1;
         }
         if (MejorasRegadera == 1)
         {
