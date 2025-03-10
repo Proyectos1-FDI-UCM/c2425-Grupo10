@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable: Javier Librada Jerez
+// Responsable: Natalia Nita
 // Nombre del juego: Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
