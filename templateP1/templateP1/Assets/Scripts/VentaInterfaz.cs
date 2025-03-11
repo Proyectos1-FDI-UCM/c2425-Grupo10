@@ -47,10 +47,13 @@ public class VentaInterfaz : MonoBehaviour
     private bool _isVenderPressed = false;
 
     // Variables para el número de cada cultivo en el inventario
-    private int _maxMaiz;
-    private int _maxLechuga;
-    private int _maxZanahoria;
-    private int _maxFresas;
+    //private int _maxMaiz;
+    //private int _maxLechuga;
+    //private int _maxZanahoria;
+    //private int _maxFresas;
+
+    private int _cantidadAVender = 1;
+    private int _maxMaiz, _maxLechuga, _maxZanahoria, _maxFresas;
 
     // Precio de cada cultivo
     private int _coste; 
@@ -146,6 +149,21 @@ public class VentaInterfaz : MonoBehaviour
         DescripcionTexto.text = "1 fresa = 40 RootCoins.";
     }
 
+    public void AumentarCantidad()
+    {
+        _cantidadAVender++;
+        ContadorTexto.text = _cantidadAVender.ToString();
+    }
+
+    public void DisminuirCantidad()
+    {
+        if (_cantidadAVender > 1)
+        {
+            _cantidadAVender--;
+            ContadorTexto.text = _cantidadAVender.ToString();
+        }
+    }
+
     /// <summary>
     /// Metodo para cuando el jugador pulsa el boton "Vender".
     /// </summary>
@@ -158,25 +176,25 @@ public class VentaInterfaz : MonoBehaviour
         {
             _coste = 90;
             MostrarDescripcion(LevelManager.Instance.GetVenderMaiz(), _maxMaiz, _coste);
-            ContadorDinero.MaizVendido();
+            ContadorDinero.MaizVendido(_cantidadAVender);
         }
         if (_isLechugaSelected)
         {
             _coste = 20;
             MostrarDescripcion(LevelManager.Instance.GetVenderLechuga(), _maxLechuga, _coste);
-            ContadorDinero.LechugaVendida();
+            ContadorDinero.LechugaVendida(_cantidadAVender);
         }
         if (_isZanahoriaSelected)
         {
             _coste = 65;
             MostrarDescripcion(LevelManager.Instance.GetVenderZanahoria(), _maxZanahoria, _coste);
-            ContadorDinero.ZanahoriaVendida();
+            ContadorDinero.ZanahoriaVendida(_cantidadAVender);
         }
         if (_isFresasSelected)
         {
             _coste = 40;
             MostrarDescripcion(LevelManager.Instance.GetVenderFresas(), _maxFresas, _coste);
-            ContadorDinero.FresaVendida();
+            ContadorDinero.FresaVendida(_cantidadAVender);
         }
     }
     #endregion

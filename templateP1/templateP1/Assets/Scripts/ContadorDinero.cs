@@ -62,14 +62,16 @@ public class ContadorDinero : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ComprarSemillasLechuga();
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            LechugaVendida();
-        }
+        //if (Input.GetKeyDown(KeyCode.F))
+        //{
+        //    ComprarSemillasLechuga();
+        //}
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    LechugaVendida();
+        //}
+
+
         ActualizarContador();
         //Debug.Log(Contador);
         if (textoDinero == null)
@@ -105,9 +107,11 @@ public class ContadorDinero : MonoBehaviour
 
         }
     }
-    public void LechugaVendida()
+    public void LechugaVendida(int cantidad)
     {
-        Contador += 1000;
+        int total = cantidad * 20;
+        Contador += total;
+        ActualizarContador();
     }
     //-------------------------
     public void ComprarSemillasFresas()
@@ -119,9 +123,11 @@ public class ContadorDinero : MonoBehaviour
 
         }
     }
-    public void FresaVendida()
+    public void FresaVendida(int cantidad)
     {
-        Contador += 40;
+        int total = cantidad * 40;
+        Contador += total;
+        ActualizarContador();
     }
     //-------------------------
     public void ComprarSemillasZanahoria()
@@ -133,9 +139,11 @@ public class ContadorDinero : MonoBehaviour
 
         }
     }
-    public void ZanahoriaVendida()
+    public void ZanahoriaVendida(int cantidad)
     {
-        Contador += 65;
+        int total = cantidad * 65;
+        Contador += total;
+        ActualizarContador();
     }
     //-------------------------
     public void ComprarSemillasMaiz()
@@ -146,9 +154,11 @@ public class ContadorDinero : MonoBehaviour
             //aqui tengo que añadir que se añadan 5 al inventario
         }
     }
-    public void MaizVendido()
+    public void MaizVendido(int cantidad)
     {
-        Contador += 90;
+        int total = cantidad * 90;
+        Contador += total;
+        ActualizarContador();
     }
     //-------------------------
     public void ComprarAbono()
