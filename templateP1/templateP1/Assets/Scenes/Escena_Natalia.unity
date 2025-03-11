@@ -485,7 +485,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2070692588}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VenderProducto, Assembly-CSharp
         m_MethodName: SeleccionarFresas
         m_Mode: 1
@@ -1180,8 +1180,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2070692588}
-        m_TargetAssemblyTypeName: VenderProducto, Assembly-CSharp
+      - m_Target: {fileID: 275213580}
+        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
         m_MethodName: DisminuirCantidad
         m_Mode: 1
         m_Arguments:
@@ -2701,8 +2701,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2070692588}
-        m_TargetAssemblyTypeName: VenderProducto, Assembly-CSharp
+      - m_Target: {fileID: 275213580}
+        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
         m_MethodName: AumentarCantidad
         m_Mode: 1
         m_Arguments:
@@ -8537,7 +8537,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2070692588}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VenderProducto, Assembly-CSharp
         m_MethodName: SeleccionarLechuga
         m_Mode: 1
@@ -11493,106 +11493,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &2035998520
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2035998522}
-  - component: {fileID: 2035998521}
-  m_Layer: 0
-  m_Name: VentaInt
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2035998521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035998520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21c8cab7f589fe444b1e5ff05934aa72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interactuar: {fileID: 0}
-  Interfaz: {fileID: 0}
-  MaizButton: {fileID: 0}
-  LechugaButton: {fileID: 0}
-  ZanahoriaButton: {fileID: 0}
-  FresasButton: {fileID: 0}
-  VenderButton: {fileID: 0}
-  DescripcionTexto: {fileID: 0}
-  ContadorTexto: {fileID: 0}
-  PlayerMovement: {fileID: 0}
-  ContadorDinero: {fileID: 0}
---- !u!4 &2035998522
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2035998520}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 293.25378, y: 199.00755, z: -1.6975462}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2070692587
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2070692589}
-  - component: {fileID: 2070692588}
-  m_Layer: 0
-  m_Name: Venta +/-
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2070692588
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070692587}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba7ebdc9f5032134497f57f26037e50f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  descripcionTexto: {fileID: 1032769233}
---- !u!4 &2070692589
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070692587}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 220.49968, y: 166.74478, z: -0.55639815}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2101349556
 GameObject:
   m_ObjectHideFlags: 0
@@ -11668,7 +11568,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2070692588}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VenderProducto, Assembly-CSharp
         m_MethodName: SeleccionarMaiz
         m_Mode: 1
@@ -11833,7 +11733,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2070692588}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: VenderProducto, Assembly-CSharp
         m_MethodName: SeleccionarZanahorias
         m_Mode: 1
@@ -11897,5 +11797,3 @@ SceneRoots:
   - {fileID: 825967872}
   - {fileID: 727425068}
   - {fileID: 340743116}
-  - {fileID: 2070692589}
-  - {fileID: 2035998522}
