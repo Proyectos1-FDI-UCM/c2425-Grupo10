@@ -5,7 +5,6 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -50,14 +49,7 @@ public class ContadorDinero : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            ComprarSemillasLechuga();
-        }
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            LechugaVendida();
-        }
+        
         if (textoDinero == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("TextoContador");
@@ -82,9 +74,11 @@ public class ContadorDinero : MonoBehaviour
         }
     }
 
-    public void LechugaVendida()
+    public void LechugaVendida(int cantidad)
     {
-            Contador += 20;
+        int total = cantidad * 20;
+        Contador += total;
+        ActualizarContador();
     }
 
     public void ComprarSemillasFresas()
@@ -95,9 +89,11 @@ public class ContadorDinero : MonoBehaviour
         }
     }
 
-    public void FresaVendida()
+    public void FresaVendida(int cantidad)
     {
-            Contador += 40;
+        int total = cantidad * 40;
+        Contador += total;
+        ActualizarContador();
     }
 
     public void ComprarSemillasZanahoria()
@@ -108,9 +104,11 @@ public class ContadorDinero : MonoBehaviour
         }
     }
 
-    public void ZanahoriaVendida()
+    public void ZanahoriaVendida(int cantidad)
     {
-            Contador += 65;
+        int total = cantidad * 65;
+        Contador += total;
+        ActualizarContador();
     }
 
     public void ComprarSemillasMaiz()
@@ -121,9 +119,11 @@ public class ContadorDinero : MonoBehaviour
         }
     }
 
-    public void MaizVendido()
+    public void MaizVendido(int cantidad)
     {
-            Contador += 90;
+        int total = cantidad * 90;
+        Contador += total;
+        ActualizarContador();
     }
 
     public void ComprarAbono()
@@ -149,3 +149,4 @@ public class ContadorDinero : MonoBehaviour
 
     #endregion
 }
+
