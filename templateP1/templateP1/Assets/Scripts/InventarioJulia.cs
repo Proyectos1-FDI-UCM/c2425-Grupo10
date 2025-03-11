@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using TMPro;
 // Añadir aquí el resto de directivas using
 
 
@@ -34,17 +35,18 @@ public class InventarioJulia : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    int[] inventario;
+    private int[] inventario;
+    private TextMeshProUGUI Unidades;
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
+
     // Por defecto están los típicos (Update y Start) pero:
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
@@ -77,9 +79,13 @@ public class InventarioJulia : MonoBehaviour
     {
         for (int i = 0; i < 4; i++)
         {
-                GameObject _crops = transform.GetChild(i).gameObject;
-                if (inventario[i] != 0) _crops.SetActive(true);
-                else _crops.SetActive(false);
+             GameObject _crops = transform.GetChild(i).gameObject;
+            if (inventario[i] != 0) 
+            { _crops.SetActive(true);
+                Unidades = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                Unidades.text = inventario[i] + "x";
+            }
+            else _crops.SetActive(false);
         }
     }
     #endregion

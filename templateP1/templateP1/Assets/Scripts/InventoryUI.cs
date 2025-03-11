@@ -22,11 +22,11 @@ public class InventoryCultivos : MonoBehaviour
     [SerializeField] private float quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
 
 
-    [SerializeField] private CultivosLista cultivosLista; // El inventario del jugador
-    [SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
-    //[SerializeField] private GameObject[] filasCasillas;
-    [SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
-    [SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
+    //[SerializeField] private CultivosLista cultivosLista; // El inventario del jugador
+    //[SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
+    ////[SerializeField] private GameObject[] filasCasillas;
+    //[SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
+    //[SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
 
     #endregion
 
@@ -49,7 +49,7 @@ public class InventoryCultivos : MonoBehaviour
         // Inicializamos la posición del inventario en oculto
         inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, hiddenY);
 
-        ActualizarInventario();
+        //ActualizarInventario();
     }
 
     void Update()
@@ -58,8 +58,7 @@ public class InventoryCultivos : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
-            ActualizarInventario();
-
+            //ActualizarInventario();
         }
 
         // Define la posición objetivo del inventario
@@ -83,30 +82,6 @@ public class InventoryCultivos : MonoBehaviour
         );
 
 
-    }
-
-    public void ActualizarInventario()
-    {
-        inventario = cultivosLista.GetCultivosDisponibles();
-
-        for (int i = 0; i < casillasInventario.Length; i++)
-        {
-            if (i < inventario.Count)
-            {
-                var cultivo = inventario[i];
-                imagenesCultivos[i].sprite = cultivo.Item3;
-                cantidadesCultivos[i].text = cultivo.Item2.ToString();
-                casillasInventario[i].SetActive(true);
-            }
-            else
-            {
-                casillasInventario[i].SetActive(false);
-            }
-
-            
-        }
-
-        
     }
 
     #endregion
