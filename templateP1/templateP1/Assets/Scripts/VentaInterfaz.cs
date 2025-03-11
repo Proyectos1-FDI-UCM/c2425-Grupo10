@@ -121,53 +121,47 @@ public class VentaInterfaz : MonoBehaviour
     public void ButtonMaizPressed()
     {
         _isMaizSelected = true;
-        _isLechugaSelected = false;
-        _isZanahoriaSelected = false;
-        _isFresasSelected = false;
-        DescripcionTexto.text = "1 maíz = 90 RootCoins.";
+        _isLechugaSelected = _isZanahoriaSelected = _isFresasSelected = false;
 
+        _cantidadAVender = 1; // Reinicia la cantidad al cambiar de cultivo
+        DescripcionTexto.text = "1 maíz = 90 RootCoins.";
+        ActualizarTextoCantidad();
     }
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Lechuga".
-    /// </summary>
+
     public void ButtonLechugaPressed()
     {
         _isLechugaSelected = true;
-        _isMaizSelected = false;
-        _isZanahoriaSelected = false;
-        _isFresasSelected = false;
+        _isMaizSelected = _isZanahoriaSelected = _isFresasSelected = false;
+
+        _cantidadAVender = 1;
         DescripcionTexto.text = "1 lechuga = 20 RootCoins.";
+        ActualizarTextoCantidad();
     }
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Zanahoria".
-    /// </summary>
+
     public void ButtonZanahoriaPressed()
     {
         _isZanahoriaSelected = true;
-        DescripcionTexto.text = "1 zanahoria = 65 RootCoins.";
-        _isMaizSelected = false;
-        _isLechugaSelected = false;
-        _isFresasSelected = false;
+        _isMaizSelected = _isLechugaSelected = _isFresasSelected = false;
 
+        _cantidadAVender = 1;
+        DescripcionTexto.text = "1 zanahoria = 65 RootCoins.";
+        ActualizarTextoCantidad();
     }
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Fresas".
-    /// </summary>
+
     public void ButtonFresasPressed()
     {
         _isFresasSelected = true;
+        _isMaizSelected = _isLechugaSelected = _isZanahoriaSelected = false;
+
+        _cantidadAVender = 1;
         DescripcionTexto.text = "1 fresa = 40 RootCoins.";
-        _isMaizSelected = false;
-        _isLechugaSelected = false;
-        _isZanahoriaSelected = false;
-
-
+        ActualizarTextoCantidad();
     }
 
     public void AumentarCantidad()
     {
         _cantidadAVender++;
-        ContadorTexto.text = _cantidadAVender.ToString();
+        ActualizarTextoCantidad();
     }
 
     public void DisminuirCantidad()
@@ -175,9 +169,11 @@ public class VentaInterfaz : MonoBehaviour
         if (_cantidadAVender > 1)
         {
             _cantidadAVender--;
-            ContadorTexto.text = _cantidadAVender.ToString();
+            ActualizarTextoCantidad();
         }
+
     }
+
 
     /// <summary>
     /// Metodo para cuando el jugador pulsa el boton "Vender".
@@ -223,6 +219,12 @@ public class VentaInterfaz : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
+    private void ActualizarTextoCantidad1()
+    {
+        ContadorTexto.text = $"{_cantidadAVender} = {_cantidadAVender * _coste} RC";
+    }
+
+
     /// <summary>
     /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
     /// </summary>
@@ -267,6 +269,28 @@ public class VentaInterfaz : MonoBehaviour
         PlayerMovement.enablemovement = true;
 
     }
+
+    private void ActualizarTextoCantidad()
+    {
+        if (ContadorTexto == null)
+        {
+            Debug.LogError("ContadorTexto no está asignado en el Inspector.");
+            return;
+        }
+
+        int precioUnitario = 0;
+
+        if (_isMaizSelected) precioUnitario = 90;
+        else if (_isLechugaSelected) precioUnitario = 20;
+        else if (_isZanahoriaSelected) precioUnitario = 65;
+        else if (_isFresasSelected) precioUnitario = 40;
+
+        int totalGanado = _cantidadAVender * precioUnitario;
+
+        // Mostrar la cantidad junto con el dinero ganado
+        ContadorTexto.text = _cantidadAVender + " = " + totalGanado + " RC";
+    }
+
 
     /// <summary>
     /// Metodo para actualizar la interfaz dependiendo del boton seleccionado.
