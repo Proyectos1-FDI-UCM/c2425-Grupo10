@@ -26,6 +26,8 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private GameObject PrefabMaceta;
     [SerializeField] private string NombrePlanta = "Cultivo";
 
+    [SerializeField] private int Tipo = 1;
+
     // Pruebas
     [SerializeField] private int TiempoCrecimiento = 10;
     [SerializeField] private int TiempoRegado = 20;
@@ -127,6 +129,9 @@ public class PlantaEvolucion : MonoBehaviour
         _cosechado = true;
 
         Destroy(gameObject); // Elimina la planta del mapa tras recogerla
+
+        int [] i = GameManager.Instance.Inventario();
+        i[Tipo]++;
     }
 
     public bool IsCosechado()

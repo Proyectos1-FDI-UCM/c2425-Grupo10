@@ -95,6 +95,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     private int _amountWater = 6;
 
+    /// <summary>
+    /// Array Inventario
+    /// <summary>
+    private int[] inventario = new int[10];
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -332,6 +337,12 @@ public class GameManager : MonoBehaviour
     public int LastWaterAmount()
     {
         return _amountWater;
+    }
+
+
+    public int[] Inventario()
+    {
+        return inventario;
     }
 
     #endregion

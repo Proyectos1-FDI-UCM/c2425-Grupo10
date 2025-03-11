@@ -55,6 +55,7 @@ public class LevelManager : MonoBehaviour
     /// Inventario de cultivos recolectados.
     /// </summary>
     private Dictionary<string, int> inventario = new Dictionary<string, int>();
+    private int[] _inventario;
 
     #endregion
 
@@ -80,6 +81,7 @@ public class LevelManager : MonoBehaviour
         GetMejorasRegadera();
         ToolManager.BarraAgua(AguaRegadera, MaxAgua);
         AguaRegadera = GameManager.Instance.LastWaterAmount();
+        _inventario = GameManager.Instance.Inventario();
 
     }
 
@@ -134,7 +136,9 @@ public class LevelManager : MonoBehaviour
         }
        GuardarCultivos(nombrePlanta, inventario[nombrePlanta]);
         Debug.Log(nombrePlanta + " añadida al inventario. Cantidad: " + inventario[nombrePlanta]);
+
     }
+
 
     public Dictionary <string, int> GetInventario()
     {
