@@ -53,7 +53,7 @@ public class ContadorDinero : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Contador += 100;
+        Contador += 100000;
 
     }
 
