@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Script para gestionar la visibilidad del inventario.
-// Responsable: Alexia Pérez Santana
+// Responsable: Alexia Pérez Santana, Iria Docampo Zotes
 // Nombre del juego: Roots of Life
 // Curso 2024-25
 //---------------------------------------------------------
@@ -102,7 +102,11 @@ public class InventoryCultivos : MonoBehaviour
             {
                 casillasInventario[i].SetActive(false);
             }
+
+            
         }
+
+        
     }
 
     #endregion

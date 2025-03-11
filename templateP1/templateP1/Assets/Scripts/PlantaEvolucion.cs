@@ -46,6 +46,7 @@ public class PlantaEvolucion : MonoBehaviour
     private bool EstadoRiego;
     private float TimerCrecimiento;
     private float TimerRiego;
+    private bool _cosechado = false;
 
     #endregion
 
@@ -114,6 +115,30 @@ public class PlantaEvolucion : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Cosecharla planta.
+    /// </summary>
+    public void Cosechar()
+    {
+        Destroy(_avisos);
+        LevelManager.Instance.AgregarAlInventario(NombrePlanta);
+
+        _cropSpawner.Reactivar();
+        _cosechado = true;
+
+        Destroy(gameObject); // Elimina la planta del mapa tras recogerla
+    }
+
+    public bool IsCosechado()
+    {
+        return _cosechado;
+    }
+
+    public void ResetCosechado()
+    {
+        _cosechado = false;
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -163,18 +188,7 @@ public class PlantaEvolucion : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Cosecharla planta.
-    /// </summary>
-    private void Cosechar()
-    {
-        Destroy(_avisos);
-        LevelManager.Instance.AgregarAlInventario(NombrePlanta);
 
-        _cropSpawner.Reactivar();
-
-        Destroy(gameObject); // Elimina la planta del mapa tras recogerla
-    }
 
     // AVISOS ------------------
     /// <summary>

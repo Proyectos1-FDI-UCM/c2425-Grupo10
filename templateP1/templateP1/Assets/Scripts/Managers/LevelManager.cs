@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] int MaxZanahoria = 0;
     [SerializeField] int MaxFresas = 0;
     [SerializeField] int MaxAgua;
-
+    #endregion
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
@@ -57,6 +57,7 @@ public class LevelManager : MonoBehaviour
     private Dictionary<string, int> inventario = new Dictionary<string, int>();
 
     #endregion
+
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -131,15 +132,20 @@ public class LevelManager : MonoBehaviour
         {
             inventario[nombrePlanta] = 1;
         }
-       // GuardarCultivos(nombrePlanta, inventario[nombrePlanta]);
+       GuardarCultivos(nombrePlanta, inventario[nombrePlanta]);
         Debug.Log(nombrePlanta + " añadida al inventario. Cantidad: " + inventario[nombrePlanta]);
     }
 
-    //   public (string, int) GuardarCultivos(string nombre, int max)
-    //   {
-    //       return (nombre, max);
-    //
-    //  }
+    public Dictionary <string, int> GetInventario()
+    {
+        return inventario;
+    }
+
+       public (string, int) GuardarCultivos(string nombre, int num)
+       {
+           return (nombre, num);
+    
+      }
 
 
     public int GetVenderMaiz() { return ActualMaiz; }
@@ -241,4 +247,3 @@ public class LevelManager : MonoBehaviour
     }
     #endregion
 }
-#endregion

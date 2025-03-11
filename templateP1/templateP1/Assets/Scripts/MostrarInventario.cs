@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
@@ -21,15 +22,17 @@ public class MostrarInventario : MonoBehaviour
 
     // Prefabs cultivos
     [SerializeField] private GameObject MaizPrefab;
-    [SerializeField] private GameObject LechugaPrefab;
-    [SerializeField] private GameObject ZanahoriaPrefab;
-    [SerializeField] private GameObject FresasPrefab;
+    [SerializeField] private Sprite LechugaPrefab;
+    [SerializeField] private Sprite ZanahoriaPrefab;
+    [SerializeField] private Sprite FresasPrefab;
+    [SerializeField] private PlantaEvolucion PlantaEvolucion; 
 
     
     [SerializeField] private GameObject[] Casillas = new GameObject [24];
     [SerializeField] private int [] Cultivo = new int [24]; // Maiz(0), Lechuga (1), Zanahoria(2), Fresas(3)
     [SerializeField] private int [] Cantidad = new int [24];
     [SerializeField] private TextMeshProUGUI [] CantidadTexto = new TextMeshProUGUI [24];
+
 
     
     //private struct Inventario
@@ -48,6 +51,8 @@ public class MostrarInventario : MonoBehaviour
     #region Atributos Privados (private fields)
     
     private bool[] _casillaLlena = new bool [24];
+    private string _nombrePlanta;
+    private Dictionary<string, int> inventario = new Dictionary<string, int>();
 
     #endregion
 
@@ -65,6 +70,7 @@ public class MostrarInventario : MonoBehaviour
     void Start()
     {
         // GetInventario del GameManager
+        //PlantaEvolucion = GameObject.Find("InventarioManager").GetComponent<PlantaEvolucion> ();
     }
 
     /// <summary>
@@ -72,8 +78,13 @@ public class MostrarInventario : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Falta el método para pasar el inventario a este script
-        AgregarAlInventario(Casillas, Cultivo, Cantidad, CantidadTexto);
+        if (PlantaEvolucion != null && PlantaEvolucion.IsCosechado()) // Cuando se llama al método Cosechar() en PlantaEvolucion
+        {
+            AgregarAlInventario(Casillas, Cultivo, Cantidad, CantidadTexto, _nombrePlanta);
+            PlantaEvolucion.ResetCosechado();
+            //PasarInventario(Casillas, Cultivo, Cantidad, _nombrePlanta);
+        }
+        
     }
     #endregion
 
@@ -93,14 +104,15 @@ public class MostrarInventario : MonoBehaviour
     /// <summary>
     /// Instancia el prefab del cultivo
     /// </summary>
-    private void InstanciarPrefab(int []cultivo)
+    private void InstanciarPrefab(int []cultivo, GameObject[] casillas)
     {
         for (int i = 0; i < cultivo.Length; i++)
         {
-            if (cultivo[i] == 0) { Instantiate(MaizPrefab); }
-            if (cultivo[i] == 1) { Instantiate(LechugaPrefab); }
-            if (cultivo[i] == 2) { Instantiate(ZanahoriaPrefab); }
-            if (cultivo[i] == 3) { Instantiate(FresasPrefab); }
+            cultivo[i] = 0; // Esto es para probar
+            if (cultivo[i] == 0) { Instantiate(MaizPrefab, casillas[i].transform.position, Quaternion.identity); }
+            if (cultivo[i] == 1) { Instantiate(LechugaPrefab, casillas[i].transform.position, Quaternion.identity); }
+            if (cultivo[i] == 2) { Instantiate(ZanahoriaPrefab, casillas[i].transform.position, Quaternion.identity); }
+            if (cultivo[i] == 3) { Instantiate(FresasPrefab, casillas[i].transform.position, Quaternion.identity); }
         }
     }
 
@@ -119,20 +131,29 @@ public class MostrarInventario : MonoBehaviour
     /// <summary>
     /// Busca la primera casilla que no esté llena y muestra el cultivo
     /// </summary>
-    private void AgregarAlInventario(GameObject [] casillas, int[] cultivo, int[] cantidad, TextMeshProUGUI[] texto)
+    private void AgregarAlInventario(GameObject [] casillas, int[] cultivo, int[] cantidad, TextMeshProUGUI[] texto, string nombrePlanta)
     {
         bool casillaLlena = false;
         int i = 0;
         while (i < casillas.Length && !casillaLlena)
         {
-            casillaLlena = IsCasillaLlena(casillas, cultivo, cantidad);
-            InstanciarPrefab(cultivo);
+            casillaLlena = IsCasillaLlena(casillas,  cantidad);
+            LevelManager.Instance.GuardarCultivos(nombrePlanta, cultivo[i]);
+            if (nombrePlanta == "Maiz") cultivo[i] = 0;
+            if (nombrePlanta == "Lechuga") cultivo[i] = 1;
+            if (nombrePlanta == "Zanahoria") cultivo[i] = 2;
+            if (nombrePlanta == "Fresas") cultivo[i] = 3;
+            InstanciarPrefab(cultivo, casillas);
             MostrarTextoCantidad(cantidad, texto);
             i++;
         }
     }
 
-    private bool IsCasillaLlena(GameObject [] casillas, int[] cultivo, int[] cantidad)
+
+    /// <summary>
+    /// Detecta si una casilla está llena
+    /// </summary>
+    private bool IsCasillaLlena(GameObject [] casillas, int[] cantidad)
     {
         bool casillaLlena = false;
         for (int i = 0; i < casillas.Length; i++)
@@ -140,6 +161,22 @@ public class MostrarInventario : MonoBehaviour
             if (cantidad[i] >= 10) casillaLlena = true;
         }
         return casillaLlena;
+    }
+
+    private void PasarInventario(GameObject[] casillas, int[] cantidad, int[] cultivo, string nombrePlanta)
+    {
+        inventario = LevelManager.Instance.GetInventario();
+        
+        // Falta asignar a nombrePlanta su correspondiente en el inventario
+        for (int i = 0; i < casillas.Length; i++)
+        {
+            
+            cantidad[i] = inventario[nombrePlanta];
+            if (nombrePlanta == "Maiz") cultivo[i] = 3;
+            if (nombrePlanta == "Lechuga") cultivo[i] = 3;
+            if (nombrePlanta == "Zanahoria") cultivo[i] = 3;
+            if (nombrePlanta == "Fresas") cultivo[i] = 3;
+        }
     }
 
     #endregion   
