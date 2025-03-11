@@ -121,6 +121,9 @@ public class VentaInterfaz : MonoBehaviour
     public void ButtonMaizPressed()
     {
         _isMaizSelected = true;
+        _isLechugaSelected = false;
+        _isZanahoriaSelected = false;
+        _isFresasSelected = false;
         DescripcionTexto.text = "1 maíz = 90 RootCoins.";
 
     }
@@ -130,6 +133,9 @@ public class VentaInterfaz : MonoBehaviour
     public void ButtonLechugaPressed()
     {
         _isLechugaSelected = true;
+        _isMaizSelected = false;
+        _isZanahoriaSelected = false;
+        _isFresasSelected = false;
         DescripcionTexto.text = "1 lechuga = 20 RootCoins.";
     }
     /// <summary>
@@ -139,6 +145,10 @@ public class VentaInterfaz : MonoBehaviour
     {
         _isZanahoriaSelected = true;
         DescripcionTexto.text = "1 zanahoria = 65 RootCoins.";
+        _isMaizSelected = false;
+        _isLechugaSelected = false;
+        _isFresasSelected = false;
+
     }
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Fresas".
@@ -147,6 +157,11 @@ public class VentaInterfaz : MonoBehaviour
     {
         _isFresasSelected = true;
         DescripcionTexto.text = "1 fresa = 40 RootCoins.";
+        _isMaizSelected = false;
+        _isLechugaSelected = false;
+        _isZanahoriaSelected = false;
+
+
     }
 
     public void AumentarCantidad()
@@ -172,31 +187,37 @@ public class VentaInterfaz : MonoBehaviour
     {
         _isVenderPressed = true;
         Debug.Log("Vender presionado");
+
         if (_isMaizSelected)
         {
             _coste = 90;
             MostrarDescripcion(LevelManager.Instance.GetVenderMaiz(), _maxMaiz, _coste);
             ContadorDinero.MaizVendido(_cantidadAVender);
+            _isMaizSelected = false; // Desmarcar maíz después de vender
         }
         if (_isLechugaSelected)
         {
             _coste = 20;
             MostrarDescripcion(LevelManager.Instance.GetVenderLechuga(), _maxLechuga, _coste);
             ContadorDinero.LechugaVendida(_cantidadAVender);
+            _isLechugaSelected = false; // Desmarcar lechuga después de vender
         }
         if (_isZanahoriaSelected)
         {
             _coste = 65;
             MostrarDescripcion(LevelManager.Instance.GetVenderZanahoria(), _maxZanahoria, _coste);
             ContadorDinero.ZanahoriaVendida(_cantidadAVender);
+            _isZanahoriaSelected = false; // Desmarcar zanahoria después de vender
         }
         if (_isFresasSelected)
         {
             _coste = 40;
             MostrarDescripcion(LevelManager.Instance.GetVenderFresas(), _maxFresas, _coste);
             ContadorDinero.FresaVendida(_cantidadAVender);
+            _isFresasSelected = false; // Desmarcar fresas después de vender
         }
     }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
