@@ -79,24 +79,25 @@ public class MalasHierbas : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    void HacerInvisible()
-    {
-        gameObject.SetActive(false);
-        _hayMalasHierbas = false;
-    }
+    //void HacerInvisible()
+    //{
+    //    gameObject.SetActive(false);
+    //    _hayMalasHierbas = false;
+    //}
 
-    void HacerVisible()
-    {
-        gameObject.SetActive(true);
-        _hayMalasHierbas = true;
-    }
+    //void HacerVisible()
+    //{
+    //    gameObject.SetActive(true);
+    //    _hayMalasHierbas = true;
+    //}
 
     void OnCollisionStay2D()
     {
-        if ( _hayMalasHierbas == true && LevelManager.Instance.Herramientas() == 4 && (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()))
+        if (LevelManager.Instance.Herramientas() == 4 && (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()))
         {
-             HacerInvisible();
-             Debug.Log("Se ha quitado la mala hierba");
+             //HacerInvisible();
+            Debug.Log("Se ha quitado la mala hierba");
+            Destroy(gameObject);
           
         }
     }
