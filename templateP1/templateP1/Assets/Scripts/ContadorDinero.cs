@@ -38,6 +38,7 @@ public class ContadorDinero : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
     private int Contador = 0;
+    private int[] _inventario;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -54,6 +55,7 @@ public class ContadorDinero : MonoBehaviour
     void Start()
     {
         Contador += 100000;
+        _inventario = GameManager.Instance.Inventario();
 
     }
 
@@ -112,6 +114,7 @@ public class ContadorDinero : MonoBehaviour
         int total = cantidad * 20;
         Contador += total;
         ActualizarContador();
+        _inventario[1] = _inventario[1] - cantidad;
     }
     //-------------------------
     public void ComprarSemillasFresas()
@@ -128,6 +131,7 @@ public class ContadorDinero : MonoBehaviour
         int total = cantidad * 40;
         Contador += total;
         ActualizarContador();
+        _inventario[3] = _inventario[3] - cantidad;
     }
     //-------------------------
     public void ComprarSemillasZanahoria()
@@ -144,6 +148,7 @@ public class ContadorDinero : MonoBehaviour
         int total = cantidad * 65;
         Contador += total;
         ActualizarContador();
+        _inventario[2] = _inventario[2] - cantidad;
     }
     //-------------------------
     public void ComprarSemillasMaiz()
@@ -159,6 +164,7 @@ public class ContadorDinero : MonoBehaviour
         int total = cantidad * 90;
         Contador += total;
         ActualizarContador();
+        _inventario[0] = _inventario[0] - cantidad;
     }
     //-------------------------
     public void ComprarAbono()
