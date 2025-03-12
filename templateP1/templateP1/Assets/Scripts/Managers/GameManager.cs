@@ -147,6 +147,10 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            inventario[0]++;
+        }
         if (ContadorDinero == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
