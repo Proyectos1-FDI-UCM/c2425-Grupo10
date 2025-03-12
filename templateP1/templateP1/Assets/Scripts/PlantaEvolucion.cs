@@ -5,7 +5,6 @@
 // Curso 2024-25
 //---------------------------------------------------------
 
-using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -21,11 +20,18 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private Sprite PlantaFase2;
     [SerializeField] private Sprite PlantaFase3;
     [SerializeField] private Sprite PlantaFase4;
-    [SerializeField] private GameObject PrefabSuelo;
-    [SerializeField] private GameObject PrefabRiego;
-    [SerializeField] private GameObject PrefabRecolecta;
+    [SerializeField] private GameObject PrefabSuelo; // Prefab efecto tierra mojada
+    [SerializeField] private GameObject PrefabAvisoRiego; // Prefab regadera (se activa cuando es necesario regar la planta)
+    [SerializeField] private GameObject PrefabAvisoRecolecta; // Prefab hoz (se activa cuando es necesario recolectar la planta)
     [SerializeField] private GameObject PrefabMaceta;
     [SerializeField] private string NombrePlanta = "Cultivo";
+
+    [SerializeField] private int Tipo = 1;
+
+    // Pruebas
+    [SerializeField] private int TiempoCrecimiento = 10;
+    [SerializeField] private int TiempoRegado = 20;
+    [SerializeField] private int TiempoMuerte = 40;
 
 
     #endregion
@@ -33,14 +39,16 @@ public class PlantaEvolucion : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
-    private float _tiempoRegado;
-    private float _tiempoCrecimiento;
     private SpriteRenderer _spriteRenderer;
-    private int faseActual = 0;
-    private bool _riego = false;
-    private bool _listaParaCosechar = false;
     private GameObject _avisos;
-    private Transform _plantas;
+    private GameObject _maceta;
+    private CropSpawner _cropSpawner;
+
+    private int EstadoCrecimiento;
+    private bool EstadoRiego;
+    private float TimerCrecimiento;
+    private float TimerRiego;
+    private bool _cosechado = false;
 
     #endregion
 
@@ -50,7 +58,40 @@ public class PlantaEvolucion : MonoBehaviour
     private void Start()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
+        
+        //_plantas = transform.parent;
+        
+        // Se cambia en plantar - para poder implementar un nuevo metodo de inicializacion si es necesario
+
+        //_spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
+        //EstadoCrecimiento = 0;
+        
+        EstadoRiego = false;
+        TimerCrecimiento = TiempoCrecimiento;
+        
+    }
+
+    private void Update()
+    {
+        TimerRiego -= Time.deltaTime;
+        // Debug.Log("Timer Riego: " + TimerRiego);
+        
+        if (TimerRiego <= 0f) AvisoRiego();
+        
+        if (EstadoCrecimiento == 0 && EstadoRiego)
+        {
+            TimerCrecimiento -= Time.deltaTime;
+            // Debug.Log("Timer Crecimiento: " + TimerCrecimiento);
+        }
+        else if (EstadoCrecimiento > 0)
+        {
+            TimerCrecimiento -= Time.deltaTime;
+            // Debug.Log("Timer Crecimiento: " + TimerCrecimiento);
+        }
+        if (TimerCrecimiento <= 0f)
+        {
+            Crecimiento();
+        }
     }
 
     #endregion
@@ -59,46 +100,37 @@ public class PlantaEvolucion : MonoBehaviour
     #region Métodos Públicos
 
     /// <summary>
-    /// Inicializa la evolución de la planta con tiempos específicos.
+    /// Se activa cuando la planta inicia desde una semilla, establece el estado de crecimiento y de riego y el tiempo de crecimiento.
     /// </summary>
-    public void Planta(float TiempoCrecimiento, float TiempoRegado, Transform plantas)
+    public void Planta(GameObject maceta)
     {
-        _tiempoCrecimiento = TiempoCrecimiento;
-        _tiempoRegado = TiempoRegado;
-        _plantas = plantas;
+        _maceta = maceta;
+
+        _cropSpawner = _maceta.GetComponent<CropSpawner>();
+
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.sprite = PlantaFase1;  // Inicia en fase 1
+
+        EstadoCrecimiento = 0;
+        EstadoRiego = false;
+        TimerCrecimiento = TiempoCrecimiento;
+
     }
 
     /// <summary>
-    /// Regar la planta para activar su evolución.
+    /// Cosecharla planta.
     /// </summary>
-    public void Regar()
-    {
-        Debug.Log("Regando...");
-        GameObject suelo = Instantiate(PrefabSuelo, transform.position, Quaternion.identity);
-        suelo.transform.SetParent(transform);
-        Invoke("ActivaRiego", _tiempoRegado);
-
-        if (faseActual == 0)
-        {
-            Invoke("EvolucionarPlanta", _tiempoCrecimiento); // Si es la primera vez que se riega activa su crecimiento
-        }
-    }
-
-    public void ActivaRiego()
-    {
-        if (!_listaParaCosechar) {
-            _avisos = Instantiate(PrefabRiego, transform.position, Quaternion.identity);
-            _avisos.transform.SetParent(transform);
-            _riego = false; }
-    }
-
-    public void ActivaRecolecta()
+    public void Cosechar()
     {
         Destroy(_avisos);
-        _avisos = Instantiate(PrefabRecolecta, transform.position, Quaternion.identity);
-        _avisos.transform.SetParent(transform);
-        _riego = true;
-        _listaParaCosechar = true;
+
+        _cropSpawner.Reactivar();
+        _cosechado = true;
+
+        Destroy(gameObject); // Elimina la planta del mapa tras recogerla
+
+        int [] i = GameManager.Instance.Inventario();
+        i[Tipo]++;
     }
 
     #endregion
@@ -107,47 +139,77 @@ public class PlantaEvolucion : MonoBehaviour
     #region Métodos Privados
 
     /// <summary>
-    /// Vuelve a activar la posibilidad de riego
+    /// Regar la planta
     /// </summary>
+    private void Regar()
+    {
+        Destroy(_avisos); // Se eliminan los avisos de riego
+        LevelManager.Instance.Regar(); // Se avisa al level manager para que contabilice el agua de la regadera
 
+        // Se moja la tierra
+        GameObject suelo = Instantiate(PrefabSuelo, transform.position, Quaternion.identity); 
+        suelo.transform.SetParent(transform);
+
+        // Inicia la cuenta atrás del tiempo de regado
+        TimerRiego = TiempoRegado;
+        EstadoRiego = true;
+
+    }
 
     /// <summary>
-    /// Cambia la fase de la planta según su crecimiento.
+    /// Cambia el estado de la planta según su crecimiento.
     /// </summary>
-    private void EvolucionarPlanta()
+    private void Crecimiento()
     {
-        if (faseActual == 0)
+        if (EstadoCrecimiento == 0)
         {
             _spriteRenderer.sprite = PlantaFase2;
-            faseActual = 1;
-            Invoke("EvolucionarPlanta", _tiempoCrecimiento);
+            EstadoCrecimiento = 1;
+            TimerCrecimiento = TiempoCrecimiento;
         }
-        else if (faseActual == 1)
+        else if (EstadoCrecimiento == 1)
         {
             _spriteRenderer.sprite = PlantaFase3;
-            faseActual = 2;
-            Invoke("EvolucionarPlanta", _tiempoCrecimiento);
+            EstadoCrecimiento = 2;
+            TimerCrecimiento = TiempoCrecimiento;
         }
-        else if (faseActual == 2)
+        else if (EstadoCrecimiento == 2)
         {
             _spriteRenderer.sprite = PlantaFase4;
-            faseActual = 3;
-            ActivaRecolecta();
+            EstadoCrecimiento = 3;
+            TimerCrecimiento = TiempoCrecimiento;
+            AvisoRecolecta();
         }
     }
 
+
+
+    // AVISOS ------------------
     /// <summary>
-    /// Método para cosechar la planta y agregarla al inventario.
+    /// Métodos que instancian los prefabs de avisos para el riego y la recolecta
     /// </summary>
-    private void Cosechar()
+    private void AvisoRiego()
     {
-        Debug.Log("Cosechando planta...");
-        GameManager.Instance.Cosechado();
-        LevelManager.Instance.AgregarAlInventario(NombrePlanta);
-        GameObject Maceta = Instantiate(PrefabMaceta, transform.position, Quaternion.identity);
-        Maceta.transform.SetParent(_plantas);
-        Destroy(this.gameObject); // Elimina la planta del mapa tras recogerla
+        Destroy(_avisos);
+
+        if (EstadoCrecimiento != 3)
+        {
+            _avisos = Instantiate(PrefabAvisoRiego, transform.position, Quaternion.identity);
+            _avisos.transform.SetParent(transform);
+
+            EstadoRiego = false;
+        }
     }
+
+    private void AvisoRecolecta()
+    {
+        if (_avisos != null) { Destroy(_avisos.gameObject); }
+        _avisos = Instantiate(PrefabAvisoRecolecta, transform.position, Quaternion.identity);
+        _avisos.transform.SetParent(transform);
+        EstadoRiego = true;
+    }
+
+    // AVISOS ------------------
 
     #endregion
 
@@ -163,16 +225,13 @@ public class PlantaEvolucion : MonoBehaviour
 
         // Si el jugador tiene la regadera y presiona el botón, riega la planta
         int Regadera = LevelManager.Instance.Regadera();
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !_riego)
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !EstadoRiego)
         {
-            Destroy(_avisos);
-            _riego = true;
-            LevelManager.Instance.Regar();
             Regar();
         }
 
         // Si la planta está lista para cosechar y el jugador tiene guantes (Herramienta 1), la recoge
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3 && _listaParaCosechar)
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3 && EstadoCrecimiento == 3)
         {
             Cosechar();
         }

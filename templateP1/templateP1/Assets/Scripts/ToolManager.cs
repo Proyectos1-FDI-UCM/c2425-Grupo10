@@ -7,6 +7,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -77,7 +78,16 @@ public class ToolManager : MonoBehaviour
     /// Referencia al transform de la mano del jugador donde se mostrarán las herramientas.
     /// </summary>
     [SerializeField] private Transform HandPosition;
-
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Hoz".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private Slider WaterBar;
+    /// <summary>
+    /// Referencia al GameObject que representa el selector de "Hoz".
+    /// Se activará cuando el jugador presione la tecla correspondiente.
+    /// </summary>
+    [SerializeField] private LevelManager LevelManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -103,6 +113,7 @@ public class ToolManager : MonoBehaviour
         EnableSelector(GlovesSelector);
         ToggleTool(GlovesTool);
         DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
+        //WaterBar.SetActive(false);
     }
 
     /// <summary>
@@ -116,6 +127,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(SeedSelector);
             DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, HoeSelector);
             LevelManager.Instance.CambioHerramienta(5);
+            //WaterBar.SetActive(false);
         }
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
@@ -124,6 +136,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(ShovelTool);
             DisableSelector(SeedSelector, GlovesSelector, WateringCanSelector, HoeSelector);
             LevelManager.Instance.CambioHerramienta(4);
+            //WaterBar.SetActive(false);
         }
 
         if (InputManager.Instance.Select1WasPressedThisFrame())
@@ -132,6 +145,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(GlovesTool);
             DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
             LevelManager.Instance.CambioHerramienta(1);
+            //WaterBar.SetActive(false);
         }
 
         if (InputManager.Instance.Select2WasPressedThisFrame())
@@ -140,6 +154,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelSelector, GlovesSelector, SeedSelector, HoeSelector);
             LevelManager.Instance.CambioHerramienta(2);
+            //WaterBar.SetActive(true);
         }
 
         if (InputManager.Instance.Select3WasPressedThisFrame())
@@ -148,6 +163,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(HoeSelector);
             DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, SeedSelector);
             LevelManager.Instance.CambioHerramienta(3);
+            //WaterBar.SetActive(false);
         }
     }
     #endregion
@@ -159,7 +175,10 @@ public class ToolManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
+    public void BarraAgua(float AguaActual, float MaxAgua)
+    {
+        WaterBar.value = AguaActual / MaxAgua;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -225,6 +244,8 @@ public class ToolManager : MonoBehaviour
         herramienta3.SetActive(false);
         herramienta4.SetActive(false);
     }
+
+    
     #endregion
 }
  // class ToolManager 

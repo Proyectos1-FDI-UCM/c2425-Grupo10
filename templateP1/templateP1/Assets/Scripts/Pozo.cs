@@ -54,7 +54,7 @@ public class Pozo : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        MaxAguaRegadera = LevelManager.Instance.GetMaxAgua();
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ public class Pozo : MonoBehaviour
     private void OnCollisionStay2D()
     {
         // Añadir animación llenar regadera
-        if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 2 && LevelManager.Instance.Regadera() < 6) 
+        if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 2 && LevelManager.Instance.Regadera() < MaxAguaRegadera) 
         {
             LevelManager.Instance.LlenarRegadera(MaxAguaRegadera); // Llama al método que controla la cantidad de agua de la regadera
 

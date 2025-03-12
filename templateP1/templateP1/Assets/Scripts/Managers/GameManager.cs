@@ -1,13 +1,13 @@
 //---------------------------------------------------------
 // Contiene el componente GameManager
-// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín, Alexia
+// Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín
 // TemplateP1
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // Necesario para manejar la UI del contador de dinero
+
 
 /// <summary>
 /// Componente responsable de la gestión global del juego. Es un singleton
@@ -48,9 +48,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] int MejorasInventario = 0;
 
     /// <summary>
-    /// Referencia al texto de la UI que muestra el dinero del jugador.
-    /// </summary>
-    [SerializeField] private Text contadorDineroText;
+    /// Referencia al script que maneja el dinero
+    /// <summary>
+    [SerializeField] private ContadorDinero ContadorDinero;
+    /// <summary>
+    /// Referencia al script que maneja la barra de agua
+    /// <summary>
+    [SerializeField] private ToolManager ToolManager;
+
 
     #endregion
 
@@ -82,12 +87,15 @@ public class GameManager : MonoBehaviour
     /// Numero de máximo de mejoras para el Inventario.
     /// <summary>
     private int _maxVenderMaiz = 3;
+    /// <summary>
+    /// Cantidad de agua de la regadera.
+    /// <summary>
+    private int _amountWater = 6;
 
     /// <summary>
-    /// Cantidad de dinero del jugador.
-    /// </summary>
-    private int dinero = 100; // Valor inicial de dinero
-
+    /// Array Inventario
+    /// <summary>
+    private int[] _inventario = new int[10];
 
     #endregion
 
@@ -136,6 +144,18 @@ public class GameManager : MonoBehaviour
         {
             Application.Quit();
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            _inventario[0]++;
+        }
+        if (ContadorDinero == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+            }
+        }
     }
     /// <summary>
     /// Método llamado cuando se destruye el componente.
@@ -146,8 +166,7 @@ public class GameManager : MonoBehaviour
         {
             // Éramos la instancia de verdad, no un clon.
             _instance = null;
-        } // if somos la instancia principal
-        
+        } // if somos la instancia principal  
         
     }
 
@@ -242,7 +261,19 @@ public class GameManager : MonoBehaviour
     {
         if (MejorasRegadera < _maxMejorasRegadera)
         {
-            MejorasRegadera++;
+            MejorasRegadera += 1;
+        }
+        if (MejorasRegadera == 1)
+        {
+            ContadorDinero.Mejora1Regadera();
+        }
+        else if (MejorasRegadera == 2)
+        {
+            ContadorDinero.Mejora2Regadera();
+        }
+        else if (MejorasRegadera == 3)
+        {
+            ContadorDinero.Mejora3Regadera();
         }
     }
 
@@ -251,53 +282,36 @@ public class GameManager : MonoBehaviour
         bool _cosechado = true;
         return _cosechado;
     }
-
-    /// <summary>
-    /// Obtiene la cantidad actual de dinero del jugador.
-    /// </summary>
-    /// <returns>Cantidad de dinero.</returns>
-    public int GetDinero()
+    public int UpdateWaterAmount()
     {
-        return dinero;
+        _amountWater = LevelManager.Instance.Regadera();
+        return _amountWater;
+        
     }
 
-    /// <summary>
-    /// Añade una cantidad de dinero al jugador y actualiza la UI.
-    /// </summary>
-    /// <param name="cantidad">Cantidad de dinero a añadir.</param>
-    public void AñadirDinero(int cantidad)
+    private int ObtenerPrecioCultivo(string tipo)
     {
-        dinero += cantidad;
-        ActualizarUI();
-    }
-
-    /// <summary>
-    /// Resta una cantidad de dinero al jugador si tiene suficiente y actualiza la UI.
-    /// </summary>
-    /// <param name="cantidad">Cantidad de dinero a restar.</param>
-    /// <returns>True si la operación fue exitosa, false si no había suficiente dinero.</returns>
-    public bool RestarDinero(int cantidad)
-    {
-        if (dinero >= cantidad)
+        switch (tipo)
         {
-            dinero -= cantidad;
-            ActualizarUI();
-            return true;
-        }
-        return false;
-    }
-
-
-    /// <summary>
-    /// Actualiza la UI del contador de dinero.
-    /// </summary>
-    private void ActualizarUI()
-    {
-        if (contadorDineroText != null)
-        {
-            contadorDineroText.text = "$" + dinero.ToString();
+            case "zanahoria": return 5;
+            case "lechuga": return 3;
+            case "fresa": return 7;
+            case "maíz": return 4;
+            default: return 1;
         }
     }
+
+    public int LastWaterAmount()
+    {
+        return _amountWater;
+    }
+
+
+    public int[] Inventario()
+    {
+        return _inventario;
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -309,7 +323,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private void Init()
     {
-        ActualizarUI();
+        // De momento no hay nada que inicializar
     }
 
     private void TransferSceneState()
@@ -318,6 +332,7 @@ public class GameManager : MonoBehaviour
         // entre escenas
     }
 
+    
     #endregion
 } // class GameManager 
 // namespace

@@ -1,10 +1,11 @@
 //---------------------------------------------------------
 // Script para gestionar la visibilidad del inventario.
-// Responsable: Alexia Pérez Santana
+// Responsable: Alexia Pérez Santana, Iria Docampo Zotes
 // Nombre del juego: Roots of Life
 // Curso 2024-25
 //---------------------------------------------------------
 
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,14 +22,11 @@ public class InventoryCultivos : MonoBehaviour
     [SerializeField] private float quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
 
 
-
-    [SerializeField] private CultivosManager inventario;  // El inventario del jugador
-    [SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
-    //[SerializeField] private GameObject[] filasCasillas;
-    [SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
-    [SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
-
-    [SerializeField] private AudioSource sonidoInventario; // (Opcional) Sonido al abrir/cerrar
+    //[SerializeField] private CultivosLista cultivosLista; // El inventario del jugador
+    //[SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
+    ////[SerializeField] private GameObject[] filasCasillas;
+    //[SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
+    //[SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
 
     #endregion
 
@@ -36,8 +34,8 @@ public class InventoryCultivos : MonoBehaviour
     #region Atributos Privados
     private bool _isInventoryVisible = false; // Estado del inventario
     private float quickBarBaseY; // Posición base de la QuickAccessBar (se mantiene siempre visible)
+    private List<(string, int, Sprite)> inventario = new List<(string, int, Sprite)>();
 
-   
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -51,7 +49,7 @@ public class InventoryCultivos : MonoBehaviour
         // Inicializamos la posición del inventario en oculto
         inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, hiddenY);
 
-        ActualizarInventario();
+        //ActualizarInventario();
     }
 
     void Update()
@@ -60,6 +58,7 @@ public class InventoryCultivos : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             ToggleInventory();
+            //ActualizarInventario();
         }
 
         // Define la posición objetivo del inventario
@@ -85,25 +84,6 @@ public class InventoryCultivos : MonoBehaviour
 
     }
 
-    public void ActualizarInventario()
-    {
-        for (int i = 0; i < casillasInventario.Length; i++)
-        {
-            // Si hay un cultivo en esta casilla
-            if (inventario.inventario[i] != null)
-            {
-                CultivosLista cultivo = inventario.inventario[i];
-                imagenesCultivos[i].sprite = cultivo.sprite;
-                cantidadesCultivos[i].text = cultivo.cantidad.ToString();
-                casillasInventario[i].SetActive(true);  // Mostrar la casilla
-            }
-            else
-            {
-                casillasInventario[i].SetActive(false);  // Ocultar la casilla si está vacía
-            }
-        }
-    }
-
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -114,20 +94,7 @@ public class InventoryCultivos : MonoBehaviour
     private void ToggleInventory()
     {
         _isInventoryVisible = !_isInventoryVisible;
-
-        // Reproducir sonido opcional al abrir/cerrar el inventario
-        if (sonidoInventario != null)
-        {
-            sonidoInventario.Play();
-        }
-
-        // Solo actualizar si el inventario se está mostrando
-        if (_isInventoryVisible)
-        {
-            ActualizarInventario();
-        }
     }
-
     #endregion
 
 } // class InventoryUI
