@@ -68,9 +68,6 @@ public class GameManager : MonoBehaviour
     /// </summary>
     private static GameManager _instance;
 
-
-    private Dictionary<string, int> _inventario = new Dictionary<string, int>();
-
     /// <summary>
     /// Numero de máximo de mejoras para la Regadera.
     /// <summary>
@@ -98,7 +95,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Array Inventario
     /// <summary>
-    private int[] inventario = new int[10];
+    private int[] _inventario = new int[10];
 
     #endregion
 
@@ -149,7 +146,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            inventario[0]++;
+            _inventario[0]++;
         }
         if (ContadorDinero == null)
         {
@@ -169,8 +166,7 @@ public class GameManager : MonoBehaviour
         {
             // Éramos la instancia de verdad, no un clon.
             _instance = null;
-        } // if somos la instancia principal
-        
+        } // if somos la instancia principal  
         
     }
 
@@ -293,37 +289,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-
-    public void RecogerCultivo(string tipo)
-    {
-        if (!_inventario.ContainsKey(tipo))
-        {
-            _inventario[tipo] = 0;
-        }
-
-        if (_inventario[tipo] < 10)
-        {
-            _inventario[tipo]++;
-        }
-        else
-        {
-            Debug.Log("Inventario lleno para " + tipo);
-        }
-    }
-
-    public void VenderCultivo(string tipo, int cantidad)
-    {
-        if (_inventario.ContainsKey(tipo) && _inventario[tipo] >= cantidad)
-        {
-            _inventario[tipo] -= cantidad;
-            ContadorDinero.ActualizarContador();  // Actualiza el texto después de modificar el dinero
-        }
-        else
-        {
-            Debug.Log("No hay suficiente " + tipo + " para vender");
-        }
-    }
-
     private int ObtenerPrecioCultivo(string tipo)
     {
         switch (tipo)
@@ -336,8 +301,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
     public int LastWaterAmount()
     {
         return _amountWater;
@@ -346,7 +309,7 @@ public class GameManager : MonoBehaviour
 
     public int[] Inventario()
     {
-        return inventario;
+        return _inventario;
     }
 
     #endregion

@@ -31,17 +31,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] GameObject PrefabSemilla1;
     [SerializeField] GameManager GameManager;
     [SerializeField] ToolManager ToolManager;
-
-    [SerializeField] int ActualMaiz = 0; // Maiz que quieres vender
-    [SerializeField] int ActualLechuga = 0;
-    [SerializeField] int ActualZanahoria = 0;
-    [SerializeField] int ActualFresas = 0;
-
-    [SerializeField] int MaxMaiz = 0; // Cantidad de maiz que hay en el inventario
-    [SerializeField] int MaxLechuga = 0;
-    [SerializeField] int MaxZanahoria = 0;
-    [SerializeField] int MaxFresas = 0;
     [SerializeField] int MaxAgua;
+
     #endregion
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
@@ -54,7 +45,6 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Inventario de cultivos recolectados.
     /// </summary>
-    private Dictionary<string, int> inventario = new Dictionary<string, int>();
     private int[] _inventario;
 
     #endregion
@@ -68,7 +58,6 @@ public class LevelManager : MonoBehaviour
         if (_instance == null)
         {
             _instance = this;
-            Init();
         }
         if (GameManager == null)
         {
@@ -78,6 +67,7 @@ public class LevelManager : MonoBehaviour
                 GameManager = ObjetoTexto.GetComponent<GameManager>();
             }
         }
+        
         GetMejorasRegadera();
         ToolManager.BarraAgua(AguaRegadera, MaxAgua);
         AguaRegadera = GameManager.Instance.LastWaterAmount();
@@ -100,12 +90,13 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodos que devuelven y modifican el valor de las herramientas, semillas y regaderas
+    /// Métodos que devuelven y modifican el valor de las herramientas, semillas y regaderas
     /// </summary>
     public int Herramientas() { return Herramienta; }
     public int Semillas() { return CantidadSemillas; }
     public int Regadera() { return AguaRegadera; }
     public void CambioHerramienta(int i) { Herramienta = i; }
+    public int GetMaxAgua() { return MaxAgua; }
     public void LlenarRegadera(int i)
     {
         AguaRegadera = i;
@@ -121,88 +112,10 @@ public class LevelManager : MonoBehaviour
     }
     public static bool HasInstance() { return _instance != null; }
 
-    /// <summary>
-    /// Agrega una planta al inventario cuando se recolecta.
-    /// </summary>
-    public void AgregarAlInventario(string nombrePlanta)
-    {
-        if (inventario.ContainsKey(nombrePlanta))
-        {
-            inventario[nombrePlanta]++;
-        }
-        else
-        {
-            inventario[nombrePlanta] = 1;
-        }
-       GuardarCultivos(nombrePlanta, inventario[nombrePlanta]);
-        Debug.Log(nombrePlanta + " añadida al inventario. Cantidad: " + inventario[nombrePlanta]);
-
-    }
-
-
-    public Dictionary <string, int> GetInventario()
-    {
-        return inventario;
-    }
-
-       public (string, int) GuardarCultivos(string nombre, int num)
-       {
-           return (nombre, num);
-    
-      }
-
-
-    public int GetVenderMaiz() { return ActualMaiz; }
-    public int GetVenderLechuga() { return ActualLechuga; }
-    public int GetVenderZanahoria() { return ActualZanahoria; }
-    public int GetVenderFresas() { return ActualMaiz; }
-    public int GetMaxAgua() { return MaxAgua; }
 
 
     /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (maiz).
-    /// <summary>
-    public void VenderMaiz()
-    {
-        if (ActualMaiz < MaxMaiz)
-        {
-            ActualMaiz++;
-        }
-    }
-
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (lechuga).
-    /// <summary>
-    public void VenderLechuga()
-    {
-        if (ActualLechuga < MaxLechuga)
-        {
-            ActualLechuga++;
-        }
-    }
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (zanahoria).
-    /// <summary>
-    public void VenderZanahoria()
-    {
-        if (ActualZanahoria < MaxZanahoria)
-        {
-            ActualZanahoria++;
-        }
-    }
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (fresas).
-    /// <summary>
-    public void VenderFresas()
-    {
-        if (ActualFresas < MaxFresas)
-        {
-            ActualFresas++;
-        }
-    }
-
-    /// <summary>
-    /// Metodo para aumentar +1 los cultivos seleccionados (fresas).
+    /// Método para modificar el máximo agua de la regadera despues de las mejoras
     /// <summary>
     public void Mejora0Regadera()
     {
@@ -226,10 +139,6 @@ public class LevelManager : MonoBehaviour
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
-    private void Init()
-    {
-        inventario = new Dictionary<string, int>();
-    }
     private void GetMejorasRegadera()
     {
         if((GameManager.GetMejorasRegadera() == 0)) 

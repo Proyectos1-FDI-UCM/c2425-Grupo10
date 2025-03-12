@@ -123,7 +123,6 @@ public class PlantaEvolucion : MonoBehaviour
     public void Cosechar()
     {
         Destroy(_avisos);
-        LevelManager.Instance.AgregarAlInventario(NombrePlanta);
 
         _cropSpawner.Reactivar();
         _cosechado = true;
@@ -132,16 +131,6 @@ public class PlantaEvolucion : MonoBehaviour
 
         int [] i = GameManager.Instance.Inventario();
         i[Tipo]++;
-    }
-
-    public bool IsCosechado()
-    {
-        return _cosechado;
-    }
-
-    public void ResetCosechado()
-    {
-        _cosechado = false;
     }
 
     #endregion

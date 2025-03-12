@@ -46,12 +46,6 @@ public class VentaInterfaz : MonoBehaviour
     private bool _isFresasSelected = false;
     private bool _isVenderPressed = false;
 
-    // Variables para el número de cada cultivo en el inventario
-    //private int _maxMaiz;
-    //private int _maxLechuga;
-    //private int _maxZanahoria;
-    //private int _maxFresas;
-
     private int _cantidadAVender = 1;
     private int[] _inventario;
 

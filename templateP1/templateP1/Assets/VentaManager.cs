@@ -32,11 +32,6 @@ public class VentaManager : MonoBehaviour
     [SerializeField] GameManager GameManager;
     [SerializeField] ToolManager ToolManager;
 
-    //[SerializeField] int ActualMaiz = 0; // Maiz que quieres vender
-    //[SerializeField] int ActualLechuga = 0;
-    //[SerializeField] int ActualZanahoria = 0;
-    //[SerializeField] int ActualFresas = 0;
-
     int[] _venta = { 0, 0, 0, 0 };
 
     #endregion
@@ -96,37 +91,6 @@ public class VentaManager : MonoBehaviour
         }
     }
     public static bool HasInstance() { return _instance != null; }
-
-    /// <summary>
-    /// Metodos que devuelven y modifican el valor de las herramientas, semillas y regaderas
-    /// </summary>
-    //public int Herramientas() { return Herramienta; }
-    //public int Semillas() { return CantidadSemillas; }
-    //public int Regadera() { return AguaRegadera; }
-    //public void CambioHerramienta(int i) { Herramienta = i; }
-    //public void LlenarRegadera(int i)
-    //{
-    //    AguaRegadera = i;
-    //    ToolManager.BarraAgua(AguaRegadera, MaxAgua);
-    //    GameManager.Instance.UpdateWaterAmount();
-    //}
-    //public void Plantar() { CantidadSemillas--; }
-    //public void Regar()
-    //{
-    //    AguaRegadera--;
-    //    ToolManager.BarraAgua(AguaRegadera, MaxAgua);
-    //    GameManager.Instance.UpdateWaterAmount();
-    //}
-
-
-
-    //public int GetVenderMaiz() { return ActualMaiz; }
-    //public int GetVenderLechuga() { return ActualLechuga; }
-    //public int GetVenderZanahoria() { return ActualZanahoria; }
-    //public int GetVenderFresas() { return ActualMaiz; }
-    //public int GetMaxAgua() { return MaxAgua; }
-
-
 
     /// <summary>
     /// Metodo para aumentar +1 los cultivos seleccionados (maiz).
