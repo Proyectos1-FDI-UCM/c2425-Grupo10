@@ -202,6 +202,13 @@ public class ContadorDinero : MonoBehaviour
         }
     }
 
+    public void Comprar(int cantidad)
+    {
+        Contador -= cantidad;
+        ActualizarContador();
+    }
+
+
 
     public void ActualizarContador() // Cambiado a public
     {

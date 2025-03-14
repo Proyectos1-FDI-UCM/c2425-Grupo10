@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo: Iria Docampo
+// Responsable de la creación de este archivo: Iria Docampo y Natalia Nita
 // Nombre del juego
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
