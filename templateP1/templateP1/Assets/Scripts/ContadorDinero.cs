@@ -89,6 +89,11 @@ public class ContadorDinero : MonoBehaviour
     { 
         return Contador; 
     }
+
+    public void RestarDinero (float cantidad)
+    {
+        Contador = Convert.ToInt32(cantidad);
+    }
     public void ComprarSemillasLechuga()
     {
         if (Contador >= 15)
@@ -189,7 +194,6 @@ public class ContadorDinero : MonoBehaviour
         Contador -= cantidad;
         ActualizarContador();
     }
-
 
 
     public void ActualizarContador() // Cambiado a public
