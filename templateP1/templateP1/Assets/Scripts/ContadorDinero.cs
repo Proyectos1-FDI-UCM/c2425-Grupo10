@@ -64,16 +64,6 @@ public class ContadorDinero : MonoBehaviour
     /// </summary>
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    ComprarSemillasLechuga();
-        //}
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    LechugaVendida();
-        //}
-
-
         ActualizarContador();
         //Debug.Log(Contador);
         if (textoDinero == null)
@@ -104,9 +94,7 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 15)
         {
             Contador -= 15;
-            //aqui tengo que añadir que se añadan 5 al inventario
-
-
+            _inventario[1] += 5;
         }
     }
     public void LechugaVendida(int cantidad)
@@ -122,8 +110,7 @@ public class ContadorDinero : MonoBehaviour
         if (Contador >= 30)
         {
             Contador -= 30;
-            //aqui tengo que añadir que se añadan 5 al inventario
-
+            _inventario[3] += 5;
         }
     }
     public void FresaVendida(int cantidad)
@@ -133,14 +120,13 @@ public class ContadorDinero : MonoBehaviour
         ActualizarContador();
         _inventario[3] = _inventario[3] - cantidad;
     }
-    //-------------------------
+    
     public void ComprarSemillasZanahoria()
     {
         if (Contador >= 50)
         {
             Contador -= 50;
-            //aqui tengo que añadir que se añadan 5 al inventario
-
+            _inventario[2] += 5;
         }
     }
     public void ZanahoriaVendida(int cantidad)
@@ -150,13 +136,13 @@ public class ContadorDinero : MonoBehaviour
         ActualizarContador();
         _inventario[2] = _inventario[2] - cantidad;
     }
-    //-------------------------
+    
     public void ComprarSemillasMaiz()
     {
         if (Contador >= 70)
         {
             Contador -= 70;
-            //aqui tengo que añadir que se añadan 5 al inventario
+            _inventario[0] += 5;
         }
     }
     public void MaizVendido(int cantidad)
@@ -166,20 +152,16 @@ public class ContadorDinero : MonoBehaviour
         ActualizarContador();
         _inventario[0] = _inventario[0] - cantidad;
     }
-    //-------------------------
+   
     public void ComprarAbono()
     {
         if (Contador >= 70)
         {
             Contador -= 70;
-            //aqui tengp que añadir que se añadan 5 al inventario
-        }
-        else
-        {
-
+            _inventario[4] += 5;
         }
     }
-    //------------------------
+   
     public void Mejora1Regadera()
     {
         if (Contador >= 1000)
