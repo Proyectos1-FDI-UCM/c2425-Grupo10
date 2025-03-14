@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -97,6 +98,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     private int[] _inventario = new int[10];
 
+    /// <summary>
+    /// Array Inventario
+    /// <summary>
+    private int DineroInvertido = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -312,6 +317,14 @@ public class GameManager : MonoBehaviour
         return _inventario;
     }
 
+    public void AgregarInversion(float inversion)
+    {
+        DineroInvertido += Convert.ToInt32(inversion);
+    }
+    public int GetInversionTotal()
+    {
+        return DineroInvertido;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
