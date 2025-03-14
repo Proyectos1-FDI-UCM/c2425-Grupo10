@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Referencia al script que maneja el dinero
     /// <summary>
-    [SerializeField] private ContadorDinero ContadorDinero;
+    [SerializeField] private MoneyManager ContadorDinero;
     /// <summary>
     /// Referencia al script que maneja la barra de agua
     /// <summary>
@@ -158,7 +158,7 @@ public class GameManager : MonoBehaviour
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
     }

@@ -29,7 +29,7 @@ public class CompraInterfaz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
     [SerializeField] private PlayerMovement PlayerMovement;
-    [SerializeField] private ContadorDinero ContadorDinero;
+    [SerializeField] private MoneyManager ContadorDinero;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -70,7 +70,7 @@ public class CompraInterfaz : MonoBehaviour
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
     }

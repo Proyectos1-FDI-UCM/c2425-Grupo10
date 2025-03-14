@@ -36,7 +36,7 @@ public class MejoraInterfaz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
     [SerializeField] private PlayerMovement PlayerMovement;
-    [SerializeField] private ContadorDinero ContadorDinero;
+    [SerializeField] private MoneyManager ContadorDinero;
 
 
 
@@ -104,7 +104,7 @@ public class MejoraInterfaz : MonoBehaviour
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
     }

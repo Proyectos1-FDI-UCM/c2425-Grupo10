@@ -37,7 +37,7 @@ public class BancoInterfaz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI CantidadTexto;
     [SerializeField] private TextMeshProUGUI CantidadInvertidaTexto;
 
-    [SerializeField] private ContadorDinero ContadorDinero;
+    [SerializeField] private MoneyManager ContadorDinero;
     [SerializeField] private PlayerMovement PlayerMovement;
 
 
@@ -96,7 +96,7 @@ public class BancoInterfaz : MonoBehaviour
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<ContadorDinero>();
+                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
     }
