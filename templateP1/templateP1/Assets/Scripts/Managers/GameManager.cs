@@ -317,11 +317,15 @@ public class GameManager : MonoBehaviour
         return _inventario;
     }
 
-    public void AgregarInversion(float inversion)
+    public void AgregarIngreso(float inversion)
     {
         DineroInvertido += Convert.ToInt32(inversion);
     }
-    public int GetInversionTotal()
+    public void RestarIngreso(int inversion)
+    {
+        DineroInvertido -= inversion;
+    }
+    public int GetDineroIngresadoTotal()
     {
         return DineroInvertido;
     }

@@ -1,86 +1,35 @@
-//---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable: Javier Librada Jerez
-// Nombre del juego: Roots of Life
-// Proyectos 1 - Curso 2024-25
-//---------------------------------------------------------
-
 using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-// Añadir aquí el resto de directivas using
 
-
-/// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
-/// </summary>
 public class BancoInterfaz : MonoBehaviour
 {
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
     [SerializeField] private GameObject Interactuar;
     [SerializeField] private GameObject Interfaz;
-
+    [SerializeField] private GameObject IngresarButton;
+    [SerializeField] private GameObject MudanzaButton;
+    [SerializeField] private GameObject CasaPlayaButton;
     [SerializeField] private GameObject MudarseButton;
-    [SerializeField] private GameObject InvertirButton;
-
-    [SerializeField] private Slider CantidadInversion;
-
+    [SerializeField] private GameObject AceptarButton;
+    [SerializeField] private Slider CantidadIngresar;
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI CantidadTexto;
-    [SerializeField] private TextMeshProUGUI CantidadInvertidaTexto;
-
-    [SerializeField] private MoneyManager ContadorDinero;
+    [SerializeField] private TextMeshProUGUI CantidadIngresadaTexto;
+    [SerializeField] private TextMeshProUGUI DineroEnBancoTexto;
+    [SerializeField] private MoneyManager MoneyManager;
     [SerializeField] private PlayerMovement PlayerMovement;
-
-
-
-
-
-    #endregion
-
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
     private bool _colisionando = false;
     private bool _interfazActiva = false;
-    private bool _algoSeleccionado = false; // Controla si hay algo seleccionado para comprar 
+    private bool _isIngresarSelected = true;
+    private bool _isMudanzaSelected = false;
+    private bool _isCasaPlayaSelected = false;
 
-  
-
-    #endregion
-
-    // ---- MÉTODOS DE MONOBEHAVIOUR ----
-    #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
     void Start()
     {
         ResetInterfaz();
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
     void Update()
     {
         if (_colisionando && InputManager.Instance.UsarIsPressed())
@@ -91,28 +40,20 @@ public class BancoInterfaz : MonoBehaviour
         {
             DisableInterfaz();
         }
-        if (ContadorDinero == null)
+        if (MoneyManager == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
+                MoneyManager = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
+        if (_isIngresarSelected)
+        {
+            AceptarButton.SetActive(CantidadIngresar.value > 0);
+        }
     }
-    #endregion
 
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
-    /// <summary>
-    /// Detectar cuando el jugador esta en el collider.
-    /// </summary>
     public void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -122,9 +63,6 @@ public class BancoInterfaz : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Detectar cuando el jugador sale del collider.
-    /// </summary>
     public void OnTriggerExit2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -134,131 +72,111 @@ public class BancoInterfaz : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Ampliar".
-    /// </summary>
+    public void ButtonIngresarPressed()
+    {
+        _isIngresarSelected = true;
+        _isMudanzaSelected = false;
+        _isCasaPlayaSelected = false;
+        ActualizarInterfaz();
+    }
+
+    public void ButtonMudanzaPressed()
+    {
+        _isIngresarSelected = false;
+        _isMudanzaSelected = true;
+        _isCasaPlayaSelected = false;
+        ActualizarInterfaz();
+    }
+
     public void ButtonCasaPlayaPressed()
     {
-        // Activamos la interfaz para la Casa Playa
-        Interfaz.SetActive(true);
-
-        // Solo activamos el botón de Invertir después de que se presione Casa Playa
-        MudarseButton.SetActive(false);  // Desactivamos el botón de mudarse
-        InvertirButton.SetActive(true);  // Activamos el botón de invertir
-
-        // Activamos el slider y otros elementos de texto solo cuando se presiona Casa Playa
-        CantidadInversion.gameObject.SetActive(true);
-        DescripcionTexto.gameObject.SetActive(true);
-        CantidadTexto.gameObject.SetActive(true);
-
-        // Aseguramos que algo está seleccionado para invertir
-        _algoSeleccionado = true;
+        _isCasaPlayaSelected = true;
+        DescripcionTexto.text = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
+        MudarseButton.SetActive(true);
     }
 
-    /// <summary>
-    /// Método para calcular la inversión total realizada.
-    /// </summary>
-    private float InversionTotal()
+    public void ButtonMudarsePressed()
     {
-        // Aquí calculamos la inversión total. Este valor puede obtenerse de alguna variable que haga seguimiento de las inversiones.
-        return GameManager.Instance.GetInversionTotal(); // Asumiendo que tienes un método que lo haga
-    }
-    /// <summary>
-    /// Método para detectar cuando el jugador presiona el botón de invertir.
-    /// </summary>
-    public void ButtonInvertirPressed()
-    {
-        float cantidadInvertida = CantidadInversion.value;
-
-        if (cantidadInvertida > 0 && ContadorDinero.GetContadorDinero() >= cantidadInvertida && InversionTotal() + cantidadInvertida <= 100000)
+        if (GameManager.Instance.GetDineroIngresadoTotal() >= 100000)
         {
-            // Realizar la inversión
-            ContadorDinero.RestarDinero(cantidadInvertida); // Descontamos el dinero invertido
-            GameManager.Instance.AgregarInversion(cantidadInvertida); // Guardamos la inversión en el GameManager
+            Debug.Log("Mudanza realizada con éxito.");
+            GameManager.Instance.RestarIngreso(100000);
 
-            // Actualizamos la interfaz después de invertir
-            ActualizarSliderInversion();
-            CantidadInversion.value = 0;
-            // Verificamos si se alcanzaron los 100.000
-            if (InversionTotal() >= 100000)
-            {
-                MudarseButton.SetActive(true); // Activamos el botón de mudarse
-            }
+        }
+        else
+        {
+            Debug.Log("No tienes suficiente dinero para mudarte.");
         }
     }
 
-    /// <summary>
-    /// Método para activar el botón de mudarse cuando se haya alcanzado la inversión de 100.000 monedas.
-    /// </summary>
-    public void ButtonMudarsePressed()
+    public void ButtonAceptarPressed()
     {
-        if (InversionTotal() >= 100000)
+        float cantidadIngresada = CantidadIngresar.value;
+        if (cantidadIngresada > 0 && MoneyManager.GetContadorDinero() >= cantidadIngresada)
         {
-            // Aquí puedes agregar la lógica de mudanza, como cambiar de escena o activar nuevas funcionalidades
-            Debug.Log("Mudanza habilitada");
+            MoneyManager.RestarDinero(cantidadIngresada);
+            GameManager.Instance.AgregarIngreso(cantidadIngresada);
+            ActualizarSliderInversion();
+            CantidadIngresar.value = 0;
         }
     }
     public void ActualizarSliderInversion()
     {
-        CantidadInversion.maxValue = ContadorDinero.GetContadorDinero();
-        MostrarDescripcion(CantidadInversion.value);
+        CantidadIngresar.maxValue = MoneyManager.GetContadorDinero();
+        CantidadIngresar.interactable = CantidadIngresar.maxValue > 0;
+        CantidadIngresadaTexto.text = GameManager.Instance.GetDineroIngresadoTotal() + " RC";
+        CantidadTexto.text = "Dinero a ingresar: " + Convert.ToInt32(CantidadIngresar.value);
     }
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-
-
-
-    /// <summary>
-    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
-    /// </summary>
-    private void MostrarDescripcion(float Inversion)
+    private void ActualizarInterfaz()
     {
-        CantidadTexto.text = "Dinero a Invertir: " + Convert.ToString(Convert.ToInt32(Inversion)) + " RC";
-        DescripcionTexto.text = "¡Disfruta de la Casa de Tus Sueños por solo 100.000 RootCoins!";
-        CantidadInvertidaTexto.text = "Dinero Invertido: " + GameManager.Instance.GetInversionTotal() + " RC";
+        if (_isIngresarSelected)
+        {
+            DineroEnBancoTexto.gameObject.SetActive(true);
+            DescripcionTexto.text = "En el banco puedes ingresar tu dinero.";
+            CantidadIngresar.gameObject.SetActive(true);
+            CantidadTexto.gameObject.SetActive(true);
+            CasaPlayaButton.SetActive(false);
+            CantidadIngresadaTexto.gameObject.SetActive(true);
+            CantidadIngresadaTexto.text = GameManager.Instance.GetDineroIngresadoTotal() + " RC";
+            MudarseButton.SetActive(false);
+            AceptarButton.SetActive(CantidadIngresar.value > 0);
+            ActualizarSliderInversion();
+        }
+        else if (_isMudanzaSelected)
+        {
+            DineroEnBancoTexto.gameObject.SetActive(false);
+            DescripcionTexto.text = "Selecciona la casa a la que deseas mudarte.";
+            CantidadIngresar.gameObject.SetActive(false);
+            CantidadTexto.gameObject.SetActive(false);
+            CasaPlayaButton.SetActive(true);
+            CantidadIngresadaTexto.gameObject.SetActive(false);
+            MudarseButton.SetActive(false);
+        }
     }
 
-    /// <summary>
-    /// Metodo para activar la interfaz cuando el jugador pulse "E".
-    /// </summary>
     private void EnableInterfaz()
     {
         _interfazActiva = true;
         Interfaz.SetActive(true);
         Interactuar.SetActive(false);
-        _colisionando = true;
         PlayerMovement.enablemovement = false;
-        MudarseButton.SetActive(false);
-        InvertirButton.SetActive(true);
-        CantidadInversion.gameObject.SetActive(true);
-        DescripcionTexto.gameObject.SetActive(true);
-        CantidadTexto.gameObject.SetActive(true);
+        ButtonIngresarPressed();
+        MudanzaButton.SetActive(true);
     }
 
-    /// <summary>
-    /// Metodo para desactivar la interfaz cuando el jugador pulse "Q".
-    /// </summary>
     private void DisableInterfaz()
     {
         _interfazActiva = false;
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
-        _colisionando = true;
         PlayerMovement.enablemovement = true;
-
     }
 
-    /// <summary>
-    /// Metodo para resetear la interfaz cada vez que la abrimos.
-    /// </summary>
     private void ResetInterfaz()
     {
         Interactuar.SetActive(false);
         Interfaz.SetActive(false);
     }
-    #endregion
 
-} // class MejoraInterfaz 
-// namespace
+    
+}
