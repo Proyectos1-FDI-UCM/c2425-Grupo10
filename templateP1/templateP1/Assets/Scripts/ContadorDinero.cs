@@ -92,7 +92,7 @@ public class ContadorDinero : MonoBehaviour
 
     public void RestarDinero (float cantidad)
     {
-        Contador = Convert.ToInt32(cantidad);
+        Contador -= Convert.ToInt32(cantidad);
     }
     public void ComprarSemillasLechuga()
     {
