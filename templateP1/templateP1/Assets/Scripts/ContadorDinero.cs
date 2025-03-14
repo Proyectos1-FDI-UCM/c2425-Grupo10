@@ -94,14 +94,17 @@ public class ContadorDinero : MonoBehaviour
     {
         Contador -= Convert.ToInt32(cantidad);
     }
-    public void ComprarSemillasLechuga()
+    public void ComprarSemillasLechuga(int cantidad)
     {
-        if (Contador >= 15)
+        int precioTotal = cantidad * 15;
+        if (Contador >= precioTotal)
         {
-            Contador -= 15;
-            _inventario[1] += 5;
+            Contador -= precioTotal;
+            _inventario[1] += cantidad;
+            ActualizarContador();
         }
     }
+
     public void LechugaVendida(int cantidad)
     {
         int total = cantidad * 20;
@@ -110,14 +113,17 @@ public class ContadorDinero : MonoBehaviour
         _inventario[1] = _inventario[1] - cantidad;
     }
     //-------------------------
-    public void ComprarSemillasFresas()
+    public void ComprarSemillasFresas(int cantidad)
     {
-        if (Contador >= 30)
+        int precioTotal = cantidad * 30;
+        if (Contador >= precioTotal)
         {
-            Contador -= 30;
-            _inventario[3] += 5;
+            Contador -= precioTotal;
+            _inventario[3] += cantidad;
+            ActualizarContador();
         }
     }
+
     public void FresaVendida(int cantidad)
     {
         int total = cantidad * 40;
@@ -125,14 +131,17 @@ public class ContadorDinero : MonoBehaviour
         ActualizarContador();
         _inventario[3] = _inventario[3] - cantidad;
     }
-    
-    public void ComprarSemillasZanahoria()
+
+    public void ComprarSemillasZanahoria(int cantidad)
     {
-        if (Contador >= 50)
+        int precioTotal = cantidad * 50;
+        if (Contador >= precioTotal)
         {
-            Contador -= 50;
-            _inventario[2] += 5;
+            Contador -= precioTotal;
+            _inventario[2] += cantidad;
+            ActualizarContador();
         }
+    
     }
     public void ZanahoriaVendida(int cantidad)
     {
@@ -141,15 +150,18 @@ public class ContadorDinero : MonoBehaviour
         ActualizarContador();
         _inventario[2] = _inventario[2] - cantidad;
     }
-    
-    public void ComprarSemillasMaiz()
+
+    public void ComprarSemillasMaiz(int cantidad)
     {
-        if (Contador >= 70)
+        int precioTotal = cantidad * 70;
+        if (Contador >= precioTotal)
         {
-            Contador -= 70;
-            _inventario[0] += 5;
+            Contador -= precioTotal;
+            _inventario[0] += cantidad;
+            ActualizarContador();
         }
     }
+
     public void MaizVendido(int cantidad)
     {
         int total = cantidad * 90;
