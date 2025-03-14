@@ -1545,8 +1545,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
         m_MethodName: ButtonFresasPressed
         m_Mode: 1
         m_Arguments:
@@ -3179,8 +3179,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
         m_MethodName: ButtonLechugaPressed
         m_Mode: 1
         m_Arguments:
@@ -3239,7 +3239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 898385388}
   - component: {fileID: 898385387}
-  - component: {fileID: 898385386}
+  - component: {fileID: 898385389}
   m_Layer: 3
   m_Name: Collider Interfaz
   m_TagString: Untagged
@@ -3247,30 +3247,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &898385386
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 898385385}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a698537685ee38d4f83e275a8f659a85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Interactuar: {fileID: 117541076}
-  Interfaz: {fileID: 2039601203}
-  MejoraButton: {fileID: 0}
-  AmpliarButton: {fileID: 0}
-  RegaderaButton: {fileID: 0}
-  InventarioButton: {fileID: 0}
-  HuertoButton: {fileID: 0}
-  ComprarButton: {fileID: 0}
-  DescripcionTexto: {fileID: 2105757271}
-  ContadorTexto: {fileID: 586434541}
-  PlayerMovement: {fileID: 230413355}
-  ContadorDinero: {fileID: 0}
 --- !u!61 &898385387
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3331,6 +3307,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1128037754}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &898385389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 898385385}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c6ced5bb20de7b41bce444a7874172a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interactuar: {fileID: 117541076}
+  Interfaz: {fileID: 2039601203}
+  MaizButton: {fileID: 989136832}
+  LechugaButton: {fileID: 850863419}
+  ZanahoriaButton: {fileID: 1350065523}
+  FresasButton: {fileID: 503844784}
+  ComprarButton: {fileID: 2111565999}
+  DescripcionTexto: {fileID: 2105757271}
+  ContadorTexto: {fileID: 586434541}
+  PlayerMovement: {fileID: 230413355}
+  ContadorDinero: {fileID: 0}
 --- !u!1 &905030716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3490,8 +3489,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ActivarInterfazVenta, Assembly-CSharp
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
         m_MethodName: ButtonMaizPressed
         m_Mode: 1
         m_Arguments:
@@ -4321,8 +4320,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
         m_MethodName: ButtonZanahoriaPressed
         m_Mode: 1
         m_Arguments:
@@ -4454,8 +4453,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
         m_MethodName: DisminuirCantidad
         m_Mode: 1
         m_Arguments:
@@ -4662,8 +4661,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
         m_MethodName: AumentarCantidad
         m_Mode: 1
         m_Arguments:
@@ -18707,7 +18706,7 @@ GameObject:
   - component: {fileID: 2111566002}
   - component: {fileID: 2111566001}
   m_Layer: 5
-  m_Name: VenderButton
+  m_Name: ComprarButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18777,9 +18776,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: VentaInterfaz, Assembly-CSharp
-        m_MethodName: ButtonVenderPressed
+      - m_Target: {fileID: 898385389}
+        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
+        m_MethodName: ButtonComprarPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
