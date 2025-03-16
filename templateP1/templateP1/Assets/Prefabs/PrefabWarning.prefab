@@ -26,8 +26,8 @@ Transform:
   m_GameObject: {fileID: 1449947639363004754}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.020599937, y: 0.0592, z: 0}
-  m_LocalScale: {x: 0.8, y: 0.8, z: 3.9999998}
+  m_LocalPosition: {x: 0.0432, y: 0.1036, z: 0}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 3.9999995}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1712912322213877935}
@@ -93,7 +93,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1712912322213877935}
-  - component: {fileID: 3459399791794667033}
   m_Layer: 7
   m_Name: PrefabWarning
   m_TagString: Untagged
@@ -117,28 +116,3 @@ Transform:
   - {fileID: 2250042330433852732}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3459399791794667033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5605616275884874026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cc4789b51c0ae34a9f9f1a6d120f9f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlantaFase1: {fileID: 0}
-  PlantaFase2: {fileID: 0}
-  PlantaFase3: {fileID: 0}
-  PlantaFase4: {fileID: 0}
-  PrefabSuelo: {fileID: 0}
-  PrefabAvisoRiego: {fileID: 0}
-  PrefabAvisoRecolecta: {fileID: 0}
-  PrefabMaceta: {fileID: 0}
-  NombrePlanta: Cultivo
-  Tipo: 1
-  TiempoCrecimiento: 10
-  TiempoRegado: 20
-  TiempoMuerte: 40

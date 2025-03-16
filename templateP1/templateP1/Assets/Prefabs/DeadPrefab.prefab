@@ -778,15 +778,20 @@ MonoBehaviour:
   PlantaFase2: {fileID: 0}
   PlantaFase3: {fileID: 0}
   PlantaFase4: {fileID: 0}
-  PrefabSuelo: {fileID: 0}
-  PrefabAvisoRiego: {fileID: 0}
-  PrefabAvisoRecolecta: {fileID: 0}
-  PrefabMaceta: {fileID: 0}
+  DeadCrop2: {fileID: 1727801593, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  DeadCrop3: {fileID: 176119741, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  DeadCrop4: {fileID: -143397427, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  PrefabDead: {fileID: 6801202256768482908}
+  PrefabSuelo: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
+  PrefabAvisoRiego: {fileID: 5605616275884874026, guid: b30783a2c9f6eba4cbce7eb77b431b30, type: 3}
+  PrefabWarningDead: {fileID: 5605616275884874026, guid: 3a7774ef3b76a514f9aeb597dfb6ef9a, type: 3}
+  PrefabAvisoRecolecta: {fileID: 7365393303329668829, guid: fdbf4e0a306fda54692eb0bb40d7acc9, type: 3}
+  PrefabMaceta: {fileID: 1054808982056633637, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
   NombrePlanta: Cultivo
   Tipo: 1
-  TiempoCrecimiento: 10
+  TiempoCrecimiento: 50
   TiempoRegado: 20
-  TiempoMuerte: 40
+  TiempoMuerte: 20
 --- !u!1 &7387929773801449537
 GameObject:
   m_ObjectHideFlags: 0
