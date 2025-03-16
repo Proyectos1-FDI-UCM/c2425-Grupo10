@@ -35,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private Rigidbody2D _playerRb;
     private Animator _playerAnimator;
+    private SpriteRenderer _spriteRenderer;
     public bool enablemovement = true;
 
     /// <summary>
@@ -58,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
         // Obtiene la referencia al Rigidbody2D del jugador.
         _playerRb = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<Animator>();
+        _playerAnimator.SetBool("Watering", false);
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -65,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+
         float moveX = InputManager.Instance.MovementVector.x;
         float moveY = InputManager.Instance.MovementVector.y;
 
@@ -90,6 +94,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
+
+        int Regadera = LevelManager.Instance.Regadera();
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0)
+        {
+            _playerAnimator.SetBool("Watering", true);
+            Invoke("NotWatering", 1f);
+        }
+        
 
     }
 
@@ -119,13 +131,19 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Flip()
     {
-        Debug.Log("Flip");
+        //facingRight = !facingRight;
+        //Vector3 scale = transform.localScale;
+        //scale.x *= -1;
+        //transform.localScale = scale;
+
+        //Debug.Log("Flip");
 
         facingRight = !facingRight;
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
+        _spriteRenderer.flipX = !_spriteRenderer.flipX;
     }
+
+    private void NotWatering() { _playerAnimator.SetBool("Watering", false); }
+      
 
 
     #endregion
