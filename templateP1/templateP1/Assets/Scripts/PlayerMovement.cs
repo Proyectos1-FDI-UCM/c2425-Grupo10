@@ -45,6 +45,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 lastMoveDirection = Vector2.down;
 
     private bool facingRight = true;
+    private bool handfacingRight = true;
+    private Transform Hand;
 
     #endregion
 
@@ -61,6 +63,10 @@ public class PlayerMovement : MonoBehaviour
         _playerAnimator = GetComponent<Animator>();
         _playerAnimator.SetBool("Watering", false);
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        
+        Hand = gameObject.transform.GetChild(0);
+
+        
     }
 
     /// <summary>
@@ -84,6 +90,7 @@ public class PlayerMovement : MonoBehaviour
             if ((moveX < 0 && facingRight) || (moveX > 0 && !facingRight))
             {
                 Flip();
+                FlipHand();
             }
         }
 
@@ -96,9 +103,10 @@ public class PlayerMovement : MonoBehaviour
         _playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
 
         int Regadera = LevelManager.Instance.Regadera();
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0)
+        if ((InputManager.Instance.UsarIsPressed() || InputManager.Instance.UsarWasPressedThisFrame()) && LevelManager.Instance.Herramientas() == 2 && Regadera > 0)
         {
             _playerAnimator.SetBool("Watering", true);
+            Hand.gameObject.SetActive(false);
             Invoke("NotWatering", 1f);
         }
         
@@ -109,7 +117,10 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Si en el futuro se añaden métodos públicos, deben ser documentados aquí.
+    public void CambioHerramienta()
+    {
+        //
+    }
 
     #endregion
 
@@ -131,18 +142,28 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Flip()
     {
-        //facingRight = !facingRight;
-        //Vector3 scale = transform.localScale;
-        //scale.x *= -1;
-        //transform.localScale = scale;
-
-        //Debug.Log("Flip");
-
         facingRight = !facingRight;
         _spriteRenderer.flipX = !_spriteRenderer.flipX;
+
+        //Vector3 scale = Hand.localScale;
+        //scale.x *= -1;
+        //Hand.localPosition = scale;
+    }
+    private void FlipHand()
+    {
+        Vector3 scale = Hand.localScale;
+        Vector3 position = Hand.localPosition;
+        position.x *= -1;
+        scale.x *= -1;
+        Hand.localPosition = position;
+        Hand.localScale = scale;    
     }
 
-    private void NotWatering() { _playerAnimator.SetBool("Watering", false); }
+    private void NotWatering() 
+    { 
+        _playerAnimator.SetBool("Watering", false); 
+        Hand.gameObject.SetActive(true);
+    }
       
 
 
