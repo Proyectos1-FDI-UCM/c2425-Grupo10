@@ -24,6 +24,7 @@ public class Visibility : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Tilemap Tilemap;
+    [SerializeField] private SpriteRenderer Arbol;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -50,6 +51,7 @@ public class Visibility : MonoBehaviour
     void Start()
     {
         Tilemap = GetComponent<Tilemap>();
+        Arbol = GetComponent<SpriteRenderer>();
     }
 
     /// <summary>
@@ -76,6 +78,13 @@ public class Visibility : MonoBehaviour
             color.a = amount;
             Tilemap.color = color;
         }
+        if (Arbol != null)
+        {
+            Color color = Arbol.color;
+            color.a = amount;
+            Arbol.color = color;
+        }
+
     }
     #endregion
 

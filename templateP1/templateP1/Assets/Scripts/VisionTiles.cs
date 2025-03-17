@@ -24,6 +24,7 @@ public class VisionTiles : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] private Tilemap Tilemap;
+    [SerializeField] private SpriteRenderer CopaArbol;
     [SerializeField] private Visibility Visibility;
     [SerializeField] private Collider2D PlayerCollider;
 
@@ -71,6 +72,7 @@ public class VisionTiles : MonoBehaviour
         if (Tilemap == null)
         {
             Tilemap = GetComponent<Tilemap>();
+            CopaArbol = GetComponent<SpriteRenderer>();
         }
     }
 
