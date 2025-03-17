@@ -142,9 +142,20 @@ public class CompraInterfaz : MonoBehaviour
 
     public void AumentarCantidad()
     {
-        _cantidadAComprar++;
-        ActualizarTextoCantidad();
+        int totalCosto = (_cantidadAComprar + 1) * _coste;  // Calculamos el costo total si aumentamos en 1
+
+        // Solo aumentamos si el costo total no supera el dinero disponible
+        if (totalCosto <= ContadorDinero.GetContadorDinero() && _cantidadAComprar < 30)
+        {
+            _cantidadAComprar++;  // Aumenta la cantidad si hay suficiente dinero
+            ActualizarTextoCantidad();  // Actualiza el texto de la UI
+        }
+        else
+        {
+            DescripcionTexto.text = "No tienes suficiente dinero para más semillas.";  // Mensaje de error
+        }
     }
+
 
     public void DisminuirCantidad()
     {
@@ -154,7 +165,6 @@ public class CompraInterfaz : MonoBehaviour
             ActualizarTextoCantidad();
         }
     }
-
     public void ButtonComprarPressed()
     {
         int totalPrecio = _cantidadAComprar * _coste;
@@ -163,6 +173,7 @@ public class CompraInterfaz : MonoBehaviour
         {
             ContadorDinero.Comprar(totalPrecio);
 
+            // Actualiza el inventario según el tipo de semilla seleccionada
             if (_isMaizSelected) _inventario[0] += _cantidadAComprar;
             if (_isLechugaSelected) _inventario[1] += _cantidadAComprar;
             if (_isZanahoriaSelected) _inventario[2] += _cantidadAComprar;
@@ -172,11 +183,12 @@ public class CompraInterfaz : MonoBehaviour
         }
         else
         {
-            DescripcionTexto.text = "No tienes suficiente dinero.";
+            DescripcionTexto.text = "No tienes suficiente dinero.";  // Mensaje si no hay dinero suficiente
         }
 
-        ActualizarTextoCantidad();
+        ActualizarTextoCantidad();  // Actualiza la UI después de la compra
     }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
