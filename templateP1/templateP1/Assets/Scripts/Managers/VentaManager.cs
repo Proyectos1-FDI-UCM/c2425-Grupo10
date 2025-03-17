@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System.Collections.Generic; // Necesario para manejar el inventario
+using UnityEngine.UI; // Necesario para manejar UI
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -31,6 +32,9 @@ public class VentaManager : MonoBehaviour
     [SerializeField] GameObject PrefabSemilla1;
     [SerializeField] GameManager GameManager;
     [SerializeField] ToolManager ToolManager;
+
+    [SerializeField] private Text mensajeErrorTexto; // Referencia al objeto UI de texto
+
 
     int[] _venta = { 0, 0, 0, 0 };
 
@@ -111,16 +115,43 @@ public class VentaManager : MonoBehaviour
         return _venta;
     }
 
+    /// <summary>
+    /// Muestra un mensaje de error en pantalla cuando el jugador intenta vender un cultivo que no tiene.
+    /// </summary>
+    /// <param name="mensaje">Texto del mensaje de error</param>
+    public void MostrarMensajeError(string mensaje)
+    {
+        if (mensajeErrorTexto != null)
+        {
+            mensajeErrorTexto.text = mensaje;
+            mensajeErrorTexto.gameObject.SetActive(true); // Asegura que el texto es visible
+            CancelInvoke(nameof(OcultarMensajeError)); // Cancela cualquier temporizador previo
+            Invoke(nameof(OcultarMensajeError), 2f); // Oculta el mensaje después de 2 segundos
+        }
+    }
 
-    #endregion
+    /// <summary>
+    /// Oculta el mensaje de error después de un tiempo.
+    /// </summary>
+    private void OcultarMensajeError()
+    {
+        if (mensajeErrorTexto != null)
+        {
+            mensajeErrorTexto.gameObject.SetActive(false);
+        }
+    }
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
+
+#endregion
+
+// ---- MÉTODOS PRIVADOS ----
+#region Métodos Privados
 
     private void Init()
     {
         inventario = new Dictionary<string, int>();
     }
+
     #endregion
 }
 

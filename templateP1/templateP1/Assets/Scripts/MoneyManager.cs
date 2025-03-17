@@ -8,6 +8,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using System.Collections;
 // Añadir aquí el resto de directivas using
 
 
@@ -26,6 +27,7 @@ public class MoneyManager : MonoBehaviour
     // Ejemplo: MaxHealthPoints
     [SerializeField] private GameManager gameManager;
     [SerializeField] private TextMeshProUGUI textoDinero;
+    [SerializeField] private TextMeshProUGUI mensajeErrorVenta; // Texto de error para mostrar mensajes
 
     #endregion
 
@@ -37,8 +39,10 @@ public class MoneyManager : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    private int Contador = 0;
+    private int _contador = 0;
     private int[] _inventario;
+
+    private Coroutine _mensajeCoroutine; // Variable para manejar la visibilidad del mensaje
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -54,7 +58,7 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Contador += 100000;
+        _contador += 100000;
         _inventario = GameManager.Instance.Inventario();
 
     }
@@ -87,19 +91,20 @@ public class MoneyManager : MonoBehaviour
 
     public int GetContadorDinero()
     { 
-        return Contador; 
+        return _contador; 
     }
 
     public void RestarDinero (float cantidad)
     {
-        Contador -= Convert.ToInt32(cantidad);
+        _contador -= Convert.ToInt32(cantidad);
     }
+
     public void ComprarSemillasLechuga(int cantidad)
     {
         int precioTotal = cantidad * 15;
-        if (Contador >= precioTotal)
+        if (_contador >= precioTotal)
         {
-            Contador -= precioTotal;
+            _contador -= precioTotal;
             _inventario[1] += cantidad;
             ActualizarContador();
         }
@@ -107,18 +112,25 @@ public class MoneyManager : MonoBehaviour
 
     public void LechugaVendida(int cantidad)
     {
-        int total = cantidad * 20;
-        Contador += total;
-        ActualizarContador();
-        _inventario[1] = _inventario[1] - cantidad;
+        if (_inventario[1] >= cantidad)
+        {
+            int total = cantidad * 20;
+            _contador += total;
+            _inventario[1] -= cantidad;
+            ActualizarContador();
+        }
+        else
+        {
+            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
+        }
     }
-    //-------------------------
+    
     public void ComprarSemillasFresas(int cantidad)
     {
         int precioTotal = cantidad * 30;
-        if (Contador >= precioTotal)
+        if (_contador >= precioTotal)
         {
-            Contador -= precioTotal;
+            _contador -= precioTotal;
             _inventario[3] += cantidad;
             ActualizarContador();
         }
@@ -126,18 +138,26 @@ public class MoneyManager : MonoBehaviour
 
     public void FresaVendida(int cantidad)
     {
-        int total = cantidad * 40;
-        Contador += total;
-        ActualizarContador();
-        _inventario[3] = _inventario[3] - cantidad;
+        if (_inventario[3] >= cantidad)
+        {
+            int total = cantidad * 40;
+            _contador += total;
+            _inventario[3] -= cantidad;
+            ActualizarContador();
+        }
+
+        else
+        {
+            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
+        }
     }
 
     public void ComprarSemillasZanahoria(int cantidad)
     {
         int precioTotal = cantidad * 50;
-        if (Contador >= precioTotal)
+        if (_contador >= precioTotal)
         {
-            Contador -= precioTotal;
+            _contador -= precioTotal;
             _inventario[2] += cantidad;
             ActualizarContador();
         }
@@ -145,18 +165,26 @@ public class MoneyManager : MonoBehaviour
     }
     public void ZanahoriaVendida(int cantidad)
     {
-        int total = cantidad * 65;
-        Contador += total;
-        ActualizarContador();
-        _inventario[2] = _inventario[2] - cantidad;
+        if (_inventario[2] >= cantidad)
+        {
+            int total = cantidad * 65;
+            _contador += total;
+            _inventario[2] -= cantidad;
+            ActualizarContador();
+        }
+
+        else
+        {
+            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
+        }
     }
 
     public void ComprarSemillasMaiz(int cantidad)
     {
         int precioTotal = cantidad * 70;
-        if (Contador >= precioTotal)
+        if (_contador >= precioTotal)
         {
-            Contador -= precioTotal;
+            _contador -= precioTotal;
             _inventario[0] += cantidad;
             ActualizarContador();
         }
@@ -164,53 +192,61 @@ public class MoneyManager : MonoBehaviour
 
     public void MaizVendido(int cantidad)
     {
-        int total = cantidad * 90;
-        Contador += total;
-        ActualizarContador();
-        _inventario[0] = _inventario[0] - cantidad;
+        if (_inventario[0] >= cantidad)
+        {
+            int total = cantidad * 90;
+            _contador += total;
+            _inventario[0] -= cantidad;
+            ActualizarContador();
+        }
+
+        else
+        {
+            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
+        }
     }
    
     public void ComprarAbono()
     {
-        if (Contador >= 70)
+        if (_contador >= 70)
         {
-            Contador -= 70;
+            _contador -= 70;
             _inventario[4] += 5;
         }
     }
    
     public void Mejora1Regadera()
     {
-        if (Contador >= 1000)
+        if (_contador >= 1000)
         {
-            Contador -= 1000;
+            _contador -= 1000;
         }
     }
     public void Mejora2Regadera()
     {
-        if (Contador >= 5000)
+        if (_contador >= 5000)
         {
-            Contador -= 5000;
+            _contador -= 5000;
         }
     }
     public void Mejora3Regadera()
     {
-        if (Contador >= 10000)
+        if (_contador >= 10000)
         {
-            Contador -= 10000;
+            _contador -= 10000;
         }
     }
 
     public void Comprar(int cantidad)
     {
-        Contador -= cantidad;
+        _contador -= cantidad;
         ActualizarContador();
     }
 
 
     public void ActualizarContador() // Cambiado a public
     {
-        textoDinero.text = "x" + Contador; // Actualiza el texto con el valor del contador
+        textoDinero.text = "x" + _contador; // Actualiza el texto con el valor del contador
     }
     #endregion
 
@@ -221,6 +257,22 @@ public class MoneyManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
+    private void MostrarMensajeError(string mensaje)
+    { 
+        if (_mensajeCoroutine != null)
+        {
+            StopCoroutine(_mensajeCoroutine);
+        }
+        _mensajeCoroutine = StartCoroutine(MostrarMensajeTemporal(mensaje));
+    }
+
+    private IEnumerator MostrarMensajeTemporal(string mensaje)
+    {
+        mensajeErrorVenta.text = mensaje;
+        mensajeErrorVenta.gameObject.SetActive(true);
+        yield return new WaitForSeconds(2f); // El mensaje se muestra por 2 segundos
+        mensajeErrorVenta.gameObject.SetActive(false);
+    }
     #endregion
 
 } // class ContadorDinero 
