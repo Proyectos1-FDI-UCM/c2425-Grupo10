@@ -183,28 +183,28 @@ public class VentaInterfaz : MonoBehaviour
         if (_isMaizSelected)
         {
             _coste = 90;
-            MostrarDescripcion(i[0], _inventario[0], _coste);
+            MostrarDescripcion(i[0], _inventario[4], _coste);
             ContadorDinero.MaizVendido(_cantidadAVender);
             _isMaizSelected = false; // Desmarcar maíz después de vender
         }
         if (_isLechugaSelected)
         {
             _coste = 20;
-            MostrarDescripcion(i[1], _inventario[1], _coste);
+            MostrarDescripcion(i[1], _inventario[5], _coste);
             ContadorDinero.LechugaVendida(_cantidadAVender);
             _isLechugaSelected = false; // Desmarcar lechuga después de vender
         }
         if (_isZanahoriaSelected)
         {
             _coste = 65;
-            MostrarDescripcion(i[2], _inventario[2], _coste);
+            MostrarDescripcion(i[2], _inventario[6], _coste);
             ContadorDinero.ZanahoriaVendida(_cantidadAVender);
             _isZanahoriaSelected = false; // Desmarcar zanahoria después de vender
         }
         if (_isFresasSelected)
         {
             _coste = 40;
-            MostrarDescripcion(i[3], _inventario[3], _coste);
+            MostrarDescripcion(i[3], _inventario[7], _coste);
             ContadorDinero.FresaVendida(_cantidadAVender);
             _isFresasSelected = false; // Desmarcar fresas después de vender
         }
