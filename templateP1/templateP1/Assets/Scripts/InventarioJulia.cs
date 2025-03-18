@@ -77,7 +77,7 @@ public class InventarioJulia : MonoBehaviour
 
     public void MostrarInventario()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 8; i++)
         {
              GameObject _crops = transform.GetChild(i).gameObject;
             if (inventario[i] != 0) 
@@ -87,6 +87,7 @@ public class InventarioJulia : MonoBehaviour
             }
             else _crops.SetActive(false);
         }
+
     }
     #endregion
     
