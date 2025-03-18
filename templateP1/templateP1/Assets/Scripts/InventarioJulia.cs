@@ -77,7 +77,7 @@ public class InventarioJulia : MonoBehaviour
 
     public void MostrarInventario()
     {
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < 4; i++)
         {
              GameObject _crops = transform.GetChild(i).gameObject;
             if (inventario[i] != 0) 
@@ -87,6 +87,37 @@ public class InventarioJulia : MonoBehaviour
             }
             else _crops.SetActive(false);
         }
+        for (int i = 4; i < 8; i++)
+        {
+            if (inventario[i] != 0)
+            {
+                int j = 1;
+                bool b = true;
+                while (j < 5 && b)
+                {
+                    GameObject _crops = transform.GetChild(i * j).gameObject;
+                    _crops.SetActive(true);
+                    Unidades = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                    if (inventario[i] / (j * 10) != 0)
+                    {
+                        Unidades.text = 10 + "x";
+                    }
+                    else if (inventario[i] - ((j - 1) * 10) != 0)
+                    {
+                        Unidades.text = inventario[i] - ((j-1) * 10) + "x";
+                        b = false;
+                    }
+                    else
+                    {
+                        _crops.SetActive(false);
+                        b = false;
+                    }
+                    j++;
+                }
+            }
+            else transform.GetChild(i).gameObject.SetActive(false);
+        }
+
 
     }
     #endregion
