@@ -21,11 +21,6 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private Sprite PlantaFase3;
     [SerializeField] private Sprite PlantaFase4;
 
-    // Sprites plantas muertas
-    [SerializeField] private Sprite DeadCrop2;
-    [SerializeField] private Sprite DeadCrop3;
-    [SerializeField] private Sprite DeadCrop4;
-
     [SerializeField] private GameObject PrefabDead;    // Prefab planta muerta
 
     [SerializeField] private GameObject PrefabSuelo; // Prefab efecto tierra mojada
@@ -38,9 +33,9 @@ public class PlantaEvolucion : MonoBehaviour
     [SerializeField] private int Tipo = 1;
 
     // Pruebas
-    [SerializeField] private int TiempoCrecimiento = 50;
-    [SerializeField] private int TiempoRegado = 20;
-    [SerializeField] private int TiempoMuerte = 20;
+    [SerializeField] private int TiempoCrecimiento = 5;
+    [SerializeField] private int TiempoRegado = 3;
+    [SerializeField] private int TiempoMuerte = 3;
 
 
     #endregion
@@ -54,12 +49,13 @@ public class PlantaEvolucion : MonoBehaviour
     private CropSpawner _cropSpawner;
 
     private int EstadoCrecimiento; // = -1 para los cultivos muertos
+    private int _guardarEstado;
     private bool EstadoRiego;
     private bool _isDead;
     
     private float TimerCrecimiento;
     private float TimerRiego;
-    private float TimerDead;
+   // private float TimerDead;
     private bool _cosechado = false;
 
     #endregion
@@ -89,46 +85,44 @@ public class PlantaEvolucion : MonoBehaviour
         // IRIA - Cambios que he hecho en partes ajenas del update: Instaciar el contador de muerte (20s) cuando pasa de la fase 1 y termina el de regado.
         // Cambios que he hecho en métodos ajenos: 1) En Regar(), reseteo el contador de muerte después del de riego.
 
-        TimerRiego -= Time.deltaTime;
-        //Debug.Log("Timer Riego: " + TimerRiego);
 
-        if (TimerRiego <= 0 && EstadoCrecimiento != -1) 
-        {
-            AvisoRiego();
-        }
 
-        if (EstadoCrecimiento == 0 && EstadoRiego) // Si se ha regado y plantado
-        {
-            TimerCrecimiento -= Time.deltaTime;
-            // Debug.Log("Timer Crecimiento: " + TimerCrecimiento);
-        }
+            if (TimerRiego <= 0f)
+            {
+                AvisoRiego();
+            }
 
-        else if (EstadoCrecimiento > 0) 
-         {
-            TimerCrecimiento -= Time.deltaTime;
-           // Debug.Log("Timer Crecimiento: " + TimerCrecimiento);
-        }
+            if (EstadoCrecimiento >= 0) // Si se ha regado y plantado
+            {
+                if (EstadoRiego && EstadoCrecimiento == 0) TimerCrecimiento -= Time.deltaTime;
+                else if (TimerCrecimiento > 0) TimerCrecimiento -= Time.deltaTime;
+                // Debug.Log("Timer Crecimiento: " + TimerCrecimiento);
 
-        if (TimerCrecimiento <= 0f) 
-        {
-            Crecimiento();
-        }
+                TimerRiego -= Time.deltaTime;
+              //  Debug.Log("Timer Riego: " + TimerRiego);
 
-        if (TimerRiego <= 0 && EstadoCrecimiento > 0)
-        {
-            TimerDead -= Time.deltaTime;
-            // Debug.Log("Timer Muerte: " + TimerDead);
+            }
 
-            if (TimerDead <= 5f)
+            if (TimerCrecimiento <= 0f)
+            {
+                Crecimiento();
+            }
+
+            if (TimerRiego <= -2) // 10 seg antes de que muera salta el aviso
             {
                 WarningDead();
+            //   Debug.Log("WARNING DEATH");
+                 _guardarEstado = EstadoCrecimiento;
             }
 
-            if (TimerDead <= 0f)
+            if (TimerRiego <= -TiempoMuerte)
             {
-                Death();
+                 EstadoCrecimiento = -1;
+                 Death();
+                
+                //Destroy(gameObject);
             }
-        }
+        
     }
 
     #endregion
@@ -164,23 +158,13 @@ public class PlantaEvolucion : MonoBehaviour
         _cropSpawner.Reactivar();
         _cosechado = true;
 
-        Destroy(_avisos.gameObject); // Elimina la planta del mapa tras recogerla
+        Destroy(gameObject); // Elimina la planta del mapa tras recogerla
 
         int [] i = GameManager.Instance.Inventario();
         i[Tipo]++;
     }
 
-    /// <summary>
-    /// Afrrancar planta muerta. Igual que Cosechar() pero sin guardar en el inventario.
-    /// </summary>
-    public void TearDeadCrop()
-    {
-        Destroy(_avisos);
-
-        _cropSpawner.Reactivar();
-
-        Destroy(gameObject); // Elimina la planta muerta del mapa tras recogerla
-    }
+ 
 
     #endregion
 
@@ -200,8 +184,8 @@ public class PlantaEvolucion : MonoBehaviour
         suelo.transform.SetParent(transform);
 
         // Inicia la cuenta atrás del tiempo de regado
-        TimerRiego = TiempoRegado;
-        TimerDead = TiempoMuerte;
+        TimerRiego = TiempoMuerte;
+       // TimerDead = TiempoMuerte;
         EstadoRiego = true;
 
     }
@@ -213,34 +197,17 @@ public class PlantaEvolucion : MonoBehaviour
     {
         Destroy(_avisos); // Se eliminan los avisos de muerte
 
-        // Aparece el prefab de muerte que cambia su sprite dependiendo de la fase
-        if (EstadoCrecimiento == 1)
-        {
-            // Instanciar prefab muerte con su sprite
-            GameObject dead = Instantiate(PrefabDead, transform.position, Quaternion.identity);
-            dead.transform.SetParent(transform);
-            ChangeDeadSprite();
-            Debug.Log("Planta muerta en estado 2.");
-        }
+        GameObject dead = Instantiate(PrefabDead, transform.position, Quaternion.identity);
+        dead.transform.SetParent(transform.parent);
 
-        else if (EstadoCrecimiento == 2)
-        {
-            GameObject dead = Instantiate(PrefabDead, transform.position, Quaternion.identity);
-            dead.transform.SetParent(transform);
-            ChangeDeadSprite();
-            Debug.Log("Planta muerta en estado 3.");
-        }
+        ChangeDeadSprite Script = dead.GetComponent<ChangeDeadSprite>();
+        Script.ChangeSprite(_guardarEstado);
 
-        else if (EstadoCrecimiento == 3)
-        {
-            GameObject dead = Instantiate(PrefabDead, transform.position, Quaternion.identity);
-            dead.transform.SetParent(transform);
-            ChangeDeadSprite();
-            Debug.Log("Planta muerta en estado 4.");
-        }
-        EstadoCrecimiento = -1;
-        TimerCrecimiento = TiempoCrecimiento;
+        Debug.Log("Planta muerta en estado: " + _guardarEstado);
+        // TimerRiego = TiempoMuerte;
         //AvisoRecolecta();
+
+        Destroy(gameObject); // DestruyePlanta
     }
 
     /// <summary>
@@ -268,28 +235,6 @@ public class PlantaEvolucion : MonoBehaviour
             AvisoRecolecta();
         }
     }
-    /// <summary>
-    /// Método para cambiar el sprite de la planta según su fase antes de morir.
-    /// </summary>
-    public void ChangeDeadSprite()
-    {
-        switch (EstadoCrecimiento)
-        {
-            case 1:
-                _spriteRenderer.sprite = DeadCrop2;
-                Debug.Log("Sprite cambiado.");
-                break;
-            case 2:
-                _spriteRenderer.sprite = DeadCrop3;
-                Debug.Log("Sprite cambiado.");
-                break;
-            case 3:
-                _spriteRenderer.sprite = DeadCrop4;
-                Debug.Log("Sprite cambiado.");
-                break;
-        }
-    }
-
     // AVISOS ------------------
     /// <summary>
     /// Métodos que instancian los prefabs de avisos para el riego, la recolecta y la muerte.
@@ -298,7 +243,7 @@ public class PlantaEvolucion : MonoBehaviour
     {
         Destroy(_avisos);
 
-        if (EstadoCrecimiento !=3)
+        if (EstadoCrecimiento !=3 && EstadoCrecimiento != -1 && TimerRiego > -TiempoRegado)
         {
             _avisos = Instantiate(PrefabAvisoRiego, transform.position, Quaternion.identity);
             _avisos.transform.SetParent(transform);
@@ -329,7 +274,6 @@ public class PlantaEvolucion : MonoBehaviour
         _avisos.transform.SetParent(transform);
 
         Debug.Log("Aviso muerte.");
-
     }
 
     // AVISOS ------------------
@@ -357,13 +301,6 @@ public class PlantaEvolucion : MonoBehaviour
         if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3 && EstadoCrecimiento == 3)
         {
             Cosechar();
-        }
-
-        //Si la planta está muerta y el jugador presiona el botón teniendo la hoz (Herramienta 3), la arranca
-
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3 && EstadoCrecimiento == -1)
-        {
-            TearDeadCrop();
         }
     }
 
