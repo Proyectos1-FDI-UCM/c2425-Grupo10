@@ -112,15 +112,16 @@ public class PlantaEvolucion : MonoBehaviour
             {
                 WarningDead();
             //   Debug.Log("WARNING DEATH");
-                 _guardarEstado = EstadoCrecimiento;
+                 //_guardarEstado = EstadoCrecimiento;
             }
 
             if (TimerRiego <= -TiempoMuerte)
             {
-                 EstadoCrecimiento = -1;
-                 Death();
-                
-                //Destroy(gameObject);
+                 EstadoCrecimiento = -1; 
+                Death();
+               TimerCrecimiento = 3f;
+               TimerRiego = 3f;
+            Destroy(gameObject);
             }
         
     }
@@ -201,13 +202,13 @@ public class PlantaEvolucion : MonoBehaviour
         dead.transform.SetParent(transform.parent);
 
         ChangeDeadSprite Script = dead.GetComponent<ChangeDeadSprite>();
-        Script.ChangeSprite(_guardarEstado);
+        Script.ChangeSprite(EstadoCrecimiento);
 
-        Debug.Log("Planta muerta en estado: " + _guardarEstado);
+        Debug.Log("Planta muerta en estado: " + EstadoCrecimiento);
         // TimerRiego = TiempoMuerte;
         //AvisoRecolecta();
 
-        Destroy(gameObject); // DestruyePlanta
+       // Destroy(gameObject); // DestruyePlanta
     }
 
     /// <summary>
@@ -220,12 +221,14 @@ public class PlantaEvolucion : MonoBehaviour
             _spriteRenderer.sprite = PlantaFase2;
             EstadoCrecimiento = 1;
             TimerCrecimiento = TiempoCrecimiento;
+           // _guardarEstado = 1;
         }
         else if (EstadoCrecimiento == 1)
         {
             _spriteRenderer.sprite = PlantaFase3;
             EstadoCrecimiento = 2;
             TimerCrecimiento = TiempoCrecimiento;
+            //_guardarEstado = 2;
         }
         else if (EstadoCrecimiento == 2)
         {
@@ -233,7 +236,10 @@ public class PlantaEvolucion : MonoBehaviour
             EstadoCrecimiento = 3;
             TimerCrecimiento = TiempoCrecimiento;
             AvisoRecolecta();
+            //_guardarEstado = 3;
         }
+        Debug.Log("ESTADO:" + EstadoCrecimiento);
+
     }
     // AVISOS ------------------
     /// <summary>

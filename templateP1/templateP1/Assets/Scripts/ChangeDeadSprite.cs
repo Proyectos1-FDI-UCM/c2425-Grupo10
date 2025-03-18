@@ -42,6 +42,7 @@ public class ChangeDeadSprite : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
   //  private GameObject gameObject;
     private int EstadoCrecimiento;
+    private GameObject _maceta;
     private CropSpawner _cropSpawner;
     #endregion
 
@@ -58,8 +59,10 @@ public class ChangeDeadSprite : MonoBehaviour
     /// </summary>
     void Start()
     {
+          _maceta = gameObject.transform.parent.gameObject;
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _cropSpawner = GetComponent<CropSpawner>();
+        _cropSpawner = _maceta.GetComponent<CropSpawner>();
+        if (_cropSpawner == null) Debug.Log("NO HAY CROPSPAWNER");
     }
 
     /// <summary>
