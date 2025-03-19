@@ -127,6 +127,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseWateringCan"",
+                    ""type"": ""Button"",
+                    ""id"": ""47292331-6bf3-4c07-a789-1d89ba562a51"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -391,6 +400,17 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Salir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""78ab53f3-fa28-4daa-b288-d54cb0b5f795"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseWateringCan"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -989,6 +1009,7 @@ namespace UnityEngine.InputSystem
             m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
             m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
             m_Player_Salir = m_Player.FindAction("Salir", throwIfNotFound: true);
+            m_Player_UseWateringCan = m_Player.FindAction("UseWateringCan", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1073,6 +1094,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Tab;
         private readonly InputAction m_Player_Esc;
         private readonly InputAction m_Player_Salir;
+        private readonly InputAction m_Player_UseWateringCan;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1088,6 +1110,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Tab => m_Wrapper.m_Player_Tab;
             public InputAction @Esc => m_Wrapper.m_Player_Esc;
             public InputAction @Salir => m_Wrapper.m_Player_Salir;
+            public InputAction @UseWateringCan => m_Wrapper.m_Player_UseWateringCan;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1130,6 +1153,9 @@ namespace UnityEngine.InputSystem
                 @Salir.started += instance.OnSalir;
                 @Salir.performed += instance.OnSalir;
                 @Salir.canceled += instance.OnSalir;
+                @UseWateringCan.started += instance.OnUseWateringCan;
+                @UseWateringCan.performed += instance.OnUseWateringCan;
+                @UseWateringCan.canceled += instance.OnUseWateringCan;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1167,6 +1193,9 @@ namespace UnityEngine.InputSystem
                 @Salir.started -= instance.OnSalir;
                 @Salir.performed -= instance.OnSalir;
                 @Salir.canceled -= instance.OnSalir;
+                @UseWateringCan.started -= instance.OnUseWateringCan;
+                @UseWateringCan.performed -= instance.OnUseWateringCan;
+                @UseWateringCan.canceled -= instance.OnUseWateringCan;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1360,6 +1389,7 @@ namespace UnityEngine.InputSystem
             void OnTab(InputAction.CallbackContext context);
             void OnEsc(InputAction.CallbackContext context);
             void OnSalir(InputAction.CallbackContext context);
+            void OnUseWateringCan(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

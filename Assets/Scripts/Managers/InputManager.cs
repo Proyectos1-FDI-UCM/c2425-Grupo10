@@ -75,6 +75,7 @@ public class InputManager : MonoBehaviour
     private InputAction _tab;
     private InputAction _esc;
     private InputAction _salir;
+    private InputAction _useWateringCan;
 
     #endregion
 
@@ -185,6 +186,10 @@ public class InputManager : MonoBehaviour
     {
         return _salir.IsPressed();
     }
+    public bool UseWateringCanIsPressed()
+    {
+        return _useWateringCan.IsPressed();
+    }
 
     /// <summary>
     /// Método para saber si el botón de Select (1/2/3/4/5) se ha pulsado en este frame
@@ -256,6 +261,17 @@ public class InputManager : MonoBehaviour
     public bool UsarWasPressedThisFrame()
     {
         return _usar.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Use Watering Can (usar regadera) se ha pulsado en este frame
+    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool UseWateringCanWasPressedThisFrame()
+    {
+        return _useWateringCan.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -352,6 +368,11 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (EscIsPressed, EscWasPressedThisFrame )
         _esc = _theController.Player.Esc;
+
+        // Use Watering Can input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseWateringCanIsPressed, UseWateringCanWasPressedThisFrame )
+        _useWateringCan = _theController.Player.UseWateringCan;
     }
 
     /// <summary>

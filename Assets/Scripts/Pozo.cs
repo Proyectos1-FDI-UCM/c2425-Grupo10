@@ -54,7 +54,7 @@ public class Pozo : MonoBehaviour
     /// </summary>
     void Start()
     {
-        MaxAguaRegadera = LevelManager.Instance.GetMaxAgua();
+     //   MaxAguaRegadera = LevelManager.Instance.GetMaxAgua();
     }
 
     /// <summary>
@@ -89,22 +89,22 @@ public class Pozo : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void OnCollisionStay2D()
-    {
+   // private void OnCollisionStay2D()
+   // {
         // Añadir animación llenar regadera
-        if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 2 && LevelManager.Instance.Regadera() < MaxAguaRegadera) 
-        {
-            LevelManager.Instance.LlenarRegadera(MaxAguaRegadera); // Llama al método que controla la cantidad de agua de la regadera
+       // if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 2 && LevelManager.Instance.Regadera() < MaxAguaRegadera) 
+       // {
+           // LevelManager.Instance.LlenarRegadera(MaxAguaRegadera); // Llama al método que controla la cantidad de agua de la regadera
 
             // Animación Provisional
-            Vector3 position = new Vector3 (4.23f, 5.82f, 0f);
-            _aviso = Instantiate(PrefabRiego, position, Quaternion.identity);
+          //  Vector3 position = new Vector3 (4.23f, 5.82f, 0f);
+          //  _aviso = Instantiate(PrefabRiego, position, Quaternion.identity);
 
-            Invoke("DestroyAvisos", 1f);
+         //   Invoke("DestroyAvisos", 1f);
 
-        }
+     //   }
 
-    }
+   // }
 
     #endregion   
 

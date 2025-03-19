@@ -27,11 +27,8 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
     [SerializeField] int CantidadSemillas = 100; // Semillas
-    [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
     [SerializeField] GameObject PrefabSemilla1;
     [SerializeField] GameManager GameManager;
-    [SerializeField] ToolManager ToolManager;
-    [SerializeField] int MaxAgua;
 
     #endregion
     // ---- ATRIBUTOS PRIVADOS ----
@@ -67,10 +64,6 @@ public class LevelManager : MonoBehaviour
                 GameManager = ObjetoTexto.GetComponent<GameManager>();
             }
         }
-        
-        GetMejorasRegadera();
-        ToolManager.BarraAgua(AguaRegadera, MaxAgua);
-        AguaRegadera = GameManager.Instance.LastWaterAmount();
         _inventario = GameManager.Instance.Inventario();
 
     }
@@ -94,69 +87,14 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     public int Herramientas() { return Herramienta; }
     public int Semillas() { return CantidadSemillas; }
-    public int Regadera() { return AguaRegadera; }
     public void CambioHerramienta(int i) { Herramienta = i; }
-    public int GetMaxAgua() { return MaxAgua; }
-    public void LlenarRegadera(int i)
-    {
-        AguaRegadera = i;
-        ToolManager.BarraAgua(AguaRegadera, MaxAgua);
-        GameManager.Instance.UpdateWaterAmount();
-    }
     public void Plantar() { CantidadSemillas--; }
-    public void Regar() 
-    { 
-        AguaRegadera--;
-        ToolManager.BarraAgua(AguaRegadera, MaxAgua);
-        GameManager.Instance.UpdateWaterAmount();
-    }
     public static bool HasInstance() { return _instance != null; }
-
-
-
-    /// <summary>
-    /// Método para modificar el máximo agua de la regadera despues de las mejoras
-    /// <summary>
-    public void Mejora0Regadera()
-    {
-        MaxAgua = 6;
-    }
-    public void Mejora1Regadera()
-    {
-        MaxAgua = 9;
-    }
-    public void Mejora2Regadera()
-    {
-        MaxAgua = 15;
-    }
-    public void Mejora3Regadera()
-    {
-        MaxAgua = 20;
-    }
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
-    private void GetMejorasRegadera()
-    {
-        if((GameManager.GetMejorasRegadera() == 0)) 
-        {
-            Mejora0Regadera();
-        }
-        if ((GameManager.GetMejorasRegadera() == 1))
-        {
-            Mejora1Regadera();
-        }
-        if ((GameManager.GetMejorasRegadera() == 2))
-        {
-            Mejora2Regadera();
-        }
-        if ((GameManager.GetMejorasRegadera() == 3))
-        {
-            Mejora3Regadera();
-        }
-    }
     #endregion
 }

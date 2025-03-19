@@ -102,13 +102,6 @@ public class PlayerMovement : MonoBehaviour
 
         _playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
 
-        int Regadera = LevelManager.Instance.Regadera();
-        if ((InputManager.Instance.UsarIsPressed() || InputManager.Instance.UsarWasPressedThisFrame()) && LevelManager.Instance.Herramientas() == 2 && Regadera > 0)
-        {
-            _playerAnimator.SetBool("Watering", true);
-            Hand.gameObject.SetActive(false);
-            Invoke("NotWatering", 1f);
-        }
         
 
     }
@@ -121,7 +114,7 @@ public class PlayerMovement : MonoBehaviour
     {
         //
     }
-
+    
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -158,14 +151,6 @@ public class PlayerMovement : MonoBehaviour
         Hand.localPosition = position;
         Hand.localScale = scale;    
     }
-
-    private void NotWatering() 
-    { 
-        _playerAnimator.SetBool("Watering", false); 
-        Hand.gameObject.SetActive(true);
-    }
-      
-
 
     #endregion
 } // class PlayerMovement 

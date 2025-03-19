@@ -103,6 +103,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UseWateringCan",
+                    "type": "Button",
+                    "id": "47292331-6bf3-4c07-a789-1d89ba562a51",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -367,6 +376,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Salir",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "78ab53f3-fa28-4daa-b288-d54cb0b5f795",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseWateringCan",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

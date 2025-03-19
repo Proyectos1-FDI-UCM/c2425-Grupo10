@@ -55,7 +55,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Referencia al script que maneja la barra de agua
     /// <summary>
-    [SerializeField] private ToolManager ToolManager;
+    [SerializeField] private SelectorManager SelectorManager;
+
+    /// <summary>
+    /// Referencia al script que maneja la cantidad de agua
+    /// <summary>
+    [SerializeField] private WateringCanManager WateringCanManager;
 
 
     #endregion
@@ -289,7 +294,7 @@ public class GameManager : MonoBehaviour
     }
     public int UpdateWaterAmount()
     {
-        _amountWater = LevelManager.Instance.Regadera();
+        _amountWater = WateringCanManager.GetAmountWateringCan();
         return _amountWater;
         
     }

@@ -32,6 +32,8 @@ public class PlantaEvolucion : MonoBehaviour
 
     [SerializeField] private int Tipo = 1;
 
+    [SerializeField] private WateringCanManager WateringCanManager;
+
     // Pruebas
     [SerializeField] private int TiempoCrecimiento = 5;
     [SerializeField] private int TiempoRegado = 3;
@@ -178,7 +180,7 @@ public class PlantaEvolucion : MonoBehaviour
     private void Regar()
     {
         Destroy(_avisos); // Se eliminan los avisos de riego
-        LevelManager.Instance.Regar(); // Se avisa al level manager para que contabilice el agua de la regadera
+        WateringCanManager.Watering(); // Se avisa al level manager para que contabilice el agua de la regadera
 
         // Se moja la tierra
         GameObject suelo = Instantiate(PrefabSuelo, transform.position, Quaternion.identity); 
@@ -297,7 +299,7 @@ public class PlantaEvolucion : MonoBehaviour
         Debug.Log("Colisión con planta detectada.");
 
         // Si el jugador tiene la regadera y presiona el botón, riega la planta
-        int Regadera = LevelManager.Instance.Regadera();
+        int Regadera = WateringCanManager.GetAmountWateringCan();
         if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !EstadoRiego)
         {
             Regar();
