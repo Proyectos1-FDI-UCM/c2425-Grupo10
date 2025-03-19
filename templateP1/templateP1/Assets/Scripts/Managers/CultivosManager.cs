@@ -32,7 +32,7 @@ public class CultivosManager : MonoBehaviour
     /// Solo una herramienta puede estar activa a la vez.
     /// </summary>
     private bool _espaciovacio;
-    public CultivosLista[] inventario = new CultivosLista[24];  // Arreglo fijo con 10 casillas
+    public CultivosLista[] inventario = new CultivosLista[24];  // Array fijo con 10 casillas
     public int maxItemsPorCasilla = 10;  // Número máximo de items por casilla
 
     #endregion
