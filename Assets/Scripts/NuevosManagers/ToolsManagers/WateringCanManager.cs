@@ -102,6 +102,14 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        if (GameManager == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
+            {
+                GameManager = ObjetoTexto.GetComponent<GameManager>();
+            }
+        }
         GetUpgradeWateringCan();
         SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
         WaterAmount = GameManager.Instance.LastWaterAmount();
