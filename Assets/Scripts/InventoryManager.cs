@@ -1,3 +1,10 @@
+//---------------------------------------------------------
+// Script para gestionar los datos del invantario
+// Responsable: Julia Vera Ruiz
+// Nombre del juego: Roots of Life
+// Curso 2024-25
+//---------------------------------------------------------
+
 using UnityEngine;
 
 /// <summary>
@@ -19,6 +26,12 @@ public enum Items
     Count
 }
 
+/// <summary>
+/// InventoryManager es una clase sin monobehaviour que maneja los datos del inventario
+/// Tiene un Enum para todos los items posibles que tenga el jugador (semillas y cultivos)
+/// Un array para guardar la cantidad actual de cada tipo de item
+/// Métodos: GetInventory; ModifyInventory; SetMaxCrops; SetMaxSeeds;
+/// </summary>
 public static class InventoryManager
 {
     /// <summary>
@@ -42,7 +55,7 @@ public static class InventoryManager
     }
 
     /// <summary>
-    /// Añade la cantidad (quantity) al inventario del Item (item) 
+    /// Añade la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
     /// </summary>
     public static void ModifyInventory(Items item, int quantity) // (Se puede restar con números negativos)
     {

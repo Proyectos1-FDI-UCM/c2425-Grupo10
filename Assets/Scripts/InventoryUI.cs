@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Script para gestionar la visibilidad del inventario.
-// Responsable: Alexia Pérez Santana, Iria Docampo Zotes
+// Responsable: Alexia Pérez Santana, Iria Docampo Zotes, Julia Vera Ruiz
 // Nombre del juego: Roots of Life
 // Curso 2024-25
 //---------------------------------------------------------
@@ -12,7 +12,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
+/// <summary>
+/// La Clase InventoryCultivos se encarga de mostrar el inventario al pulsar la tecla TAB 
+/// Actualiza su información en función de InventoryManager
+/// </summary>
 public class InventoryCultivos : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
@@ -139,7 +142,7 @@ public class InventoryCultivos : MonoBehaviour
         }
 
         // Muestra los cultivos
-        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++)
+        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++) 
         {
             if (InventoryManager.Inventory[i] != 0)
             {
