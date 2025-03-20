@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            _inventario[4]++;
+            InventoryManager.ModifyInventory(Items.Corn, 1);
         }
         if (ContadorDinero == null)
         {

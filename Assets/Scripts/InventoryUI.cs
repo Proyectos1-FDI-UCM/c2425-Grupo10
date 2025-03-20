@@ -6,35 +6,58 @@
 //---------------------------------------------------------
 
 using System.Collections.Generic;
+
+// Añadir aquí el resto de directivas using
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class InventoryCultivos : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector
 
-    [SerializeField] private RectTransform inventoryPanel;  // Panel del inventario
-    [SerializeField] private RectTransform quickAccessBar;  // Barra de acceso rápido
-    [SerializeField] private float visibleY = 0f;           // Posición Y del inventario cuando está visible
-    [SerializeField] private float hiddenY = -300f;         // Posición Y del inventario cuando está oculto
-    [SerializeField] private float transitionSpeed = 10f;   // Velocidad de animación
-    [SerializeField] private float quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
+    /// <summary>
+    /// Panel del inventario
+    /// </summary>
+    [SerializeField] private RectTransform inventoryPanel;
 
+    /// <summary>
+    /// Barra de acceso rápido
+    /// </summary>
+    [SerializeField] private RectTransform quickAccessBar;  
 
-    //[SerializeField] private CultivosLista cultivosLista; // El inventario del jugador
-    //[SerializeField] private GameObject[] casillasInventario; // Referencias a las casillas de la UI
-    ////[SerializeField] private GameObject[] filasCasillas;
-    //[SerializeField] private Image[] imagenesCultivos;  // Las imágenes de los cultivos en las casillas
-    //[SerializeField] private Text[] cantidadesCultivos; // Los textos de las cantidades (al final no lo implementé)
+    /// <summary>
+    /// Iconos del Inventario
+    /// </summary>
+    [SerializeField] private GameObject InventoryIcons;
+
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
-    private bool _isInventoryVisible = false; // Estado del inventario
-    private float quickBarBaseY; // Posición base de la QuickAccessBar (se mantiene siempre visible)
-    private List<(string, int, Sprite)> inventario = new List<(string, int, Sprite)>();
+
+    /// <summary>
+    /// Estado del inventario
+    /// </summary>
+    private bool _isInventoryVisible = false; 
+
+    /// <summary>
+    /// Posiciones y velocidades
+    /// </summary>
+    private float _quickBarBaseY;           // Posición base de la QuickAccessBar (se mantiene siempre visible)
+    private float _visibleY = 300f;           // Posición Y del inventario cuando está visible
+    private float _hiddenY = -300f;         // Posición Y del inventario cuando está oculto
+    private float _quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
+    private float _transitionSpeed = 10f;   // Velocidad de animación
+
+    /// <summary>
+    ///  Capacidad de cada Slot del inventario
+    /// </summary>
+    private int _slotsCapacity = 10;
+
 
     #endregion
 
@@ -44,41 +67,39 @@ public class InventoryCultivos : MonoBehaviour
     void Start()
     {
         // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
-        quickBarBaseY = quickAccessBar.anchoredPosition.y;
-
+        _quickBarBaseY = quickAccessBar.anchoredPosition.y;
         // Inicializamos la posición del inventario en oculto
-        inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, hiddenY);
+        inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, _hiddenY);
 
-        //ActualizarInventario();
     }
 
     void Update()
     {
-        //la subida del inventario se puede activar tanto con el TAB como con el ESC
-        if (Input.GetKeyDown(KeyCode.Tab))
+        // La subida del inventario se puede activar tanto con el TAB como con el ESC
+        if (InputManager.Instance.TabWasPressedThisFrame())
         {
             ToggleInventory();
-            //ActualizarInventario();
+            ActualizeInventory();
         }
 
         // Define la posición objetivo del inventario
-        float targetInventoryY = _isInventoryVisible ? visibleY : hiddenY;
+        float targetInventoryY = _isInventoryVisible ? _visibleY : _hiddenY;
 
         // Define la posición de la QuickAccessBar
-        float targetQuickBarY = _isInventoryVisible ? (visibleY + quickBarOffset) : quickBarBaseY;
+        float targetQuickBarY = _isInventoryVisible ? (_visibleY + _quickBarOffset) : _quickBarBaseY;
 
         // Movimiento suave del inventario
         inventoryPanel.anchoredPosition = Vector2.Lerp(
             inventoryPanel.anchoredPosition,
             new Vector2(inventoryPanel.anchoredPosition.x, targetInventoryY),
-            Time.deltaTime * transitionSpeed
+            Time.deltaTime * _transitionSpeed
         );
 
         // Movimiento suave de la QuickAccessBar para que suba con el inventario
         quickAccessBar.anchoredPosition = Vector2.Lerp(
             quickAccessBar.anchoredPosition,
             new Vector2(quickAccessBar.anchoredPosition.x, targetQuickBarY),
-            Time.deltaTime * transitionSpeed
+            Time.deltaTime * _transitionSpeed
         );
 
 
@@ -95,6 +116,64 @@ public class InventoryCultivos : MonoBehaviour
     {
         _isInventoryVisible = !_isInventoryVisible;
     }
-    #endregion
+
+    /// <summary>
+    /// Actualiza la cantidad de los items del inventario
+    /// No comprueba si hay inventario suficiente para mostrar los items porque ya lo comprueba InventoryManager
+    /// </summary>
+    public void ActualizeInventory()
+    {
+        TextMeshProUGUI _unidades;
+
+        // Muestra las semillas
+        for (int i = 0; i < (int)Items.Count/2; i++)
+        {
+            GameObject _crops = InventoryIcons.transform.GetChild(i).gameObject;
+            if (InventoryManager.Inventory[i] != 0)
+            {
+                _crops.SetActive(true);
+                _unidades = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                _unidades.text = InventoryManager.Inventory[i] + "x";
+            }
+            else _crops.SetActive(false);
+        }
+
+        // Muestra los cultivos
+        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++)
+        {
+            if (InventoryManager.Inventory[i] != 0)
+            {
+                int actualSlot = 1; // El Slot actual que está estableciendo
+                bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
+                
+                while (actualSlot < 5 && !fullSlot)
+                {
+                    GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
+                    _crops.SetActive(true);
+                    _unidades = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                    if (InventoryManager.Inventory[i] / (actualSlot * _slotsCapacity) != 0)
+                    {
+                        _unidades.text = _slotsCapacity + "x";
+                    }
+                    else if (InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) != 0)
+                    {
+                        _unidades.text = InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) + "x";
+                        fullSlot = true;
+                    }
+                    else
+                    {
+                        _crops.SetActive(false);
+                        fullSlot = true;
+                    }
+                    actualSlot++;
+                }
+            }
+            else InventoryIcons.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        
+    }
+    
+
+        #endregion
 
 } // class InventoryUI
