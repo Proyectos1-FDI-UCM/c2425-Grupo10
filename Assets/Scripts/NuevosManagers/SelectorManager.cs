@@ -9,6 +9,13 @@ using UnityEngine;
 using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
+//public enum Seeds
+//{
+//    CornSeed,
+//    LetuceSeed,
+//    CarrotSeed,
+//    StrawberrySeed
+//}// Esto hay que hacerlo un serialize y poner los numeros en el inspector, es para probar
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -86,6 +93,11 @@ public class SelectorManager : MonoBehaviour
     /// Referencia al LevelManager.
     /// </summary>
     [SerializeField] private LevelManager LevelManager;
+
+    [SerializeField] private Sprite CornSeedSprite;
+    [SerializeField] private Sprite LettuceSeedSprite;
+    [SerializeField] private Sprite CarrotSeedSprite;
+    [SerializeField] private Sprite StrawberrySeedSprite;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -95,6 +107,10 @@ public class SelectorManager : MonoBehaviour
     /// Solo una herramienta puede estar activa a la vez.
     /// </summary>
     private GameObject _currentTool;
+    private int _actualSeed;
+
+    private SpriteRenderer _spriteRenderer;
+
 
     #endregion
 
@@ -105,6 +121,8 @@ public class SelectorManager : MonoBehaviour
     /// Inicializa el estado de las herramientas al inicio del juego,
     /// asegurándose de que ninguna esté activada.
     /// </summary>
+    /// -Seleccionar la herramienta utilizada con las teclas 1-5.
+    ///-Seleccionar la semilla a utilizar volviendo a pulsar 5.
     void Start()
     {
         UpdateWaterBar(6, 6);
@@ -113,6 +131,9 @@ public class SelectorManager : MonoBehaviour
         EnableSelector(GlovesSelector);
         ToggleTool(GlovesTool);
         DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
+
+        _actualSeed = 0; // Aparece la semilla del maíz por defecto
+
 
         //WaterBar.SetActive(false);
     }
@@ -128,8 +149,14 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
             LevelManager.Instance.CambioHerramienta(5);
+
+            // Si se vuelva a presionar, cambia de semilla
+            if (InputManager.Instance.Select5WasPressedThisFrame())
+            {
+                NextSeed(_actualSeed, SeedTool);
+            }
             //WaterBar.SetActive(false);
-        }
+        }   
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
         {
@@ -251,6 +278,30 @@ public class SelectorManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Cambia la selección a la siguiente semilla en el orden establecido ().
+    /// </summary>
+    private void NextSeed(int _actualSeed, GameObject _seedTool)
+    {
+        if (_actualSeed < 4) _actualSeed++;
+        else _actualSeed = 0;
+
+        _spriteRenderer = _seedTool.GetComponent<SpriteRenderer>();
+        switch (_actualSeed) {
+            case 0:
+                _spriteRenderer.sprite = CornSeedSprite;
+                break;
+            case 1:
+                _spriteRenderer.sprite = LettuceSeedSprite;
+                break;
+            case 2:
+                _spriteRenderer.sprite = CarrotSeedSprite;
+                break;
+            case 3:
+                _spriteRenderer.sprite = StrawberrySeedSprite;
+                break;
+
+        }
 
     #endregion
 
