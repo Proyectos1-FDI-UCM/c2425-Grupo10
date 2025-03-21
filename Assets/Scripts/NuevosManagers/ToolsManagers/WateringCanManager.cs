@@ -72,6 +72,11 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] GameObject PrefabWatering;
 
+    ///<summary> 
+    /// Prefab del detector 
+    /// </summary>
+    [SerializeField] private GameObject WateringCollisionDetector;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -163,12 +168,16 @@ public class WateringCanManager : MonoBehaviour
     /// <param name="i"></param>
     public void FillWateringCan(int i)
     {
-        Debug.Log("Recargando");
-        PlayerMovement.enablemovement = false;
-        WaterAmount = i;
-        SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
-        GameManager.Instance.UpdateWaterAmount();
-        PlayerMovement.enablemovement = true;
+        if (WaterAmount < MaxWaterAmount)
+        {
+            Debug.Log("Recargando");
+            PlayerMovement.enablemovement = false;
+            WaterAmount = i;
+            SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
+            GameManager.Instance.UpdateWaterAmount();
+            PlayerMovement.enablemovement = true;
+        }
+        
 
     }
     /// <summary>
@@ -185,6 +194,7 @@ public class WateringCanManager : MonoBehaviour
             WaterAmount -= 1; ;
             SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
             GameManager.Instance.UpdateWaterAmount();
+            InstanceWateringDetector();
 
             this.gameObject.SetActive(false);
         }
@@ -267,6 +277,22 @@ public class WateringCanManager : MonoBehaviour
             FillWateringCan(MaxWaterAmount);
         }
     }
+
+    ///<summary>
+    ///Metodo para instanciar el detector al regar
+    ///</summary>
+    private void InstanceWateringDetector()
+    {
+        // Obtener la dirección en la que el jugador está mirando desde PlayerMovement
+        Vector2 direccion = PlayerMovement.GetLastMoveDirection().normalized;
+
+        // Definir la posición del detector un poco delante del jugador
+        Vector2 posicionDetector = (Vector2)transform.position + direccion * 0.5f;
+
+        // Instanciar el detector en la dirección correcta
+        Instantiate(WateringCollisionDetector, posicionDetector, Quaternion.identity);
+    }
+
     #endregion
 
 } // class WateringCanManager 

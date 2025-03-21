@@ -62,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         _playerRb = GetComponent<Rigidbody2D>();
         _playerAnimator = GetComponent<Animator>();
         _playerAnimator.SetBool("Watering", false);
+        _playerAnimator.SetBool("Sicklering", false);
         _spriteRenderer = GetComponent<SpriteRenderer>();
         
         Hand = gameObject.transform.GetChild(0);

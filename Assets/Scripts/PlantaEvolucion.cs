@@ -32,8 +32,6 @@ public class PlantaEvolucion : MonoBehaviour
 
     [SerializeField] private int Tipo = 1;
 
-    [SerializeField] private WateringCanManager WateringCanManager;
-
     // Pruebas
     [SerializeField] private int TiempoCrecimiento = 5;
     [SerializeField] private int TiempoRegado = 3;
@@ -79,7 +77,6 @@ public class PlantaEvolucion : MonoBehaviour
         EstadoRiego = false;
         _isDead = false;
         TimerCrecimiento = TiempoCrecimiento;
-
     }
 
     private void Update()
@@ -167,31 +164,30 @@ public class PlantaEvolucion : MonoBehaviour
         i[Tipo]++;
     }
 
- 
 
+    /// <summary>
+    /// Regar la planta
+    /// </summary>
+    public void Regar()
+    {
+        Destroy(_avisos); // Se eliminan los avisos de riego
+
+        // Se moja la tierra
+        GameObject suelo = Instantiate(PrefabSuelo, transform.position, Quaternion.identity);
+        suelo.transform.SetParent(transform);
+
+        // Inicia la cuenta atrás del tiempo de regado
+        TimerRiego = TiempoMuerte;
+        // TimerDead = TiempoMuerte;
+        EstadoRiego = true;
+
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
-    /// <summary>
-    /// Regar la planta
-    /// </summary>
-    private void Regar()
-    {
-        Destroy(_avisos); // Se eliminan los avisos de riego
-        WateringCanManager.Watering(); // Se avisa al level manager para que contabilice el agua de la regadera
 
-        // Se moja la tierra
-        GameObject suelo = Instantiate(PrefabSuelo, transform.position, Quaternion.identity); 
-        suelo.transform.SetParent(transform);
-
-        // Inicia la cuenta atrás del tiempo de regado
-        TimerRiego = TiempoMuerte;
-       // TimerDead = TiempoMuerte;
-        EstadoRiego = true;
-
-    }
 
     /// <summary>
     /// Muerte de la planta
@@ -290,27 +286,6 @@ public class PlantaEvolucion : MonoBehaviour
 
     // ---- EVENTOS ----
     #region Eventos
-
-    /// <summary>
-    /// Detecta si el jugador interactúa con la planta.
-    /// </summary>
-    private void OnCollisionStay2D()
-    {
-        Debug.Log("Colisión con planta detectada.");
-
-        // Si el jugador tiene la regadera y presiona el botón, riega la planta
-        int Regadera = WateringCanManager.GetAmountWateringCan();
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 2 && Regadera > 0 && !EstadoRiego)
-        {
-            Regar();
-        }
-
-        // Si la planta está lista para cosechar y el jugador tiene guantes (Herramienta 1), la recoge
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3 && EstadoCrecimiento == 3)
-        {
-            Cosechar();
-        }
-    }
 
     #endregion
 }
