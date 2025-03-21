@@ -8,272 +8,197 @@
 using System;
 using TMPro;
 using UnityEngine;
-using System.Collections;
-// Añadir aquí el resto de directivas using
+using UnityEngine.SceneManagement;  // Necesario para manejar el cambio de escenas
 
-
-/// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
-/// </summary>
 public class MoneyManager : MonoBehaviour
 {
-    // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private TextMeshProUGUI textoDinero;
-    [SerializeField] private TextMeshProUGUI mensajeErrorVenta; // Texto de error para mostrar mensajes
+    public static MoneyManager Instance;  // Instancia estática para Singleton
 
-    #endregion
+    [SerializeField] private int contadorDinero = 10000; // Cantidad de dinero del jugador
+    private int nivelRegadera = 0; // Nivel actual de la regadera
 
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
-    private int _contador = 0;
-    private int[] _inventario;
+    [Header("Precios de Semillas")]
+    [SerializeField] private int precioSemillaMaiz = 50;
+    [SerializeField] private int precioSemillaZanahoria = 20;
+    [SerializeField] private int precioSemillaLechuga = 15;
+    [SerializeField] private int precioSemillaFresa = 30;
 
-    private Coroutine _mensajeCoroutine; // Variable para manejar la visibilidad del mensaje
-    #endregion
+    [Header("Precios de Venta de Plantas")]
+    [SerializeField] private int precioPlantaMaiz = 90;
+    [SerializeField] private int precioPlantaZanahoria = 65;
+    [SerializeField] private int precioPlantaLechuga = 20;
+    [SerializeField] private int precioPlantaFresa = 40;
 
-    // ---- MÉTODOS DE MONOBEHAVIOUR ----
-    #region Métodos de MonoBehaviour
+    [Header("Precios de Mejora de Regadera")]
+    [SerializeField] private int[] preciosMejoraRegadera = { 1000, 5000, 10000 };
 
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
+    [SerializeField] private GameManager gameManager; // Se asignará desde el Inspector
+    [SerializeField] private TextMeshProUGUI dineroTexto; // Texto en UI para mostrar el dinero
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
-    /// </summary>
-    void Start()
+    private void Awake()
     {
-        _contador += 100000;
-        _inventario = GameManager.Instance.Inventario();
-
+        // Verificar si ya existe una instancia del MoneyManager
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);  // No destruir el objeto al cambiar de escena
+        }
+        else
+        {
+            Destroy(gameObject);  // Destruir el nuevo objeto si ya hay uno persistente
+        }
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
+    private void Start()
     {
-        ActualizarContador();
-        //Debug.Log(Contador);
-        if (textoDinero == null)
+        ActualizarUI();
+
+        if (gameManager == null)
         {
-            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("TextoContador");
-            if (ObjetoTexto != null)
-            {
-                textoDinero = ObjetoTexto.GetComponent<TextMeshProUGUI>();
-            }
+            Debug.LogWarning("GameManager no asignado en el Inspector.");
         }
 
+        if (dineroTexto == null)
+        {
+            Debug.LogWarning("No se ha asignado el texto de dinero en la UI.");
+        }
+
+        // Asegurar que el texto se actualice cuando la escena se carga
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
-    #endregion
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Actualizar la interfaz cuando se carga una nueva escena
+        ActualizarUI();
+    }
+
+    public void VenderLechuga(int cantidad)
+    {
+        if (gameManager == null) return;
+
+        int precio = precioPlantaLechuga;
+        AgregarDinero(cantidad * precio);
+        Debug.Log($"Se han vendido {cantidad} lechugas por {cantidad * precio} RC.");
+    }
+
+    public void VenderMaiz(int cantidad)
+    {
+        if (gameManager == null) return;
+
+        int precio = precioPlantaMaiz;
+        AgregarDinero(cantidad * precio);
+        Debug.Log($"Se han vendido {cantidad} maíces por {cantidad * precio} RC.");
+    }
+
+    public void VenderZanahoria(int cantidad)
+    {
+        if (gameManager == null) return;
+
+        int precio = precioPlantaZanahoria;
+        AgregarDinero(cantidad * precio);
+        Debug.Log($"Se han vendido {cantidad} zanahorias por {cantidad * precio} RC.");
+    }
+
+    public void VenderFresa(int cantidad)
+    {
+        if (gameManager == null) return;
+
+        int precio = precioPlantaFresa;
+        AgregarDinero(cantidad * precio);
+        Debug.Log($"Se han vendido {cantidad} fresas por {cantidad * precio} RC.");
+    }
+
+    public bool Comprar(int cantidad)
+    {
+        if (gameManager == null) return false;
+        return RestarDinero(cantidad);
+    }
+
+    public void Vender(int cantidad)
+    {
+        if (gameManager == null) return;
+        AgregarDinero(cantidad);
+    }
+
+    public void AgregarDinero(int cantidad)
+    {
+        contadorDinero += cantidad;
+        Debug.Log("Dinero agregado: " + cantidad + ". Total: " + contadorDinero);
+        ActualizarUI();
+    }
+
+    public bool RestarDinero(int cantidad)
+    {
+        if (contadorDinero >= cantidad)
+        {
+            contadorDinero -= cantidad;
+            Debug.Log("Dinero gastado: " + cantidad + ". Total: " + contadorDinero);
+            ActualizarUI();
+            return true;
+        }
+        else
+        {
+            Debug.Log("No tienes suficiente dinero.");
+            return false;
+        }
+    }
 
     public int GetContadorDinero()
-    { 
-        return _contador; 
+    {
+        return contadorDinero;
     }
 
-    public void RestarDinero (float cantidad)
+    private void ActualizarUI()
     {
-        _contador -= Convert.ToInt32(cantidad);
-    }
+        // Buscar el objeto con el tag "TextoContador" y actualizar el texto
+        GameObject textoContadorObj = GameObject.FindGameObjectWithTag("TextoContador");
 
-    public void ComprarSemillasLechuga(int cantidad)
-    {
-        int precioTotal = cantidad * 15;
-        if (_contador >= precioTotal)
+        // Verificar si el objeto con el tag "TextoContador" fue encontrado
+        if (textoContadorObj != null)
         {
-            _contador -= precioTotal;
-            _inventario[1] += cantidad;
-            ActualizarContador();
-        }
-    }
+            // Obtener el componente TextMeshProUGUI
+            TextMeshProUGUI textoContador = textoContadorObj.GetComponent<TextMeshProUGUI>();
 
-    public void LechugaVendida(int cantidad)
-    {
-        if (_inventario[1] >= cantidad)
-        {
-            int total = cantidad * 20;
-            _contador += total;
-            _inventario[1] -= cantidad;
-            ActualizarContador();
+            // Si el componente se encuentra, actualizar el texto con el dinero disponible
+            if (textoContador != null)
+            {
+                textoContador.text = contadorDinero.ToString("F0") ;  // Mostrar dinero sin decimales
+            }
+            else
+            {
+                Debug.LogError("No se encontró el componente TextMeshProUGUI en el objeto con tag 'TextoContador'.");
+            }
         }
         else
         {
-            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
-        }
-    }
-    
-    public void ComprarSemillasFresas(int cantidad)
-    {
-        int precioTotal = cantidad * 30;
-        if (_contador >= precioTotal)
-        {
-            _contador -= precioTotal;
-            _inventario[3] += cantidad;
-            ActualizarContador();
+            Debug.LogError("No se encontró un objeto con el tag 'TextoContador'.");
         }
     }
 
-    public void FresaVendida(int cantidad)
+    // Método principal para mejorar la regadera
+    public bool MejorarRegadera()
     {
-        if (_inventario[3] >= cantidad)
+        if (nivelRegadera < preciosMejoraRegadera.Length)
         {
-            int total = cantidad * 40;
-            _contador += total;
-            _inventario[3] -= cantidad;
-            ActualizarContador();
-        }
+            int precio = preciosMejoraRegadera[nivelRegadera];
 
+            if (RestarDinero(precio))
+            {
+                nivelRegadera++;
+                Debug.Log("Regadera mejorada a nivel " + nivelRegadera);
+                return true;
+            }
+        }
         else
         {
-            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
+            Debug.Log("La regadera ya está al nivel máximo.");
         }
+        return false;
     }
 
-    public void ComprarSemillasZanahoria(int cantidad)
-    {
-        int precioTotal = cantidad * 50;
-        if (_contador >= precioTotal)
-        {
-            _contador -= precioTotal;
-            _inventario[2] += cantidad;
-            ActualizarContador();
-        }
-    
-    }
-    public void ZanahoriaVendida(int cantidad)
-    {
-        if (_inventario[2] >= cantidad)
-        {
-            int total = cantidad * 65;
-            _contador += total;
-            _inventario[2] -= cantidad;
-            ActualizarContador();
-        }
-
-        else
-        {
-            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
-        }
-    }
-
-    public void ComprarSemillasMaiz(int cantidad)
-    {
-        int precioTotal = cantidad * 70;
-        if (_contador >= precioTotal)
-        {
-            _contador -= precioTotal;
-            _inventario[0] += cantidad;
-            ActualizarContador();
-        }
-    }
-
-    public void MaizVendido(int cantidad)
-    {
-        if (_inventario[0] >= cantidad)
-        {
-            int total = cantidad * 90;
-            _contador += total;
-            _inventario[0] -= cantidad;
-            ActualizarContador();
-        }
-
-        else
-        {
-            VentaManager.Instance.MostrarMensajeError("No puedes vender este cultivo, no tienes suficientes.");
-        }
-    }
-   
-    public void ComprarAbono()
-    {
-        if (_contador >= 70)
-        {
-            _contador -= 70;
-            _inventario[4] += 5;
-        }
-    }
-   
-    public void Mejora1Regadera()
-    {
-        if (_contador >= 1000)
-        {
-            _contador -= 1000;
-        }
-    }
-    public void Mejora2Regadera()
-    {
-        if (_contador >= 5000)
-        {
-            _contador -= 5000;
-        }
-    }
-    public void Mejora3Regadera()
-    {
-        if (_contador >= 10000)
-        {
-            _contador -= 10000;
-        }
-    }
-
-    public void Comprar(int cantidad)
-    {
-        _contador -= cantidad;
-        ActualizarContador();
-    }
-
-
-    public void ActualizarContador() // Cambiado a public
-    {
-        textoDinero.text = "x" + _contador; // Actualiza el texto con el valor del contador
-    }
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-
-    private void MostrarMensajeError(string mensaje)
-    { 
-        if (_mensajeCoroutine != null)
-        {
-            StopCoroutine(_mensajeCoroutine);
-        }
-        _mensajeCoroutine = StartCoroutine(MostrarMensajeTemporal(mensaje));
-    }
-
-    private IEnumerator MostrarMensajeTemporal(string mensaje)
-    {
-        mensajeErrorVenta.text = mensaje;
-        mensajeErrorVenta.gameObject.SetActive(true);
-        yield return new WaitForSeconds(2f); // El mensaje se muestra por 2 segundos
-        mensajeErrorVenta.gameObject.SetActive(false);
-    }
-    #endregion
-
-} // class ContadorDinero 
-  // namespace
+    // Métodos específicos para que otros scripts puedan llamarlos
+    public bool Mejora1Regadera() => MejorarRegadera();
+    public bool Mejora2Regadera() => MejorarRegadera();
+    public bool Mejora3Regadera() => MejorarRegadera();
+}
