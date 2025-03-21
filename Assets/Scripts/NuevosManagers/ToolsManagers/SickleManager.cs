@@ -98,7 +98,7 @@ public class SickleManager : MonoBehaviour
     public void Sicklering()
     {
         PlayerAnimator.SetBool("Sicklering", true);
-        Invoke("NotSicklering", 0.9f);
+        Invoke("NotSicklering", 0.8f);
 
         PlayerMovement.enablemovement = false;
         InstanceSickleDetector();
