@@ -34,19 +34,19 @@ public class WateringCanManager : MonoBehaviour
     [SerializeField] int MaxWaterAmount;
 
     ///<summary>
-    ///Referencia al collider del jugador 
+    /// Referencia al transform del jugador
     /// </summary>
-    //[SerializeField] private Collider2D PlayerCollider;
+    public Transform player;
 
     ///<summary>
-    ///Referencia al collider del pozo 
+    ///Posición exacta del pozo
     /// </summary>
-    //[SerializeField] private Collider2D WellCollider;
+    public Vector2 pozoPosition;
 
     ///<summary>
-    ///Referencia al collider de la planta 
+    ///Rango para detectar el pozo
     /// </summary>
-   //[SerializeField] private Collider2D PlantCollider;
+    public float detectionRange = 3f; // Rango para detectar el pozo
 
     ///<summary> 
     ///Referencia al GameManager
@@ -102,6 +102,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        Collider2D playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         if (GameManager == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
@@ -123,8 +124,7 @@ public class WateringCanManager : MonoBehaviour
         GetUpgradeWateringCan();
         SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
         WaterAmount = GameManager.Instance.LastWaterAmount();
-
-        if(InputManager.Instance.UseWateringCanWasPressedThisFrame())
+        if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
         {
             Watering();
         }
@@ -228,6 +228,7 @@ public class WateringCanManager : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
     /// <summary>
     /// Metodo para obtener la mejora actual de regadera desde el GameManager
     /// </summary>
@@ -258,11 +259,11 @@ public class WateringCanManager : MonoBehaviour
         PlayerMovement.enablemovement = true;
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+     void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Pozo") && InputManager.Instance.UseWateringCanWasPressedThisFrame()) // Asegúrate de que el pozo tenga el tag "Pozo"
+        if (collision.gameObject.CompareTag("Pozo") && InputManager.Instance.UseWateringCanWasPressedThisFrame())
         {
-            Debug.Log("colision con pozo");
+            Debug.Log("Colisión con el pozo detectada");
             FillWateringCan(MaxWaterAmount);
         }
     }

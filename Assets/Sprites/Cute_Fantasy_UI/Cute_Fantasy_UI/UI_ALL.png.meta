@@ -126,7 +126,7 @@ TextureImporter:
         width: 24
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,6 +134,69 @@ TextureImporter:
       bones: []
       spriteID: a2ec1e70af8a3604b9c10f5a591aa36b
       internalID: 1779225362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_2
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 593
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e572d57ea4be5374fb83ccd037b962a0
+      internalID: -1141267532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_3
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 593
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1266fd5cd690e7146b2706cb58e6d3df
+      internalID: 1648061691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_4
+      rect:
+        serializedVersion: 2
+        x: 1297
+        y: 561
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2e6183ff06e5d4487f196e5c874756
+      internalID: -433751028
       vertices: []
       indices: 
       edges: []
@@ -151,6 +214,9 @@ TextureImporter:
     nameFileIdTable:
       UI_ALL_0: -917112978
       UI_ALL_1: 1779225362
+      UI_ALL_2: -1141267532
+      UI_ALL_3: 1648061691
+      UI_ALL_4: -433751028
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

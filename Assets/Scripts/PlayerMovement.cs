@@ -114,7 +114,10 @@ public class PlayerMovement : MonoBehaviour
     {
         //
     }
-    
+    public Vector2 GetLastMoveDirection()
+    {
+        return lastMoveDirection;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 791901775301750481}
   m_Layer: 7
   m_Name: Crops(Basic)
-  m_TagString: Untagged
+  m_TagString: Cultivo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -102,9 +102,6 @@ MonoBehaviour:
   PlantaFase2: {fileID: -964094940, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
   PlantaFase3: {fileID: 496653580, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
   PlantaFase4: {fileID: -736858115, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
-  DeadCrop2: {fileID: 1727801593, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
-  DeadCrop3: {fileID: 176119741, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
-  DeadCrop4: {fileID: -143397427, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
   PrefabDead: {fileID: 6801202256768482908, guid: 81d44259888c8e9439b8ad25dc059473, type: 3}
   PrefabSuelo: {fileID: 5869455034905679858, guid: f1028ee8450d0a64688c50827f81aa56, type: 3}
   PrefabAvisoRiego: {fileID: 5605616275884874026, guid: b30783a2c9f6eba4cbce7eb77b431b30, type: 3}
@@ -113,6 +110,7 @@ MonoBehaviour:
   PrefabMaceta: {fileID: 1054808982056633637, guid: 2d5bf2f56c7e43c478b3d559bc219be2, type: 3}
   NombrePlanta: Cultivo
   Tipo: 0
+  WateringCanManager: {fileID: 0}
   TiempoCrecimiento: 5
   TiempoRegado: 3
   TiempoMuerte: 3
