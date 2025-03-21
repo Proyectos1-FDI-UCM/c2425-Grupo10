@@ -94,6 +94,11 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     [SerializeField] private LevelManager LevelManager;
 
+    /// <summary>
+    /// Referencia al animator del player
+    /// </summary>
+    [SerializeField] private Animator PlayerAnimator;
+
     [SerializeField] private Sprite CornSeedSprite;
     [SerializeField] private Sprite LettuceSeedSprite;
     [SerializeField] private Sprite CarrotSeedSprite;
@@ -145,6 +150,7 @@ public class SelectorManager : MonoBehaviour
     {
         if (InputManager.Instance.Select5WasPressedThisFrame())
         {
+            PlayerAnimator.SetBool("HasWateringCan", false);
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
@@ -160,6 +166,7 @@ public class SelectorManager : MonoBehaviour
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
         {
+            PlayerAnimator.SetBool("HasWateringCan", false);
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
@@ -169,6 +176,7 @@ public class SelectorManager : MonoBehaviour
 
         if (InputManager.Instance.Select1WasPressedThisFrame())
         {
+            PlayerAnimator.SetBool("HasWateringCan", false);
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
@@ -178,6 +186,7 @@ public class SelectorManager : MonoBehaviour
 
         if (InputManager.Instance.Select2WasPressedThisFrame())
         {
+            PlayerAnimator.SetBool("HasWateringCan", true);
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
@@ -187,6 +196,7 @@ public class SelectorManager : MonoBehaviour
 
         if (InputManager.Instance.Select3WasPressedThisFrame())
         {
+            PlayerAnimator.SetBool("HasWateringCan", false);
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);

@@ -90,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
             if ((moveX < 0 && facingRight) || (moveX > 0 && !facingRight))
             {
-                Flip();
+                //Flip();
                 FlipHand();
             }
         }
