@@ -7,8 +7,15 @@
 
 using UnityEngine;
 using UnityEngine.UI;
-using static TMPro.SpriteAssetUtilities.TexturePacker_JsonArray;
 // Añadir aquí el resto de directivas using
+
+//public enum Seeds
+//{
+//    CornSeed,
+//    LetuceSeed,
+//    CarrotSeed,
+//    StrawberrySeed
+//}// Esto hay que hacerlo un serialize y poner los numeros en el inspector, es para probar
 
 /// <summary>
 /// Antes de cada class, descripción de qué es y para qué sirve,
@@ -83,48 +90,31 @@ public class SelectorManager : MonoBehaviour
     [SerializeField] private Slider WaterBar;
 
     /// <summary>
+    /// Referencia al LevelManager.
+    /// </summary>
+    [SerializeField] private LevelManager LevelManager;
+
+    /// <summary>
     /// Referencia al animator del player
     /// </summary>
     [SerializeField] private Animator PlayerAnimator;
 
-    /// <summary>
-    /// Sprites de las semillas para la quickAccessBar
-    /// </summary>
     [SerializeField] private Sprite CornSeedSprite;
     [SerializeField] private Sprite LettuceSeedSprite;
     [SerializeField] private Sprite CarrotSeedSprite;
     [SerializeField] private Sprite StrawberrySeedSprite;
-
-    /// <summary>
-    /// Referencia al GameObject que representa la herramienta "Semilla".
-    /// Se activará cuando el jugador presione la tecla correspondiente.
-    /// </summary>
-    [SerializeField] private GameObject SeedPrefab;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-
     /// <summary>
     /// Referencia a la herramienta actualmente seleccionada.
     /// Solo una herramienta puede estar activa a la vez.
     /// </summary>
     private GameObject _currentTool;
-
-    /// <summary>
-    /// Variable para controlar la semilla seleccionada.
-    /// </summary>
     private int _actualSeed;
 
-    /// <summary>
-    /// Variable para controlar la herramienta seleccionada.
-    /// Se podría hacer de forma más eficiente con un struct GameObject _currentTool - int _actualTool o un array de GameObjects.
-    /// </summary>
-    private int _actualTool;
-    private GameObject _seedTool;
-
     private SpriteRenderer _spriteRenderer;
-    
 
 
     #endregion
@@ -148,9 +138,7 @@ public class SelectorManager : MonoBehaviour
         DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
 
         _actualSeed = 0; // Aparece la semilla del maíz por defecto
-        _actualTool = 0; // Aparece la herramienta de los guantes por defecto
-        _spriteRenderer = SeedTool.GetComponent<SpriteRenderer>();
-        InstSeedSelector(SeedTool);
+
 
         //WaterBar.SetActive(false);
     }
@@ -166,13 +154,12 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
-            _actualTool = 4;
-            //LevelManager.Instance.CambioHerramienta(5);
+            LevelManager.Instance.CambioHerramienta(5);
 
             // Si se vuelva a presionar, cambia de semilla
             if (InputManager.Instance.Select5WasPressedThisFrame())
             {
-                NextSeed(_actualSeed);
+                NextSeed(_actualSeed, SeedTool);
             }
             //WaterBar.SetActive(false);
         }
@@ -183,8 +170,7 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            _actualTool = 3;
-            //LevelManager.Instance.CambioHerramienta(4);
+            LevelManager.Instance.CambioHerramienta(4);
             //WaterBar.SetActive(false);
         }
 
@@ -194,8 +180,7 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            _actualTool = 0;
-            //LevelManager.Instance.CambioHerramienta(1);
+            LevelManager.Instance.CambioHerramienta(1);
             //WaterBar.SetActive(false);
         }
 
@@ -205,8 +190,7 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
-            _actualTool = 1;
-            //LevelManager.Instance.CambioHerramienta(2);
+            LevelManager.Instance.CambioHerramienta(2);
             //WaterBar.SetActive(true);
         }
 
@@ -216,8 +200,7 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
-            _actualTool = 2;
-            //LevelManager.Instance.CambioHerramienta(3);
+            LevelManager.Instance.CambioHerramienta(3);
             //WaterBar.SetActive(false);
         }
     }
@@ -230,10 +213,6 @@ public class SelectorManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
-    /// <summary>
-    /// Actualiza la barra de recarga de la regadera.
-    /// </summary>
     public void UpdateWaterBar(float Water, float MaxWaterAmount)
     {
         WaterBar.value = Water / MaxWaterAmount;
@@ -255,6 +234,7 @@ public class SelectorManager : MonoBehaviour
         }
 
     }
+
 
     /// <summary>
     /// Activa la herramienta seleccionada y desactiva la anterior si la hay.
@@ -290,17 +270,11 @@ public class SelectorManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Habilita el selector.
-    /// </summary>
     private void EnableSelector(GameObject herramienta)
     {
         herramienta.SetActive(true);
     }
 
-    /// <summary>
-    /// Deshabilita el selector.
-    /// </summary>
     private void DisableSelector(GameObject herramienta1, GameObject herramienta2, GameObject herramienta3, GameObject herramienta4, GameObject selector1, GameObject selector2, GameObject selector3, GameObject selector4)
     {
         herramienta1.SetActive(false);
@@ -315,46 +289,33 @@ public class SelectorManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Cambia la selección a la siguiente semilla en el orden establecido (corn-lettuce-carrot-strawberry).
+    /// Cambia la selección a la siguiente semilla en el orden establecido ().
     /// </summary>
-    /// 
-
-    private void InstSeedSelector(GameObject seedTool)
-    {
-        _seedTool = seedTool;
-        _seedTool = Instantiate(SeedPrefab, transform.position, Quaternion.identity);
-        _seedTool.transform.SetParent(transform);
-
-        _spriteRenderer.sprite = CornSeedSprite;  
-    }
-    private void NextSeed(int _actualSeed)
+    private void NextSeed(int _actualSeed, GameObject _seedTool)
     {
         if (_actualSeed < 4) _actualSeed++;
         else _actualSeed = 0;
 
+        _spriteRenderer = _seedTool.GetComponent<SpriteRenderer>();
         switch (_actualSeed)
         {
             case 0:
                 _spriteRenderer.sprite = CornSeedSprite;
-                Debug.Log("CORN");
                 break;
             case 1:
                 _spriteRenderer.sprite = LettuceSeedSprite;
-                Debug.Log("LETTUCE");
                 break;
             case 2:
                 _spriteRenderer.sprite = CarrotSeedSprite;
-                Debug.Log("CARROT");
                 break;
             case 3:
                 _spriteRenderer.sprite = StrawberrySeedSprite;
-                Debug.Log("STRAWBERRY");
                 break;
 
         }
-        
+
+        #endregion
     }
-    #endregion
 }
 // class SelectorManager 
 // namespace
