@@ -156,7 +156,7 @@ public class SelectorManager : MonoBehaviour
                 NextSeed(_actualSeed, SeedTool);
             }
             //WaterBar.SetActive(false);
-        }   
+        }
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
         {
@@ -287,7 +287,8 @@ public class SelectorManager : MonoBehaviour
         else _actualSeed = 0;
 
         _spriteRenderer = _seedTool.GetComponent<SpriteRenderer>();
-        switch (_actualSeed) {
+        switch (_actualSeed)
+        {
             case 0:
                 _spriteRenderer.sprite = CornSeedSprite;
                 break;
@@ -303,7 +304,8 @@ public class SelectorManager : MonoBehaviour
 
         }
 
-    #endregion
-
-} // class SelectorManager 
+        #endregion
+    }
+}
+// class SelectorManager 
 // namespace
