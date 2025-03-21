@@ -41,12 +41,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Posición exacta del pozo
     /// </summary>
-    public Vector2 pozoPosition;
-
-    ///<summary>
-    ///Rango para detectar el pozo
-    /// </summary>
-    public float detectionRange = 3f; // Rango para detectar el pozo
+    public Vector2 WellPosition;
 
     ///<summary> 
     ///Referencia al GameManager
@@ -76,6 +71,10 @@ public class WateringCanManager : MonoBehaviour
     /// Prefab del detector 
     /// </summary>
     [SerializeField] private GameObject WateringCollisionDetector;
+    ///<summary> 
+    /// GameObjectBoton
+    /// </summary>
+    [SerializeField] private GameObject FillButton;
 
     #endregion
 
@@ -92,6 +91,11 @@ public class WateringCanManager : MonoBehaviour
     ///GameObject donde instanciar el Prefab de aviso
     /// </summary>
     private GameObject _warning;
+
+    ///<summary>
+    ///Booleano para permitir recargar
+    /// </summary>
+    [SerializeField] private bool _isInWellArea = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -133,6 +137,18 @@ public class WateringCanManager : MonoBehaviour
         {
             Watering();
         }
+        if (_isInWellArea && WaterAmount < MaxWaterAmount)
+        { 
+             FillButton.SetActive(true);
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+             FillWateringCan(MaxWaterAmount);
+            }
+        }
+        if (!_isInWellArea || WaterAmount == MaxWaterAmount)
+        {
+            FillButton.SetActive(false);
+        }
         
     }
     #endregion
@@ -168,17 +184,14 @@ public class WateringCanManager : MonoBehaviour
     /// <param name="i"></param>
     public void FillWateringCan(int i)
     {
-        if (WaterAmount < MaxWaterAmount)
-        {
-            Debug.Log("Recargando");
-            PlayerMovement.enablemovement = false;
-            WaterAmount = i;
-            SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
-            GameManager.Instance.UpdateWaterAmount();
-            PlayerMovement.enablemovement = true;
-        }
-        
 
+        Debug.Log("Recargando");
+        PlayerMovement.enablemovement = false;
+        WaterAmount = i;
+        InstanceWarning();
+        SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
+        GameManager.Instance.UpdateWaterAmount();
+        Invoke("NotFilling", 1.5f);
     }
     /// <summary>
     /// Metodo para regar, resta 1 a la cantidad actual de agua y actualiza la barra
@@ -262,6 +275,9 @@ public class WateringCanManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para desactivar la animacion de regar
+    /// </summary>
     private void NotWatering()
     {
         PlayerAnimator.SetBool("Watering", false);
@@ -269,12 +285,40 @@ public class WateringCanManager : MonoBehaviour
         PlayerMovement.enablemovement = true;
 
     }
-     void OnCollisionStay2D(Collision2D collision)
+    ///<summary>
+    ///metodo para desactivar la recarga
+    /// </summary>
+    private void NotFilling()
     {
-        if (collision.gameObject.CompareTag("Pozo") && InputManager.Instance.UseWateringCanWasPressedThisFrame())
+        Destroy(_warning);
+        PlayerMovement.enablemovement = true;
+    }
+
+    /// <summary>
+    /// metodo para detectar colision con pozo/cultivo
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Cultivo") && InputManager.Instance.UseWateringCanWasPressedThisFrame() && PlayerAnimator.GetBool("HasWateringCan") == true && WaterAmount < 0)
         {
-            Debug.Log("Colisión con el pozo detectada");
-            FillWateringCan(MaxWaterAmount);
+            Debug.Log("Colision con cultivo");
+            Watering();
+        }
+        if (collision.CompareTag("Pozo"))
+        {
+            _isInWellArea = true;
+        }
+    }
+    /// <summary>
+    /// metodo para detectar cuando deja de colisionar con pozo/cultivo
+    /// </summary>
+    /// <param name="collision"></param>
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Pozo"))
+        {
+            _isInWellArea = false;
         }
     }
 
@@ -283,14 +327,16 @@ public class WateringCanManager : MonoBehaviour
     ///</summary>
     private void InstanceWateringDetector()
     {
-        // Obtener la dirección en la que el jugador está mirando desde PlayerMovement
-        Vector2 direccion = PlayerMovement.GetLastMoveDirection().normalized;
+        Vector2 direction = PlayerMovement.GetLastMoveDirection().normalized;
 
-        // Definir la posición del detector un poco delante del jugador
-        Vector2 posicionDetector = (Vector2)transform.position + direccion * 0.5f;
+        Vector2 DetectorPosition = (Vector2)transform.position + direction * 0.5f;
 
-        // Instanciar el detector en la dirección correcta
-        Instantiate(WateringCollisionDetector, posicionDetector, Quaternion.identity);
+        Instantiate(WateringCollisionDetector, DetectorPosition, Quaternion.identity);
+    }
+
+    private void InstanceWarning()
+    {
+        _warning = Instantiate(PrefabWatering, WellPosition, Quaternion.identity);
     }
 
     #endregion

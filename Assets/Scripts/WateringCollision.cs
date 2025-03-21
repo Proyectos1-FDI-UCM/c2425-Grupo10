@@ -96,7 +96,7 @@ public class WateringCollision : MonoBehaviour
         }
         else if (collision.CompareTag("Pozo"))
         {
-
+            Debug.Log("Colision con pozo");
             WateringCanManager WateringCanObject = collision.GetComponent<WateringCanManager>();
             if (WateringCanObject != null)
             {

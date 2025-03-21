@@ -86,10 +86,7 @@ public class PlantaEvolucion : MonoBehaviour
 
 
 
-            if (TimerRiego <= 0f)
-            {
-                AvisoRiego();
-            }
+            
 
             if (EstadoCrecimiento >= 0) // Si se ha regado y plantado
             {
@@ -101,7 +98,10 @@ public class PlantaEvolucion : MonoBehaviour
               //  Debug.Log("Timer Riego: " + TimerRiego);
 
             }
-
+            if (TimerRiego <= 0f)
+            {
+            AvisoRiego();
+            }
             if (TimerCrecimiento <= 0f)
             {
                 Crecimiento();

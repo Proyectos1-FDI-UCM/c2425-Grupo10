@@ -25,8 +25,13 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     [SerializeField] private float speed = 3f;
 
+    /// <summary>
+    /// Referencia al Watering Can Manager
+    /// </summary>
+    [SerializeField] WateringCanManager WateringCanManager;
+
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
 
@@ -91,7 +96,7 @@ public class PlayerMovement : MonoBehaviour
             if ((moveX < 0 && facingRight) || (moveX > 0 && !facingRight))
             {
                 //Flip();
-                FlipHand();
+               // FlipHand();
             }
         }
 
@@ -157,5 +162,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     #endregion
+    //-----EVENTOS-----
+    #region
+    
+    #endregion
+
 } // class PlayerMovement 
 // namespace
