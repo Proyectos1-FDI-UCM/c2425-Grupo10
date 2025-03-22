@@ -112,6 +112,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "FillWateringCan",
+                    "type": "Button",
+                    "id": "bc72e750-2946-4da3-9951-8e2ab19d76aa",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "UseSickle",
+                    "type": "Button",
+                    "id": "cbb655af-c880-46cc-8a45-e3ee49d8cfc5",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -387,6 +405,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseWateringCan",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2727999b-b616-4fce-895e-18befcfd2a8a",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FillWateringCan",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de9afc87-ccb0-4f36-9e41-fbb9efc74982",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseSickle",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

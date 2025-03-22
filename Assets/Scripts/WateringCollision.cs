@@ -89,7 +89,7 @@ public class WateringCollision : MonoBehaviour
             PlantaEvolucion cultivo = collision.GetComponent<PlantaEvolucion>();
             if (cultivo != null)
             {
-                cultivo.Regar();
+                cultivo.Watering();
                 Destroy(gameObject); // Se destruye después de cosechar
 
             }

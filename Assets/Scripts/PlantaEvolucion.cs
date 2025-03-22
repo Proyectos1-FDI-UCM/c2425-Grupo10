@@ -151,7 +151,7 @@ public class PlantaEvolucion : MonoBehaviour
     /// <summary>
     /// Cosecharla planta.
     /// </summary>
-    public void Cosechar()
+    public void Croping()
     {
         Destroy(_avisos);
 
@@ -168,7 +168,7 @@ public class PlantaEvolucion : MonoBehaviour
     /// <summary>
     /// Regar la planta
     /// </summary>
-    public void Regar()
+    public void Watering()
     {
         Destroy(_avisos); // Se eliminan los avisos de riego
 
@@ -185,6 +185,11 @@ public class PlantaEvolucion : MonoBehaviour
     public float GetTimerWatering()
     {
         return TimerRiego;
+    }
+
+    public float GetCropState()
+    {
+        return EstadoCrecimiento;
     }
     #endregion
 

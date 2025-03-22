@@ -76,6 +76,8 @@ public class InputManager : MonoBehaviour
     private InputAction _esc;
     private InputAction _salir;
     private InputAction _useWateringCan;
+    private InputAction _fillWateringCan;
+    private InputAction _useSickle;
 
     #endregion
 
@@ -174,7 +176,7 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método para saber si el botón de usar (Usar) está pulsado
+    /// Método para saber si el botón de use + tool (Usar) está pulsado
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
     /// </summary>
@@ -189,6 +191,14 @@ public class InputManager : MonoBehaviour
     public bool UseWateringCanIsPressed()
     {
         return _useWateringCan.IsPressed();
+    }
+    public bool UseSickleIsPressed()
+    {
+        return _useSickle.IsPressed();
+    }
+    public bool FillWateringCanIsPressed()
+    {
+        return _fillWateringCan.IsPressed();
     }
 
     /// <summary>
@@ -272,6 +282,28 @@ public class InputManager : MonoBehaviour
     public bool UseWateringCanWasPressedThisFrame()
     {
         return _useWateringCan.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Use Sickle (usar hoz) se ha pulsado en este frame
+    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool UseSickleWasPressedThisFrame()
+    {
+        return _useSickle.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Use Watering Can (usar regadera) se ha pulsado en este frame
+    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool FillWateringCanWasPressedThisFrame()
+    {
+        return _fillWateringCan.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -373,6 +405,16 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseWateringCanIsPressed, UseWateringCanWasPressedThisFrame )
         _useWateringCan = _theController.Player.UseWateringCan;
+
+        // Fill Watering Can input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (FillWateringCanIsPressed, FillWateringCanWasPressedThisFrame )
+        _fillWateringCan = _theController.Player.FillWateringCan;
+
+        // Use Sickle input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseSickleIsPressed, UseSickleWasPressedThisFrame )
+        _useSickle = _theController.Player.UseSickle;
     }
 
     /// <summary>

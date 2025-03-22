@@ -89,7 +89,7 @@ public class SickleCollision : MonoBehaviour
             PlantaEvolucion cultivo = collision.GetComponent<PlantaEvolucion>();
             if (cultivo != null)
             {
-                cultivo.Cosechar();
+                cultivo.Croping();
             }
         }
         Destroy(gameObject); // Se destruye después de cosechar

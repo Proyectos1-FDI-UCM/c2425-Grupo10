@@ -179,7 +179,7 @@ public class WateringCanManager : MonoBehaviour
 
             TextPress.text = "Presiona R \npara rellenar";
 
-            if (Input.GetKeyUp(KeyCode.R))
+            if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
             {
 
                 FillWateringCan(_maxWaterAmount);
@@ -300,7 +300,7 @@ public class WateringCanManager : MonoBehaviour
 
             if (PlantaEvolucion != null)
             {
-                PlantaEvolucion.Regar();
+                PlantaEvolucion.Watering();
             }
 
             this.gameObject.SetActive(false);

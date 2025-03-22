@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using TMPro;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -38,10 +39,24 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Animator PlayerAnimator;
 
-    ///<summary> 
-    /// Prefab del detector
+    ///<summary>
+    ///Referencia al PlantaEvolucion del crop
     /// </summary>
-    [SerializeField] private GameObject SickleCollisionDetector;
+    [SerializeField] private PlantaEvolucion PlantaEvolucion;
+
+    ///<summary>
+    ///Referencia al InventoryUI
+    /// </summary>
+    [SerializeField] private InventoryCultivos InventoryCultivos;
+
+    ///<summary>
+    ///Aviso recolectar con E
+    /// </summary>
+    [SerializeField] private GameObject Press;
+    ///<summary>
+    ///Texto del aviso recolectar con E
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextPress;
 
     #endregion
 
@@ -54,6 +69,10 @@ public class SickleManager : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    ///<summary>
+    ///Booleano para saber si estas colisionando con el crop
+    /// </summary>
+    private bool _isInCropArea = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -77,9 +96,39 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+
+        if (InputManager.Instance.UseSickleWasPressedThisFrame())
         {
-            Sicklering();
+
+            Croping();
+
+        }
+
+        else if (_isInCropArea && InventoryCultivos.GetInventoryVisible() == false)
+        {
+            if (PlantaEvolucion.GetCropState() == 3)
+            {
+                Press.SetActive(true);
+
+                TextPress.text = "Presiona E \npara recolectar";
+
+                if (InputManager.Instance.UseSickleWasPressedThisFrame())
+                {
+
+                    Croping();
+
+                }
+
+            }
+            
+
+        }
+
+        else if (!_isInCropArea || InventoryCultivos.GetInventoryVisible() == true)
+        {
+
+            Press.SetActive(false);
+
         }
     }
     #endregion
@@ -95,15 +144,21 @@ public class SickleManager : MonoBehaviour
     /// <summary>
     /// Metodo que activa la recogida de objetos con la HOZ. Se inicia la animacion
     /// </summary>
-    public void Sicklering()
+    public void Croping()
     {
         PlayerAnimator.SetBool("Sicklering", true);
-        Invoke("NotSicklering", 0.8f);
+
+        Invoke("NotCroping", 0.8f);
 
         PlayerMovement.enablemovement = false;
-        InstanceSickleDetector();
 
-        this.gameObject.SetActive(false);
+        if (PlantaEvolucion != null)
+        {
+
+            PlantaEvolucion.Croping();
+
+        }
+
     }
     #endregion
 
@@ -117,30 +172,52 @@ public class SickleManager : MonoBehaviour
     ///<summary>
     ///Metodo para desactivar la animacion de la HOZ y reactivar la herramienta en la mano del jugador
     /// </summary>
-    private void NotSicklering()
+    private void NotCroping()
     {
+
         PlayerAnimator.SetBool("Sicklering", false);
+
         PlayerMovement.enablemovement = true;
-        this.gameObject.SetActive(true);
 
-
-    }
-
-    /// <summary>
-    /// Instancia el detector en la dirección en la que el jugador está mirando
-    /// </summary>
-    private void InstanceSickleDetector()
-    {
-        // Obtener la dirección en la que el jugador está mirando desde PlayerMovement
-        Vector2 direccion = PlayerMovement.GetLastMoveDirection().normalized;
-
-        // Definir la posición del detector un poco delante del jugador
-        Vector2 posicionDetector = (Vector2)transform.position + direccion * 0.5f;
-
-        // Instanciar el detector en la dirección correcta
-        Instantiate(SickleCollisionDetector, posicionDetector, Quaternion.identity);
     }
     #endregion
 
+    // ---- EVENTOS----
+    #region
+
+    /// <summary>
+    /// metodo para detectar colision con pozo/cultivo
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Crop"))
+        {
+
+            _isInCropArea = true;
+
+            PlantaEvolucion = collision.GetComponent<PlantaEvolucion>();
+        }
+
+    }
+    /// <summary>
+    /// metodo para detectar cuando deja de colisionar con pozo/cultivo.
+    /// </summary>
+    /// <param name="collision"></param>
+    void OnTriggerExit2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Crop"))
+        {
+
+            _isInCropArea = false;
+
+            PlantaEvolucion = null;
+
+        }
+
+    }
+    #endregion
 } // class SickleManager 
 // namespace

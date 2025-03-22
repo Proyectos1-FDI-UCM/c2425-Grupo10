@@ -136,6 +136,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FillWateringCan"",
+                    ""type"": ""Button"",
+                    ""id"": ""bc72e750-2946-4da3-9951-8e2ab19d76aa"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseSickle"",
+                    ""type"": ""Button"",
+                    ""id"": ""cbb655af-c880-46cc-8a45-e3ee49d8cfc5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -411,6 +429,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UseWateringCan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2727999b-b616-4fce-895e-18befcfd2a8a"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FillWateringCan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""de9afc87-ccb0-4f36-9e41-fbb9efc74982"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseSickle"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1010,6 +1050,8 @@ namespace UnityEngine.InputSystem
             m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
             m_Player_Salir = m_Player.FindAction("Salir", throwIfNotFound: true);
             m_Player_UseWateringCan = m_Player.FindAction("UseWateringCan", throwIfNotFound: true);
+            m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
+            m_Player_UseSickle = m_Player.FindAction("UseSickle", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1095,6 +1137,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Esc;
         private readonly InputAction m_Player_Salir;
         private readonly InputAction m_Player_UseWateringCan;
+        private readonly InputAction m_Player_FillWateringCan;
+        private readonly InputAction m_Player_UseSickle;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1111,6 +1155,8 @@ namespace UnityEngine.InputSystem
             public InputAction @Esc => m_Wrapper.m_Player_Esc;
             public InputAction @Salir => m_Wrapper.m_Player_Salir;
             public InputAction @UseWateringCan => m_Wrapper.m_Player_UseWateringCan;
+            public InputAction @FillWateringCan => m_Wrapper.m_Player_FillWateringCan;
+            public InputAction @UseSickle => m_Wrapper.m_Player_UseSickle;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1156,6 +1202,12 @@ namespace UnityEngine.InputSystem
                 @UseWateringCan.started += instance.OnUseWateringCan;
                 @UseWateringCan.performed += instance.OnUseWateringCan;
                 @UseWateringCan.canceled += instance.OnUseWateringCan;
+                @FillWateringCan.started += instance.OnFillWateringCan;
+                @FillWateringCan.performed += instance.OnFillWateringCan;
+                @FillWateringCan.canceled += instance.OnFillWateringCan;
+                @UseSickle.started += instance.OnUseSickle;
+                @UseSickle.performed += instance.OnUseSickle;
+                @UseSickle.canceled += instance.OnUseSickle;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1196,6 +1248,12 @@ namespace UnityEngine.InputSystem
                 @UseWateringCan.started -= instance.OnUseWateringCan;
                 @UseWateringCan.performed -= instance.OnUseWateringCan;
                 @UseWateringCan.canceled -= instance.OnUseWateringCan;
+                @FillWateringCan.started -= instance.OnFillWateringCan;
+                @FillWateringCan.performed -= instance.OnFillWateringCan;
+                @FillWateringCan.canceled -= instance.OnFillWateringCan;
+                @UseSickle.started -= instance.OnUseSickle;
+                @UseSickle.performed -= instance.OnUseSickle;
+                @UseSickle.canceled -= instance.OnUseSickle;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1390,6 +1448,8 @@ namespace UnityEngine.InputSystem
             void OnEsc(InputAction.CallbackContext context);
             void OnSalir(InputAction.CallbackContext context);
             void OnUseWateringCan(InputAction.CallbackContext context);
+            void OnFillWateringCan(InputAction.CallbackContext context);
+            void OnUseSickle(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
