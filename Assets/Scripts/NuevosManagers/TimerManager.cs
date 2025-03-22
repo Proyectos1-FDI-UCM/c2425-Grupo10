@@ -1,55 +1,63 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Es un Timer que convierte el tiempo real en tiempo de juego, maneja los cutlivos y sus procesos
+// Alexia Pérez Santana
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
-
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Este script gestiona el tiempo de juego, incluyendo el crecimiento, 
+/// el riego y la marchitación de los cultivos.
 /// </summary>
 public class TimerManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    // Tiempo en minutos para un día en el juego
+    private float _dayInGameMinutes = 6f;
+    // Tiempo en segundos para una hora en el juego
+    private float _hourInGameSeconds = 15f;
+    // Tiempo de crecimiento de la lechuga en días
+    private float _lettuceGrowthTimeDays = 0.5f;
+    // Tiempo de riego de la lechuga en minutos
+    private float _lettuceWateringTimeMinutes = 2f;
+    // Tiempo de crecimiento de la fresa en días
+    private float _strawberryGrowthTimeDays = 1f;
+    // Tiempo de riego de la fresa en minutos
+    private float _strawberryWateringTimeMinutes = 3f;
+    // Tiempo de crecimiento de la zanahoria en días
+    private float _carrotGrowthTimeDays = 1.5f;
+    // Tiempo de riego de la zanahoria en minutos
+    private float _carrotWateringTimeMinutes = 4f;
+    // Tiempo de crecimiento del maíz en días
+    private float _cornGrowthTimeDays = 2f;
+    // Tiempo de riego del maíz en minutos
+    private float _cornWateringTimeMinutes = 6f;
+    // Tiempo de marchitación en minutos
+    private float _witherTimeMinutes = 1f;
 
     #endregion
-    
+
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+    private float _timeInGame; // Tiempo acumulado en el juego
+    private float _timeSinceLastWatering; // Tiempo desde el último riego
 
     #endregion
-    
+
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-    
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
-    
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        
+        _timeInGame = 0f;
+        _timeSinceLastWatering = 0f;
     }
 
     /// <summary>
@@ -57,28 +65,39 @@ public class TimerManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        // Aumentar el tiempo en el juego basado en el tiempo real
+        _timeInGame += Time.deltaTime / (360f / (_dayInGameMinutes * 60f)); // 3600 segundos en 1 hora
+        _timeSinceLastWatering += Time.deltaTime / 60f; // Tiempo en minutos
+
+        // Aquí puedes añadir la lógica para el crecimiento y marchitación de los cultivos
     }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
+    /// <summary>
+    /// Método para regar los cultivos.
+    /// </summary>
+    public void WaterCrops()
+    {
+        _timeSinceLastWatering = 0f; // Reinicia el tiempo desde el último riego
+    }
 
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+    /// <summary>
+    /// Método para comprobar si los cultivos se han marchitado.
+    /// </summary>
+    private void CheckWithering()
+    {
+        if (_timeSinceLastWatering >= _witherTimeMinutes)
+        {
+            // Lógica para marchitar cultivos
+        }
+    }
 
     #endregion   
 
-} // class TimerManager 
-// namespace
+} // class TimerManager
