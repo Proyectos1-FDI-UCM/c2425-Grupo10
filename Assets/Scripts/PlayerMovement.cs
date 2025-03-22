@@ -1,5 +1,4 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
 // Este archivo contiene el comportamiento de movimiento del jugador
 // Responsable de la creación de este archivo: Natalia Nita
 // Nombre del juego: Roots Of Life
@@ -23,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     /// Velocidad a la que el jugador se mueve en el mundo 2D.
     /// Se puede ajustar desde el Inspector de Unity.
     /// </summary>
-    [SerializeField] private float speed = 3f;
+    [SerializeField] private float Speed = 3f;
 
     /// <summary>
     /// Referencia al Watering Can Manager
@@ -39,19 +38,46 @@ public class PlayerMovement : MonoBehaviour
     /// Referencia al Rigidbody2D del jugador para manejar la física.
     /// </summary>
     private Rigidbody2D _playerRb;
+
+    /// <summary>
+    /// Referencia al Animator del jugador para manejar las animaciones.
+    /// </summary>
     private Animator _playerAnimator;
+
+    /// <summary>
+    /// Referencia al SpriteRenderer del jugador para manejar la representación gráfica.
+    /// </summary>
     private SpriteRenderer _spriteRenderer;
-    public bool enablemovement = true;
+
+    /// <summary>
+    /// Booleano que indica si el movimiento del jugador está habilitado.
+    /// </summary>
+    public bool _enablemovement = true;
 
     /// <summary>
     /// Vector que contiene la entrada del jugador para el movimiento 
     /// </summary>
-    private Vector2 moveInput;
-    private Vector2 lastMoveDirection = Vector2.down;
+    private Vector2 _moveInput;
 
-    private bool facingRight = true;
-    private bool handfacingRight = true;
-    private Transform Hand;
+    /// <summary>
+    /// Vector que guarda la última dirección de movimiento del jugador.
+    /// </summary>
+    private Vector2 _lastMoveDirection = Vector2.down;
+
+    /// <summary>
+    /// Booleano que indica si el jugador está mirando a la derecha.
+    /// </summary>
+    private bool _facingRight = true;
+
+    /// <summary>
+    /// Booleano que indica si la mano del jugador está mirando a la derecha.
+    /// </summary>
+    private bool _handfacingRight = true;
+
+    /// <summary>
+    /// Transform que representa la mano del jugador.
+    /// </summary>
+    private Transform _hand;
 
     #endregion
 
@@ -65,12 +91,19 @@ public class PlayerMovement : MonoBehaviour
     {
         // Obtiene la referencia al Rigidbody2D del jugador.
         _playerRb = GetComponent<Rigidbody2D>();
+
+        // Obtiene la referencia al Animator del jugador.
         _playerAnimator = GetComponent<Animator>();
+
+        // Inicializa los estados de animación.
         _playerAnimator.SetBool("Watering", false);
         _playerAnimator.SetBool("Sicklering", false);
+
+        // Obtiene la referencia al SpriteRenderer del jugador.
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        
-        Hand = gameObject.transform.GetChild(0);
+
+        // Obtiene la referencia a la mano del jugador.
+        _hand = gameObject.transform.GetChild(0);
 
         
     }
@@ -80,33 +113,37 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-
+        // Captura la entrada del jugador para el movimiento en el eje X 
         float moveX = InputManager.Instance.MovementVector.x;
         float moveY = InputManager.Instance.MovementVector.y;
 
-        Vector2 moveInput = InputManager.Instance.MovementVector.normalized;
+        // Normaliza la entrada de movimiento.
+        _moveInput = InputManager.Instance.MovementVector.normalized;
 
-
-        if (moveInput != Vector2.zero)
+        // Si hay entrada de movimiento, actualiza la dirección y animaciones.
+        if (_moveInput != Vector2.zero)
         {
-            lastMoveDirection = moveInput;
+            _lastMoveDirection = _moveInput;
             _playerAnimator.SetFloat("Horizontal", moveX);
             _playerAnimator.SetFloat("Vertical", moveY);
 
-            if ((moveX < 0 && facingRight) || (moveX > 0 && !facingRight))
+            // Lógica para voltear al jugador si es necesario.
+            if ((moveX < 0 && _facingRight) || (moveX > 0 && !_facingRight))
             {
                 //Flip();
                // FlipHand();
             }
         }
 
-        if (moveInput == Vector2.zero)
+        // Si no hay entrada de movimiento, mantiene la última dirección.
+        if (_moveInput == Vector2.zero)
         {
-            _playerAnimator.SetFloat("Horizontal", lastMoveDirection.x);
-            _playerAnimator.SetFloat("Vertical", lastMoveDirection.y);
+            _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
+            _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
         }
 
-        _playerAnimator.SetFloat("Speed", moveInput.sqrMagnitude);
+        // Actualiza la velocidad de la animación.
+        _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
 
         
 
@@ -116,13 +153,21 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    public void CambioHerramienta()
+
+    /// <summary>
+    /// Método para cambiar la herramienta del jugador.
+    /// </summary>
+    public void ChangeTool()
     {
         //
     }
+
+    /// <summary>
+    /// Método para obtener la última dirección de movimiento.
+    /// </summary>
     public Vector2 GetLastMoveDirection()
     {
-        return lastMoveDirection;
+        return _lastMoveDirection;
     }
     #endregion
 
@@ -134,31 +179,38 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (enablemovement)
+        if (_enablemovement)
         {
             // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
-
-            _playerRb.MovePosition(_playerRb.position + InputManager.Instance.MovementVector * speed * Time.fixedDeltaTime);
+            _playerRb.MovePosition(_playerRb.position + InputManager.Instance.MovementVector * Speed * Time.fixedDeltaTime);
 
         }
     }
+
+    /// <summary>
+    /// Método para voltear al jugador.
+    /// </summary>
     private void Flip()
     {
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
         _spriteRenderer.flipX = !_spriteRenderer.flipX;
 
         //Vector3 scale = Hand.localScale;
         //scale.x *= -1;
         //Hand.localPosition = scale;
     }
+
+    /// <summary>
+    /// Método para voltear al jugador.
+    /// </summary>
     private void FlipHand()
     {
-        Vector3 scale = Hand.localScale;
-        Vector3 position = Hand.localPosition;
+        Vector3 scale = _hand.localScale;
+        Vector3 position = _hand.localPosition;
         position.x *= -1;
         scale.x *= -1;
-        Hand.localPosition = position;
-        Hand.localScale = scale;    
+        _hand.localPosition = position;
+        _hand.localScale = scale;    
     }
 
     #endregion

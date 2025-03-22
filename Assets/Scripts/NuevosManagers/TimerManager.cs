@@ -15,35 +15,50 @@ public class TimerManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
+
     // Tiempo en minutos para un día en el juego
-    private float _dayInGameMinutes = 6f;
+    [SerializeField] private float _dayInGameMinutes = 6f;
+
     // Tiempo en segundos para una hora en el juego
-    private float _hourInGameSeconds = 15f;
+    [SerializeField] private float _hourInGameSeconds = 15f;
+
     // Tiempo de crecimiento de la lechuga en días
-    private float _lettuceGrowthTimeDays = 0.5f;
+    [SerializeField] private float _lettuceGrowthTimeDays = 0.5f;
+
     // Tiempo de riego de la lechuga en minutos
-    private float _lettuceWateringTimeMinutes = 2f;
+    [SerializeField] private float _lettuceWateringTimeMinutes = 2f;
+
     // Tiempo de crecimiento de la fresa en días
-    private float _strawberryGrowthTimeDays = 1f;
+    [SerializeField] private float _strawberryGrowthTimeDays = 1f;
+
     // Tiempo de riego de la fresa en minutos
-    private float _strawberryWateringTimeMinutes = 3f;
+    [SerializeField] private float _strawberryWateringTimeMinutes = 3f;
+
     // Tiempo de crecimiento de la zanahoria en días
-    private float _carrotGrowthTimeDays = 1.5f;
+    [SerializeField] private float _carrotGrowthTimeDays = 1.5f;
+
     // Tiempo de riego de la zanahoria en minutos
-    private float _carrotWateringTimeMinutes = 4f;
+    [SerializeField] private float _carrotWateringTimeMinutes = 4f;
+
     // Tiempo de crecimiento del maíz en días
-    private float _cornGrowthTimeDays = 2f;
+    [SerializeField] private float _cornGrowthTimeDays = 2f;
+
     // Tiempo de riego del maíz en minutos
-    private float _cornWateringTimeMinutes = 6f;
+    [SerializeField] private float _cornWateringTimeMinutes = 6f;
+
     // Tiempo de marchitación en minutos
-    private float _witherTimeMinutes = 1f;
+    [SerializeField] private float _witherTimeMinutes = 1f;
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    private float _timeInGame; // Tiempo acumulado en el juego
-    private float _timeSinceLastWatering; // Tiempo desde el último riego
+
+    // Tiempo acumulado en el juego
+    private float _timeInGame;
+
+    // Tiempo desde el último riego
+    private float _timeSinceLastWatering; 
 
     #endregion
 

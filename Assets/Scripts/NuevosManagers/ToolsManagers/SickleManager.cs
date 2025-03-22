@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// /// Se encarga de detectar la entrada del jugador y manejar la recolección.
+// Javier Librada
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -11,8 +11,7 @@ using UnityEngine;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase que gestiona la acción de recolectar cultivos con la hoz.
 /// </summary>
 public class SickleManager : MonoBehaviour
 {
@@ -42,17 +41,18 @@ public class SickleManager : MonoBehaviour
     ///<summary>
     ///Referencia al PlantaEvolucion del crop
     /// </summary>
-    [SerializeField] private PlantaEvolucion PlantaEvolucion;
+    [SerializeField] private PlantEvolution PlantEvolution;
 
     ///<summary>
     ///Referencia al InventoryUI
     /// </summary>
-    [SerializeField] private InventoryCultivos InventoryCultivos;
+    [SerializeField] private InventoryCrops InventoryCrops;
 
     ///<summary>
     ///Aviso recolectar con E
     /// </summary>
     [SerializeField] private GameObject Press;
+
     ///<summary>
     ///Texto del aviso recolectar con E
     /// </summary>
@@ -96,7 +96,7 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-
+        // Verifica si se ha presionado la tecla para usar la hoz.
         if (InputManager.Instance.UseSickleWasPressedThisFrame())
         {
 
@@ -104,9 +104,9 @@ public class SickleManager : MonoBehaviour
 
         }
 
-        else if (_isInCropArea && InventoryCultivos.GetInventoryVisible() == false)
+        else if (_isInCropArea && InventoryCrops.GetInventoryVisible() == false)
         {
-            if (PlantaEvolucion.GetCropState() == 3)
+            if (PlantEvolution.GetCropState() == 3)
             {
                 Press.SetActive(true);
 
@@ -124,7 +124,7 @@ public class SickleManager : MonoBehaviour
 
         }
 
-        else if (!_isInCropArea || InventoryCultivos.GetInventoryVisible() == true)
+        else if (!_isInCropArea || InventoryCrops.GetInventoryVisible() == true)
         {
 
             Press.SetActive(false);
@@ -152,10 +152,10 @@ public class SickleManager : MonoBehaviour
 
         PlayerMovement.enablemovement = false;
 
-        if (PlantaEvolucion != null)
+        if (PlantEvolution != null)
         {
 
-            PlantaEvolucion.Croping();
+            PlantEvolution.Croping();
 
         }
 
@@ -197,7 +197,7 @@ public class SickleManager : MonoBehaviour
 
             _isInCropArea = true;
 
-            PlantaEvolucion = collision.GetComponent<PlantaEvolucion>();
+            PlantEvolution = collision.GetComponent<PlantEvolution>();
         }
 
     }
@@ -213,7 +213,7 @@ public class SickleManager : MonoBehaviour
 
             _isInCropArea = false;
 
-            PlantaEvolucion = null;
+            PlantEvolution = null;
 
         }
 
