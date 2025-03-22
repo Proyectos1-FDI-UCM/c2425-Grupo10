@@ -69,11 +69,6 @@ public class WateringCanManager : MonoBehaviour
     [SerializeField] private GameObject PrefabWatering;
 
     ///<summary> 
-    /// Prefab del detector 
-    /// </summary>
-    [SerializeField] private GameObject WateringCollisionDetector;
-
-    ///<summary> 
     /// GameObjectBoton
     /// </summary>
     [SerializeField] private GameObject Press;
@@ -111,19 +106,24 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private int _maxWaterAmount;
 
+
+
     ///<summary>
     ///GameObject donde instanciar el Prefab de aviso
     /// </summary>
     private GameObject _warning;
 
+
+
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
     private bool _isInWellArea = false;
+
     ///<summary>
     ///Booleano para permitir regar
     /// </summary>
-    [SerializeField] private bool _isInCropArea = false;
+    private bool _isInCropArea = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -298,7 +298,6 @@ public class WateringCanManager : MonoBehaviour
 
             GameManager.Instance.UpdateWaterAmount();
 
-            //InstanceWateringDetector();
             if (PlantaEvolucion != null)
             {
                 PlantaEvolucion.Regar();
@@ -474,21 +473,6 @@ public class WateringCanManager : MonoBehaviour
             PlantaEvolucion = null;
 
         }
-
-    }
-
-    ///<summary>
-    ///Metodo para instanciar el detector al regar.
-    ///
-    ///</summary>
-    private void InstanceWateringDetector()
-    {
-
-        Vector2 direction = PlayerMovement.GetLastMoveDirection().normalized;
-
-        Vector2 DetectorPosition = (Vector2)transform.position + direction * 0.5f;
-
-        Instantiate(WateringCollisionDetector, DetectorPosition, Quaternion.identity);
 
     }
     
