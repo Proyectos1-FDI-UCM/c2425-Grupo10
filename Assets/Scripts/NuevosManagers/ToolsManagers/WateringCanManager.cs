@@ -99,12 +99,12 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     /// Cantidad Actual de Agua en la regadera
     /// </summary>
-    private int _waterAmount = 6;
+    [SerializeField]  private int _waterAmount = 6;
 
     ///<summary>
     ///Cantidad maxima de Agua en la regadera
     /// </summary>
-    private int _maxWaterAmount;
+    [SerializeField]  private int _maxWaterAmount;
 
 
 
@@ -118,7 +118,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
-    private bool _isInWellArea = false;
+    [SerializeField] private bool _isInWellArea = false;
 
     ///<summary>
     ///Booleano para permitir regar
@@ -172,7 +172,7 @@ public class WateringCanManager : MonoBehaviour
             Watering();
         }
 
-        if (_isInWellArea && _waterAmount < _maxWaterAmount && InventoryCultivos.GetInventoryVisible() == false)
+        else if (_isInWellArea && _waterAmount < _maxWaterAmount && InventoryCultivos.GetInventoryVisible() == false)
         { 
 
             Press.SetActive(true);
@@ -188,15 +188,7 @@ public class WateringCanManager : MonoBehaviour
 
         }
 
-        if (!_isInWellArea || _waterAmount == _maxWaterAmount || InventoryCultivos.GetInventoryVisible() == true)
-        {
-
-            Press.SetActive(false);
-
-        }
-
-
-        if (_isInCropArea &&  _waterAmount > 0 && InventoryCultivos.GetInventoryVisible() == false)
+        else if (_isInCropArea &&  _waterAmount > 0 && InventoryCultivos.GetInventoryVisible() == false)
         {
             if (PlantaEvolucion.GetTimerWatering() <= 0)
             {
@@ -213,12 +205,20 @@ public class WateringCanManager : MonoBehaviour
             }
         }
 
-        if(!_isInCropArea ||  _waterAmount == 0 || InventoryCultivos.GetInventoryVisible() == true)
+        else if (!_isInWellArea || _waterAmount == _maxWaterAmount || InventoryCultivos.GetInventoryVisible() == true)
         {
 
             Press.SetActive(false);
 
         }
+        else if (!_isInCropArea || _waterAmount == 0 || InventoryCultivos.GetInventoryVisible() == true)
+        {
+
+            Press.SetActive(false);
+
+        }
+
+
 
     }
     #endregion
