@@ -1,10 +1,11 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Este script funciona como el manager de la herramienta de regadera, donde se permite al jugador regar y rellenar la regadera.
+// Javier Librada Jerez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using TMPro;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -24,57 +25,70 @@ public class WateringCanManager : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     ///<summary>
-    /// Cantidad Actual de Agua en la regadera
-    /// </summary>
-    [SerializeField] int WaterAmount = 6;
-
-    ///<summary>
-    ///CAntidad maxima de Agua en la regadera
-    /// </summary>
-    [SerializeField] int MaxWaterAmount;
-
-    ///<summary>
     /// Referencia al transform del jugador
     /// </summary>
-    public Transform player;
+    [SerializeField] private Transform player;
 
-    ///<summary>
-    ///Posición exacta del pozo
-    /// </summary>
-    public Vector2 WellPosition;
-
-    ///<summary> 
-    ///Referencia al GameManager
-    /// </summary>
-    [SerializeField] GameManager GameManager;
-
-    ///<summary> 
-    ///Referencia al SelectorManager
-    /// </summary>
-    [SerializeField] PlayerMovement PlayerMovement;
     ///<summary> 
     /// referencia al animator del player
     /// </summary>
     [SerializeField] private Animator PlayerAnimator;
 
+
+
     ///<summary> 
     ///Referencia al SelectorManager
     /// </summary>
-    [SerializeField] SelectorManager SelectorManager;
+    [SerializeField] private SelectorManager SelectorManager;
+
+    ///<summary> 
+    ///Referencia al GameManager
+    /// </summary>
+    [SerializeField] private GameManager GameManager;
+
+    ///<summary> 
+    ///Referencia al SelectorManager
+    /// </summary>
+    [SerializeField] private PlayerMovement PlayerMovement;
+
+    ///<summary> 
+    /// Referencia al InventoryUI
+    /// </summary>
+    [SerializeField] private InventoryCultivos InventoryCultivos;
+
+    ///<summary>
+    ///Referencia al PlantaEvolucion
+    /// </summary>
+    [SerializeField] private PlantaEvolucion PlantaEvolucion; 
+
+    
 
     ///<summary>
     ///PrefabAvisoRiego
     /// </summary>
-    [SerializeField] GameObject PrefabWatering;
+    [SerializeField] private GameObject PrefabWatering;
 
     ///<summary> 
     /// Prefab del detector 
     /// </summary>
     [SerializeField] private GameObject WateringCollisionDetector;
+
     ///<summary> 
     /// GameObjectBoton
     /// </summary>
-    [SerializeField] private GameObject FillButton;
+    [SerializeField] private GameObject Press;
+
+    ///<summary>
+    ///Texto Boton
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextPress;
+
+
+
+    ///<summary>
+    ///Posición exacta del pozo
+    /// </summary>
+    [SerializeField] private Vector2 WellPosition;
 
     #endregion
 
@@ -88,6 +102,16 @@ public class WateringCanManager : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     ///<summary>
+    /// Cantidad Actual de Agua en la regadera
+    /// </summary>
+    private int _waterAmount = 6;
+
+    ///<summary>
+    ///Cantidad maxima de Agua en la regadera
+    /// </summary>
+    private int _maxWaterAmount;
+
+    ///<summary>
     ///GameObject donde instanciar el Prefab de aviso
     /// </summary>
     private GameObject _warning;
@@ -95,7 +119,11 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
-    [SerializeField] private bool _isInWellArea = false;
+    private bool _isInWellArea = false;
+    ///<summary>
+    ///Booleano para permitir regar
+    /// </summary>
+    [SerializeField] private bool _isInCropArea = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -111,7 +139,6 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Collider2D playerCollider = GameObject.FindGameObjectWithTag("Player").GetComponent<Collider2D>();
         if (GameManager == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
@@ -120,9 +147,13 @@ public class WateringCanManager : MonoBehaviour
                 GameManager = ObjetoTexto.GetComponent<GameManager>();
             }
         }
+
         GetUpgradeWateringCan();
-        SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
-        WaterAmount = GameManager.Instance.LastWaterAmount();
+
+        SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+
+        _waterAmount = GameManager.Instance.LastWaterAmount();
+
     }
 
     /// <summary>
@@ -131,25 +162,64 @@ public class WateringCanManager : MonoBehaviour
     void Update()
     {
         GetUpgradeWateringCan();
-        SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
-        WaterAmount = GameManager.Instance.LastWaterAmount();
-        if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+
+        SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+
+        _waterAmount = GameManager.Instance.LastWaterAmount();
+
+        if (InputManager.Instance.UseWateringCanWasPressedThisFrame() )
         {
             Watering();
         }
-        if (_isInWellArea && WaterAmount < MaxWaterAmount)
+
+        if (_isInWellArea && _waterAmount < _maxWaterAmount && InventoryCultivos.GetInventoryVisible() == false)
         { 
-             FillButton.SetActive(true);
+
+            Press.SetActive(true);
+
+            TextPress.text = "Presiona R \npara rellenar";
+
             if (Input.GetKeyUp(KeyCode.R))
             {
-             FillWateringCan(MaxWaterAmount);
+
+                FillWateringCan(_maxWaterAmount);
+
+            }
+
+        }
+
+        if (!_isInWellArea || _waterAmount == _maxWaterAmount || InventoryCultivos.GetInventoryVisible() == true)
+        {
+
+            Press.SetActive(false);
+
+        }
+
+
+        if (_isInCropArea &&  _waterAmount > 0 && InventoryCultivos.GetInventoryVisible() == false)
+        {
+            if (PlantaEvolucion.GetTimerWatering() <= 0)
+            {
+                Press.SetActive(true);
+
+                TextPress.text = "Presiona E \npara regar";
+
+                if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+                {
+
+                    Watering();
+
+                }
             }
         }
-        if (!_isInWellArea || WaterAmount == MaxWaterAmount)
+
+        if(!_isInCropArea ||  _waterAmount == 0 || InventoryCultivos.GetInventoryVisible() == true)
         {
-            FillButton.SetActive(false);
+
+            Press.SetActive(false);
+
         }
-        
+
     }
     #endregion
 
@@ -160,13 +230,16 @@ public class WateringCanManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
     /// <summary>
     /// Metodo para obtener el agua que hay actualmente en la regadera
     /// </summary>
     /// <returns></returns>
     public int GetAmountWateringCan()
     {
-        return WaterAmount;
+
+        return _waterAmount;
+
     }
 
     /// <summary>
@@ -175,7 +248,9 @@ public class WateringCanManager : MonoBehaviour
     /// <returns></returns>
     public int GetMaxWaterAmount()
     {
-        return MaxWaterAmount;
+
+        return _maxWaterAmount;
+
     }
 
     /// <summary>
@@ -186,61 +261,101 @@ public class WateringCanManager : MonoBehaviour
     {
 
         Debug.Log("Recargando");
+
         PlayerMovement.enablemovement = false;
-        WaterAmount = i;
+
+        _waterAmount = i;
+
         InstanceWarning();
-        SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
+
+        SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+
         GameManager.Instance.UpdateWaterAmount();
+
         Invoke("NotFilling", 1.5f);
+
     }
+
     /// <summary>
     /// Metodo para regar, resta 1 a la cantidad actual de agua y actualiza la barra
     /// </summary>
     public void Watering()
     {
-        if (WaterAmount > 0)
+
+        if (_waterAmount > 0)
         {
+
             PlayerAnimator.SetBool("Watering", true);
+
             Invoke("NotWatering", 1f);
 
+
             PlayerMovement.enablemovement = false;
-            WaterAmount -= 1; ;
-            SelectorManager.UpdateWaterBar(WaterAmount, MaxWaterAmount);
+
+            _waterAmount -= 1; ;
+
+            SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+
             GameManager.Instance.UpdateWaterAmount();
-            InstanceWateringDetector();
+
+            //InstanceWateringDetector();
+            if (PlantaEvolucion != null)
+            {
+                PlantaEvolucion.Regar();
+            }
 
             this.gameObject.SetActive(false);
+
         }
 
     }
+
     /// <summary>
     /// Método para modificar el máximo agua de la regadera despues de las mejoras
     /// <summary>
     public void UpgradeWateringCan(int upgrade)
     {
+
         if (upgrade == 0)
         {
-            MaxWaterAmount = 6;
+
+            _maxWaterAmount = 6;
+
         }
+
         else if (upgrade == 1)
         {
-            MaxWaterAmount = 9;
+
+            _maxWaterAmount = 9;
+
         }
+
         else if (upgrade == 2)
         {
-            MaxWaterAmount = 15;
+
+            _maxWaterAmount = 15;
+
         }
+
         else if (upgrade == 3)
         {
-            MaxWaterAmount = 20;
+
+            _maxWaterAmount = 20;
+
         }
 
     }
 
+    /// <summary>
+    /// Metodo para destruir el aviso de recarga en el pozo
+    /// </summary>
     public void DestroyAvisos()
     {
+
         Debug.Log("Invoke");
+
         Destroy(_warning);
+
     }
      
     #endregion
@@ -257,22 +372,35 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private void GetUpgradeWateringCan()
     {
+
         if ((GameManager.GetMejorasRegadera() == 0))
         {
+
             UpgradeWateringCan(0);
+
         }
+
         else if ((GameManager.GetMejorasRegadera() == 1))
         {
+
             UpgradeWateringCan(1);
+
         }
+
         else if ((GameManager.GetMejorasRegadera() == 2))
         {
+
             UpgradeWateringCan(2);
+
         }
+
         else if ((GameManager.GetMejorasRegadera() == 3))
         {
+
             UpgradeWateringCan(3);
+
         }
+
     }
 
     /// <summary>
@@ -280,18 +408,25 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private void NotWatering()
     {
+
         PlayerAnimator.SetBool("Watering", false);
+
         this.gameObject.SetActive(true);
+
         PlayerMovement.enablemovement = true;
 
     }
+
     ///<summary>
     ///metodo para desactivar la recarga
     /// </summary>
     private void NotFilling()
     {
+
         Destroy(_warning);
+
         PlayerMovement.enablemovement = true;
+
     }
 
     /// <summary>
@@ -300,43 +435,71 @@ public class WateringCanManager : MonoBehaviour
     /// <param name="collision"></param>
     void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Cultivo") && InputManager.Instance.UseWateringCanWasPressedThisFrame() && PlayerAnimator.GetBool("HasWateringCan") == true && WaterAmount < 0)
+
+        if (collision.CompareTag("Crop"))
         {
-            Debug.Log("Colision con cultivo");
-            Watering();
+
+            _isInCropArea = true;
+
+            PlantaEvolucion = collision.GetComponent<PlantaEvolucion>();
         }
+
         if (collision.CompareTag("Pozo"))
         {
+
             _isInWellArea = true;
+
         }
+
     }
     /// <summary>
-    /// metodo para detectar cuando deja de colisionar con pozo/cultivo
+    /// metodo para detectar cuando deja de colisionar con pozo/cultivo.
     /// </summary>
     /// <param name="collision"></param>
-    private void OnTriggerExit2D(Collider2D collision)
+     void OnTriggerExit2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Pozo"))
         {
+
             _isInWellArea = false;
+
         }
+
+        if (collision.CompareTag("Crop"))
+        {
+
+            _isInCropArea = false;
+
+            PlantaEvolucion = null;
+
+        }
+
     }
 
     ///<summary>
-    ///Metodo para instanciar el detector al regar
+    ///Metodo para instanciar el detector al regar.
+    ///
     ///</summary>
     private void InstanceWateringDetector()
     {
+
         Vector2 direction = PlayerMovement.GetLastMoveDirection().normalized;
 
         Vector2 DetectorPosition = (Vector2)transform.position + direction * 0.5f;
 
         Instantiate(WateringCollisionDetector, DetectorPosition, Quaternion.identity);
-    }
 
+    }
+    
+    /// <summary>
+    /// Metodo para Instanciar el aviso de que se esta recargando en el pozo.
+    /// </summary>
     private void InstanceWarning()
     {
+
         _warning = Instantiate(PrefabWatering, WellPosition, Quaternion.identity);
+
     }
 
     #endregion

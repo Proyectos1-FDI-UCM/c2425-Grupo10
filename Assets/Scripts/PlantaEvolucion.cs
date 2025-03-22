@@ -100,7 +100,7 @@ public class PlantaEvolucion : MonoBehaviour
             }
             if (TimerRiego <= 0f)
             {
-            AvisoRiego();
+                AvisoRiego();
             }
             if (TimerCrecimiento <= 0f)
             {
@@ -117,10 +117,10 @@ public class PlantaEvolucion : MonoBehaviour
             if (TimerRiego <= -TiempoMuerte)
             {
                  EstadoCrecimiento = -1; 
-                Death();
-               TimerCrecimiento = 3f;
-               TimerRiego = 3f;
-            Destroy(gameObject);
+                  Death();
+                 TimerCrecimiento = 3f;
+                 TimerRiego = 3f;
+                 Destroy(gameObject);
             }
         
     }
@@ -181,6 +181,10 @@ public class PlantaEvolucion : MonoBehaviour
         // TimerDead = TiempoMuerte;
         EstadoRiego = true;
 
+    }
+    public float GetTimerWatering()
+    {
+        return TimerRiego;
     }
     #endregion
 

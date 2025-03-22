@@ -107,7 +107,10 @@ public class InventoryCultivos : MonoBehaviour
 
 
     }
-
+    public bool GetInventoryVisible()
+    {
+        return _isInventoryVisible;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
