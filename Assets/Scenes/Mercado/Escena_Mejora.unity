@@ -1393,8 +1393,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ee85de47a70af4894edc4b94e3d187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  enablemovement: 1
+  Speed: 3
+  WateringCanManager: {fileID: 0}
 --- !u!212 &230413356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3845,7 +3845,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf7cde4a1eeed942b54f334bf22b3de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Escena_Build 1
+  sceneName: Escena_Build
   sceneTransition: {fileID: 0}
 --- !u!1 &1088496707
 GameObject:

@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 // Añadir aquí el resto de directivas using
 
 /// <summary>
@@ -23,11 +24,6 @@ public class PlayerMovement : MonoBehaviour
     /// Se puede ajustar desde el Inspector de Unity.
     /// </summary>
     [SerializeField] private float Speed = 3f;
-
-    /// <summary>
-    /// Referencia al Watering Can Manager
-    /// </summary>
-    [SerializeField] WateringCanManager WateringCanManager;
 
     #endregion
 
@@ -102,8 +98,12 @@ public class PlayerMovement : MonoBehaviour
         // Obtiene la referencia al SpriteRenderer del jugador.
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        // Obtiene la referencia a la mano del jugador.
-        _hand = gameObject.transform.GetChild(0);
+        if (SceneManager.GetActiveScene().name == "Escena_build")
+        {
+            // Obtiene la referencia a la mano del jugador.
+            _hand = gameObject.transform.GetChild(0);
+        }
+        
 
         
     }

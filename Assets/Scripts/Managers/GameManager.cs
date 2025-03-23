@@ -166,6 +166,14 @@ public class GameManager : MonoBehaviour
                 ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
+        if (WateringCanManager == null)
+        {
+            GameObject WCObject = GameObject.FindGameObjectWithTag("WateringCan");
+            if ( WCObject != null )
+            {
+                WateringCanManager = WCObject.GetComponent<WateringCanManager>();
+            }
+        }
     }
     /// <summary>
     /// Método llamado cuando se destruye el componente.
