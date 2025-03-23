@@ -171,7 +171,7 @@ public class CompraInterfaz : MonoBehaviour
 
         if (ContadorDinero.GetContadorDinero() >= totalPrecio)
         {
-            ContadorDinero.Comprar(totalPrecio);
+            ContadorDinero.ComprarSemilla(totalPrecio);
 
             // Actualiza el inventario según el tipo de semilla seleccionada
             if (_isMaizSelected) _inventario[0] += _cantidadAComprar;

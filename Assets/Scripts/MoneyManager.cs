@@ -8,14 +8,14 @@
 using System;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;  // Necesario para manejar el cambio de escenas
+using UnityEngine.SceneManagement;
 
 public class MoneyManager : MonoBehaviour
 {
-    public static MoneyManager Instance;  // Instancia estática para Singleton
+    public static MoneyManager Instance;
 
-    [SerializeField] private int contadorDinero = 10000; // Cantidad de dinero del jugador
-    private int nivelRegadera = 0; // Nivel actual de la regadera
+    [SerializeField] private int contadorDinero = 100000;
+    private int nivelRegadera = 0;
 
     [Header("Precios de Semillas")]
     [SerializeField] private int precioSemillaMaiz = 50;
@@ -32,20 +32,19 @@ public class MoneyManager : MonoBehaviour
     [Header("Precios de Mejora de Regadera")]
     [SerializeField] private int[] preciosMejoraRegadera = { 1000, 5000, 10000 };
 
-    [SerializeField] private GameManager gameManager; // Se asignará desde el Inspector
-    [SerializeField] private TextMeshProUGUI dineroTexto; // Texto en UI para mostrar el dinero
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private TextMeshProUGUI dineroTexto;
 
     private void Awake()
     {
-        // Verificar si ya existe una instancia del MoneyManager
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);  // No destruir el objeto al cambiar de escena
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject);  // Destruir el nuevo objeto si ya hay uno persistente
+            Destroy(gameObject);
         }
     }
 
@@ -54,72 +53,63 @@ public class MoneyManager : MonoBehaviour
         ActualizarUI();
 
         if (gameManager == null)
-        {
             Debug.LogWarning("GameManager no asignado en el Inspector.");
-        }
 
         if (dineroTexto == null)
-        {
             Debug.LogWarning("No se ha asignado el texto de dinero en la UI.");
-        }
 
-        // Asegurar que el texto se actualice cuando la escena se carga
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Actualizar la interfaz cuando se carga una nueva escena
         ActualizarUI();
     }
 
-    public void VenderLechuga(int cantidad)
+    // Métodos para vender cultivos
+    public void VenderLechuga(int cantidad) => Vender(cantidad, precioPlantaLechuga, Items.Letuce);
+    public void VenderMaiz(int cantidad) => Vender(cantidad, precioPlantaMaiz, Items.Corn);
+    public void VenderZanahoria(int cantidad) => Vender(cantidad, precioPlantaZanahoria, Items.Carrot);
+    public void VenderFresa(int cantidad) => Vender(cantidad, precioPlantaFresa, Items.Strawberry);
+
+    private void Vender(int cantidad, int precio, Items item)
     {
         if (gameManager == null) return;
 
-        int precio = precioPlantaLechuga;
-        AgregarDinero(cantidad * precio);
-        Debug.Log($"Se han vendido {cantidad} lechugas por {cantidad * precio} RC.");
+        // Verificar si el jugador tiene la cantidad suficiente en el inventario
+        if (InventoryManager.GetInventory(item) >= cantidad)
+        {
+            InventoryManager.ModifyInventory(item, -cantidad); // Restar cultivos del inventario
+            AgregarDinero(cantidad * precio);
+            Debug.Log($"Se han vendido {cantidad} {item} por {cantidad * precio} RC.");
+        }
+        else
+        {
+            Debug.Log($"No tienes suficientes {item} para vender.");
+        }
     }
 
-    public void VenderMaiz(int cantidad)
+    // Método para comprar semillas
+    public bool ComprarSemilla(Items item, int precio)
     {
-        if (gameManager == null) return;
-
-        int precio = precioPlantaMaiz;
-        AgregarDinero(cantidad * precio);
-        Debug.Log($"Se han vendido {cantidad} maíces por {cantidad * precio} RC.");
+        if (RestarDinero(precio))
+        {
+            InventoryManager.ModifyInventory(item, 1);
+            Debug.Log($"Has comprado 1 {item} por {precio} RC.");
+            return true;
+        }
+        else
+        {
+            Debug.Log($"No tienes suficiente dinero para comprar {item}.");
+            return false;
+        }
     }
 
-    public void VenderZanahoria(int cantidad)
-    {
-        if (gameManager == null) return;
-
-        int precio = precioPlantaZanahoria;
-        AgregarDinero(cantidad * precio);
-        Debug.Log($"Se han vendido {cantidad} zanahorias por {cantidad * precio} RC.");
-    }
-
-    public void VenderFresa(int cantidad)
-    {
-        if (gameManager == null) return;
-
-        int precio = precioPlantaFresa;
-        AgregarDinero(cantidad * precio);
-        Debug.Log($"Se han vendido {cantidad} fresas por {cantidad * precio} RC.");
-    }
-
-    public bool Comprar(int cantidad)
-    {
-        if (gameManager == null) return false;
-        return RestarDinero(cantidad);
-    }
-
-    public void Vender(int cantidad)
-    {
-        if (gameManager == null) return;
-        AgregarDinero(cantidad);
-    }
+    // Métodos específicos para comprar semillas
+    public void ComprarSemillaMaiz() => ComprarSemilla(Items.CornSeed, precioSemillaMaiz);
+    public void ComprarSemillaZanahoria() => ComprarSemilla(Items.CarrotSeed, precioSemillaZanahoria);
+    public void ComprarSemillaLechuga() => ComprarSemilla(Items.LetuceSeed, precioSemillaLechuga);
+    public void ComprarSemillaFresa() => ComprarSemilla(Items.StrawberrySeed, precioSemillaFresa);
 
     public void AgregarDinero(int cantidad)
     {
@@ -151,19 +141,15 @@ public class MoneyManager : MonoBehaviour
 
     private void ActualizarUI()
     {
-        // Buscar el objeto con el tag "TextoContador" y actualizar el texto
         GameObject textoContadorObj = GameObject.FindGameObjectWithTag("TextoContador");
 
-        // Verificar si el objeto con el tag "TextoContador" fue encontrado
         if (textoContadorObj != null)
         {
-            // Obtener el componente TextMeshProUGUI
             TextMeshProUGUI textoContador = textoContadorObj.GetComponent<TextMeshProUGUI>();
 
-            // Si el componente se encuentra, actualizar el texto con el dinero disponible
             if (textoContador != null)
             {
-                textoContador.text = contadorDinero.ToString("F0") ;  // Mostrar dinero sin decimales
+                textoContador.text = contadorDinero.ToString("F0");
             }
             else
             {
@@ -176,7 +162,6 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
-    // Método principal para mejorar la regadera
     public bool MejorarRegadera()
     {
         if (nivelRegadera < preciosMejoraRegadera.Length)
@@ -197,7 +182,6 @@ public class MoneyManager : MonoBehaviour
         return false;
     }
 
-    // Métodos específicos para que otros scripts puedan llamarlos
     public bool Mejora1Regadera() => MejorarRegadera();
     public bool Mejora2Regadera() => MejorarRegadera();
     public bool Mejora3Regadera() => MejorarRegadera();
