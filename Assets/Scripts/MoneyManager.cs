@@ -14,26 +14,26 @@ public class MoneyManager : MonoBehaviour
 {
     public static MoneyManager Instance;
 
-    [SerializeField] private int contadorDinero = 100000;
-    private int nivelRegadera = 0;
+    [SerializeField] private int moneyCount = 100000;
+    private int wateringCanLevel = 0;
 
     [Header("Precios de Semillas")]
-    [SerializeField] private int precioSemillaMaiz = 50;
-    [SerializeField] private int precioSemillaZanahoria = 20;
-    [SerializeField] private int precioSemillaLechuga = 15;
-    [SerializeField] private int precioSemillaFresa = 30;
+    [SerializeField] private int cornSeedPrice = 50;
+    [SerializeField] private int carrotSeedPrice = 20;
+    [SerializeField] private int lettuceSeedPrice = 15;
+    [SerializeField] private int strawberrySeedPrice = 30;
 
     [Header("Precios de Venta de Plantas")]
-    [SerializeField] private int precioPlantaMaiz = 90;
-    [SerializeField] private int precioPlantaZanahoria = 65;
-    [SerializeField] private int precioPlantaLechuga = 20;
-    [SerializeField] private int precioPlantaFresa = 40;
+    [SerializeField] private int cornPlantPrice = 90;
+    [SerializeField] private int carrotPlantPrice = 65;
+    [SerializeField] private int lettucePlantPrice = 20;
+    [SerializeField] private int strawberryPlantPrice = 40;
 
     [Header("Precios de Mejora de Regadera")]
-    [SerializeField] private int[] preciosMejoraRegadera = { 1000, 5000, 10000 };
+    [SerializeField] private int[] wateringCanUpgradePrices = { 1000, 5000, 10000 };
 
     [SerializeField] private GameManager gameManager;
-    [SerializeField] private TextMeshProUGUI dineroTexto;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     private void Awake()
     {
@@ -50,12 +50,12 @@ public class MoneyManager : MonoBehaviour
 
     private void Start()
     {
-        ActualizarUI();
+        UpdateUI();
 
         if (gameManager == null)
             Debug.LogWarning("GameManager no asignado en el Inspector.");
 
-        if (dineroTexto == null)
+        if (moneyText == null)
             Debug.LogWarning("No se ha asignado el texto de dinero en la UI.");
 
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -63,25 +63,25 @@ public class MoneyManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        ActualizarUI();
+        UpdateUI();
     }
 
     // Métodos para vender cultivos
-    public void VenderLechuga(int cantidad) => Vender(cantidad, precioPlantaLechuga, Items.Letuce);
-    public void VenderMaiz(int cantidad) => Vender(cantidad, precioPlantaMaiz, Items.Corn);
-    public void VenderZanahoria(int cantidad) => Vender(cantidad, precioPlantaZanahoria, Items.Carrot);
-    public void VenderFresa(int cantidad) => Vender(cantidad, precioPlantaFresa, Items.Strawberry);
+    public void SellLettuce(int quantity) => Sell(quantity, lettucePlantPrice, Items.Letuce);
+    public void SellCorn(int quantity) => Sell(quantity, cornPlantPrice, Items.Corn);
+    public void SellCarrot(int quantity) => Sell(quantity, carrotPlantPrice, Items.Carrot);
+    public void SellStrawberry(int quantity) => Sell(quantity, strawberryPlantPrice, Items.Strawberry);
 
-    private void Vender(int cantidad, int precio, Items item)
+    private void Sell(int quantity, int price, Items item)
     {
         if (gameManager == null) return;
 
         // Verificar si el jugador tiene la cantidad suficiente en el inventario
-        if (InventoryManager.GetInventory(item) >= cantidad)
+        if (InventoryManager.GetInventory(item) >= quantity)
         {
-            InventoryManager.ModifyInventory(item, -cantidad); // Restar cultivos del inventario
-            AgregarDinero(cantidad * precio);
-            Debug.Log($"Se han vendido {cantidad} {item} por {cantidad * precio} RC.");
+            InventoryManager.ModifyInventory(item, -quantity); // Restar cultivos del inventario
+            AddMoney(quantity * price);
+            Debug.Log($"Se han vendido {quantity} {item} por {quantity * price} RC.");
         }
         else
         {
@@ -90,12 +90,12 @@ public class MoneyManager : MonoBehaviour
     }
 
     // Método para comprar semillas
-    public bool ComprarSemilla(Items item, int precio)
+    public bool BuySeed(Items item, int price)
     {
-        if (RestarDinero(precio))
+        if (DeductMoney(price))
         {
             InventoryManager.ModifyInventory(item, 1);
-            Debug.Log($"Has comprado 1 {item} por {precio} RC.");
+            Debug.Log($"Has comprado 1 {item} por {price} RC.");
             return true;
         }
         else
@@ -106,25 +106,25 @@ public class MoneyManager : MonoBehaviour
     }
 
     // Métodos específicos para comprar semillas
-    public void ComprarSemillaMaiz() => ComprarSemilla(Items.CornSeed, precioSemillaMaiz);
-    public void ComprarSemillaZanahoria() => ComprarSemilla(Items.CarrotSeed, precioSemillaZanahoria);
-    public void ComprarSemillaLechuga() => ComprarSemilla(Items.LetuceSeed, precioSemillaLechuga);
-    public void ComprarSemillaFresa() => ComprarSemilla(Items.StrawberrySeed, precioSemillaFresa);
+    public void BuyCornSeed() => BuySeed(Items.CornSeed, cornSeedPrice);
+    public void BuyCarrotSeed() => BuySeed(Items.CarrotSeed, carrotSeedPrice);
+    public void BuyLettuceSeed() => BuySeed(Items.LetuceSeed, lettuceSeedPrice);
+    public void BuyStrawberrySeed() => BuySeed(Items.StrawberrySeed, strawberrySeedPrice);
 
-    public void AgregarDinero(int cantidad)
+    public void AddMoney(int quantity)
     {
-        contadorDinero += cantidad;
-        Debug.Log("Dinero agregado: " + cantidad + ". Total: " + contadorDinero);
-        ActualizarUI();
+        moneyCount += quantity;
+        Debug.Log("Dinero agregado: " + quantity + ". Total: " + moneyCount);
+        UpdateUI();
     }
 
-    public bool RestarDinero(int cantidad)
+    public bool DeductMoney(int quantity)
     {
-        if (contadorDinero >= cantidad)
+        if (moneyCount >= quantity)
         {
-            contadorDinero -= cantidad;
-            Debug.Log("Dinero gastado: " + cantidad + ". Total: " + contadorDinero);
-            ActualizarUI();
+            moneyCount -= quantity;
+            Debug.Log("Dinero gastado: " + quantity + ". Total: " + moneyCount);
+            UpdateUI();
             return true;
         }
         else
@@ -134,22 +134,22 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
-    public int GetContadorDinero()
+    public int GetMoneyCount()
     {
-        return contadorDinero;
+        return moneyCount;
     }
 
-    private void ActualizarUI()
+    private void UpdateUI()
     {
-        GameObject textoContadorObj = GameObject.FindGameObjectWithTag("TextoContador");
+        GameObject moneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
 
-        if (textoContadorObj != null)
+        if (moneyCounterObj != null)
         {
-            TextMeshProUGUI textoContador = textoContadorObj.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI moneyCounterText = moneyCounterObj.GetComponent<TextMeshProUGUI>();
 
-            if (textoContador != null)
+            if (moneyCounterText != null)
             {
-                textoContador.text = contadorDinero.ToString("F0");
+                moneyCounterText.text = moneyCount.ToString("F0");
             }
             else
             {
@@ -162,16 +162,16 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
-    public bool MejorarRegadera()
+    public bool UpgradeWateringCan()
     {
-        if (nivelRegadera < preciosMejoraRegadera.Length)
+        if (wateringCanLevel < wateringCanUpgradePrices.Length)
         {
-            int precio = preciosMejoraRegadera[nivelRegadera];
+            int price = wateringCanUpgradePrices[wateringCanLevel];
 
-            if (RestarDinero(precio))
+            if (DeductMoney(price))
             {
-                nivelRegadera++;
-                Debug.Log("Regadera mejorada a nivel " + nivelRegadera);
+                wateringCanLevel++;
+                Debug.Log("Regadera mejorada a nivel " + wateringCanLevel);
                 return true;
             }
         }
@@ -182,7 +182,7 @@ public class MoneyManager : MonoBehaviour
         return false;
     }
 
-    public bool Mejora1Regadera() => MejorarRegadera();
-    public bool Mejora2Regadera() => MejorarRegadera();
-    public bool Mejora3Regadera() => MejorarRegadera();
+    public bool UpgradeWateringCanLevel1() => UpgradeWateringCan();
+    public bool UpgradeWateringCanLevel2() => UpgradeWateringCan();
+    public bool UpgradeWateringCanLevel3() => UpgradeWateringCan();
 }

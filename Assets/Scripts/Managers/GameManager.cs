@@ -267,7 +267,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Metodo para aumentar +1 la mejora de la Regadera.
     /// <summary>
-    public void MejorarRegadera()
+    public void UpgradeWateringCan()
     {
         if (MejorasRegadera < _maxMejorasRegadera)
         {
@@ -275,15 +275,15 @@ public class GameManager : MonoBehaviour
         }
         if (MejorasRegadera == 1)
         {
-            ContadorDinero.Mejora1Regadera();
+            ContadorDinero.UpgradeWateringCanLevel1();
         }
         else if (MejorasRegadera == 2)
         {
-            ContadorDinero.Mejora2Regadera();
+            ContadorDinero.UpgradeWateringCanLevel2();
         }
         else if (MejorasRegadera == 3)
         {
-            ContadorDinero.Mejora3Regadera();
+            ContadorDinero.UpgradeWateringCanLevel3();
         }
     }
 

@@ -112,10 +112,10 @@ public class BancoInterfaz : MonoBehaviour
     public void ButtonAceptarPressed()
     {
         float cantidadIngresada = CantidadIngresar.value;
-        if (cantidadIngresada > 0 && MoneyManager.GetContadorDinero() >= cantidadIngresada)
+        if (cantidadIngresada > 0 && MoneyManager.GetMoneyCount() >= cantidadIngresada)
         {
             // Restar el dinero después de convertir la cantidad a int
-            MoneyManager.RestarDinero(Mathf.FloorToInt(cantidadIngresada));  // O usar Mathf.RoundToInt
+            MoneyManager.DeductMoney(Mathf.FloorToInt(cantidadIngresada));  // O usar Mathf.RoundToInt
             GameManager.Instance.AgregarIngreso(cantidadIngresada);
             ActualizarSliderInversion();
             CantidadIngresar.value = 0;
@@ -124,7 +124,7 @@ public class BancoInterfaz : MonoBehaviour
 
     public void ActualizarSliderInversion()
     {
-        CantidadIngresar.maxValue = MoneyManager.GetContadorDinero();
+        CantidadIngresar.maxValue = MoneyManager.GetMoneyCount();
         CantidadIngresar.interactable = CantidadIngresar.maxValue > 0;
         CantidadIngresadaTexto.text = GameManager.Instance.GetDineroIngresadoTotal() + " RC";
         CantidadTexto.text = "Dinero a ingresar: " + Convert.ToInt32(CantidadIngresar.value);

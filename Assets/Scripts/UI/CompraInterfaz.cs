@@ -29,7 +29,7 @@ public class CompraInterfaz : MonoBehaviour
     [SerializeField] private TextMeshProUGUI DescripcionTexto;
     [SerializeField] private TextMeshProUGUI ContadorTexto;
     [SerializeField] private PlayerMovement PlayerMovement;
-    [SerializeField] private MoneyManager ContadorDinero;
+    [SerializeField] private MoneyManager moneyCount;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -65,12 +65,12 @@ public class CompraInterfaz : MonoBehaviour
         {
             DisableInterfaz();
         }
-        if (ContadorDinero == null)
+        if (moneyCount == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
+                moneyCount = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
     }
@@ -145,7 +145,7 @@ public class CompraInterfaz : MonoBehaviour
         int totalCosto = (_cantidadAComprar + 1) * _coste;  // Calculamos el costo total si aumentamos en 1
 
         // Solo aumentamos si el costo total no supera el dinero disponible
-        if (totalCosto <= ContadorDinero.GetContadorDinero() && _cantidadAComprar < 30)
+        if (totalCosto <= moneyCount.GetMoneyCount() && _cantidadAComprar < 30)
         {
             _cantidadAComprar++;  // Aumenta la cantidad si hay suficiente dinero
             ActualizarTextoCantidad();  // Actualiza el texto de la UI
@@ -169,29 +169,29 @@ public class CompraInterfaz : MonoBehaviour
     {
         int totalPrecio = _cantidadAComprar * _coste;
 
-        if (ContadorDinero.GetContadorDinero() >= totalPrecio)
+        if (moneyCount.GetMoneyCount() >= totalPrecio)
         {
 
             // Actualiza el inventario según el tipo de semilla seleccionada
             if (_isMaizSelected) 
             {
-                ContadorDinero.ComprarSemillaMaiz();
+                moneyCount.BuyCornSeed();
                 _inventario[0] += _cantidadAComprar;
 
             }
             if (_isLechugaSelected) 
             {
-                ContadorDinero.ComprarSemillaLechuga();
+                moneyCount.BuyLettuceSeed();
                 _inventario[1] += _cantidadAComprar;
             }
             if (_isZanahoriaSelected) 
             {
-                ContadorDinero.ComprarSemillaZanahoria();
+                moneyCount.BuyCarrotSeed();
                 _inventario[2] += _cantidadAComprar;
             }
             if (_isFresasSelected)
             {
-                ContadorDinero.ComprarSemillaFresa();
+                moneyCount.BuyStrawberrySeed();
                 _inventario[3] += _cantidadAComprar;
             }
 
