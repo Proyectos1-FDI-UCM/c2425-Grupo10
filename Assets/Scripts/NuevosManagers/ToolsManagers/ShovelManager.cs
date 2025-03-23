@@ -35,6 +35,11 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     [SerializeField] private PlantEvolution PlantEvolution;
 
+    ///<summary>
+    ///Referencia al InventoryUI
+    /// </summary>
+    [SerializeField] private UIManager UIManager;
+
     /// <summary>
     /// Aviso para desmalezar con E
     /// </summary>
@@ -84,7 +89,7 @@ public class ShovelManager : MonoBehaviour
             Weeding();
         }
 
-        else if (_isInWeedArea && !InventoryCultivos.GetInventoryVisible())
+        else if (_isInWeedArea && !UIManager.GetInventoryVisible())
         {
             Press.SetActive(true);
             TextPress.text = "Presiona E \npara desmalezar";
@@ -95,7 +100,7 @@ public class ShovelManager : MonoBehaviour
             }
         }
 
-        else if (!_isInWeedArea || InventoryCultivos.GetInventoryVisible())
+        else if (!_isInWeedArea || UIManager.GetInventoryVisible())
         {
             Press.SetActive(false);
         }
@@ -118,11 +123,11 @@ public class ShovelManager : MonoBehaviour
     {
         PlayerAnimator.SetBool("Weeding", true);
         Invoke("NotWeeding", 0.8f);
-        PlayerMovement.enableMovement = false;
+        //PlayerMovement.enableMovement = false;
 
         if (PlantEvolution != null)
         {
-            PlantaEvolucion.RemoveWeeds();
+            PlantEvolution.Harvest();
         }
     }
 
@@ -142,7 +147,7 @@ public class ShovelManager : MonoBehaviour
     private void NotWeeding()
     {
         PlayerAnimator.SetBool("Weeding", false);
-        PlayerMovement.enableMovement = true;
+        //PlayerMovement.enableMovement = true;
     }
 
     #endregion

@@ -16,7 +16,7 @@ using TMPro;
 /// La Clase InventoryCultivos se encarga de mostrar el inventario al pulsar la tecla TAB 
 /// Actualiza su información en función de InventoryManager
 /// </summary>
-public class InventoryCultivos : MonoBehaviour
+public class UIManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector
@@ -24,12 +24,12 @@ public class InventoryCultivos : MonoBehaviour
     /// <summary>
     /// Panel del inventario
     /// </summary>
-    [SerializeField] private RectTransform inventoryPanel;
+    [SerializeField] private RectTransform InventoryPanel;
 
     /// <summary>
     /// Barra de acceso rápido
     /// </summary>
-    [SerializeField] private RectTransform quickAccessBar;  
+    [SerializeField] private RectTransform QuickAccessBar;  
 
     /// <summary>
     /// Iconos del Inventario
@@ -51,7 +51,7 @@ public class InventoryCultivos : MonoBehaviour
     /// Posiciones y velocidades
     /// </summary>
     private float _quickBarBaseY;           // Posición base de la QuickAccessBar (se mantiene siempre visible)
-    private float _visibleY = 300f;           // Posición Y del inventario cuando está visible
+    private float _visibleY = 300f;         // Posición Y del inventario cuando está visible
     private float _hiddenY = -300f;         // Posición Y del inventario cuando está oculto
     private float _quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
     private float _transitionSpeed = 10f;   // Velocidad de animación
@@ -70,9 +70,9 @@ public class InventoryCultivos : MonoBehaviour
     void Start()
     {
         // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
-        _quickBarBaseY = quickAccessBar.anchoredPosition.y;
+        _quickBarBaseY = QuickAccessBar.anchoredPosition.y;
         // Inicializamos la posición del inventario en oculto
-        inventoryPanel.anchoredPosition = new Vector2(inventoryPanel.anchoredPosition.x, _hiddenY);
+        InventoryPanel.anchoredPosition = new Vector2(InventoryPanel.anchoredPosition.x, _hiddenY);
 
     }
 
@@ -92,16 +92,18 @@ public class InventoryCultivos : MonoBehaviour
         float targetQuickBarY = _isInventoryVisible ? (_visibleY + _quickBarOffset) : _quickBarBaseY;
 
         // Movimiento suave del inventario
-        inventoryPanel.anchoredPosition = Vector2.Lerp(
-            inventoryPanel.anchoredPosition,
-            new Vector2(inventoryPanel.anchoredPosition.x, targetInventoryY),
+        InventoryPanel.anchoredPosition = Vector2.Lerp
+        (
+            InventoryPanel.anchoredPosition,
+            new Vector2(InventoryPanel.anchoredPosition.x, targetInventoryY),
             Time.deltaTime * _transitionSpeed
         );
 
         // Movimiento suave de la QuickAccessBar para que suba con el inventario
-        quickAccessBar.anchoredPosition = Vector2.Lerp(
-            quickAccessBar.anchoredPosition,
-            new Vector2(quickAccessBar.anchoredPosition.x, targetQuickBarY),
+        QuickAccessBar.anchoredPosition = Vector2.Lerp
+        (
+            QuickAccessBar.anchoredPosition,
+            new Vector2(QuickAccessBar.anchoredPosition.x, targetQuickBarY),
             Time.deltaTime * _transitionSpeed
         );
 
@@ -129,7 +131,7 @@ public class InventoryCultivos : MonoBehaviour
     /// </summary>
     public void ActualizeInventory()
     {
-        TextMeshProUGUI _unidades;
+        TextMeshProUGUI _units;
 
         // Muestra las semillas
         for (int i = 0; i < (int)Items.Count/2; i++)
@@ -138,8 +140,8 @@ public class InventoryCultivos : MonoBehaviour
             if (InventoryManager.Inventory[i] != 0)
             {
                 _crops.SetActive(true);
-                _unidades = _crops.GetComponentInChildren<TextMeshProUGUI>();
-                _unidades.text = InventoryManager.Inventory[i] + "x";
+                _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                _units.text = InventoryManager.Inventory[i] + "x";
             }
             else _crops.SetActive(false);
         }
@@ -156,14 +158,14 @@ public class InventoryCultivos : MonoBehaviour
                 {
                     GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
                     _crops.SetActive(true);
-                    _unidades = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                    _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
                     if (InventoryManager.Inventory[i] / (actualSlot * _slotsCapacity) != 0)
                     {
-                        _unidades.text = _slotsCapacity + "x";
+                        _units.text = _slotsCapacity + "x";
                     }
                     else if (InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) != 0)
                     {
-                        _unidades.text = InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) + "x";
+                        _units.text = InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) + "x";
                         fullSlot = true;
                     }
                     else

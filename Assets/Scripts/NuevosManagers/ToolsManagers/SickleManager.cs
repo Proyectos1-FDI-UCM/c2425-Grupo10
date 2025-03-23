@@ -46,7 +46,7 @@ public class SickleManager : MonoBehaviour
     ///<summary>
     ///Referencia al InventoryUI
     /// </summary>
-    [SerializeField] private InventoryCrops InventoryCrops;
+    [SerializeField] private UIManager UIManager;
 
     ///<summary>
     ///Aviso recolectar con E
@@ -100,13 +100,13 @@ public class SickleManager : MonoBehaviour
         if (InputManager.Instance.UseSickleWasPressedThisFrame())
         {
 
-            Croping();
+            Harvest();
 
         }
 
-        else if (_isInCropArea && InventoryCrops.GetInventoryVisible() == false)
+        else if (_isInCropArea && UIManager.GetInventoryVisible() == false)
         {
-            if (PlantEvolution.GetCropState() == 3)
+            if (PlantEvolution.GetGrowthState() == 3)
             {
                 Press.SetActive(true);
 
@@ -115,7 +115,7 @@ public class SickleManager : MonoBehaviour
                 if (InputManager.Instance.UseSickleWasPressedThisFrame())
                 {
 
-                    Croping();
+                    Harvest();
 
                 }
 
@@ -124,7 +124,7 @@ public class SickleManager : MonoBehaviour
 
         }
 
-        else if (!_isInCropArea || InventoryCrops.GetInventoryVisible() == true)
+        else if (!_isInCropArea || UIManager.GetInventoryVisible() == true)
         {
 
             Press.SetActive(false);
@@ -144,18 +144,18 @@ public class SickleManager : MonoBehaviour
     /// <summary>
     /// Metodo que activa la recogida de objetos con la HOZ. Se inicia la animacion
     /// </summary>
-    public void Croping()
+    public void Harvest()
     {
         PlayerAnimator.SetBool("Sicklering", true);
 
-        Invoke("NotCroping", 0.8f);
+        Invoke("NotHarvest", 0.8f);
 
-        PlayerMovement.enablemovement = false;
+        //PlayerMovement.enablemovement = false;
 
         if (PlantEvolution != null)
         {
 
-            PlantEvolution.Croping();
+            PlantEvolution.Harvest();
 
         }
 
@@ -172,12 +172,12 @@ public class SickleManager : MonoBehaviour
     ///<summary>
     ///Metodo para desactivar la animacion de la HOZ y reactivar la herramienta en la mano del jugador
     /// </summary>
-    private void NotCroping()
+    private void NotHarvest()
     {
 
         PlayerAnimator.SetBool("Sicklering", false);
 
-        PlayerMovement.enablemovement = true;
+        //PlayerMovement.enablemovement = true;
 
     }
     #endregion

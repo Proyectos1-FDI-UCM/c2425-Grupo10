@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Control de colisión de la hoz
+// Javier Librada
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -83,13 +83,13 @@ public class SickleCollision : MonoBehaviour
     /// </summary>
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.CompareTag("Cultivo"))
+        if (collision.CompareTag("Crop"))
         {
 
-            PlantaEvolucion cultivo = collision.GetComponent<PlantaEvolucion>();
-            if (cultivo != null)
+            PlantEvolution Crop = collision.GetComponent<PlantEvolution>();
+            if (Crop != null)
             {
-                cultivo.Croping();
+                Crop.Growth();
             }
         }
         Destroy(gameObject); // Se destruye después de cosechar

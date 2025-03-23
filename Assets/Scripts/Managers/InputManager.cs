@@ -66,7 +66,7 @@ public class InputManager : MonoBehaviour
     /// conocer el estado del botón)
     /// </summary>
     private InputAction _fire;
-    private InputAction _usar;
+    private InputAction _use;
     private InputAction _select1;
     private InputAction _select2;
     private InputAction _select3;
@@ -74,10 +74,11 @@ public class InputManager : MonoBehaviour
     private InputAction _select5; 
     private InputAction _tab;
     private InputAction _esc;
-    private InputAction _salir;
+    private InputAction _exit;
     private InputAction _useWateringCan;
     private InputAction _fillWateringCan;
     private InputAction _useSickle;
+    private InputAction _useShovel;
 
     #endregion
 
@@ -182,17 +183,21 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public bool UsarIsPressed()
     {
-        return _usar.IsPressed();
+        return _use.IsPressed();
     }
     public bool SalirIsPressed()
     {
-        return _salir.IsPressed();
+        return _exit.IsPressed();
     }
     public bool UseWateringCanIsPressed()
     {
         return _useWateringCan.IsPressed();
     }
     public bool UseSickleIsPressed()
+    {
+        return _useSickle.IsPressed();
+    }
+    public bool UseShovelIsPressed()
     {
         return _useSickle.IsPressed();
     }
@@ -228,7 +233,7 @@ public class InputManager : MonoBehaviour
     }
     public bool SalirWasPressedThisFrame()
     {
-        return _salir.WasPressedThisFrame();
+        return _exit.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -270,7 +275,7 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public bool UsarWasPressedThisFrame()
     {
-        return _usar.WasPressedThisFrame();
+        return _use.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -293,6 +298,17 @@ public class InputManager : MonoBehaviour
     public bool UseSickleWasPressedThisFrame()
     {
         return _useSickle.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Use Shovel (usar pala) se ha pulsado en este frame
+    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool UseShovelWasPressedThisFrame()
+    {
+        return _useShovel.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -339,9 +355,11 @@ public class InputManager : MonoBehaviour
     {
         return _fire.WasReleasedThisFrame();
     }
+
+
     public bool SalirWasReleasedThisFrame()
     {
-        return _salir.WasReleasedThisFrame();
+        return _exit.WasReleasedThisFrame();
     }
 
     #endregion
@@ -375,12 +393,12 @@ public class InputManager : MonoBehaviour
         // Usar input system
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UsarIsPressed, UsarWasPressedThisFrame )
-        _usar = _theController.Player.Usar;
+        _use = _theController.Player.Usar;
 
         // Salir input system
         // El estado lo consultaremos a través de los métodos públicos que 
         // (SalirIsPressed, SalirWasPressedThisFrame, SalirWasReleasedThisFrame )
-        _salir = _theController.Player.Salir;
+        _exit = _theController.Player.Salir;
 
         // Select input system
         // El estado lo consultaremos a través de los métodos públicos que 
@@ -415,6 +433,11 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseSickleIsPressed, UseSickleWasPressedThisFrame )
         _useSickle = _theController.Player.UseSickle;
+
+        // Use Shovel input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
+        _useShovel = _theController.Player.UseShovel;
     }
 
     /// <summary>
