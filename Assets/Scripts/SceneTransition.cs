@@ -11,19 +11,21 @@ using UnityEngine.SceneManagement;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase que maneja la transición entre escenas,
+/// permitiendo un efecto de desvanecimiento al cambiar de escena.
 /// </summary>
 public class SceneTransition : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    /// <summary>
+    /// Instancia de la clase SceneTransition para asegurar que solo haya una.
+    /// </summary>
     [SerializeField] private SceneTransition Instance;
+
+    /// <summary>
+    /// SpriteRenderer utilizado para el efecto de desvanecimiento.
+    /// </summary>
     [SerializeField] private SpriteRenderer FadeSprite;
     #endregion
 
@@ -61,8 +63,7 @@ public class SceneTransition : MonoBehaviour
     // - Hay que borrar los que no se usen 
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Se llama al comenzar el juego. Inicializa la instancia y asegura que no se destruya al cambiar de escena.
     /// </summary>
     void Start()
     {
@@ -79,7 +80,8 @@ public class SceneTransition : MonoBehaviour
     }
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// Se llama cada frame, si el MonoBehaviour está habilitado.
+    /// Maneja el efecto de desvanecimiento al cambiar de escena.
     /// </summary>
     void Update()
     {
@@ -113,15 +115,10 @@ public class SceneTransition : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
     /// <summary>
-    /// Metodo para cambiar de escena.
+    /// Método para cambiar de escena.
     /// </summary>
+    /// <param name="sceneName">Nombre de la escena a cargar.</param>
     public void ChangeScene(string sceneName)
     {
         _sceneToLoad = sceneName;
