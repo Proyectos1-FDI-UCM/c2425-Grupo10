@@ -26,8 +26,8 @@ public class VentaManager : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-    [SerializeField] int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
-    [SerializeField] int CantidadSemillas = 100; // Semillas
+    [SerializeField] int Herramienta; // Tools - Guantes = 1, Seeds = 5
+    [SerializeField] int CantidadSemillas = 100; // Seeds
     [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
     [SerializeField] GameObject PrefabSemilla1;
     [SerializeField] GameManager GameManager;
@@ -48,7 +48,7 @@ public class VentaManager : MonoBehaviour
     private static VentaManager _instance;
 
     /// <summary>
-    /// Inventario de cultivos recolectados.
+    /// Inventory de cultivos recolectados.
     /// </summary>
     private Dictionary<string, int> inventario = new Dictionary<string, int>();
     private int[] _inventario;
@@ -78,7 +78,7 @@ public class VentaManager : MonoBehaviour
 
     void start()
     {
-        _inventario = GameManager.Instance.Inventario();
+        _inventario = GameManager.Instance.Inventory();
     }
 
     #endregion

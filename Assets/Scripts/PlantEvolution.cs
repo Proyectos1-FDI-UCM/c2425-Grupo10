@@ -222,7 +222,7 @@ public class PlantEvolution : MonoBehaviour
 
         Destroy(gameObject); // Elimina la planta del mapa tras recogerla
 
-        int [] i = GameManager.Instance.Inventario();
+        int [] i = GameManager.Instance.Inventory();
         i[Type]++;
     }
 

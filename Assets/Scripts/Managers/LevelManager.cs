@@ -25,9 +25,24 @@ public class LevelManager : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-    [SerializeField] int Herramienta; // Herramientas - Guantes = 1, Semillas = 5
-    [SerializeField] int CantidadSemillas = 100; // Semillas
-    [SerializeField] GameObject PrefabSemilla1;
+    /// <summary>
+    /// Tool actual en uso (1 = Guantes, 5 = Seeds).
+    /// </summary>
+    [SerializeField] int Tool;
+
+    /// <summary>
+    /// Cantidad de semillas disponibles.
+    /// </summary>
+    [SerializeField] int SeedCount = 100;
+
+    /// <summary>
+    /// Prefab de la primera semilla.
+    /// </summary>
+    [SerializeField] GameObject SeedPrefab1;
+
+    /// <summary>
+    /// Referencia al GameManager para gestionar la información del juego.
+    /// </summary>
     [SerializeField] GameManager GameManager;
 
     #endregion
@@ -40,16 +55,19 @@ public class LevelManager : MonoBehaviour
     private static LevelManager _instance;
 
     /// <summary>
-    /// Inventario de cultivos recolectados.
+    /// Inventory de cultivos recolectados.
     /// </summary>
-    private int[] _inventario;
+    private int[] _inventory;
 
     #endregion
 
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
+    /// <summary>
+    /// Se llama al iniciar el script. Configura la instancia singleton
+    /// y busca el GameManager en la escena.
+    /// </summary>
     protected void Awake()
     {
         if (_instance == null)
@@ -58,13 +76,14 @@ public class LevelManager : MonoBehaviour
         }
         if (GameManager == null)
         {
-            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoTexto != null)
+            GameObject _textObject = GameObject.FindGameObjectWithTag("GameManager");
+            if (_textObject != null)
             {
-                GameManager = ObjetoTexto.GetComponent<GameManager>();
+                GameManager = _textObject.GetComponent<GameManager>();
             }
         }
-        _inventario = GameManager.Instance.Inventario();
+
+        _inventory = GameManager.Instance.Inventory(); // Inicializa el inventario desde el GameManager
 
     }
 
@@ -72,7 +91,9 @@ public class LevelManager : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-
+    /// <summary>
+    /// Propiedad para acceder a la instancia del LevelManager.
+    /// </summary>
     public static LevelManager Instance
     {
         get
@@ -83,12 +104,29 @@ public class LevelManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Métodos que devuelven y modifican el valor de las herramientas, semillas y regaderas
+    /// Devuelve el valor de la herramienta actual.
     /// </summary>
-    public int Herramientas() { return Herramienta; }
-    public int Semillas() { return CantidadSemillas; }
-    public void CambioHerramienta(int i) { Herramienta = i; }
-    public void Plantar() { CantidadSemillas--; }
+    public int Tools() { return Tool; }
+
+    /// <summary>
+    /// Devuelve la cantidad de semillas disponibles.
+    /// </summary>
+    public int Seeds() { return SeedCount; }
+
+    /// <summary>
+    /// Cambia la herramienta actual a la indicada.
+    /// </summary>
+    /// <param name="i">Nuevo valor de la herramienta.</param>
+    public void ChangeTool(int i) { Tool = i; }
+
+    /// <summary>
+    /// Disminuye la cantidad de semillas al plantar.
+    /// </summary>
+    public void Plant() { SeedCount--; }
+
+    /// <summary>
+    /// Verifica si existe una instancia del LevelManager.
+    /// </summary>
     public static bool HasInstance() { return _instance != null; }
 
     #endregion

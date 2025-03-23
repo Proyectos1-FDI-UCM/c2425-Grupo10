@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private RectTransform QuickAccessBar;  
 
     /// <summary>
-    /// Ref a los Iconos del Inventario
+    /// Ref a los Iconos del Inventory
     /// </summary>
     [SerializeField] private GameObject InventoryIcons;
 

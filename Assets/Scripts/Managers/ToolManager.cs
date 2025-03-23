@@ -126,7 +126,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, HoeSelector);
-            LevelManager.Instance.CambioHerramienta(5);
+            LevelManager.Instance.ChangeTool(5);
             //WaterBar.SetActive(false);
         }
 
@@ -135,7 +135,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(SeedSelector, GlovesSelector, WateringCanSelector, HoeSelector);
-            LevelManager.Instance.CambioHerramienta(4);
+            LevelManager.Instance.ChangeTool(4);
             //WaterBar.SetActive(false);
         }
 
@@ -144,7 +144,7 @@ public class ToolManager : MonoBehaviour
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
-            LevelManager.Instance.CambioHerramienta(1);
+            LevelManager.Instance.ChangeTool(1);
             //WaterBar.SetActive(false);
         }
 
@@ -153,7 +153,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelSelector, GlovesSelector, SeedSelector, HoeSelector);
-            LevelManager.Instance.CambioHerramienta(2);
+            LevelManager.Instance.ChangeTool(2);
             //WaterBar.SetActive(true);
         }
 
@@ -162,7 +162,7 @@ public class ToolManager : MonoBehaviour
             ToggleTool(HoeTool);
             EnableSelector(HoeSelector);
             DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, SeedSelector);
-            LevelManager.Instance.CambioHerramienta(3);
+            LevelManager.Instance.ChangeTool(3);
             //WaterBar.SetActive(false);
         }
     }
@@ -187,7 +187,7 @@ public class ToolManager : MonoBehaviour
     /// <summary>
     /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
     /// </summary>
-    /// <param name="newTool">Herramienta a activar o desactivar</param>
+    /// <param name="newTool">Tool a activar o desactivar</param>
     private void ToggleTool(GameObject newTool)
     {
         if (_currentTool != newTool)
@@ -201,7 +201,7 @@ public class ToolManager : MonoBehaviour
     /// <summary>
     /// Activa la herramienta seleccionada y desactiva la anterior si la hay.
     /// </summary>
-    /// <param name="newTool">Herramienta a activar</param>
+    /// <param name="newTool">Tool a activar</param>
     private void SelectTool(GameObject newTool)
     {
         if (newTool == null) return;

@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int MejorasHuerto = 0;
 
     /// <summary>
-    /// Numero de mejoras activas del Inventario.
+    /// Numero de mejoras activas del Inventory.
     /// <summary>
     [SerializeField] int MejorasInventario = 0;
 
@@ -85,12 +85,12 @@ public class GameManager : MonoBehaviour
     private int _maxMejorasHuerto = 4;
 
     /// <summary>
-    /// Numero de máximo de mejoras para el Inventario.
+    /// Numero de máximo de mejoras para el Inventory.
     /// <summary>
     private int _maxMejorasInventario = 3;
 
     /// <summary>
-    /// Numero de máximo de mejoras para el Inventario.
+    /// Numero de máximo de mejoras para el Inventory.
     /// <summary>
     private int _maxVenderMaiz = 3;
     /// <summary>
@@ -99,12 +99,12 @@ public class GameManager : MonoBehaviour
     private int _amountWater = 6;
 
     /// <summary>
-    /// Array Inventario
+    /// Array Inventory
     /// <summary>
     private int[] _inventario = new int[10];
 
     /// <summary>
-    /// Array Inventario
+    /// Array Inventory
     /// <summary>
     private int DineroInvertido = 0;
     #endregion
@@ -244,7 +244,7 @@ public class GameManager : MonoBehaviour
     } // ChangeScene
 
     /// <summary>
-    /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventario.
+    /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventory.
     /// <summary>
     public int GetMejorasRegadera() { return MejorasRegadera; }
     public int GetMejorasHuerto() { return MejorasHuerto; }
@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para aumentar +1 la mejora del Inventario.
+    /// Metodo para aumentar +1 la mejora del Inventory.
     /// <summary>
     public void MejorarInventario()
     {
@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public int[] Inventario()
+    public int[] Inventory()
     {
         return _inventario;
     }

@@ -45,17 +45,17 @@ public class CropSpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Planta la semilla  si se cumplen las condiciones (Herramienta Correcta, Usuario pulsa usar [E], El jugador tiene Semillas)
+    /// Planta la semilla  si se cumplen las condiciones (Tool Correcta, Usuario pulsa usar [E], El jugador tiene Semillas)
     /// </summary>
     //private void OnTriggerStay2D()
     //{
-    //    int Semillas = LevelManager.Instance.Semillas();
+    //    int Seeds = LevelManager.Instance.Seeds();
     //    // Si el jugador presiona la tecla E, hay semillas 
-    //    if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 5 && LevelManager.Instance.Semillas() > 0 && b)
+    //    if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Tools() == 5 && LevelManager.Instance.Seeds() > 0 && b)
     //    {
     //        b = false;
-    //        Plantar(); // Llama a la función que planta la semilla en la posición determinada
-    //        LevelManager.Instance.Plantar(); // Llama al método que controla la cantidad de semillas
+    //        Plant(); // Llama a la función que planta la semilla en la posición determinada
+    //        LevelManager.Instance.Plant(); // Llama al método que controla la cantidad de semillas
 
     //        //Debug.Log("Desactivar maceta");
     //        //gameObject.SetActive(false);

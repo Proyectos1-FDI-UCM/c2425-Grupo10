@@ -154,7 +154,7 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
-            LevelManager.Instance.CambioHerramienta(5);
+            LevelManager.Instance.ChangeTool(5);
 
             // Si se vuelva a presionar, cambia de semilla
             if (InputManager.Instance.Select5WasPressedThisFrame())
@@ -170,7 +170,7 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            LevelManager.Instance.CambioHerramienta(4);
+            LevelManager.Instance.ChangeTool(4);
             //WaterBar.SetActive(false);
         }
 
@@ -180,7 +180,7 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            LevelManager.Instance.CambioHerramienta(1);
+            LevelManager.Instance.ChangeTool(1);
             //WaterBar.SetActive(false);
         }
 
@@ -190,7 +190,7 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
-            LevelManager.Instance.CambioHerramienta(2);
+            LevelManager.Instance.ChangeTool(2);
             //WaterBar.SetActive(true);
         }
 
@@ -200,7 +200,7 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
-            LevelManager.Instance.CambioHerramienta(3);
+            LevelManager.Instance.ChangeTool(3);
             //WaterBar.SetActive(false);
         }
     }
@@ -225,7 +225,7 @@ public class SelectorManager : MonoBehaviour
     /// <summary>
     /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
     /// </summary>
-    /// <param name="newTool">Herramienta a activar o desactivar</param>
+    /// <param name="newTool">Tool a activar o desactivar</param>
     private void ToggleTool(GameObject newTool)
     {
         if (_currentTool != newTool)
@@ -239,7 +239,7 @@ public class SelectorManager : MonoBehaviour
     /// <summary>
     /// Activa la herramienta seleccionada y desactiva la anterior si la hay.
     /// </summary>
-    /// <param name="newTool">Herramienta a activar</param>
+    /// <param name="newTool">Tool a activar</param>
     private void SelectTool(GameObject newTool)
     {
         if (newTool == null) return;

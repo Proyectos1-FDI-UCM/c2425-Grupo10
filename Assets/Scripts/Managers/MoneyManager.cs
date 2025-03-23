@@ -17,7 +17,7 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] private int moneyCount = 100000;
     private int wateringCanLevel = 0;
 
-    [Header("Precios de Semillas")]
+    [Header("Precios de Seeds")]
     [SerializeField] private int cornSeedPrice = 50;
     [SerializeField] private int carrotSeedPrice = 20;
     [SerializeField] private int lettuceSeedPrice = 15;

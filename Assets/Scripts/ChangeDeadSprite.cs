@@ -129,9 +129,9 @@ public class ChangeDeadSprite : MonoBehaviour
     /// </summary>
     private void OnCollisionStay2D()
     {
-        //Si la planta está muerta y el jugador presiona el botón teniendo la hoz (Herramienta 3), la arranca.
+        //Si la planta está muerta y el jugador presiona el botón teniendo la hoz (Tool 3), la arranca.
 
-        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Herramientas() == 3)
+        if (InputManager.Instance.UsarIsPressed() && LevelManager.Instance.Tools() == 3)
         {
             TearDeadCrop();
         }

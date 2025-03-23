@@ -52,7 +52,7 @@ public class CompraInterfaz : MonoBehaviour
     void Start()
     {
         ResetInterfaz();
-        _inventario = GameManager.Instance.Inventario();
+        _inventario = GameManager.Instance.Inventory();
     }
 
     void Update()

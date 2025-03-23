@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
+// Maneja la funcionalidad del pozo en el juego.
 // Responsable de la creación de este archivo
-// Nombre del juego
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -10,34 +10,31 @@ using UnityEngine;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Clase que representa un pozo, permitiendo la recolección de agua
+/// y la interacción con la regadera.
 /// </summary>
-public class Pozo : MonoBehaviour
+public class WateringHole : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // públicos y de inspector se nombren en formato PascalCase
-    // (palabras con primera letra mayúscula, incluida la primera letra)
-    // Ejemplo: MaxHealthPoints
+    /// <summary>
+    /// Máxima capacidad de agua que puede contener la regadera.
+    /// </summary>
+    [SerializeField] int MaxWaterCapacity;
 
-    [SerializeField] int MaxAguaRegadera; // Máxima capacidad regadera
-    [SerializeField] GameObject PrefabRiego;
+    /// <summary>
+    /// Máxima capacidad de agua que puede contener la regadera.
+    /// </summary>
+    [SerializeField] GameObject IrrigationPrefab;
 
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
-
-    private GameObject _aviso;
+    /// <summary>
+    /// Referencia al aviso de riego que se mostrará en pantalla.
+    /// </summary>
+    private GameObject _warning;
 
     #endregion
 
@@ -49,12 +46,11 @@ public class Pozo : MonoBehaviour
     // - Hay que borrar los que no se usen 
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Se llama al comenzar el juego. Inicializa el pozo.
     /// </summary>
     void Start()
     {
-     //   MaxAguaRegadera = LevelManager.Instance.GetMaxAgua();
+     //   MaxWaterCapacity = LevelManager.Instance.GetMaxWater();
     }
 
     /// <summary>
@@ -68,45 +64,44 @@ public class Pozo : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
-
-    public void DestroyAvisos()
+    /// <summary>
+    /// Método para destruir el aviso de riego.
+    /// </summary>
+    public void DestroyWarning()
     {
-        Debug.Log("Invoke");
-        Destroy(_aviso);
+        Debug.Log("Destroying warning");
+        Destroy(_warning);
     }
 
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+    // Método comentado que puede ser implementado más adelante.
+    /// <summary>
+    /// Lógica para llenar la regadera
+    /// </summary>
 
-   // private void OnCollisionStay2D()
-   // {
-        // Añadir animación llenar regadera
-       // if ((InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()) && LevelManager.Instance.Herramientas() == 2 && LevelManager.Instance.Regadera() < MaxAguaRegadera) 
-       // {
-           // LevelManager.Instance.LlenarRegadera(MaxAguaRegadera); // Llama al método que controla la cantidad de agua de la regadera
+    // private void OnCollisionStay2D()
+    // {
 
-            // Animación Provisional
-          //  Vector3 position = new Vector3 (4.23f, 5.82f, 0f);
-          //  _aviso = Instantiate(PrefabRiego, position, Quaternion.identity);
+    /// Añadir animación llenar regadera
+    // if ((InputManager.Instance.UseWasPressedThisFrame() || InputManager.Instance.UseIsPressed()) && LevelManager.Instance.Tools() == 2 && LevelManager.Instance.WateringCan() < MaxWaterCapacity) 
+    //  {
 
-         //   Invoke("DestroyAvisos", 1f);
+    // LevelManager.Instance.FillWateringCan(MaxWaterCapacity); /// Llama al método que controla la cantidad de agua de la regadera
 
-     //   }
+    /// Animación Provisional
+    //  Vector3 position = new Vector3 (4.23f, 5.82f, 0f);
+    //  _warning = Instantiate(IrrigationPrefab, position, Quaternion.identity);
 
-   // }
+    //   Invoke("DestroyWarning", 1f);
 
-    #endregion   
+    //   }
 
-} // class Pozo 
+    // }
+
+    #endregion
+
+} // class WateringHole 
 // namespace

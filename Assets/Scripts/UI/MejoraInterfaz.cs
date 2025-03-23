@@ -149,7 +149,7 @@ public class MejoraInterfaz : MonoBehaviour
     {
         _isMejoraSelected = false;
         _isAmpliarSelected = true;
-        _algoSeleccionado = false; // Aún no se ha presionado "Huerto" o "Inventario".
+        _algoSeleccionado = false; // Aún no se ha presionado "Huerto" o "Inventory".
         ActualizarInterfaz();
     }
 
@@ -191,7 +191,7 @@ public class MejoraInterfaz : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Inventario".
+    /// Metodo para detectar cuando el jugador pulsa el boton "Inventory".
     /// </summary>
     public void ButtonInventarioPressed()
     {

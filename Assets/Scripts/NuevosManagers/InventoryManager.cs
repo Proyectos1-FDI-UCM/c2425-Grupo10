@@ -10,7 +10,7 @@ using UnityEngine;
 /// <summary>
 /// Items es un Enum que asocia la lista de items que puede tener el jugador con un entero
 /// Count es el total de items que puede tener el jugador
-/// De 0 - Count/2 -> Semillas (Seeds)
+/// De 0 - Count/2 -> Seeds (Seeds)
 /// De Count/2 - Count ->  Cultivos (Crops)
 /// </summary>
 public enum Items

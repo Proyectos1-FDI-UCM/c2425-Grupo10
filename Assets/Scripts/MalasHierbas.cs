@@ -93,7 +93,7 @@ public class MalasHierbas : MonoBehaviour
 
     void OnCollisionStay2D()
     {
-        if (LevelManager.Instance.Herramientas() == 4 && (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()))
+        if (LevelManager.Instance.Tools() == 4 && (InputManager.Instance.UsarWasPressedThisFrame() || InputManager.Instance.UsarIsPressed()))
         {
              //HacerInvisible();
             Debug.Log("Se ha quitado la mala hierba");

@@ -63,7 +63,7 @@ public class VentaInterfaz : MonoBehaviour
     void Start()
     {
         ResetInterfaz();
-        _inventario = GameManager.Instance.Inventario();
+        _inventario = GameManager.Instance.Inventory();
     }
 
     /// <summary>

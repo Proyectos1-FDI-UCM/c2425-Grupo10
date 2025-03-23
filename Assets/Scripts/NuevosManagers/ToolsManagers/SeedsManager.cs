@@ -30,7 +30,7 @@ public class SeedsManager : MonoBehaviour
     [SerializeField] private GameObject PlantingSpots;
 
     /// <summary>
-    /// Prefab de las Semillas (Este es el inicial, añadiré todos en los siguientes commits)
+    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
     /// </summary>
     [SerializeField] private GameObject PrefabSeeds;
 
