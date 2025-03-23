@@ -130,6 +130,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "UseShovel",
+                    "type": "Button",
+                    "id": "cba70ab3-1ba6-4d76-8a9c-297c45ef469d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -427,6 +436,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseSickle",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "738e8391-8555-4f0a-a266-d6d1d669088e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseShovel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -154,6 +154,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""UseShovel"",
+                    ""type"": ""Button"",
+                    ""id"": ""cba70ab3-1ba6-4d76-8a9c-297c45ef469d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -451,6 +460,17 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UseSickle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""738e8391-8555-4f0a-a266-d6d1d669088e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseShovel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1053,7 +1073,6 @@ namespace UnityEngine.InputSystem
             m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
             m_Player_UseSickle = m_Player.FindAction("UseSickle", throwIfNotFound: true);
             m_Player_UseShovel = m_Player.FindAction("UseShovel", throwIfNotFound: true);
-
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1169,65 +1188,49 @@ namespace UnityEngine.InputSystem
             public void AddCallbacks(IPlayerActions instance)
             {
                 if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-
                 m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
-
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-
                 @Fire.started += instance.OnFire;
                 @Fire.performed += instance.OnFire;
                 @Fire.canceled += instance.OnFire;
-
                 @Usar.started += instance.OnUsar;
                 @Usar.performed += instance.OnUsar;
                 @Usar.canceled += instance.OnUsar;
-
                 @Select1.started += instance.OnSelect1;
                 @Select1.performed += instance.OnSelect1;
                 @Select1.canceled += instance.OnSelect1;
-
                 @Select2.started += instance.OnSelect2;
                 @Select2.performed += instance.OnSelect2;
                 @Select2.canceled += instance.OnSelect2;
-
                 @Select3.started += instance.OnSelect3;
                 @Select3.performed += instance.OnSelect3;
                 @Select3.canceled += instance.OnSelect3;
-
                 @Select4.started += instance.OnSelect4;
                 @Select4.performed += instance.OnSelect4;
                 @Select4.canceled += instance.OnSelect4;
-
                 @Select5.started += instance.OnSelect5;
                 @Select5.performed += instance.OnSelect5;
                 @Select5.canceled += instance.OnSelect5;
-
                 @Tab.started += instance.OnTab;
                 @Tab.performed += instance.OnTab;
                 @Tab.canceled += instance.OnTab;
-
                 @Esc.started += instance.OnEsc;
                 @Esc.performed += instance.OnEsc;
                 @Esc.canceled += instance.OnEsc;
-
                 @Salir.started += instance.OnSalir;
                 @Salir.performed += instance.OnSalir;
                 @Salir.canceled += instance.OnSalir;
-
                 @UseWateringCan.started += instance.OnUseWateringCan;
                 @UseWateringCan.performed += instance.OnUseWateringCan;
                 @UseWateringCan.canceled += instance.OnUseWateringCan;
-
                 @FillWateringCan.started += instance.OnFillWateringCan;
                 @FillWateringCan.performed += instance.OnFillWateringCan;
                 @FillWateringCan.canceled += instance.OnFillWateringCan;
-
                 @UseSickle.started += instance.OnUseSickle;
                 @UseSickle.performed += instance.OnUseSickle;
                 @UseSickle.canceled += instance.OnUseSickle;
-
                 @UseShovel.started += instance.OnUseShovel;
                 @UseShovel.performed += instance.OnUseShovel;
                 @UseShovel.canceled += instance.OnUseShovel;
@@ -1238,59 +1241,45 @@ namespace UnityEngine.InputSystem
                 @Move.started -= instance.OnMove;
                 @Move.performed -= instance.OnMove;
                 @Move.canceled -= instance.OnMove;
-
                 @Fire.started -= instance.OnFire;
                 @Fire.performed -= instance.OnFire;
                 @Fire.canceled -= instance.OnFire;
-
                 @Usar.started -= instance.OnUsar;
                 @Usar.performed -= instance.OnUsar;
                 @Usar.canceled -= instance.OnUsar;
-
                 @Select1.started -= instance.OnSelect1;
                 @Select1.performed -= instance.OnSelect1;
                 @Select1.canceled -= instance.OnSelect1;
-
                 @Select2.started -= instance.OnSelect2;
                 @Select2.performed -= instance.OnSelect2;
                 @Select2.canceled -= instance.OnSelect2;
-
                 @Select3.started -= instance.OnSelect3;
                 @Select3.performed -= instance.OnSelect3;
                 @Select3.canceled -= instance.OnSelect3;
-
                 @Select4.started -= instance.OnSelect4;
                 @Select4.performed -= instance.OnSelect4;
                 @Select4.canceled -= instance.OnSelect4;
-
                 @Select5.started -= instance.OnSelect5;
                 @Select5.performed -= instance.OnSelect5;
                 @Select5.canceled -= instance.OnSelect5;
-
                 @Tab.started -= instance.OnTab;
                 @Tab.performed -= instance.OnTab;
                 @Tab.canceled -= instance.OnTab;
-
                 @Esc.started -= instance.OnEsc;
                 @Esc.performed -= instance.OnEsc;
                 @Esc.canceled -= instance.OnEsc;
-
                 @Salir.started -= instance.OnSalir;
                 @Salir.performed -= instance.OnSalir;
                 @Salir.canceled -= instance.OnSalir;
-
                 @UseWateringCan.started -= instance.OnUseWateringCan;
                 @UseWateringCan.performed -= instance.OnUseWateringCan;
                 @UseWateringCan.canceled -= instance.OnUseWateringCan;
-
                 @FillWateringCan.started -= instance.OnFillWateringCan;
                 @FillWateringCan.performed -= instance.OnFillWateringCan;
                 @FillWateringCan.canceled -= instance.OnFillWateringCan;
-
                 @UseSickle.started -= instance.OnUseSickle;
                 @UseSickle.performed -= instance.OnUseSickle;
                 @UseSickle.canceled -= instance.OnUseSickle;
-
                 @UseShovel.started -= instance.OnUseShovel;
                 @UseShovel.performed -= instance.OnUseShovel;
                 @UseShovel.canceled -= instance.OnUseShovel;
@@ -1304,7 +1293,7 @@ namespace UnityEngine.InputSystem
 
             public void SetCallbacks(IPlayerActions instance)
             {
-                foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces) 
+                foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
                 m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
@@ -1351,39 +1340,30 @@ namespace UnityEngine.InputSystem
                 @Navigate.started += instance.OnNavigate;
                 @Navigate.performed += instance.OnNavigate;
                 @Navigate.canceled += instance.OnNavigate;
-
                 @Submit.started += instance.OnSubmit;
                 @Submit.performed += instance.OnSubmit;
                 @Submit.canceled += instance.OnSubmit;
-
                 @Cancel.started += instance.OnCancel;
                 @Cancel.performed += instance.OnCancel;
                 @Cancel.canceled += instance.OnCancel;
-
                 @Point.started += instance.OnPoint;
                 @Point.performed += instance.OnPoint;
                 @Point.canceled += instance.OnPoint;
-
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
-
                 @ScrollWheel.started += instance.OnScrollWheel;
                 @ScrollWheel.performed += instance.OnScrollWheel;
                 @ScrollWheel.canceled += instance.OnScrollWheel;
-
                 @MiddleClick.started += instance.OnMiddleClick;
                 @MiddleClick.performed += instance.OnMiddleClick;
                 @MiddleClick.canceled += instance.OnMiddleClick;
-
                 @RightClick.started += instance.OnRightClick;
                 @RightClick.performed += instance.OnRightClick;
                 @RightClick.canceled += instance.OnRightClick;
-
                 @TrackedDevicePosition.started += instance.OnTrackedDevicePosition;
                 @TrackedDevicePosition.performed += instance.OnTrackedDevicePosition;
                 @TrackedDevicePosition.canceled += instance.OnTrackedDevicePosition;
-
                 @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
@@ -1394,39 +1374,30 @@ namespace UnityEngine.InputSystem
                 @Navigate.started -= instance.OnNavigate;
                 @Navigate.performed -= instance.OnNavigate;
                 @Navigate.canceled -= instance.OnNavigate;
-
                 @Submit.started -= instance.OnSubmit;
                 @Submit.performed -= instance.OnSubmit;
                 @Submit.canceled -= instance.OnSubmit;
-
                 @Cancel.started -= instance.OnCancel;
                 @Cancel.performed -= instance.OnCancel;
                 @Cancel.canceled -= instance.OnCancel;
-
                 @Point.started -= instance.OnPoint;
                 @Point.performed -= instance.OnPoint;
                 @Point.canceled -= instance.OnPoint;
-
                 @Click.started -= instance.OnClick;
                 @Click.performed -= instance.OnClick;
                 @Click.canceled -= instance.OnClick;
-
                 @ScrollWheel.started -= instance.OnScrollWheel;
                 @ScrollWheel.performed -= instance.OnScrollWheel;
                 @ScrollWheel.canceled -= instance.OnScrollWheel;
-
                 @MiddleClick.started -= instance.OnMiddleClick;
                 @MiddleClick.performed -= instance.OnMiddleClick;
                 @MiddleClick.canceled -= instance.OnMiddleClick;
-
                 @RightClick.started -= instance.OnRightClick;
                 @RightClick.performed -= instance.OnRightClick;
                 @RightClick.canceled -= instance.OnRightClick;
-
                 @TrackedDevicePosition.started -= instance.OnTrackedDevicePosition;
                 @TrackedDevicePosition.performed -= instance.OnTrackedDevicePosition;
                 @TrackedDevicePosition.canceled -= instance.OnTrackedDevicePosition;
-
                 @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
                 @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;

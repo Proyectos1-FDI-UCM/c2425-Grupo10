@@ -97,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Inicializa los estados de animación.
         _playerAnimator.SetBool("Watering", false);
-        _playerAnimator.SetBool("Sicklering", false);
+        _playerAnimator.SetBool("Harvesting", false);
 
         // Obtiene la referencia al SpriteRenderer del jugador.
         _spriteRenderer = GetComponent<SpriteRenderer>();

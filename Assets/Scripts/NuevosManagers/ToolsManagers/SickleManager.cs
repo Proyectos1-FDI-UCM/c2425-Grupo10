@@ -147,7 +147,7 @@ public class SickleManager : MonoBehaviour
     public void Harvest()
     {
         PlayerMovement.DisablePlayerMovement();
-        PlayerAnimator.SetBool("Sicklering", true);
+        PlayerAnimator.SetBool("Harvesting", true);
 
         Invoke("NotHarvest", 0.8f);
 
@@ -174,7 +174,7 @@ public class SickleManager : MonoBehaviour
     private void NotHarvest()
     {
 
-        PlayerAnimator.SetBool("Sicklering", false);
+        PlayerAnimator.SetBool("Harvesting", false);
 
         PlayerMovement.EnablePlayerMovement();
 

@@ -267,7 +267,7 @@ public class WateringCanManager : MonoBehaviour
 
         GameManager.Instance.UpdateWaterAmount();
 
-        Invoke("NotFilling", 1.5f);
+        Invoke("NotFilling", 1f);
 
     }
 

@@ -1,0 +1,642 @@
+fileFormatVersion: 2
+guid: 8963d0f0a89376e47a52b101346966de
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FillingAnimation_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 548
+        width: 22
+        height: 20
+      alignment: 9
+      pivot: {x: 0.2998637, y: 0.17328186}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4a0e75355479049ac7251780108c63
+      internalID: 447726989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 548
+        width: 22
+        height: 20
+      alignment: 9
+      pivot: {x: 0.29683113, y: 0.17328186}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acd0c8fc260144b4d921d0a6e776c983
+      internalID: -331754265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_2
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 547
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.31987724, y: 0.16994628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db5288a8b2d9eb645a3a9b436b97b57d
+      internalID: 505049685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 548
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.3265484, y: 0.16994628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c98d11f6d658d384eb84814d9a364609
+      internalID: -1830235586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_4
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 548
+        width: 21
+        height: 20
+      alignment: 9
+      pivot: {x: 0.30939448, y: 0.16994628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29890639e2c825341b08594223c90418
+      internalID: -798650189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_5
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 548
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.32654876, y: 0.16994628}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2eaa6bdcfc86174aa9603cb1199b37a
+      internalID: 1461480782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_6
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 522
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.6701157, y: 0.18328857}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d85661f787fab0f44b77b747fa2ddffc
+      internalID: 980364218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_7
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 522
+        width: 21
+        height: 20
+      alignment: 9
+      pivot: {x: 0.69060606, y: 0.17995301}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07bd54b069ace484b8992b4a1c7e381a
+      internalID: -279339424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_8
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 522
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.67011607, y: 0.17661743}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86f201dcae9d6964c991f72d5698a913
+      internalID: -210812149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_9
+      rect:
+        serializedVersion: 2
+        x: 103
+        y: 521
+        width: 20
+        height: 20
+      alignment: 9
+      pivot: {x: 0.68012273, y: 0.16661072}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 795cb21cc48f6c145a9d2b25a6c59cd0
+      internalID: -708121108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_10
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 522
+        width: 22
+        height: 20
+      alignment: 9
+      pivot: {x: 0.706201, y: 0.17661743}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 757617a32da81e04dae6f92975b9451d
+      internalID: 88010879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_11
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 522
+        width: 22
+        height: 20
+      alignment: 9
+      pivot: {x: 0.706201, y: 0.17661743}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 737b627690951324b8e38ca8d27f25d9
+      internalID: 1232634416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_12
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 496
+        width: 14
+        height: 21
+      alignment: 9
+      pivot: {x: 0.5247759, y: 0.2128354}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ae62c526f9f4184aa3060ad9b9d29b6
+      internalID: 1718447187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 497
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.4999997, y: 0.17412262}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb49bc3d825111b4fb17530fa8514561
+      internalID: 87885029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_14
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 496
+        width: 14
+        height: 21
+      alignment: 9
+      pivot: {x: 0.53406686, y: 0.17154221}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ac7bf4d2308c694baf7ec12bc646787
+      internalID: 1040782670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_15
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 496
+        width: 14
+        height: 21
+      alignment: 9
+      pivot: {x: 0.53675735, y: 0.16504487}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3749e13b84cb734da68ea6490067e65
+      internalID: -298132104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_16
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 496
+        width: 14
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5343072, y: 0.17623596}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9110feec75bd394f8c8e6e9fc566603
+      internalID: 1108678858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_17
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 496
+        width: 14
+        height: 20
+      alignment: 9
+      pivot: {x: 0.53251976, y: 0.17260742}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b590f073c5e4924e90be41984a7d9e9
+      internalID: -822521645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_18
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 468
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.49649805, y: 0.17488404}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc8422346cd22004ca553cec90214ee6
+      internalID: 1502189836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_19
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 468
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.4964981, y: 0.17715912}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96e09af0b2ebb2e44bad248debd365ca
+      internalID: -1055771244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_20
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 468
+        width: 13
+        height: 21
+      alignment: 9
+      pivot: {x: 0.49299622, y: 0.16545323}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af11a871d24dd664eb0654e4634c4539
+      internalID: -693947393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_21
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 468
+        width: 15
+        height: 21
+      alignment: 9
+      pivot: {x: 0.4271581, y: 0.16761997}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8ccf2f7e7e5d314a86e0649f877e8db
+      internalID: 137245313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_22
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 468
+        width: 15
+        height: 21
+      alignment: 9
+      pivot: {x: 0.43626302, y: 0.16545323}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf1bfe895e79ef45b0dbc751d083fcd
+      internalID: -595178930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FillingAnimation_23
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 468
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.4964987, y: 0.17715912}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 476a3ea94ff7f414b8ed08385a50f654
+      internalID: 1610385594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      FillingAnimation_0: 447726989
+      FillingAnimation_1: -331754265
+      FillingAnimation_10: 88010879
+      FillingAnimation_11: 1232634416
+      FillingAnimation_12: 1718447187
+      FillingAnimation_13: 87885029
+      FillingAnimation_14: 1040782670
+      FillingAnimation_15: -298132104
+      FillingAnimation_16: 1108678858
+      FillingAnimation_17: -822521645
+      FillingAnimation_18: 1502189836
+      FillingAnimation_19: -1055771244
+      FillingAnimation_2: 505049685
+      FillingAnimation_20: -693947393
+      FillingAnimation_21: 137245313
+      FillingAnimation_22: -595178930
+      FillingAnimation_23: 1610385594
+      FillingAnimation_3: -1830235586
+      FillingAnimation_4: -798650189
+      FillingAnimation_5: 1461480782
+      FillingAnimation_6: 980364218
+      FillingAnimation_7: -279339424
+      FillingAnimation_8: -210812149
+      FillingAnimation_9: -708121108
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
