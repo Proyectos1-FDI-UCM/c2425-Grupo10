@@ -101,14 +101,16 @@ void Start()
 
         foreach (Plant plant in GardenManager.Garden)
         {
+            int i = 0;
             if (plant.Active)
             {
-                int i = (int)plant.Item;
                 GardenManager.Garden[i].WaterTimer += _timeInGame;
                 GardenManager.Garden[i].GrowthTimer += _timeInGame;
 
                 if (plant.WaterTimer > GardenManager.Data[i].MaxWaterTime) WaterWarning(plant);
+
             }
+            i++;
         }
 
     }
