@@ -54,7 +54,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Referencia al PlantaEvolucion
     /// </summary>
-    [SerializeField] private PlantEvolution PlantEvolution; 
+    [SerializeField] private CropSpriteEditor cropSpriteEditor; 
 
     
 
@@ -162,19 +162,14 @@ public class WateringCanManager : MonoBehaviour
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
-        if (InputManager.Instance.UseWateringCanWasPressedThisFrame() )
-        {
-            Watering();
-        }
-
-        else if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
+        if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
         { 
 
             Press.SetActive(true);
 
             TextPress.text = "Presiona R \npara rellenar";
 
-            if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
+            if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
             {
 
                 FillWateringCan(_maxWaterAmount);
@@ -185,13 +180,13 @@ public class WateringCanManager : MonoBehaviour
 
         else if (_isInCropArea &&  _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
         {
-            if (PlantEvolution.GetWateringTimer() <= 0)
+            if (cropSpriteEditor.GetWateringTimer() <= 0)
             {
                 Press.SetActive(true);
 
                 TextPress.text = "Presiona E \npara regar";
 
-                if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+                if (InputManager.Instance.UsarWasPressedThisFrame())
                 {
 
                     Watering();
@@ -211,6 +206,11 @@ public class WateringCanManager : MonoBehaviour
 
             Press.SetActive(false);
 
+        }
+
+        else if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+        {
+            Watering();
         }
 
 
@@ -276,6 +276,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     public void Watering()
     {
+        Debug.Log("Watering");
 
         if (_waterAmount > 0)
         {
@@ -293,9 +294,10 @@ public class WateringCanManager : MonoBehaviour
 
             GameManager.Instance.UpdateWaterAmount();
 
-            if (PlantEvolution != null)
+            if (cropSpriteEditor != null)
             {
-                PlantEvolution.Watering();
+                cropSpriteEditor.Watering();
+                //GardenManager.Water(cropSpriteEditor);
             }
 
             this.gameObject.SetActive(false);
@@ -435,7 +437,7 @@ public class WateringCanManager : MonoBehaviour
 
             _isInCropArea = true;
 
-            PlantEvolution = collision.GetComponent<PlantEvolution>();
+            cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
         }
 
         if (collision.CompareTag("Pozo"))
@@ -465,7 +467,7 @@ public class WateringCanManager : MonoBehaviour
 
             _isInCropArea = false;
 
-            PlantEvolution = null;
+            cropSpriteEditor = null;
 
         }
 

@@ -41,6 +41,10 @@ public class CropSpriteEditor : MonoBehaviour
     [SerializeField] private Sprite PlantDeadStage3;
     [SerializeField] private Sprite PlantDeadStage4;
 
+    [SerializeField] private Sprite WarningWater;
+    [SerializeField] private Sprite WarningDeath;
+    [SerializeField] private Sprite WarningCollect;
+
     [SerializeField] private Items item;
 
     #endregion
@@ -53,6 +57,9 @@ public class CropSpriteEditor : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
+
+    private SpriteRenderer _warning;
+    private SpriteRenderer _spriteRenderer;
 
 
     #endregion
@@ -71,15 +78,11 @@ public class CropSpriteEditor : MonoBehaviour
     void Start()
     {
         GardenManager.Active(transform.position, item); // Inicializa la Planta en GardenManager
+        _warning = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        Warning("Water");
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
-    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
@@ -95,7 +98,67 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     public void Warning(string Type)
     {
+        if (Type == "Deactivate")
+        {
+            _warning.enabled = false;
+        }
+        if (Type == "Water")
+        {
+            _warning.enabled = true;
+            _warning.sprite = WarningWater;
+        }
+        if (Type == "Death")
+        {
+            _warning.enabled = true;
+            _warning.sprite = WarningDeath;
+        }
+        if (Type == "Collect")
+        {
+            _warning.enabled = true;
+            _warning.sprite = WarningCollect;
+        }
+    }
 
+    /// <summary>
+    /// Cambia los sprites 
+    /// </summary>
+    public void State(string Type)
+    {
+        if (Type == "State1")
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage1;
+        }
+        if (Type == "State2")
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage2;
+        }
+        if (Type == "State3")
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage3;
+        }
+        if (Type == "State4")
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage4;
+        }
+    }
+
+    /// <summary>
+    /// Cambia los sprites 
+    /// </summary>
+    public void Watering()
+    {
+        Warning("Deactivate");
+        GardenManager.Water(transform.position); // Modifica el timer riego
+    }
+
+    public float GetWateringTimer()
+    {
+        return GardenManager.GetWateringTime(transform.position);
+        Debug.Log("GetWateringTimer");
     }
 
 

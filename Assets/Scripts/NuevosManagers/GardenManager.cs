@@ -61,36 +61,22 @@ public static class GardenManager
     
     public static int ActivePlants = 0;
 
-    public static CropData[] Data = new CropData[(int)Items.Count / 2];
+    public static CropData[] Data = new CropData[]
+    {
+        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 },
+        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 },
+        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 },
+        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 }
+    };
+    
 
 
-    static void Method()
+    static void Main()
     {
         for (int i = 0; i < GardenMax; i++)
         {
             Garden[i].Active = false;
         }
-
-        #region CropData
-
-
-        Data[(int)Items.Corn].MaxWaterTime = 0;
-        Data[(int)Items.Corn].MaxGrowthTime = 0;
-        Data[(int)Items.Corn].MaxDeathTime = 0;
-
-        Data[(int)Items.Letuce].MaxWaterTime = 0;
-        Data[(int)Items.Letuce].MaxGrowthTime = 0;
-        Data[(int)Items.Letuce].MaxDeathTime = 0;
-
-        Data[(int)Items.Carrot].MaxWaterTime = 0;
-        Data[(int)Items.Carrot].MaxGrowthTime = 0;
-        Data[(int)Items.Carrot].MaxDeathTime = 0;
-
-        Data[(int)Items.Strawberry].MaxWaterTime = 0;
-        Data[(int)Items.Strawberry].MaxGrowthTime = 0;
-        Data[(int)Items.Strawberry].MaxDeathTime = 0;
-
-        #endregion
 
     }
 
@@ -136,7 +122,7 @@ public static class GardenManager
 
         if (Garden[i].Position == position)
         {
-            Garden[i].WaterTimer = Data[(int)Garden[i].Item].MaxWaterTime;
+            Garden[i].WaterTimer = Data[0].MaxWaterTime;
 
         }
     }
@@ -154,6 +140,23 @@ public static class GardenManager
             Garden[i].GrowthTimer = Data[(int)Garden[i].Item].MaxGrowthTime;
 
         }
+    }
+
+    public static float GetWateringTime(Vector3 position)
+    {
+        float WateringTime = 0;
+        int i = 0;
+        while (i < ActivePlants && Garden[i].Position != position)
+        {
+            i++;
+        }
+
+        if (Garden[i].Position == position)
+        {
+            WateringTime = Garden[i].WaterTimer;
+
+        }
+        return WateringTime;
     }
 
 } // class GardenManager 
