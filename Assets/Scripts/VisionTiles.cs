@@ -35,7 +35,7 @@ public class VisionTiles : MonoBehaviour
     [SerializeField] private SpriteRenderer CopaArbol;
 
     /// <summary>
-    /// Referencia al script Visibility
+    /// Referencia al script Visibilities
     /// </summary>
     [SerializeField] private Visibility Visibility;
 
@@ -132,7 +132,7 @@ public class VisionTiles : MonoBehaviour
             {
                 _isTransparent = true;
                 if (Visibility != null)
-                    Visibility.Visibilities(0.5f);
+                    Visibility.Visibilities(_transparentAlpha);
             }
         }
     }
@@ -146,7 +146,7 @@ public class VisionTiles : MonoBehaviour
             _playersInside = 0;
             _isTransparent = false;
             if (Visibility != null)
-                Visibility.Visibilities(1f);
+                Visibility.Visibilities(1f); // Restaurar opacidad 
         }
     }
     #endregion

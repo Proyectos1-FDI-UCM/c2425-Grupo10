@@ -98,5 +98,5 @@ public class Visibility : MonoBehaviour
     
     #endregion   
 
-} // class Visibility 
+} // class Visibilities 
 // namespace
