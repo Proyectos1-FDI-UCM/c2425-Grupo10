@@ -104,10 +104,15 @@ void Start()
             int i = 0;
             if (plant.Active)
             {
-                GardenManager.Garden[i].WaterTimer += _timeInGame;
-                GardenManager.Garden[i].GrowthTimer += _timeInGame;
+                GardenManager.Garden[i].WaterTimer -= _timeInGame;
+                GardenManager.Garden[i].GrowthTimer -= _timeInGame;
 
-                if (plant.WaterTimer > GardenManager.Data[i].MaxWaterTime) WaterWarning(plant);
+                if (plant.WaterTimer <= GardenManager.Data[0].MaxDeathTime) DeathWarning(plant); 
+                else if (plant.WaterTimer <= 0) WaterWarning(plant);
+
+                if(plant.GrowthTimer <= 0) Growth(plant);
+
+                Debug.Log(GardenManager.Garden[i].WaterTimer);
 
             }
             i++;
@@ -127,6 +132,24 @@ void Start()
     }
 
     /// <summary>
+    /// Método para avisar de la muerte
+    /// </summary>
+    public void Growth(Plant plant)
+    {
+        int State = plant.State;
+        Transform Crop = SearchPlant(plant.Position);
+
+        if (Crop != null)
+        {
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            if (State == 1) Call.State("State2");
+            else if (State == 2) Call.State("State3");
+            else if (State == 3) Call.State("State4");
+
+        }
+    }
+
+    /// <summary>
     /// Método para avisar del riego
     /// </summary>
     public void WaterWarning(Plant plant)
@@ -137,6 +160,20 @@ void Start()
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
             Call.Warning("Water");
+        }
+    }
+
+    /// <summary>
+    /// Método para avisar de la muerte
+    /// </summary>
+    public void DeathWarning(Plant plant)
+    {
+        Transform Crop = SearchPlant(plant.Position);
+
+        if (Crop != null)
+        {
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            Call.Warning("Death");
         }
     }
 
