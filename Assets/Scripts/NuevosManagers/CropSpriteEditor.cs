@@ -90,8 +90,17 @@ public class CropSpriteEditor : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Cambia los avisos 
+    /// </summary>
+    public void Warning(string Type)
+    {
+
+    }
+
+
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -99,7 +108,7 @@ public class CropSpriteEditor : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class CropSpriteEditor 
 // namespace
