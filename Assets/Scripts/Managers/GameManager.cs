@@ -36,12 +36,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Numero de mejoras activas de la Regadera.
     /// <summary>
-    [SerializeField] int MejorasRegadera = 0;
+    [SerializeField] int WateringCanUpdates = 0;
 
     /// <summary>
     /// Numero de mejoras activas del Huerto.
     /// <summary>
-    [SerializeField] int MejorasHuerto = 0;
+    [SerializeField] int GardenUpgrades = 0;
 
     /// <summary>
     /// Numero de mejoras activas del Inventory.
@@ -246,8 +246,8 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventory.
     /// <summary>
-    public int GetMejorasRegadera() { return MejorasRegadera; }
-    public int GetMejorasHuerto() { return MejorasHuerto; }
+    public int GetMejorasRegadera() { return WateringCanUpdates; }
+    public int GetMejorasHuerto() { return GardenUpgrades; }
     public int GetMejorasInventario() { return MejorasInventario; }
 
     /// <summary>
@@ -255,9 +255,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void MejorarHuerto()
     {
-        if (MejorasHuerto < _maxMejorasHuerto)
+        if (GardenUpgrades < _maxMejorasHuerto)
         {
-            MejorasHuerto++;
+            GardenUpgrades++;
         }
     }
 
@@ -277,19 +277,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void UpgradeWateringCan()
     {
-        if (MejorasRegadera < _maxMejorasRegadera)
+        if (WateringCanUpdates < _maxMejorasRegadera)
         {
-            MejorasRegadera += 1;
+            WateringCanUpdates += 1;
         }
-        if (MejorasRegadera == 1)
+        if (WateringCanUpdates == 1)
         {
             ContadorDinero.UpgradeWateringCanLevel1();
         }
-        else if (MejorasRegadera == 2)
+        else if (WateringCanUpdates == 2)
         {
             ContadorDinero.UpgradeWateringCanLevel2();
         }
-        else if (MejorasRegadera == 3)
+        else if (WateringCanUpdates == 3)
         {
             ContadorDinero.UpgradeWateringCanLevel3();
         }
