@@ -212,7 +212,7 @@ public class CompraInterfaz : MonoBehaviour
         Interfaz.SetActive(true);
         _isMaizSelected = true;
         ActualizarInterfaz();
-        PlayerMovement.enablemovement = false;
+        PlayerMovement.DisablePlayerMovement();
     }
 
     private void DisableInterfaz()
@@ -221,7 +221,7 @@ public class CompraInterfaz : MonoBehaviour
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
         _colisionando = true;
-        PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
     }
 
     private void ActualizarInterfaz()

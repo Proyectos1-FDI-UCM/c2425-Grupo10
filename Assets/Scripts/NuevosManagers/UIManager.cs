@@ -22,22 +22,22 @@ public class UIManager : MonoBehaviour
     #region Atributos del Inspector
 
     /// <summary>
-    /// Panel del inventario
+    /// Ref al Panel del inventario
     /// </summary>
     [SerializeField] private RectTransform InventoryPanel;
 
     /// <summary>
-    /// Barra de acceso rápido
+    /// Ref a la Barra de acceso rápido
     /// </summary>
     [SerializeField] private RectTransform QuickAccessBar;  
 
     /// <summary>
-    /// Iconos del Inventario
+    /// Ref a los Iconos del Inventario
     /// </summary>
     [SerializeField] private GameObject InventoryIcons;
 
     ///<summary>
-    ///Referencia al PlayerMovement
+    ///Ref al PlayerMovement
     /// </summary>
     [SerializeField] private PlayerMovement PlayerMovement;
 
@@ -82,23 +82,13 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        // La subida del inventario se puede activar tanto con el TAB como con el ESC
+        // La subida/Bajada del inventario se activa con el TAB.
         if (InputManager.Instance.TabWasPressedThisFrame())
         {
             ToggleInventory();
             ActualizeInventory();
         }
 
-
-        if(_isInventoryVisible)
-        {
-            PlayerMovement.DisablePlayerMovement();
-        }
-        else
-        {
-            PlayerMovement.EnablePlayerMovement();
-
-        }
         // Define la posición objetivo del inventario
         float targetInventoryY = _isInventoryVisible ? _visibleY : _hiddenY;
 
@@ -123,6 +113,11 @@ public class UIManager : MonoBehaviour
 
 
     }
+
+    /// <summary>
+    /// Metodo para saber si el inventario esta visible en pantalla
+    /// </summary>
+    /// <returns></returns>
     public bool GetInventoryVisible()
     {
         return _isInventoryVisible;
@@ -131,6 +126,7 @@ public class UIManager : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+
     /// <summary>
     /// Alterna la visibilidad del inventario y mueve la QuickAccessBar con él.
     /// </summary>
@@ -194,8 +190,6 @@ public class UIManager : MonoBehaviour
         }
         
     }
-    
-
         #endregion
 
 } // class InventoryUI

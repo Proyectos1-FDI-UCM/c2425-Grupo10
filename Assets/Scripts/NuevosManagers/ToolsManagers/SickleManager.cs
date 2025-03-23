@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// /// Se encarga de detectar la entrada del jugador y manejar la recolección.
+// Se encarga de detectar la entrada del jugador y manejar la recolección.
 // Javier Librada
 // Roots of Life
 // Proyectos 1 - Curso 2024-25

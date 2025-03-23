@@ -278,7 +278,7 @@ public class MejoraInterfaz : MonoBehaviour
         _isAmpliarSelected = false;
         _algoSeleccionado = false;
         ActualizarInterfaz();
-        PlayerMovement.enablemovement = false;
+        PlayerMovement.DisablePlayerMovement();
     }
 
     /// <summary>
@@ -290,7 +290,7 @@ public class MejoraInterfaz : MonoBehaviour
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
         _colisionando = true;
-        PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
 
     }
 

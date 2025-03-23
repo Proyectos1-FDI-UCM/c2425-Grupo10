@@ -24,11 +24,6 @@ public class WateringCanManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    ///<summary>
-    /// Referencia al transform del jugador
-    /// </summary>
-    [SerializeField] private Transform player;
-
     ///<summary> 
     /// referencia al animator del player
     /// </summary>
@@ -118,7 +113,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
-    [SerializeField] private bool _isInWellArea = false;
+    private bool _isInWellArea = false;
 
     ///<summary>
     ///Booleano para permitir regar
@@ -259,7 +254,7 @@ public class WateringCanManager : MonoBehaviour
     /// <param name="i"></param>
     public void FillWateringCan(int i)
     {
-
+        PlayerAnimator.SetBool("Filling", true);
         Debug.Log("Recargando");
 
         PlayerMovement.DisablePlayerMovement();
@@ -421,7 +416,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private void NotFilling()
     {
-
+        PlayerAnimator.SetBool("Filling", false);
         Destroy(_warning);
 
         PlayerMovement.EnablePlayerMovement();

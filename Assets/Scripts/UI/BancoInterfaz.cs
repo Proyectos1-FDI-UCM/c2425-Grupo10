@@ -162,7 +162,7 @@ public class BancoInterfaz : MonoBehaviour
         _interfazActiva = true;
         Interfaz.SetActive(true);
         Interactuar.SetActive(false);
-        PlayerMovement.enablemovement = false;
+        PlayerMovement.DisablePlayerMovement();
         ButtonIngresarPressed();
         MudanzaButton.SetActive(true);
     }
@@ -172,7 +172,7 @@ public class BancoInterfaz : MonoBehaviour
         _interfazActiva = false;
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
-        PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
     }
 
     private void ResetInterfaz()

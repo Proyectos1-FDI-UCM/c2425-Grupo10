@@ -23,9 +23,25 @@ public class VisionTiles : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+
+    /// <summary>
+    /// Referencia al tilemap que queremos bajar la opacidad
+    /// </summary>
     [SerializeField] private Tilemap Tilemap;
+
+    /// <summary>
+    /// Referencia al SpriteRenderer del arbol para bajar su opacidad
+    /// </summary>
     [SerializeField] private SpriteRenderer CopaArbol;
+
+    /// <summary>
+    /// Referencia al script Visibility
+    /// </summary>
     [SerializeField] private Visibility Visibility;
+
+    /// <summary>
+    /// Referencia al collider del PLayer
+    /// </summary>
     [SerializeField] private Collider2D PlayerCollider;
 
 
@@ -48,7 +64,7 @@ public class VisionTiles : MonoBehaviour
     /// <summary>
     /// Cantidad de jugadores dentro del collider.
     /// </summary>
-    private int playersInside = 0;
+    private int _playersInside = 0;
 
     /// <summary>
     /// Booleano para saber si el tejado es transparente o no.
@@ -109,7 +125,7 @@ public class VisionTiles : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playersInside = 1; // Como solo hay un jugador en el trigger, lo fijamos en 1
+            _playersInside = 1; // Como solo hay un jugador en el trigger, lo fijamos en 1
             PlayerCollider = other;
 
             if (!_isTransparent)
@@ -127,7 +143,7 @@ public class VisionTiles : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playersInside = 0;
+            _playersInside = 0;
             _isTransparent = false;
             if (Visibility != null)
                 Visibility.Visibilities(1f);

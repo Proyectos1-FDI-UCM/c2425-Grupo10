@@ -251,7 +251,7 @@ public class VentaInterfaz : MonoBehaviour
         _isMaizSelected = true;
         _isVenderPressed = true;
         ActualizarInterfaz();
-        PlayerMovement.enablemovement = false;
+        PlayerMovement.DisablePlayerMovement();
     }
 
     /// <summary>
@@ -263,7 +263,7 @@ public class VentaInterfaz : MonoBehaviour
         Interfaz.SetActive(false);
         Interactuar.SetActive(true);
         _colisionando = true;
-        PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
 
     }
 
