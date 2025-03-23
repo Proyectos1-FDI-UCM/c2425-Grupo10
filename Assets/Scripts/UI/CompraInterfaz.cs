@@ -171,13 +171,29 @@ public class CompraInterfaz : MonoBehaviour
 
         if (ContadorDinero.GetContadorDinero() >= totalPrecio)
         {
-            ContadorDinero.ComprarSemilla(totalPrecio);
 
             // Actualiza el inventario según el tipo de semilla seleccionada
-            if (_isMaizSelected) _inventario[0] += _cantidadAComprar;
-            if (_isLechugaSelected) _inventario[1] += _cantidadAComprar;
-            if (_isZanahoriaSelected) _inventario[2] += _cantidadAComprar;
-            if (_isFresasSelected) _inventario[3] += _cantidadAComprar;
+            if (_isMaizSelected) 
+            {
+                ContadorDinero.ComprarSemillaMaiz();
+                _inventario[0] += _cantidadAComprar;
+
+            }
+            if (_isLechugaSelected) 
+            {
+                ContadorDinero.ComprarSemillaLechuga();
+                _inventario[1] += _cantidadAComprar;
+            }
+            if (_isZanahoriaSelected) 
+            {
+                ContadorDinero.ComprarSemillaZanahoria();
+                _inventario[2] += _cantidadAComprar;
+            }
+            if (_isFresasSelected)
+            {
+                ContadorDinero.ComprarSemillaFresa();
+                _inventario[3] += _cantidadAComprar;
+            }
 
             DescripcionTexto.text = "Compra realizada con éxito.";
         }
