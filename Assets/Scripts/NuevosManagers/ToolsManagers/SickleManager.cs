@@ -146,13 +146,12 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     public void Harvest()
     {
+        PlayerMovement.DisablePlayerMovement();
         PlayerAnimator.SetBool("Sicklering", true);
 
         Invoke("NotHarvest", 0.8f);
 
-        //PlayerMovement.enablemovement = false;
-
-        if (PlantEvolution != null)
+        if (PlantEvolution != null && PlantEvolution.GetGrowthState() == 3)
         {
 
             PlantEvolution.Harvest();
@@ -177,7 +176,7 @@ public class SickleManager : MonoBehaviour
 
         PlayerAnimator.SetBool("Sicklering", false);
 
-        //PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
 
     }
     #endregion

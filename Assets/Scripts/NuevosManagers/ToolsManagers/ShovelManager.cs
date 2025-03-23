@@ -123,7 +123,7 @@ public class ShovelManager : MonoBehaviour
     {
         PlayerAnimator.SetBool("Weeding", true);
         Invoke("NotWeeding", 0.8f);
-        //PlayerMovement.enableMovement = false;
+        PlayerMovement.DisablePlayerMovement();
 
         if (PlantEvolution != null)
         {
@@ -147,7 +147,7 @@ public class ShovelManager : MonoBehaviour
     private void NotWeeding()
     {
         PlayerAnimator.SetBool("Weeding", false);
-        //PlayerMovement.enableMovement = true;
+        PlayerMovement.EnablePlayerMovement();
     }
 
     #endregion

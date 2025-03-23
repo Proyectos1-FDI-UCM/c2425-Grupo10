@@ -54,12 +54,12 @@ public class WateringCanManager : MonoBehaviour
     ///<summary> 
     /// Referencia al InventoryUI
     /// </summary>
-    [SerializeField] private InventoryCultivos InventoryCultivos;
+    [SerializeField] private UIManager UiManager;
 
     ///<summary>
     ///Referencia al PlantaEvolucion
     /// </summary>
-    [SerializeField] private PlantaEvolucion PlantaEvolucion; 
+    [SerializeField] private PlantEvolution PlantEvolution; 
 
     
 
@@ -172,7 +172,7 @@ public class WateringCanManager : MonoBehaviour
             Watering();
         }
 
-        else if (_isInWellArea && _waterAmount < _maxWaterAmount && InventoryCultivos.GetInventoryVisible() == false)
+        else if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
         { 
 
             Press.SetActive(true);
@@ -188,9 +188,9 @@ public class WateringCanManager : MonoBehaviour
 
         }
 
-        else if (_isInCropArea &&  _waterAmount > 0 && InventoryCultivos.GetInventoryVisible() == false)
+        else if (_isInCropArea &&  _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
         {
-            if (PlantaEvolucion.GetTimerWatering() <= 0)
+            if (PlantEvolution.GetWateringTimer() <= 0)
             {
                 Press.SetActive(true);
 
@@ -205,13 +205,13 @@ public class WateringCanManager : MonoBehaviour
             }
         }
 
-        else if (!_isInWellArea || _waterAmount == _maxWaterAmount || InventoryCultivos.GetInventoryVisible() == true)
+        else if (!_isInWellArea || _waterAmount == _maxWaterAmount || UiManager.GetInventoryVisible() == true)
         {
 
             Press.SetActive(false);
 
         }
-        else if (!_isInCropArea || _waterAmount == 0 || InventoryCultivos.GetInventoryVisible() == true)
+        else if (!_isInCropArea || _waterAmount == 0 || UiManager.GetInventoryVisible() == true)
         {
 
             Press.SetActive(false);
@@ -262,7 +262,7 @@ public class WateringCanManager : MonoBehaviour
 
         Debug.Log("Recargando");
 
-        PlayerMovement.enablemovement = false;
+        PlayerMovement.DisablePlayerMovement();
 
         _waterAmount = i;
 
@@ -290,7 +290,7 @@ public class WateringCanManager : MonoBehaviour
             Invoke("NotWatering", 1f);
 
 
-            PlayerMovement.enablemovement = false;
+            PlayerMovement.DisablePlayerMovement();
 
             _waterAmount -= 1; ;
 
@@ -298,9 +298,9 @@ public class WateringCanManager : MonoBehaviour
 
             GameManager.Instance.UpdateWaterAmount();
 
-            if (PlantaEvolucion != null)
+            if (PlantEvolution != null)
             {
-                PlantaEvolucion.Watering();
+                PlantEvolution.Watering();
             }
 
             this.gameObject.SetActive(false);
@@ -412,7 +412,7 @@ public class WateringCanManager : MonoBehaviour
 
         this.gameObject.SetActive(true);
 
-        PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
 
     }
 
@@ -424,7 +424,7 @@ public class WateringCanManager : MonoBehaviour
 
         Destroy(_warning);
 
-        PlayerMovement.enablemovement = true;
+        PlayerMovement.EnablePlayerMovement();
 
     }
 
@@ -440,7 +440,7 @@ public class WateringCanManager : MonoBehaviour
 
             _isInCropArea = true;
 
-            PlantaEvolucion = collision.GetComponent<PlantaEvolucion>();
+            PlantEvolution = collision.GetComponent<PlantEvolution>();
         }
 
         if (collision.CompareTag("Pozo"))
@@ -470,7 +470,7 @@ public class WateringCanManager : MonoBehaviour
 
             _isInCropArea = false;
 
-            PlantaEvolucion = null;
+            PlantEvolution = null;
 
         }
 

@@ -116,7 +116,7 @@ public class VisionTiles : MonoBehaviour
             {
                 _isTransparent = true;
                 if (Visibility != null)
-                    Visibility.visibility(0.5f);
+                    Visibility.Visibilities(0.5f);
             }
         }
     }
@@ -130,7 +130,7 @@ public class VisionTiles : MonoBehaviour
             playersInside = 0;
             _isTransparent = false;
             if (Visibility != null)
-                Visibility.visibility(1f);
+                Visibility.Visibilities(1f);
         }
     }
     #endregion

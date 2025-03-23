@@ -36,6 +36,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject InventoryIcons;
 
+    ///<summary>
+    ///Referencia al PlayerMovement
+    /// </summary>
+    [SerializeField] private PlayerMovement PlayerMovement;
 
     #endregion
 
@@ -85,6 +89,16 @@ public class UIManager : MonoBehaviour
             ActualizeInventory();
         }
 
+
+        if(_isInventoryVisible)
+        {
+            PlayerMovement.DisablePlayerMovement();
+        }
+        else
+        {
+            PlayerMovement.EnablePlayerMovement();
+
+        }
         // Define la posición objetivo del inventario
         float targetInventoryY = _isInventoryVisible ? _visibleY : _hiddenY;
 

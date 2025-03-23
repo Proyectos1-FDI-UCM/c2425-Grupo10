@@ -52,7 +52,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Booleano que indica si el movimiento del jugador está habilitado.
     /// </summary>
-    public bool _enablemovement = true;
+    private bool _movementenabled = true;
 
     /// <summary>
     /// Vector que contiene la entrada del jugador para el movimiento 
@@ -162,6 +162,23 @@ public class PlayerMovement : MonoBehaviour
         //
     }
 
+    ///<summary>
+    ///Metodo para activar el movimiento
+    /// </summary>
+    public void EnablePlayerMovement()
+    {
+        _movementenabled = true;
+    }
+
+    ///<summary>
+    ///Metodo para desactivar el movimiento
+    /// </summary>
+    public void DisablePlayerMovement()
+    {
+        _movementenabled = false;
+    }
+
+
     /// <summary>
     /// Método para obtener la última dirección de movimiento.
     /// </summary>
@@ -179,7 +196,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (_enablemovement)
+        if (_movementenabled)
         {
             // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
             _playerRb.MovePosition(_playerRb.position + InputManager.Instance.MovementVector * Speed * Time.fixedDeltaTime);
