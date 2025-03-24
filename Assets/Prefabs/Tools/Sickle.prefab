@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: -947519523
   m_SortingLayer: 12
   m_SortingOrder: 0
-  m_Sprite: {fileID: -86243524, guid: 944f1c37df24a2c41be9efd9bda71df9, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &8336534004597068690
@@ -100,4 +100,7 @@ MonoBehaviour:
   SelectorManager: {fileID: 0}
   PlayerMovement: {fileID: 0}
   PlayerAnimator: {fileID: 0}
-  SickleCollisionDetector: {fileID: 7282493285315983016, guid: 72ca19f2b2d56174cbb64ce2e64b9b02, type: 3}
+  PlantEvolution: {fileID: 0}
+  UIManager: {fileID: 0}
+  Press: {fileID: 0}
+  TextPress: {fileID: 0}
