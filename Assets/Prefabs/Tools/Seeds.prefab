@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4131566434460020898}
   - component: {fileID: 2769370988545522122}
   - component: {fileID: 5509130460685769339}
-  - component: {fileID: 7269991171483358399}
+  - component: {fileID: 1497576265573236649}
   m_Layer: 6
   m_Name: Seeds
   m_TagString: WateringCan
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2700326821615774732}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 58.900005, y: 0, z: 0.14850555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -149,7 +149,7 @@ CapsuleCollider2D:
   m_Offset: {x: 0.011763854, y: -0.15000002}
   m_Size: {x: 0.7368631, y: 0.51994526}
   m_Direction: 1
---- !u!114 &7269991171483358399
+--- !u!114 &1497576265573236649
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,5 +162,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlantingSpots: {fileID: 0}
-  PrefabSeeds: {fileID: 0}
+  PrefabSeeds: {fileID: 5354074395477265191, guid: 63c850aad3fcbf64abcb15becffde16e, type: 3}
   InitialMinDistance: 0.7

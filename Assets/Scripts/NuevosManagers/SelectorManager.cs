@@ -312,6 +312,8 @@ public class SelectorManager : MonoBehaviour
     {
         SeedsQAB[_currentSeed].SetActive(true);
         _spriteRenderer.sprite = SeedsHand[_currentSeed];
+        SeedsManager Manager = SeedTool.GetComponent<SeedsManager>();
+        Manager.ChangeSeed(_currentSeed);
     }
 
     #endregion

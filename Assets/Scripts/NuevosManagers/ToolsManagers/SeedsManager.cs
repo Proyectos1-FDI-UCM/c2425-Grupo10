@@ -32,7 +32,22 @@ public class SeedsManager : MonoBehaviour
     /// <summary>
     /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
     /// </summary>
-    [SerializeField] private GameObject PrefabSeeds;
+    [SerializeField] private GameObject PrefabSeeds0;
+
+    /// <summary>
+    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    /// </summary>
+    [SerializeField] private GameObject PrefabSeeds1;
+
+    /// <summary>
+    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    /// </summary>
+    [SerializeField] private GameObject PrefabSeeds2;
+
+    /// <summary>
+    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    /// </summary>
+    [SerializeField] private GameObject PrefabSeeds3;
 
     /// <summary>
     /// Distancia mínima a la que debe estar el jugador del lugar disponible para plantar
@@ -54,6 +69,11 @@ public class SeedsManager : MonoBehaviour
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
     private Transform[] Pots;
+
+    /// <summary>
+    /// Prefab de la semilla seleccionada
+    /// </summary>
+    private GameObject Prefab;
 
     #endregion
 
@@ -87,7 +107,7 @@ public class SeedsManager : MonoBehaviour
             Transform Pot = FindNearestPot(transform, Pots); // Busca un lugar disponible para plantar
             if (Pot != null) // Si lo encuentra, instancia el prefab de la semilla seleccionada
             {
-                GameObject Plant = Instantiate(PrefabSeeds, Pot.position, Quaternion.identity);
+                GameObject Plant = Instantiate(Prefab, Pot.position, Quaternion.identity);
                 Plant.transform.SetParent(Pot);
             }
         }
@@ -102,6 +122,16 @@ public class SeedsManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
+
+    public void ChangeSeed(int Seed)
+    {
+        if (Seed == 0) Prefab = PrefabSeeds0;
+        else if (Seed == 1) Prefab = PrefabSeeds1;
+        else if (Seed == 2) Prefab = PrefabSeeds2;
+        else if (Seed == 3) Prefab = PrefabSeeds3;
+
+
+    }
 
     #endregion
 
@@ -140,6 +170,9 @@ public class SeedsManager : MonoBehaviour
 
 
     #endregion
+
+
+
 
 } // class SeedsManager 
 // namespace
