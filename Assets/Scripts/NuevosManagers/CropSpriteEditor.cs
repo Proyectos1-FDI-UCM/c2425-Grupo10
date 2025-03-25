@@ -77,7 +77,7 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     void Start()
     {
-        GardenManager.Active(transform.position, item); // Inicializa la Planta en GardenManager
+        GardenManager.Active(transform, item); // Inicializa la Planta en GardenManager
         _warning = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Warning("Water");
@@ -147,18 +147,33 @@ public class CropSpriteEditor : MonoBehaviour
     }
 
     /// <summary>
-    /// Cambia los sprites 
+    /// Desactiva los avisos de riego y modifica los valores 
     /// </summary>
     public void Watering()
     {
         Warning("Deactivate");
-        GardenManager.Water(transform.position); // Modifica el timer riego
+        GardenManager.Water(transform); // Modifica el timer riego
     }
 
-    public float GetWateringTimer()
+    /// <summary>
+    /// Desactiva los avisos de cosecha y modifica los valores 
+    /// </summary>
+    public void Harvest()
     {
-        return GardenManager.GetWateringTime(transform.position);
-        Debug.Log("GetWateringTimer");
+        Warning("Deactivate");
+        GardenManager.Harvest(transform);
+        Destroy(gameObject);
+    }
+
+    /// <summary>
+    /// Modifica los valores de crecimiento
+    /// </summary>
+    public void Growing(int state)
+    {
+        if (state == 1) State("State2");
+        else if (state == 2) State("State3");
+        else if (state == 3) State("State4");
+        GardenManager.Grown(transform); // Modifica el timer de crecimiento
     }
 
 

@@ -27,30 +27,6 @@ public class TimerManager : MonoBehaviour
     // Tiempo en segundos para una hora en el juego
     [SerializeField] private float _hourInGameSeconds = 15f;
 
-    //// Tiempo de crecimiento de la lechuga en días
-    //[SerializeField] private float _lettuceGrowthTimeDays = 0.5f;
-
-    //// Tiempo de riego de la lechuga en minutos
-    //[SerializeField] private float _lettuceWateringTimeMinutes = 2f;
-
-    //// Tiempo de crecimiento de la fresa en días
-    //[SerializeField] private float _strawberryGrowthTimeDays = 1f;
-
-    //// Tiempo de riego de la fresa en minutos
-    //[SerializeField] private float _strawberryWateringTimeMinutes = 3f;
-
-    //// Tiempo de crecimiento de la zanahoria en días
-    //[SerializeField] private float _carrotGrowthTimeDays = 1.5f;
-
-    //// Tiempo de riego de la zanahoria en minutos
-    //[SerializeField] private float _carrotWateringTimeMinutes = 4f;
-
-    //// Tiempo de crecimiento del maíz en días
-    //[SerializeField] private float _cornGrowthTimeDays = 2f;
-
-    //// Tiempo de riego del maíz en minutos
-    //[SerializeField] private float _cornWateringTimeMinutes = 6f;
-
     // Tiempo de marchitación en minutos
     [SerializeField] private float _witherTimeMinutes = 1f;
 
@@ -99,23 +75,24 @@ void Start()
 
         // Aquí puedes añadir la lógica para el crecimiento y marchitación de los cultivos
 
-        foreach (Plant plant in GardenManager.Garden)
+        for (int i = 0; i < GardenManager.ActivePlants; i++)
         {
-            int i = 0;
+            Plant plant = GardenManager.Garden[i]; // Obtener la planta actual
+
             if (plant.Active)
             {
                 GardenManager.Garden[i].WaterTimer -= _timeInGame;
                 GardenManager.Garden[i].GrowthTimer -= _timeInGame;
 
-                if (plant.WaterTimer <= GardenManager.Data[0].MaxDeathTime) DeathWarning(plant); 
-                else if (plant.WaterTimer <= 0) WaterWarning(plant);
+                if (plant.WaterTimer <= -GardenManager.Data[0].MaxDeathTime) DeathWarning(plant); 
+                if (plant.WaterTimer <= 0) WaterWarning(plant);
 
                 if(plant.GrowthTimer <= 0) Growth(plant);
 
                 Debug.Log(GardenManager.Garden[i].WaterTimer);
+                //Debug.Log(GardenManager.Garden[i].GrowthTimer);
 
             }
-            i++;
         }
 
     }
@@ -124,27 +101,17 @@ void Start()
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
     /// <summary>
-    /// Método para regar los cultivos.
-    /// </summary>
-    public void WaterCrops(Plant plant)
-    {
-         // Reinicia el tiempo desde el último riego
-    }
-
-    /// <summary>
     /// Método para avisar de la muerte
     /// </summary>
     public void Growth(Plant plant)
     {
         int State = plant.State;
-        Transform Crop = SearchPlant(plant.Position);
+        Transform Crop = SearchPlant(plant);
 
         if (Crop != null)
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
-            if (State == 1) Call.State("State2");
-            else if (State == 2) Call.State("State3");
-            else if (State == 3) Call.State("State4");
+            Call.Growing(State);
 
         }
     }
@@ -154,7 +121,7 @@ void Start()
     /// </summary>
     public void WaterWarning(Plant plant)
     {
-       Transform Crop = SearchPlant(plant.Position);
+       Transform Crop = SearchPlant(plant);
 
         if (Crop != null) 
         {
@@ -168,7 +135,7 @@ void Start()
     /// </summary>
     public void DeathWarning(Plant plant)
     {
-        Transform Crop = SearchPlant(plant.Position);
+        Transform Crop = SearchPlant(plant);
 
         if (Crop != null)
         {
@@ -180,14 +147,10 @@ void Start()
     /// <summary>
     /// Método para buscar la posición de la planta correcta
     /// </summary>
-    public Transform SearchPlant(Vector3 Position)
+    public Transform SearchPlant(Plant plant)
     {
-        Transform Plant = null;
 
-        int Searched = 0;
-        while (Searched < PlantingSpots.transform.childCount && Position != Plants[Searched].position) Searched++;
-        if (Position != Plants[Searched].position) Plant = Plants[Searched];
-
+        Transform Plant = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
         return Plant;
 
     }

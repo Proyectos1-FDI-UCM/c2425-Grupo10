@@ -80,6 +80,16 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Vector2 WellPosition;
 
+    /// <summary>
+    /// Carpeta con todas las posiciones en las que el jugador puede plantar
+    /// </summary>
+    [SerializeField] private GameObject PlantingSpots;
+
+    /// <summary>
+    /// Distancia mínima a la que debe estar el jugador del lugar disponible para plantar
+    /// </summary>
+    [SerializeField] private float InitialMinDistance;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -119,6 +129,12 @@ public class WateringCanManager : MonoBehaviour
     ///Booleano para permitir regar
     /// </summary>
     private bool _isInCropArea = false;
+
+
+    /// <summary>
+    /// Array con el transform de todas los lugares disponibles para plantar
+    /// </summary>
+    private Transform[] Pots;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -149,6 +165,14 @@ public class WateringCanManager : MonoBehaviour
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
+        // ---------------------------------------------- JULIA COMENTAAAAAAAAAAAAAAAAAAAA ------------------------------
+
+        Pots = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        for (int i = 0; i < PlantingSpots.transform.childCount; i++)
+        {
+            Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+        }
+
     }
 
     /// <summary>
@@ -161,6 +185,11 @@ public class WateringCanManager : MonoBehaviour
         SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
+
+        if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+        {
+            Watering();
+        }
 
         if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
         { 
@@ -178,23 +207,6 @@ public class WateringCanManager : MonoBehaviour
 
         }
 
-        else if (_isInCropArea &&  _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
-        {
-            if (cropSpriteEditor.GetWateringTimer() <= 0)
-            {
-                Press.SetActive(true);
-
-                TextPress.text = "Presiona E \npara regar";
-
-                if (InputManager.Instance.UsarWasPressedThisFrame())
-                {
-
-                    Watering();
-
-                }
-            }
-        }
-
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount || UiManager.GetInventoryVisible() == true)
         {
 
@@ -206,11 +218,6 @@ public class WateringCanManager : MonoBehaviour
 
             Press.SetActive(false);
 
-        }
-
-        else if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
-        {
-            Watering();
         }
 
 
@@ -294,16 +301,25 @@ public class WateringCanManager : MonoBehaviour
 
             GameManager.Instance.UpdateWaterAmount();
 
-            if (cropSpriteEditor != null)
-            {
-                cropSpriteEditor.Watering();
-                //GardenManager.Water(cropSpriteEditor);
-            }
+            Invoke("WaterPlant", 1f);
 
             this.gameObject.SetActive(false);
 
         }
 
+    }
+
+    private void WaterPlant()
+    {
+            Transform Plant = FindNearestPot(transform, Pots);
+
+            Debug.Log("FindNearestPot: " + Plant);
+
+            if (Plant != null) 
+            {
+                CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
+                cropSpriteEditor.Watering();
+            }
     }
 
     /// <summary>
@@ -369,33 +385,11 @@ public class WateringCanManager : MonoBehaviour
     private void GetUpgradeWateringCan()
     {
 
-        if ((GameManager.GetMejorasRegadera() == 0))
-        {
+        if ((GameManager.GetMejorasRegadera() == 0)) UpgradeWateringCan(0);
+        else if ((GameManager.GetMejorasRegadera() == 1)) UpgradeWateringCan(1);
+        else if ((GameManager.GetMejorasRegadera() == 2)) UpgradeWateringCan(2);
+        else if ((GameManager.GetMejorasRegadera() == 3)) UpgradeWateringCan(3);
 
-            UpgradeWateringCan(0);
-
-        }
-
-        else if ((GameManager.GetMejorasRegadera() == 1))
-        {
-
-            UpgradeWateringCan(1);
-
-        }
-
-        else if ((GameManager.GetMejorasRegadera() == 2))
-        {
-
-            UpgradeWateringCan(2);
-
-        }
-
-        else if ((GameManager.GetMejorasRegadera() == 3))
-        {
-
-            UpgradeWateringCan(3);
-
-        }
 
     }
 
@@ -432,13 +426,11 @@ public class WateringCanManager : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Crop"))
-        {
-
-            _isInCropArea = true;
-
-            cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
-        }
+        //if (collision.CompareTag("Crop"))
+        //{
+        //    _isInCropArea = true;
+        //    cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
+        //}
 
         if (collision.CompareTag("Pozo"))
         {
@@ -462,14 +454,11 @@ public class WateringCanManager : MonoBehaviour
 
         }
 
-        if (collision.CompareTag("Crop"))
-        {
-
-            _isInCropArea = false;
-
-            cropSpriteEditor = null;
-
-        }
+        //if (collision.CompareTag("Crop"))
+        //{
+        //    _isInCropArea = false;
+        //    cropSpriteEditor = null;
+        //}
 
     }
     
@@ -481,6 +470,33 @@ public class WateringCanManager : MonoBehaviour
 
         _warning = Instantiate(PrefabWatering, WellPosition, Quaternion.identity);
 
+    }
+
+    /// <summary>
+    /// Este método se llama cuando el jugador tiene seleccionada la regadera y pulsa E
+    /// Busca cual es la planta para regar más cercano al jugador
+    /// </summary>
+    private Transform FindNearestPot(Transform Player, Transform[] Pots)
+    {
+        Debug.Log("FindNearestPot");
+
+        Transform NearestPot = null;
+
+        foreach (Transform pot in Pots)
+        {
+            float MinDistance = InitialMinDistance;
+            if (pot.childCount != 0) // Comprueba que hay planta en esta posición
+            {
+                float SqrDistance = (Player.position - pot.position).sqrMagnitude;
+                if (SqrDistance < MinDistance)
+                {
+                    MinDistance = SqrDistance;
+                    NearestPot = pot;
+                }
+            }
+        }
+
+        return NearestPot;
     }
 
     #endregion

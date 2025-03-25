@@ -16,6 +16,7 @@ public struct Plant
     public float GrowthTimer;
     public int State;
     public Vector3 Position;
+    public int Child;
 
     /* 
 
@@ -32,6 +33,9 @@ public struct Plant
              * MuerteFase1 = -1
              * MuerteFase2 = -2
              * MuerteFase3 = -3
+             
+     * POSITION - Posicion en el juego
+     * CHILD - Que hijo es la planta (Posicion en la carpeta)
      
     */
 }
@@ -63,10 +67,10 @@ public static class GardenManager
 
     public static CropData[] Data = new CropData[]
     {
-        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 },
-        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 },
-        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 },
-        new CropData { MaxWaterTime = 10, MaxGrowthTime = 10, MaxDeathTime = 30 }
+        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
+        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
+        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
+        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 }
     };
     
 
@@ -80,18 +84,25 @@ public static class GardenManager
 
     }
 
-    public static void Active(Vector3 position, Items item)
+    /// <summary>
+    /// Activa una planta con los valores de transform de la planta y el tipo de cultivo
+    /// </summary>
+    public static void Active(Transform transform, Items item)
     {
-        Garden[ActivePlants].Position = position;
+        Garden[ActivePlants].Position = transform.position;
         Garden[ActivePlants].Active = true;
         Garden[ActivePlants].Item = item;
         Garden[ActivePlants].State = 1;
+        Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
+        Garden[ActivePlants].GrowthTimer = Data[0].MaxGrowthTime;
         Garden[ActivePlants].WaterTimer = 0;
-        Garden[ActivePlants].GrowthTimer = 0;
 
         ActivePlants++;
     }
 
+    /// <summary>
+    /// Desactiva una planta según su posición
+    /// </summary>
     public static void Deactivate(Vector3 position)
     {
         int i = 0;
@@ -107,56 +118,74 @@ public static class GardenManager
             Garden[i].State = 0;
             Garden[i].WaterTimer = 0;
             Garden[i].GrowthTimer = 0;
+            Garden[i].Child =
 
             ActivePlants--;
         }
     }
 
-    public static void Water(Vector3 position)
+    /// <summary>
+    /// Modifica los valores de riego de una planta por su posición
+    /// </summary>
+    public static void Water(Transform transform)
     {
         int i = 0;
-        while (i < ActivePlants && Garden[i].Position != position)
+        while (i < ActivePlants && Garden[i].Position != transform.position)
         {
             i++;
         }
 
-        if (Garden[i].Position == position)
+        if (Garden[i].Position == transform.position)
         {
             Garden[i].WaterTimer = Data[0].MaxWaterTime;
 
         }
     }
 
-    public static void Grown(Vector3 position)
+    /// <summary>
+    /// Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
+    /// </summary>
+    public static void Harvest(Transform transform)
     {
         int i = 0;
-        while (i < ActivePlants && Garden[i].Position != position)
+        while (i < ActivePlants && Garden[i].Position != transform.position)
         {
             i++;
         }
 
-        if (Garden[i].Position == position)
+        if (Garden[i].Position == transform.position)
         {
-            Garden[i].GrowthTimer = Data[(int)Garden[i].Item].MaxGrowthTime;
+            Garden[i].Position = Vector3.zero;
+            Garden[i].Active = false;
+            Garden[i].State = 0;
+            Garden[i].WaterTimer = 0;
+            Garden[i].GrowthTimer = 0;
+            Garden[i].Child =
+
+            ActivePlants--;
 
         }
+
     }
 
-    public static float GetWateringTime(Vector3 position)
+    /// <summary>
+    /// Modifica los valores de crecimiento de una planta por su posición 
+    /// </summary>
+    public static void Grown(Transform transform)
     {
-        float WateringTime = 0;
         int i = 0;
-        while (i < ActivePlants && Garden[i].Position != position)
+        while (i < ActivePlants && Garden[i].Position != transform.position)
         {
             i++;
         }
 
-        if (Garden[i].Position == position)
+        if (Garden[i].Position == transform.position)
         {
-            WateringTime = Garden[i].WaterTimer;
-
+            Garden[i].State++;
+            Garden[i].GrowthTimer = Data[0].MaxGrowthTime;
         }
-        return WateringTime;
+
+
     }
 
 } // class GardenManager 

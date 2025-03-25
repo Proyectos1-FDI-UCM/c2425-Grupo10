@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 5692969587613453355}
   - component: {fileID: 4357398492809672153}
   - component: {fileID: 4887488748166579377}
-  - component: {fileID: 5915759378744237491}
+  - component: {fileID: 7271212895428673018}
   m_Layer: 7
   m_Name: Crop
   m_TagString: Crop
@@ -195,8 +195,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!58 &5915759378744237491
-CircleCollider2D:
+--- !u!70 &7271212895428673018
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -227,6 +227,6 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0024975778, y: -0.007947016}
-  serializedVersion: 2
-  m_Radius: 0.05956483
+  m_Offset: {x: 0.008366567, y: -0.0074369335}
+  m_Size: {x: 0.19070421, y: 0.08512677}
+  m_Direction: 1
