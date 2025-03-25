@@ -1,5 +1,5 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
+// Manager que se encarga de realizar todas las tareas de "semillas" (Plantar la semilla adecuada, inicializar la planta...)
 // Julia Vera Ruiz
 // Nombre del juego
 // Proyectos 1 - Curso 2024-25
@@ -30,22 +30,22 @@ public class SeedsManager : MonoBehaviour
     [SerializeField] private GameObject PlantingSpots;
 
     /// <summary>
-    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    ///Prefab de la Semilla 0
     /// </summary>
     [SerializeField] private GameObject PrefabSeeds0;
 
     /// <summary>
-    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    /// Prefab de la Semilla 1
     /// </summary>
     [SerializeField] private GameObject PrefabSeeds1;
 
     /// <summary>
-    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    /// Prefab de la Semilla 2
     /// </summary>
     [SerializeField] private GameObject PrefabSeeds2;
 
     /// <summary>
-    /// Prefab de las Seeds (Este es el inicial, añadiré todos en los siguientes commits)
+    /// Prefab de la Semilla 3
     /// </summary>
     [SerializeField] private GameObject PrefabSeeds3;
 
@@ -123,6 +123,10 @@ public class SeedsManager : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Este método se llama desde ToolsManager
+    /// Dependiendo de la semilla seleccionada inicia un prefab u otro
+    /// </summary>
     public void ChangeSeed(int Seed)
     {
         if (Seed == 0) Prefab = PrefabSeeds0;

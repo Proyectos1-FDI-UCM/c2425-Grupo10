@@ -58,7 +58,16 @@ public class CropSpriteEditor : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    /// <summary>
+    /// Sprite Renderer de los avisos
+    /// </summary>
+    /// 
     private SpriteRenderer _warning;
+
+    /// <summary>
+    /// Sprites de Estados de las Plantas
+    /// </summary>
+    /// 
     private SpriteRenderer _spriteRenderer;
 
 

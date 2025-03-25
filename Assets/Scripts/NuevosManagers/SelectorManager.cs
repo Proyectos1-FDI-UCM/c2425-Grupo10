@@ -313,7 +313,7 @@ public class SelectorManager : MonoBehaviour
         SeedsQAB[_currentSeed].SetActive(true);
         _spriteRenderer.sprite = SeedsHand[_currentSeed];
         SeedsManager Manager = SeedTool.GetComponent<SeedsManager>();
-        Manager.ChangeSeed(_currentSeed);
+        Manager.ChangeSeed(_currentSeed); // Modifica el prefab de planta en funcion de la semilla seleccionada en el SeedManager
     }
 
     #endregion
