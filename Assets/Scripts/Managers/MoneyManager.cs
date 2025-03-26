@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Este script maneja el Contador del dinero del jugador
-// Javier Librada Jerez
+// Natalia
 // Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -12,31 +12,86 @@ using UnityEngine.SceneManagement;
 
 public class MoneyManager : MonoBehaviour
 {
+    /// <summary>
+    /// Instancia única de MoneyManager (patrón Singleton).
+    /// Permite acceder a MoneyManager desde cualquier parte del código.
+    /// </summary>
     public static MoneyManager Instance;
 
-    [SerializeField] private int moneyCount = 100000;
-    private int wateringCanLevel = 0;
+    /// <summary>
+    /// Cantidad total de dinero del jugador.
+    /// </summary>
+    [SerializeField] private int MoneyCount = 100000;
 
-    [Header("Precios de Seeds")]
-    [SerializeField] private int cornSeedPrice = 50;
-    [SerializeField] private int carrotSeedPrice = 20;
-    [SerializeField] private int lettuceSeedPrice = 15;
-    [SerializeField] private int strawberrySeedPrice = 30;
+    /// <summary>
+    /// Nivel actual de mejora de la regadera.
+    /// </summary>
+    private int WateringCanLevel = 0;
+
+
+    [Header("Precios de Semillas")]
+    /// <summary>
+    /// Precio de la semilla de maíz.
+    /// </summary>
+    [SerializeField] private int CornSeedPrice = 50;
+
+    /// <summary>
+    /// Precio de la semilla de zanahoria.
+    /// </summary>
+    [SerializeField] private int CarrotSeedPrice = 20;
+
+    /// <summary>
+    /// Precio de la semilla de lechuga.
+    /// </summary>
+    [SerializeField] private int LettuceSeedPrice = 15;
+
+    /// <summary>
+    /// Precio de la semilla de fresa.
+    /// </summary>
+    [SerializeField] private int StrawberrySeedPrice = 30;
 
     [Header("Precios de Venta de Plantas")]
-    [SerializeField] private int cornPlantPrice = 90;
-    [SerializeField] private int carrotPlantPrice = 65;
-    [SerializeField] private int lettucePlantPrice = 20;
-    [SerializeField] private int strawberryPlantPrice = 40;
+    /// <summary>
+    /// Precio de venta de la planta de maíz.
+    /// </summary>
+    [SerializeField] private int CornPlantPrice = 90;
+
+    /// <summary>
+    /// Precio de venta de la planta de zanahoria.
+    /// </summary>
+    [SerializeField] private int CarrotPlantPrice = 65;
+
+    /// <summary>
+    /// Precio de venta de la planta de lechuga.
+    /// </summary>
+    [SerializeField] private int LettucePlantPrice = 20;
+
+    /// <summary>
+    /// Precio de venta de la planta de fresa.
+    /// </summary>
+    [SerializeField] private int StrawberryPlantPrice = 40;
 
     [Header("Precios de Mejora de Regadera")]
-    [SerializeField] private int[] wateringCanUpgradePrices = { 1000, 5000, 10000 };
+    /// <summary>
+    /// Array con los precios de mejora de la regadera en cada nivel.
+    /// </summary>
+    [SerializeField] private int[] WateringCanUpgradePrices = { 1000, 5000, 10000 };
 
-    [SerializeField] private GameManager gameManager;
-    [SerializeField] private TextMeshProUGUI moneyText;
+    /// <summary>
+    /// Referencia al GameManager del juego.
+    /// </summary>
+    [SerializeField] private GameManager GameManager;
+
+    /// <summary>
+    /// Referencia al texto de la UI que muestra el dinero.
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI MoneyText;
+
+
 
     private void Awake()
     {
+        // Singleton
         if (Instance == null)
         {
             Instance = this;
@@ -45,85 +100,136 @@ public class MoneyManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
+
+        // Asegurar que el dinero se muestra al iniciar
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
     {
-        UpdateUI();
+        // Asegurar que el texto de dinero está referenciado correctamente
+        if (MoneyText == null)
+        {
+            GameObject moneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
+            if (moneyCounterObj != null)
+                MoneyText = moneyCounterObj.GetComponent<TextMeshProUGUI>();
+        }
 
-        if (gameManager == null)
-            Debug.LogWarning("GameManager no asignado en el Inspector.");
+        UpdateUI(); // Llamada extra para asegurar la actualización
 
-        if (moneyText == null)
-            Debug.LogWarning("No se ha asignado el texto de dinero en la UI.");
-
+        // carga de escenas para actualizar la UI
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
+
+    /// <summary>
+    /// Método que se ejecuta cuando se carga una nueva escena.
+    /// Se usa para actualizar la UI del dinero.
+    /// </summary>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         UpdateUI();
     }
 
-    // Métodos para vender cultivos
-    public void SellLettuce(int quantity) => Sell(quantity, lettucePlantPrice, Items.Letuce);
-    public void SellCorn(int quantity) => Sell(quantity, cornPlantPrice, Items.Corn);
-    public void SellCarrot(int quantity) => Sell(quantity, carrotPlantPrice, Items.Carrot);
-    public void SellStrawberry(int quantity) => Sell(quantity, strawberryPlantPrice, Items.Strawberry);
+    // ---- MÉTODOS PARA VENDER CULTIVOS ----
 
-    private void Sell(int quantity, int price, Items item)
+    /// <summary>
+    /// Vende una cantidad específica de lechugas.
+    /// </summary>
+    public void SellLettuce(int Quantity) => Sell(Quantity, LettucePlantPrice, Items.Letuce);
+
+    /// <summary>
+    /// Vende una cantidad específica de maíz.
+    /// </summary>
+    public void SellCorn(int Quantity) => Sell(Quantity, CornPlantPrice, Items.Corn);
+
+    /// <summary>
+    /// Vende una cantidad específica de zanahorias.
+    /// </summary>
+    public void SellCarrot(int Quantity) => Sell(Quantity, CarrotPlantPrice, Items.Carrot);
+
+    /// <summary>
+    /// Vende una cantidad específica de fresas.
+    /// </summary>
+    public void SellStrawberry(int Quantity) => Sell(Quantity, StrawberryPlantPrice, Items.Strawberry);
+
+    private void Sell(int Quantity, int Price, Items Item)
     {
-        if (gameManager == null) return;
+        if (GameManager == null) return;
 
-        // Verificar si el jugador tiene la cantidad suficiente en el inventario
-        if (InventoryManager.GetInventory(item) >= quantity)
+        // Verifica si el jugador tiene suficientes cultivos en el inventario.
+        if (InventoryManager.GetInventory(Item) >= Quantity)
         {
-            InventoryManager.ModifyInventory(item, -quantity); // Restar cultivos del inventario
-            AddMoney(quantity * price);
-            Debug.Log($"Se han vendido {quantity} {item} por {quantity * price} RC.");
+            InventoryManager.ModifyInventory(Item, -Quantity); // Resta los cultivos vendidos
+            AddMoney(Quantity * Price); // Agrega el dinero ganado por la venta
+            Debug.Log($"Se han vendido {Quantity} {Item} por {Quantity * Price} RC.");
         }
         else
         {
-            Debug.Log($"No tienes suficientes {item} para vender.");
+            Debug.Log($"No tienes suficientes {Item} para vender.");
         }
     }
 
-    // Método para comprar semillas
+
+    // ---- MÉTODOS PARA COMPRAR SEMILLAS ----
+    // Método genérico para comprar semillas
     public bool BuySeed(Items item, int price)
     {
-        if (DeductMoney(price))
+        // Verifica si el jugador tiene suficiente dinero
+        if (MoneyCount >= price)
         {
+            // Resta el dinero
+            MoneyCount -= price;
+            // Añade la semilla al inventario (siendo semilla un tipo de Item)
             InventoryManager.ModifyInventory(item, 1);
-            Debug.Log($"Has comprado 1 {item} por {price} RC.");
+
+            // Actualiza la UI del dinero
+            UpdateUI();
+
+            // Debugging: Verifica si se compró correctamente
+            Debug.Log($"Has comprado 1 {item} por {price} RC. Total dinero: {MoneyCount}");
+
             return true;
         }
         else
         {
-            Debug.Log($"No tienes suficiente dinero para comprar {item}.");
+            // Si no tiene suficiente dinero
+            Debug.Log($"No tienes suficiente dinero para comprar {item}. Necesitas {price} RC.");
             return false;
         }
     }
 
-    // Métodos específicos para comprar semillas
-    public void BuyCornSeed() => BuySeed(Items.CornSeed, cornSeedPrice);
-    public void BuyCarrotSeed() => BuySeed(Items.CarrotSeed, carrotSeedPrice);
-    public void BuyLettuceSeed() => BuySeed(Items.LetuceSeed, lettuceSeedPrice);
-    public void BuyStrawberrySeed() => BuySeed(Items.StrawberrySeed, strawberrySeedPrice);
+    public void BuyCornSeed() => BuySeed(Items.CornSeed, CornSeedPrice);
+    public void BuyCarrotSeed() => BuySeed(Items.CarrotSeed, CarrotSeedPrice);
+    public void BuyLettuceSeed() => BuySeed(Items.LetuceSeed, LettuceSeedPrice);
+    public void BuyStrawberrySeed() => BuySeed(Items.StrawberrySeed, StrawberrySeedPrice);
 
-    public void AddMoney(int quantity)
+
+
+
+    // ---- MÉTODOS PARA MODIFICAR EL DINERO ----
+
+    /// <summary>
+    /// Agrega una cantidad de dinero al jugador.
+    /// </summary>
+    public void AddMoney(int Quantity)
     {
-        moneyCount += quantity;
-        Debug.Log("Dinero agregado: " + quantity + ". Total: " + moneyCount);
+        MoneyCount += Quantity;
+        Debug.Log("Dinero agregado: " + Quantity + ". Total: " + MoneyCount);
         UpdateUI();
     }
 
-    public bool DeductMoney(int quantity)
+    /// <summary>
+    /// Resta una cantidad de dinero si el jugador tiene suficiente.
+    /// </summary>
+    public bool DeductMoney(int Quantity)
     {
-        if (moneyCount >= quantity)
+        if (MoneyCount >= Quantity)
         {
-            moneyCount -= quantity;
-            Debug.Log("Dinero gastado: " + quantity + ". Total: " + moneyCount);
+            MoneyCount -= Quantity;
+            Debug.Log("Dinero gastado: " + Quantity + ". Total: " + MoneyCount);
             UpdateUI();
             return true;
         }
@@ -134,22 +240,28 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Obtiene la cantidad de dinero actual del jugador.
+    /// </summary>
     public int GetMoneyCount()
     {
-        return moneyCount;
+        return MoneyCount;
     }
 
+    /// <summary>
+    /// Actualiza la UI con la cantidad de dinero actual.
+    /// </summary>
     private void UpdateUI()
     {
-        GameObject moneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
+        GameObject MoneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
 
-        if (moneyCounterObj != null)
+        if (MoneyCounterObj != null)
         {
-            TextMeshProUGUI moneyCounterText = moneyCounterObj.GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI MoneyCounterText = MoneyCounterObj.GetComponent<TextMeshProUGUI>();
 
-            if (moneyCounterText != null)
+            if (MoneyCounterText != null)
             {
-                moneyCounterText.text = moneyCount.ToString("F0");
+                MoneyCounterText.text = MoneyCount.ToString("F0");
             }
             else
             {
@@ -162,16 +274,18 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
+    // ---- MÉTODOS PARA MEJORAR LA REGADERA ----
+
     public bool UpgradeWateringCan()
     {
-        if (wateringCanLevel < wateringCanUpgradePrices.Length)
+        if (WateringCanLevel < WateringCanUpgradePrices.Length)
         {
-            int price = wateringCanUpgradePrices[wateringCanLevel];
+            int Price = WateringCanUpgradePrices[WateringCanLevel];
 
-            if (DeductMoney(price))
+            if (DeductMoney(Price))
             {
-                wateringCanLevel++;
-                Debug.Log("Regadera mejorada a nivel " + wateringCanLevel);
+                WateringCanLevel++;
+                Debug.Log("Regadera mejorada a nivel " + WateringCanLevel);
                 return true;
             }
         }
@@ -186,3 +300,4 @@ public class MoneyManager : MonoBehaviour
     public bool UpgradeWateringCanLevel2() => UpgradeWateringCan();
     public bool UpgradeWateringCanLevel3() => UpgradeWateringCan();
 }
+

@@ -90,10 +90,6 @@ public class GameManager : MonoBehaviour
     private int _maxMejorasInventario = 3;
 
     /// <summary>
-    /// Numero de máximo de mejoras para el Inventory.
-    /// <summary>
-    private int _maxVenderMaiz = 3;
-    /// <summary>
     /// Cantidad de agua de la regadera.
     /// <summary>
     private int _amountWater = 6;
