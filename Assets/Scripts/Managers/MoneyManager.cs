@@ -160,9 +160,8 @@ public class MoneyManager : MonoBehaviour
         if (GameManager == null) return;
 
         // Verifica si el jugador tiene suficientes cultivos en el inventario.
-        if (InventoryManager.GetInventory(Item) >= Quantity)
+        if (InventoryManager.BoolModifyInventorySubstract(Item, Quantity))
         {
-            InventoryManager.ModifyInventory(Item, -Quantity); // Resta los cultivos vendidos
             AddMoney(Quantity * Price); // Agrega el dinero ganado por la venta
             Debug.Log($"Se han vendido {Quantity} {Item} por {Quantity * Price} RC.");
         }

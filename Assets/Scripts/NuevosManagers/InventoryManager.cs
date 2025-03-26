@@ -55,21 +55,78 @@ public static class InventoryManager
     }
 
     /// <summary>
+    /// Devuelve True si se efectua la modificación
     /// Añade la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
     /// </summary>
-    public static void ModifyInventory(Items item, int quantity) // (Se puede restar con números negativos)
+    public static bool BoolModifyInventory(Items item, int quantity)
     {
         if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity) Inventory[(int)item] += quantity;
             else Debug.Log("InventarioLleno");
-
+            return true;
         }
         else // Es una semilla
         {
             if (Inventory[(int)item] + quantity <= MaxSeedQuantity) Inventory[(int)item] += quantity;
             else Debug.Log("InventarioLleno");
+            return false;
+        }
+    }
 
+    /// <summary>
+    /// Devuelve True si se efectua la modificación
+    /// Resta la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
+    /// IMPORTANTE - USAR NUMEROS POSITIVOS (ModifyInventorySubstract(Item.Corn, 5) - Resta 5 Maices)
+    /// </summary>
+    public static bool BoolModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
+    {
+        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        {
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            else Debug.Log("InventarioInsuficiente");
+            return true;
+        }
+        else // Es una semilla
+        {
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            else Debug.Log("InventarioInsuficiente");
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Añade la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
+    /// </summary>
+    public static void ModifyInventory(Items item, int quantity)
+    {
+        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        {
+            if (Inventory[(int)item] + quantity <= MaxCropQuantity) Inventory[(int)item] += quantity;
+            else Debug.Log("InventarioLleno");
+        }
+        else // Es una semilla
+        {
+            if (Inventory[(int)item] + quantity <= MaxSeedQuantity) Inventory[(int)item] += quantity;
+            else Debug.Log("InventarioLleno");
+        }
+    }
+
+    /// <summary>
+    /// Resta la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
+    /// IMPORTANTE - USAR NUMEROS POSITIVOS (ModifyInventorySubstract(Item.Corn, 5) - Resta 5 Maices)
+    /// </summary>
+    public static void ModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
+    {
+        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        {
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            else Debug.Log("InventarioInsuficiente");
+        }
+        else // Es una semilla
+        {
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            else Debug.Log("InventarioInsuficiente");
         }
     }
 
