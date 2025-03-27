@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using static UnityEditor.Progress;
 
 /// <summary>
 /// La Clase InventoryCultivos se encarga de mostrar el inventario al pulsar la tecla TAB 
@@ -147,11 +148,11 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < (int)Items.Count/2; i++)
         {
             GameObject _crops = InventoryIcons.transform.GetChild(i).gameObject;
-            if (InventoryManager.Inventory[i] != 0)
+            if (InventoryManager.GetInventory(i) != 0)
             {
                 _crops.SetActive(true);
                 _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
-                _units.text = InventoryManager.Inventory[i] + "x";
+                _units.text = InventoryManager.GetInventory(i) + "x";
             }
             else _crops.SetActive(false);
         }
@@ -159,7 +160,7 @@ public class UIManager : MonoBehaviour
         // Muestra los cultivos
         for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++) 
         {
-            if (InventoryManager.Inventory[i] != 0)
+            if (InventoryManager.GetInventory(i) != 0)
             {
                 int actualSlot = 1; // El Slot actual que está estableciendo
                 bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
@@ -169,13 +170,13 @@ public class UIManager : MonoBehaviour
                     GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
                     _crops.SetActive(true);
                     _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
-                    if (InventoryManager.Inventory[i] / (actualSlot * _slotsCapacity) != 0)
+                    if (InventoryManager.GetInventory(i) / (actualSlot * _slotsCapacity) != 0)
                     {
                         _units.text = _slotsCapacity + "x";
                     }
-                    else if (InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) != 0)
+                    else if (InventoryManager.GetInventory(i) - ((actualSlot - 1) * _slotsCapacity) != 0)
                     {
-                        _units.text = InventoryManager.Inventory[i] - ((actualSlot - 1) * _slotsCapacity) + "x";
+                        _units.text = InventoryManager.GetInventory(i) - ((actualSlot - 1) * _slotsCapacity) + "x";
                         fullSlot = true;
                     }
                     else

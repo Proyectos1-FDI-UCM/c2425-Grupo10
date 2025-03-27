@@ -37,19 +37,24 @@ public static class InventoryManager
     /// <summary>
     /// Cantidad de cada Item que tiene el jugador
     /// </summary>
-    public static int[] Inventory = new int[(int)Items.Count];
+    private static int[] Inventory = new int[(int)Items.Count];
 
     /// <summary>
     /// Capacidad Máxima
     /// </summary>
-    [SerializeField] static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventario para las semillas
-    [SerializeField] static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventario para los cultivos
+    [SerializeField] private static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventario para las semillas
+    [SerializeField] private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventario para los cultivos
 
 
     /// <summary>
     /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
     /// </summary>
     public static int GetInventory(Items item)  
+    {
+        return Inventory[(int)item];
+    }
+
+    public static int GetInventory(int item)
     {
         return Inventory[(int)item];
     }
@@ -130,14 +135,38 @@ public static class InventoryManager
         }
     }
 
+
+    /// <summary>
+    /// Cambia la cantidad máxima de cultivos que puedes guardar en el inventario
+    /// </summary>
     public static void SetMaxCrops (int maxCrops)
     {
         MaxCropQuantity = maxCrops;
     }
 
+    /// <summary>
+    /// Cambia la cantidad máxima de semillas que puedes guardar en el inventario
+    /// </summary>
     public static void SetMaxSeeds(int maxSeeds)
     {
         MaxSeedQuantity = maxSeeds;
+    }
+
+    /// <summary>
+    /// Devuelve el máximo de cultivos que se pueden guardar en el inventario
+    /// (Para mostrar slots en el inventario)
+    /// </summary>
+    public static int GetMaxCrop()
+    {
+        return MaxCropQuantity;
+    }
+
+    /// <summary>
+    /// Devuelve el máximo de semillas que se pueden guardar en el inventario
+    /// </summary>
+    public static int GetMaxSeeds()
+    {
+        return MaxSeedQuantity;
     }
 
 }
