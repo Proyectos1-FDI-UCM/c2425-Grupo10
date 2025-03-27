@@ -260,7 +260,7 @@ public class MoneyManager : MonoBehaviour
 
             if (MoneyCounterText != null)
             {
-                MoneyCounterText.text = MoneyCount.ToString("F0");
+                MoneyCounterText.text = "x" + MoneyCount.ToString();
             }
             else
             {

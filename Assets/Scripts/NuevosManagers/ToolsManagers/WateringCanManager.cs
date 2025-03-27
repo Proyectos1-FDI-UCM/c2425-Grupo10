@@ -198,7 +198,7 @@ public class WateringCanManager : MonoBehaviour
 
             TextPress.text = "Presiona R \npara rellenar";
 
-            if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+            if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
             {
 
                 FillWateringCan(_maxWaterAmount);
