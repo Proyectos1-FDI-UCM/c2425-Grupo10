@@ -71,30 +71,29 @@ void Start()
     {
         // Aumentar el tiempo en el juego basado en el tiempo real
         _timeInGame += Time.deltaTime / (360f / (_dayInGameMinutes * 60f)); // 3600 segundos en 1 hora
-        //_timeSinceLastWatering += Time.deltaTime / 60f; // Tiempo en minutos
 
-        // Aquí puedes añadir la lógica para el crecimiento y marchitación de los cultivos
-
-        for (int i = 0; i < GardenManager.ActivePlants; i++)
+        for (int i = 0; i < GardenManager.GetActivePlants(); i++)
         {
-            Plant plant = GardenManager.Garden[i]; // Obtener la planta actual
-
-            if (plant.Active)
+            if (GardenManager.GetPlant(i).Active)
             {
-                GardenManager.Garden[i].WaterTimer -= _timeInGame;
-                GardenManager.Garden[i].GrowthTimer -= _timeInGame;
-
-                if (plant.WaterTimer <= -GardenManager.Data[0].MaxDeathTime) DeathWarning(plant); 
-                if (plant.WaterTimer <= 0) WaterWarning(plant);
-
-                if(plant.GrowthTimer <= 0) Growth(plant);
-
-                Debug.Log(GardenManager.Garden[i].WaterTimer);
-                //Debug.Log(GardenManager.Garden[i].GrowthTimer);
-
+                GardenManager.ModifyWaterTimer(i, -_timeInGame);
+                GardenManager.ModifyGrowthTimer(i, -_timeInGame);
             }
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        for (int i = 0; i < GardenManager.GetActivePlants(); i++)
+        {
+            if (GardenManager.GetPlant(i).WaterTimer <= -TimerData.GetMaxDeathTime(GardenManager.GetPlant(i).Item)) DeathWarning(GardenManager.GetPlant(i));
+            if (GardenManager.GetPlant(i).WaterTimer <= 0) WaterWarning(GardenManager.GetPlant(i));
+            if (GardenManager.GetPlant(i).GrowthTimer <= 0) Growth(GardenManager.GetPlant(i));
+
+            // Debug Log:
+            Debug.Log(GardenManager.GetPlant(i).WaterTimer);
+        }
     }
     #endregion
 
@@ -150,22 +149,14 @@ void Start()
     public Transform SearchPlant(Plant plant)
     {
 
-        Transform Plant = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
-        return Plant;
+        Transform transform = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
+        return transform;
 
     }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    /// <summary>
-    /// Método para comprobar si los cultivos se han marchitado.
-    /// </summary>
-    private void CheckWithering()
-    {
-       // Lógica para marchitar cultivos
-        
-    }
 
     #endregion   
 

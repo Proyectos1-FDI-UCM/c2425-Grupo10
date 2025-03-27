@@ -40,40 +40,14 @@ public struct Plant
     */
 }
 
-public struct CropData
-{
-    public int MaxWaterTime;
-    public int MaxGrowthTime;
-    public int MaxDeathTime;
-
-    /*
-     
-     * MAXWATERTIME - El tiempo que debe pasar entre regados
-     * MAXGROWTHTIME - El tiempo que pasa entre una fase y otra
-     * MAXDEATHTIME - EL tiempo que pasa desde que se debía regar hasta que muere. Si la planta pasa más de MAXDEATHTIME sin regar muere
-     
-     */
-}
-
 /// <summary>
 /// GardenManager es una clase que sirve para guardar todos los valores de cada planta
 /// </summary>
 public static class GardenManager
 {
-    public static int GardenMax = 6; // Se cambia con cada mejora
-    public static Plant[] Garden = new Plant[GardenMax];
-    
-    public static int ActivePlants = 0;
-
-    public static CropData[] Data = new CropData[]
-    {
-        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
-        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
-        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
-        new CropData { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 }
-    };
-    
-
+    private static int GardenMax = 6; // Se cambia con cada mejora
+    private static Plant[] Garden = new Plant[GardenMax];
+    private static int ActivePlants = 0;
 
     static void Main()
     {
@@ -94,7 +68,7 @@ public static class GardenManager
         Garden[ActivePlants].Item = item;
         Garden[ActivePlants].State = 1;
         Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
-        Garden[ActivePlants].GrowthTimer = Data[0].MaxGrowthTime;
+        Garden[ActivePlants].GrowthTimer = TimerData.GetMaxGrowthTime(item);
         Garden[ActivePlants].WaterTimer = 0;
 
         ActivePlants++;
@@ -125,7 +99,7 @@ public static class GardenManager
     }
 
     /// <summary>
-    /// Modifica los valores de riego de una planta por su posición
+    /// Riega: Modifica los valores de riego de una planta por su posición
     /// </summary>
     public static void Water(Transform transform)
     {
@@ -137,13 +111,13 @@ public static class GardenManager
 
         if (Garden[i].Position == transform.position)
         {
-            Garden[i].WaterTimer = Data[0].MaxWaterTime;
+            Garden[i].WaterTimer = TimerData.GetMaxWaterTime(GardenManager.GetPlant(i).Item);
 
         }
     }
 
     /// <summary>
-    /// Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
+    /// Cultiva: Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
     /// </summary>
     public static void Harvest(Transform transform)
     {
@@ -169,7 +143,7 @@ public static class GardenManager
     }
 
     /// <summary>
-    /// Modifica los valores de crecimiento de una planta por su posición 
+    /// Crece: Modifica los valores de crecimiento de una planta por su posición 
     /// </summary>
     public static void Grown(Transform transform)
     {
@@ -182,10 +156,40 @@ public static class GardenManager
         if (Garden[i].Position == transform.position)
         {
             Garden[i].State++;
-            Garden[i].GrowthTimer = Data[0].MaxGrowthTime;
+            Garden[i].GrowthTimer = TimerData.GetMaxGrowthTime(GardenManager.GetPlant(i).Item);
         }
+    }
 
+    /// <summary>
+    /// Modifica el timer de Riego de una planta
+    /// </summary>
+    public static void ModifyWaterTimer(int i, float value)
+    {
+        Garden[i].WaterTimer += value;
+    }
 
+    /// <summary>
+    /// Modifica el timer de Crecimiento de una planta
+    /// </summary>
+    public static void ModifyGrowthTimer(int i, float value)
+    {
+        Garden[i].GrowthTimer += value;
+    }
+
+    /// <summary>
+    /// Devuelve el timer de Crecimiento de una planta
+    /// </summary>
+    public static Plant GetPlant(int i)
+    {
+        return Garden[i];
+    }
+
+    /// <summary>
+    /// Modifica el timer de Crecimiento de una planta
+    /// </summary>
+    public static int GetActivePlants()
+    {
+        return ActivePlants;
     }
 
 } // class GardenManager 
