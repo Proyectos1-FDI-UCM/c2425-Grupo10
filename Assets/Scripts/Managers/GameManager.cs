@@ -330,11 +330,11 @@ public class GameManager : MonoBehaviour
     {
         DineroInvertido += Convert.ToInt32(inversion);
     }
-    public void RestarIngreso(int inversion)
+    public void DeductDepositedMoney(int inversion)
     {
         DineroInvertido -= inversion;
     }
-    public int GetDineroIngresadoTotal()
+    public int GetTotalMoneyDeposited()
     {
         return DineroInvertido;
     }

@@ -97,10 +97,10 @@ public class BancoInterfaz : MonoBehaviour
 
     public void ButtonMudarsePressed()
     {
-        if (GameManager.Instance.GetDineroIngresadoTotal() >= 100000)
+        if (GameManager.Instance.GetTotalMoneyDeposited() >= 100000)
         {
             Debug.Log("Mudanza realizada con éxito.");
-            GameManager.Instance.RestarIngreso(100000);
+            GameManager.Instance.DeductDepositedMoney(100000);
 
         }
         else
@@ -126,7 +126,7 @@ public class BancoInterfaz : MonoBehaviour
     {
         CantidadIngresar.maxValue = MoneyManager.GetMoneyCount();
         CantidadIngresar.interactable = CantidadIngresar.maxValue > 0;
-        CantidadIngresadaTexto.text = GameManager.Instance.GetDineroIngresadoTotal() + " RC";
+        CantidadIngresadaTexto.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
         CantidadTexto.text = "Dinero a ingresar: " + Convert.ToInt32(CantidadIngresar.value);
 
     }
@@ -140,7 +140,7 @@ public class BancoInterfaz : MonoBehaviour
             CantidadTexto.gameObject.SetActive(true);
             CasaPlayaButton.SetActive(false);
             CantidadIngresadaTexto.gameObject.SetActive(true);
-            CantidadIngresadaTexto.text = GameManager.Instance.GetDineroIngresadoTotal() + " RC";
+            CantidadIngresadaTexto.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
             MudarseButton.SetActive(false);
             AceptarButton.SetActive(CantidadIngresar.value > 0);
             ActualizarSliderInversion();

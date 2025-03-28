@@ -573,7 +573,7 @@ GameObject:
   m_Component:
   - component: {fileID: 275213579}
   - component: {fileID: 275213578}
-  - component: {fileID: 275213580}
+  - component: {fileID: 275213581}
   m_Layer: 3
   m_Name: Collider Interfaz
   m_TagString: Untagged
@@ -641,7 +641,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 996543212}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &275213580
+--- !u!114 &275213581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -650,23 +650,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 275213576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1cfdbc4b99899c4599831dea79c9ed7, type: 3}
+  m_Script: {fileID: 11500000, guid: 58160b7d401e8b64d8c7cf88c0461dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interactuar: {fileID: 1636568575}
-  Interfaz: {fileID: 893751931}
-  IngresarButton: {fileID: 993252741}
-  MudanzaButton: {fileID: 322530079}
-  CasaPlayaButton: {fileID: 1429320032}
-  MudarseButton: {fileID: 921961883}
-  AceptarButton: {fileID: 282233968}
-  CantidadIngresar: {fileID: 1853525261}
-  DescripcionTexto: {fileID: 1811816825}
-  CantidadTexto: {fileID: 305366426}
-  CantidadIngresadaTexto: {fileID: 654195994}
-  DineroEnBancoTexto: {fileID: 546537453}
-  MoneyManager: {fileID: 0}
+  InventoryPanel: {fileID: 0}
+  QuickAccessBar: {fileID: 0}
+  InventoryIcons: {fileID: 0}
   PlayerMovement: {fileID: 1195905023}
+  MoneyManager: {fileID: 0}
+  NpcMessage: {fileID: 1636568575}
+  BankUI: {fileID: 893751931}
+  DepositButton: {fileID: 993252741}
+  MovingButton: {fileID: 322530079}
+  BeachHouseButton: {fileID: 1429320032}
+  MoveButton: {fileID: 921961883}
+  AcceptButton: {fileID: 282233968}
+  AmountMoneyToDeposit: {fileID: 1853525261}
+  DescriptionText: {fileID: 1811816825}
+  AmountToDepositText: {fileID: 305366426}
+  AmountDepositedText: {fileID: 654195994}
+  AmountDepositedTitleText: {fileID: 546537453}
 --- !u!1 &282233968
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,9 +753,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275213580}
-        m_TargetAssemblyTypeName: BancoInterfaz, Assembly-CSharp
-        m_MethodName: ButtonAceptarPressed
+      - m_Target: {fileID: 275213581}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonAcceptPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1017,9 +1020,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275213580}
-        m_TargetAssemblyTypeName: BancoInterfaz, Assembly-CSharp
-        m_MethodName: ButtonMudanzaPressed
+      - m_Target: {fileID: 275213581}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonMovingPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4412,6 +4415,7 @@ MonoBehaviour:
   PrefabSemilla1: {fileID: 0}
   GameManager: {fileID: 0}
   ToolManager: {fileID: 0}
+  mensajeErrorTexto: {fileID: 0}
 --- !u!1 &775315485
 GameObject:
   m_ObjectHideFlags: 0
@@ -18799,9 +18803,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275213580}
-        m_TargetAssemblyTypeName: BancoInterfaz, Assembly-CSharp
-        m_MethodName: ButtonMudarsePressed
+      - m_Target: {fileID: 275213581}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonMovePressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18932,9 +18936,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275213580}
-        m_TargetAssemblyTypeName: BancoInterfaz, Assembly-CSharp
-        m_MethodName: ButtonIngresarPressed
+      - m_Target: {fileID: 275213581}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonDepositPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19233,7 +19237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1188562633
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19335,8 +19339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6ee85de47a70af4894edc4b94e3d187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  enablemovement: 1
+  Speed: 3
 --- !u!61 &1195905024
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20064,9 +20067,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275213580}
-        m_TargetAssemblyTypeName: BancoInterfaz, Assembly-CSharp
-        m_MethodName: ButtonCasaPlayaPressed
+      - m_Target: {fileID: 275213581}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonBeachHousePressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -21840,9 +21843,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275213580}
-        m_TargetAssemblyTypeName: BancoInterfaz, Assembly-CSharp
-        m_MethodName: ActualizarSliderInversion
+      - m_Target: {fileID: 275213581}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: UpdateSlider
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
