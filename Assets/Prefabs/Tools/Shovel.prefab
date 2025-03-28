@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 993524984702813856}
   - component: {fileID: 5386687113084616280}
-  - component: {fileID: 8336534004597068690}
+  - component: {fileID: 7830542055735348319}
   m_Layer: 0
-  m_Name: Sickle
+  m_Name: Shovel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 54.970005, y: 0, z: 0.14850555}
   m_LocalScale: {x: 0.17, y: 0.17, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4270937809737596389}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &5386687113084616280
@@ -74,18 +75,18 @@ SpriteRenderer:
   m_SortingLayerID: -947519523
   m_SortingLayer: 12
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 48693123, guid: 944f1c37df24a2c41be9efd9bda71df9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 4.2, y: 4.2041016}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8336534004597068690
+--- !u!114 &7830542055735348319
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -94,13 +95,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 1697347806842634546}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 26fa5068073217d4bae396dfc31855a3, type: 3}
+  m_Script: {fileID: 11500000, guid: e4a8080303c852d4592b409841444d5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   SelectorManager: {fileID: 0}
-  PlayerMovement: {fileID: 0}
   PlayerAnimator: {fileID: 0}
+  PlayerMovement: {fileID: 0}
   PlantEvolution: {fileID: 0}
   UIManager: {fileID: 0}
   Press: {fileID: 0}
   TextPress: {fileID: 0}
+--- !u!1 &2490823184352740605
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4270937809737596389}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4270937809737596389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490823184352740605}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.62117386, y: -0.058568954, z: -0.012032852}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 993524984702813856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
