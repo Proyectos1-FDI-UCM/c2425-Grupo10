@@ -330,7 +330,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- METODOS PUBLICOS GENERALES ----
-    #region
+    #region Metodos Publicos Generales
     public void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -351,7 +351,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
-    #region Métodos Privados
+    #region Métodos Privados Generales
     private void UpdateUI()
     {
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -440,11 +440,11 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- BUILD ----
-    #region
+    #region Build
 
 
     // ---- METODOS PUBLICOS (BUILD) ----
-    #region
+    #region Metodos Publicos (Build)
     /// <summary>
     /// Metodo para saber si el inventario esta visible en pantalla
     /// </summary>
@@ -512,7 +512,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- METODOS PRIVADOS (BUILD) ----
-    #region
+    #region Metodos Privados (Build)
     /// <summary>
     /// Alterna la visibilidad del inventario y mueve la QuickAccessBar con él.
     /// </summary>
@@ -525,10 +525,10 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- BANCO ----
-    #region
+    #region Banco
 
     // ---- METODOS PUBLICOS (BANCO) ----
-    #region
+    #region Metodos Publicos (Banco)
     /// <summary>
     /// Metodo para actualizar la ui cuando se pulsa el boton depositar
     /// </summary>
@@ -607,17 +607,17 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- METODOS PRIVADOS (BANCO)
-    #region
-    
+    #region Metodos Privados (Banco)
+
     #endregion
 
     #endregion
 
     // ---- MEJORA ----
-    #region
+    #region Mejora
 
     // ---- METODOS PUBLICOS (MEJORA) ----
-    #region
+    #region Metodos Publicos (Mejora)
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Ampliar".
     /// </summary>
@@ -663,7 +663,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+        ShowDescription("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
     }
 
     /// <summary>
@@ -676,7 +676,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = true;
         _isSomethingSelected = true;
 
-        ShowDescription("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+        ShowDescription("Expande la capacidad de almacenamiento por 2.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
     }
 
     /// <summary>
@@ -706,13 +706,45 @@ public class UIManager : MonoBehaviour
         {
             if (_isGardenSelected)
             {
-                GameManager.Instance.MejorarHuerto();
-                ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                if ((MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetGardenUpgrades() == 0))
+                {
+                    GameManager.Instance.MejorarHuerto();
+                    ShowDescription("Expande el terreno de cultivos por 10.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
+                else if ((MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetGardenUpgrades() == 1))
+                {
+                    GameManager.Instance.MejorarHuerto();
+                    ShowDescription("Expande el terreno de cultivos por 15.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
+                else if ((MoneyManager.GetMoneyCount() >= 15000) && (GameManager.Instance.GetGardenUpgrades() == 2))
+                {
+                    GameManager.Instance.MejorarHuerto();
+                    ShowDescription("Expande el terreno de cultivos por 20.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
+                else if ((MoneyManager.GetMoneyCount() >= 20000) && (GameManager.Instance.GetGardenUpgrades() == 3))
+                {
+                    GameManager.Instance.MejorarHuerto();
+                    ShowDescription("Expande el terreno de cultivos por 30.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
+                else if ((MoneyManager.GetMoneyCount() >= 30000) && (GameManager.Instance.GetGardenUpgrades() == 4))
+                {
+                    GameManager.Instance.MejorarHuerto();
+                    ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
+
             }
             else if (_isInventorySelected)
             {
-                GameManager.Instance.MejorarInventario();
-                ShowDescription("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+                if (_isInventorySelected && (MoneyManager.GetMoneyCount() >= 2000) && (GameManager.Instance.GetInventoryUpgrades() == 0))
+                {
+                    GameManager.Instance.MejorarInventario();
+                    ShowDescription("Expande la capacidad de almacenamiento por 5.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+                }
+                else if (_isInventorySelected && (MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetInventoryUpgrades() == 1))
+                {
+                    GameManager.Instance.MejorarInventario();
+                    ShowDescription("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+                }
             }
         }
     }
@@ -720,7 +752,7 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- METODOS PRIVADOS (MEJORA) ----
-    #region
+    #region Metodos Privados (Mejora)
     /// <summary>
     /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
     /// </summary>
