@@ -14,14 +14,14 @@ using UnityEngine.UI;
 /// <summary>
 /// Clase encargada de gestionar la selección de herramientas 
 /// en el inventario del jugador. Al pulsar las teclas específicas, 
-/// se activa una herramienta y se desactiva la anterior.
+/// se activa una Tool y se desactiva la anterior.
 /// </summary>
 public class ToolManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
     /// <summary>
-    /// Referencia al GameObject que representa la herramienta "Semilla".
+    /// Referencia al GameObject que representa la Tool "Semilla".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
     [SerializeField] private GameObject SeedTool;
@@ -33,7 +33,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject SeedSelector;
 
     /// <summary>
-    /// Referencia al GameObject que representa la herramienta "Pala".
+    /// Referencia al GameObject que representa la Tool "Pala".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
     [SerializeField] private GameObject ShovelTool;
@@ -44,7 +44,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject ShovelSelector;
 
     /// <summary>
-    /// Referencia al GameObject que representa la herramienta "Guantes".
+    /// Referencia al GameObject que representa la Tool "Guantes".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
     [SerializeField] private GameObject GlovesTool;
@@ -55,7 +55,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject GlovesSelector;
 
     /// <summary>
-    /// Referencia al objeto que representa la herramienta "Regadera".
+    /// Referencia al objeto que representa la Tool "Regadera".
     /// </summary>
     [SerializeField] private GameObject WateringCanTool;
     /// <summary>
@@ -65,7 +65,7 @@ public class ToolManager : MonoBehaviour
     [SerializeField] private GameObject WateringCanSelector;
 
     /// <summary>
-    /// Referencia al objeto que representa la herramienta "Hoz".
+    /// Referencia al objeto que representa la Tool "Hoz".
     /// </summary>
     [SerializeField] private GameObject HoeTool;
     /// <summary>
@@ -93,8 +93,8 @@ public class ToolManager : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
     /// <summary>
-    /// Referencia a la herramienta actualmente seleccionada.
-    /// Solo una herramienta puede estar activa a la vez.
+    /// Referencia a la Tool actualmente seleccionada.
+    /// Solo una Tool puede estar activa a la vez.
     /// </summary>
     private GameObject _currentTool;
 
@@ -117,7 +117,7 @@ public class ToolManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Escucha la entrada del jugador en cada fotograma para cambiar de herramienta.
+    /// Escucha la entrada del jugador en cada fotograma para cambiar de Tool.
     /// </summary>
     void Update()
     {
@@ -175,9 +175,9 @@ public class ToolManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void BarraAgua(float AguaActual, float MaxAgua)
+    public void BarraAgua(float ActualWater, float MaxWater)
     {
-        WaterBar.value = AguaActual / MaxAgua;
+        WaterBar.value = ActualWater / MaxWater;
     }
     #endregion
 
@@ -185,7 +185,7 @@ public class ToolManager : MonoBehaviour
     #region Métodos Privados
 
     /// <summary>
-    /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
+    /// Activa la Tool seleccionada o la deselecciona si ya está activa.
     /// </summary>
     /// <param name="newTool">Tool a activar o desactivar</param>
     private void ToggleTool(GameObject newTool)
@@ -199,28 +199,28 @@ public class ToolManager : MonoBehaviour
 
 
     /// <summary>
-    /// Activa la herramienta seleccionada y desactiva la anterior si la hay.
+    /// Activa la Tool seleccionada y desactiva la anterior si la hay.
     /// </summary>
     /// <param name="newTool">Tool a activar</param>
     private void SelectTool(GameObject newTool)
     {
         if (newTool == null) return;
 
-        // Desactiva la herramienta actualmente seleccionada
+        // Desactiva la Tool actualmente seleccionada
         DeselectCurrentTool();
 
-        // Activa la nueva herramienta y la establece como actual
+        // Activa la nueva Tool y la establece como actual
         _currentTool = newTool;
         _currentTool.SetActive(true);
 
-        // Poner la herramienta en la mano del jugador
+        // Poner la Tool en la mano del jugador
         _currentTool.transform.SetParent(HandPosition);
         _currentTool.transform.localPosition = Vector3.zero; // Asegurar que esté en la posición exacta de la mano
         _currentTool.transform.localRotation = Quaternion.identity; // Resetear rotación si es necesario
     }
 
     /// <summary>
-    /// Deselecciona la herramienta actualmente en uso, dejando las manos vacías.
+    /// Deselecciona la Tool actualmente en uso, dejando las manos vacías.
     /// </summary>
     private void DeselectCurrentTool()
     {
@@ -232,17 +232,17 @@ public class ToolManager : MonoBehaviour
         }
     }
 
-    private void EnableSelector(GameObject herramienta)
+    private void EnableSelector(GameObject Tool)
     {
-        herramienta.SetActive(true);
+        Tool.SetActive(true);
     }
 
-    private void DisableSelector(GameObject herramienta1, GameObject herramienta2, GameObject herramienta3, GameObject herramienta4)
+    private void DisableSelector(GameObject Tool1, GameObject Tool2, GameObject Tool3, GameObject Toll4)
     {
-        herramienta1.SetActive(false);
-        herramienta2.SetActive(false);
-        herramienta3.SetActive(false);
-        herramienta4.SetActive(false);
+        Tool1.SetActive(false);
+        Tool2.SetActive(false);
+        Tool3.SetActive(false);
+        Toll4.SetActive(false);
     }
 
     
