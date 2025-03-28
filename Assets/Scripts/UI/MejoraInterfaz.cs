@@ -174,7 +174,7 @@ public class MejoraInterfaz : MonoBehaviour
         _seleccionInventario = false;
         _algoSeleccionado = true;
 
-        MostrarDescripcion("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+        MostrarDescripcion("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), maxMejorasRegadera);
     }
 
     /// <summary>
@@ -187,7 +187,7 @@ public class MejoraInterfaz : MonoBehaviour
         _seleccionInventario = false;
         _algoSeleccionado = true;
 
-        MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
+        MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), maxMejorasHuerto);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class MejoraInterfaz : MonoBehaviour
         _seleccionInventario = true;
         _algoSeleccionado = true;
 
-        MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetMejorasInventario(), maxMejorasInventario);
+        MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), maxMejorasInventario);
     }
 
     /// <summary>
@@ -210,20 +210,20 @@ public class MejoraInterfaz : MonoBehaviour
     {
         if (_isMejoraSelected && _algoSeleccionado)
         {
-            if (_seleccionRegadera && (ContadorDinero.GetMoneyCount() >= 1000) && (GameManager.Instance.GetMejorasRegadera() == 0))
+            if (_seleccionRegadera && (ContadorDinero.GetMoneyCount() >= 1000) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                MostrarDescripcion("Aumenta la capacidad de agua por 5.000 RootCoins.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+                MostrarDescripcion("Aumenta la capacidad de agua por 5.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), maxMejorasRegadera);
             }
-            else if (_seleccionRegadera && (ContadorDinero.GetMoneyCount() >= 5000) && (GameManager.Instance.GetMejorasRegadera() == 1))
+            else if (_seleccionRegadera && (ContadorDinero.GetMoneyCount() >= 5000) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                MostrarDescripcion("Aumenta la capacidad de agua por 10.000 RootCoins.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+                MostrarDescripcion("Aumenta la capacidad de agua por 10.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), maxMejorasRegadera);
             }
-            else if (_seleccionRegadera && (ContadorDinero.GetMoneyCount() >= 10000) && (GameManager.Instance.GetMejorasRegadera() == 2))
+            else if (_seleccionRegadera && (ContadorDinero.GetMoneyCount() >= 10000) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetMejorasRegadera(), maxMejorasRegadera);
+                MostrarDescripcion("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), maxMejorasRegadera);
             }
         }
         else if (_isAmpliarSelected && _algoSeleccionado)
@@ -231,12 +231,12 @@ public class MejoraInterfaz : MonoBehaviour
             if (_seleccionHuerto)
             {
                 GameManager.Instance.MejorarHuerto();
-                MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetMejorasHuerto(), maxMejorasHuerto);
+                MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), maxMejorasHuerto);
             }
             else if (_seleccionInventario)
             {
                 GameManager.Instance.MejorarInventario();
-                MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetMejorasInventario(), maxMejorasInventario);
+                MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), maxMejorasInventario);
             }
         }
     }

@@ -385,10 +385,10 @@ public class WateringCanManager : MonoBehaviour
     private void GetUpgradeWateringCan()
     {
 
-        if ((GameManager.GetMejorasRegadera() == 0)) UpgradeWateringCan(0);
-        else if ((GameManager.GetMejorasRegadera() == 1)) UpgradeWateringCan(1);
-        else if ((GameManager.GetMejorasRegadera() == 2)) UpgradeWateringCan(2);
-        else if ((GameManager.GetMejorasRegadera() == 3)) UpgradeWateringCan(3);
+        if ((GameManager.GetWateringCanUpgrades() == 0)) UpgradeWateringCan(0);
+        else if ((GameManager.GetWateringCanUpgrades() == 1)) UpgradeWateringCan(1);
+        else if ((GameManager.GetWateringCanUpgrades() == 2)) UpgradeWateringCan(2);
+        else if ((GameManager.GetWateringCanUpgrades() == 3)) UpgradeWateringCan(3);
 
 
     }

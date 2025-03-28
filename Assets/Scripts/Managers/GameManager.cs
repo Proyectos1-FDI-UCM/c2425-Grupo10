@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Numero de mejoras activas del Inventory.
     /// <summary>
-    [SerializeField] int MejorasInventario = 0;
+    [SerializeField] int InventoryUpgrades = 0;
 
     /// <summary>
     /// Referencia al script que maneja el dinero
@@ -242,9 +242,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventory.
     /// <summary>
-    public int GetMejorasRegadera() { return WateringCanUpdates; }
-    public int GetMejorasHuerto() { return GardenUpgrades; }
-    public int GetMejorasInventario() { return MejorasInventario; }
+    public int GetWateringCanUpgrades() { return WateringCanUpdates; }
+    public int GetGardenUpgrades() { return GardenUpgrades; }
+    public int GetInventoryUpgrades() { return InventoryUpgrades; }
 
     /// <summary>
     /// Metodo para aumentar +1 la mejora del Huerto.
@@ -262,9 +262,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void MejorarInventario()
     {
-        if (MejorasInventario < _maxMejorasInventario)
+        if (InventoryUpgrades < _maxMejorasInventario)
         {
-            MejorasInventario++;
+            InventoryUpgrades++;
         }
     }
 

@@ -1,6 +1,6 @@
 //---------------------------------------------------------
-// Script para gestionar la visibilidad del inventario.
-// Responsable: Alexia Pérez Santana, Iria Docampo Zotes, Julia Vera Ruiz
+// Script para gestionar la UI del juego en cada escena
+// Responsable: Alexia Pérez Santana, Iria Docampo Zotes, Julia Vera Ruiz, Javier Librada Jerez
 // Nombre del juego: Roots of Life
 // Curso 2024-25
 //---------------------------------------------------------
@@ -16,7 +16,7 @@ using UnityEngine.SceneManagement;
 using System;
 
 /// <summary>
-/// La Clase InventoryCultivos se encarga de mostrar el inventario al pulsar la tecla TAB 
+/// La Clase UIManager se encarga de mostrar la UI del juego correcta para cada escena, ya sea la principal o las del mercado
 /// Actualiza su información en función de InventoryManager
 /// </summary>
 public class UIManager : MonoBehaviour
@@ -24,6 +24,25 @@ public class UIManager : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector
 
+
+    [Header("UI de Mercado Comunes")]
+    ///<summary>
+    ///Pop up del npc cuando te acercas para interactuar con el
+    /// </summary>
+    [SerializeField] private GameObject NpcMessage;
+
+    /// <summary>
+    /// Conjunto de objetos que forman la interfaz
+    /// </summary>
+    [SerializeField] private GameObject UI;
+
+    /// <summary>
+    /// Texto donde pone la descripcion de lo que va a hacer el jugador en la interfaz
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI DescriptionText;
+
+
+    [Header("UI de BUILD")]
     /// <summary>
     /// Ref al Panel del inventario
     /// </summary>
@@ -51,15 +70,6 @@ public class UIManager : MonoBehaviour
 
 
     [Header("UI del Banco")]
-    ///<summary>
-    ///Pop up del npc cuando te acercas para interactuar con el
-    /// </summary>
-    [SerializeField] private GameObject NpcMessage;
-
-    /// <summary>
-    /// Conjunto de objetos que forman la interfaz
-    /// </summary>
-    [SerializeField] private GameObject BankUI;
 
     /// <summary>
     /// Boton para ingresar
@@ -92,11 +102,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Slider AmountMoneyToDeposit;
 
     /// <summary>
-    /// Texto donde pone la descripcion de lo que vas a hacer en el banco
-    /// </summary>
-    [SerializeField] private TextMeshProUGUI DescriptionText;
-
-    /// <summary>
     /// Texto donde sale la cantidad de dinero que va a ingresar el jugador(se actualiza con el slider)
     /// </summary>
     [SerializeField] private TextMeshProUGUI AmountToDepositText;
@@ -111,6 +116,42 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI AmountDepositedTitleText;
 
+
+    [Header("UI de Mejora")]
+    ///<summary>
+    ///Boton para elegir que mejora hacer
+    /// </summary>
+    [SerializeField] private GameObject UpgradeButton;
+
+    /// <summary>
+    /// Boton para elegir que ampliacion hacer
+    /// </summary>
+    [SerializeField] private GameObject ExtendButton;
+
+    /// <summary>
+    /// Boton para mejorar la regadera
+    /// </summary>
+    [SerializeField] private GameObject WateringCanButton;
+
+    /// <summary>
+    /// Boton para ampliar el inventario
+    /// </summary>
+    [SerializeField] private GameObject InventoryButton;
+
+    /// <summary>
+    /// Boton para ampliar el huerto
+    /// </summary>
+    [SerializeField] private GameObject GardenButton;
+
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
+    /// </summary>
+    [SerializeField] private GameObject BuyButton;
+
+    /// <summary>
+    /// Contador de mejoras/ampliaciones compradas
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI AmountOfUpgradesText;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -159,6 +200,52 @@ public class UIManager : MonoBehaviour
     /// Booleano para saber si el juagdor ha pulsado el boton de la casa en la playa
     /// </summary>
     private bool _isBeachHouseSelected = false;
+    
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton mejora
+    /// </summary>
+    private bool _isUpgradeSelected = true;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton ampliar
+    /// </summary>
+    private bool _isExtendSelected = false;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton regadera
+    /// </summary>
+    private bool _isWateringCanSelected = false;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton huerto
+    /// </summary>
+    private bool _isGardenSelected = false;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton inventario
+    /// </summary>
+    private bool _isInventorySelected = false;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado algun boton
+    /// </summary>
+    private bool _isSomethingSelected = false;
+
+
+    /// <summary>
+    /// Numero maximo de mejoras de la WateringCan
+    /// </summary>
+    private int _maxWCUpgrades = 3;
+
+    /// <summary>
+    /// Numero maximo de mejoras del Huerto
+    /// </summary>
+    private int _maxGardenUpgrades = 4;
+
+    /// <summary>
+    /// Numero maximo de mejoras del Inventario
+    /// </summary>
+    private int _maxInventoryUpgrades = 3;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -214,56 +301,36 @@ public class UIManager : MonoBehaviour
                 Time.deltaTime * _transitionSpeed
             );
         }
-        if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
+
+        if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
-            if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
+            EnableInterfaz();
+        }
+        if (_uiActive && InputManager.Instance.SalirIsPressed())
+        {
+            DisableInterfaz();
+        }
+        if (MoneyManager == null)
+        {
+            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoTexto != null)
             {
-                EnableInterfaz();
+                MoneyManager = ObjetoTexto.GetComponent<MoneyManager>();
             }
-            if (_uiActive && InputManager.Instance.SalirIsPressed())
-            {
-                DisableInterfaz();
-            }
-            if (MoneyManager == null)
-            {
-                GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
-                if (ObjetoTexto != null)
-                {
-                    MoneyManager = ObjetoTexto.GetComponent<MoneyManager>();
-                }
-            }
+        }
+
+        if (SceneManager.GetActiveScene().name == "Escena_Banco")
+        {
             if (_isDepositSelected)
             {
                 AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
             }
-        }
-        
+        } 
     }
     #endregion
 
-    // ---- BUILD ----
+    // ---- METODOS PUBLICOS GENERALES ----
     #region
-
-
-    // ---- METODOS PUBLICOS (BUILD) ----
-    #region
-    /// <summary>
-    /// Metodo para saber si el inventario esta visible en pantalla
-    /// </summary>
-    /// <returns></returns>
-    public bool GetInventoryVisible()
-    {
-        return _isInventoryVisible;
-    }
-    #endregion
-    #endregion
-
-    // ---- BANCO ----
-    #region
-
-    // ---- METODOS PUBLICOS (BANCO) ----
-    #region
-
     public void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -281,133 +348,110 @@ public class UIManager : MonoBehaviour
             _isInNpcArea = false;
         }
     }
-    public void ButtonDepositPressed()
-    {
-        _isDepositSelected = true;
-        _isMovingSelected = false;
-        _isBeachHouseSelected = false;
-        UpdateUI();
-    }
-
-    public void ButtonMovingPressed()
-    {
-        _isDepositSelected = false;
-        _isMovingSelected = true;
-        _isBeachHouseSelected = false;
-        UpdateUI();
-    }
-
-    public void ButtonBeachHousePressed()
-    {
-        _isBeachHouseSelected = true;
-        DescriptionText.text = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
-        MoveButton.SetActive(true);
-    }
-
-    public void ButtonMovePressed()
-    {
-        if (GameManager.Instance.GetTotalMoneyDeposited() >= 100000)
-        {
-            Debug.Log("Mudanza realizada con éxito.");
-            GameManager.Instance.DeductDepositedMoney(100000);
-
-        }
-        else
-        {
-            Debug.Log("No tienes suficiente dinero para mudarte.");
-        }
-    }
-
-    public void ButtonAcceptPressed()
-    {
-        float AmountDeposited = AmountMoneyToDeposit.value;
-        if (AmountDeposited > 0 && MoneyManager.GetMoneyCount() >= AmountDeposited)
-        {
-            // Restar el dinero después de convertir la cantidad a int
-            MoneyManager.DeductMoney(Mathf.FloorToInt(AmountDeposited));  // O usar Mathf.RoundToInt
-            GameManager.Instance.AgregarIngreso(AmountDeposited);
-            UpdateSlider();
-            AmountMoneyToDeposit.value = 0;
-        }
-    }
-
-    public void UpdateSlider()
-    {
-        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount();
-        AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
-        AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
-        AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
-
-    }
     #endregion
 
-    // ---- METODOS PRIVADOS (BANCO)
-    #region
+    // ---- MÉTODOS PRIVADOS GENERALES ----
+    #region Métodos Privados
     private void UpdateUI()
     {
-        if (_isDepositSelected)
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
-            AmountDepositedTitleText.gameObject.SetActive(true);
-            DescriptionText.text = "En el banco puedes ingresar tu dinero.";
-            AmountMoneyToDeposit.gameObject.SetActive(true);
-            AmountToDepositText.gameObject.SetActive(true);
-            BeachHouseButton.SetActive(false);
-            AmountDepositedText.gameObject.SetActive(true);
-            AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
-            MoveButton.SetActive(false);
-            AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
-            UpdateSlider();
+            if (_isDepositSelected)
+            {
+                AmountDepositedTitleText.gameObject.SetActive(true);
+                DescriptionText.text = "En el banco puedes ingresar tu dinero.";
+                AmountMoneyToDeposit.gameObject.SetActive(true);
+                AmountToDepositText.gameObject.SetActive(true);
+                BeachHouseButton.SetActive(false);
+                AmountDepositedText.gameObject.SetActive(true);
+                AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
+                MoveButton.SetActive(false);
+                AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
+                UpdateSlider();
+            }
+            else if (_isMovingSelected)
+            {
+                AmountDepositedTitleText.gameObject.SetActive(false);
+                DescriptionText.text = "Selecciona la casa a la que deseas mudarte.";
+                AmountMoneyToDeposit.gameObject.SetActive(false);
+                AmountToDepositText.gameObject.SetActive(false);
+                BeachHouseButton.SetActive(true);
+                AmountDepositedText.gameObject.SetActive(false);
+                MoveButton.SetActive(false);
+            }
         }
-        else if (_isMovingSelected)
+
+        else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
-            AmountDepositedTitleText.gameObject.SetActive(false);
-            DescriptionText.text = "Selecciona la casa a la que deseas mudarte.";
-            AmountMoneyToDeposit.gameObject.SetActive(false);
-            AmountToDepositText.gameObject.SetActive(false);
-            BeachHouseButton.SetActive(true);
-            AmountDepositedText.gameObject.SetActive(false);
-            MoveButton.SetActive(false);
+            WateringCanButton.SetActive(_isUpgradeSelected);
+            GardenButton.SetActive(_isExtendSelected);
+            InventoryButton.SetActive(_isExtendSelected);
+            BuyButton.SetActive(_isSomethingSelected);
+            DescriptionText.text = "";
+            AmountOfUpgradesText.text = "";
         }
     }
 
     private void EnableInterfaz()
     {
         _uiActive = true;
-        BankUI.SetActive(true);
+        UI.SetActive(true);
         NpcMessage.SetActive(false);
         PlayerMovement.DisablePlayerMovement();
-        ButtonDepositPressed();
-        MovingButton.SetActive(true);
+
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
+        {
+            ButtonDepositPressed();
+            MovingButton.SetActive(true);
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
+        {
+            _isUpgradeSelected = true; // Siempre inicia en "Mejorar"
+            _isExtendSelected = false;
+            _isSomethingSelected = false;
+        }
     }
 
     private void DisableInterfaz()
     {
         _uiActive = false;
-        BankUI.SetActive(false);
+        UI.SetActive(false);
         NpcMessage.SetActive(true);
+        _isInNpcArea = true;
         PlayerMovement.EnablePlayerMovement();
     }
 
     private void ResetInterfaz()
     {
         NpcMessage.SetActive(false);
-        BankUI.SetActive(false);
+        UI.SetActive(false);
+
+        if (SceneManager.GetActiveScene().name == "Escena_Mejora")
+        {
+            BuyButton.SetActive(false);
+            WateringCanButton.SetActive(false);
+            GardenButton.SetActive(false);
+            InventoryButton.SetActive(false);
+            DescriptionText.text = "";
+            AmountOfUpgradesText.text = "";
+        }
     }
-    #endregion
 
     #endregion
 
+    // ---- BUILD ----
+    #region
 
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-
+    // ---- METODOS PUBLICOS (BUILD) ----
+    #region
     /// <summary>
-    /// Alterna la visibilidad del inventario y mueve la QuickAccessBar con él.
+    /// Metodo para saber si el inventario esta visible en pantalla
     /// </summary>
-    private void ToggleInventory()
+    /// <returns></returns>
+    public bool GetInventoryVisible()
     {
-        _isInventoryVisible = !_isInventoryVisible;
+        return _isInventoryVisible;
     }
 
     /// <summary>
@@ -419,7 +463,7 @@ public class UIManager : MonoBehaviour
         TextMeshProUGUI _units;
 
         // Muestra las semillas
-        for (int i = 0; i < (int)Items.Count/2; i++)
+        for (int i = 0; i < (int)Items.Count / 2; i++)
         {
             GameObject _crops = InventoryIcons.transform.GetChild(i).gameObject;
             if (InventoryManager.GetInventory(i) != 0)
@@ -432,13 +476,13 @@ public class UIManager : MonoBehaviour
         }
 
         // Muestra los cultivos
-        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++) 
+        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++)
         {
             if (InventoryManager.GetInventory(i) != 0)
             {
                 int actualSlot = 1; // El Slot actual que está estableciendo
                 bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
-                
+
                 while (actualSlot < 5 && !fullSlot)
                 {
                     GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
@@ -463,8 +507,239 @@ public class UIManager : MonoBehaviour
             }
             else InventoryIcons.transform.GetChild(i).gameObject.SetActive(false);
         }
-        
-    }
-        #endregion
 
-} // class InventoryUI
+    }
+    #endregion
+
+    // ---- METODOS PRIVADOS (BUILD) ----
+    #region
+    /// <summary>
+    /// Alterna la visibilidad del inventario y mueve la QuickAccessBar con él.
+    /// </summary>
+    private void ToggleInventory()
+    {
+        _isInventoryVisible = !_isInventoryVisible;
+    }
+    #endregion
+
+    #endregion
+
+    // ---- BANCO ----
+    #region
+
+    // ---- METODOS PUBLICOS (BANCO) ----
+    #region
+    /// <summary>
+    /// Metodo para actualizar la ui cuando se pulsa el boton depositar
+    /// </summary>
+    public void ButtonDepositPressed()
+    {
+        _isDepositSelected = true;
+        _isMovingSelected = false;
+        _isBeachHouseSelected = false;
+        UpdateUI();
+    }
+
+    /// <summary>
+    /// Metodo para actualizar la ui cuando se pulsa el boton mudanza
+    /// </summary>
+    public void ButtonMovingPressed()
+    {
+        _isDepositSelected = false;
+        _isMovingSelected = true;
+        _isBeachHouseSelected = false;
+        UpdateUI();
+    }
+
+    /// <summary>
+    /// Metodo para actualizar la ui cuando se pulsa el boton de la casa de la playa
+    /// </summary>
+    public void ButtonBeachHousePressed()
+    {
+        _isBeachHouseSelected = true;
+        DescriptionText.text = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
+        MoveButton.SetActive(true);
+    }
+
+    /// <summary>
+    /// Metodo para mudarse a la playa si tienes suficiente dinero en el banco
+    /// </summary>
+    public void ButtonMovePressed()
+    {
+        if (GameManager.Instance.GetTotalMoneyDeposited() >= 100000)
+        {
+            Debug.Log("Mudanza realizada con éxito.");
+            GameManager.Instance.DeductDepositedMoney(100000);
+
+        }
+        else
+        {
+            Debug.Log("No tienes suficiente dinero para mudarte.");
+        }
+    }
+
+    /// <summary>
+    /// Metodo para aceptar el dinero que quieres depositar en el banco y añadirlo
+    /// </summary>
+    public void ButtonAcceptPressed()
+    {
+        float AmountDeposited = AmountMoneyToDeposit.value;
+        if (AmountDeposited > 0 && MoneyManager.GetMoneyCount() >= AmountDeposited)
+        {
+            MoneyManager.DeductMoney(Mathf.FloorToInt(AmountDeposited));  // O usar Mathf.RoundToInt
+            GameManager.Instance.AgregarIngreso(AmountDeposited);
+            UpdateSlider();
+            AmountMoneyToDeposit.value = 0;
+        }
+    }
+
+    /// <summary>
+    /// Metodo para actualizar los valores del slider
+    /// </summary>
+    public void UpdateSlider()
+    {
+        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount();
+        AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
+        AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
+        AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
+
+    }
+    #endregion
+
+    // ---- METODOS PRIVADOS (BANCO)
+    #region
+    
+    #endregion
+
+    #endregion
+
+    // ---- MEJORA ----
+    #region
+
+    // ---- METODOS PUBLICOS (MEJORA) ----
+    #region
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Ampliar".
+    /// </summary>
+    public void ButtonExtendPressed()
+    {
+        _isUpgradeSelected = false;
+        _isExtendSelected = true;
+        _isSomethingSelected = false;
+        UpdateUI();
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Mejorar".
+    /// </summary>
+    public void ButtonUpgradePressed()
+    {
+        _isUpgradeSelected = true;
+        _isExtendSelected = false;
+        _isSomethingSelected = false;
+        UpdateUI();
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Regadera".
+    /// </summary>
+    public void ButtonWateringCanPressed()
+    {
+        _isWateringCanSelected = true;
+        _isGardenSelected = false;
+        _isInventorySelected = false;
+        _isSomethingSelected = true;
+
+        ShowDescription("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Huerto".
+    /// </summary>
+    public void ButtonGardenPressed()
+    {
+        _isWateringCanSelected = false;
+        _isGardenSelected = true;
+        _isInventorySelected = false;
+        _isSomethingSelected = true;
+
+        ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Inventory".
+    /// </summary>
+    public void ButtonInventoryPressed()
+    {
+        _isWateringCanSelected = false;
+        _isGardenSelected = false;
+        _isInventorySelected = true;
+        _isSomethingSelected = true;
+
+        ShowDescription("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Comprar".
+    /// </summary>
+    public void BuyUpgrade()
+    {
+        if (_isUpgradeSelected && _isSomethingSelected)
+        {
+            if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 1000) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
+            {
+                GameManager.Instance.UpgradeWateringCan();
+                ShowDescription("Aumenta la capacidad de agua por 5.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+            }
+            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
+            {
+                GameManager.Instance.UpgradeWateringCan();
+                ShowDescription("Aumenta la capacidad de agua por 10.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+            }
+            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
+            {
+                GameManager.Instance.UpgradeWateringCan();
+                ShowDescription("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+            }
+        }
+        else if (_isExtendSelected && _isSomethingSelected)
+        {
+            if (_isGardenSelected)
+            {
+                GameManager.Instance.MejorarHuerto();
+                ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+            }
+            else if (_isInventorySelected)
+            {
+                GameManager.Instance.MejorarInventario();
+                ShowDescription("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+            }
+        }
+    }
+
+    #endregion
+
+    // ---- METODOS PRIVADOS (MEJORA) ----
+    #region
+    /// <summary>
+    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
+    /// </summary>
+    private void ShowDescription(string text, int actualUpgrades, int maxUpgrades)
+    {
+        if (actualUpgrades >= maxUpgrades)
+        {
+            DescriptionText.text = "Ya no quedan más mejoras.";
+            BuyButton.SetActive(false);
+        }
+        else
+        {
+            DescriptionText.text = text;
+            BuyButton.SetActive(true);
+        }
+        AmountOfUpgradesText.text = actualUpgrades + "/" + maxUpgrades;
+    }
+    #endregion
+
+
+    #endregion
+} // class UIManager
