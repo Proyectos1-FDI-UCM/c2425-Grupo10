@@ -116,7 +116,7 @@ public class BancoInterfaz : MonoBehaviour
         {
             // Restar el dinero después de convertir la cantidad a int
             MoneyManager.DeductMoney(Mathf.FloorToInt(cantidadIngresada));  // O usar Mathf.RoundToInt
-            GameManager.Instance.AgregarIngreso(cantidadIngresada);
+            GameManager.Instance.AddIncome(cantidadIngresada);
             ActualizarSliderInversion();
             CantidadIngresar.value = 0;
         }

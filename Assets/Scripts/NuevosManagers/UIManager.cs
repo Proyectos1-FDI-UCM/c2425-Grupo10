@@ -587,7 +587,7 @@ public class UIManager : MonoBehaviour
         if (AmountDeposited > 0 && MoneyManager.GetMoneyCount() >= AmountDeposited)
         {
             MoneyManager.DeductMoney(Mathf.FloorToInt(AmountDeposited));  // O usar Mathf.RoundToInt
-            GameManager.Instance.AgregarIngreso(AmountDeposited);
+            GameManager.Instance.AddIncome(AmountDeposited);
             UpdateSlider();
             AmountMoneyToDeposit.value = 0;
         }

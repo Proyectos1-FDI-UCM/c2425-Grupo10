@@ -51,7 +51,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Referencia al script que maneja el dinero
     /// <summary>
-    [SerializeField] private MoneyManager ContadorDinero;
+    [SerializeField] private MoneyManager MoneyCount;
     /// <summary>
     /// Referencia al script que maneja la barra de agua
     /// <summary>
@@ -77,17 +77,17 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Numero de máximo de mejoras para la Regadera.
     /// <summary>
-    private int _maxMejorasRegadera = 3;
+    private int _maxWateringCanUpgrades = 3;
 
     /// <summary>
     /// Numero de máximo de mejoras para el Huerto.
     /// <summary>
-    private int _maxMejorasHuerto = 4;
+    private int _maxGardenUpgrades = 4;
 
     /// <summary>
     /// Numero de máximo de mejoras para el Inventory.
     /// <summary>
-    private int _maxMejorasInventario = 2;
+    private int _maxInventoryUpgrades = 2;
 
     /// <summary>
     /// Cantidad de agua de la regadera.
@@ -97,12 +97,12 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Array Inventory
     /// <summary>
-    private int[] _inventario = new int[10];
+    private int[] _inventory = new int[10];
 
     /// <summary>
     /// Array Inventory
     /// <summary>
-    private int DineroInvertido = 0;
+    private int _moneyInvested = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -154,12 +154,12 @@ public class GameManager : MonoBehaviour
         {
             InventoryManager.ModifyInventory(Items.Corn, 1);
         }
-        if (ContadorDinero == null)
+        if (MoneyCount == null)
         {
             GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
             if (ObjetoTexto != null)
             {
-                ContadorDinero = ObjetoTexto.GetComponent<MoneyManager>();
+                MoneyCount = ObjetoTexto.GetComponent<MoneyManager>();
             }
         }
         if (WateringCanManager == null)
@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void MejorarHuerto()
     {
-        if (GardenUpgrades < _maxMejorasHuerto)
+        if (GardenUpgrades < _maxGardenUpgrades)
         {
             GardenUpgrades++;
         }
@@ -262,7 +262,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void MejorarInventario()
     {
-        if (InventoryUpgrades < _maxMejorasInventario)
+        if (InventoryUpgrades < _maxInventoryUpgrades)
         {
             InventoryUpgrades++;
         }
@@ -273,70 +273,105 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void UpgradeWateringCan()
     {
-        if (WateringCanUpdates < _maxMejorasRegadera)
+        if (WateringCanUpdates < _maxWateringCanUpgrades)
         {
             WateringCanUpdates += 1;
         }
         if (WateringCanUpdates == 1)
         {
-            ContadorDinero.UpgradeWateringCanLevel1();
+            MoneyCount.UpgradeWateringCanLevel1();
         }
         else if (WateringCanUpdates == 2)
         {
-            ContadorDinero.UpgradeWateringCanLevel2();
+            MoneyCount.UpgradeWateringCanLevel2();
         }
         else if (WateringCanUpdates == 3)
         {
-            ContadorDinero.UpgradeWateringCanLevel3();
+            MoneyCount.UpgradeWateringCanLevel3();
         }
     }
 
-    public bool Cosechado()
+    /// <summary>
+    /// Indica si la cosecha ha sido realizada.
+    /// </summary>
+    /// <returns>Siempre devuelve true, indicando que la cosecha ha sido realizada.</returns>
+    public bool Harvested()
     {
-        bool _cosechado = true;
-        return _cosechado;
-    }
-    public int UpdateWaterAmount()
-    {
-        _amountWater = WateringCanManager.GetAmountWateringCan();
-        return _amountWater;
-        
+        bool _harvested = true; // Variable que indica que la cosecha ha sido realizada
+        return _harvested; // Retorna el estado de la cosecha
     }
 
-    private int ObtenerPrecioCultivo(string tipo)
+    /// <summary>
+    /// Actualiza y obtiene la cantidad de agua disponible en la regadera.
+    /// </summary>
+    /// <returns>La cantidad actual de agua disponible.</returns>
+    public int UpdateWaterAmount()
     {
-        switch (tipo)
+        _amountWater = WateringCanManager.GetAmountWateringCan(); // Obtiene la cantidad de agua de la regadera
+        return _amountWater; // Retorna la cantidad de agua
+
+    }
+
+    /// <summary>
+    /// Obtiene el precio de un cultivo basado en su tipo.
+    /// </summary>
+    /// <param name="_tipe">El tipo de cultivo (ej. "zanahoria", "lechuga").</param>
+    /// <returns>El precio del cultivo correspondiente.</returns>
+    private int GetCropPrice(string _tipe)
+    {
+        switch (_tipe) // Evalúa el tipo de cultivo
         {
             case "zanahoria": return 5;
             case "lechuga": return 3;
             case "fresa": return 7;
             case "maíz": return 4;
-            default: return 1;
+            default: return 1; // Precio por defecto para otros cultivos
         }
     }
 
+    /// <summary>
+    /// Devuelve la última cantidad de agua utilizada.
+    /// </summary>
+    /// <returns>La cantidad de agua más reciente.</returns>
     public int LastWaterAmount()
     {
         return _amountWater;
     }
 
-
+    /// <summary>
+    /// Devuelve el inventario de cultivos.
+    /// </summary>
+    /// <returns>Un array que representa el inventario de cultivos.</returns>
     public int[] Inventory()
     {
-        return _inventario;
+        return _inventory;
     }
 
-    public void AgregarIngreso(float inversion)
+    /// <summary>
+    /// Añade ingresos al dinero invertido del jugador.
+    /// </summary>
+    /// <param name="_investment">La cantidad de dinero a invertir.</param>
+    public void AddIncome(float _investment)
     {
-        DineroInvertido += Convert.ToInt32(inversion);
+        _moneyInvested += Convert.ToInt32(_investment); // Convierte y suma la inversión al dinero invertido
     }
-    public void DeductDepositedMoney(int inversion)
+
+    /// <summary>
+    /// Deduce una cantidad específica de dinero del total invertido.
+    /// </summary>
+    /// <param name="_investment">La cantidad de dinero a deducir.</param>
+    public void DeductDepositedMoney(int _investment)
     {
-        DineroInvertido -= inversion;
+        _moneyInvested -= _investment; // Resta la inversión del dinero invertido
     }
+
+    /// <summary>
+    /// Obtiene el total de dinero que ha sido depositado.
+    /// </summary>
+    /// <returns>El total de dinero invertido.</returns>
     public int GetTotalMoneyDeposited()
     {
-        return DineroInvertido;
+        return _moneyInvested;
     }
     #endregion
 
