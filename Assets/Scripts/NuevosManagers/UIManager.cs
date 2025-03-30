@@ -245,7 +245,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Numero maximo de mejoras del Inventario
     /// </summary>
-    private int _maxInventoryUpgrades = 3;
+    private int _maxInventoryUpgrades = 2;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -708,27 +708,27 @@ public class UIManager : MonoBehaviour
             {
                 if ((MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetGardenUpgrades() == 0))
                 {
-                    GameManager.Instance.MejorarHuerto();
+                    GameManager.Instance.UpgradeGarden();
                     ShowDescription("Expande el terreno de cultivos por 10.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetGardenUpgrades() == 1))
                 {
-                    GameManager.Instance.MejorarHuerto();
+                    GameManager.Instance.UpgradeGarden();
                     ShowDescription("Expande el terreno de cultivos por 15.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 15000) && (GameManager.Instance.GetGardenUpgrades() == 2))
                 {
-                    GameManager.Instance.MejorarHuerto();
+                    GameManager.Instance.UpgradeGarden();
                     ShowDescription("Expande el terreno de cultivos por 20.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 20000) && (GameManager.Instance.GetGardenUpgrades() == 3))
                 {
-                    GameManager.Instance.MejorarHuerto();
+                    GameManager.Instance.UpgradeGarden();
                     ShowDescription("Expande el terreno de cultivos por 30.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 30000) && (GameManager.Instance.GetGardenUpgrades() == 4))
                 {
-                    GameManager.Instance.MejorarHuerto();
+                    GameManager.Instance.UpgradeGarden();
                     ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
 

@@ -65,7 +65,7 @@ public class MejoraInterfaz : MonoBehaviour
     // Máximo de mejoras por objeto
     private int maxMejorasRegadera = 3;
     private int maxMejorasHuerto = 4;
-    private int maxMejorasInventario = 3;
+    private int maxMejorasInventario = 2;
   
 
     #endregion
@@ -230,7 +230,7 @@ public class MejoraInterfaz : MonoBehaviour
         {
             if (_seleccionHuerto)
             {
-                GameManager.Instance.MejorarHuerto();
+                GameManager.Instance.UpgradeGarden();
                 MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), maxMejorasHuerto);
             }
             else if (_seleccionInventario)

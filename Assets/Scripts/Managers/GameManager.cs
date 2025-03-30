@@ -36,7 +36,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Numero de mejoras activas de la Regadera.
     /// <summary>
-    [SerializeField] int WateringCanUpdates = 0;
+    [SerializeField] int WateringCanUpgrades = 0;
 
     /// <summary>
     /// Numero de mejoras activas del Huerto.
@@ -242,18 +242,34 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventory.
     /// <summary>
-    public int GetWateringCanUpgrades() { return WateringCanUpdates; }
+    public int GetWateringCanUpgrades() { return WateringCanUpgrades; }
     public int GetGardenUpgrades() { return GardenUpgrades; }
     public int GetInventoryUpgrades() { return InventoryUpgrades; }
 
     /// <summary>
     /// Metodo para aumentar +1 la mejora del Huerto.
     /// <summary>
-    public void MejorarHuerto()
+    public void UpgradeGarden()
     {
         if (GardenUpgrades < _maxGardenUpgrades)
         {
-            GardenUpgrades++;
+            GardenUpgrades += 1;
+        }
+        if (GardenUpgrades == 1)
+        {
+            MoneyCount.UpgradeGardenLevel1();
+        }
+        else if (GardenUpgrades == 2)
+        {
+            MoneyCount.UpgradeGardenLevel2();
+        }
+        else if (GardenUpgrades == 3)
+        {
+            MoneyCount.UpgradeGardenLevel3();
+        }
+        else if (GardenUpgrades == 4)
+        {
+            MoneyCount.UpgradeGardenLevel4();
         }
     }
 
@@ -264,7 +280,15 @@ public class GameManager : MonoBehaviour
     {
         if (InventoryUpgrades < _maxInventoryUpgrades)
         {
-            InventoryUpgrades++;
+            InventoryUpgrades += 1;
+        }
+        if (InventoryUpgrades == 1)
+        {
+            MoneyCount.UpgradeInventoryLevel1();
+        }
+        else if (InventoryUpgrades == 2)
+        {
+            MoneyCount.UpgradeInventoryLevel2();
         }
     }
 
@@ -273,19 +297,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void UpgradeWateringCan()
     {
-        if (WateringCanUpdates < _maxWateringCanUpgrades)
+        if (WateringCanUpgrades < _maxWateringCanUpgrades)
         {
-            WateringCanUpdates += 1;
+            WateringCanUpgrades += 1;
         }
-        if (WateringCanUpdates == 1)
+        if (WateringCanUpgrades == 1)
         {
             MoneyCount.UpgradeWateringCanLevel1();
         }
-        else if (WateringCanUpdates == 2)
+        else if (WateringCanUpgrades == 2)
         {
             MoneyCount.UpgradeWateringCanLevel2();
         }
-        else if (WateringCanUpdates == 3)
+        else if (WateringCanUpgrades == 3)
         {
             MoneyCount.UpgradeWateringCanLevel3();
         }

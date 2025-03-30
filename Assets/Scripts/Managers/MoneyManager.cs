@@ -28,6 +28,16 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     private int WateringCanLevel = 0;
 
+    /// <summary>
+    /// Nivel actual de mejora del huerto.
+    /// </summary>
+    private int GardenLevel = 0;
+
+    /// <summary>
+    /// Nivel actual de mejora del inventario.
+    /// </summary>
+    private int InventoryLevel = 0;
+
 
     [Header("Precios de Semillas")]
     /// <summary>
@@ -50,6 +60,7 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int StrawberrySeedPrice = 30;
 
+
     [Header("Precios de Venta de Plantas")]
     /// <summary>
     /// Precio de venta de la planta de maíz.
@@ -71,11 +82,26 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int StrawberryPlantPrice = 40;
 
+
     [Header("Precios de Mejora de Regadera")]
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
     /// </summary>
     [SerializeField] private int[] WateringCanUpgradePrices = { 1000, 5000, 10000 };
+
+
+    [Header("Precios de Mejora de Huerto")]
+    /// <summary>
+    /// Array con los precios de mejora de la regadera en cada nivel.
+    /// </summary>
+    [SerializeField] private int[] GardenUpgradePrices = { 5000, 10000, 15000, 20000, 30000 };
+
+
+    [Header("Precios de Mejora de Inventario")]
+    /// <summary>
+    /// Array con los precios de mejora de la regadera en cada nivel.
+    /// </summary>
+    [SerializeField] private int[] InventoryUpgradePrices = { 2000, 5000 };
 
     /// <summary>
     /// Referencia al GameManager del juego.
@@ -298,5 +324,58 @@ public class MoneyManager : MonoBehaviour
     public bool UpgradeWateringCanLevel1() => UpgradeWateringCan();
     public bool UpgradeWateringCanLevel2() => UpgradeWateringCan();
     public bool UpgradeWateringCanLevel3() => UpgradeWateringCan();
+
+    // ---- MÉTODOS PARA MEJORAR EL INVENTARIO ----
+
+    public bool UpgradeInventory()
+    {
+        if (InventoryLevel < InventoryUpgradePrices.Length)
+        {
+            int Price = InventoryUpgradePrices[InventoryLevel];
+
+            if (DeductMoney(Price))
+            {
+                InventoryLevel++;
+                Debug.Log("Inventario mejorado a nivel " + InventoryLevel);
+                return true;
+            }
+        }
+        else
+        {
+            Debug.Log("El inventario ya está al nivel máximo.");
+        }
+        return false;
+    }
+
+    public bool UpgradeInventoryLevel1() => UpgradeInventory();
+    public bool UpgradeInventoryLevel2() => UpgradeInventory();
+
+    // ---- MÉTODOS PARA MEJORAR EL INVENTARIO ----
+
+    public bool UpgradeGarden()
+    {
+        if (GardenLevel < GardenUpgradePrices.Length)
+        {
+            int Price = GardenUpgradePrices[GardenLevel];
+
+            if (DeductMoney(Price))
+            {
+                GardenLevel++;
+                Debug.Log("Huerto mejorado a nivel " + GardenLevel);
+                return true;
+            }
+        }
+        else
+        {
+            Debug.Log("El Huerto ya está al nivel máximo.");
+        }
+        return false;
+    }
+
+    public bool UpgradeGardenLevel1() => UpgradeGarden();
+    public bool UpgradeGardenLevel2() => UpgradeGarden();
+    public bool UpgradeGardenLevel3() => UpgradeGarden();
+    public bool UpgradeGardenLevel4() => UpgradeGarden();
+
 }
 
