@@ -86,7 +86,7 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     void Start()
     {
-        GardenManager.Active(transform, item); // Inicializa la Planta en GardenManager
+        GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
         _warning = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Warning("Water");

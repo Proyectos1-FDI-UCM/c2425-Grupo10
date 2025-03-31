@@ -1,102 +1,91 @@
 //---------------------------------------------------------
-// Este Script es un borrador provisional del Manager del Huerto que maneja todas las variables de todas las plantas del huerto
-// Julia Vera Ruiz
+// Maneja los cutlivos y sus procesos
+// Alexia Pérez Santana y Julia Vera
 // Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
-// Añadir aquí el resto de directivas using
-
-public struct Plant
-{
-    public Items Item;
-    public bool Active;
-    public float WaterTimer;
-    public float GrowthTimer;
-    public int State;
-    public Vector3 Position;
-    public int Child;
-
-    /* 
-
-     * Items - Tipo de cultivo
-     * ACTIVE - activa si TRUE, sin activar si FALSE
-     * WATERTIMER - La planta lleva WATERTIME tiempo sin ser regada
-     * GROWTHTIMER - El tiempo desde que cambió de fase
-     * STATE - La planta tiene n estados
-
-             * Semilla = 0
-             * Fase1 = 1
-             * Fase2 = 2
-             * Fase3 = 3
-             * MuerteFase1 = -1
-             * MuerteFase2 = -2
-             * MuerteFase3 = -3
-             
-     * POSITION - Posicion en el juego
-     * CHILD - Que hijo es la planta (Posicion en la carpeta)
-     
-    */
-}
+using UnityEngine.Tilemaps;
 
 /// <summary>
-/// GardenManager es una clase que sirve para guardar todos los valores de cada planta
+/// Este script gestiona los cultivos, 
+/// incluyendo el crecimiento, el regado, la muerte y sus avisos. 
 /// </summary>
-public static class GardenManager
+public class GardenManager : MonoBehaviour
 {
-    private static int GardenMax = 6; // Se cambia con cada mejora
-    private static Plant[] Garden = new Plant[GardenMax];
-    private static int ActivePlants = 0;
+    // ---- ATRIBUTOS DEL INSPECTOR ----
+    #region Atributos del Inspector (serialized fields)
 
-    static void Main()
+    /// <summary>
+    /// Carpeta con todas las posiciones en las que el jugador puede plantar
+    /// </summary>
+    [SerializeField] private GameObject PlantingSpots;
+
+    // Tiempo de marchitación en minutos
+    [SerializeField] private Timer timer;
+
+    #endregion
+
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
+
+    //// Tiempo desde el último riego
+    //private float _timeSinceLastWatering; 
+
+    Transform[] Plants;
+
+#endregion
+
+// ---- MÉTODOS DE MONOBEHAVIOUR ----
+#region Métodos de MonoBehaviour
+
+/// <summary>
+/// Start is called on the frame when a script is enabled just before 
+/// any of the Update methods are called the first time.
+/// </summary>
+void Start()
     {
-        for (int i = 0; i < GardenMax; i++)
-        {
-            Garden[i].Active = false;
-        }
 
+        Plants = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        for (int i = 0; i < PlantingSpots.transform.childCount; i++)
+        {
+            Plants[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+        }
     }
 
     /// <summary>
-    /// Activa una planta con los valores de transform de la planta y el tipo de cultivo
+    /// Update is called every frame, if the MonoBehaviour is enabled.
     /// </summary>
-    public static void Active(Transform transform, Items item)
+    void Update()
     {
-        Garden[ActivePlants].Position = transform.position;
-        Garden[ActivePlants].Active = true;
-        Garden[ActivePlants].Item = item;
-        Garden[ActivePlants].State = 1;
-        Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
-        Garden[ActivePlants].GrowthTimer = TimerData.GetMaxGrowthTime(item);
-        Garden[ActivePlants].WaterTimer = 0;
 
-        ActivePlants++;
-    }
-
-    /// <summary>
-    /// Desactiva una planta según su posición
-    /// </summary>
-    public static void Deactivate(Vector3 position)
-    {
-        int i = 0;
-        while (i < ActivePlants && Garden[i].Position != position)
+        for (int i = 0; i < GardenData.GetActivePlants(); i++)
         {
-            i++;
+            if (GardenData.GetPlant(i).Active)
+            {
+                //if (Timer.GetGameTimeInMinutes() - GardenData.GetPlant(i).WaterTimer == GardenData.GetMaxWaterTime)
+                //{
+                //    WaterWarning(GardenData.GetPlant(i));
+                //}
+                //else if (Timer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer == GardenData.GetMaxDeathTime)
+                //{
+                //    DeathWarning(GardenData.GetPlant(i));
+                //}
+
+                //if (Timer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer == GardenData.GetMaxGrowthTime)
+                //{
+                //    DeathWarning(GardenData.GetPlant(i));
+                //}
+            }
         }
 
-        if (Garden[i].Position == position)
-        {
-            Garden[i].Position = Vector3.zero;
-            Garden[i].Active = false;
-            Garden[i].State = 0;
-            Garden[i].WaterTimer = 0;
-            Garden[i].GrowthTimer = 0;
-            Garden[i].Child =
-
-            ActivePlants--;
-        }
     }
+
+    #endregion
+
+    // ---- MÉTODOS PÚBLICOS ----
+    #region Métodos públicos
 
     /// <summary>
     /// Riega: Modifica los valores de riego de una planta por su posición
@@ -104,15 +93,33 @@ public static class GardenManager
     public static void Water(Transform transform)
     {
         int i = 0;
-        while (i < ActivePlants && Garden[i].Position != transform.position)
+        while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
         {
             i++;
         }
 
-        if (Garden[i].Position == transform.position)
+        if (GardenData.GetPlant(i).Position == transform.position)
         {
-            Garden[i].WaterTimer = TimerData.GetMaxWaterTime(GardenManager.GetPlant(i).Item);
+            //GardenData.ModifyWaterTimer(i, Timer.GetGameTimeInMinutes());//GardenData.GetMaxWaterTime(GardenData.GetPlant(i).Item));
 
+        }
+    }
+
+    /// <summary>
+    /// Crece: Modifica los valores de crecimiento de una planta por su posición 
+    /// </summary>
+    public static void Grown(Transform transform)
+    {
+        int i = 0;
+        while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
+        {
+            i++;
+        }
+
+        if (GardenData.GetPlant(i).Position == transform.position)
+        {
+            GardenData.ModifyState(i, GardenData.GetPlant(i).State + 1);
+            //GardenData.ModifyGrowthTimer(i, Timer.GetGameTimeInMinutes());
         }
     }
 
@@ -122,75 +129,77 @@ public static class GardenManager
     public static void Harvest(Transform transform)
     {
         int i = 0;
-        while (i < ActivePlants && Garden[i].Position != transform.position)
+        while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
         {
             i++;
         }
 
-        if (Garden[i].Position == transform.position)
+        if (GardenData.GetPlant(i).Position == transform.position)
         {
-            Garden[i].Position = Vector3.zero;
-            Garden[i].Active = false;
-            Garden[i].State = 0;
-            Garden[i].WaterTimer = 0;
-            Garden[i].GrowthTimer = 0;
-            Garden[i].Child =
-
-            ActivePlants--;
-
+            GardenData.Deactivate(transform.position);
         }
 
     }
 
     /// <summary>
-    /// Crece: Modifica los valores de crecimiento de una planta por su posición 
+    /// Método para avisar del riego
     /// </summary>
-    public static void Grown(Transform transform)
+    public void WaterWarning(Plant plant)
     {
-        int i = 0;
-        while (i < ActivePlants && Garden[i].Position != transform.position)
-        {
-            i++;
-        }
+       Transform Crop = SearchPlant(plant);
 
-        if (Garden[i].Position == transform.position)
+        if (Crop != null) 
         {
-            Garden[i].State++;
-            Garden[i].GrowthTimer = TimerData.GetMaxGrowthTime(GardenManager.GetPlant(i).Item);
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            Call.Warning("Water");
         }
     }
 
     /// <summary>
-    /// Modifica el timer de Riego de una planta
+    /// Método para avisar del crecimiento
     /// </summary>
-    public static void ModifyWaterTimer(int i, float value)
+    public void GrowthWarning(Plant plant)
     {
-        Garden[i].WaterTimer += value;
+        int State = plant.State;
+        Transform Crop = SearchPlant(plant);
+
+        if (Crop != null)
+        {
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            Call.Growing(State);
+
+        }
     }
 
     /// <summary>
-    /// Modifica el timer de Crecimiento de una planta
+    /// Método para avisar de la muerte
     /// </summary>
-    public static void ModifyGrowthTimer(int i, float value)
+    public void DeathWarning(Plant plant)
     {
-        Garden[i].GrowthTimer += value;
+        Transform Crop = SearchPlant(plant);
+
+        if (Crop != null)
+        {
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            Call.Warning("Death");
+        }
     }
 
     /// <summary>
-    /// Devuelve el timer de Crecimiento de una planta
+    /// Método para buscar la posición de la planta correcta
     /// </summary>
-    public static Plant GetPlant(int i)
+    public Transform SearchPlant(Plant plant)
     {
-        return Garden[i];
-    }
 
-    /// <summary>
-    /// Modifica el timer de Crecimiento de una planta
-    /// </summary>
-    public static int GetActivePlants()
-    {
-        return ActivePlants;
-    }
+        Transform transform = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
+        return transform;
 
-} // class GardenManager 
-// namespace
+    }
+    #endregion
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+
+    #endregion   
+
+} // class TimerManager
