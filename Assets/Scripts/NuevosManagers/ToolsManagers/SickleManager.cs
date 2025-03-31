@@ -58,6 +58,22 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI TextPress;
 
+    /// <summary>
+    /// Carpeta con todas las posiciones en las que el jugador puede plantar
+    /// </summary>
+    [SerializeField] private GameObject PlantingSpots;
+
+    /// <summary>
+    /// Distancia mínima a la que debe estar el jugador del lugar disponible para plantar
+    /// </summary>
+    [SerializeField] private float InitialMinDistance;
+
+
+    ///<summary>
+    ///Referencia al CropSpriteEditor
+    /// </summary>
+    [SerializeField] private CropSpriteEditor cropSpriteEditor;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -73,6 +89,11 @@ public class SickleManager : MonoBehaviour
     ///Booleano para saber si estas colisionando con el crop
     /// </summary>
     private bool _isInCropArea = false;
+
+    /// <summary>
+    /// Array con el transform de todas los lugares disponibles para plantar
+    /// </summary>
+    private Transform[] Pots;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -116,7 +137,7 @@ public class SickleManager : MonoBehaviour
                 {
 
                     Harvest();
-
+                    HarvestPlant();
                 }
 
             }
@@ -151,14 +172,36 @@ public class SickleManager : MonoBehaviour
 
         Invoke("NotHarvest", 0.8f);
 
-        if (PlantEvolution != null && PlantEvolution.GetGrowthState() == 3)
-        {
+        Invoke("HarvestPlant", 1f); // Se realizan los cambios de recolección en la planta al terminar la animación
 
-            PlantEvolution.Harvest();
 
-        }
+        //if (PlantEvolution != null && PlantEvolution.GetGrowthState() == 3)
+        //{
+
+        //    PlantEvolution.Harvest();
+
+        //}
 
     }
+
+    /// <summary>
+    /// Método que realiza los cambios de cultivar
+    /// (Procesa la eliminación de las plantas) Al terminar la animación
+    /// </summary>
+    public void HarvestPlant()
+    {
+        Transform Plant = FindNearestPot(transform, Pots);
+
+        Debug.Log("FindNearestPot: " + Plant);
+
+        if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == 3)
+        {
+            CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
+            cropSpriteEditor.Harvest();
+        }
+    }
+
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -178,6 +221,33 @@ public class SickleManager : MonoBehaviour
 
         PlayerMovement.EnablePlayerMovement();
 
+    }
+
+    /// <summary>
+    /// Este método se llama cuando el jugador tiene seleccionada la azada y pulsa E
+    /// Busca cual es la planta para regar más cercano al jugador
+    /// </summary>
+    private Transform FindNearestPot(Transform Player, Transform[] Pots)
+    {
+        Debug.Log("FindNearestPot");
+
+        Transform NearestPot = null;
+
+        foreach (Transform pot in Pots)
+        {
+            float MinDistance = InitialMinDistance;
+            if (pot.childCount != 0) // Comprueba que hay planta en esta posición
+            {
+                float SqrDistance = (Player.position - pot.position).sqrMagnitude;
+                if (SqrDistance < MinDistance)
+                {
+                    MinDistance = SqrDistance;
+                    NearestPot = pot;
+                }
+            }
+        }
+
+        return NearestPot;
     }
     #endregion
 

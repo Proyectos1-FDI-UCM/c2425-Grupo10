@@ -50,6 +50,21 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI TextPress;
 
+    /// <summary>
+    /// Carpeta con todas las posiciones en las que el jugador puede plantar
+    /// </summary>
+    [SerializeField] private GameObject PlantingSpots;
+
+    /// <summary>
+    /// Distancia mínima a la que debe estar el jugador del lugar disponible para plantar
+    /// </summary>
+    [SerializeField] private float InitialMinDistance;
+
+    ///<summary>
+    ///Referencia al CropSpriteEditor
+    /// </summary>
+    [SerializeField] private CropSpriteEditor cropSpriteEditor;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -59,6 +74,11 @@ public class ShovelManager : MonoBehaviour
     /// Booleano para saber si estás colisionando con la planta
     /// </summary>
     private bool _isInWeedArea = false;
+
+    /// <summary>
+    /// Array con el transform de todas los lugares disponibles para plantar
+    /// </summary>
+    private Transform[] Pots;
 
     #endregion
 
@@ -125,9 +145,28 @@ public class ShovelManager : MonoBehaviour
         Invoke("NotWeeding", 0.8f);
         PlayerMovement.DisablePlayerMovement();
 
-        if (PlantEvolution != null)
+        Invoke("WeedingPlant", 1f); // Se realizan los cambios de recolección en la mala hierba al terminar la animación
+
+        //if (PlantEvolution != null)
+        //{
+        //    PlantEvolution.Harvest();
+        //}
+    }
+
+    /// <summary>
+    /// Método que realiza los cambios de desmalezar
+    /// (Procesa la eliminación de malas hierbas) Al terminar la animación
+    /// </summary>
+    public void WeedingPlant()
+    {
+        Transform Plant = FindNearestPot(transform, Pots);
+
+        Debug.Log("FindNearestPot: " + Plant);
+
+        if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == -4)
         {
-            PlantEvolution.Harvest();
+            CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
+            cropSpriteEditor.Harvest();
         }
     }
 
@@ -150,6 +189,32 @@ public class ShovelManager : MonoBehaviour
         PlayerMovement.EnablePlayerMovement();
     }
 
+    /// <summary>
+    /// Este método se llama cuando el jugador tiene seleccionada la regadera y pulsa E
+    /// Busca cual es la planta para regar más cercano al jugador
+    /// </summary>
+    private Transform FindNearestPot(Transform Player, Transform[] Pots)
+    {
+        Debug.Log("FindNearestPot");
+
+        Transform NearestPot = null;
+
+        foreach (Transform pot in Pots)
+        {
+            float MinDistance = InitialMinDistance;
+            if (pot.childCount != 0) // Comprueba que hay planta en esta posición
+            {
+                float SqrDistance = (Player.position - pot.position).sqrMagnitude;
+                if (SqrDistance < MinDistance)
+                {
+                    MinDistance = SqrDistance;
+                    NearestPot = pot;
+                }
+            }
+        }
+
+        return NearestPot;
+    }
     #endregion
 
     // ---- EVENTOS----

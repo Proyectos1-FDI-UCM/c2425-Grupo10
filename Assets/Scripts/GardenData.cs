@@ -33,6 +33,7 @@ public struct Plant
              * MuerteFase1 = -1
              * MuerteFase2 = -2
              * MuerteFase3 = -3
+             * Mala Hierba = -4
              
      * POSITION - Posicion en el juego
      * CHILD - Que hijo es la planta (Posicion en la carpeta)
@@ -139,7 +140,7 @@ public static class GardenData
     }
 
     /// <summary>
-    /// Modifica el timer de Crecimiento de una planta
+    /// Modifica el estado de una planta
     /// </summary>
     public static void ModifyState(int i, int State)
     {
@@ -147,7 +148,7 @@ public static class GardenData
     }
 
     /// <summary>
-    /// Devuelve el timer de Crecimiento de una planta
+    /// Devuelve la planta Plant, en la posición i del array
     /// </summary>
     public static Plant GetPlant(int i)
     {
@@ -155,7 +156,24 @@ public static class GardenData
     }
 
     /// <summary>
-    /// Modifica el timer de Crecimiento de una planta
+    /// Devuelve la planta Plant, en la posición i del array
+    /// </summary>
+    public static Plant GetPlant(Transform transform)
+    {
+        Plant Plant = new Plant();
+        bool Found = false;
+        int i = 0;
+        while (i < Garden.Length && !Found)
+        {
+            if (Garden[i].Position == transform.position) Found = true;
+           i++;
+        }
+        if (Found) Plant = Garden[i];
+        return Plant;
+    }
+
+    /// <summary>
+    /// Devuelve el numero (int) de plantas activas
     /// </summary>
     public static int GetActivePlants()
     {

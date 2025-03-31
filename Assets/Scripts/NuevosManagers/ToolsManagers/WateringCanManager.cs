@@ -52,11 +52,9 @@ public class WateringCanManager : MonoBehaviour
     [SerializeField] private UIManager UiManager;
 
     ///<summary>
-    ///Referencia al PlantaEvolucion
+    ///Referencia al CropSpriteEditor
     /// </summary>
     [SerializeField] private CropSpriteEditor cropSpriteEditor; 
-
-    
 
     ///<summary>
     ///PrefabAvisoRiego
@@ -72,8 +70,6 @@ public class WateringCanManager : MonoBehaviour
     ///Texto Boton
     /// </summary>
     [SerializeField] private TextMeshProUGUI TextPress;
-
-
 
     ///<summary>
     ///Posición exacta del pozo
@@ -301,14 +297,16 @@ public class WateringCanManager : MonoBehaviour
 
             GameManager.Instance.UpdateWaterAmount();
 
-            Invoke("WaterPlant", 1f);
-
-            this.gameObject.SetActive(false);
+            Invoke("WaterPlant", 1f); // Se realizan los cambios de riego en la planta al terminar la animación
 
         }
 
     }
 
+    /// <summary>
+    /// Método que realiza los cambios del riego
+    /// (Procesa los cambios en la planta) Al terminar la animación
+    /// </summary>
     private void WaterPlant()
     {
             Transform Plant = FindNearestPot(transform, Pots);
