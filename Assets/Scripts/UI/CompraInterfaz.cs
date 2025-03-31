@@ -171,32 +171,29 @@ public class CompraInterfaz : MonoBehaviour
 
         if (moneyCount.GetMoneyCount() >= totalPrecio)
         {
+            moneyCount.DeductMoney(totalPrecio); // Resta el dinero correctamente
 
             // Actualiza el inventario según el tipo de semilla seleccionada
-            if (_isMaizSelected) 
+            if (_isMaizSelected)
             {
-                moneyCount.BuyCornSeed();
                 _inventario[0] += _cantidadAComprar;
-
             }
-            if (_isLechugaSelected) 
+            if (_isLechugaSelected)
             {
-                moneyCount.BuyLettuceSeed();
                 _inventario[1] += _cantidadAComprar;
             }
-            if (_isZanahoriaSelected) 
+            if (_isZanahoriaSelected)
             {
-                moneyCount.BuyCarrotSeed();
                 _inventario[2] += _cantidadAComprar;
             }
             if (_isFresasSelected)
             {
-                moneyCount.BuyStrawberrySeed();
                 _inventario[3] += _cantidadAComprar;
             }
 
             DescripcionTexto.text = "Compra realizada con éxito.";
         }
+
         else
         {
             DescripcionTexto.text = "No tienes suficiente dinero.";  // Mensaje si no hay dinero suficiente
