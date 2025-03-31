@@ -774,4 +774,15 @@ public class UIManager : MonoBehaviour
 
 
     #endregion
+
+    // ---- COMPRA ----
+    #region
+
+    // ---- METODOS PUBLICOS (COMPRA)
+    #region
+
+    #endregion
+
+
+    #endregion
 } // class UIManager

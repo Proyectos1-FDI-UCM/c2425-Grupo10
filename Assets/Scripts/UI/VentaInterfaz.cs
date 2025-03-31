@@ -229,15 +229,16 @@ public class VentaInterfaz : MonoBehaviour
     {
         if (actual >= max)
         {
-            DescripcionTexto.text = "Ya no tienes más cultivos para vender.";
-            VenderButton.SetActive(false);
+            DescripcionTexto.text = "No tienes cultivos para vender.";
+            VenderButton.SetActive(true);
         }
         else
         {
             DescripcionTexto.text = "TOTAL: " + actual * coste + "RC";
             VenderButton.SetActive(true);
+            ContadorTexto.text = actual + "/" + max;
+
         }
-        ContadorTexto.text = actual + "/" + max;
     }
 
     /// <summary>
