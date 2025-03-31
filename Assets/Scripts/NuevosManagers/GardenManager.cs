@@ -22,9 +22,10 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject PlantingSpots;
 
-    // Tiempo de marchitación en minutos
-    [SerializeField] private Timer timer;
-
+    /// <summary>
+    /// Timer que converte el tiempo de juego en tiempo real
+    /// </summary>
+    [SerializeField] private Timer gameTimer;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -60,24 +61,28 @@ void Start()
     void Update()
     {
 
-        for (int i = 0; i < GardenData.GetActivePlants(); i++)
+        for (int i = 0; i <= GardenData.GetActivePlants(); i++)
         {
             if (GardenData.GetPlant(i).Active)
             {
-                //if (Timer.GetGameTimeInMinutes() - GardenData.GetPlant(i).WaterTimer == GardenData.GetMaxWaterTime)
-                //{
-                //    WaterWarning(GardenData.GetPlant(i));
-                //}
-                //else if (Timer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer == GardenData.GetMaxDeathTime)
+                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) == GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)))
+                {
+                    Debug.Log("EnteredRiego");
+                    WaterWarning(GardenData.GetPlant(i));
+                }
+                //else if (gameTimer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)))
                 //{
                 //    DeathWarning(GardenData.GetPlant(i));
                 //}
 
-                //if (Timer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer == GardenData.GetMaxGrowthTime)
-                //{
-                //    DeathWarning(GardenData.GetPlant(i));
-                //}
+                if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer == GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)))
+                {
+                    Debug.Log("EnteredGrowth");
+                    GrowthWarning(GardenData.GetPlant(i));
+                }
+                Debug.Log(GardenData.GetPlant(i).WaterTimer);
             }
+            
         }
 
     }
@@ -90,8 +95,9 @@ void Start()
     /// <summary>
     /// Riega: Modifica los valores de riego de una planta por su posición
     /// </summary>
-    public static void Water(Transform transform)
+    public void Water(Transform transform)
     {
+        Debug.LogError("WaterWarning");
         int i = 0;
         while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
         {
@@ -100,7 +106,11 @@ void Start()
 
         if (GardenData.GetPlant(i).Position == transform.position)
         {
-            //GardenData.ModifyWaterTimer(i, Timer.GetGameTimeInMinutes());//GardenData.GetMaxWaterTime(GardenData.GetPlant(i).Item));
+            GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());//GardenData.GetMaxWaterTime(GardenData.GetPlant(i).Item));
+            if (GardenData.GetPlant(i).State == 1)
+            {
+                GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
+            }
 
         }
     }
@@ -108,7 +118,7 @@ void Start()
     /// <summary>
     /// Crece: Modifica los valores de crecimiento de una planta por su posición 
     /// </summary>
-    public static void Grown(Transform transform)
+    public void Grown(Transform transform)
     {
         int i = 0;
         while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
@@ -119,14 +129,14 @@ void Start()
         if (GardenData.GetPlant(i).Position == transform.position)
         {
             GardenData.ModifyState(i, GardenData.GetPlant(i).State + 1);
-            //GardenData.ModifyGrowthTimer(i, Timer.GetGameTimeInMinutes());
+            GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
         }
     }
 
     /// <summary>
     /// Cultiva: Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
     /// </summary>
-    public static void Harvest(Transform transform)
+    public void Harvest(Transform transform)
     {
         int i = 0;
         while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
@@ -146,6 +156,7 @@ void Start()
     /// </summary>
     public void WaterWarning(Plant plant)
     {
+        Debug.Log("WateringWarning");
        Transform Crop = SearchPlant(plant);
 
         if (Crop != null) 
@@ -160,6 +171,7 @@ void Start()
     /// </summary>
     public void GrowthWarning(Plant plant)
     {
+        Debug.Log("GrowthWarning");
         int State = plant.State;
         Transform Crop = SearchPlant(plant);
 
@@ -168,7 +180,9 @@ void Start()
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
             Call.Growing(State);
 
+
         }
+        Grown(PlantingSpots.transform.GetChild(plant.Child).transform);
     }
 
     /// <summary>

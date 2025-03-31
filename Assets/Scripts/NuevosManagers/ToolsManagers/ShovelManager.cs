@@ -60,10 +60,10 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     [SerializeField] private float InitialMinDistance;
 
-    ///<summary>
-    ///Referencia al CropSpriteEditor
+    /// <summary>
+    /// GardenManager, para llamar al método Watering
     /// </summary>
-    [SerializeField] private CropSpriteEditor cropSpriteEditor;
+    [SerializeField] private GardenManager gardenManager;
 
     #endregion
 
@@ -79,6 +79,11 @@ public class ShovelManager : MonoBehaviour
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
     private Transform[] Pots;
+
+    ///<summary>
+    ///Referencia al CropSpriteEditor
+    /// </summary>
+    private CropSpriteEditor cropSpriteEditor;
 
     #endregion
 
@@ -147,10 +152,6 @@ public class ShovelManager : MonoBehaviour
 
         Invoke("WeedingPlant", 1f); // Se realizan los cambios de recolección en la mala hierba al terminar la animación
 
-        //if (PlantEvolution != null)
-        //{
-        //    PlantEvolution.Harvest();
-        //}
     }
 
     /// <summary>
@@ -166,7 +167,8 @@ public class ShovelManager : MonoBehaviour
         if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == -4)
         {
             CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
-            cropSpriteEditor.Harvest();
+            cropSpriteEditor.Warning("Deactivate"); 
+            //gameManager
         }
     }
 

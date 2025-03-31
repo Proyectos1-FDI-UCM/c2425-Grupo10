@@ -29,7 +29,15 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Animator PlayerAnimator;
 
+    ///<summary>
+    /// Cantidad Actual de Agua en la regadera
+    /// </summary>
+    [SerializeField] private int _waterAmount = 6;
 
+    ///<summary>
+    ///Cantidad maxima de Agua en la regadera
+    /// </summary>
+    [SerializeField] private int _maxWaterAmount;
 
     ///<summary> 
     ///Referencia al SelectorManager
@@ -49,12 +57,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary> 
     /// Referencia al InventoryUI
     /// </summary>
-    [SerializeField] private UIManager UiManager;
-
-    ///<summary>
-    ///Referencia al CropSpriteEditor
-    /// </summary>
-    [SerializeField] private CropSpriteEditor cropSpriteEditor; 
+    [SerializeField] private UIManager UiManager; 
 
     ///<summary>
     ///PrefabAvisoRiego
@@ -86,6 +89,11 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private float InitialMinDistance;
 
+    /// <summary>
+    /// GardenManager, para llamar al método Watering
+    /// </summary>
+    [SerializeField] private GardenManager gardenManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -98,15 +106,9 @@ public class WateringCanManager : MonoBehaviour
     // Ejemplo: _maxHealthPoints
 
     ///<summary>
-    /// Cantidad Actual de Agua en la regadera
+    ///Referencia al CropSpriteEditor
     /// </summary>
-    [SerializeField]  private int _waterAmount = 6;
-
-    ///<summary>
-    ///Cantidad maxima de Agua en la regadera
-    /// </summary>
-    [SerializeField]  private int _maxWaterAmount;
-
+    private CropSpriteEditor cropSpriteEditor;
 
 
     ///<summary>
@@ -309,6 +311,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private void WaterPlant()
     {
+        Debug.Log("WateringCan");
             Transform Plant = FindNearestPot(transform, Pots);
 
             Debug.Log("FindNearestPot: " + Plant);
@@ -316,8 +319,9 @@ public class WateringCanManager : MonoBehaviour
             if (Plant != null) 
             {
                 CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
-                cropSpriteEditor.Watering();
-            }
+                cropSpriteEditor.Warning("Deactivate");
+                gardenManager.Water(transform);
+        }
     }
 
     /// <summary>

@@ -68,10 +68,10 @@ public static class GardenData
 
     private static CropVariables[] CropsData =
 {
-    new CropVariables { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
-    new CropVariables { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
-    new CropVariables { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 },
-    new CropVariables { MaxWaterTime = 1000, MaxGrowthTime = 1000, MaxDeathTime = 3000 }
+    new CropVariables { MaxWaterTime = 1, MaxGrowthTime = 1, MaxDeathTime = 2},
+    new CropVariables { MaxWaterTime = 2, MaxGrowthTime = 2, MaxDeathTime = 2 },
+    new CropVariables { MaxWaterTime = 2, MaxGrowthTime = 2, MaxDeathTime = 2 },
+    new CropVariables { MaxWaterTime = 2, MaxGrowthTime = 2, MaxDeathTime = 2 }
     };
 
     static void Main()
@@ -130,6 +130,7 @@ public static class GardenData
     {
         Garden[i].WaterTimer += value;
     }
+
 
     /// <summary>
     /// Modifica el timer de Crecimiento de una planta
@@ -208,6 +209,7 @@ public static class GardenData
     {
         return CropsData[(int)item / 2].MaxGrowthTime;
     }
+
 
 } // class GardenManager 
 // namespace

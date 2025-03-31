@@ -156,25 +156,6 @@ public class CropSpriteEditor : MonoBehaviour
     }
 
     /// <summary>
-    /// Desactiva los avisos de riego y modifica los valores 
-    /// </summary>
-    public void Watering()
-    {
-        Warning("Deactivate");
-        GardenManager.Water(transform); // Modifica el timer riego
-    }
-
-    /// <summary>
-    /// Desactiva los avisos de cosecha y modifica los valores 
-    /// </summary>
-    public void Harvest()
-    {
-        Warning("Deactivate");
-        GardenManager.Harvest(transform);
-        Destroy(gameObject);
-    }
-
-    /// <summary>
     /// Modifica los valores de crecimiento
     /// </summary>
     public void Growing(int state)
@@ -182,9 +163,8 @@ public class CropSpriteEditor : MonoBehaviour
         if (state == 1) State("State2");
         else if (state == 2) State("State3");
         else if (state == 3) State("State4");
-        GardenManager.Grown(transform); // Modifica el timer de crecimiento
+        //Grown(transform); // Modifica el timer de crecimiento
     }
-
 
     #endregion
 

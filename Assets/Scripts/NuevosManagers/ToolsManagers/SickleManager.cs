@@ -68,11 +68,10 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     [SerializeField] private float InitialMinDistance;
 
-
-    ///<summary>
-    ///Referencia al CropSpriteEditor
+    /// <summary>
+    /// GardenManager, para llamar al método Watering
     /// </summary>
-    [SerializeField] private CropSpriteEditor cropSpriteEditor;
+    [SerializeField] private GardenManager gardenManager;
 
     #endregion
 
@@ -94,6 +93,11 @@ public class SickleManager : MonoBehaviour
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
     private Transform[] Pots;
+
+    ///<summary>
+    ///Referencia al CropSpriteEditor
+    /// </summary>
+    private CropSpriteEditor cropSpriteEditor;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -174,14 +178,6 @@ public class SickleManager : MonoBehaviour
 
         Invoke("HarvestPlant", 1f); // Se realizan los cambios de recolección en la planta al terminar la animación
 
-
-        //if (PlantEvolution != null && PlantEvolution.GetGrowthState() == 3)
-        //{
-
-        //    PlantEvolution.Harvest();
-
-        //}
-
     }
 
     /// <summary>
@@ -197,7 +193,9 @@ public class SickleManager : MonoBehaviour
         if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == 3)
         {
             CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
-            cropSpriteEditor.Harvest();
+            cropSpriteEditor.Warning("Deactivate");
+            gardenManager.Harvest(transform);
+
         }
     }
 
