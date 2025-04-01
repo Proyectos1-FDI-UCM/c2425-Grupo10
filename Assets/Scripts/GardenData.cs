@@ -43,9 +43,9 @@ public struct Plant
 
 public struct CropVariables
 {
-    public int MaxWaterTime;
-    public int MaxGrowthTime;
-    public int MaxDeathTime;
+    public float MaxWaterTime;
+    public float MaxGrowthTime;
+    public float MaxDeathTime;
 
     /*
      
@@ -69,10 +69,10 @@ public static class GardenData
 
     private static CropVariables[] CropsData =
 {
-    new CropVariables { MaxWaterTime = 1, MaxGrowthTime = 1, MaxDeathTime = 2},
-    new CropVariables { MaxWaterTime = 2, MaxGrowthTime = 2, MaxDeathTime = 2 },
-    new CropVariables { MaxWaterTime = 2, MaxGrowthTime = 2, MaxDeathTime = 2 },
-    new CropVariables { MaxWaterTime = 2, MaxGrowthTime = 2, MaxDeathTime = 2 }
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 1f, MaxDeathTime = 2f},
+    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
+    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
+    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f }
     };
 
     static void Main()
@@ -94,13 +94,8 @@ public static class GardenData
         Garden[ActivePlants].Item = item;
         Garden[ActivePlants].State = 1;
         Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
-        Garden[ActivePlants].GrowthTimer = GardenData.GetMaxGrowthTime(item);
-        //   Garden[ActivePlants].WaterTimer = 0;
-        // CAMBIO IRIA PROVISIONAL
-        //  Garden[ActivePlants].WaterTimer = GardenData.GetMaxWaterTime(item);
-        
+        Garden[ActivePlants].GrowthTimer = 0;
 
-        // CAMBIO IRIA PROVISIONAL
         ActivePlants++;
     }
 
@@ -133,7 +128,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyWaterTimer(int i, float value)
     {
-        Garden[i].WaterTimer += value;
+        Garden[i].WaterTimer = value;
     }
 
 
@@ -142,7 +137,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyGrowthTimer(int i, float value)
     {
-        Garden[i].GrowthTimer += value;
+        Garden[i].GrowthTimer = value;
     }
 
     /// <summary>
@@ -192,27 +187,27 @@ public static class GardenData
     /// Método que devuelve el tiempo de riego para un Item
     /// </summary>
     /// <param name="item"></param>
-    public static int GetMaxWaterTime(Items item)
+    public static float GetMaxWaterTime(Items item)
     {
-        return CropsData[(int)item / 2].MaxWaterTime;
+        return CropsData[(int)item / ((int)Items.Count / 2)].MaxWaterTime;
     }
 
     /// <summary>
     /// Método que devuelve el tiempo de muerte para un Item
     /// </summary>
     /// <param name="item"></param>
-    public static int GetMaxDeathTime(Items item)
+    public static float GetMaxDeathTime(Items item)
     {
-        return CropsData[(int)item / 2].MaxDeathTime;
+        return CropsData[(int)item / ((int)Items.Count/2)].MaxDeathTime;
     }
 
     /// <summary>
     /// Método que devuelve el tiempo de crecimiento para un Item
     /// </summary>
     /// <param name="item"></param>
-    public static int GetMaxGrowthTime(Items item)
+    public static float GetMaxGrowthTime(Items item)
     {
-        return CropsData[(int)item / 2].MaxGrowthTime;
+        return CropsData[(int)item / ((int)Items.Count / 2)].MaxGrowthTime;
     }
 
 

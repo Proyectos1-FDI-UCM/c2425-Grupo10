@@ -172,7 +172,7 @@ public class SelectorManager : MonoBehaviour
 
             SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
 
-            if (_wasSeedsSelected)_currentSeed++; // Si se vuelva a presionar, cambia de semilla
+            if (_wasSeedsSelected) _currentSeed++; // Si se vuelva a presionar, cambia de semilla
             _wasSeedsSelected = true;
 
             if (_currentSeed >= SeedsQAB.Length) _currentSeed = 0; // Vuelve a la primera

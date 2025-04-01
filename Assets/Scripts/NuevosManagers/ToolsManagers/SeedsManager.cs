@@ -54,6 +54,8 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     [SerializeField] private float InitialMinDistance;
 
+    [SerializeField] private GardenManager gardenManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -109,6 +111,8 @@ public class SeedsManager : MonoBehaviour
             {
                 GameObject Plant = Instantiate(Prefab, Pot.position, Quaternion.identity);
                 Plant.transform.SetParent(Pot);
+
+                gardenManager.Init(); 
             }
         }
     }
@@ -129,10 +133,10 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     public void ChangeSeed(int Seed)
     {
-        if (Seed == 0) Prefab = PrefabSeeds0;
-        else if (Seed == 1) Prefab = PrefabSeeds1;
-        else if (Seed == 2) Prefab = PrefabSeeds2;
-        else if (Seed == 3) Prefab = PrefabSeeds3;
+        if (Seed == (int)Items.CornSeed) Prefab = PrefabSeeds0;
+        else if (Seed == (int)Items.LetuceSeed) Prefab = PrefabSeeds1;
+        else if (Seed == (int)Items.CarrotSeed) Prefab = PrefabSeeds2;
+        else if (Seed == (int)Items.StrawberrySeed) Prefab = PrefabSeeds3;
 
 
     }

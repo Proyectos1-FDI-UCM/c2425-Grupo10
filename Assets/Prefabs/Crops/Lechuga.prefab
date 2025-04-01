@@ -131,6 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a79e91ebe3cb754d88e0685964190e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameTimer: {fileID: 0}
   PlantStage1: {fileID: 314861495, guid: c2a33677e0ccb2e4e8dcf7a5e772b937, type: 3}
   PlantStage2: {fileID: 2002670243, guid: c2a33677e0ccb2e4e8dcf7a5e772b937, type: 3}
   PlantStage3: {fileID: -1526353013, guid: c2a33677e0ccb2e4e8dcf7a5e772b937, type: 3}
@@ -142,7 +143,7 @@ MonoBehaviour:
   WarningWater: {fileID: 1074837354, guid: fd4bd83c3b54bfe459e1dc4580fc4d98, type: 3}
   WarningDeath: {fileID: -805847104, guid: ae84c9cb5ed80f84a96900b3e92c7836, type: 3}
   WarningCollect: {fileID: -1188545654, guid: fd4bd83c3b54bfe459e1dc4580fc4d98, type: 3}
-  item: 4
+  item: 5
 --- !u!212 &4887488748166579377
 SpriteRenderer:
   m_ObjectHideFlags: 0

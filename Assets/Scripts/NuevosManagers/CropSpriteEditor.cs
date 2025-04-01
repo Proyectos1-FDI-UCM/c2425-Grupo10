@@ -87,13 +87,8 @@ public class CropSpriteEditor : MonoBehaviour
     void Start()
     {
         GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
-                                            //CAMBIOS IRIA PROVISIONALES
-        for (int i = 0; i <= GardenData.GetActivePlants(); i++)
-        {
-            GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
-        }
-        //CAMBIOS IRIA PROVISIONALES
-        _warning = transform.GetChild(0).GetComponent<SpriteRenderer>();
+
+        _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Warning("Water");
     }
