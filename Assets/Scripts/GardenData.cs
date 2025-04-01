@@ -62,6 +62,7 @@ public struct CropVariables
 /// </summary>
 public static class GardenData
 {
+
     private static int GardenMax = 6; // Se cambia con cada mejora
     private static Plant[] Garden = new Plant[GardenMax];
     private static int ActivePlants = 0;
@@ -94,8 +95,12 @@ public static class GardenData
         Garden[ActivePlants].State = 1;
         Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
         Garden[ActivePlants].GrowthTimer = GardenData.GetMaxGrowthTime(item);
-        Garden[ActivePlants].WaterTimer = 0;
+        //   Garden[ActivePlants].WaterTimer = 0;
+        // CAMBIO IRIA PROVISIONAL
+        //  Garden[ActivePlants].WaterTimer = GardenData.GetMaxWaterTime(item);
+        
 
+        // CAMBIO IRIA PROVISIONAL
         ActivePlants++;
     }
 

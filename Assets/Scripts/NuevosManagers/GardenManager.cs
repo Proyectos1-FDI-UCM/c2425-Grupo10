@@ -45,14 +45,14 @@ public class GardenManager : MonoBehaviour
 /// Start is called on the frame when a script is enabled just before 
 /// any of the Update methods are called the first time.
 /// </summary>
-void Start()
+    void Start() 
     {
 
-        Plants = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
-        for (int i = 0; i < PlantingSpots.transform.childCount; i++)
-        {
-            Plants[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
-        }
+            Plants = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+            for (int i = 0; i < PlantingSpots.transform.childCount; i++)
+            {
+                Plants[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+            }
     }
 
     /// <summary>
@@ -60,15 +60,19 @@ void Start()
     /// </summary>
     void Update()
     {
-
+        Debug.Log("GAMETIME" + gameTimer.GetGameTimeInHours());
         for (int i = 0; i <= GardenData.GetActivePlants(); i++)
         {
             if (GardenData.GetPlant(i).Active)
             {
-                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) == GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)))
+               
+                //Debug.Log("GAMETIME" + gameTimer.GetGameTimeInHours());
+                Debug.Log("WATERINGTIME" + GardenData.GetPlant(i).WaterTimer);
+                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)))
                 {
-                    Debug.Log("EnteredRiego");
+                    Debug.Log("EnceredRiego");
                     WaterWarning(GardenData.GetPlant(i));
+                    // PROBAR CON <= SI NO VA EL DEBUG
                 }
                 //else if (gameTimer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)))
                 //{
@@ -80,7 +84,7 @@ void Start()
                     Debug.Log("EnteredGrowth");
                     GrowthWarning(GardenData.GetPlant(i));
                 }
-                Debug.Log(GardenData.GetPlant(i).WaterTimer);
+                //Debug.Log(GardenData.GetPlant(i).WaterTimer);
             }
             
         }

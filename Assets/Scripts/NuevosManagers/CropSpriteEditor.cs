@@ -22,7 +22,7 @@ public class CropSpriteEditor : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-
+    [SerializeField] private Timer gameTimer;
     /// <summary>
     /// Sprites de Estados de las Plantas Vivas
     /// </summary>
@@ -87,6 +87,12 @@ public class CropSpriteEditor : MonoBehaviour
     void Start()
     {
         GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
+                                            //CAMBIOS IRIA PROVISIONALES
+        for (int i = 0; i <= GardenData.GetActivePlants(); i++)
+        {
+            GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+        }
+        //CAMBIOS IRIA PROVISIONALES
         _warning = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
         Warning("Water");
