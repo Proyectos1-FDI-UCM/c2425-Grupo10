@@ -162,10 +162,12 @@ public class SelectorManager : MonoBehaviour
     {
         if (InputManager.Instance.Select5WasPressedThisFrame())
         {
-            Debug.Log(_currentSeed);
-            if (_wasSeedsSelected) Debug.Log("Seeds was already selected");
+            SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
+            if (SeedTool.activeInHierarchy) _currentSeed++;
+            if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
+            
 
-                PlayerAnimator.SetBool("HasWateringCan", false);
+            PlayerAnimator.SetBool("HasWateringCan", false);
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
@@ -175,9 +177,9 @@ public class SelectorManager : MonoBehaviour
 
             SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
 
-            _currentSeed++; // Si se vuelva a presionar, cambia de semilla
+            //if (SeedTool.activeInHierarchy) _currentSeed++; 
             
-            if (_currentSeed == SeedsQAB.Length) _currentSeed = 0; // Vuelve a la primera
+           // if (_currentSeed == SeedsQAB.Length) _currentSeed = 0; 
             
             ShowSeedSelected();
 
