@@ -137,8 +137,6 @@ public class SeedsManager : MonoBehaviour
         else if (Seed == (int)Items.LetuceSeed) Prefab = PrefabSeeds1;
         else if (Seed == (int)Items.CarrotSeed) Prefab = PrefabSeeds2;
         else if (Seed == (int)Items.StrawberrySeed) Prefab = PrefabSeeds3;
-
-
     }
 
     #endregion

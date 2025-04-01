@@ -148,8 +148,10 @@ public class SelectorManager : MonoBehaviour
         _spriteRenderer = SeedTool.GetComponent<SpriteRenderer>();
 
         _currentSeed = 0; // Aparece la semilla primera semilla del array por defecto 
-
-        if(SeedsQAB.Length > 0 && _spriteRenderer != null) ShowSeedSelected();
+        SeedsQAB[1].SetActive(false);
+        SeedsQAB[2].SetActive(false);
+        SeedsQAB[3].SetActive(false); // Desactivar semilla actual
+        if (SeedsQAB.Length > 0 && _spriteRenderer != null) ShowSeedSelected();
         _wasSeedsSelected = false;
     }
 
@@ -160,24 +162,26 @@ public class SelectorManager : MonoBehaviour
     {
         if (InputManager.Instance.Select5WasPressedThisFrame())
         {
-           // if (WasBeforeSelected(SeedTool)) _currentSeed++; // Si anteriormente no estaba seleccionada la herramienta de semilla no pasa a la siguiente
+            Debug.Log(_currentSeed);
+            if (_wasSeedsSelected) Debug.Log("Seeds was already selected");
 
-            PlayerAnimator.SetBool("HasWateringCan", false);
+                PlayerAnimator.SetBool("HasWateringCan", false);
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
             LevelManager.Instance.ChangeTool(5);
             
-            //Respecto al cambio de semillas: 
+            //Cambio de semillas
 
             SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
 
-            if (_wasSeedsSelected) _currentSeed++; // Si se vuelva a presionar, cambia de semilla
-            _wasSeedsSelected = true;
+            _currentSeed++; // Si se vuelva a presionar, cambia de semilla
+            
+            if (_currentSeed == SeedsQAB.Length) _currentSeed = 0; // Vuelve a la primera
+            
+            ShowSeedSelected();
 
-            if (_currentSeed >= SeedsQAB.Length) _currentSeed = 0; // Vuelve a la primera
-
-            ShowSeedSelected(); 
+            //Cambio de semillas
         }
 
         if (InputManager.Instance.Select4WasPressedThisFrame())
