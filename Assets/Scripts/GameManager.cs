@@ -61,6 +61,10 @@ public class GameManager : MonoBehaviour
     /// Referencia al script que maneja la cantidad de agua
     /// <summary>
     [SerializeField] private WateringCanManager WateringCanManager;
+    ///<summary>
+    /// Ref al GardenManager
+    /// </summary>
+    [SerializeField] private GardenManager GardenManager;   
 
 
     #endregion
@@ -160,6 +164,14 @@ public class GameManager : MonoBehaviour
             if (ObjetoTexto != null)
             {
                 MoneyCount = ObjetoTexto.GetComponent<MoneyManager>();
+            }
+        }
+        if (GardenManager == null)
+        {
+            GameObject ObjetoGarden = GameObject.FindGameObjectWithTag("GardenManager");
+            if (ObjetoGarden != null)
+            {
+                GardenManager = ObjetoGarden.GetComponent<GardenManager>();
             }
         }
         if (WateringCanManager == null)

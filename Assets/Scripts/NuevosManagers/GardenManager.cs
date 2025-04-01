@@ -31,6 +31,38 @@ public class GardenManager : MonoBehaviour
     /// Timer que converte el tiempo de juego en tiempo real
     /// </summary>
     [SerializeField] private Timer gameTimer;
+
+    /// <summary>
+    /// Mejora 0 del huerto
+    /// </summary>
+    [SerializeField] private GameObject GardenLevel0;
+
+    /// <summary>
+    /// Mejora 1 del huerto
+    /// </summary>
+    [SerializeField] private GameObject GardenLevel1;
+
+    /// <summary>
+    /// Mejora 2 del huerto
+    /// </summary>
+    [SerializeField] private GameObject GardenLevel2;
+
+    /// <summary>
+    /// Mejora 3 del huerto
+    /// </summary>
+    [SerializeField] private GameObject GardenLevel3;
+
+    /// <summary>
+    /// Mejora 3 del huerto
+    /// </summary>
+    [SerializeField] private GameObject GardenLevel4;
+
+    /// <summary>
+    /// Ref al gamemanager
+    /// </summary>
+    [SerializeField] private GameManager GameManager;
+
+    
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -41,7 +73,17 @@ public class GardenManager : MonoBehaviour
 
     Transform[] Plants;
 
-#endregion
+    /// <summary>
+    /// Array con los tamaños de huerto
+    /// </summary>
+    private int[] GardenSize = { 6, 12, 18, 24, 36 };
+
+    ///<summary>
+    /// Mejora Actual
+    /// </summary>
+    [SerializeField] private int UpgradeLevel;
+
+    #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
@@ -50,21 +92,17 @@ public class GardenManager : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-        void Start() 
-        {
-
-                Plants = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
-                for (int i = 0; i < PlantingSpots.transform.childCount; i++)
-                {
-                    Plants[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
-                }
-        }
+    void Start() 
+    {
+           UpgradeLevel = GameManager.GetGardenUpgrades();
+           SetUpgrade(UpgradeLevel);
+    }
 
         /// <summary>
         /// Update is called every frame, if the MonoBehaviour is enabled.
         /// </summary>
-        void Update()
-        {
+    void Update()
+    {
         //Debug.Log("GAMETIME" + gameTimer.GetGameTimeInHours());
         Timer = gameTimer.GetGameTimeInHours();
 
@@ -88,8 +126,8 @@ public class GardenManager : MonoBehaviour
                     Debug.Log("EnteredRiego");
                     WaterWarning(GardenData.GetPlant(i));
                 }
-                
-                
+
+
                 //else if (gameTimer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)))
                 //{
                 //    DeathWarning(GardenData.GetPlant(i));
@@ -98,8 +136,24 @@ public class GardenManager : MonoBehaviour
 
             }
         }
-            
+        if (GameManager == null)
+        {
+            GameObject ObjetoGameManager = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoGameManager != null)
+            {
+                GameManager = ObjetoGameManager.GetComponent<GameManager>();
+            }
         }
+        if (gameTimer == null)
+        {
+            GameObject ObjetoGameManager = GameObject.FindGameObjectWithTag("GameManager");
+            if (ObjetoGameManager != null)
+            {
+                gameTimer = ObjetoGameManager.GetComponent<Timer>();
+            }
+        }
+
+    }
 
         
 
@@ -243,11 +297,104 @@ public class GardenManager : MonoBehaviour
         GardenData.ModifyWaterTimer(GardenData.GetActivePlants(), gameTimer.GetGameTimeInHours());
         GardenData.ModifyGrowthTimer(GardenData.GetActivePlants(), gameTimer.GetGameTimeInHours());
     }
+
+    public void SetUpgrade(int Level)
+    {
+        if (Level == 0)
+        {
+            GardenLevel0.SetActive(true);
+
+            Plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = 0; i <= GardenSize[UpgradeLevel]; i++)
+            {
+                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
+            }
+
+            GardenLevel1.SetActive(false);
+            GardenLevel2.SetActive(false);
+            GardenLevel3.SetActive(false);
+            GardenLevel4.SetActive(false);
+
+        }
+        else if (Level == 1)
+        {
+            GardenLevel1.SetActive(true);
+
+            Plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = GardenSize[UpgradeLevel - 1] + 1; i <= GardenSize[UpgradeLevel]; i++)
+            {
+                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
+            }
+
+            GardenLevel0.SetActive(false);
+            GardenLevel2.SetActive(false);
+            GardenLevel3.SetActive(false);
+            GardenLevel4.SetActive(false);
+
+        }
+        else if (Level == 2)
+        {
+            GardenLevel2.SetActive(true);
+
+            Plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = GardenSize[UpgradeLevel - 1] + 1; i <= GardenSize[UpgradeLevel]; i++)
+            {
+                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
+            }
+
+            GardenLevel0.SetActive(false);
+            GardenLevel1.SetActive(false);
+            GardenLevel3.SetActive(false);
+            GardenLevel4.SetActive(false);
+
+
+        }
+        else if (Level == 3)
+        {
+            GardenLevel3.SetActive(true);
+
+            Plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = GardenSize[UpgradeLevel - 1] + 1; i <= GardenSize[UpgradeLevel]; i++)
+            {
+                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
+            }
+
+            GardenLevel0.SetActive(false);
+            GardenLevel1.SetActive(false);
+            GardenLevel2.SetActive(false);
+            GardenLevel4.SetActive(false);
+
+
+        }
+        else if (Level == 4)
+        {
+            GardenLevel4.SetActive(true);
+
+            Plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = GardenSize[UpgradeLevel-1] + 1; i <= GardenSize[UpgradeLevel]; i++)
+            {
+                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
+            }
+
+            GardenLevel0.SetActive(false);
+            GardenLevel1.SetActive(false);
+            GardenLevel2.SetActive(false);
+            GardenLevel3.SetActive(false);
+
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
 
-    #endregion   
+    ///<summary>
+    ///Mertodo para inicializar el huerto
+    /// </summary>
+    private void InitGarden()
+    {
+        SetUpgrade(GameManager.GetGardenUpgrades());
+    }
+    #endregion
 
 } // class TimerManager
