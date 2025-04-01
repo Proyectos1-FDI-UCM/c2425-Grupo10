@@ -176,19 +176,19 @@ public class CompraInterfaz : MonoBehaviour
             // Actualiza el inventario según el tipo de semilla seleccionada
             if (_isMaizSelected)
             {
-                _inventario[0] += _cantidadAComprar;
+                InventoryManager.ModifyInventory(Items.CornSeed, _cantidadAComprar);
             }
             if (_isLechugaSelected)
             {
-                _inventario[1] += _cantidadAComprar;
+                InventoryManager.ModifyInventory(Items.LetuceSeed, _cantidadAComprar);
             }
             if (_isZanahoriaSelected)
             {
-                _inventario[2] += _cantidadAComprar;
+                InventoryManager.ModifyInventory(Items.CarrotSeed, _cantidadAComprar);
             }
             if (_isFresasSelected)
             {
-                _inventario[3] += _cantidadAComprar;
+                InventoryManager.ModifyInventory(Items.StrawberrySeed, _cantidadAComprar);
             }
 
             DescripcionTexto.text = "Compra realizada con éxito.";
