@@ -33,6 +33,11 @@ public class VentaInterfaz : MonoBehaviour
     [SerializeField] private PlayerMovement PlayerMovement;
     [SerializeField] private MoneyManager ContadorDinero;
 
+    [SerializeField] private TextMeshProUGUI TextoCantidadMaiz;
+    [SerializeField] private TextMeshProUGUI TextoCantidadLechuga;
+    [SerializeField] private TextMeshProUGUI TextoCantidadZanahoria;
+    [SerializeField] private TextMeshProUGUI TextoCantidadFresa;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -64,6 +69,7 @@ public class VentaInterfaz : MonoBehaviour
     {
         ResetInterfaz();
         _inventario = GameManager.Instance.Inventory();
+        ActualizarCantidadUI(); // Llamamos al iniciar para que muestre los valores correctos
     }
 
     /// <summary>
@@ -153,19 +159,29 @@ public class VentaInterfaz : MonoBehaviour
         ActualizarTextoCantidad();
     }
 
+
     public void AumentarCantidad()
     {
-        _cantidadAVender++;
-        ActualizarTextoCantidad();
-    }
+        int maxCantidad = 0;
 
-    public void DisminuirCantidad()
-    {
-        if (_cantidadAVender > 1)
+        if (_isMaizSelected) maxCantidad = InventoryManager.GetInventory(Items.Corn);
+        else if (_isLechugaSelected) maxCantidad = InventoryManager.GetInventory(Items.Letuce);
+        else if (_isZanahoriaSelected) maxCantidad = InventoryManager.GetInventory(Items.Carrot);
+        else if (_isFresasSelected) maxCantidad = InventoryManager.GetInventory(Items.Strawberry);
+
+        if (_cantidadAVender < maxCantidad)
         {
-            _cantidadAVender--;
+            _cantidadAVender++;
             ActualizarTextoCantidad();
         }
+    }
+
+    public void ActualizarCantidadUI()
+    {
+        TextoCantidadMaiz.text = "x" + InventoryManager.GetInventory(Items.Corn);
+        TextoCantidadLechuga.text = "x" + InventoryManager.GetInventory(Items.Letuce);
+        TextoCantidadZanahoria.text = "x" + InventoryManager.GetInventory(Items.Carrot);
+        TextoCantidadFresa.text = "x" + InventoryManager.GetInventory(Items.Strawberry);
 
     }
 
@@ -173,42 +189,67 @@ public class VentaInterfaz : MonoBehaviour
     /// <summary>
     /// Metodo para cuando el jugador pulsa el boton "Vender".
     /// </summary>
-
     public void ButtonVenderPressed()
     {
         _isVenderPressed = true;
         Debug.Log("Vender presionado");
 
-        int[] i = VentaManager.Instance.VenderArray();
+        int cantidadDisponible = 0;
+        int precioUnitario = 0;
+
         if (_isMaizSelected)
         {
-            _coste = 90;
-            MostrarDescripcion(i[0], _inventario[4], _coste);
-            ContadorDinero.SellCorn(_cantidadAVender); // Llamar al método correcto
-            _isMaizSelected = false;
+            cantidadDisponible = InventoryManager.GetInventory(Items.Corn);
+            precioUnitario = 90;
         }
-        if (_isLechugaSelected)
+        else if (_isLechugaSelected)
         {
-            _coste = 20;
-            MostrarDescripcion(i[1], _inventario[5], _coste);
-            ContadorDinero.SellLettuce(_cantidadAVender); // Llamar al método correcto
-            _isLechugaSelected = false;
+            cantidadDisponible = InventoryManager.GetInventory(Items.Letuce);
+            precioUnitario = 20;
         }
-        if (_isZanahoriaSelected)
+        else if (_isZanahoriaSelected)
         {
-            _coste = 65;
-            MostrarDescripcion(i[2], _inventario[6], _coste);
-            ContadorDinero.SellCarrot(_cantidadAVender); // Llamar al método correcto
-            _isZanahoriaSelected = false;
+            cantidadDisponible = InventoryManager.GetInventory(Items.Carrot);
+            precioUnitario = 65;
         }
-        if (_isFresasSelected)
+        else if (_isFresasSelected)
         {
-            _coste = 40;
-            MostrarDescripcion(i[3], _inventario[7], _coste);
-            ContadorDinero.SellStrawberry(_cantidadAVender); // Llamar al método correcto
-            _isFresasSelected = false;
+            cantidadDisponible = InventoryManager.GetInventory(Items.Strawberry);
+            precioUnitario = 40;
         }
+
+        // Si no hay cultivos disponibles, mostrar mensaje y salir
+        if (cantidadDisponible <= 0)
+        {
+            DescripcionTexto.text = "No tienes cultivos de este tipo para vender.";
+            return;
+        }
+
+        // Verifica que no intente vender más de los que tiene
+        if (_cantidadAVender > cantidadDisponible)
+        {
+            _cantidadAVender = cantidadDisponible;
+        }
+
+        // Realizar la venta
+        int totalGanado = _cantidadAVender * precioUnitario;
+        ContadorDinero.AddMoney(totalGanado);
+
+        // Restar del inventario
+        InventoryManager.ModifyInventorySubstract(
+            _isMaizSelected ? Items.Corn :
+            _isLechugaSelected ? Items.Letuce :
+            _isZanahoriaSelected ? Items.Carrot :
+            Items.Strawberry, _cantidadAVender
+        );
+
+        DescripcionTexto.text = $"Has vendido {_cantidadAVender} por {totalGanado} RC.";
+        _cantidadAVender = 1; // Reiniciar cantidad
+        ActualizarTextoCantidad();
+
+        ActualizarCantidadUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
     }
+
 
 
     #endregion
