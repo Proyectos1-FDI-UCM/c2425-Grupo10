@@ -92,7 +92,7 @@ public class GardenManager : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start() 
+    void Awake() 
     {
            UpgradeLevel = GameManager.GetGardenUpgrades();
            SetUpgrade(UpgradeLevel);
@@ -151,6 +151,11 @@ public class GardenManager : MonoBehaviour
             {
                 gameTimer = ObjetoGameManager.GetComponent<Timer>();
             }
+        }
+        if (GameManager.GetGardenUpgrades() > UpgradeLevel)
+        {
+            UpgradeLevel++;
+            SetUpgrade(UpgradeLevel);
         }
 
     }
