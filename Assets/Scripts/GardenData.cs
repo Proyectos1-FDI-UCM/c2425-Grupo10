@@ -92,7 +92,7 @@ public static class GardenData
         Garden[ActivePlants].Position = transform.position;
         Garden[ActivePlants].Active = true;
         Garden[ActivePlants].Item = item;
-        Garden[ActivePlants].State = 1;
+        Garden[ActivePlants].State = 0;
         Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
         Garden[ActivePlants].GrowthTimer = 0;
 
@@ -157,7 +157,7 @@ public static class GardenData
     }
 
     /// <summary>
-    /// Devuelve la planta Plant, en la posición i del array
+    /// Devuelve la planta Plant, en la posición transform
     /// </summary>
     public static Plant GetPlant(Transform transform)
     {

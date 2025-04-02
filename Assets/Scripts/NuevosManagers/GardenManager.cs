@@ -105,7 +105,6 @@ public class GardenManager : MonoBehaviour
         /// </summary>
     void Update()
     {
-        //Debug.Log("GAMETIME" + gameTimer.GetGameTimeInHours());
         Timer = gameTimer.GetGameTimeInHours();
 
         for (int i = 0; i < GardenData.GetActivePlants(); i++)
@@ -117,15 +116,25 @@ public class GardenManager : MonoBehaviour
                 GrowthTimer = gameTimer.GetGameTimeInHours();
                 WaterTimer = gameTimer.GetGameTimeInHours();
 
+                if(GardenData.GetPlant(i).State == 0)
+                {
+                    GardenData.ModifyState(i, GardenData.GetPlant(i).State + 1);
+                    GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
+                }
+
                 if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)))
                 {
-                    Debug.Log("EnteredGrowth");
+                    //Debug.Log("EnteredGrowth");
                     GrowthWarning(GardenData.GetPlant(i), i);
                 }
 
-                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)))
+                if (GardenData.GetPlant(i).State > 3)
                 {
-                    Debug.Log("EnteredRiego");
+                    HarvestWarning(GardenData.GetPlant(i));
+                }
+                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)))
+                {
+                    //Debug.Log("EnteredWatering");
                     WaterWarning(GardenData.GetPlant(i));
                 }
 
@@ -167,29 +176,10 @@ public class GardenManager : MonoBehaviour
 
         if (GardenData.GetPlant(i).Position == transform.position)
         {
-            GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());//GardenData.GetMaxWaterTime(GardenData.GetPlant(i).Item));
-            Debug.Log("WaterTimer: " + GardenData.GetPlant(i).WaterTimer);
-            Debug.Log("GrowthTimer: " + GardenData.GetPlant(i).GrowthTimer);
+            GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+            //Debug.Log("WaterTimer: " + GardenData.GetPlant(i).WaterTimer);
+            //Debug.Log("GrowthTimer: " + GardenData.GetPlant(i).GrowthTimer);
 
-        }
-    }
-
-    /// <summary>
-    /// Crece: Modifica los valores de crecimiento de una planta por su posición 
-    /// </summary>
-    public void Grown(Transform transform)
-    {
-        int i = 0;
-        while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
-        {
-            i++;
-        }
-
-        if (GardenData.GetPlant(i).Position == transform.position)
-        {
-            GardenData.ModifyState(i, GardenData.GetPlant(i).State + 1);
-            GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
-            Debug.Log("GrowthTimer: " + GardenData.GetPlant(i).GrowthTimer);
         }
     }
 
@@ -247,16 +237,15 @@ public class GardenManager : MonoBehaviour
     public void GrowthWarning(Plant plant, int ArrayIndex)
     {
         Debug.Log("Plant Growing");
-        int State = plant.State;
         Transform Crop = SearchPlant(plant);
 
-        GardenData.ModifyState(ArrayIndex, GardenData.GetPlant(ArrayIndex).State + 1);
+        GardenData.ModifyState(ArrayIndex, plant.State + 1);
         GardenData.ModifyGrowthTimer(ArrayIndex, gameTimer.GetGameTimeInHours());
 
         if (Crop != null)
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
-            Call.Growing(State);
+            Call.Growing(plant.State);
 
         }
     }
@@ -272,6 +261,20 @@ public class GardenManager : MonoBehaviour
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
             Call.Warning("Death");
+        }
+    }
+
+    /// <summary>
+    /// Método para avisar de la muerte
+    /// </summary>
+    public void HarvestWarning(Plant plant)
+    {
+        Transform Crop = SearchPlant(plant);
+
+        if (Crop != null)
+        {
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            Call.Warning("Harvest");
         }
     }
 

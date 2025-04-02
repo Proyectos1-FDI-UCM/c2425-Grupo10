@@ -306,15 +306,21 @@ public class WateringCanManager : MonoBehaviour
     private void WaterPlant()
     {
         Debug.Log("WateringCan");
-            Transform Plant = FindNearestPot(transform, Pots).transform.GetChild(0);
+        Transform Pot = FindNearestPot(transform, Pots);
 
-            Debug.Log("FindNearestPot: " + Plant);
+        Debug.Log("FindNearestPot: " + Pot);
 
-            if (Plant != null) 
+        if (Pot != null)
+        {
+            Transform Plant = Pot.transform.GetChild(0);
+
+            if (Plant != null)
             {
-                CropSpriteEditor cropSpriteEditor = Plant.transform.GetComponent<CropSpriteEditor>();
+
+                CropSpriteEditor cropSpriteEditor = Plant.GetComponent<CropSpriteEditor>();
                 cropSpriteEditor.Warning("Desactivate");
-                GardenManager.Water(Plant.transform);
+                GardenManager.Water(Pot.transform);
+            }
         }
     }
 

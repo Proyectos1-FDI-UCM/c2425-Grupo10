@@ -88,13 +88,13 @@ public static class InventoryManager
     {
         if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
         {
-            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] -= quantity;
             else Debug.Log("InventarioInsuficiente");
             return true;
         }
         else // Es una semilla
         {
-            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] -= quantity;
             else Debug.Log("InventarioInsuficiente");
             return false;
         }
@@ -125,12 +125,12 @@ public static class InventoryManager
     {
         if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
         {
-            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] -= quantity;
             else Debug.Log("InventarioInsuficiente");
         }
         else // Es una semilla
         {
-            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] -= quantity;
             else Debug.Log("InventarioInsuficiente");
         }
     }

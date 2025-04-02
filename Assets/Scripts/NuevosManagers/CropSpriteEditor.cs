@@ -123,42 +123,10 @@ public class CropSpriteEditor : MonoBehaviour
             _warning.enabled = true;
             _warning.sprite = WarningDeath;
         }
-        if (Type == "Collect")
+        if (Type == "Harvest")
         {
             _warning.enabled = true;
             _warning.sprite = WarningCollect;
-        }
-    }
-
-    /// <summary>
-    /// Cambia los sprites 
-    /// </summary>
-    public void State(string Type)
-    {
-        if (Type == "State1")
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage1;
-        }
-        if (Type == "State2")
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage2;
-        }
-        if (Type == "State3")
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage3;
-        }
-        if (Type == "State4")
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage4;
-        }
-        if (Type == "State-4")
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStageWeeds;
         }
     }
 
@@ -167,9 +135,31 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     public void Growing(int state)
     {
-        if (state == 1) State("State2");
-        else if (state == 2) State("State3");
-        else if (state == 3) State("State4");
+        if (state == 0) 
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage1;
+        }
+        else if (state == 1)
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage2;
+        }
+        else if (state == 2)
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage3;
+        }
+        else if (state == 3)
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStage4;
+        }
+        else if (state == -4)
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStageWeeds;
+        }
         //Grown(transform); // Modifica el timer de crecimiento
     }
 
