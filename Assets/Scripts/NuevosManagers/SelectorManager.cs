@@ -121,8 +121,6 @@ public class SelectorManager : MonoBehaviour
     /// Referencia al SpriteRenderer
     /// </summary>
     private SpriteRenderer _spriteRenderer;
-
-    private bool _wasSeedsSelected;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -143,16 +141,18 @@ public class SelectorManager : MonoBehaviour
         ToggleTool(GlovesTool);
         DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
 
-        //Selector de semillas:
+        //Selector de semillas
 
         _spriteRenderer = SeedTool.GetComponent<SpriteRenderer>();
 
         _currentSeed = 0; // Aparece la semilla primera semilla del array por defecto 
-        SeedsQAB[1].SetActive(false);
-        SeedsQAB[2].SetActive(false);
-        SeedsQAB[3].SetActive(false); // Desactivar semilla actual
+        for (int i = 1; i < SeedsQAB.Length; i++)
+        {
+            SeedsQAB[i].SetActive(false);
+        }
+
         if (SeedsQAB.Length > 0 && _spriteRenderer != null) ShowSeedSelected();
-        _wasSeedsSelected = false;
+        //Selector de semillas
     }
 
     /// <summary>
@@ -192,7 +192,6 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            _wasSeedsSelected = false;
         }
 
         if (InputManager.Instance.Select1WasPressedThisFrame())
@@ -201,7 +200,6 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            _wasSeedsSelected = false;
         }
 
         if (InputManager.Instance.Select2WasPressedThisFrame())
@@ -210,7 +208,6 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
-            _wasSeedsSelected = false;
         }
 
         if (InputManager.Instance.Select3WasPressedThisFrame())
@@ -219,7 +216,6 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
-            _wasSeedsSelected = false;
         }
     }
     #endregion
