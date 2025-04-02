@@ -190,13 +190,14 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     public void HarvestPlant()
     {
-        Transform Plant = FindNearestPot(transform, Pots);
+        Transform Pot = FindNearestPot(transform, Pots);
 
-        Debug.Log("FindNearestPot: " + Plant);
-        Debug.Log(GardenData.GetPlant(Plant.GetChild(0).transform).State);
+        Debug.Log("FindNearestPot: " + Pot);
+        Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);
 
-        if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == 3)
+        if (Pot != null && GardenData.GetPlant(Pot.transform).State == 3)
         {
+            Transform Plant = Pot.transform.GetChild(0); 
             CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
             cropSpriteEditor.Warning("Desactivate");
             GardenManager.Harvest(transform);
