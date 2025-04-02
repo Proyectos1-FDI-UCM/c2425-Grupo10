@@ -94,8 +94,10 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     void Awake() 
     {
-           UpgradeLevel = GameManager.GetGardenUpgrades();
-           SetUpgrade(UpgradeLevel);
+        InitializeReferences();
+        GameManager.InitializeGardenManager();
+        UpgradeLevel = GameManager.GetGardenUpgrades();
+        SetUpgrade(UpgradeLevel);
     }
 
         /// <summary>
@@ -134,22 +136,6 @@ public class GardenManager : MonoBehaviour
                 //}
 
 
-            }
-        }
-        if (GameManager == null)
-        {
-            GameObject ObjetoGameManager = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoGameManager != null)
-            {
-                GameManager = ObjetoGameManager.GetComponent<GameManager>();
-            }
-        }
-        if (gameTimer == null)
-        {
-            GameObject ObjetoGameManager = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoGameManager != null)
-            {
-                gameTimer = ObjetoGameManager.GetComponent<Timer>();
             }
         }
         if (GameManager.GetGardenUpgrades() > UpgradeLevel)
@@ -411,6 +397,21 @@ public class GardenManager : MonoBehaviour
     private void InitGarden()
     {
         SetUpgrade(GameManager.GetGardenUpgrades());
+    }
+
+    ///<summary>
+    ///Metodo para inicializar referencias
+    /// </summary>
+    private void InitializeReferences()
+    {
+        if (GameManager == null)
+        {
+            GameManager = FindObjectOfType<GameManager>();
+        }
+        if (gameTimer == null)
+        {
+            gameTimer = FindObjectOfType<Timer>();
+        }
     }
     #endregion
 

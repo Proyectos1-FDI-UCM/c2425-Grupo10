@@ -25,7 +25,7 @@ public class UIManager : MonoBehaviour
     #region Atributos del Inspector
 
 
-    [Header("UI de Mercado Comunes")]
+    [Header("UI Comunes")]
     ///<summary>
     ///Pop up del npc cuando te acercas para interactuar con el
     /// </summary>
@@ -40,6 +40,21 @@ public class UIManager : MonoBehaviour
     /// Texto donde pone la descripcion de lo que va a hacer el jugador en la interfaz
     /// </summary>
     [SerializeField] private TextMeshProUGUI DescriptionText;
+
+    /// <summary>
+    /// Texto para escribir el dinero en pantalla
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI MoneyText;
+
+    ///<summary>
+    ///Ref al PlayerMovement
+    /// </summary>
+    [SerializeField] private PlayerMovement PlayerMovement;
+
+    /// <summary>
+    /// Ref al moneymanager
+    /// </summary>
+    [SerializeField] private MoneyManager MoneyManager;
 
 
     [Header("UI de BUILD")]
@@ -57,16 +72,6 @@ public class UIManager : MonoBehaviour
     /// Ref a los Iconos del Inventory
     /// </summary>
     [SerializeField] private GameObject InventoryIcons;
-
-    ///<summary>
-    ///Ref al PlayerMovement
-    /// </summary>
-    [SerializeField] private PlayerMovement PlayerMovement;
-
-    /// <summary>
-    /// Ref al moneymanager
-    /// </summary>
-    [SerializeField] private MoneyManager MoneyManager;
 
 
     [Header("UI del Banco")]
@@ -265,12 +270,15 @@ public class UIManager : MonoBehaviour
         {
             ResetInterfaz();
         }
-
+        InitializeReferences();
+        MoneyManager.InitializeUIManager();
+        ShowMoneyUI();
+       
     }
 
     void Update()
     {
-        if(SceneManager.GetActiveScene().name == "Escena_Build")
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // La subida/Bajada del inventario se activa con el TAB.
             if (InputManager.Instance.TabWasPressedThisFrame())
@@ -310,14 +318,6 @@ public class UIManager : MonoBehaviour
         {
             DisableInterfaz();
         }
-        if (MoneyManager == null)
-        {
-            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoTexto != null)
-            {
-                MoneyManager = ObjetoTexto.GetComponent<MoneyManager>();
-            }
-        }
 
         if (SceneManager.GetActiveScene().name == "Escena_Banco")
         {
@@ -331,6 +331,14 @@ public class UIManager : MonoBehaviour
 
     // ---- METODOS PUBLICOS GENERALES ----
     #region Metodos Publicos Generales
+
+    /// <summary>
+    /// Metodo para actualizar la cantidad de dinero en pantalla
+    /// </summary>
+    public void ShowMoneyUI()
+    {
+        MoneyText.text = "x" + Convert.ToString(MoneyManager.GetMoneyCount());
+    }
     public void OnTriggerStay2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -352,6 +360,13 @@ public class UIManager : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
     #region Métodos Privados Generales
+
+    
+
+
+    /// <summary>
+    /// Metodo para actualizar la interfaz dependiendo de la escena activa
+    /// </summary>
     private void UpdateUI()
     {
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -435,6 +450,10 @@ public class UIManager : MonoBehaviour
             DescriptionText.text = "";
             AmountOfUpgradesText.text = "";
         }
+    }
+    private void InitializeReferences()
+    {
+        MoneyManager = FindObjectOfType<MoneyManager>();
     }
 
     #endregion

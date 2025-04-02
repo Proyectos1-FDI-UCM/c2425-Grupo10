@@ -109,14 +109,16 @@ public class MoneyManager : MonoBehaviour
     [SerializeField] private GameManager GameManager;
 
     /// <summary>
-    /// Referencia al texto de la UI que muestra el dinero.
+    /// Referencia al UIManager
     /// </summary>
-    [SerializeField] private TextMeshProUGUI MoneyText;
+    [SerializeField] private UIManager UIManager;
 
 
 
     private void Awake()
     {
+
+        GameManager.InitializeMoneyManager();
         // Singleton
         if (Instance == null)
         {
@@ -130,23 +132,15 @@ public class MoneyManager : MonoBehaviour
         }
 
         // Asegurar que el dinero se muestra al iniciar
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        //SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
     {
-        // Asegurar que el texto de dinero está referenciado correctamente
-        if (MoneyText == null)
-        {
-            GameObject moneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
-            if (moneyCounterObj != null)
-                MoneyText = moneyCounterObj.GetComponent<TextMeshProUGUI>();
-        }
-
-        UpdateUI(); // Llamada extra para asegurar la actualización
+        UIManager.ShowMoneyUI(); // Llamada extra para asegurar la actualización
 
         // carga de escenas para actualizar la UI
-        SceneManager.sceneLoaded += OnSceneLoaded;
+       // SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
@@ -154,10 +148,10 @@ public class MoneyManager : MonoBehaviour
     /// Método que se ejecuta cuando se carga una nueva escena.
     /// Se usa para actualizar la UI del dinero.
     /// </summary>
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        UpdateUI();
-    }
+    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    //{
+    //    UiManager.ShowMoneyUI();
+    //}
 
     // ---- MÉTODOS PARA VENDER CULTIVOS ----
 
@@ -197,6 +191,11 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
+    public void InitializeUIManager()
+    {
+        UIManager = FindObjectOfType<UIManager>();
+    }
+
 
     // ---- MÉTODOS PARA COMPRAR SEMILLAS ----
     // Método genérico para comprar semillas
@@ -211,7 +210,7 @@ public class MoneyManager : MonoBehaviour
             InventoryManager.ModifyInventory(item, 1);
 
             // Actualiza la UI del dinero
-            UpdateUI();
+            UIManager.ShowMoneyUI();
 
             // Debugging: Verifica si se compró correctamente
             Debug.Log($"Has comprado 1 {item} por {price} RC. Total dinero: {MoneyCount}");
@@ -243,7 +242,7 @@ public class MoneyManager : MonoBehaviour
     {
         MoneyCount += Quantity;
         Debug.Log("Dinero agregado: " + Quantity + ". Total: " + MoneyCount);
-        UpdateUI();
+        UIManager.ShowMoneyUI();
     }
 
     /// <summary>
@@ -255,7 +254,7 @@ public class MoneyManager : MonoBehaviour
         {
             MoneyCount -= Quantity;
             Debug.Log("Dinero gastado: " + Quantity + ". Total: " + MoneyCount);
-            UpdateUI();
+            UIManager.ShowMoneyUI();
             return true;
         }
         else
@@ -276,28 +275,28 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Actualiza la UI con la cantidad de dinero actual.
     /// </summary>
-    private void UpdateUI()
-    {
-        GameObject MoneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
+    //private void UpdateUI()
+    //{
+    //    GameObject MoneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
 
-        if (MoneyCounterObj != null)
-        {
-            TextMeshProUGUI MoneyCounterText = MoneyCounterObj.GetComponent<TextMeshProUGUI>();
+    //    if (MoneyCounterObj != null)
+    //    {
+    //        TextMeshProUGUI MoneyCounterText = MoneyCounterObj.GetComponent<TextMeshProUGUI>();
 
-            if (MoneyCounterText != null)
-            {
-                MoneyCounterText.text = "x" + MoneyCount.ToString();
-            }
-            else
-            {
-                Debug.LogError("No se encontró el componente TextMeshProUGUI en el objeto con tag 'TextoContador'.");
-            }
-        }
-        else
-        {
-            Debug.LogError("No se encontró un objeto con el tag 'TextoContador'.");
-        }
-    }
+    //        if (MoneyCounterText != null)
+    //        {
+    //            MoneyCounterText.text = "x" + MoneyCount.ToString();
+    //        }
+    //        else
+    //        {
+    //            Debug.LogError("No se encontró el componente TextMeshProUGUI en el objeto con tag 'TextoContador'.");
+    //        }
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError("No se encontró un objeto con el tag 'TextoContador'.");
+    //    }
+    //}
 
     // ---- MÉTODOS PARA MEJORAR LA REGADERA ----
 
@@ -311,6 +310,7 @@ public class MoneyManager : MonoBehaviour
             {
                 WateringCanLevel++;
                 Debug.Log("Regadera mejorada a nivel " + WateringCanLevel);
+                UIManager.ShowMoneyUI();
                 return true;
             }
         }
@@ -362,6 +362,7 @@ public class MoneyManager : MonoBehaviour
             {
                 GardenLevel++;
                 Debug.Log("Huerto mejorado a nivel " + GardenLevel);
+                UIManager.ShowMoneyUI();
                 return true;
             }
         }

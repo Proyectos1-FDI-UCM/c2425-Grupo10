@@ -143,20 +143,19 @@ public class WateringCanManager : MonoBehaviour
     // - Hay que borrar los que no se usen 
 
     /// <summary>
+    /// Metodo awake para inicializar las referencias
+    /// </summary>
+    private void Awake()
+    {
+        InitializeReferences();
+        GameManager.InitializeWateringCanManager();
+    }
+    /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        if (GameManager == null)
-        {
-            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoTexto != null)
-            {
-                GameManager = ObjetoTexto.GetComponent<GameManager>();
-            }
-        }
-
         GetUpgradeWateringCan();
 
         SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
@@ -215,9 +214,6 @@ public class WateringCanManager : MonoBehaviour
             Press.SetActive(false);
 
         }
-
-
-
     }
     #endregion
 
@@ -499,6 +495,13 @@ public class WateringCanManager : MonoBehaviour
         return NearestPot;
     }
 
+    ///<summary>
+    ///Metodo para inicializar las referencias
+    /// </summary>
+    private void InitializeReferences()
+    {
+        GameManager = FindObjectOfType<GameManager>();
+    }
     #endregion
 
 } // class WateringCanManager 

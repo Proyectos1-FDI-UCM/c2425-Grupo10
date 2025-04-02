@@ -120,6 +120,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     protected void Awake()
     {
+        InitializeReferences();
         if (_instance != null)
         {
             // No somos la primera instancia. Se supone que somos un
@@ -409,6 +410,33 @@ public class GameManager : MonoBehaviour
     {
         return _moneyInvested;
     }
+
+    ///<summary>
+    ///Metodo para inicializar GardenManager
+    /// </summary>
+    public void InitializeGardenManager()
+    {
+        GardenManager = FindObjectOfType<GardenManager>();
+
+    }
+
+    ///<summary>
+    ///Metodo para inicializar WateringCanManager
+    /// </summary>
+    public void InitializeWateringCanManager()
+    {
+        WateringCanManager = FindObjectOfType<WateringCanManager>();
+
+    }
+
+    ///<summary>
+    ///Metodo para inicializar MoneyManager
+    /// </summary>
+    public void InitializeMoneyManager()
+    {
+        MoneyCount = FindObjectOfType<MoneyManager>();
+
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -429,7 +457,16 @@ public class GameManager : MonoBehaviour
         // entre escenas
     }
 
-    
+    ///<summary>
+    ///Metodo para inicializar las referencias en awake
+    /// </summary>
+    private void InitializeReferences()
+    {
+
+        MoneyCount = FindObjectOfType<MoneyManager>();
+        GardenManager = FindObjectOfType<GardenManager>();
+        WateringCanManager = FindObjectOfType<WateringCanManager>();
+    }
     #endregion
 } // class GameManager 
 // namespace
