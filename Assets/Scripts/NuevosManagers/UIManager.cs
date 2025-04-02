@@ -157,6 +157,33 @@ public class UIManager : MonoBehaviour
     /// Contador de mejoras/ampliaciones compradas
     /// </summary>
     [SerializeField] private TextMeshProUGUI AmountOfUpgradesText;
+
+    [Header("UI de Venta")]
+
+    /// <summary>
+    /// Array de botones para los cultivos
+    /// </summary>
+    [SerializeField] private GameObject [] CropsButtons;
+
+    /// <summary>
+    ///Botón de vender
+    /// </summary>
+    [SerializeField] private GameObject SellButton;
+
+    /// <summary>
+    /// Botón para sumar 1 cultivo para vender
+    /// </summary>
+    [SerializeField] private GameObject PlusButton;
+
+    /// <summary>
+    /// Botón para restar 1 cultivo para vender
+    /// </summary>
+    [SerializeField] private GameObject MinusButton;
+
+    [SerializeField] private TextMeshProUGUI Counter;
+
+    [SerializeField] private TextMeshProUGUI [] CropsTexts;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -232,6 +259,29 @@ public class UIManager : MonoBehaviour
     private bool _isInventorySelected = false;
 
     /// <summary>
+    /// Array de booleanos para saber qué cultivo está seleccionado
+    /// </summary>
+    private bool[] _isEachCropSelected;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton de venta
+    /// </summary>
+    private bool _isSellPressed = false;
+
+    private int _cantidadAVender = 1;
+    private int _coste;
+    private int[] _inventario;
+
+    /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton de maiz
+    /// </summary>
+    //private bool _isCornSelected = false;
+    //private bool _isLettuceSelected = false;
+    //private bool _isCarrotSelected = false;
+    //private bool _isStrawberriesSelected = false;
+
+
+    /// <summary>
     /// Booleano para saber si el jugador ha pulsado algun boton
     /// </summary>
     private bool _isSomethingSelected = false;
@@ -258,6 +308,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
+
         if(SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
@@ -269,6 +320,12 @@ public class UIManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
         {
             ResetInterfaz();
+
+            // Incializar a false los booleanos de los botones de los cultivos de venta
+            for (int i = 0; i < CropsButtons.Length; i++)
+            {
+                _isEachCropSelected[i] = false;
+            }
         }
         InitializeReferences();
         MoneyManager.InitializeUIManager();
@@ -360,9 +417,6 @@ public class UIManager : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
     #region Métodos Privados Generales
-
-    
-
 
     /// <summary>
     /// Metodo para actualizar la interfaz dependiendo de la escena activa
@@ -638,7 +692,83 @@ public class UIManager : MonoBehaviour
     // ---- METODOS PUBLICOS (MEJORA) ----
     #region Metodos Publicos (Mejora)
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Ampliar".
+    /// Metodo para detectar cuando el jugador pulsa cada uno de los botones de cultivos.
+    /// </summary>
+    public void ButtonCropPressed(int index)
+    {   
+        _isEachCropSelected[index] = true;
+        _cantidadAVender = 1; // Reinicia la cantidad al cambiar de cultivo
+        _isSomethingSelected = true;
+        DescriptionText.text = "1 maíz = 90 RootCoins.";
+        
+        UpdateUI();
+        Debug.Log("Índice:" + index);
+    }
+
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Vender".
+    /// </summary>
+    public void ButtonSellPressed()
+    {
+        _isSellPressed = true;
+        _isSomethingSelected = false;
+        UpdateUI();
+    }
+
+    #endregion
+
+    // ---- METODOS PRIVADOS (VENTA) ----
+    #region Metodos Privados (venta)
+    /// <summary>
+    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
+    /// </summary>
+
+    private void ActualizarTextoCantidad1()
+    {
+        Counter.text = $"{_cantidadAVender} = {_cantidadAVender * _coste} RC";
+    }
+
+
+    /// <summary>
+    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
+    /// </summary>
+    private void MostrarDescripcion(int actual, int max, int coste)
+    {
+        if (actual >= max)
+        {
+            DescriptionText.text = "No tienes cultivos para vender.";
+            SellButton.SetActive(true);
+        }
+        else
+        {
+            DescriptionText.text = "TOTAL: " + actual * coste + "RC";
+            SellButton.SetActive(true);
+            ContadorTexto.text = actual + "/" + max;
+
+        }
+    }
+    #endregion
+
+
+    #endregion
+
+    // ---- COMPRA ----
+    #region
+
+    // ---- METODOS PUBLICOS (COMPRA)
+    #region
+
+    #endregion
+
+
+    #endregion
+    // ---- VENTA ----
+    #region Venta
+
+    // ---- METODOS PUBLICOS (Venta) ----
+    #region Metodos Publicos (Venta)
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Maíz".
     /// </summary>
     public void ButtonExtendPressed()
     {
@@ -789,17 +919,6 @@ public class UIManager : MonoBehaviour
         }
         AmountOfUpgradesText.text = actualUpgrades + "/" + maxUpgrades;
     }
-    #endregion
-
-
-    #endregion
-
-    // ---- COMPRA ----
-    #region
-
-    // ---- METODOS PUBLICOS (COMPRA)
-    #region
-
     #endregion
 
 
