@@ -166,8 +166,8 @@ public class ShovelManager : MonoBehaviour
 
         if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == -4)
         {
-            CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
-            cropSpriteEditor.Warning("Deactivate"); 
+            Destroy(Plant.GetChild(0).transform);
+            //cropSpriteEditor.Warning("Deactivate"); 
             //gameManager
         }
     }
