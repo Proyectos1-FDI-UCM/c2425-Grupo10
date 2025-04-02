@@ -145,7 +145,7 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     public void Weeding()
     {
-        PlayerAnimator.SetBool("Weeding", true);
+        //PlayerAnimator.SetBool("Weeding", true);
         Invoke("NotWeeding", 0.8f);
         PlayerMovement.DisablePlayerMovement();
 
@@ -159,15 +159,19 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     public void WeedingPlant()
     {
-        Transform Plant = FindNearestPot(transform, Pots);
+        Transform Pot = FindNearestPot(transform, Pots);
 
-        Debug.Log("FindNearestPot: " + Plant);
+        Debug.Log("FindNearestPot: " + Pot);
+        //Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);
 
-        if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == -4)
+        if (Pot != null)
         {
-            Destroy(Plant.GetChild(0).transform);
-            //cropSpriteEditor.Warning("Deactivate"); 
-            //gameManager
+            Transform Plant = Pot.transform.GetChild(0);
+
+            if (Plant != null)
+            {
+                GardenManager.Weed(Pot);
+            }
         }
     }
 
@@ -186,7 +190,7 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     private void NotWeeding()
     {
-        PlayerAnimator.SetBool("Weeding", false);
+        //PlayerAnimator.SetBool("Weeding", false);
         PlayerMovement.EnablePlayerMovement();
     }
 

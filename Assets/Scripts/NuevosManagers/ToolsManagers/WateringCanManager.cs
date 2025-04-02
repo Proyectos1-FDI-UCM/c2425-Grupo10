@@ -316,7 +316,6 @@ public class WateringCanManager : MonoBehaviour
 
             if (Plant != null)
             {
-
                 CropSpriteEditor cropSpriteEditor = Plant.GetComponent<CropSpriteEditor>();
                 cropSpriteEditor.Warning("Desactivate");
                 GardenManager.Water(Pot.transform);

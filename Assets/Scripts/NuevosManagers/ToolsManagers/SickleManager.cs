@@ -194,22 +194,14 @@ public class SickleManager : MonoBehaviour
 
         Debug.Log("FindNearestPot: " + Pot);
         //Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);
-        Plant Plant = GardenData.GetPlant(Pot);
 
-        if (Plant.Active)
+        if (Pot != null)
         {
-            Transform Crop = Pot.transform.GetChild(0);
-            Debug.Log(Plant.State);
-            if (Crop != null)
+            Transform Plant = Pot.transform.GetChild(0);
+
+            if (Plant != null)
             {
-                
-                if (Plant.State >= 3)
-                {
-                   
-                    CropSpriteEditor cropSpriteEditor = Crop.GetComponent<CropSpriteEditor>();
-                    cropSpriteEditor.Warning("Desactivate");
-                    GardenManager.Harvest(transform);
-                }
+                GardenManager.Harvest(Pot);
             }
         }
     }

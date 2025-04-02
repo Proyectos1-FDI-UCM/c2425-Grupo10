@@ -743,7 +743,7 @@ public class UIManager : MonoBehaviour
         {
             DescriptionText.text = "TOTAL: " + actual * coste + "RC";
             SellButton.SetActive(true);
-            ContadorTexto.text = actual + "/" + max;
+            //ContadorTexto.text = actual + "/" + max;
 
         }
     }

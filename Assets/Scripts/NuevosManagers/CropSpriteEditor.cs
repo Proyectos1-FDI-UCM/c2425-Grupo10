@@ -155,12 +155,17 @@ public class CropSpriteEditor : MonoBehaviour
             _spriteRenderer.enabled = true;
             _spriteRenderer.sprite = PlantStage4;
         }
-        else if (state == -4)
+        else if (state == -5)
         {
             _spriteRenderer.enabled = true;
             _spriteRenderer.sprite = PlantStageWeeds;
         }
         //Grown(transform); // Modifica el timer de crecimiento
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 
     #endregion

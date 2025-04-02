@@ -14,6 +14,7 @@ public struct Plant
     public bool Active;
     public float WaterTimer;
     public float GrowthTimer;
+    public bool WaterWarning;
     public int State;
     public Vector3 Position;
     public int Child;
@@ -30,10 +31,12 @@ public struct Plant
              * Fase1 = 1
              * Fase2 = 2
              * Fase3 = 3
+             * Fase4 = 4
              * MuerteFase1 = -1
              * MuerteFase2 = -2
              * MuerteFase3 = -3
-             * Mala Hierba = -4
+             * MuerteFase3 = -4
+             * Mala Hierba = -5
              
      * POSITION - Posicion en el juego
      * CHILD - Que hijo es la planta (Posicion en la carpeta)
@@ -93,6 +96,7 @@ public static class GardenData
         Garden[ActivePlants].Active = true;
         Garden[ActivePlants].Item = item;
         Garden[ActivePlants].State = 0;
+        Garden[ActivePlants].WaterWarning = false;
         Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
         Garden[ActivePlants].GrowthTimer = 0;
 
@@ -117,6 +121,7 @@ public static class GardenData
             Garden[i].State = 0;
             Garden[i].WaterTimer = 0;
             Garden[i].GrowthTimer = 0;
+            Garden[ActivePlants].WaterWarning = false;
             Garden[i].Child =
 
             ActivePlants--;
@@ -130,7 +135,6 @@ public static class GardenData
     {
         Garden[i].WaterTimer = value;
     }
-
 
     /// <summary>
     /// Modifica el timer de Crecimiento de una planta
@@ -149,10 +153,35 @@ public static class GardenData
     }
 
     /// <summary>
+    /// Modifica el bool de Aviso Riego
+    /// </summary>
+    public static void ModifyWaterWarning(int i)
+    {
+        Garden[i].WaterWarning = Garden[i].WaterWarning!;
+    }
+
+    /// <summary>
     /// Devuelve la planta Plant, en la posición i del array
     /// </summary>
     public static Plant GetPlant(int i)
     {
+        return Garden[i];
+    }
+
+    /// <summary>
+    /// Devuelve la planta Plant, por el child
+    /// </summary>
+    public static Plant GetPlantChild(int Child)
+    {
+        Plant Plant = new Plant();
+        bool Found = false;
+        int i = 0;
+        while (i < Garden.Length && !Found)
+        {
+            if (Garden[i].Child == Child) Found = true;
+            i++;
+        }
+        if (Found) Plant = Garden[i];
         return Garden[i];
     }
 
