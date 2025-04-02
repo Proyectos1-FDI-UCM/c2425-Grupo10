@@ -31,6 +31,7 @@ public class CropSpriteEditor : MonoBehaviour
     [SerializeField] private Sprite PlantStage2;
     [SerializeField] private Sprite PlantStage3;
     [SerializeField] private Sprite PlantStage4;
+    [SerializeField] private Sprite PlantStageWeeds;
 
     /// <summary>
     /// Sprites de Estados de las Plantas Muertas
@@ -108,7 +109,7 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     public void Warning(string Type)
     {
-        if (Type == "Deactivate")
+        if (Type == "Desactivate")
         {
             _warning.enabled = false;
         }
@@ -153,6 +154,11 @@ public class CropSpriteEditor : MonoBehaviour
         {
             _spriteRenderer.enabled = true;
             _spriteRenderer.sprite = PlantStage4;
+        }
+        if (Type == "State-4")
+        {
+            _spriteRenderer.enabled = true;
+            _spriteRenderer.sprite = PlantStageWeeds;
         }
     }
 
