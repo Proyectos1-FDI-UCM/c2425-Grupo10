@@ -92,7 +92,7 @@ public class WateringCanManager : MonoBehaviour
     /// <summary>
     /// GardenManager, para llamar al método Watering
     /// </summary>
-    [SerializeField] private GardenManager gardenManager;
+    [SerializeField] private GardenManager GardenManager;
 
     #endregion
 
@@ -163,10 +163,8 @@ public class WateringCanManager : MonoBehaviour
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
-        // ---------------------------------------------- JULIA COMENTAAAAAAAAAAAAAAAAAAAA ------------------------------
-
-        Pots = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
-        for (int i = 0; i < PlantingSpots.transform.childCount; i++)
+        Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        for (int i = 0; i < GardenManager.GetGardenSize(); i++)
         {
             Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
@@ -319,8 +317,8 @@ public class WateringCanManager : MonoBehaviour
             if (Plant != null) 
             {
                 CropSpriteEditor cropSpriteEditor = Plant.transform.GetComponent<CropSpriteEditor>();
-                cropSpriteEditor.Warning("Deactivate");
-                gardenManager.Water(Plant.transform);
+                cropSpriteEditor.Warning("Desactivate");
+                GardenManager.Water(Plant.transform);
         }
     }
 

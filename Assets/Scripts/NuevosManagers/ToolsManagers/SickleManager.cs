@@ -71,7 +71,7 @@ public class SickleManager : MonoBehaviour
     /// <summary>
     /// GardenManager, para llamar al método Watering
     /// </summary>
-    [SerializeField] private GardenManager gardenManager;
+    [SerializeField] private GardenManager GardenManager;
 
     #endregion
 
@@ -113,7 +113,11 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        for (int i = 0; i < GardenManager.GetGardenSize(); i++)
+        {
+            Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+        }
     }
 
     /// <summary>
@@ -189,12 +193,13 @@ public class SickleManager : MonoBehaviour
         Transform Plant = FindNearestPot(transform, Pots);
 
         Debug.Log("FindNearestPot: " + Plant);
+        Debug.Log(GardenData.GetPlant(Plant.GetChild(0).transform).State);
 
         if (Plant != null && GardenData.GetPlant(Plant.GetChild(0).transform).State == 3)
         {
             CropSpriteEditor cropSpriteEditor = Plant.GetChild(0).transform.GetComponent<CropSpriteEditor>();
-            cropSpriteEditor.Warning("Deactivate");
-            gardenManager.Harvest(transform);
+            cropSpriteEditor.Warning("Desactivate");
+            GardenManager.Harvest(transform);
 
         }
     }

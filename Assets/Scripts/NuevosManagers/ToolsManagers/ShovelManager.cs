@@ -30,11 +30,6 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     [SerializeField] private PlayerMovement PlayerMovement;
 
-    /// <summary>
-    /// Referencia a la planta en la que se está trabajando
-    /// </summary>
-    [SerializeField] private PlantEvolution PlantEvolution;
-
     ///<summary>
     ///Referencia al InventoryUI
     /// </summary>
@@ -63,7 +58,7 @@ public class ShovelManager : MonoBehaviour
     /// <summary>
     /// GardenManager, para llamar al método Watering
     /// </summary>
-    [SerializeField] private GardenManager gardenManager;
+    [SerializeField] private GardenManager GardenManager;
 
     #endregion
 
@@ -100,7 +95,11 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        
+        Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        for (int i = 0; i < GardenManager.GetGardenSize(); i++)
+        {
+            Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+        }
     }
 
     /// <summary>
@@ -226,27 +225,27 @@ public class ShovelManager : MonoBehaviour
     /// Método para detectar colisión con la planta.
     /// </summary>
     /// <param name="collision"></param>
-    void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Weed"))
-        {
-            _isInWeedArea = true;
-            PlantEvolution = collision.GetComponent<PlantEvolution>();
-        }
-    }
+    //void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    if (collision.CompareTag("Weed"))
+    //    {
+    //        _isInWeedArea = true;
+    //        PlantEvolution = collision.GetComponent<PlantEvolution>();
+    //    }
+    //}
 
     /// <summary>
     /// Método para detectar cuando deja de colisionar con la planta.
     /// </summary>
     /// <param name="collision"></param>
-    void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Weed"))
-        {
-            _isInWeedArea = false;
-            PlantEvolution = null;
-        }
-    }
+   // void OnTriggerExit2D(Collider2D collision)
+   // {
+    //    if (collision.CompareTag("Weed"))
+    //    {
+    //        _isInWeedArea = false;
+    //        PlantEvolution = null;
+    //    }
+    //}
 
     #endregion
 } // class ShovelManager 
