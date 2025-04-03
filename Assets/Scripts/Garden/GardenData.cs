@@ -92,15 +92,30 @@ public static class GardenData
     /// </summary>
     public static void Active(Transform transform, Items item)
     {
-        Garden[ActivePlants].Position = transform.position;
-        Garden[ActivePlants].Active = true;
-        Garden[ActivePlants].Item = item;
-        Garden[ActivePlants].State = 0;
-        Garden[ActivePlants].WaterWarning = false;
-        Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
-        Garden[ActivePlants].GrowthTimer = 0;
+        int i = 0;
+        bool PlantActive = true;
+        while (i < GardenMax && PlantActive)
+        {
+            if (Garden[i].Active)
+            {
+                i++;
+            }
+            else
+            {
+                PlantActive = false;
+            }
+        }
+        if (!PlantActive) { 
+            Garden[ActivePlants].Position = transform.position;
+            Garden[ActivePlants].Active = true;
+            Garden[ActivePlants].Item = item;
+            Garden[ActivePlants].State = 0;
+            Garden[ActivePlants].WaterWarning = false;
+            Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
+            Garden[ActivePlants].GrowthTimer = 0;
 
-        ActivePlants++;
+            ActivePlants++;
+        }
     }
 
     /// <summary>
@@ -121,7 +136,7 @@ public static class GardenData
             Garden[i].State = 0;
             Garden[i].WaterTimer = 0;
             Garden[i].GrowthTimer = 0;
-            Garden[ActivePlants].WaterWarning = false;
+            Garden[i].WaterWarning = false;
             Garden[i].Child =
 
             ActivePlants--;

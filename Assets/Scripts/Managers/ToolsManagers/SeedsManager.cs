@@ -111,8 +111,6 @@ public class SeedsManager : MonoBehaviour
             {
                 GameObject Plant = Instantiate(Prefab, Pot.position, Quaternion.identity);
                 Plant.transform.SetParent(Pot);
-
-                gardenManager.Init(); 
             }
         }
     }
