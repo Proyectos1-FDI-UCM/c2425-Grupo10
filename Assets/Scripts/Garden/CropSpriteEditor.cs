@@ -163,6 +163,11 @@ public class CropSpriteEditor : MonoBehaviour
         //Grown(transform); // Modifica el timer de crecimiento
     }
 
+    public int GetGrowthState()
+    {
+        return GardenData.GetPlantChild(transform.GetSiblingIndex()).State;
+    }
+
     public void Destroy()
     {
         Destroy(gameObject);

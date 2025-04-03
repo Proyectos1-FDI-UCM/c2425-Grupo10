@@ -130,7 +130,7 @@ public class SickleManager : MonoBehaviour
 
         else if (_isInCropArea && UIManager.GetInventoryVisible() == false)
         {
-            if (PlantEvolution.GetGrowthState() == 3)
+            if (cropSpriteEditor.GetGrowthState() == 3)
             {
                 Press.SetActive(true);
 
@@ -140,11 +140,9 @@ public class SickleManager : MonoBehaviour
                 {
 
                     Harvest();
-                    //HarvestPlant();
                 }
 
             }
-            
 
         }
 
@@ -261,12 +259,10 @@ public class SickleManager : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Crop"))
+        if (collision.GetComponent<CropSpriteEditor>())
         {
-
             _isInCropArea = true;
-
-            PlantEvolution = collision.GetComponent<PlantEvolution>();
+            cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
         }
 
     }
@@ -277,12 +273,12 @@ public class SickleManager : MonoBehaviour
     void OnTriggerExit2D(Collider2D collision)
     {
 
-        if (collision.CompareTag("Crop"))
+        if (collision.GetComponent<CropSpriteEditor>())
         {
 
             _isInCropArea = false;
 
-            PlantEvolution = null;
+            cropSpriteEditor = null;
 
         }
 
