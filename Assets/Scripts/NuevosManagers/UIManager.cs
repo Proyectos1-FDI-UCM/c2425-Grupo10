@@ -320,7 +320,9 @@ public class UIManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
         {
             ResetInterfaz();
-
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
             // Incializar a false los booleanos de los botones de los cultivos de venta
             for (int i = 0; i < CropsButtons.Length; i++)
             {
@@ -686,11 +688,11 @@ public class UIManager : MonoBehaviour
 
     #endregion
 
-    // ---- MEJORA ----
+    // ---- VENTA ----
     #region Mejora
 
-    // ---- METODOS PUBLICOS (MEJORA) ----
-    #region Metodos Publicos (Mejora)
+    // ---- METODOS PUBLICOS (VENTA) ----
+    #region Metodos Publicos (Venta)
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa cada uno de los botones de cultivos.
     /// </summary>
@@ -762,11 +764,11 @@ public class UIManager : MonoBehaviour
 
 
     #endregion
-    // ---- VENTA ----
-    #region Venta
+    // ---- MEJORA ----
+    #region Mejora
 
-    // ---- METODOS PUBLICOS (Venta) ----
-    #region Metodos Publicos (Venta)
+    // ---- METODOS PUBLICOS (MEJORA) ----
+    #region Metodos Publicos (Mejora)
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Maíz".
     /// </summary>
