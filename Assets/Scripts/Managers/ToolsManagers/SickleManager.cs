@@ -39,11 +39,6 @@ public class SickleManager : MonoBehaviour
     [SerializeField] private Animator PlayerAnimator;
 
     ///<summary>
-    ///Referencia al PlantaEvolucion del crop
-    /// </summary>
-    [SerializeField] private PlantEvolution PlantEvolution;
-
-    ///<summary>
     ///Referencia al InventoryUI
     /// </summary>
     [SerializeField] private UIManager UIManager;
