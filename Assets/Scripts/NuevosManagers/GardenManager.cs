@@ -62,7 +62,10 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameManager GameManager;
 
-    
+    ///<summary>
+    /// Mejora Actual
+    /// </summary>
+    [SerializeField] private int UpgradeLevel;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -78,10 +81,10 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     private int[] GardenSize = { 6, 12, 18, 24, 36 };
 
-    ///<summary>
-    /// Mejora Actual
+    /// <summary>
+    /// Probabilidad de que aparezca mala hierbas
     /// </summary>
-    [SerializeField] private int UpgradeLevel;
+    private int _maxProb = 5;
 
     #endregion
 
@@ -118,31 +121,32 @@ public class GardenManager : MonoBehaviour
 
                 if(GardenData.GetPlant(i).State == 0)
                 {
-                    GardenData.ModifyState(i, GardenData.GetPlant(i).State + 1);
+                    GardenData.ModifyState(i, 1);
                     GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
                 }
 
-                if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)))
+                // Lógica Crecimiento
+                if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
                 {
                     //Debug.Log("EnteredGrowth");
                     GrowthWarning(GardenData.GetPlant(i), i);
                 }
 
+                // Lógica Aviso Cosecha y Aviso Riego / Muerte
                 if (GardenData.GetPlant(i).State > 3)
                 {
                     HarvestWarning(GardenData.GetPlant(i));
                 }
-                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)))
+                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 3 && GardenData.GetPlant(i).State > 0 && !GardenData.GetPlant(i).WaterWarning)
                 {
                     //Debug.Log("EnteredWatering");
                     WaterWarning(GardenData.GetPlant(i));
+                    GardenData.ModifyWaterWarning(i);
                 }
-
-
-                //else if (gameTimer.GetGameTimeInMinutes() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)))
-                //{
-                //    DeathWarning(GardenData.GetPlant(i));
-                //}
+                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 3 && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).WaterWarning)
+                {
+                    DeathWarning(GardenData.GetPlant(i), i);
+                }
 
 
             }
@@ -177,6 +181,7 @@ public class GardenManager : MonoBehaviour
         if (GardenData.GetPlant(i).Position == transform.position)
         {
             GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+            GardenData.ModifyWaterWarning(i);
             //Debug.Log("WaterTimer: " + GardenData.GetPlant(i).WaterTimer);
             //Debug.Log("GrowthTimer: " + GardenData.GetPlant(i).GrowthTimer);
 
@@ -193,15 +198,54 @@ public class GardenManager : MonoBehaviour
         {
             i++;
         }
+        Plant Plant = GardenData.GetPlant(i);
 
-        if (GardenData.GetPlant(i).Position == transform.position)
+        if (Plant.Position == transform.position)
         {
-            GardenData.Deactivate(transform.position);
-            InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
-            Destroy(transform);
+            Debug.Log(Plant.State);
+            if (Plant.State > 3)
+            {
+                int r = UnityEngine.Random.Range(0, _maxProb);
+                CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
+                if (r == 0) 
+                {
+                    GardenData.ModifyState(i, (-5));
+                    InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
+                    cropSpriteEditor.Growing(-5);
+                    cropSpriteEditor.Warning("Desactivate");
+                }
+                else 
+                {
+                    GardenData.Deactivate(transform.position);
+                    InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
+                    cropSpriteEditor.Destroy(); 
+                }
+            }
         }
+    }
 
+    /// <summary>
+    /// MalasHierbas: Modifica los valores de la semilla (Elimina)
+    /// </summary>
+    public void Weed(Transform transform)
+    {
+        int i = 0;
+        while (i < GardenData.GetActivePlants() && GardenData.GetPlant(i).Position != transform.position)
+        {
+            i++;
+        }
+        Plant Plant = GardenData.GetPlant(i);
 
+        if (Plant.Position == transform.position)
+        {
+            if (Plant.State == -5)
+            {
+                CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
+                GardenData.Deactivate(transform.position);
+                cropSpriteEditor.Destroy();
+            }
+
+        }
     }
 
     /// <summary>
@@ -253,8 +297,10 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Método para avisar de la muerte
     /// </summary>
-    public void DeathWarning(Plant plant)
+    public void DeathWarning(Plant plant, int ArrayIndex)
     {
+        Debug.Log("DeathWarning");
+        GardenData.ModifyState(ArrayIndex, plant.State);
         Transform Crop = SearchPlant(plant);
 
         if (Crop != null)
