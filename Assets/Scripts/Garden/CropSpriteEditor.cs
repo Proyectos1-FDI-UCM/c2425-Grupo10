@@ -27,11 +27,12 @@ public class CropSpriteEditor : MonoBehaviour
     /// Sprites de Estados de las Plantas Vivas
     /// </summary>
 
-    [SerializeField] private Sprite PlantStage1;
-    [SerializeField] private Sprite PlantStage2;
-    [SerializeField] private Sprite PlantStage3;
-    [SerializeField] private Sprite PlantStage4;
-    [SerializeField] private Sprite PlantStageWeeds;
+    [SerializeField] private Sprite[] Sprites = new Sprite[6];
+    ////PlantStage1;
+    //[SerializeField] private Sprite PlantStage2;
+    //[SerializeField] private Sprite PlantStage3;
+    //[SerializeField] private Sprite PlantStage4;
+    //[SerializeField] private Sprite PlantStageWeeds;
 
     /// <summary>
     /// Sprites de Estados de las Plantas Muertas
@@ -81,17 +82,26 @@ public class CropSpriteEditor : MonoBehaviour
     // - Hay que añadir todos los que sean necesarios
     // - Hay que borrar los que no se usen 
 
+    void Awake()
+    {
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
+    }
+
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
     void Start()
     {
-        GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
+        //_spriteRenderer = GetComponent<SpriteRenderer>();
+        //_warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
+        if (!GardenData.GetPlant(transform).Active)
+        {
+            GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
 
-        _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        Warning("Water");
+            Warning("Water");
+        }
     }
 
     #endregion
@@ -135,30 +145,14 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     public void Growing(int state)
     {
-        if (state == 0) 
+        _spriteRenderer.enabled = true;
+        if (state >= 0 && state <= 4) 
         {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage1;
-        }
-        else if (state == 1)
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage2;
-        }
-        else if (state == 2)
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage3;
-        }
-        else if (state == 3)
-        {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStage4;
+            _spriteRenderer.sprite = Sprites[state];
         }
         else if (state == -5)
         {
-            _spriteRenderer.enabled = true;
-            _spriteRenderer.sprite = PlantStageWeeds;
+            _spriteRenderer.sprite = Sprites[5];
         }
         //Grown(transform); // Modifica el timer de crecimiento
     }

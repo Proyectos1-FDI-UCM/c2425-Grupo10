@@ -198,10 +198,10 @@ public class GardenManager : MonoBehaviour
             Debug.Log(Plant.State);
             if (Plant.State > 3)
             {
-                int r = UnityEngine.Random.Range(0, _maxProb);
+                int random = UnityEngine.Random.Range(0, _maxProb);
                 InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
-                if (r == 0) 
+                if (random == 0) 
                 {
                     GardenData.ModifyState(i, (-5));
                     cropSpriteEditor.Growing(-5);
@@ -342,8 +342,20 @@ public class GardenManager : MonoBehaviour
     {
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
-            //GameObject Prefab = ;
-            //GameObject Crop = Instantiate(Prefab, SearchPlant(GardenData.).position, Quaternion.identity);
+            Plant plant = GardenData.GetPlant(i);
+            if (plant.Active) 
+            {
+                GameObject Prefab = Prefabs[(int)plant.Item%((int)Items.Count/2)];
+                GameObject Crop = Instantiate(Prefab, plant.Position, Quaternion.identity);
+                Crop.transform.parent = PlantingSpots.transform.GetChild(plant.Child);
+
+                CropSpriteEditor cropSpriteEditor = Crop.GetComponent<CropSpriteEditor>();
+
+                if (cropSpriteEditor != null) 
+                { 
+                    cropSpriteEditor.Growing(plant.State);
+                }
+            }
         }
     }
     #endregion
@@ -420,7 +432,13 @@ public class GardenManager : MonoBehaviour
     public Transform SearchPlant(Plant plant)
     {
         Transform transform = null;
-        if (PlantingSpots.transform.childCount >= plant.Child) transform = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
+        if (PlantingSpots.transform.childCount >= plant.Child)
+        {
+            if(PlantingSpots.transform.GetChild(plant.Child).transform.childCount > 0) 
+                {
+                transform = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
+            }
+        }
         return transform;
 
     }

@@ -132,11 +132,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameTimer: {fileID: 0}
-  PlantStage1: {fileID: -48896637, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
-  PlantStage2: {fileID: -964094940, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
-  PlantStage3: {fileID: 496653580, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
-  PlantStage4: {fileID: -736858115, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
-  PlantStageWeeds: {fileID: 1526920567, guid: c2a33677e0ccb2e4e8dcf7a5e772b937, type: 3}
+  Sprites:
+  - {fileID: -48896637, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  - {fileID: -48896637, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  - {fileID: -964094940, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  - {fileID: 496653580, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  - {fileID: -736858115, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
+  - {fileID: -2026104264, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
   PlantDeadStage1: {fileID: 45594649, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
   PlantDeadStage2: {fileID: -1815469075, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
   PlantDeadStage3: {fileID: 1287966252, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}

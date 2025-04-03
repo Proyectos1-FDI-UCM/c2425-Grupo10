@@ -45,6 +45,11 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     [SerializeField] GameManager GameManager;
 
+    /// <summary>
+    /// Referencia al GameManager para gestionar la información del juego.
+    /// </summary>
+    [SerializeField] GardenManager GardenManager;
+
     #endregion
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
@@ -85,6 +90,12 @@ public class LevelManager : MonoBehaviour
 
         _inventory = GameManager.Instance.Inventory(); // Inicializa el inventario desde el GameManager
 
+    }
+
+    void Start()
+    {
+        Debug.Log("Level Manager start");
+        GardenManager.InitChangeScene();
     }
 
     #endregion
