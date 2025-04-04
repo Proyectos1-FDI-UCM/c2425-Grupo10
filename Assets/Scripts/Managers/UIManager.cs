@@ -161,9 +161,24 @@ public class UIManager : MonoBehaviour
     [Header("UI de Venta")]
 
     /// <summary>
-    /// Array de botones para los cultivos
+    /// Botón maíz
     /// </summary>
-    [SerializeField] private GameObject [] CropsButtons;
+    [SerializeField] private GameObject CornButton;
+
+    /// <summary>
+    /// Botón lechuga
+    /// </summary>
+    [SerializeField] private GameObject LettuceButton;
+
+    /// <summary>
+    /// Botón zanahoria
+    /// </summary>
+    [SerializeField] private GameObject CarrotButton;
+
+    /// <summary>
+    /// Botón fesas
+    /// </summary>
+    [SerializeField] private GameObject StrawberryButton;
 
     /// <summary>
     ///Botón de vender
@@ -735,12 +750,12 @@ public class UIManager : MonoBehaviour
     #endregion
 
     // ---- VENTA ----
-    #region Mejora
+    #region Venta
 
     // ---- METODOS PUBLICOS (VENTA) ----
     #region Metodos Publicos (Venta)
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa cada uno de los botones de cultivos.
+    /// Metodo para detectar cuando el jugador pulsa el botón "Maíz".
     /// </summary>
     public void ButtonCropPressed(int index)
     {   
