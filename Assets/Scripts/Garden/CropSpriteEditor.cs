@@ -146,9 +146,29 @@ public class CropSpriteEditor : MonoBehaviour
     public void Growing(int state)
     {
         _spriteRenderer.enabled = true;
-        if (state >= 0 && state <= 4) 
+        if (state == 0) 
         {
-            _spriteRenderer.sprite = Sprites[state];
+            _spriteRenderer.sprite = Sprites[0];
+        }
+        else if (state == 1)
+        {
+            _spriteRenderer.sprite = Sprites[1];
+        }
+        else if (state == 2)
+        {
+            _spriteRenderer.sprite = Sprites[2];
+        }
+        else if (state == 3)
+        {
+            _spriteRenderer.sprite = Sprites[3];
+        }
+        else if (state == 4)
+        {
+            _spriteRenderer.sprite = Sprites[4];
+        }
+        else if (state == 5)
+        {
+            _spriteRenderer.sprite = Sprites[4];
         }
         else if (state == -5)
         {

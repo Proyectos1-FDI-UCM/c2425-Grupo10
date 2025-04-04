@@ -130,14 +130,14 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
-                if (GardenData.GetPlant(i).State > 3)
-                {
-                    HarvestWarning(GardenData.GetPlant(i));
-                }
-                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 3 && GardenData.GetPlant(i).State > 0 && !GardenData.GetPlant(i).WaterWarning)
+                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 4 && GardenData.GetPlant(i).State > 0 && !GardenData.GetPlant(i).WaterWarning)
                 {
                     WaterWarning(GardenData.GetPlant(i));
                     GardenData.ModifyWaterWarning(i);
+                }
+                else if (GardenData.GetPlant(i).State > 4)
+                {
+                    HarvestWarning(GardenData.GetPlant(i));
                 }
                 else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 3 && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).WaterWarning)
                 {
@@ -354,6 +354,7 @@ public class GardenManager : MonoBehaviour
                 if (cropSpriteEditor != null) 
                 { 
                     cropSpriteEditor.Growing(plant.State);
+                    cropSpriteEditor.Warning("Desactivate");
                 }
             }
         }

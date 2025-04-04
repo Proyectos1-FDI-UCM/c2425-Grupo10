@@ -66,7 +66,7 @@ public struct CropVariables
 public static class GardenData
 {
 
-    private static int GardenMax = 6; // Se cambia con cada mejora
+    private static int GardenMax = 32; // Se cambia con cada mejora
     private static Plant[] Garden = new Plant[GardenMax];
     private static int ActivePlants = 0;
 
