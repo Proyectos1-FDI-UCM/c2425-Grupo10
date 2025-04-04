@@ -163,6 +163,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShorcutInventory"",
+                    ""type"": ""Button"",
+                    ""id"": ""c2fe0c04-4ab4-4670-aece-060d0d3c67d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShorcutSeed"",
+                    ""type"": ""Button"",
+                    ""id"": ""088dcfa2-af5d-44bb-8d09-c8c76cd64e24"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -471,6 +489,28 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""UseShovel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f87dfad0-e8d8-4d85-af9c-cf98d52a22fe"",
+                    ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShorcutInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69e20519-65e3-4259-bc9c-ec6883dd6377"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShorcutSeed"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1073,6 +1113,8 @@ namespace UnityEngine.InputSystem
             m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
             m_Player_UseSickle = m_Player.FindAction("UseSickle", throwIfNotFound: true);
             m_Player_UseShovel = m_Player.FindAction("UseShovel", throwIfNotFound: true);
+            m_Player_ShorcutInventory = m_Player.FindAction("ShorcutInventory", throwIfNotFound: true);
+            m_Player_ShorcutSeed = m_Player.FindAction("ShorcutSeed", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1161,6 +1203,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_FillWateringCan;
         private readonly InputAction m_Player_UseSickle;
         private readonly InputAction m_Player_UseShovel;
+        private readonly InputAction m_Player_ShorcutInventory;
+        private readonly InputAction m_Player_ShorcutSeed;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1180,6 +1224,8 @@ namespace UnityEngine.InputSystem
             public InputAction @FillWateringCan => m_Wrapper.m_Player_FillWateringCan;
             public InputAction @UseSickle => m_Wrapper.m_Player_UseSickle;
             public InputAction @UseShovel => m_Wrapper.m_Player_UseShovel;
+            public InputAction @ShorcutInventory => m_Wrapper.m_Player_ShorcutInventory;
+            public InputAction @ShorcutSeed => m_Wrapper.m_Player_ShorcutSeed;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1234,6 +1280,12 @@ namespace UnityEngine.InputSystem
                 @UseShovel.started += instance.OnUseShovel;
                 @UseShovel.performed += instance.OnUseShovel;
                 @UseShovel.canceled += instance.OnUseShovel;
+                @ShorcutInventory.started += instance.OnShorcutInventory;
+                @ShorcutInventory.performed += instance.OnShorcutInventory;
+                @ShorcutInventory.canceled += instance.OnShorcutInventory;
+                @ShorcutSeed.started += instance.OnShorcutSeed;
+                @ShorcutSeed.performed += instance.OnShorcutSeed;
+                @ShorcutSeed.canceled += instance.OnShorcutSeed;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1283,6 +1335,12 @@ namespace UnityEngine.InputSystem
                 @UseShovel.started -= instance.OnUseShovel;
                 @UseShovel.performed -= instance.OnUseShovel;
                 @UseShovel.canceled -= instance.OnUseShovel;
+                @ShorcutInventory.started -= instance.OnShorcutInventory;
+                @ShorcutInventory.performed -= instance.OnShorcutInventory;
+                @ShorcutInventory.canceled -= instance.OnShorcutInventory;
+                @ShorcutSeed.started -= instance.OnShorcutSeed;
+                @ShorcutSeed.performed -= instance.OnShorcutSeed;
+                @ShorcutSeed.canceled -= instance.OnShorcutSeed;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1480,6 +1538,8 @@ namespace UnityEngine.InputSystem
             void OnFillWateringCan(InputAction.CallbackContext context);
             void OnUseSickle(InputAction.CallbackContext context);
             void OnUseShovel(InputAction.CallbackContext context);
+            void OnShorcutInventory(InputAction.CallbackContext context);
+            void OnShorcutSeed(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

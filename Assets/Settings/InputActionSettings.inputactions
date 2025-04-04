@@ -139,6 +139,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ShorcutInventory",
+                    "type": "Button",
+                    "id": "c2fe0c04-4ab4-4670-aece-060d0d3c67d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShorcutSeed",
+                    "type": "Button",
+                    "id": "088dcfa2-af5d-44bb-8d09-c8c76cd64e24",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -447,6 +465,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "UseShovel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f87dfad0-e8d8-4d85-af9c-cf98d52a22fe",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShorcutInventory",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69e20519-65e3-4259-bc9c-ec6883dd6377",
+                    "path": "<Keyboard>/o",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShorcutSeed",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

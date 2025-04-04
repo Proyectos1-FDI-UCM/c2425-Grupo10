@@ -79,6 +79,8 @@ public class InputManager : MonoBehaviour
     private InputAction _fillWateringCan;
     private InputAction _useSickle;
     private InputAction _useShovel;
+    private InputAction _ShorcutInventory;
+    private InputAction _ShorcutSeeds;
 
     #endregion
 
@@ -334,6 +336,28 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para saber si el botón de P está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool ShorcutSeedWasPressedThisFrame()
+    {
+        return _ShorcutSeeds.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Tab está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool ShorcutInventoryWasPressedThisFrame()
+    {
+        return _ShorcutInventory.WasPressedThisFrame();
+    }
+
+    /// <summary>
     /// Método para saber si el botón de Tab está pulsado
     /// <returns>True, si el botón ha sido pulsado en este frame
     /// y false, en otro caso
@@ -438,6 +462,16 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
         _useShovel = _theController.Player.UseShovel;
+
+        // ShortcutInventory input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
+        _ShorcutInventory = _theController.Player.ShorcutInventory;
+
+        // ShortcutInventory input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
+        _ShorcutSeeds = _theController.Player.ShorcutSeed;
     }
 
     /// <summary>

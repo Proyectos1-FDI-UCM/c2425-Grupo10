@@ -156,13 +156,17 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKey(KeyCode.Escape))
+        if (InputManager.Instance.SalirWasPressedThisFrame())
         {
             Application.Quit();
         }
-        if (Input.GetKeyDown(KeyCode.P))
+        if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
         {
             InventoryManager.ModifyInventory(Items.Corn, 1);
+        }
+        if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
+        {
+            InventoryManager.ModifyInventory(Items.CornSeed, 1);
         }
         if (MoneyCount == null)
         {
