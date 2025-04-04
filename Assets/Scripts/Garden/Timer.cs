@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Para mostrar el tiempo en pantalla
 
@@ -23,7 +24,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Texto para mostrar el tiempo en pantalla.
     /// </summary>
-    [SerializeField] private Text TimerText;
+    [SerializeField] private TextMeshProUGUI TimerText;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -41,7 +42,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// 1 dia de juego = 6 minutos reales (360 segundos)
     /// </summary>
-    private const float _secondsPerGameDay = 86400f;
+    private const float _secondsPerGameDay = 3006f;
 
     /// <summary>
     /// 1 hora de juego = 15 segundos reales 
@@ -84,7 +85,7 @@ public class Timer : MonoBehaviour
     {
         _realTimeElapsed += Time.deltaTime; //Incrementar el tiempo real
         UpdateGameTime(); //Actualizar el tiempo de juego
-        //DisplayTime(); //Mostrar el tiempo en pantalla
+        DisplayTime(); //Mostrar el tiempo en pantalla
     }
     #endregion
 
@@ -133,12 +134,12 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Muestra el tiempo de juego en el texto de la UI.
     /// </summary>
-    //private void DisplayTime()
-    //{
-    //    int minutes = Mathf.FloorToInt(_gameTimeElapsed % 60f);
-    //    int hours = Mathf.FloorToInt(_gameTimeElapsed / 60f) % 24; // Limitar a 24 horas
-    //    TimerText.text = $"{hours:D2}:{minutes:D2}"; // Formato HH:MM
-    //}
+    private void DisplayTime()
+    {
+        int minutes = Mathf.FloorToInt(_gameTimeElapsed % 60f);
+       int hours = Mathf.FloorToInt(_gameTimeElapsed / 60f) % 24; // Limitar a 24 horas
+        TimerText.text = $"{hours:D2}:{minutes:D2}"; // Formato HH:MM
+    }
 
     #endregion
 
