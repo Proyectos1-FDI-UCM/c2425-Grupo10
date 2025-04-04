@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        if (InputManager.Instance.SalirWasPressedThisFrame())
+        if (InputManager.Instance.ExitWasPressedThisFrame())
         {
             Application.Quit();
         }
@@ -170,10 +170,10 @@ public class GameManager : MonoBehaviour
         }
         if (MoneyCount == null)
         {
-            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoTexto != null)
+            GameObject TextObject = GameObject.FindGameObjectWithTag("GameManager");
+            if (TextObject != null)
             {
-                MoneyCount = ObjetoTexto.GetComponent<MoneyManager>();
+                MoneyCount = TextObject.GetComponent<MoneyManager>();
             }
         }
         if (GardenManager == null)
