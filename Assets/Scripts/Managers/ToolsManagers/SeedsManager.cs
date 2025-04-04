@@ -70,12 +70,17 @@ public class SeedsManager : MonoBehaviour
     /// <summary>
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
-    private Transform[] Pots;
+    private Transform[] _pots;
 
     /// <summary>
     /// Prefab de la semilla seleccionada
     /// </summary>
-    private GameObject Prefab;
+    private GameObject _prefab;
+
+    /// <summary>
+    /// Semilla actual
+    /// </summary>
+    private Items _seed;
 
     #endregion
 
@@ -92,10 +97,10 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        Pots = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        _pots = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < PlantingSpots.transform.childCount; i++)
         {
-            Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+            _pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
     }
 
@@ -104,12 +109,13 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.UsarWasPressedThisFrame())
+        if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventory(_seed) > 0)
         {
-            Transform Pot = FindNearestPot(transform, Pots); // Busca un lugar disponible para plantar
+            Transform Pot = FindNearestPot(transform, _pots); // Busca un lugar disponible para plantar
             if (Pot != null) // Si lo encuentra, instancia el prefab de la semilla seleccionada
             {
-                GameObject Plant = Instantiate(Prefab, Pot.position, Quaternion.identity);
+                GameObject Plant = Instantiate(_prefab, Pot.position, Quaternion.identity);
+                InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);
             }
         }
@@ -131,10 +137,11 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     public void ChangeSeed(int Seed)
     {
-        if (Seed == (int)Items.CornSeed) Prefab = PrefabSeeds0;
-        else if (Seed == (int)Items.LetuceSeed) Prefab = PrefabSeeds1;
-        else if (Seed == (int)Items.CarrotSeed) Prefab = PrefabSeeds2;
-        else if (Seed == (int)Items.StrawberrySeed) Prefab = PrefabSeeds3;
+        _seed = (Items)Seed;
+        if (Seed == (int)Items.CornSeed) _prefab = PrefabSeeds0;
+        else if (Seed == (int)Items.LetuceSeed) _prefab = PrefabSeeds1;
+        else if (Seed == (int)Items.CarrotSeed) _prefab = PrefabSeeds2;
+        else if (Seed == (int)Items.StrawberrySeed) _prefab = PrefabSeeds3;
     }
 
     #endregion
