@@ -35,6 +35,11 @@ public enum Items
 public static class InventoryManager
 {
     /// <summary>
+    /// Posicion del Jugador
+    /// </summary>
+    private static Vector3 PlayerPosition;
+
+    /// <summary>
     /// Cantidad de cada Item que tiene el jugador
     /// </summary>
     private static int[] Inventory = new int[(int)Items.Count];
@@ -58,6 +63,17 @@ public static class InventoryManager
     {
         return Inventory[(int)item];
     }
+
+    public static Vector3 GetPlayerPosition()
+    {
+        return PlayerPosition;
+    }
+
+    public static void ModifyPlayerPosition(Vector3 position)
+    {
+        PlayerPosition = position;
+    }
+
 
     /// <summary>
     /// Devuelve True si se efectua la modificación

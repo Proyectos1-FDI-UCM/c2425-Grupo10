@@ -7,7 +7,8 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using System.Collections.Generic; // Necesario para manejar el inventario
+using System.Collections.Generic;
+using UnityEngine.UIElements; // Necesario para manejar el inventario
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -96,6 +97,9 @@ public class LevelManager : MonoBehaviour
     {
         Debug.Log("Level Manager start");
         GardenManager.InitChangeScene();
+        PlayerMovement player = FindObjectOfType<PlayerMovement>();
+        Vector3 newPosition = InventoryManager.GetPlayerPosition();
+        if (player != null && newPosition != null) player.transform.position = newPosition + new Vector3 (0, -1, 0);
     }
 
     #endregion
