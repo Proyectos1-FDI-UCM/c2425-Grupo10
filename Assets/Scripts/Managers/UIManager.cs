@@ -361,11 +361,7 @@ public class UIManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            // Incializar a false los booleanos de los botones de los cultivos de venta
-            for (int i = 0; i < CropsButtons.Length; i++)
-            {
-                _isEachCropSelected[i] = false;
-            }
+
         }
         InitializeReferences();
         MoneyManager.InitializeUIManager();
