@@ -1333,9 +1333,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: ButtonFresasPressed
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonStrawberriesSeedPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3024,9 +3024,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: ButtonLechugaPressed
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonLettuceSeedPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3084,7 +3084,7 @@ GameObject:
   m_Component:
   - component: {fileID: 898385388}
   - component: {fileID: 898385387}
-  - component: {fileID: 898385389}
+  - component: {fileID: 898385390}
   m_Layer: 3
   m_Name: Collider Interfaz
   m_TagString: Untagged
@@ -3152,7 +3152,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1128037754}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &898385389
+--- !u!114 &898385390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3161,20 +3161,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 898385385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c6ced5bb20de7b41bce444a7874172a, type: 3}
+  m_Script: {fileID: 11500000, guid: 58160b7d401e8b64d8c7cf88c0461dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Interactuar: {fileID: 117541076}
-  Interfaz: {fileID: 2039601203}
-  MaizButton: {fileID: 989136832}
-  LechugaButton: {fileID: 850863419}
-  ZanahoriaButton: {fileID: 1350065523}
-  FresasButton: {fileID: 503844784}
-  ComprarButton: {fileID: 2111565999}
-  DescripcionTexto: {fileID: 2105757271}
-  ContadorTexto: {fileID: 586434541}
+  NpcMessage: {fileID: 117541076}
+  UI: {fileID: 2039601203}
+  DescriptionText: {fileID: 2105757271}
+  MoneyText: {fileID: 813872649}
   PlayerMovement: {fileID: 230413355}
-  moneyCount: {fileID: 0}
+  MoneyManager: {fileID: 0}
+  InventoryPanel: {fileID: 0}
+  QuickAccessBar: {fileID: 0}
+  InventoryIcons: {fileID: 0}
+  DepositButton: {fileID: 0}
+  MovingButton: {fileID: 0}
+  BeachHouseButton: {fileID: 0}
+  MoveButton: {fileID: 0}
+  AcceptButton: {fileID: 0}
+  AmountMoneyToDeposit: {fileID: 0}
+  AmountToDepositText: {fileID: 0}
+  AmountDepositedText: {fileID: 0}
+  AmountDepositedTitleText: {fileID: 0}
+  UpgradeButton: {fileID: 0}
+  ExtendButton: {fileID: 0}
+  WateringCanButton: {fileID: 0}
+  InventoryButton: {fileID: 0}
+  GardenButton: {fileID: 0}
+  BuyUpgradeButton: {fileID: 0}
+  AmountOfUpgradesText: {fileID: 0}
+  CropsButtons: []
+  SellButton: {fileID: 0}
+  PlusButton: {fileID: 0}
+  MinusButton: {fileID: 0}
+  Counter: {fileID: 0}
+  CropsTexts: []
+  PriceAmountToBuy: {fileID: 586434541}
+  BuySeedsButton: {fileID: 2111565999}
+  IncreaseAmountButton: {fileID: 1510980865}
+  DecreaseAmountButton: {fileID: 1365253724}
 --- !u!1 &905030716
 GameObject:
   m_ObjectHideFlags: 0
@@ -3334,9 +3358,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: ButtonMaizPressed
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonCornSeedPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4183,9 +4207,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: ButtonZanahoriaPressed
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonCarrotSeedPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4316,9 +4340,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: DisminuirCantidad
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: DecreaseAmount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4526,9 +4550,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: AumentarCantidad
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: IncreaseAmount
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18775,9 +18799,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 898385389}
-        m_TargetAssemblyTypeName: CompraInterfaz, Assembly-CSharp
-        m_MethodName: ButtonComprarPressed
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: ButtonBuyPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

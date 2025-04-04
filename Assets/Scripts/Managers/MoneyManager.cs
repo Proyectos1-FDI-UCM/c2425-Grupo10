@@ -272,31 +272,6 @@ public class MoneyManager : MonoBehaviour
         return MoneyCount;
     }
 
-    /// <summary>
-    /// Actualiza la UI con la cantidad de dinero actual.
-    /// </summary>
-    //private void UpdateUI()
-    //{
-    //    GameObject MoneyCounterObj = GameObject.FindGameObjectWithTag("TextoContador");
-
-    //    if (MoneyCounterObj != null)
-    //    {
-    //        TextMeshProUGUI MoneyCounterText = MoneyCounterObj.GetComponent<TextMeshProUGUI>();
-
-    //        if (MoneyCounterText != null)
-    //        {
-    //            MoneyCounterText.text = "x" + MoneyCount.ToString();
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError("No se encontró el componente TextMeshProUGUI en el objeto con tag 'TextoContador'.");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("No se encontró un objeto con el tag 'TextoContador'.");
-    //    }
-    //}
 
     // ---- MÉTODOS PARA MEJORAR LA REGADERA ----
 
