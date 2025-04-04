@@ -42,17 +42,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// 1 dia de juego = 6 minutos reales (360 segundos)
     /// </summary>
-    private const float _secondsPerGameDay = 3006f;
-
-    /// <summary>
-    /// 1 hora de juego = 15 segundos reales 
-    /// </summary>
-    private const float _secondsPerGameHour = 15f;
-
-    /// <summary>
-    /// Convertir horas de juego a tiempo real
-    /// </summary>
-    private const float _gameHourToRealTime = _secondsPerGameDay / 24f;
+    private const float _secondsPerGameDay = 24*60*60f;
 
     /// <summary>
     /// Convertir segundos de la vida real a tiempo de juego

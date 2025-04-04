@@ -93,7 +93,11 @@ public class CambiarEscena : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (sceneTransition != null)
+            if (SceneManager.GetActiveScene().name == "Escena_Build")
+            {
+                SavePosition();
+            }
+                if (sceneTransition != null)
             {
                 sceneTransition.ChangeScene(sceneName);
                 Debug.Log("Cambiando a escena: " + sceneName);
@@ -103,6 +107,12 @@ public class CambiarEscena : MonoBehaviour
                 Debug.LogError("SceneTransition no está asignado en el Inspector.");
             }
         }
+    }
+
+    private void SavePosition()
+    {
+        InventoryManager.ModifyPlayerPosition(FindObjectOfType<PlayerMovement>().transform.position);
+        Debug.Log("SavePosition" + InventoryManager.GetPlayerPosition());
     }
     #endregion
 

@@ -119,8 +119,8 @@ public class GardenManager : MonoBehaviour
 
                 if(GardenData.GetPlant(i).State == 0)
                 {
-                    GardenData.ModifyState(i, 1);
                     GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
+                    GrowthWarning(GardenData.GetPlant(i), i);
                 }
 
                 // Lógica Crecimiento
@@ -130,7 +130,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
-                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 4 && GardenData.GetPlant(i).State > 0 && !GardenData.GetPlant(i).WaterWarning)
+                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0 && !GardenData.GetPlant(i).WaterWarning)
                 {
                     WaterWarning(GardenData.GetPlant(i));
                     GardenData.ModifyWaterWarning(i);
@@ -204,8 +204,8 @@ public class GardenManager : MonoBehaviour
                 if (random == 0) 
                 {
                     GardenData.ModifyState(i, (-5));
-                    cropSpriteEditor.Growing(-5);
                     cropSpriteEditor.Warning("Desactivate");
+                    cropSpriteEditor.Growing(-5);
                 }
                 else 
                 {

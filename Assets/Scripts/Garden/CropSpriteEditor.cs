@@ -85,7 +85,9 @@ public class CropSpriteEditor : MonoBehaviour
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _spriteRenderer.enabled = false;
         _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
+        _warning.enabled = false;
     }
 
     /// <summary>

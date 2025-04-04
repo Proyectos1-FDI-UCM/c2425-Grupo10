@@ -107,6 +107,11 @@ public class GameManager : MonoBehaviour
     /// Array Inventory
     /// <summary>
     private int _moneyInvested = 0;
+
+    /// <summary>
+    /// Posición del Jugador
+    /// <summary>
+    private Transform _playerPosition;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----

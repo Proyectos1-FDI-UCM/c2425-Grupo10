@@ -151,7 +151,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
-    [SerializeField] private GameObject BuyButton;
+    [SerializeField] private GameObject BuyUpgradeButton;
 
     /// <summary>
     /// Contador de mejoras/ampliaciones compradas
@@ -184,6 +184,28 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI [] CropsTexts;
 
+
+    [Header("UI de Compra")]
+
+    ///<summary>
+    ///Texto para mostras el precio de las semillas seleccionadas
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI PriceAmountToBuy;
+
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
+    /// </summary>
+    [SerializeField] private GameObject BuySeedsButton;
+
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
+    /// </summary>
+    [SerializeField] private GameObject IncreaseAmountButton;
+
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
+    /// </summary>
+    [SerializeField] private GameObject DecreaseAmountButton;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -268,17 +290,17 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isSellPressed = false;
 
-    private int _cantidadAVender = 1;
-    private int _coste;
-    private int[] _inventario;
+    private int _amountBuying = 1;
+    private int _cost;
+    private int[] _inventory;
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton de maiz
     /// </summary>
-    //private bool _isCornSelected = false;
-    //private bool _isLettuceSelected = false;
-    //private bool _isCarrotSelected = false;
-    //private bool _isStrawberriesSelected = false;
+    private bool _isCornSelected = false;
+    private bool _isLettuceSelected = false;
+    private bool _isCarrotSelected = false;
+    private bool _isStrawberriesSelected = false;
 
 
     /// <summary>
@@ -301,6 +323,7 @@ public class UIManager : MonoBehaviour
     /// Numero maximo de mejoras del Inventario
     /// </summary>
     private int _maxInventoryUpgrades = 2;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -425,7 +448,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private void UpdateUI()
     {
-        if (SceneManager.GetActiveScene().name == "Escena_Build")
+        if (SceneManager.GetActiveScene().name == "Escena_Banco")
         {
             if (_isDepositSelected)
             {
@@ -457,9 +480,20 @@ public class UIManager : MonoBehaviour
             WateringCanButton.SetActive(_isUpgradeSelected);
             GardenButton.SetActive(_isExtendSelected);
             InventoryButton.SetActive(_isExtendSelected);
-            BuyButton.SetActive(_isSomethingSelected);
+            BuyUpgradeButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
             AmountOfUpgradesText.text = "";
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            BuySeedsButton.SetActive(_isSomethingSelected);
+            IncreaseAmountButton.SetActive(_isSomethingSelected);
+            DecreaseAmountButton.SetActive(_isSomethingSelected);
+
+            DescriptionText.text = "";
+            PriceAmountToBuy.text = "";
+            int totalCosto = _amountBuying * _cost;
+            PriceAmountToBuy.text = $"{_amountBuying} = {totalCosto} RC";
         }
     }
 
@@ -481,6 +515,10 @@ public class UIManager : MonoBehaviour
             _isExtendSelected = false;
             _isSomethingSelected = false;
         }
+        else if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            _isCornSelected = true;
+        }
     }
 
     private void DisableInterfaz()
@@ -499,12 +537,20 @@ public class UIManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
-            BuyButton.SetActive(false);
+            BuyUpgradeButton.SetActive(false);
             WateringCanButton.SetActive(false);
             GardenButton.SetActive(false);
             InventoryButton.SetActive(false);
             DescriptionText.text = "";
             AmountOfUpgradesText.text = "";
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            BuySeedsButton.SetActive(_isSomethingSelected);
+            IncreaseAmountButton.SetActive(_isSomethingSelected);
+            DecreaseAmountButton.SetActive(_isSomethingSelected);
+            DescriptionText.text = "";
+            PriceAmountToBuy.text = "";
         }
     }
     private void InitializeReferences()
@@ -699,7 +745,7 @@ public class UIManager : MonoBehaviour
     public void ButtonCropPressed(int index)
     {   
         _isEachCropSelected[index] = true;
-        _cantidadAVender = 1; // Reinicia la cantidad al cambiar de cultivo
+        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         _isSomethingSelected = true;
         DescriptionText.text = "1 maíz = 90 RootCoins.";
         
@@ -727,7 +773,7 @@ public class UIManager : MonoBehaviour
 
     private void ActualizarTextoCantidad1()
     {
-        Counter.text = $"{_cantidadAVender} = {_cantidadAVender * _coste} RC";
+        Counter.text = $"{_amountBuying} = {_amountBuying * _cost} RC";
     }
 
 
@@ -758,11 +804,122 @@ public class UIManager : MonoBehaviour
     // ---- COMPRA ----
     #region
 
-    // ---- METODOS PUBLICOS (COMPRA)
+    // ---- METODOS PUBLICOS (COMPRA) ----
     #region
+    public void ButtonCornSeedPressed()
+    {
+        _isSomethingSelected = true;
+        _isCornSelected = true;
+        _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
 
+        _amountBuying = 1;
+        _cost = 50;
+        DescriptionText.text = "1 semilla de maíz = 50 RootCoins.";
+        UpdateUI();
+    }
+
+    public void ButtonLettuceSeedPressed()
+    {
+        _isSomethingSelected = true;
+        _isLettuceSelected = true;
+        _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
+
+        _amountBuying = 1;
+        _cost = 15;
+        DescriptionText.text = "1 semilla de lechuga = 15 RootCoins.";
+        UpdateUI();
+    }
+
+    public void ButtonCarrotSeedPressed()
+    {
+        _isSomethingSelected = true;
+        _isCarrotSelected = true;
+        _isCornSelected = _isLettuceSelected = _isStrawberriesSelected = false;
+
+        _amountBuying = 1;
+        _cost = 20;
+        DescriptionText.text = "1 semilla de zanahoria = 20 RootCoins.";
+        UpdateUI();
+    }
+
+    public void ButtonStrawberriesSeedPressed()
+    {
+        _isSomethingSelected = true;
+        _isStrawberriesSelected = true;
+        _isCornSelected = _isLettuceSelected = _isCarrotSelected = false;
+
+        _amountBuying = 1;
+        _cost = 30;
+        DescriptionText.text = "1 semilla de fresa = 30 RootCoins.";
+        UpdateUI();
+    }
+
+    public void IncreaseAmount()
+    {
+        int TotalCost = (_amountBuying + 1) * _cost;  // Calculamos el costo total si aumentamos en 1
+
+        // Solo aumentamos si el costo total no supera el dinero disponible
+        if (TotalCost <= MoneyManager.GetMoneyCount() && _amountBuying < 30)
+        {
+            _amountBuying++;  // Aumenta la cantidad si hay suficiente dinero
+            UpdateUI();  // Actualiza el texto de la UI
+        }
+        else
+        {
+            DescriptionText.text = "No tienes suficiente dinero para más semillas.";  // Mensaje de error
+        }
+    }
+
+
+    public void DecreaseAmount()
+    {
+        if (_amountBuying > 1)
+        {
+            _amountBuying--;
+            UpdateUI();
+        }
+    }
+    public void ButtonBuyPressed()
+    {
+        int TotalCost = _amountBuying * _cost;
+
+        if (MoneyManager.GetMoneyCount() >= TotalCost)
+        {
+            MoneyManager.DeductMoney(TotalCost); // Resta el dinero correctamente
+
+            // Actualiza el inventario según el tipo de semilla seleccionada
+            if (_isCornSelected)
+            {
+                InventoryManager.ModifyInventory(Items.CornSeed, _amountBuying);
+            }
+            if (_isLettuceSelected)
+            {
+                InventoryManager.ModifyInventory(Items.LetuceSeed, _amountBuying);
+            }
+            if (_isCarrotSelected)
+            {
+                InventoryManager.ModifyInventory(Items.CarrotSeed, _amountBuying);
+            }
+            if (_isStrawberriesSelected)
+            {
+                InventoryManager.ModifyInventory(Items.StrawberrySeed, _amountBuying);
+            }
+
+            DescriptionText.text = "Compra realizada con éxito.";
+        }
+
+        else
+        {
+            DescriptionText.text = "No tienes suficiente dinero.";  // Mensaje si no hay dinero suficiente
+        }
+
+        UpdateUI();  // Actualiza la UI después de la compra
+    }
     #endregion
 
+    // ---- METODOS PRIVADOS (COMPRA) ----
+    #region
+    #endregion
 
     #endregion
     // ---- MEJORA ----
@@ -802,7 +959,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescription("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+        ShowDescriptionUpgrade("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
     }
 
     /// <summary>
@@ -815,7 +972,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescription("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+        ShowDescriptionUpgrade("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
     }
 
     /// <summary>
@@ -828,7 +985,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = true;
         _isSomethingSelected = true;
 
-        ShowDescription("Expande la capacidad de almacenamiento por 2.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+        ShowDescriptionUpgrade("Expande la capacidad de almacenamiento por 2.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
     }
 
     /// <summary>
@@ -841,17 +998,17 @@ public class UIManager : MonoBehaviour
             if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 1000) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                ShowDescription("Aumenta la capacidad de agua por 5.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 5.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
             }
             else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                ShowDescription("Aumenta la capacidad de agua por 10.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 10.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
             }
             else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                ShowDescription("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                ShowDescriptionUpgrade("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
             }
         }
         else if (_isExtendSelected && _isSomethingSelected)
@@ -861,27 +1018,27 @@ public class UIManager : MonoBehaviour
                 if ((MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetGardenUpgrades() == 0))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescription("Expande el terreno de cultivos por 10.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 10.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetGardenUpgrades() == 1))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescription("Expande el terreno de cultivos por 15.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 15.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 15000) && (GameManager.Instance.GetGardenUpgrades() == 2))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescription("Expande el terreno de cultivos por 20.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 20.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 20000) && (GameManager.Instance.GetGardenUpgrades() == 3))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescription("Expande el terreno de cultivos por 30.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 30.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 30000) && (GameManager.Instance.GetGardenUpgrades() == 4))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescription("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
 
             }
@@ -890,12 +1047,12 @@ public class UIManager : MonoBehaviour
                 if (_isInventorySelected && (MoneyManager.GetMoneyCount() >= 2000) && (GameManager.Instance.GetInventoryUpgrades() == 0))
                 {
                     GameManager.Instance.MejorarInventario();
-                    ShowDescription("Expande la capacidad de almacenamiento por 5.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+                    ShowDescriptionUpgrade("Expande la capacidad de almacenamiento por 5.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
                 }
                 else if (_isInventorySelected && (MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetInventoryUpgrades() == 1))
                 {
                     GameManager.Instance.MejorarInventario();
-                    ShowDescription("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
+                    ShowDescriptionUpgrade("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
                 }
             }
         }
@@ -908,17 +1065,17 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
     /// </summary>
-    private void ShowDescription(string text, int actualUpgrades, int maxUpgrades)
+    private void ShowDescriptionUpgrade(string text, int actualUpgrades, int maxUpgrades)
     {
         if (actualUpgrades >= maxUpgrades)
         {
             DescriptionText.text = "Ya no quedan más mejoras.";
-            BuyButton.SetActive(false);
+            BuyUpgradeButton.SetActive(false);
         }
         else
         {
             DescriptionText.text = text;
-            BuyButton.SetActive(true);
+            BuyUpgradeButton.SetActive(true);
         }
         AmountOfUpgradesText.text = actualUpgrades + "/" + maxUpgrades;
     }
