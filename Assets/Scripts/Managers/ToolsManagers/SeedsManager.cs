@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using TMPro;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -54,7 +55,25 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     [SerializeField] private float InitialMinDistance;
 
+    /// <summary>
+    /// Ref al gardenManager
+    /// </summary>
     [SerializeField] private GardenManager gardenManager;
+
+    ///<summary>
+    ///gameobject mensaje cantidad semillas
+    ///</summary>
+    [SerializeField] private GameObject AmountOfSeeds;
+
+    ///<summary>
+    ///Texto cantidad de semillas
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI AmountSeedsText;
+
+    ///<summary>
+    ///Ref al ui manager
+    /// </summary>
+    [SerializeField] private UIManager UIManager;
 
     #endregion
 
@@ -82,6 +101,10 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     private Items _seed;
 
+    ///<summary>
+    ///Nombre de la semilla para mostrar en el mensaje
+    /// </summary>
+    private string _nameSeed;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -118,6 +141,15 @@ public class SeedsManager : MonoBehaviour
                 InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);
             }
+        }
+        if (UIManager.GetInventoryVisible() == false)
+        {
+            AmountOfSeeds.SetActive(true);
+            AmountSeedsText.text = "x" + InventoryManager.GetInventory(_seed).ToString();
+        }
+        else 
+        {
+            AmountOfSeeds.SetActive(false);
         }
     }
 

@@ -2200,8 +2200,24 @@ MonoBehaviour:
   WateringCanButton: {fileID: 1404854458}
   InventoryButton: {fileID: 104833883}
   GardenButton: {fileID: 1269472783}
-  BuyButton: {fileID: 669749680}
+  BuyUpgradeButton: {fileID: 669749680}
   AmountOfUpgradesText: {fileID: 366144407}
+  CornButton: {fileID: 0}
+  LettuceButton: {fileID: 0}
+  CarrotButton: {fileID: 0}
+  StrawberryButton: {fileID: 0}
+  SellButton: {fileID: 0}
+  PlusButton: {fileID: 0}
+  MinusButton: {fileID: 0}
+  Counter: {fileID: 0}
+  CornText: {fileID: 0}
+  LettuceText: {fileID: 0}
+  CarrotText: {fileID: 0}
+  StrawberryText: {fileID: 0}
+  PriceAmountToBuy: {fileID: 0}
+  BuySeedsButton: {fileID: 0}
+  IncreaseAmountButton: {fileID: 0}
+  DecreaseAmountButton: {fileID: 0}
 --- !u!1 &472500750
 GameObject:
   m_ObjectHideFlags: 0
@@ -3570,7 +3586,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  sceneTransition: {fileID: 0}
+  _sceneTransition: {fileID: 0}
 --- !u!1 &1088496707
 GameObject:
   m_ObjectHideFlags: 0

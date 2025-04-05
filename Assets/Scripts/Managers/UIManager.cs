@@ -630,7 +630,7 @@ public class UIManager : MonoBehaviour
             {
                 _crops.SetActive(true);
                 _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
-                _units.text = InventoryManager.GetInventory(i) + "x";
+                _units.text = "x" + InventoryManager.GetInventory(i);
             }
             else _crops.SetActive(false);
         }
@@ -650,7 +650,7 @@ public class UIManager : MonoBehaviour
                     _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
                     if (InventoryManager.GetInventory(i) / (actualSlot * _slotsCapacity) != 0)
                     {
-                        _units.text = _slotsCapacity + "x";
+                        _units.text = "x" + _slotsCapacity;
                     }
                     else if (InventoryManager.GetInventory(i) - ((actualSlot - 1) * _slotsCapacity) != 0)
                     {

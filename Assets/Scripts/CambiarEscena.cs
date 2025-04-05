@@ -34,7 +34,7 @@ public class CambiarEscena : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    public SceneTransition sceneTransition;
+    public SceneTransition _sceneTransition;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -50,7 +50,7 @@ public class CambiarEscena : MonoBehaviour
     /// </summary>
     void Start()
     {
-
+        _sceneTransition = FindObjectOfType<SceneTransition>();
     }
 
     /// <summary>
@@ -58,12 +58,12 @@ public class CambiarEscena : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (sceneTransition == null)
+        if (_sceneTransition == null)
         {
             GameObject transitionObject = GameObject.FindGameObjectWithTag("ObjetoTransicion");
             if (transitionObject != null)
             {
-                sceneTransition = transitionObject.GetComponent<SceneTransition>();
+                _sceneTransition = transitionObject.GetComponent<SceneTransition>();
             }
             else
             {
@@ -97,9 +97,9 @@ public class CambiarEscena : MonoBehaviour
             {
                 SavePosition();
             }
-                if (sceneTransition != null)
+            if (_sceneTransition != null)
             {
-                sceneTransition.ChangeScene(sceneName);
+                _sceneTransition.ChangeScene(sceneName);
                 Debug.Log("Cambiando a escena: " + sceneName);
             }
             else
