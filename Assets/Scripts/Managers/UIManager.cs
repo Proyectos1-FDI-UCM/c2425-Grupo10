@@ -575,7 +575,9 @@ public class UIManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            SellButton.SetActive(false);
+            SellButton.SetActive(_isSomethingSelected);
+            PlusButton.SetActive(_isSomethingSelected);
+            MinusButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
             Counter.text = "";
         }
@@ -781,11 +783,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCornPressed()
     {
+        _isSomethingSelected = true;
         _isCornSelected = true;
         _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
+
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        _cost = 90;
         ActualizarTextoCantidad();
-        _isSomethingSelected = true;
+        
         DescriptionText.text = "1 maíz = 90 RootCoins.";      
         UpdateUI();
     }
@@ -795,11 +800,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonLettucePressed()
     {
+        _isSomethingSelected = true;
         _isLettuceSelected = true;
         _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
+       
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        _cost = 20;
         ActualizarTextoCantidad();
-        _isSomethingSelected = true;
+        
         DescriptionText.text = "1 lechuga = 20 RootCoins.";
         UpdateUI();
     }
@@ -809,11 +817,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCarrotPressed()
     {
+        _isSomethingSelected = true;
         _isCarrotSelected = true;
         _isLettuceSelected = _isCornSelected = _isStrawberriesSelected = false;
+        
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        _cost = 65;
         ActualizarTextoCantidad();
-        _isSomethingSelected = true;
+        
         DescriptionText.text = "1 zanahoria = 65 RootCoins.";
         UpdateUI();
     }
@@ -823,11 +834,13 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonStrawberriesPressed()
     {
+        _isSomethingSelected = true;
         _isStrawberriesSelected = true;
         _isLettuceSelected = _isCarrotSelected = _isCornSelected = false;
+        
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         ActualizarTextoCantidad();
-        _isSomethingSelected = true;
+        _cost = 40;
         DescriptionText.text = "1 fresa = 40 RootCoins.";
         UpdateUI();
     }
@@ -943,7 +956,7 @@ public class UIManager : MonoBehaviour
     {
         if (MoneyManager == null)
         {
-            Debug.LogError("ContadorTexto no está asignado en el Inspector.");
+          //  Debug.LogError("ContadorTexto no está asignado en el Inspector.");
             return;
         }
 
