@@ -196,7 +196,7 @@ public class GardenManager : MonoBehaviour
         if (Plant.Position == transform.position)
         {
             Debug.Log(Plant.State);
-            if (Plant.State > 3)
+            if (Plant.State == 5)
             {
                 int random = UnityEngine.Random.Range(0, _maxProb);
                 InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
