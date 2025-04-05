@@ -263,7 +263,8 @@ public class SickleManager : MonoBehaviour
         {
             Transform crop = pot.GetChild(0);
             plant = GardenData.GetPlant(crop);
-            _isInCropArea = true;
+            if (plant.State >= 5)
+                _isInCropArea = true;
             //if (plant.State == 4) 
         }
         else _isInCropArea = false;
