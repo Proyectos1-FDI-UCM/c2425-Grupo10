@@ -542,7 +542,8 @@ public class UIManager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
             _isCornSelected = true;
-           // _isSellPressed = true;
+            // _isSellPressed = true;
+            ActualizarCantidadUI();
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
