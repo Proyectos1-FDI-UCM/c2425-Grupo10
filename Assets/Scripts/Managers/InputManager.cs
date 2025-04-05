@@ -233,7 +233,7 @@ public class InputManager : MonoBehaviour
     {
         return _select5.WasPressedThisFrame();
     }
-    public bool SalirWasPressedThisFrame()
+    public bool ExitWasPressedThisFrame()
     {
         return _exit.WasPressedThisFrame();
     }
@@ -421,7 +421,7 @@ public class InputManager : MonoBehaviour
 
         // Salir input system
         // El estado lo consultaremos a través de los métodos públicos que 
-        // (SalirIsPressed, SalirWasPressedThisFrame, SalirWasReleasedThisFrame )
+        // (SalirIsPressed, ExitWasPressedThisFrame, SalirWasReleasedThisFrame )
         _exit = _theController.Player.Salir;
 
         // Select input system
