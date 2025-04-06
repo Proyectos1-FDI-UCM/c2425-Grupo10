@@ -81,6 +81,7 @@ public class InputManager : MonoBehaviour
     private InputAction _useShovel;
     private InputAction _ShorcutInventory;
     private InputAction _ShorcutSeeds;
+    private InputAction _map;
 
     #endregion
 
@@ -369,6 +370,28 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para saber si el botón de Map está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool MapWasPressedThisFrame()
+    {
+        return _map.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Map está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool MapIsPressed()
+    {
+        return _map.IsPressed();
+    }
+
+    /// <summary>
     /// Método para saber si el botón de disparo (Fire) ha dejado de pulsarse
     /// durante este frame
     /// <returns>Devuelve true, si el botón se ha dejado de pulsar en
@@ -472,6 +495,11 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
         _ShorcutSeeds = _theController.Player.ShorcutSeed;
+
+        // Map input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (MapIsPressed, MapWasPressedThisFrame )
+        _map = _theController.Player.Map;
     }
 
     /// <summary>

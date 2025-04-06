@@ -83,6 +83,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Slider EnergySlider;
 
+    /// <summary>
+    /// GameObject del mapa
+    /// </summary>
+    [SerializeField] private GameObject Map;
+
 
     [Header("UI del Banco")]
 
@@ -355,6 +360,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private int _maxInventoryUpgrades = 2;
 
+    /// <summary>
+    /// Booleano para saber si el mapa esta visible
+    /// </summary>
+    private bool _isMapVisible = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -362,7 +372,7 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-
+        Map.SetActive(false);
         if(SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
@@ -386,7 +396,7 @@ public class UIManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // La subida/Bajada del inventario se activa con el TAB.
-            if (InputManager.Instance.TabWasPressedThisFrame())
+            if (!_isMapVisible && InputManager.Instance.TabWasPressedThisFrame())
             {
                 ToggleInventory();
                 ActualizeInventory();
@@ -413,6 +423,18 @@ public class UIManager : MonoBehaviour
                 new Vector2(QuickAccessBar.anchoredPosition.x, targetQuickBarY),
                 Time.deltaTime * _transitionSpeed
             );
+            if(!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame())
+            {
+                Map.SetActive(true);
+                _isMapVisible = true;
+                PlayerMovement.DisablePlayerMovement();
+            }
+            else if (_isMapVisible && InputManager.Instance.MapWasPressedThisFrame())
+            {
+                Map.SetActive(false);
+                _isMapVisible = false;
+                PlayerMovement.EnablePlayerMovement();
+            }
         }
 
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())

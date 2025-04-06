@@ -181,6 +181,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Map"",
+                    ""type"": ""Button"",
+                    ""id"": ""ba17765b-210a-4f52-bdfc-40b407b5dd0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -511,6 +520,17 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ShorcutSeed"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4f36355c-8c36-432a-ab5a-ca30f4b5f352"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1115,6 +1135,7 @@ namespace UnityEngine.InputSystem
             m_Player_UseShovel = m_Player.FindAction("UseShovel", throwIfNotFound: true);
             m_Player_ShorcutInventory = m_Player.FindAction("ShorcutInventory", throwIfNotFound: true);
             m_Player_ShorcutSeed = m_Player.FindAction("ShorcutSeed", throwIfNotFound: true);
+            m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1205,6 +1226,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_UseShovel;
         private readonly InputAction m_Player_ShorcutInventory;
         private readonly InputAction m_Player_ShorcutSeed;
+        private readonly InputAction m_Player_Map;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1226,6 +1248,7 @@ namespace UnityEngine.InputSystem
             public InputAction @UseShovel => m_Wrapper.m_Player_UseShovel;
             public InputAction @ShorcutInventory => m_Wrapper.m_Player_ShorcutInventory;
             public InputAction @ShorcutSeed => m_Wrapper.m_Player_ShorcutSeed;
+            public InputAction @Map => m_Wrapper.m_Player_Map;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1286,6 +1309,9 @@ namespace UnityEngine.InputSystem
                 @ShorcutSeed.started += instance.OnShorcutSeed;
                 @ShorcutSeed.performed += instance.OnShorcutSeed;
                 @ShorcutSeed.canceled += instance.OnShorcutSeed;
+                @Map.started += instance.OnMap;
+                @Map.performed += instance.OnMap;
+                @Map.canceled += instance.OnMap;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1341,6 +1367,9 @@ namespace UnityEngine.InputSystem
                 @ShorcutSeed.started -= instance.OnShorcutSeed;
                 @ShorcutSeed.performed -= instance.OnShorcutSeed;
                 @ShorcutSeed.canceled -= instance.OnShorcutSeed;
+                @Map.started -= instance.OnMap;
+                @Map.performed -= instance.OnMap;
+                @Map.canceled -= instance.OnMap;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1540,6 +1569,7 @@ namespace UnityEngine.InputSystem
             void OnUseShovel(InputAction.CallbackContext context);
             void OnShorcutInventory(InputAction.CallbackContext context);
             void OnShorcutSeed(InputAction.CallbackContext context);
+            void OnMap(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
