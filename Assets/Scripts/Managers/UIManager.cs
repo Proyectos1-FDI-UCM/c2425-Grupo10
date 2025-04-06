@@ -11,7 +11,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using static UnityEditor.Progress;
 using UnityEngine.SceneManagement;
 using System;
 
@@ -372,15 +371,15 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        Map.SetActive(false);
         if(SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
             _quickBarBaseY = QuickAccessBar.anchoredPosition.y;
             // Inicializamos la posición del inventario en oculto
             InventoryPanel.anchoredPosition = new Vector2(InventoryPanel.anchoredPosition.x, _hiddenY);
+            Map.SetActive(false);
         }
-        
+
         if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
         {
             ResetInterfaz();
