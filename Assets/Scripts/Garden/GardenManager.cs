@@ -264,7 +264,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel1.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel - 1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -281,7 +281,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel2.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel - 1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -299,7 +299,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel3.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel - 1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -317,7 +317,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel4.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel-1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
