@@ -137,10 +137,7 @@ public class MoneyManager : MonoBehaviour
 
     private void Start()
     {
-        UIManager.ShowMoneyUI(); // Llamada extra para asegurar la actualización
 
-        // carga de escenas para actualizar la UI
-       // SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
 
@@ -148,10 +145,13 @@ public class MoneyManager : MonoBehaviour
     /// Método que se ejecuta cuando se carga una nueva escena.
     /// Se usa para actualizar la UI del dinero.
     /// </summary>
-    //private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    //{
-    //    UiManager.ShowMoneyUI();
-    //}
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
+        {
+            UIManager.ShowMoneyUI();
+        }
+    }
 
     // ---- MÉTODOS PARA VENDER CULTIVOS ----
 

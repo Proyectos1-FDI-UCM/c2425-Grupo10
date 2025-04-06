@@ -57,10 +57,6 @@ public class GameManager : MonoBehaviour
     /// Referencia al script que maneja el dinero
     /// <summary>
     [SerializeField] private MoneyManager MoneyCount;
-    /// <summary>
-    /// Referencia al script que maneja la barra de agua
-    /// <summary>
-    [SerializeField] private SelectorManager SelectorManager;
 
     /// <summary>
     /// Referencia al script que maneja la cantidad de agua
