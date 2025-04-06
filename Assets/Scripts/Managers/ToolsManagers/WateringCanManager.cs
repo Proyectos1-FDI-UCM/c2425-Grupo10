@@ -121,7 +121,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
-    private bool _isInWellArea = false;
+    [SerializeField] private bool _isInWellArea = false;
 
     ///<summary>
     ///Booleano para permitir regar
@@ -191,11 +191,10 @@ public class WateringCanManager : MonoBehaviour
             Watering();
         }
 
-        if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
-        { 
-
+        if (_isInWellArea) // && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
+        {
+            Debug.Log("Rellener");
             Press.SetActive(true);
-
             TextPress.text = "Presiona R \npara rellenar";
 
             if (InputManager.Instance.FillWateringCanWasPressedThisFrame())

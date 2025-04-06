@@ -139,10 +139,12 @@ MonoBehaviour:
   - {fileID: 95959730, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
   - {fileID: 1133651836, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
   - {fileID: -2026104264, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
-  PlantDeadStage1: {fileID: 45594649, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
-  PlantDeadStage2: {fileID: -1815469075, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
-  PlantDeadStage3: {fileID: 1287966252, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
-  PlantDeadStage4: {fileID: 1727801593, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  DeadSprites:
+  - {fileID: 21300000, guid: 5a749237d37ceda459e67d2b669a6d1e, type: 3}
+  - {fileID: 45594649, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  - {fileID: 1342624134, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  - {fileID: 1820793917, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
+  - {fileID: 2101235617, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
   WarningWater: {fileID: 1074837354, guid: fd4bd83c3b54bfe459e1dc4580fc4d98, type: 3}
   WarningDeath: {fileID: -805847104, guid: ae84c9cb5ed80f84a96900b3e92c7836, type: 3}
   WarningCollect: {fileID: 1417351070, guid: a8353467bd75afa4ea7704181e471e09, type: 3}
