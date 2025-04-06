@@ -37,7 +37,7 @@ public static class InventoryManager
     /// <summary>
     /// Posicion del Jugador
     /// </summary>
-    private static Vector3 PlayerPosition;
+    private static Vector3 PlayerPosition = new Vector3 (14.14f, -9.62f, 0);
 
     /// <summary>
     /// Cantidad de cada Item que tiene el jugador
@@ -49,7 +49,6 @@ public static class InventoryManager
     /// </summary>
     [SerializeField] private static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventario para las semillas
     [SerializeField] private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventario para los cultivos
-
 
     /// <summary>
     /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
