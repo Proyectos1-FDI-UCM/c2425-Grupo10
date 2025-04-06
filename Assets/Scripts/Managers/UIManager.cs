@@ -73,6 +73,16 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject InventoryIcons;
 
+    /// <summary>
+    /// Ref al mensaje de estar cansado
+    /// </summary>
+    [SerializeField] private GameObject TiredMessage;
+
+    /// <summary>
+    /// Ref al slider de la energia
+    /// </summary>
+    [SerializeField] private Slider EnergySlider;
+
 
     [Header("UI del Banco")]
 
@@ -668,6 +678,16 @@ public class UIManager : MonoBehaviour
             else InventoryIcons.transform.GetChild(i).gameObject.SetActive(false);
         }
 
+    }
+    public void UpdateEnergyBar(float current, int max)
+    {
+        EnergySlider.maxValue = max;
+        EnergySlider.value = current;
+    }
+
+    public void ShowTiredMessage(bool show)
+    {
+        TiredMessage.SetActive(show);
     }
     #endregion
 

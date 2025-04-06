@@ -25,6 +25,20 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     [SerializeField] private float Speed = 3f;
 
+    ///<summary>
+    ///Energia maxima del jugador
+    /// </summary>
+    [SerializeField] private int maxEnergy = 100;
+
+    ///<summary>
+    ///energia actual del jugador
+    /// </summary>
+    [SerializeField] private float _currentEnergy;
+
+    ///<summary>
+    ///ref al uimanager
+    /// </summary>
+    [SerializeField] private UIManager UIManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -75,6 +89,13 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private Transform _hand;
 
+   
+
+    ///<summary>
+    ///booleano para saber si estas cansado
+    /// </summary>
+    private bool _isTired = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -103,9 +124,12 @@ public class PlayerMovement : MonoBehaviour
             // Obtiene la referencia a la mano del jugador.
             _hand = gameObject.transform.GetChild(0);
         }
-        
 
-        
+        UpdateEnergy();
+        _currentEnergy = maxEnergy;
+        UIManager = FindObjectOfType<UIManager>();
+
+
     }
 
     /// <summary>
@@ -113,6 +137,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
+        UpdateEnergy();
         // Captura la entrada del jugador para el movimiento en el eje X 
         float moveX = InputManager.Instance.MovementVector.x;
         float moveY = InputManager.Instance.MovementVector.y;
@@ -145,7 +170,15 @@ public class PlayerMovement : MonoBehaviour
         // Actualiza la velocidad de la animación.
         _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
 
-        
+        if (_isTired)
+        {
+            _movementenabled = false;
+        }
+        else
+        {
+            _movementenabled = true;
+        }
+
 
     }
 
@@ -153,14 +186,6 @@ public class PlayerMovement : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-
-    /// <summary>
-    /// Método para cambiar la herramienta del jugador.
-    /// </summary>
-    public void ChangeTool()
-    {
-        //
-    }
 
     ///<summary>
     ///Metodo para activar el movimiento
@@ -230,10 +255,47 @@ public class PlayerMovement : MonoBehaviour
         _hand.localScale = scale;    
     }
 
+    /// <summary>
+    /// Actualizar la energia del jugador  y mandar datos al uimanager
+    /// </summary>
+    private void UpdateEnergy()
+    {
+        // Si se está moviendo y no está cansado gasta energia
+        if (_moveInput != Vector2.zero && !_isTired)
+        {
+            if (_currentEnergy > 0)
+            {
+                _currentEnergy -= 0.2f;
+            }
+        }
+        // Si no se está moviendo regenera energia
+        else if (_moveInput == Vector2.zero && _currentEnergy < maxEnergy)
+        {
+            if(_currentEnergy < maxEnergy)
+            {
+                _currentEnergy += (10f * Time.deltaTime);
+            }
+        }
+        // Si llega a 0 se cansa
+        if (_currentEnergy <= 0f && !_isTired)
+        {
+            _isTired = true;
+            UIManager.ShowTiredMessage(true);
+        }
+        // Si se recarga hasta 30 se recupera
+        else if (_isTired && _currentEnergy >= 30f)
+        {
+            _isTired = false;
+            UIManager.ShowTiredMessage(false);
+        }
+
+        // Actualiza la barra
+        UIManager.UpdateEnergyBar(_currentEnergy, maxEnergy);
+    }
     #endregion
     //-----EVENTOS-----
     #region
-    
+
     #endregion
 
 } // class PlayerMovement 
