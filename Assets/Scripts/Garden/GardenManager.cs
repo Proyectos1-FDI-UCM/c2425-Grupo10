@@ -209,7 +209,7 @@ public class GardenManager : MonoBehaviour
                 }
                 else 
                 {
-                    GardenData.Deactivate(transform.position);
+                    GardenData.Deactivate(i);
                     cropSpriteEditor.Destroy(); 
                 }
             }
@@ -233,7 +233,7 @@ public class GardenManager : MonoBehaviour
             if (Plant.State == -5)
             {
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
-                GardenData.Deactivate(transform.position);
+                GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
             }
 

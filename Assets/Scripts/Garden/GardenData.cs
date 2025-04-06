@@ -106,15 +106,17 @@ public static class GardenData
             }
         }
         if (!PlantActive) { 
-            Garden[ActivePlants].Position = transform.position;
-            Garden[ActivePlants].Active = true;
-            Garden[ActivePlants].Item = item;
-            Garden[ActivePlants].State = 0;
-            Garden[ActivePlants].WaterWarning = false;
-            Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
-            Garden[ActivePlants].GrowthTimer = 0;
+
+            Garden[i].Position = transform.position;
+            Garden[i].Active = true;
+            Garden[i].Item = item;
+            Garden[i].State = 0;
+            Garden[i].WaterWarning = false;
+            Garden[i].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
+            Garden[i].GrowthTimer = 0;
 
             ActivePlants++;
+            Debug.Log($"Planta creada Array: {i} y Pot: {Garden[i].Child}, ");
         }
     }
 
@@ -141,6 +143,25 @@ public static class GardenData
 
             ActivePlants--;
         }
+        else Debug.Log("No se elimina la planta");
+    }
+
+    /// <summary>
+    /// Desactiva una planta según su idenx en el array
+    /// </summary>
+    public static void Deactivate(int i)
+    {
+
+            Garden[i].Position = Vector3.zero;
+            Garden[i].Active = false;
+            Garden[i].State = 0;
+            Garden[i].WaterTimer = 0;
+            Garden[i].GrowthTimer = 0;
+            Garden[i].WaterWarning = false;
+            Garden[i].Child =
+
+            ActivePlants--;
+
     }
 
     /// <summary>
