@@ -126,7 +126,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Lógica Crecimiento
-                if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
+                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer) >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
                 {
                     GrowthWarning(GardenData.GetPlant(i), i);
                 }
@@ -134,14 +134,14 @@ public class GardenManager : MonoBehaviour
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
 
                 // Aviso Riego
-                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) < GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
+                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) < GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
                 {
                     WaterWarning(GardenData.GetPlant(i));
-                    GardenData.ModifyWaterWarning(i);
+                    //GardenData.ModifyWaterWarning(i);
                 }
 
                  // Aviso Muerte
-                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer < 2*GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0)
+                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer < 2*GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
                 {
                     Debug.Log("Aviso Muerte");
                     DeathWarning(GardenData.GetPlant(i), i);
@@ -149,7 +149,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Muerte
-                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= 2*GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0)
+                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= 2*GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
                 {
                     Death(GardenData.GetPlant(i), i);
                     Debug.Log("Muerte");
@@ -193,7 +193,7 @@ public class GardenManager : MonoBehaviour
         if (GardenData.GetPlant(i).Position == transform.position)
         {
             GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
-            GardenData.ModifyWaterWarning(i);
+            //GardenData.ModifyWaterWarning(i);
         }
     }
 

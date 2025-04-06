@@ -73,9 +73,9 @@ public static class GardenData
     private static CropVariables[] CropsData =
 {
     new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 1f, MaxDeathTime = 2f},
-    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
-    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
-    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f }
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 2f, MaxDeathTime = 2f }
     };
 
     static void Main()
