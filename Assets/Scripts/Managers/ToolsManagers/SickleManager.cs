@@ -23,6 +23,11 @@ public class SickleManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    ///<summary>
+    ///Bool que activa/desactiva las características para la build
+    /// </summary>
+    [SerializeField] private bool Build = true;
+
     /// <summary>
     /// Referencia al selector manager
     /// </summary>
@@ -134,6 +139,8 @@ public class SickleManager : MonoBehaviour
             Harvest();
 
         }
+
+        if (!Build)
 
         if (_isInCropArea && UIManager.GetInventoryVisible() == false)
         {
