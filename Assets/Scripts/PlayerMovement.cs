@@ -265,7 +265,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_currentEnergy > 0)
             {
-                _currentEnergy -= 0.2f;
+                _currentEnergy -= 0.05f;
             }
         }
         // Si no se está moviendo regenera energia

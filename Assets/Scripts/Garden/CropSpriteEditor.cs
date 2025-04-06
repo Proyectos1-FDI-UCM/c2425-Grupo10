@@ -27,7 +27,7 @@ public class CropSpriteEditor : MonoBehaviour
     /// Sprites de Estados de las Plantas Vivas
     /// </summary>
 
-    [SerializeField] private Sprite[] Sprites = new Sprite[6];
+    [SerializeField] private Sprite[] Sprites = new Sprite[9];
     ////PlantStage1;
     //[SerializeField] private Sprite PlantStage2;
     //[SerializeField] private Sprite PlantStage3;
@@ -172,9 +172,25 @@ public class CropSpriteEditor : MonoBehaviour
         {
             _spriteRenderer.sprite = Sprites[4];
         }
-        else if (state == -5)
+        else if (state == -1)
         {
             _spriteRenderer.sprite = Sprites[5];
+        }
+        else if (state == -2)
+        {
+            _spriteRenderer.sprite = Sprites[6];
+        }
+        else if (state == -3)
+        {
+            _spriteRenderer.sprite = Sprites[7];
+        }
+        else if (state == -4)
+        {
+            _spriteRenderer.sprite = Sprites[8];
+        }
+        else if (state == -5)
+        {
+            _spriteRenderer.sprite = Sprites[9];
         }
         //Grown(transform); // Modifica el timer de crecimiento
     }
