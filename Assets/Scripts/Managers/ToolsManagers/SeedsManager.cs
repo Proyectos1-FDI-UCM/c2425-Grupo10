@@ -197,7 +197,7 @@ public class SeedsManager : MonoBehaviour
         foreach (Transform pot in Pots)
         {
             float MinDistance = InitialMinDistance;
-            if (pot.childCount == 0) // Comprueba que no hay ninguna planta en esta posición
+            if (pot.gameObject.activeInHierarchy && pot.childCount == 0) // Comprueba que no hay ninguna planta en esta posición
             {
                 float SqrDistance = (Player.position - pot.position).sqrMagnitude;
                 if (SqrDistance < MinDistance)
