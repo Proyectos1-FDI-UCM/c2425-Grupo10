@@ -120,7 +120,9 @@ public class GardenManager : MonoBehaviour
                 if(GardenData.GetPlant(i).State == 0)
                 {
                     GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
+                    GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
                     GrowthWarning(GardenData.GetPlant(i), i);
+
                 }
 
                 // Lógica Crecimiento

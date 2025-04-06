@@ -177,6 +177,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyGrowthTimer(int i, float value)
     {
+        Debug.Log($"GrowthTimer: {Garden[i].GrowthTimer}");
         Garden[i].GrowthTimer = value;
     }
 
