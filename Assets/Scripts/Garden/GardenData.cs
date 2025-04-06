@@ -201,7 +201,8 @@ public static class GardenData
     /// </summary>
     public static Plant GetPlant(int i)
     {
-        return Garden[i];
+        if (i < Garden.Length) return Garden[i];
+        else return new Plant();
     }
 
     /// <summary>
@@ -234,7 +235,7 @@ public static class GardenData
             if (Garden[i].Position == transform.position) Found = true;
            i++;
         }
-        if (Found) Plant = Garden[i];
+        if (i < Garden.Length && Found) Plant = Garden[i];
         return Plant;
     }
 
