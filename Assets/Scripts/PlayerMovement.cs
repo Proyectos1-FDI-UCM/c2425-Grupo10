@@ -36,9 +36,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float _currentEnergy;
 
     ///<summary>
+    ///Energia que se resta al jugador
+    /// </summary>
+    [SerializeField] private float _fadingEnergy;
+
+    ///<summary>
     ///ref al uimanager
     /// </summary>
     [SerializeField] private UIManager UIManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -265,7 +271,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (_currentEnergy > 0)
             {
-                _currentEnergy -= 0.05f;
+                _currentEnergy -= _fadingEnergy;
             }
         }
         // Si no se está moviendo regenera energia
