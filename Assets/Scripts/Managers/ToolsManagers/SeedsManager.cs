@@ -171,7 +171,7 @@ public class SeedsManager : MonoBehaviour
     {
         _seed = (Items)Seed;
         if (Seed == (int)Items.CornSeed) _prefab = PrefabSeeds0;
-        else if (Seed == (int)Items.LetuceSeed) _prefab = PrefabSeeds1;
+        else if (Seed == (int)Items.LettuceSeed) _prefab = PrefabSeeds1;
         else if (Seed == (int)Items.CarrotSeed) _prefab = PrefabSeeds2;
         else if (Seed == (int)Items.StrawberrySeed) _prefab = PrefabSeeds3;
     }

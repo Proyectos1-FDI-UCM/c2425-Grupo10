@@ -1021,7 +1021,8 @@ public class UIManager : MonoBehaviour
 
         _amountBuying = 1;
         _cost = 50;
-        DescriptionText.text = "1 semilla de maíz = 50 RootCoins.";
+        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
+
         UpdateUI();
     }
 
@@ -1033,7 +1034,8 @@ public class UIManager : MonoBehaviour
 
         _amountBuying = 1;
         _cost = 15;
-        DescriptionText.text = "1 semilla de lechuga = 15 RootCoins.";
+        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
+
         UpdateUI();
     }
 
@@ -1045,7 +1047,8 @@ public class UIManager : MonoBehaviour
 
         _amountBuying = 1;
         _cost = 20;
-        DescriptionText.text = "1 semilla de zanahoria = 20 RootCoins.";
+        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
+
         UpdateUI();
     }
 
@@ -1057,25 +1060,49 @@ public class UIManager : MonoBehaviour
 
         _amountBuying = 1;
         _cost = 30;
-        DescriptionText.text = "1 semilla de fresa = 30 RootCoins.";
+        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
+
         UpdateUI();
     }
 
+
     public void IncreaseAmount()
     {
-        int TotalCost = (_amountBuying + 1) * _cost;  // Calculamos el costo total si aumentamos en 1
+        // Verifica si se ha alcanzado el máximo de semillas para la semilla seleccionada
+        if (_isCornSelected && InventoryManager.GetInventory(Items.CornSeed) + _amountBuying >= 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de maíz (30).";
+            return;
+        }
+        if (_isCarrotSelected && InventoryManager.GetInventory(Items.CarrotSeed) + _amountBuying >= 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de zanahoria (30).";
+            return;
+        }
+        if (_isLettuceSelected && InventoryManager.GetInventory(Items.LettuceSeed) + _amountBuying >= 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de lechuga (30).";
+            return;
+        }
+        if (_isStrawberriesSelected && InventoryManager.GetInventory(Items.StrawberrySeed) + _amountBuying >= 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de fresa (30).";
+            return;
+        }
 
-        // Solo aumentamos si el costo total no supera el dinero disponible
-        if (TotalCost <= MoneyManager.GetMoneyCount() && _amountBuying < 30)
+        int totalCost = (_amountBuying + 1) * _cost;
+
+        if (totalCost > MoneyManager.GetMoneyCount())
         {
-            _amountBuying++;  // Aumenta la cantidad si hay suficiente dinero
-            UpdateUI();  // Actualiza el texto de la UI
+            DescriptionText.text = "No tienes suficiente dinero para más semillas.";
+            return;
         }
-        else
-        {
-            DescriptionText.text = "No tienes suficiente dinero para más semillas.";  // Mensaje de error
-        }
+
+        _amountBuying++;
+        UpdateUI();
     }
+
+
 
 
     public void DecreaseAmount()
@@ -1088,6 +1115,28 @@ public class UIManager : MonoBehaviour
     }
     public void ButtonBuyPressed()
     {
+        // Verifica el máximo de semillas solo para el tipo seleccionado
+        if (_isCornSelected && InventoryManager.GetInventory(Items.CornSeed) + _amountBuying > 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de maíz (30).";
+            return;
+        }
+        if (_isCarrotSelected && InventoryManager.GetInventory(Items.CarrotSeed) + _amountBuying > 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de zanahoria (30).";
+            return;
+        }
+        if (_isLettuceSelected && InventoryManager.GetInventory(Items.LettuceSeed) + _amountBuying > 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de lechuga (30).";
+            return;
+        }
+        if (_isStrawberriesSelected && InventoryManager.GetInventory(Items.StrawberrySeed) + _amountBuying > 30)
+        {
+            DescriptionText.text = "Ya tienes el máximo de semillas de fresa (30).";
+            return;
+        }
+
         int TotalCost = _amountBuying * _cost;
 
         if (MoneyManager.GetMoneyCount() >= TotalCost)
@@ -1101,7 +1150,7 @@ public class UIManager : MonoBehaviour
             }
             if (_isLettuceSelected)
             {
-                InventoryManager.ModifyInventory(Items.LetuceSeed, _amountBuying);
+                InventoryManager.ModifyInventory(Items.LettuceSeed, _amountBuying);
             }
             if (_isCarrotSelected)
             {
@@ -1114,7 +1163,6 @@ public class UIManager : MonoBehaviour
 
             DescriptionText.text = "Compra realizada con éxito.";
         }
-
         else
         {
             DescriptionText.text = "No tienes suficiente dinero.";  // Mensaje si no hay dinero suficiente
@@ -1122,6 +1170,9 @@ public class UIManager : MonoBehaviour
 
         UpdateUI();  // Actualiza la UI después de la compra
     }
+
+
+
     #endregion
 
     // ---- METODOS PRIVADOS (COMPRA) ----

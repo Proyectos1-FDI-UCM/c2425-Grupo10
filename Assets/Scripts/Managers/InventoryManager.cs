@@ -16,7 +16,7 @@ using UnityEngine;
 public enum Items
 {
     CornSeed,
-    LetuceSeed,
+    LettuceSeed,
     CarrotSeed,
     StrawberrySeed,
     Corn,

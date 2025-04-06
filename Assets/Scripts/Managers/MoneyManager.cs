@@ -227,7 +227,7 @@ public class MoneyManager : MonoBehaviour
 
     public void BuyCornSeed() => BuySeed(Items.CornSeed, CornSeedPrice);
     public void BuyCarrotSeed() => BuySeed(Items.CarrotSeed, CarrotSeedPrice);
-    public void BuyLettuceSeed() => BuySeed(Items.LetuceSeed, LettuceSeedPrice);
+    public void BuyLettuceSeed() => BuySeed(Items.LettuceSeed, LettuceSeedPrice);
     public void BuyStrawberrySeed() => BuySeed(Items.StrawberrySeed, StrawberrySeedPrice);
 
 
