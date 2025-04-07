@@ -295,7 +295,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton ingresar
     /// </summary>
-    private bool _isDepositSelected = true;
+    private bool _isDepositSelected = false;
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton mudanza
@@ -377,6 +377,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isMapVisible = false;
 
+    /// <summary>
+    /// Texto a poner en la descripcion
+    /// </summary>
+    private string _newDescriptionText;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -453,7 +458,10 @@ public class UIManager : MonoBehaviour
                 PlayerMovement.EnablePlayerMovement();
             }
         }
-
+        if (_isDepositSelected)
+        {
+            AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
+        }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
             EnableInterfaz();
@@ -462,14 +470,6 @@ public class UIManager : MonoBehaviour
         {
             DisableInterfaz();
         }
-
-        if (SceneManager.GetActiveScene().name == "Escena_Banco")
-        {
-            if (_isDepositSelected)
-            {
-                AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
-            }
-        } 
     }
     #endregion
 
@@ -535,6 +535,7 @@ public class UIManager : MonoBehaviour
                 AmountMoneyToDeposit.gameObject.SetActive(false);
                 AmountToDepositText.gameObject.SetActive(false);
                 BeachHouseButton.SetActive(true);
+                AcceptButton.SetActive(false);
                 AmountDepositedText.gameObject.SetActive(false);
                 MoveButton.SetActive(false);
             }
@@ -579,11 +580,9 @@ public class UIManager : MonoBehaviour
         UI.SetActive(true);
         NpcMessage.SetActive(false);
         PlayerMovement.DisablePlayerMovement();
-
-        if (SceneManager.GetActiveScene().name == "Escena_Build")
+        if (SceneManager.GetActiveScene().name == "Escena_Banco")
         {
             ButtonDepositPressed();
-            MovingButton.SetActive(true);
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
@@ -793,11 +792,14 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Mudanza realizada con éxito.");
             GameManager.Instance.DeductDepositedMoney(100000);
-            SceneTransition.ChangeScene("Escena_CasaPlaya");
+            SceneTransition.ChangeScene("Menu");
 
         }
         else
         {
+            DescriptionText.text = "No tienes suficiente dinero.";
+            _newDescriptionText = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
+            Invoke("ChangeDescription", 1f);
             Debug.Log("No tienes suficiente dinero para mudarte.");
         }
     }
@@ -832,7 +834,10 @@ public class UIManager : MonoBehaviour
 
     // ---- METODOS PRIVADOS (BANCO)
     #region Metodos Privados (Banco)
-
+    private void ChangeDescription()
+    {
+        DescriptionText.text = _newDescriptionText;
+    }
     #endregion
 
     #endregion
