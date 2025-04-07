@@ -142,18 +142,22 @@ public class CompraInterfaz : MonoBehaviour
 
     public void AumentarCantidad()
     {
-        int totalCosto = (_cantidadAComprar + 1) * _coste;  // Calculamos el costo total si aumentamos en 1
+        if (_cantidadAComprar >= 30)
+        {
+            DescripcionTexto.text = "Este es el máximo de semillas que puedes tener en el inventario.";
+            return;
+        }
 
-        // Solo aumentamos si el costo total no supera el dinero disponible
-        if (totalCosto <= moneyCount.GetMoneyCount() && _cantidadAComprar < 30)
+        int totalCosto = (_cantidadAComprar + 1) * _coste;
+
+        if (totalCosto > moneyCount.GetMoneyCount())
         {
-            _cantidadAComprar++;  // Aumenta la cantidad si hay suficiente dinero
-            ActualizarTextoCantidad();  // Actualiza el texto de la UI
+            DescripcionTexto.text = "No tienes suficiente dinero para más semillas.";
+            return;
         }
-        else
-        {
-            DescripcionTexto.text = "No tienes suficiente dinero para más semillas.";  // Mensaje de error
-        }
+
+        _cantidadAComprar++;
+        ActualizarTextoCantidad();
     }
 
 
@@ -180,7 +184,7 @@ public class CompraInterfaz : MonoBehaviour
             }
             if (_isLechugaSelected)
             {
-                InventoryManager.ModifyInventory(Items.LetuceSeed, _cantidadAComprar);
+                InventoryManager.ModifyInventory(Items.LettuceSeed, _cantidadAComprar);
             }
             if (_isZanahoriaSelected)
             {

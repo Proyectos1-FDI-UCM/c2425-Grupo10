@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    ///<summary>
+    ///Bool que activa/desactiva las características para la build
+    /// </summary>
+    [SerializeField] private bool Build = true;
+
     /// <summary>
     /// Numero de mejoras activas de la Regadera.
     /// <summary>
@@ -52,10 +57,6 @@ public class GameManager : MonoBehaviour
     /// Referencia al script que maneja el dinero
     /// <summary>
     [SerializeField] private MoneyManager MoneyCount;
-    /// <summary>
-    /// Referencia al script que maneja la barra de agua
-    /// <summary>
-    [SerializeField] private SelectorManager SelectorManager;
 
     /// <summary>
     /// Referencia al script que maneja la cantidad de agua
@@ -156,17 +157,20 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if (!Build)
+        {
+            if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
+            {
+                InventoryManager.ModifyInventory(Items.Corn, 1);
+            }
+            if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
+            {
+                InventoryManager.ModifyInventory(Items.CornSeed, 1);
+            }
+        }
         if (InputManager.Instance.ExitWasPressedThisFrame())
         {
             Application.Quit();
-        }
-        if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
-        {
-            InventoryManager.ModifyInventory(Items.Corn, 1);
-        }
-        if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
-        {
-            InventoryManager.ModifyInventory(Items.CornSeed, 1);
         }
         if (MoneyCount == null)
         {

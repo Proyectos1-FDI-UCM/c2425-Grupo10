@@ -119,7 +119,7 @@ public class VentaInterfaz : MonoBehaviour
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Maiz".
     /// </summary>
-    public void ButtonMaizPressed()
+    public void ButtonCornPressed()
     {
         _isMaizSelected = true;
         _isLechugaSelected = _isZanahoriaSelected = _isFresasSelected = false;
@@ -129,7 +129,7 @@ public class VentaInterfaz : MonoBehaviour
         ActualizarTextoCantidad();
     }
 
-    public void ButtonLechugaPressed()
+    public void ButtonLettucePressed()
     {
         _isLechugaSelected = true;
         _isMaizSelected = _isZanahoriaSelected = _isFresasSelected = false;
@@ -139,7 +139,7 @@ public class VentaInterfaz : MonoBehaviour
         ActualizarTextoCantidad();
     }
 
-    public void ButtonZanahoriaPressed()
+    public void ButtonCarrotPressed()
     {
         _isZanahoriaSelected = true;
         _isMaizSelected = _isLechugaSelected = _isFresasSelected = false;
@@ -149,7 +149,7 @@ public class VentaInterfaz : MonoBehaviour
         ActualizarTextoCantidad();
     }
 
-    public void ButtonFresasPressed()
+    public void ButtonStrawberriesPressed()
     {
         _isFresasSelected = true;
         _isMaizSelected = _isLechugaSelected = _isZanahoriaSelected = false;

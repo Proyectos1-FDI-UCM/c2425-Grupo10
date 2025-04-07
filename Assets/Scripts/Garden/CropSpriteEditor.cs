@@ -26,22 +26,17 @@ public class CropSpriteEditor : MonoBehaviour
     /// <summary>
     /// Sprites de Estados de las Plantas Vivas
     /// </summary>
+    [SerializeField] private Sprite[] Sprites = new Sprite[5];
 
-    [SerializeField] private Sprite[] Sprites = new Sprite[6];
-    ////PlantStage1;
-    //[SerializeField] private Sprite PlantStage2;
-    //[SerializeField] private Sprite PlantStage3;
-    //[SerializeField] private Sprite PlantStage4;
+    /// <summary>
+    /// Sprites de Estados de las Plantas Muertas
+    /// </summary>
+    [SerializeField] private Sprite[] DeadSprites = new Sprite[5];
     //[SerializeField] private Sprite PlantStageWeeds;
 
     /// <summary>
     /// Sprites de Estados de las Plantas Muertas
     /// </summary>
-
-    [SerializeField] private Sprite PlantDeadStage1;
-    [SerializeField] private Sprite PlantDeadStage2;
-    [SerializeField] private Sprite PlantDeadStage3;
-    [SerializeField] private Sprite PlantDeadStage4;
 
     [SerializeField] private Sprite WarningWater;
     [SerializeField] private Sprite WarningDeath;
@@ -172,9 +167,29 @@ public class CropSpriteEditor : MonoBehaviour
         {
             _spriteRenderer.sprite = Sprites[4];
         }
+        else if (state == -1)
+        {
+            _spriteRenderer.sprite = DeadSprites[1];
+        }
+        else if (state == -2)
+        {
+            _spriteRenderer.sprite = DeadSprites[2];
+        }
+        else if (state == -3)
+        {
+            _spriteRenderer.sprite = DeadSprites[3];
+        }
+        else if (state == -4)
+        {
+            _spriteRenderer.sprite = DeadSprites[3];
+        }
         else if (state == -5)
         {
-            _spriteRenderer.sprite = Sprites[5];
+            _spriteRenderer.sprite = DeadSprites[4];
+        }
+        else if (state == -6)
+        {
+            _spriteRenderer.sprite = DeadSprites[0];
         }
         //Grown(transform); // Modifica el timer de crecimiento
     }

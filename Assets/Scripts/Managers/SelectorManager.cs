@@ -101,6 +101,26 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Sprite[] SeedsHand;
 
+    ///<summary>
+    ///Mensaje de semillas
+    /// </summary>
+    [SerializeField] private GameObject SeedsMessage;
+
+    ///<summary>
+    ///Mensaje de pala
+    /// </summary>
+    [SerializeField] private GameObject ShovelMessage;
+
+    ///<summary>
+    ///Mensaje de regadera
+    /// </summary>
+    [SerializeField] private GameObject WCMessage;
+
+    ///<summary>
+    ///Mensaje de hoz
+    /// </summary>
+    [SerializeField] private GameObject SickleMessage;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -192,6 +212,10 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
+            SeedsMessage.SetActive(false);
+            SickleMessage.SetActive(false);
+            WCMessage.SetActive(false);
+
         }
 
         if (InputManager.Instance.Select1WasPressedThisFrame())
@@ -200,6 +224,10 @@ public class SelectorManager : MonoBehaviour
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
+            SeedsMessage.SetActive(false);
+            SickleMessage.SetActive(false);
+            WCMessage.SetActive(false);
+            ShovelMessage.SetActive(false);
         }
 
         if (InputManager.Instance.Select2WasPressedThisFrame())
@@ -208,6 +236,9 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
+            SeedsMessage.SetActive(false);
+            SickleMessage.SetActive(false);
+            ShovelMessage.SetActive(false);
         }
 
         if (InputManager.Instance.Select3WasPressedThisFrame())
@@ -216,6 +247,9 @@ public class SelectorManager : MonoBehaviour
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
+            SeedsMessage.SetActive(false);
+            ShovelMessage.SetActive(false);
+            WCMessage.SetActive(false);
         }
     }
     #endregion

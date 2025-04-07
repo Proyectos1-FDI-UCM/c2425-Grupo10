@@ -66,16 +66,16 @@ public struct CropVariables
 public static class GardenData
 {
 
-    private static int GardenMax = 32; // Se cambia con cada mejora
+    private static int GardenMax = 36; // Se cambia con cada mejora
     private static Plant[] Garden = new Plant[GardenMax];
     private static int ActivePlants = 0;
 
     private static CropVariables[] CropsData =
 {
     new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 1f, MaxDeathTime = 2f},
-    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
-    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
-    new CropVariables { MaxWaterTime = 2f, MaxGrowthTime = 2f, MaxDeathTime = 2f }
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 2f, MaxDeathTime = 2f },
+    new CropVariables { MaxWaterTime = 1f, MaxGrowthTime = 2f, MaxDeathTime = 2f }
     };
 
     static void Main()
@@ -106,15 +106,17 @@ public static class GardenData
             }
         }
         if (!PlantActive) { 
-            Garden[ActivePlants].Position = transform.position;
-            Garden[ActivePlants].Active = true;
-            Garden[ActivePlants].Item = item;
-            Garden[ActivePlants].State = 0;
-            Garden[ActivePlants].WaterWarning = false;
-            Garden[ActivePlants].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
-            Garden[ActivePlants].GrowthTimer = 0;
+
+            Garden[i].Position = transform.position;
+            Garden[i].Active = true;
+            Garden[i].Item = item;
+            Garden[i].State = 0;
+            Garden[i].WaterWarning = false;
+            Garden[i].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
+            Garden[i].GrowthTimer = 0;
 
             ActivePlants++;
+            Debug.Log($"Planta creada Array: {i} y Pot: {Garden[i].Child}, ");
         }
     }
 
@@ -141,6 +143,25 @@ public static class GardenData
 
             ActivePlants--;
         }
+        else Debug.Log("No se elimina la planta");
+    }
+
+    /// <summary>
+    /// Desactiva una planta según su idenx en el array
+    /// </summary>
+    public static void Deactivate(int i)
+    {
+
+            Garden[i].Position = Vector3.zero;
+            Garden[i].Active = false;
+            Garden[i].State = 0;
+            Garden[i].WaterTimer = 0;
+            Garden[i].GrowthTimer = 0;
+            Garden[i].WaterWarning = false;
+            Garden[i].Child =
+
+            ActivePlants--;
+
     }
 
     /// <summary>
@@ -156,6 +177,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyGrowthTimer(int i, float value)
     {
+        Debug.Log($"GrowthTimer: {Garden[i].GrowthTimer}");
         Garden[i].GrowthTimer = value;
     }
 
@@ -180,7 +202,8 @@ public static class GardenData
     /// </summary>
     public static Plant GetPlant(int i)
     {
-        return Garden[i];
+        if (i < Garden.Length) return Garden[i];
+        else return new Plant();
     }
 
     /// <summary>
@@ -213,7 +236,7 @@ public static class GardenData
             if (Garden[i].Position == transform.position) Found = true;
            i++;
         }
-        if (Found) Plant = Garden[i];
+        if (i < Garden.Length && Found) Plant = Garden[i];
         return Plant;
     }
 

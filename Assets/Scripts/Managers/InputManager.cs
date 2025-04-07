@@ -73,14 +73,15 @@ public class InputManager : MonoBehaviour
     private InputAction _select4;
     private InputAction _select5; 
     private InputAction _tab;
-    private InputAction _esc;
     private InputAction _exit;
+    private InputAction _salir;
     private InputAction _useWateringCan;
     private InputAction _fillWateringCan;
     private InputAction _useSickle;
     private InputAction _useShovel;
     private InputAction _ShorcutInventory;
     private InputAction _ShorcutSeeds;
+    private InputAction _map;
 
     #endregion
 
@@ -189,7 +190,7 @@ public class InputManager : MonoBehaviour
     }
     public bool SalirIsPressed()
     {
-        return _exit.IsPressed();
+        return _salir.IsPressed();
     }
     public bool UseWateringCanIsPressed()
     {
@@ -233,9 +234,9 @@ public class InputManager : MonoBehaviour
     {
         return _select5.WasPressedThisFrame();
     }
-    public bool ExitWasPressedThisFrame()
+    public bool SalirWasPressedThisFrame()
     {
-        return _exit.WasPressedThisFrame();
+        return _salir.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -253,9 +254,9 @@ public class InputManager : MonoBehaviour
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
     /// </summary>
-    public bool EscIsPressed()
+    public bool ExitIsPressed()
     {
-        return _esc.IsPressed();
+        return _exit.IsPressed();
     }
 
     /// <summary>
@@ -363,9 +364,31 @@ public class InputManager : MonoBehaviour
     /// y false, en otro caso
     /// </returns>
     /// </summary>
-    public bool EscWasPressedThisFrame()
+    public bool ExitWasPressedThisFrame()
     {
-        return _esc.WasPressedThisFrame();
+        return _exit.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Map está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool MapWasPressedThisFrame()
+    {
+        return _map.WasPressedThisFrame();
+    }
+
+    /// <summary>
+    /// Método para saber si el botón de Map está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool MapIsPressed()
+    {
+        return _map.IsPressed();
     }
 
     /// <summary>
@@ -383,7 +406,7 @@ public class InputManager : MonoBehaviour
 
     public bool SalirWasReleasedThisFrame()
     {
-        return _exit.WasReleasedThisFrame();
+        return _salir.WasReleasedThisFrame();
     }
 
     #endregion
@@ -422,7 +445,7 @@ public class InputManager : MonoBehaviour
         // Salir input system
         // El estado lo consultaremos a través de los métodos públicos que 
         // (SalirIsPressed, ExitWasPressedThisFrame, SalirWasReleasedThisFrame )
-        _exit = _theController.Player.Salir;
+        _salir = _theController.Player.Salir;
 
         // Select input system
         // El estado lo consultaremos a través de los métodos públicos que 
@@ -441,7 +464,7 @@ public class InputManager : MonoBehaviour
         // Esc input system
         // El estado lo consultaremos a través de los métodos públicos que 
         // (EscIsPressed, EscWasPressedThisFrame )
-        _esc = _theController.Player.Esc;
+        _exit = _theController.Player.Exit;
 
         // Use Watering Can input system
         // El estado lo consultaremos a través de los métodos públicos que 
@@ -472,6 +495,11 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
         _ShorcutSeeds = _theController.Player.ShorcutSeed;
+
+        // Map input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (MapIsPressed, MapWasPressedThisFrame )
+        _map = _theController.Player.Map;
     }
 
     /// <summary>

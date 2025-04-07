@@ -25,6 +25,26 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     [SerializeField] private float Speed = 3f;
 
+    ///<summary>
+    ///Energia maxima del jugador
+    /// </summary>
+    [SerializeField] private int maxEnergy = 100;
+
+    ///<summary>
+    ///energia actual del jugador
+    /// </summary>
+    [SerializeField] private float _currentEnergy;
+
+    ///<summary>
+    ///Energia que se resta al jugador
+    /// </summary>
+    [SerializeField] private float _fadingEnergy;
+
+    ///<summary>
+    ///ref al uimanager
+    /// </summary>
+    [SerializeField] private UIManager UIManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -75,6 +95,17 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private Transform _hand;
 
+    ///<summary>
+    ///Movimiento en x e y
+    /// </summary>
+    private float moveX;
+    private float moveY;
+
+    ///<summary>
+    ///booleano para saber si estas cansado
+    /// </summary>
+    private bool _isTired = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -103,9 +134,12 @@ public class PlayerMovement : MonoBehaviour
             // Obtiene la referencia a la mano del jugador.
             _hand = gameObject.transform.GetChild(0);
         }
-        
 
-        
+        UpdateEnergy();
+        _currentEnergy = maxEnergy;
+        UIManager = FindObjectOfType<UIManager>();
+
+
     }
 
     /// <summary>
@@ -113,54 +147,46 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        // Captura la entrada del jugador para el movimiento en el eje X 
-        float moveX = InputManager.Instance.MovementVector.x;
-        float moveY = InputManager.Instance.MovementVector.y;
-
-        // Normaliza la entrada de movimiento.
-        _moveInput = InputManager.Instance.MovementVector.normalized;
-
-        // Si hay entrada de movimiento, actualiza la dirección y animaciones.
-        if (_moveInput != Vector2.zero)
+        if (!_movementenabled)
         {
-            _lastMoveDirection = _moveInput;
-            _playerAnimator.SetFloat("Horizontal", moveX);
-            _playerAnimator.SetFloat("Vertical", moveY);
-
-            // Lógica para voltear al jugador si es necesario.
-            if ((moveX < 0 && _facingRight) || (moveX > 0 && !_facingRight))
-            {
-                //Flip();
-               // FlipHand();
-            }
-        }
-
-        // Si no hay entrada de movimiento, mantiene la última dirección.
-        if (_moveInput == Vector2.zero)
-        {
+            // Si no puede moverse, fuerza animación en idle y no toma input
+            _moveInput = Vector2.zero;
+            _playerAnimator.SetFloat("Speed", 0);
             _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
             _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
         }
+        else
+        {
+            // Captura la entrada del jugador
+            moveX = InputManager.Instance.MovementVector.x;
+            moveY = InputManager.Instance.MovementVector.y;
+            _moveInput = InputManager.Instance.MovementVector.normalized;
 
-        // Actualiza la velocidad de la animación.
-        _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
+            if (_moveInput != Vector2.zero)
+            {
+                _lastMoveDirection = _moveInput;
+                _playerAnimator.SetFloat("Horizontal", moveX);
+                _playerAnimator.SetFloat("Vertical", moveY);
 
-        
+                // Aquí podrías llamar a Flip() si quieres que el sprite gire
+            }
+            else
+            {
+                _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
+                _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
+            }
 
+            _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
+        }
+
+        // Siempre actualiza la energía (aunque estés quieto o cansado)
+        UpdateEnergy();
     }
 
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-
-    /// <summary>
-    /// Método para cambiar la herramienta del jugador.
-    /// </summary>
-    public void ChangeTool()
-    {
-        //
-    }
 
     ///<summary>
     ///Metodo para activar el movimiento
@@ -200,7 +226,6 @@ public class PlayerMovement : MonoBehaviour
         {
             // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
             _playerRb.MovePosition(_playerRb.position + InputManager.Instance.MovementVector * Speed * Time.fixedDeltaTime);
-
         }
     }
 
@@ -230,10 +255,47 @@ public class PlayerMovement : MonoBehaviour
         _hand.localScale = scale;    
     }
 
+    /// <summary>
+    /// Actualizar la energia del jugador  y mandar datos al uimanager
+    /// </summary>
+    private void UpdateEnergy()
+    {
+        // Si se puede mover y hay input, gasta energía
+        if (_movementenabled && _moveInput != Vector2.zero)
+        {
+            if (_currentEnergy > 0)
+            {
+                _currentEnergy -= _fadingEnergy;
+            }
+        }
+        // Si no puede moverse (o está quieto), recupera energía
+        else if (_currentEnergy < maxEnergy)
+        {
+            _currentEnergy += (10f * Time.deltaTime);
+        }
+
+        // Si llega a 0, se cansa
+        if (_currentEnergy <= 0f && !_isTired)
+        {
+            _isTired = true;
+            UIManager.ShowTiredMessage(true);
+            DisablePlayerMovement();
+        }
+        // Si recupera al menos 30, se activa
+        else if (_isTired && _currentEnergy >= 30f)
+        {
+            _isTired = false;
+            UIManager.ShowTiredMessage(false);
+            EnablePlayerMovement();
+        }
+
+        // Actualiza la barra de energía
+        UIManager.UpdateEnergyBar(_currentEnergy, maxEnergy);
+    }
     #endregion
     //-----EVENTOS-----
     #region
-    
+
     #endregion
 
 } // class PlayerMovement 

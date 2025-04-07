@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using TMPro;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -54,7 +55,25 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     [SerializeField] private float InitialMinDistance;
 
+    /// <summary>
+    /// Ref al gardenManager
+    /// </summary>
     [SerializeField] private GardenManager gardenManager;
+
+    ///<summary>
+    ///gameobject mensaje cantidad semillas
+    ///</summary>
+    [SerializeField] private GameObject AmountOfSeeds;
+
+    ///<summary>
+    ///Texto cantidad de semillas
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI AmountSeedsText;
+
+    ///<summary>
+    ///Ref al ui manager
+    /// </summary>
+    [SerializeField] private UIManager UIManager;
 
     #endregion
 
@@ -82,6 +101,10 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     private Items _seed;
 
+    ///<summary>
+    ///Nombre de la semilla para mostrar en el mensaje
+    /// </summary>
+    private string _nameSeed;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -119,6 +142,15 @@ public class SeedsManager : MonoBehaviour
                 Plant.transform.SetParent(Pot);
             }
         }
+        if (UIManager.GetInventoryVisible() == false)
+        {
+            AmountOfSeeds.SetActive(true);
+            AmountSeedsText.text = "x" + InventoryManager.GetInventory(_seed).ToString();
+        }
+        else 
+        {
+            AmountOfSeeds.SetActive(false);
+        }
     }
 
     #endregion
@@ -139,7 +171,7 @@ public class SeedsManager : MonoBehaviour
     {
         _seed = (Items)Seed;
         if (Seed == (int)Items.CornSeed) _prefab = PrefabSeeds0;
-        else if (Seed == (int)Items.LetuceSeed) _prefab = PrefabSeeds1;
+        else if (Seed == (int)Items.LettuceSeed) _prefab = PrefabSeeds1;
         else if (Seed == (int)Items.CarrotSeed) _prefab = PrefabSeeds2;
         else if (Seed == (int)Items.StrawberrySeed) _prefab = PrefabSeeds3;
     }
@@ -165,7 +197,7 @@ public class SeedsManager : MonoBehaviour
         foreach (Transform pot in Pots)
         {
             float MinDistance = InitialMinDistance;
-            if (pot.childCount == 0) // Comprueba que no hay ninguna planta en esta posición
+            if (pot.gameObject.activeInHierarchy && pot.childCount == 0) // Comprueba que no hay ninguna planta en esta posición
             {
                 float SqrDistance = (Player.position - pot.position).sqrMagnitude;
                 if (SqrDistance < MinDistance)

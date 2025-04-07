@@ -5,7 +5,6 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -120,30 +119,46 @@ public class GardenManager : MonoBehaviour
                 if(GardenData.GetPlant(i).State == 0)
                 {
                     GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
+                    GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
                     GrowthWarning(GardenData.GetPlant(i), i);
+
                 }
 
                 // Lógica Crecimiento
-                if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
+                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer) >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
                 {
                     GrowthWarning(GardenData.GetPlant(i), i);
                 }
 
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
-                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0 && !GardenData.GetPlant(i).WaterWarning)
+
+                // Aviso Riego
+                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxWaterTime((GardenData.GetPlant(i).Item)) && (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) < GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
                 {
                     WaterWarning(GardenData.GetPlant(i));
-                    GardenData.ModifyWaterWarning(i);
+                    //GardenData.ModifyWaterWarning(i);
                 }
+
+                 // Aviso Muerte
+                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer < 2*GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
+                {
+                    Debug.Log("Aviso Muerte");
+                    DeathWarning(GardenData.GetPlant(i), i);
+                    
+                }
+
+                // Muerte
+                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= 2*GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
+                {
+                    Death(GardenData.GetPlant(i), i);
+                    Debug.Log("Muerte");
+                }
+
+                //Cosechar
                 else if (GardenData.GetPlant(i).State > 4)
                 {
                     HarvestWarning(GardenData.GetPlant(i));
                 }
-                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= GardenData.GetMaxDeathTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 3 && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).WaterWarning)
-                {
-                    DeathWarning(GardenData.GetPlant(i), i);
-                }
-
 
             }
         }
@@ -177,7 +192,7 @@ public class GardenManager : MonoBehaviour
         if (GardenData.GetPlant(i).Position == transform.position)
         {
             GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
-            GardenData.ModifyWaterWarning(i);
+            //GardenData.ModifyWaterWarning(i);
         }
     }
 
@@ -196,20 +211,20 @@ public class GardenManager : MonoBehaviour
         if (Plant.Position == transform.position)
         {
             Debug.Log(Plant.State);
-            if (Plant.State > 3)
+            if (Plant.State == 5)
             {
                 int random = UnityEngine.Random.Range(0, _maxProb);
                 InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0) 
                 {
-                    GardenData.ModifyState(i, (-5));
+                    GardenData.ModifyState(i, (-6));
                     cropSpriteEditor.Warning("Desactivate");
-                    cropSpriteEditor.Growing(-5);
+                    cropSpriteEditor.Growing(-6);
                 }
                 else 
                 {
-                    GardenData.Deactivate(transform.position);
+                    GardenData.Deactivate(i);
                     cropSpriteEditor.Destroy(); 
                 }
             }
@@ -230,10 +245,10 @@ public class GardenManager : MonoBehaviour
 
         if (Plant.Position == transform.position)
         {
-            if (Plant.State == -5)
+            if (Plant.State < 0)
             {
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
-                GardenData.Deactivate(transform.position);
+                GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
             }
 
@@ -264,7 +279,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel1.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel - 1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -281,7 +296,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel2.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel - 1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -299,7 +314,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel3.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel - 1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -317,7 +332,7 @@ public class GardenManager : MonoBehaviour
             GardenLevel4.SetActive(true);
 
             Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = GardenSize[UpgradeLevel-1]; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
             {
                 Plants[i] = PlantingSpots.transform.GetChild(i).transform;
                 Plants[i].gameObject.SetActive(true);
@@ -410,6 +425,23 @@ public class GardenManager : MonoBehaviour
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
             Call.Warning("Death");
+        }
+    }
+
+    /// <summary>
+    /// Método para que se mueran las plantas
+    /// </summary>
+    public void Death(Plant plant, int ArrayIndex)
+    {
+        Debug.Log("Death");
+        Transform Crop = SearchPlant(plant);
+
+        if (Crop != null)
+        {
+            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+            Call.Growing(-1 * plant.State);
+            Call.Warning("Desactivate");
+            GardenData.ModifyState(ArrayIndex, -1 * plant.State);
         }
     }
 

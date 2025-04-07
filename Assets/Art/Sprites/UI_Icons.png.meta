@@ -126,7 +126,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -134,6 +134,27 @@ TextureImporter:
       bones: []
       spriteID: 8e74ae02d916452468f2cbd2738d8924
       internalID: 702660572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_Icons_2
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 193
+        width: 12
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02bd5042e8d96d54e8b06e49f9316750
+      internalID: 1553489511
       vertices: []
       indices: 
       edges: []
@@ -151,6 +172,7 @@ TextureImporter:
     nameFileIdTable:
       UI_Icons_0: -1586908151
       UI_Icons_1: 702660572
+      UI_Icons_2: 1553489511
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

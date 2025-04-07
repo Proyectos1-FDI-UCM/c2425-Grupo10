@@ -23,6 +23,11 @@ public class SickleManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    ///<summary>
+    ///Bool que activa/desactiva las características para la build
+    /// </summary>
+    [SerializeField] private bool Build = true;
+
     /// <summary>
     /// Referencia al selector manager
     /// </summary>
@@ -93,6 +98,11 @@ public class SickleManager : MonoBehaviour
     ///Referencia al CropSpriteEditor
     /// </summary>
     private CropSpriteEditor cropSpriteEditor;
+
+    ///<summary>
+    ///Planta para recolectar
+    /// </summary>
+    private Plant _plant;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -120,6 +130,8 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        _plant = CheckCollison();
+
         // Verifica si se ha presionado la tecla para usar la hoz.
         if (InputManager.Instance.UseSickleWasPressedThisFrame())
         {
@@ -128,23 +140,17 @@ public class SickleManager : MonoBehaviour
 
         }
 
-        else if (_isInCropArea && UIManager.GetInventoryVisible() == false)
+        if (!Build)
+
+        if (_isInCropArea && UIManager.GetInventoryVisible() == false)
         {
-            if (cropSpriteEditor.GetGrowthState() == 3)
+            if (_plant.State >= 5)
             {
                 Press.SetActive(true);
-
                 TextPress.text = "Presiona E \npara recolectar";
-
-                if (InputManager.Instance.UseSickleWasPressedThisFrame())
-                {
-
-                    Harvest();
-                }
-
             }
-
         }
+
 
         else if (!_isInCropArea || UIManager.GetInventoryVisible() == true)
         {
@@ -173,6 +179,7 @@ public class SickleManager : MonoBehaviour
 
         Invoke("NotHarvest", 0.8f);
 
+        // Lo moveremos a después del mensaje (si funciona)
         Invoke("HarvestPlant", 1f); // Se realizan los cambios de recolección en la planta al terminar la animación
 
     }
@@ -253,6 +260,25 @@ public class SickleManager : MonoBehaviour
     #region
 
     /// <summary>
+    /// Método para detectar las colisiones con los cultivos
+    /// </summary>
+    private Plant CheckCollison()
+    {
+        Plant plant = new Plant();
+        Transform pot = FindNearestPot(transform, Pots);
+        if (pot != null && pot.GetChild(0) != null) 
+        {
+            Transform crop = pot.GetChild(0);
+            plant = GardenData.GetPlant(crop);
+            if (plant.State >= 5)
+                _isInCropArea = true;
+            //if (plant.State == 4) 
+        }
+        else _isInCropArea = false;
+        return plant;
+    }
+
+    /// <summary>
     /// metodo para detectar colision con pozo/cultivo
     /// </summary>
     /// <param name="collision"></param>
@@ -266,6 +292,7 @@ public class SickleManager : MonoBehaviour
         }
 
     }
+
     /// <summary>
     /// metodo para detectar cuando deja de colisionar con pozo/cultivo.
     /// </summary>

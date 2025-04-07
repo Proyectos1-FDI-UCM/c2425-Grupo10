@@ -121,12 +121,17 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
-    private bool _isInWellArea = false;
+    [SerializeField] private bool _isInWellArea = false;
 
     ///<summary>
     ///Booleano para permitir regar
     /// </summary>
     private bool _isInCropArea = false;
+
+    ///<summary>
+    ///Transform del crop con el que estas colisionando
+    /// </summary>
+    private Transform _cropTransform;
 
 
     /// <summary>
@@ -186,11 +191,10 @@ public class WateringCanManager : MonoBehaviour
             Watering();
         }
 
-        if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
-        { 
-
+        if (_isInWellArea) // && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
+        {
+            Debug.Log("Rellener");
             Press.SetActive(true);
-
             TextPress.text = "Presiona R \npara rellenar";
 
             if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
@@ -206,6 +210,16 @@ public class WateringCanManager : MonoBehaviour
         {
 
             Press.SetActive(false);
+
+        }
+        if (_isInCropArea && _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
+        {
+            if (GardenData.GetPlant(_cropTransform).WaterTimer == 4)
+            {
+                Press.SetActive(true);
+                TextPress.text = "Presiona E \npara cosechar";
+
+            }
 
         }
         else if (!_isInCropArea || _waterAmount == 0 || UiManager.GetInventoryVisible() == true)
@@ -427,11 +441,12 @@ public class WateringCanManager : MonoBehaviour
     void OnTriggerStay2D(Collider2D collision)
     {
 
-        //if (collision.CompareTag("Crop"))
-        //{
-        //    _isInCropArea = true;
-        //    cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
-        //}
+        if (collision.CompareTag("Crop"))
+        {
+            _isInCropArea = true;
+            cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
+            _cropTransform = collision.gameObject.transform;
+        }
 
         if (collision.CompareTag("Pozo"))
         {
@@ -455,11 +470,11 @@ public class WateringCanManager : MonoBehaviour
 
         }
 
-        //if (collision.CompareTag("Crop"))
-        //{
-        //    _isInCropArea = false;
-        //    cropSpriteEditor = null;
-        //}
+        if (collision.CompareTag("Crop"))
+        {
+            _isInCropArea = false;
+            cropSpriteEditor = null;
+        }
 
     }
     
