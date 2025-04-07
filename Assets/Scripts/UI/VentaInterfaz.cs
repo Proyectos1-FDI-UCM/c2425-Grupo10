@@ -187,12 +187,12 @@ public class VentaInterfaz : MonoBehaviour
 
 
     /// <summary>
-    /// Metodo para cuando el jugador pulsa el boton "Vender".
+    /// Metodo para cuando el jugador pulsa el boton "Sell".
     /// </summary>
     public void ButtonVenderPressed()
     {
         _isVenderPressed = true;
-        Debug.Log("Vender presionado");
+        Debug.Log("Sell presionado");
 
         int cantidadDisponible = 0;
         int precioUnitario = 0;
@@ -235,7 +235,7 @@ public class VentaInterfaz : MonoBehaviour
         int totalGanado = _cantidadAVender * precioUnitario;
         ContadorDinero.AddMoney(totalGanado);
 
-        // Restar del inventario
+        // Restar del inventory
         InventoryManager.ModifyInventorySubstract(
             _isMaizSelected ? Items.Corn :
             _isLechugaSelected ? Items.Letuce :

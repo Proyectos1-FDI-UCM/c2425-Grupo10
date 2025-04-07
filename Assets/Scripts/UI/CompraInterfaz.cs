@@ -173,7 +173,7 @@ public class CompraInterfaz : MonoBehaviour
         {
             moneyCount.DeductMoney(totalPrecio); // Resta el dinero correctamente
 
-            // Actualiza el inventario según el tipo de semilla seleccionada
+            // Actualiza el inventory según el tipo de semilla seleccionada
             if (_isMaizSelected)
             {
                 InventoryManager.ModifyInventory(Items.CornSeed, _cantidadAComprar);

@@ -385,9 +385,9 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Devuelve el inventario de cultivos.
+    /// Devuelve el inventory de cultivos.
     /// </summary>
-    /// <returns>Un array que representa el inventario de cultivos.</returns>
+    /// <returns>Un array que representa el inventory de cultivos.</returns>
     public int[] Inventory()
     {
         return _inventory;

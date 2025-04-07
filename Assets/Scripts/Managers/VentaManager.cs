@@ -7,7 +7,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using System.Collections.Generic; // Necesario para manejar el inventario
+using System.Collections.Generic; // Necesario para manejar el inventory
 using UnityEngine.UI; // Necesario para manejar UI
 
 /// <summary>
@@ -36,7 +36,7 @@ public class VentaManager : MonoBehaviour
     [SerializeField] private Text mensajeErrorTexto; // Referencia al objeto UI de texto
 
 
-    int[] _venta = { 0, 0, 0, 0 };
+    int[] _sale = { 0, 0, 0, 0 };
 
     #endregion
     // ---- ATRIBUTOS PRIVADOS ----
@@ -50,8 +50,8 @@ public class VentaManager : MonoBehaviour
     /// <summary>
     /// Inventory de cultivos recolectados.
     /// </summary>
-    private Dictionary<string, int> inventario = new Dictionary<string, int>();
-    private int[] _inventario;
+    private Dictionary<string, int> inventory = new Dictionary<string, int>();
+    private int[] _inventory;
 
     #endregion
 
@@ -76,9 +76,9 @@ public class VentaManager : MonoBehaviour
         }
     }
 
-    void start()
+    void Start()
     {
-        _inventario = GameManager.Instance.Inventory();
+        _inventory = GameManager.Instance.Inventory();
     }
 
     #endregion
@@ -99,20 +99,20 @@ public class VentaManager : MonoBehaviour
     /// <summary>
     /// Metodo para aumentar +1 los cultivos seleccionados (maiz).
     /// <summary>
-    public void Vender(int i)
+    public void Sell(int i)
     {
-        if (_venta[i] < _inventario[i])
+        if (_sale[i] < _inventory[i])
         {
-            _venta[i]++;
+            _sale[i]++;
         }
     }
 
     /// <summary>
     /// Metodo para obtener el array de venta
     /// <summary>
-    public int[] VenderArray()
+    public int[] SellArray()
     {
-        return _venta;
+        return _sale;
     }
 
     /// <summary>
@@ -149,7 +149,7 @@ public class VentaManager : MonoBehaviour
 
     private void Init()
     {
-        inventario = new Dictionary<string, int>();
+        inventory = new Dictionary<string, int>();
     }
 
     #endregion

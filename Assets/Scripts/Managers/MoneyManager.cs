@@ -34,7 +34,7 @@ public class MoneyManager : MonoBehaviour
     private int GardenLevel = 0;
 
     /// <summary>
-    /// Nivel actual de mejora del inventario.
+    /// Nivel actual de mejora del inventory.
     /// </summary>
     private int InventoryLevel = 0;
 
@@ -179,7 +179,7 @@ public class MoneyManager : MonoBehaviour
     {
         if (GameManager == null) return;
 
-        // Verifica si el jugador tiene suficientes cultivos en el inventario.
+        // Verifica si el jugador tiene suficientes cultivos en el inventory.
         if (InventoryManager.BoolModifyInventorySubstract(Item, Quantity))
         {
             AddMoney(Quantity * Price); // Agrega el dinero ganado por la venta
@@ -206,7 +206,7 @@ public class MoneyManager : MonoBehaviour
         {
             // Resta el dinero
             MoneyCount -= price;
-            // Añade la semilla al inventario (siendo semilla un tipo de Item)
+            // Añade la semilla al inventory (siendo semilla un tipo de Item)
             InventoryManager.ModifyInventory(item, 1);
 
             // Actualiza la UI del dinero
@@ -317,7 +317,7 @@ public class MoneyManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("El inventario ya está al nivel máximo.");
+            Debug.Log("El inventory ya está al nivel máximo.");
         }
         return false;
     }

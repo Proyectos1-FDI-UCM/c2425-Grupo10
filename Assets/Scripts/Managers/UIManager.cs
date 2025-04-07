@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
 
     [Header("UI de BUILD")]
     /// <summary>
-    /// Ref al Panel del inventario
+    /// Ref al Panel del inventory
     /// </summary>
     [SerializeField] private RectTransform InventoryPanel;
 
@@ -139,7 +139,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject WateringCanButton;
 
     /// <summary>
-    /// Boton para ampliar el inventario
+    /// Boton para ampliar el inventory
     /// </summary>
     [SerializeField] private GameObject InventoryButton;
 
@@ -227,7 +227,7 @@ public class UIManager : MonoBehaviour
     #region Atributos Privados
 
     /// <summary>
-    /// Estado del inventario
+    /// Estado del inventory
     /// </summary>
     private bool _isInventoryVisible = false; 
 
@@ -235,13 +235,13 @@ public class UIManager : MonoBehaviour
     /// Posiciones y velocidades
     /// </summary>
     private float _quickBarBaseY;           // Posición base de la QuickAccessBar (se mantiene siempre visible)
-    private float _visibleY = 300f;         // Posición Y del inventario cuando está visible
-    private float _hiddenY = -300f;         // Posición Y del inventario cuando está oculto
-    private float _quickBarOffset = 100f;   // Espacio entre inventario y QuickAccessBar
+    private float _visibleY = 300f;         // Posición Y del inventory cuando está visible
+    private float _hiddenY = -300f;         // Posición Y del inventory cuando está oculto
+    private float _quickBarOffset = 100f;   // Espacio entre inventory y QuickAccessBar
     private float _transitionSpeed = 10f;   // Velocidad de animación
 
     /// <summary>
-    ///  Capacidad de cada Slot del inventario
+    ///  Capacidad de cada Slot del inventory
     /// </summary>
     private int _slotsCapacity = 10;
 
@@ -291,7 +291,7 @@ public class UIManager : MonoBehaviour
     private bool _isGardenSelected = false;
 
     /// <summary>
-    /// Booleano para saber si el jugador ha pulsado el boton inventario
+    /// Booleano para saber si el jugador ha pulsado el boton inventory
     /// </summary>
     private bool _isInventorySelected = false;
 
@@ -351,7 +351,7 @@ public class UIManager : MonoBehaviour
         {
             // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
             _quickBarBaseY = QuickAccessBar.anchoredPosition.y;
-            // Inicializamos la posición del inventario en oculto
+            // Inicializamos la posición del inventory en oculto
             InventoryPanel.anchoredPosition = new Vector2(InventoryPanel.anchoredPosition.x, _hiddenY);
         }
         
@@ -373,20 +373,20 @@ public class UIManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
-            // La subida/Bajada del inventario se activa con el TAB.
+            // La subida/Bajada del inventory se activa con el TAB.
             if (InputManager.Instance.TabWasPressedThisFrame())
             {
                 ToggleInventory();
                 ActualizeInventory();
             }
 
-            // Define la posición objetivo del inventario
+            // Define la posición objetivo del inventory
             float targetInventoryY = _isInventoryVisible ? _visibleY : _hiddenY;
 
             // Define la posición de la QuickAccessBar
             float targetQuickBarY = _isInventoryVisible ? (_visibleY + _quickBarOffset) : _quickBarBaseY;
 
-            // Movimiento suave del inventario
+            // Movimiento suave del inventory
             InventoryPanel.anchoredPosition = Vector2.Lerp
             (
                 InventoryPanel.anchoredPosition,
@@ -394,7 +394,7 @@ public class UIManager : MonoBehaviour
                 Time.deltaTime * _transitionSpeed
             );
 
-            // Movimiento suave de la QuickAccessBar para que suba con el inventario
+            // Movimiento suave de la QuickAccessBar para que suba con el inventory
             QuickAccessBar.anchoredPosition = Vector2.Lerp
             (
                 QuickAccessBar.anchoredPosition,
@@ -578,7 +578,7 @@ public class UIManager : MonoBehaviour
     // ---- METODOS PUBLICOS (BUILD) ----
     #region Metodos Publicos (Build)
     /// <summary>
-    /// Metodo para saber si el inventario esta visible en pantalla
+    /// Metodo para saber si el inventory esta visible en pantalla
     /// </summary>
     /// <returns></returns>
     public bool GetInventoryVisible()
@@ -587,8 +587,8 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Actualiza la cantidad de los items del inventario
-    /// No comprueba si hay inventario suficiente para mostrar los items porque ya lo comprueba InventoryManager
+    /// Actualiza la cantidad de los items del inventory
+    /// No comprueba si hay inventory suficiente para mostrar los items porque ya lo comprueba InventoryManager
     /// </summary>
     public void ActualizeInventory()
     {
@@ -646,7 +646,7 @@ public class UIManager : MonoBehaviour
     // ---- METODOS PRIVADOS (BUILD) ----
     #region Metodos Privados (Build)
     /// <summary>
-    /// Alterna la visibilidad del inventario y mueve la QuickAccessBar con él.
+    /// Alterna la visibilidad del inventory y mueve la QuickAccessBar con él.
     /// </summary>
     private void ToggleInventory()
     {
@@ -765,7 +765,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Vender".
+    /// Metodo para detectar cuando el jugador pulsa el boton "Sell".
     /// </summary>
     public void ButtonSellPressed()
     {
@@ -898,7 +898,7 @@ public class UIManager : MonoBehaviour
         {
             MoneyManager.DeductMoney(TotalCost); // Resta el dinero correctamente
 
-            // Actualiza el inventario según el tipo de semilla seleccionada
+            // Actualiza el inventory según el tipo de semilla seleccionada
             if (_isCornSelected)
             {
                 InventoryManager.ModifyInventory(Items.CornSeed, _amountBuying);

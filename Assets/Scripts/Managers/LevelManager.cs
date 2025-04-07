@@ -8,7 +8,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.UIElements; // Necesario para manejar el inventario
+using UnityEngine.UIElements; // Necesario para manejar el inventory
 
 /// <summary>
 /// Componente que se encarga de la gestión de un nivel concreto.
@@ -89,7 +89,7 @@ public class LevelManager : MonoBehaviour
             }
         }
 
-        _inventory = GameManager.Instance.Inventory(); // Inicializa el inventario desde el GameManager
+        _inventory = GameManager.Instance.Inventory(); // Inicializa el inventory desde el GameManager
 
     }
 

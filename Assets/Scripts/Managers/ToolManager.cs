@@ -13,7 +13,7 @@ using UnityEngine.UI;
 
 /// <summary>
 /// Clase encargada de gestionar la selección de herramientas 
-/// en el inventario del jugador. Al pulsar las teclas específicas, 
+/// en el inventory del jugador. Al pulsar las teclas específicas, 
 /// se activa una Tool y se desactiva la anterior.
 /// </summary>
 public class ToolManager : MonoBehaviour

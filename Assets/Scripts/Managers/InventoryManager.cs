@@ -27,7 +27,7 @@ public enum Items
 }
 
 /// <summary>
-/// InventoryManager es una clase sin monobehaviour que maneja los datos del inventario
+/// InventoryManager es una clase sin monobehaviour que maneja los datos del inventory
 /// Tiene un Enum para todos los items posibles que tenga el jugador (semillas y cultivos)
 /// Un array para guardar la cantidad actual de cada tipo de item
 /// Métodos: GetInventory; ModifyInventory; SetMaxCrops; SetMaxSeeds;
@@ -47,8 +47,8 @@ public static class InventoryManager
     /// <summary>
     /// Capacidad Máxima
     /// </summary>
-    [SerializeField] private static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventario para las semillas
-    [SerializeField] private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventario para los cultivos
+    [SerializeField] private static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventory para las semillas
+    [SerializeField] private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventory para los cultivos
 
 
     /// <summary>
@@ -77,7 +77,7 @@ public static class InventoryManager
 
     /// <summary>
     /// Devuelve True si se efectua la modificación
-    /// Añade la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
+    /// Añade la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
     /// </summary>
     public static bool BoolModifyInventory(Items item, int quantity)
     {
@@ -97,7 +97,7 @@ public static class InventoryManager
 
     /// <summary>
     /// Devuelve True si se efectua la modificación
-    /// Resta la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
+    /// Resta la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
     /// IMPORTANTE - USAR NUMEROS POSITIVOS (ModifyInventorySubstract(Item.Corn, 5) - Resta 5 Maices)
     /// </summary>
     public static bool BoolModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
@@ -117,7 +117,7 @@ public static class InventoryManager
     }
 
     /// <summary>
-    /// Añade la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
+    /// Añade la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
     /// </summary>
     public static void ModifyInventory(Items item, int quantity)
     {
@@ -134,7 +134,7 @@ public static class InventoryManager
     }
 
     /// <summary>
-    /// Resta la cantidad (quantity) al inventario del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
+    /// Resta la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
     /// IMPORTANTE - USAR NUMEROS POSITIVOS (ModifyInventorySubstract(Item.Corn, 5) - Resta 5 Maices)
     /// </summary>
     public static void ModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
@@ -153,7 +153,7 @@ public static class InventoryManager
 
 
     /// <summary>
-    /// Cambia la cantidad máxima de cultivos que puedes guardar en el inventario
+    /// Cambia la cantidad máxima de cultivos que puedes guardar en el inventory
     /// </summary>
     public static void SetMaxCrops (int maxCrops)
     {
@@ -161,7 +161,7 @@ public static class InventoryManager
     }
 
     /// <summary>
-    /// Cambia la cantidad máxima de semillas que puedes guardar en el inventario
+    /// Cambia la cantidad máxima de semillas que puedes guardar en el inventory
     /// </summary>
     public static void SetMaxSeeds(int maxSeeds)
     {
@@ -169,8 +169,8 @@ public static class InventoryManager
     }
 
     /// <summary>
-    /// Devuelve el máximo de cultivos que se pueden guardar en el inventario
-    /// (Para mostrar slots en el inventario)
+    /// Devuelve el máximo de cultivos que se pueden guardar en el inventory
+    /// (Para mostrar slots en el inventory)
     /// </summary>
     public static int GetMaxCrop()
     {
@@ -178,7 +178,7 @@ public static class InventoryManager
     }
 
     /// <summary>
-    /// Devuelve el máximo de semillas que se pueden guardar en el inventario
+    /// Devuelve el máximo de semillas que se pueden guardar en el inventory
     /// </summary>
     public static int GetMaxSeeds()
     {
