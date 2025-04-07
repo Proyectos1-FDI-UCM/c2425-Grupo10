@@ -87,15 +87,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Esc",
-                    "type": "Button",
-                    "id": "b7fa44a7-f3bc-4207-8e82-6a6da45ec8a2",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Salir",
                     "type": "Button",
                     "id": "4b96e919-dae7-4693-bb62-446817c69d18",
@@ -162,6 +153,15 @@
                     "name": "Map",
                     "type": "Button",
                     "id": "ba17765b-210a-4f52-bdfc-40b407b5dd0e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Exit",
+                    "type": "Button",
+                    "id": "9029f933-050b-476c-b69f-4a7121072f5a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -413,17 +413,6 @@
                 },
                 {
                     "name": "",
-                    "id": "4b5c576b-1c51-4b9a-af07-c1945c696bc2",
-                    "path": "<Keyboard>/{Escape}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Esc",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8fc50d89-1062-40e0-ab54-2fcfa376b05d",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -507,6 +496,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Map",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6491b3d6-e28b-43cc-9bfd-bd2068978a48",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Exit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

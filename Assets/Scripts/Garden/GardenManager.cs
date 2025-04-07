@@ -218,9 +218,9 @@ public class GardenManager : MonoBehaviour
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0) 
                 {
-                    GardenData.ModifyState(i, (-5));
+                    GardenData.ModifyState(i, (-6));
                     cropSpriteEditor.Warning("Desactivate");
-                    cropSpriteEditor.Growing(-5);
+                    cropSpriteEditor.Growing(-6);
                 }
                 else 
                 {

@@ -111,15 +111,6 @@ namespace UnityEngine.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Esc"",
-                    ""type"": ""Button"",
-                    ""id"": ""b7fa44a7-f3bc-4207-8e82-6a6da45ec8a2"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Salir"",
                     ""type"": ""Button"",
                     ""id"": ""4b96e919-dae7-4693-bb62-446817c69d18"",
@@ -186,6 +177,15 @@ namespace UnityEngine.InputSystem
                     ""name"": ""Map"",
                     ""type"": ""Button"",
                     ""id"": ""ba17765b-210a-4f52-bdfc-40b407b5dd0e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Exit"",
+                    ""type"": ""Button"",
+                    ""id"": ""9029f933-050b-476c-b69f-4a7121072f5a"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -437,17 +437,6 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""4b5c576b-1c51-4b9a-af07-c1945c696bc2"",
-                    ""path"": ""<Keyboard>/{Escape}"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Esc"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8fc50d89-1062-40e0-ab54-2fcfa376b05d"",
                     ""path"": ""<Keyboard>/q"",
                     ""interactions"": """",
@@ -531,6 +520,17 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6491b3d6-e28b-43cc-9bfd-bd2068978a48"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1127,7 +1127,6 @@ namespace UnityEngine.InputSystem
             m_Player_Select4 = m_Player.FindAction("Select4", throwIfNotFound: true);
             m_Player_Select5 = m_Player.FindAction("Select5", throwIfNotFound: true);
             m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
-            m_Player_Esc = m_Player.FindAction("Esc", throwIfNotFound: true);
             m_Player_Salir = m_Player.FindAction("Salir", throwIfNotFound: true);
             m_Player_UseWateringCan = m_Player.FindAction("UseWateringCan", throwIfNotFound: true);
             m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
@@ -1136,6 +1135,7 @@ namespace UnityEngine.InputSystem
             m_Player_ShorcutInventory = m_Player.FindAction("ShorcutInventory", throwIfNotFound: true);
             m_Player_ShorcutSeed = m_Player.FindAction("ShorcutSeed", throwIfNotFound: true);
             m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
+            m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1218,7 +1218,6 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Select4;
         private readonly InputAction m_Player_Select5;
         private readonly InputAction m_Player_Tab;
-        private readonly InputAction m_Player_Esc;
         private readonly InputAction m_Player_Salir;
         private readonly InputAction m_Player_UseWateringCan;
         private readonly InputAction m_Player_FillWateringCan;
@@ -1227,6 +1226,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_ShorcutInventory;
         private readonly InputAction m_Player_ShorcutSeed;
         private readonly InputAction m_Player_Map;
+        private readonly InputAction m_Player_Exit;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1240,7 +1240,6 @@ namespace UnityEngine.InputSystem
             public InputAction @Select4 => m_Wrapper.m_Player_Select4;
             public InputAction @Select5 => m_Wrapper.m_Player_Select5;
             public InputAction @Tab => m_Wrapper.m_Player_Tab;
-            public InputAction @Esc => m_Wrapper.m_Player_Esc;
             public InputAction @Salir => m_Wrapper.m_Player_Salir;
             public InputAction @UseWateringCan => m_Wrapper.m_Player_UseWateringCan;
             public InputAction @FillWateringCan => m_Wrapper.m_Player_FillWateringCan;
@@ -1249,6 +1248,7 @@ namespace UnityEngine.InputSystem
             public InputAction @ShorcutInventory => m_Wrapper.m_Player_ShorcutInventory;
             public InputAction @ShorcutSeed => m_Wrapper.m_Player_ShorcutSeed;
             public InputAction @Map => m_Wrapper.m_Player_Map;
+            public InputAction @Exit => m_Wrapper.m_Player_Exit;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1285,9 +1285,6 @@ namespace UnityEngine.InputSystem
                 @Tab.started += instance.OnTab;
                 @Tab.performed += instance.OnTab;
                 @Tab.canceled += instance.OnTab;
-                @Esc.started += instance.OnEsc;
-                @Esc.performed += instance.OnEsc;
-                @Esc.canceled += instance.OnEsc;
                 @Salir.started += instance.OnSalir;
                 @Salir.performed += instance.OnSalir;
                 @Salir.canceled += instance.OnSalir;
@@ -1312,6 +1309,9 @@ namespace UnityEngine.InputSystem
                 @Map.started += instance.OnMap;
                 @Map.performed += instance.OnMap;
                 @Map.canceled += instance.OnMap;
+                @Exit.started += instance.OnExit;
+                @Exit.performed += instance.OnExit;
+                @Exit.canceled += instance.OnExit;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1343,9 +1343,6 @@ namespace UnityEngine.InputSystem
                 @Tab.started -= instance.OnTab;
                 @Tab.performed -= instance.OnTab;
                 @Tab.canceled -= instance.OnTab;
-                @Esc.started -= instance.OnEsc;
-                @Esc.performed -= instance.OnEsc;
-                @Esc.canceled -= instance.OnEsc;
                 @Salir.started -= instance.OnSalir;
                 @Salir.performed -= instance.OnSalir;
                 @Salir.canceled -= instance.OnSalir;
@@ -1370,6 +1367,9 @@ namespace UnityEngine.InputSystem
                 @Map.started -= instance.OnMap;
                 @Map.performed -= instance.OnMap;
                 @Map.canceled -= instance.OnMap;
+                @Exit.started -= instance.OnExit;
+                @Exit.performed -= instance.OnExit;
+                @Exit.canceled -= instance.OnExit;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1561,7 +1561,6 @@ namespace UnityEngine.InputSystem
             void OnSelect4(InputAction.CallbackContext context);
             void OnSelect5(InputAction.CallbackContext context);
             void OnTab(InputAction.CallbackContext context);
-            void OnEsc(InputAction.CallbackContext context);
             void OnSalir(InputAction.CallbackContext context);
             void OnUseWateringCan(InputAction.CallbackContext context);
             void OnFillWateringCan(InputAction.CallbackContext context);
@@ -1570,6 +1569,7 @@ namespace UnityEngine.InputSystem
             void OnShorcutInventory(InputAction.CallbackContext context);
             void OnShorcutSeed(InputAction.CallbackContext context);
             void OnMap(InputAction.CallbackContext context);
+            void OnExit(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

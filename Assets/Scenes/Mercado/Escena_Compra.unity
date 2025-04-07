@@ -829,6 +829,7 @@ MonoBehaviour:
   Speed: 3
   maxEnergy: 100
   _currentEnergy: 0
+  _fadingEnergy: 0.1
   UIManager: {fileID: 898385390}
 --- !u!212 &230413356
 SpriteRenderer:
@@ -1163,7 +1164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 286.40002, y: 34.99997}
+  m_AnchoredPosition: {x: 179.42116, y: 34.99997}
   m_SizeDelta: {x: 26, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &330460856
@@ -1998,7 +1999,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 399.53687, y: 85.00003}
+  m_AnchoredPosition: {x: 292.55798, y: 85.00003}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &503844786
@@ -3217,7 +3218,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 399.6999, y: 34.99997}
+  m_AnchoredPosition: {x: 292.721, y: 34.99997}
   m_SizeDelta: {x: 26, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &676532252
@@ -4166,7 +4167,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 173.17885, y: 85.00003}
+  m_AnchoredPosition: {x: 66.2, y: 85.00003}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &850863421
@@ -4359,11 +4360,13 @@ MonoBehaviour:
   MoneyText: {fileID: 813872649}
   PlayerMovement: {fileID: 230413355}
   MoneyManager: {fileID: 0}
+  SceneTransition: {fileID: 0}
   InventoryPanel: {fileID: 0}
   QuickAccessBar: {fileID: 0}
   InventoryIcons: {fileID: 0}
   TiredMessage: {fileID: 2009500282}
   EnergySlider: {fileID: 2144247974}
+  Map: {fileID: 0}
   DepositButton: {fileID: 0}
   MovingButton: {fileID: 0}
   BeachHouseButton: {fileID: 0}
@@ -4396,6 +4399,10 @@ MonoBehaviour:
   BuySeedsButton: {fileID: 150373548}
   IncreaseAmountButton: {fileID: 416787597}
   DecreaseAmountButton: {fileID: 819644843}
+  SeedCornText: {fileID: 1485552756}
+  SeedLettuceText: {fileID: 914091772}
+  SeedCarrotText: {fileID: 1094072278}
+  SeedStrawberryText: {fileID: 1516380690}
 --- !u!1 &905030716
 GameObject:
   m_ObjectHideFlags: 0
@@ -4508,7 +4515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 173.5, y: 34.99997}
+  m_AnchoredPosition: {x: 66.52113, y: 34.99997}
   m_SizeDelta: {x: 26, y: 20.0967}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &908889941
@@ -4763,7 +4770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 59.99997, y: 85.00001}
+  m_AnchoredPosition: {x: 403.3, y: 85.00001}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &989136834
@@ -5596,7 +5603,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 286.35785, y: 85.00003}
+  m_AnchoredPosition: {x: 179.37898, y: 85.00003}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1350065525
@@ -18134,7 +18141,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 60.2, y: 34.99997}
+  m_AnchoredPosition: {x: 403.5, y: 34.99997}
   m_SizeDelta: {x: 26, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1751688379

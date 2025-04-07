@@ -636,11 +636,13 @@ MonoBehaviour:
   MoneyText: {fileID: 472646897}
   PlayerMovement: {fileID: 1195905023}
   MoneyManager: {fileID: 0}
+  SceneTransition: {fileID: 0}
   InventoryPanel: {fileID: 0}
   QuickAccessBar: {fileID: 0}
   InventoryIcons: {fileID: 0}
   TiredMessage: {fileID: 544930425}
   EnergySlider: {fileID: 1916214463}
+  Map: {fileID: 0}
   DepositButton: {fileID: 993252741}
   MovingButton: {fileID: 322530079}
   BeachHouseButton: {fileID: 1429320032}
@@ -673,6 +675,10 @@ MonoBehaviour:
   BuySeedsButton: {fileID: 0}
   IncreaseAmountButton: {fileID: 0}
   DecreaseAmountButton: {fileID: 0}
+  SeedCornText: {fileID: 0}
+  SeedLettuceText: {fileID: 0}
+  SeedCarrotText: {fileID: 0}
+  SeedStrawberryText: {fileID: 0}
 --- !u!1 &282233968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,11 +1412,13 @@ MonoBehaviour:
   MoneyText: {fileID: 472646897}
   PlayerMovement: {fileID: 1195905023}
   MoneyManager: {fileID: 0}
+  SceneTransition: {fileID: 0}
   InventoryPanel: {fileID: 0}
   QuickAccessBar: {fileID: 0}
   InventoryIcons: {fileID: 0}
   TiredMessage: {fileID: 544930425}
   EnergySlider: {fileID: 1916214463}
+  Map: {fileID: 0}
   DepositButton: {fileID: 993252741}
   MovingButton: {fileID: 322530079}
   BeachHouseButton: {fileID: 1429320032}
@@ -1443,6 +1451,10 @@ MonoBehaviour:
   BuySeedsButton: {fileID: 0}
   IncreaseAmountButton: {fileID: 0}
   DecreaseAmountButton: {fileID: 0}
+  SeedCornText: {fileID: 0}
+  SeedLettuceText: {fileID: 0}
+  SeedCarrotText: {fileID: 0}
+  SeedStrawberryText: {fileID: 0}
 --- !u!61 &399323415
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -19817,6 +19829,7 @@ MonoBehaviour:
   Speed: 3
   maxEnergy: 100
   _currentEnergy: 0
+  _fadingEnergy: 0.1
   UIManager: {fileID: 275213581}
 --- !u!61 &1195905024
 BoxCollider2D:

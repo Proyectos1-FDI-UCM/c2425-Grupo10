@@ -1472,6 +1472,7 @@ MonoBehaviour:
   Speed: 3
   maxEnergy: 100
   _currentEnergy: 0
+  _fadingEnergy: 0.1
   UIManager: {fileID: 446521060}
 --- !u!212 &230413356
 SpriteRenderer:
@@ -2399,11 +2400,13 @@ MonoBehaviour:
   MoneyText: {fileID: 1604577332}
   PlayerMovement: {fileID: 230413355}
   MoneyManager: {fileID: 0}
+  SceneTransition: {fileID: 0}
   InventoryPanel: {fileID: 0}
   QuickAccessBar: {fileID: 0}
   InventoryIcons: {fileID: 0}
   TiredMessage: {fileID: 309489312}
   EnergySlider: {fileID: 1535701214}
+  Map: {fileID: 0}
   DepositButton: {fileID: 0}
   MovingButton: {fileID: 0}
   BeachHouseButton: {fileID: 0}
@@ -2436,6 +2439,10 @@ MonoBehaviour:
   BuySeedsButton: {fileID: 0}
   IncreaseAmountButton: {fileID: 0}
   DecreaseAmountButton: {fileID: 0}
+  SeedCornText: {fileID: 0}
+  SeedLettuceText: {fileID: 0}
+  SeedCarrotText: {fileID: 0}
+  SeedStrawberryText: {fileID: 0}
 --- !u!1 &485763184
 GameObject:
   m_ObjectHideFlags: 3

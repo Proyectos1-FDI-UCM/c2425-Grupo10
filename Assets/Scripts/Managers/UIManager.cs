@@ -55,6 +55,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private MoneyManager MoneyManager;
 
+    /// <summary>
+    /// Ref al scenetransition
+    /// </summary>
+    [SerializeField] private SceneTransition SceneTransition;
+
 
     [Header("UI de BUILD")]
     /// <summary>
@@ -245,6 +250,14 @@ public class UIManager : MonoBehaviour
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
     [SerializeField] private GameObject DecreaseAmountButton;
+
+    /// <summary>
+    /// Textos de la cantidad de cultivos que tienes en el inventario
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI SeedCornText;
+    [SerializeField] private TextMeshProUGUI SeedLettuceText;
+    [SerializeField] private TextMeshProUGUI SeedCarrotText;
+    [SerializeField] private TextMeshProUGUI SeedStrawberryText;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -384,6 +397,11 @@ public class UIManager : MonoBehaviour
         {
             ResetInterfaz();
         }
+
+        if (SceneManager.GetActiveScene().name == "Escena_Banco")
+        {
+            SceneTransition = FindObjectOfType<SceneTransition>();
+        }
         InitializeReferences();
         MoneyManager.InitializeUIManager();
         ShowMoneyUI();
@@ -478,8 +496,11 @@ public class UIManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            NpcMessage.SetActive(false);
-            _isInNpcArea = false;
+            if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
+            {
+                NpcMessage.SetActive(false);
+                _isInNpcArea = false;
+            }
         }
     }
     #endregion
@@ -579,6 +600,7 @@ public class UIManager : MonoBehaviour
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
             _isCornSelected = true;
+            ActualizarCantidadSeedsUI();
         }
     }
 
@@ -771,6 +793,7 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Mudanza realizada con éxito.");
             GameManager.Instance.DeductDepositedMoney(100000);
+            SceneTransition.ChangeScene("Escena_CasaPlaya");
 
         }
         else
@@ -1210,6 +1233,7 @@ public class UIManager : MonoBehaviour
         }
 
         UpdateUI();  // Actualiza la UI después de la compra
+        ActualizarCantidadSeedsUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
     }
 
 
@@ -1218,6 +1242,14 @@ public class UIManager : MonoBehaviour
 
     // ---- METODOS PRIVADOS (COMPRA) ----
     #region
+    public void ActualizarCantidadSeedsUI()
+    {
+        SeedCornText.text = "x" + InventoryManager.GetInventory(Items.CornSeed);
+        SeedLettuceText.text = "x" + InventoryManager.GetInventory(Items.LettuceSeed);
+        SeedCarrotText.text = "x" + InventoryManager.GetInventory(Items.CarrotSeed);
+        SeedStrawberryText.text = "x" + InventoryManager.GetInventory(Items.StrawberrySeed);
+
+    }
     #endregion
 
     #endregion

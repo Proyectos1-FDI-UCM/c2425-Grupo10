@@ -21,7 +21,7 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Cantidad total de dinero del jugador.
     /// </summary>
-    [SerializeField] private int MoneyCount = 100000;
+    [SerializeField] private int MoneyCount = 100;
 
     /// <summary>
     /// Nivel actual de mejora de la regadera.
