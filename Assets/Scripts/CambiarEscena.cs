@@ -24,6 +24,7 @@ public class CambiarEscena : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
     [SerializeField] public string sceneName;
+    [SerializeField] private SoundManager sound;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -96,6 +97,8 @@ public class CambiarEscena : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            sound.HouseSound();
+
             if (SceneManager.GetActiveScene().name == "Escena_Build")
             {
                 SavePosition();
