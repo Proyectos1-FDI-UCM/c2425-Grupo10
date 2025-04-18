@@ -105,6 +105,10 @@ public class TutorialManager : MonoBehaviour
         else if (buttonText == "Probar" || buttonText == "Cerrar")
         {
             UIManager.HideDialogue(); // Asume que tienes un método para ocultarlo
+            if (_tutorialPhase == 5)
+            {
+                UIManager.HideMap();
+            }
         }
     }
     ///<summary>
@@ -158,7 +162,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 5)
         {
-            _actualDialogueText = "Madame Moo: También tienes varias herramientas para usar en tu huerto.\r\nCierra el mapa y usa el selector de herramientas (1-5) para elegir lo que necesitas.\r\n¡Una vaca no puede arar con la lengua, ni tú cosechar sin azada!";
+            _actualDialogueText = "Madame Moo: También tienes varias herramientas para usar en tu huerto.\r\nUsa el selector de herramientas (1-5) para elegir lo que necesitas.\r\n¡Una vaca no puede arar con la lengua, ni tú cosechar sin azada!";
             _actualDialogueButtonText = "Probar";
         }
         if (_tutorialPhase == 6)

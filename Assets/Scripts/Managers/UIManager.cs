@@ -569,6 +569,16 @@ public class UIManager : MonoBehaviour
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
     }
+
+    ///<summary>
+    ///Metodo para saber el estado del mapa
+    /// </summary>
+    public void HideMap()
+    {
+        Map.SetActive(false);
+        _isMapVisible = false;
+        PlayerMovement.EnablePlayerMovement();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
