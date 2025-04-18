@@ -347,6 +347,7 @@ public class SelectorManager : MonoBehaviour
         if (_tutorialCount == 5)
         {
             TutorialManager.NextDialogue();
+            _tutorialCount = 0;
         }
         // Poner la herramienta en la mano del jugador
         _currentTool.transform.SetParent(HandPosition);
