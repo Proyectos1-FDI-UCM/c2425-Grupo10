@@ -92,6 +92,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Button TutorialButton;
 
+    /// <summary>
+    /// Checks de las tareas del tutorial
+    /// </summary>
+    [SerializeField] private GameObject[] CheckBox = new GameObject[3];
+
 
     [Header("UI de BUILD")]
     /// <summary>
@@ -507,7 +512,8 @@ public class UIManager : MonoBehaviour
 
                 if (TutorialManager.GetTutorialPhase() == 3) // Verifica si es la fase 3 o la fase que corresponda
                 {
-                    TutorialManager.NextDialogue();
+                    Check(0);
+                    Invoke("NextDialogue", 0.1f);
                 }
             }
             else if (_isMapVisible && InputManager.Instance.MapWasPressedThisFrame())
@@ -579,6 +585,7 @@ public class UIManager : MonoBehaviour
         {
             NotificationCounter.SetActive(false);
         }
+        for(int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
     }
 
     ///<summary>
@@ -615,6 +622,15 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
+    }
+
+    /// <summary>
+    /// Marca la tarea del tutorial como completa
+    /// </summary>
+    /// <param name="i"></param>
+    public void Check(int i)
+    {
+        if (i < CheckBox.Length) CheckBox[i].SetActive(true);
     }
 
     ///<summary>
@@ -869,9 +885,21 @@ public class UIManager : MonoBehaviour
         _isInventoryVisible = !_isInventoryVisible;
         if (TutorialManager.GetTutorialPhase() == 6) // Verifica si es la fase 3 o la fase que corresponda
         {
-            TutorialManager.NextDialogue();
+            Check(0);
+            Invoke("NextDialogue", 0.1f);
         }
+
+
     }
+
+    /// <summary>
+    /// Invoca Next Dialogue de TutorialManager
+    /// </summary>
+    public void NextDialogue()
+    {
+        TutorialManager.NextDialogue();
+    }
+
     // ---- METODOS PRIVADOS (BUILD) ----
     #region Metodos Privados (Build)
 

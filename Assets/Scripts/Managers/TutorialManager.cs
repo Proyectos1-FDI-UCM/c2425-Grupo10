@@ -114,6 +114,16 @@ public class TutorialManager : MonoBehaviour
                 UIManager.HideMap();
                 UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas");
             }
+            if (_tutorialPhase == 6)
+            {
+                UIManager.HideMap();
+                UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario");
+            }
+            if (_tutorialPhase == 3)
+            {
+                UIManager.HideMap();
+                UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa");
+            }
             if (_tutorialPhase == 8)
             {
                 UIManager.ToggleInventory();
@@ -137,10 +147,18 @@ public class TutorialManager : MonoBehaviour
         _tutorialPhase++;
         FindTutorialPhase();
         UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
-        if (_tutorialPhase == 6)
+        if (_tutorialPhase == 6 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
             UIManager.HideNotificacion();
         }
+    }
+
+    ///<summary>
+    ///Metodo para marcar la tarea como hecha
+    /// </summary>
+    public void CheckBox(int checkbox)
+    {
+        UIManager.Check(checkbox);
     }
     #endregion
 

@@ -326,21 +326,25 @@ public class SelectorManager : MonoBehaviour
         {
             _usedShovel = true;
             _tutorialCount++;
+            TutorialManager.CheckBox(2);
         }
         else if (newTool == WateringCanTool && !_usedWateringCan)
         {
             _usedWateringCan = true;
             _tutorialCount++;
+            TutorialManager.CheckBox(0);
         }
         else if (newTool == SickleTool && !_usedSickle)
         {
             _usedSickle = true;
             _tutorialCount++;
+            TutorialManager.CheckBox(1);
         }
         else if (newTool == SeedTool && !_usedSeeds)
         {
             _usedSeeds = true;
             _tutorialCount++;
+            TutorialManager.CheckBox(3);
         }
 
         // Llamar al diálogo si se han usado 4 herramientas
