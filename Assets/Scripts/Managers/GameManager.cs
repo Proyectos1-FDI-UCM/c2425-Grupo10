@@ -65,7 +65,12 @@ public class GameManager : MonoBehaviour
     ///<summary>
     /// Ref al GardenManager
     /// </summary>
-    [SerializeField] private GardenManager GardenManager;   
+    [SerializeField] private GardenManager GardenManager;
+
+    ///<summary>
+    ///Ref al TutorialManager
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
 
 
     #endregion
@@ -113,6 +118,11 @@ public class GameManager : MonoBehaviour
     /// Posición del Jugador
     /// <summary>
     private Transform _playerPosition;
+
+    ///<summary>
+    ///Booleano para saber si el jugador esta en la cinematica inicial
+    /// </summary>
+    [SerializeField] private bool _isInCinematic = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -154,6 +164,8 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             Init();
         } // if-else somos instancia nueva o no.
+
+        _isInCinematic = true;
     }
     private void Update()
     {
@@ -196,6 +208,7 @@ public class GameManager : MonoBehaviour
                 WateringCanManager = WCObject.GetComponent<WateringCanManager>();
             }
         }
+        EndCinematic();
     }
     /// <summary>
     /// Método llamado cuando se destruye el componente.
@@ -423,6 +436,14 @@ public class GameManager : MonoBehaviour
     {
         return _moneyInvested;
     }
+    
+    ///<summary>
+    ///Metodo para saber si la cinematica se esta reproduciendo
+    /// </summary>
+    public bool GetCinematicState()
+    {
+        return _isInCinematic;
+    }
 
     ///<summary>
     ///Metodo para inicializar GardenManager
@@ -479,6 +500,16 @@ public class GameManager : MonoBehaviour
         MoneyCount = FindObjectOfType<MoneyManager>();
         GardenManager = FindObjectOfType<GardenManager>();
         WateringCanManager = FindObjectOfType<WateringCanManager>();
+        TutorialManager = FindObjectOfType<TutorialManager>();
+
+    }
+    public void EndCinematic()
+    {
+        if (_isInCinematic && Input.GetKeyDown(KeyCode.Return)) // Return = Enter
+        {
+            _isInCinematic = false;
+            //TutorialManager.NextDialogue();
+        }
     }
     #endregion
 } // class GameManager 

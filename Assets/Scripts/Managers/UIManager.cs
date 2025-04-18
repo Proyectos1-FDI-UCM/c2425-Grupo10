@@ -60,6 +60,38 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private SceneTransition SceneTransition;
 
+    /// <summary>
+    /// Ref al GameManager
+    /// </summary>
+    [SerializeField] private GameManager GameManager;
+
+    /// <summary>
+    /// Ref al tutorial manager
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
+
+
+    [Header("UI de TUTORIAL")]
+    ///<summary>
+    ///Gameobject con todos las partes de la ui
+    /// </summary>
+    [SerializeField] private GameObject TutorialUI;
+
+    /// <summary>
+    /// Texto donde mostrar todo el dialogo
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TutorialText;
+
+    /// <summary>
+    /// Texto del boton para salir / continuar
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI ButtonTutorialText;
+
+    /// <summary>
+    /// Button del tutorial
+    /// </summary>
+    [SerializeField] private Button TutorialButton;
+
 
     [Header("UI de BUILD")]
     /// <summary>
@@ -382,6 +414,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private string _newDescriptionText;
 
+
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -415,7 +449,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Escena_Build")
+        if (SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Javi")
         {
             // La subida/Bajada del inventario se activa con el TAB.
             if (!_isMapVisible && InputManager.Instance.TabWasPressedThisFrame())
@@ -450,6 +484,11 @@ public class UIManager : MonoBehaviour
                 Map.SetActive(true);
                 _isMapVisible = true;
                 PlayerMovement.DisablePlayerMovement();
+
+                if (TutorialManager.GetTutorialPhase() == 3) // Verifica si es la fase 3 o la fase que corresponda
+                {
+                    TutorialManager.NextDialogue();
+                }
             }
             else if (_isMapVisible && InputManager.Instance.MapWasPressedThisFrame())
             {
@@ -502,6 +541,33 @@ public class UIManager : MonoBehaviour
                 _isInNpcArea = false;
             }
         }
+    }
+
+    /// <summary>
+    /// Metodo para mostrar el dialogo actual del tutorial
+    /// </summary>
+    public void ShowDialogue(string dialogueText, string buttonText)
+    {
+        TutorialUI.SetActive(true);
+        TutorialText.text = dialogueText;
+        ButtonTutorialText.text = buttonText;
+        // Quitar listeners anteriores por seguridad
+        TutorialButton.onClick.RemoveAllListeners();
+
+        // Asignar nueva acción según el botón
+        TutorialButton.onClick.AddListener(() =>
+        {
+            TutorialManager.OnTutorialButtonPressed(buttonText);
+        });
+    }
+
+    ///<summary>
+    ///Metodo para ocultar el dialogo del tutorial
+    /// </summary>
+    public void HideDialogue()
+    {
+        Debug.Log("Cerrando diálogo");
+        TutorialUI.SetActive(false);
     }
     #endregion
 
@@ -644,11 +710,16 @@ public class UIManager : MonoBehaviour
             PriceAmountToBuy.text = "";
         }
     }
+    /// <summary>
+    /// Metodo para asignar las referencias de este script
+    /// </summary>
     private void InitializeReferences()
     {
         MoneyManager = FindObjectOfType<MoneyManager>();
+        TutorialManager = FindObjectOfType<TutorialManager>();
     }
 
+    
     #endregion
 
     // ---- BUILD ----
