@@ -7,6 +7,7 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 // Añadir aquí el resto de directivas using
 
 
@@ -66,7 +67,7 @@ public class TutorialManager : MonoBehaviour
     {
         if(GameManager.GetCinematicState() == true)
         {
-            UIManager.HideDialogue();
+            //UIManager.HideDialogue();
         }
     }
 
@@ -75,14 +76,17 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (GameManager.GetCinematicState() == false && _tutorialPhase == 0)
+        if (SceneManager.GetActiveScene().name != "Menu")
         {
-            //Activar el tutorial
-            _tutorialPhase++;
-            FindTutorialPhase();
-            UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            InitializeReferences();
+            if (GameManager.GetCinematicState() == false && _tutorialPhase == 0)
+            {
+                //Activar el tutorial
+                _tutorialPhase++;
+                FindTutorialPhase();
+                UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            }
         }
-        
     }
     #endregion
 
@@ -108,6 +112,12 @@ public class TutorialManager : MonoBehaviour
             if (_tutorialPhase == 5)
             {
                 UIManager.HideMap();
+                UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas");
+            }
+            if (_tutorialPhase == 8)
+            {
+                UIManager.ToggleInventory();
+                UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
             }
         }
     }
@@ -127,6 +137,10 @@ public class TutorialManager : MonoBehaviour
         _tutorialPhase++;
         FindTutorialPhase();
         UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+        if (_tutorialPhase == 6)
+        {
+            UIManager.HideNotificacion();
+        }
     }
     #endregion
 
@@ -172,7 +186,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 7)
         {
-            _actualDialogueText = "Madame Moo: ¡Uy, Connie! Ese inventario está más vacío que una lechera en sequía...\r\n¡Vamos a llenarlo de cosas buenas antes de que los grillos monten una fiesta ahí dentro!\r\nVe a la tienda y compra unas cuantas semillas.\r\nSin semillas, no hay cosecha… ¡y sin cosecha, no hay cheddar! Y no hablo de queso precisamente.";
+            _actualDialogueText = "Madame Moo: ¡Uy, Connie! Ese inventario está más vacío que una lechera en sequía...\r\n¡Vamos a llenarlo de cosas buenas antes de que los grillos monten una fiesta ahí dentro!";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhase == 8)
@@ -213,7 +227,14 @@ public class TutorialManager : MonoBehaviour
 
     }
     
-    
+    ///<summary>
+    ///Metodo para asignar las referencias
+    /// </summary>
+    private void InitializeReferences()
+    {
+        PlayerMovement = FindObjectOfType<PlayerMovement>();
+        UIManager = FindObjectOfType<UIManager>();
+    }
     #endregion
 
 } // class TutorialManager 

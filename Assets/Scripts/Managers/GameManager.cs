@@ -8,6 +8,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 /// <summary>
@@ -218,7 +219,10 @@ public class GameManager : MonoBehaviour
                 WateringCanManager = WCObject.GetComponent<WateringCanManager>();
             }
         }
-        EndCinematic();
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            EndCinematic();
+        }
     }
     /// <summary>
     /// Método llamado cuando se destruye el componente.

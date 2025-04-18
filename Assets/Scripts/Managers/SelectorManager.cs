@@ -121,6 +121,10 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject SickleMessage;
 
+    ///<summary>
+    ///Ref al tutorial manager
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -141,6 +145,18 @@ public class SelectorManager : MonoBehaviour
     /// Referencia al SpriteRenderer
     /// </summary>
     private SpriteRenderer _spriteRenderer;
+
+    ///<summary>
+    ///Int para el contador del tutorial
+    /// </summary>
+    [SerializeField] private int _tutorialCount = 0;
+
+    // Booleanos para controlar si una herramienta ya fue usada
+    private bool _usedGloves = false;
+    private bool _usedShovel = false;
+    private bool _usedWateringCan = false;
+    private bool _usedSickle = false;
+    private bool _usedSeeds = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -154,6 +170,7 @@ public class SelectorManager : MonoBehaviour
 
     void Start()
     {
+        TutorialManager = FindObjectOfType<TutorialManager>();
         UpdateWaterBar(6, 6);
 
         DeselectCurrentTool();
@@ -180,6 +197,7 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
         if (InputManager.Instance.Select5WasPressedThisFrame())
         {
             SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
@@ -298,6 +316,38 @@ public class SelectorManager : MonoBehaviour
         _currentTool = newTool;
         _currentTool.SetActive(true);
 
+        // Verifica si es la primera vez que se usa la herramienta
+        if (newTool == GlovesTool && !_usedGloves)
+        {
+            _usedGloves = true;
+            _tutorialCount++;
+        }
+        else if (newTool == ShovelTool && !_usedShovel)
+        {
+            _usedShovel = true;
+            _tutorialCount++;
+        }
+        else if (newTool == WateringCanTool && !_usedWateringCan)
+        {
+            _usedWateringCan = true;
+            _tutorialCount++;
+        }
+        else if (newTool == SickleTool && !_usedSickle)
+        {
+            _usedSickle = true;
+            _tutorialCount++;
+        }
+        else if (newTool == SeedTool && !_usedSeeds)
+        {
+            _usedSeeds = true;
+            _tutorialCount++;
+        }
+
+        // Llamar al diálogo si se han usado 4 herramientas
+        if (_tutorialCount == 5)
+        {
+            TutorialManager.NextDialogue();
+        }
         // Poner la herramienta en la mano del jugador
         _currentTool.transform.SetParent(HandPosition);
         _currentTool.transform.localPosition = Vector3.zero; // Asegurar que esté en la posición exacta de la mano

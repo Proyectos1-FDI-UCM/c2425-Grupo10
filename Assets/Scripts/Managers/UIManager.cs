@@ -124,6 +124,26 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject Map;
 
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextNotification;
+
+    /// <summary>
+    /// Gameobject del contador de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject NotificationCounter;
+
+    /// <summary>
+    /// Texto del contador de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextNotificationCounter;
+
 
     [Header("UI del Banco")]
 
@@ -449,7 +469,7 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Javi")
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // La subida/Bajada del inventario se activa con el TAB.
             if (!_isMapVisible && InputManager.Instance.TabWasPressedThisFrame())
@@ -542,6 +562,33 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    ///<sumary>
+    ///Metodo para mostrar la notificacion
+    /// </sumary>
+    public void ShowNotification(string text,string textCounter)
+    {
+        Notification.SetActive(true);
+        TextNotification.text = text;
+        if( textCounter != "NoCounter")
+        {
+            NotificationCounter.SetActive(true);
+            TextNotificationCounter.text = textCounter;
+        }
+        else
+        {
+            NotificationCounter.SetActive(false);
+        }
+    }
+
+    ///<summary>
+    ///Metodo para ocultar la notificacion
+    /// </summary>
+    public void HideNotificacion() 
+    { 
+        Notification.SetActive(false);
+    }
+
 
     /// <summary>
     /// Metodo para mostrar el dialogo actual del tutorial
@@ -814,15 +861,20 @@ public class UIManager : MonoBehaviour
     }
     #endregion
 
-    // ---- METODOS PRIVADOS (BUILD) ----
-    #region Metodos Privados (Build)
     /// <summary>
     /// Alterna la visibilidad del inventory y mueve la QuickAccessBar con él.
     /// </summary>
-    private void ToggleInventory()
+    public void ToggleInventory()
     {
         _isInventoryVisible = !_isInventoryVisible;
+        if (TutorialManager.GetTutorialPhase() == 6) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            TutorialManager.NextDialogue();
+        }
     }
+    // ---- METODOS PRIVADOS (BUILD) ----
+    #region Metodos Privados (Build)
+
     #endregion
 
     #endregion
