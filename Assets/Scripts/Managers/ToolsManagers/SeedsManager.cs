@@ -25,6 +25,16 @@ public class SeedsManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    ///<summary> 
+    /// referencia al animator del player
+    /// </summary>
+    [SerializeField] private Animator PlayerAnimator;
+
+    ///<summary> 
+    ///Referencia al SelectorManager
+    /// </summary>
+    [SerializeField] private PlayerMovement PlayerMovement;
+
     /// <summary>
     /// Carpeta con todas las posiciones en las que el jugador puede plantar
     /// </summary>
@@ -140,9 +150,14 @@ public class SeedsManager : MonoBehaviour
                 GameObject Plant = Instantiate(_prefab, Pot.position, Quaternion.identity);
                 InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);
+
+                PlayerAnimator.SetBool("Planting", true);
+                Invoke("NotPlanting", 1f);
+                PlayerMovement.DisablePlayerMovement();
             }
+
         }
-        if (UIManager.GetInventoryVisible() == false)
+            if (UIManager.GetInventoryVisible() == false)
         {
             AmountOfSeeds.SetActive(true);
             AmountSeedsText.text = "x" + InventoryManager.GetInventory(_seed).ToString();
@@ -211,7 +226,19 @@ public class SeedsManager : MonoBehaviour
         return NearestPot;
     }
 
+    /// <summary>
+    /// Metodo para desactivar la animacion de plantar
+    /// </summary>
+    private void NotPlanting()
+    {
 
+        PlayerAnimator.SetBool("Planting", false);
+
+        this.gameObject.SetActive(true);
+
+        PlayerMovement.EnablePlayerMovement();
+
+    }
     #endregion
 
 
