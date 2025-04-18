@@ -192,6 +192,7 @@ public class CropSpriteEditor : MonoBehaviour
             _spriteRenderer.sprite = DeadSprites[0];
         }
         //Grown(transform); // Modifica el timer de crecimiento
+        Debug.Log("SpriteChanged" + state);
     }
 
     public int GetGrowthState()

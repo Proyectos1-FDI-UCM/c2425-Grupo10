@@ -32,12 +32,12 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Tiempo real transcurrido.
     /// </summary>
-    private float _realTimeElapsed;
+    [SerializeField]  private float _realTimeElapsed;
 
     /// <summary>
     /// Tiempo de juego transcurrido.
     /// </summary>
-    private float _gameTimeElapsed;
+    [SerializeField] private float _gameTimeElapsed;
 
     /// <summary>
     /// 1 dia de juego = 6 minutos reales (360 segundos)
@@ -66,6 +66,7 @@ public class Timer : MonoBehaviour
     {
         _realTimeElapsed = 0f; //Inicializar el tiempo real
         _gameTimeElapsed = 0f; //Inicializar el tiempo de juego
+        GameManager.Instance.SetTimer(this);
     }
 
     /// <summary>
@@ -98,6 +99,16 @@ public class Timer : MonoBehaviour
     public float GetGameTimeInDays()
     {
         return (_gameTimeElapsed / 86400f); // Convertir a minutos
+    }
+
+    public float GetRealTime()
+    {
+        return _realTimeElapsed;
+    }
+
+    public void SetRealTime(float realTime)
+    {
+        _realTimeElapsed = realTime;
     }
 
     #endregion

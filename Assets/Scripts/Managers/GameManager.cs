@@ -119,6 +119,16 @@ public class GameManager : MonoBehaviour
     /// <summary>
     private Transform _playerPosition;
 
+    /// <summary>
+    /// Timer
+    /// <summary>
+    private Timer timer;
+
+    /// <summary>
+    /// Tiempo que ha pasado en la escena principal
+    /// </summary>
+    private float realTime;
+
     ///<summary>
     ///Booleano para saber si el jugador esta en la cinematica inicial
     /// </summary>
@@ -284,6 +294,17 @@ public class GameManager : MonoBehaviour
     public int GetWateringCanUpgrades() { return WateringCanUpgrades; }
     public int GetGardenUpgrades() { return GardenUpgrades; }
     public int GetInventoryUpgrades() { return InventoryUpgrades; }
+
+    public void SetTimer(Timer timercomponent)
+    {
+        timer = timercomponent;
+        timer.SetRealTime(realTime);
+    }
+
+    public void SaveTime()
+    {
+        realTime = timer.GetRealTime();
+    }
 
     /// <summary>
     /// Metodo para aumentar +1 la mejora del Huerto.

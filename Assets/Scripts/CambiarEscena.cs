@@ -119,6 +119,7 @@ public class CambiarEscena : MonoBehaviour
     {
         InventoryManager.ModifyPlayerPosition(FindObjectOfType<PlayerMovement>().transform.position);
         Debug.Log("SavePosition" + InventoryManager.GetPlayerPosition());
+        GameManager.Instance.SaveTime();
     }
     #endregion
 
