@@ -154,7 +154,10 @@ public class UIManager : MonoBehaviour
     /// Texto del contador de la notificacion
     /// </summary>
     [SerializeField] private TextMeshProUGUI TextNotificationCounter;
-
+    ///<summary>
+    /// boton de la notificacion
+    /// </summary>
+    [SerializeField] private Button NotificationButton;
 
     [Header("UI del Banco")]
 
@@ -475,6 +478,7 @@ public class UIManager : MonoBehaviour
         InitializeReferences();
         MoneyManager.InitializeUIManager();
         ShowMoneyUI();
+        NotificationButton.onClick.AddListener(TutorialManager.ActualDialogue);
        
     }
 

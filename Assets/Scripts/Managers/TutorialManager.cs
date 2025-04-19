@@ -55,6 +55,16 @@ public class TutorialManager : MonoBehaviour
     private string _actualDialogueText;
     private string _actualDialogueButtonText;
 
+    /// <summary>
+    /// Booeano para saber si la notificacion esta activa
+    /// </summary>
+    private bool _isNotificationActive = false;
+
+    /// <summary>
+    /// Booeano para saber si el tutorial esta activo
+    /// </summary>
+    private bool _isDialogueActive = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -90,11 +100,38 @@ public class TutorialManager : MonoBehaviour
                 _tutorialPhase++;
                 FindTutorialPhase();
                 UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+                SoundManager.MadameMooSound();
             }
         }
         if (SoundManager == null)
         {
             SoundManager = FindObjectOfType<SoundManager>();
+        }
+        if(SceneManager.GetActiveScene().name != "Escena_Build")
+        {
+            if (_isNotificationActive)
+            {
+                if (_tutorialPhase == 5)
+                {
+                    UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas");
+                }
+                if (_tutorialPhase == 6)
+                {
+                    UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario");
+                }
+                if (_tutorialPhase == 3)
+                {
+                    UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa");
+                }
+                if (_tutorialPhase == 8)
+                {
+                    UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
+                }
+                if (_tutorialPhase == 15)
+                {
+                    UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba");
+                }
+            }
         }
     }
     #endregion
@@ -124,16 +161,19 @@ public class TutorialManager : MonoBehaviour
             {
                 UIManager.HideMap();
                 UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas");
+                _isNotificationActive = true;
             }
             if (_tutorialPhase == 6)
             {
                 UIManager.HideMap();
                 UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario");
+                _isNotificationActive = true;
             }
             if (_tutorialPhase == 3)
             {
                 UIManager.HideMap();
                 UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa");
+                _isNotificationActive = true;
             }
             if (_tutorialPhase == 8)
             {
@@ -142,10 +182,12 @@ public class TutorialManager : MonoBehaviour
                     UIManager.ToggleInventory();
                 }
                 UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
+                _isNotificationActive = true;
             }
             if (_tutorialPhase == 15)
             {
                 UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba");
+                _isNotificationActive = true;
             }
         }
     }
@@ -169,6 +211,7 @@ public class TutorialManager : MonoBehaviour
         if (_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
             UIManager.HideNotificacion();
+            _isNotificationActive = false;
         }
     }
 
@@ -178,6 +221,7 @@ public class TutorialManager : MonoBehaviour
     public void ActualDialogue()
     {
         UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+        SoundManager.MadameMooSound();
     }
 
     ///<summary>
