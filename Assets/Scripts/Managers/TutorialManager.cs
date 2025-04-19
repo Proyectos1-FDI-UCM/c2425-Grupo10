@@ -131,7 +131,6 @@ public class TutorialManager : MonoBehaviour
             }
             if (_tutorialPhase == 15)
             {
-                UIManager.HideMap();
                 UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba");
             }
         }
@@ -152,7 +151,7 @@ public class TutorialManager : MonoBehaviour
         _tutorialPhase++;
         FindTutorialPhase();
         UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
-        if (_tutorialPhase == 6 || _tutorialPhase == 5 || _tutorialPhase == 3)
+        if (_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
             UIManager.HideNotificacion();
         }

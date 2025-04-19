@@ -602,6 +602,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowDialogue(string dialogueText, string buttonText)
     {
+        PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
         TutorialText.text = dialogueText;
         ButtonTutorialText.text = buttonText;
@@ -622,6 +623,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
+        PlayerMovement.EnablePlayerMovement();
     }
 
     /// <summary>
