@@ -13,6 +13,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System;
+using Random = System.Random;
 
 /// <summary>
 /// La Clase UIManager se encarga de mostrar la UI del juego correcta para cada escena, ya sea la principal o las del mercado
@@ -97,6 +98,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject[] CheckBox = new GameObject[3];
 
+    /// <summary>
+    /// Audio de Madame Moo
+    /// </summary>
+    [SerializeField] private AudioSource MadameMooAudio;
 
     [Header("UI de BUILD")]
     /// <summary>
@@ -602,6 +607,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowDialogue(string dialogueText, string buttonText)
     {
+        
+        if (MadameMooAudio != null)
+        {
+            MadameMooAudio.pitch = UnityEngine.Random.Range(0.5f, 2f);
+        }
         PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
         TutorialText.text = dialogueText;
