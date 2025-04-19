@@ -113,10 +113,12 @@ public class TutorialManager : MonoBehaviour
         {
             NextDialogue();
             FindTutorialPhase();
+            UIManager.HideDialogueButton();
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
         }
         else if (buttonText == "Probar" || buttonText == "Cerrar")
         {
+            SoundManager.NextButtonSound();
             UIManager.HideDialogue(); // Asume que tienes un método para ocultarlo
             if (_tutorialPhase == 5)
             {
@@ -135,7 +137,10 @@ public class TutorialManager : MonoBehaviour
             }
             if (_tutorialPhase == 8)
             {
-                UIManager.ToggleInventory();
+                if(UIManager.GetInventoryVisible() == true)
+                {
+                    UIManager.ToggleInventory();
+                }
                 UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
             }
             if (_tutorialPhase == 15)
@@ -165,6 +170,14 @@ public class TutorialManager : MonoBehaviour
         {
             UIManager.HideNotificacion();
         }
+    }
+
+    ///<summary>
+    ///Metodo para mostrar el dialogo actual(pulsando notificicacion)
+    /// </summary>
+    public void ActualDialogue()
+    {
+        UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
     }
 
     ///<summary>

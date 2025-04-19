@@ -315,44 +315,41 @@ public class SelectorManager : MonoBehaviour
         // Activa la nueva herramienta y la establece como actual
         _currentTool = newTool;
         _currentTool.SetActive(true);
+        if (TutorialManager.GetTutorialPhase() == 5)
+        {
+            if (newTool == ShovelTool && !_usedShovel)
+            {
+                _usedShovel = true;
+                _tutorialCount++;
+                TutorialManager.CheckBox(2);
+            }
+            else if (newTool == WateringCanTool && !_usedWateringCan)
+            {
+                _usedWateringCan = true;
+                _tutorialCount++;
+                TutorialManager.CheckBox(0);
+            }
+            else if (newTool == SickleTool && !_usedSickle)
+            {
+                _usedSickle = true;
+                _tutorialCount++;
+                TutorialManager.CheckBox(1);
+            }
+            else if (newTool == SeedTool && !_usedSeeds)
+            {
+                _usedSeeds = true;
+                _tutorialCount++;
+                TutorialManager.CheckBox(3);
+            }
 
-        // Verifica si es la primera vez que se usa la herramienta
-        if (newTool == GlovesTool && !_usedGloves)
-        {
-            _usedGloves = true;
-            _tutorialCount++;
+            // Llamar al diálogo si se han usado 4 herramientas
+            if (_tutorialCount == 4)
+            {
+                TutorialManager.NextDialogue();
+                _tutorialCount = 0;
+            }
         }
-        else if (newTool == ShovelTool && !_usedShovel)
-        {
-            _usedShovel = true;
-            _tutorialCount++;
-            TutorialManager.CheckBox(2);
-        }
-        else if (newTool == WateringCanTool && !_usedWateringCan)
-        {
-            _usedWateringCan = true;
-            _tutorialCount++;
-            TutorialManager.CheckBox(0);
-        }
-        else if (newTool == SickleTool && !_usedSickle)
-        {
-            _usedSickle = true;
-            _tutorialCount++;
-            TutorialManager.CheckBox(1);
-        }
-        else if (newTool == SeedTool && !_usedSeeds)
-        {
-            _usedSeeds = true;
-            _tutorialCount++;
-            TutorialManager.CheckBox(3);
-        }
-
-        // Llamar al diálogo si se han usado 4 herramientas
-        if (_tutorialCount == 5)
-        {
-            TutorialManager.NextDialogue();
-            _tutorialCount = 0;
-        }
+        
         // Poner la herramienta en la mano del jugador
         _currentTool.transform.SetParent(HandPosition);
         _currentTool.transform.localPosition = Vector3.zero; // Asegurar que esté en la posición exacta de la mano

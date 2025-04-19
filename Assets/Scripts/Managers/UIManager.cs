@@ -99,9 +99,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] CheckBox = new GameObject[3];
 
     /// <summary>
-    /// Audio de Madame Moo
+    /// GameObject del boton del dialogo
     /// </summary>
-    [SerializeField] private AudioSource MadameMooAudio;
+    [SerializeField] private GameObject TutorialUIButton;
+
 
     [Header("UI de BUILD")]
     /// <summary>
@@ -609,6 +610,10 @@ public class UIManager : MonoBehaviour
     {
         PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
+        if (!TutorialUIButton.activeSelf)
+        {
+            Invoke("ShowDialogueButton", 0.5f);
+        }
         TutorialText.text = dialogueText;
         ButtonTutorialText.text = buttonText;
         // Quitar listeners anteriores por seguridad
@@ -622,12 +627,29 @@ public class UIManager : MonoBehaviour
     }
 
     ///<summary>
+    ///Metodo para activar el boton de continuar/cerrar en el dialogo
+    /// </summary>
+    public void ShowDialogueButton()
+    {
+        TutorialUIButton.SetActive(true);
+    }
+
+    ///<summary>
+    ///Metodo para desactivar el boton de continuar/cerrar en el dialogo
+    /// </summary>
+    public void HideDialogueButton()
+    {
+        TutorialUIButton.SetActive(false);
+    }
+
+    ///<summary>
     ///Metodo para ocultar el dialogo del tutorial
     /// </summary>
     public void HideDialogue()
     {
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
+        TutorialUIButton.SetActive(false);
         PlayerMovement.EnablePlayerMovement();
     }
 
