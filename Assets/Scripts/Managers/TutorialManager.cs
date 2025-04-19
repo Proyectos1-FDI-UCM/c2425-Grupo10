@@ -129,6 +129,11 @@ public class TutorialManager : MonoBehaviour
                 UIManager.ToggleInventory();
                 UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
             }
+            if (_tutorialPhase == 15)
+            {
+                UIManager.HideMap();
+                UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba");
+            }
         }
     }
     ///<summary>
@@ -240,11 +245,41 @@ public class TutorialManager : MonoBehaviour
         if (_tutorialPhase == 14)
         {
             _actualDialogueText = "No todas las plantas prosperan, y eso está bien.\r\nSi ves una que no va a dar más de sí… arráncala con la PALA sin miedo.\r\nAsí haces espacio para nuevas oportunidades. ¡Como en la vida!";
+            _actualDialogueButtonText = "Continuar";
+        }
+        if (_tutorialPhase == 15)
+        {
+            _actualDialogueText = "Madame Moo: Las malas hierbas aparecen solas y molestan más que un gallo insomne.\n" +
+                           "¡Arráncalas!";
             _actualDialogueButtonText = "Cerrar";
         }
 
+        if (_tutorialPhase == 16)
+        {
+            _actualDialogueText = "Madame Moo: ¡Es hora de hacer negocios!\n" +
+                           "Dirígete al puesto de ventas con tus cultivos recién cosechados.\n" +
+                           "Nada dice \"éxito\" como vender tu primer nabo, quiero decir… cultivo";
+            _actualDialogueButtonText = "Cerrar";
+        }
+
+        if (_tutorialPhase == 17)
+        {
+            _actualDialogueText = "Madame Moo: Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n" +
+                           "¡Connie, estás empezando a florecer! Volveré cuando me necesites, mientras tanto asegúrate de visitar todo el pueblo.";
+            _actualDialogueButtonText = "Continuar";
+        }
+
+        if (_tutorialPhase == 18)
+        {
+            _actualDialogueText = "Madame Moo: ¡Así que eso es todo por ahora, constelación de estiércol! Recuerda: la vida es como un cultivo... " +
+                           "si no la riegas, se te va al pasto. ¡Muuucha suerte ahí fuera!";
+            _actualDialogueButtonText = "Cerrar";
+        }
+
+
+
     }
-    
+
     ///<summary>
     ///Metodo para asignar las referencias
     /// </summary>
