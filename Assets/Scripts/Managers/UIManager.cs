@@ -607,11 +607,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowDialogue(string dialogueText, string buttonText)
     {
-        
-        if (MadameMooAudio != null)
-        {
-            MadameMooAudio.pitch = UnityEngine.Random.Range(0.5f, 2f);
-        }
         PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
         TutorialText.text = dialogueText;

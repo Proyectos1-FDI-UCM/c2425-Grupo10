@@ -34,6 +34,11 @@ public class TutorialManager : MonoBehaviour
     ///Ref al UIManager
     /// </summary>
     [SerializeField] private UIManager UIManager;
+
+    ///<summary>
+    ///Ref al soundManager
+    /// </summary>
+    [SerializeField] private SoundManager SoundManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -86,6 +91,10 @@ public class TutorialManager : MonoBehaviour
                 FindTutorialPhase();
                 UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             }
+        }
+        if (SoundManager == null)
+        {
+            SoundManager = FindObjectOfType<SoundManager>();
         }
     }
     #endregion
@@ -151,6 +160,7 @@ public class TutorialManager : MonoBehaviour
         _tutorialPhase++;
         FindTutorialPhase();
         UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+        SoundManager.MadameMooSound();
         if (_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
             UIManager.HideNotificacion();

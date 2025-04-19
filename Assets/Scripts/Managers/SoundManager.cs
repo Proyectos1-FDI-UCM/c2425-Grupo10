@@ -31,6 +31,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip Interactions;
     [SerializeField] private AudioClip Sliders;
     [SerializeField] private AudioClip E;
+    [SerializeField] private AudioClip MadameMoo;
+    [SerializeField] private AudioClip NextButton;
 
     #endregion
 
@@ -90,6 +92,18 @@ public class SoundManager : MonoBehaviour
     public void EscSound()
     {
         AudioSource.clip = Esc;
+        AudioSource.Play();
+    }
+    public void MadameMooSound()
+    {
+        AudioSource.clip = MadameMoo;
+        AudioSource.pitch = UnityEngine.Random.Range(0.5f, 2f);
+        AudioSource.Play();
+    }
+
+    public void NextButtonSound()
+    {
+        AudioSource.clip = NextButton;
         AudioSource.Play();
     }
 
