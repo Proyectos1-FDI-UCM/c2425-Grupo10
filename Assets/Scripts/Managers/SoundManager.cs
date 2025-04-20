@@ -33,6 +33,8 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip E;
     [SerializeField] private AudioClip MadameMoo;
     [SerializeField] private AudioClip NextButton;
+    [SerializeField] private AudioClip NewGame;
+
 
     #endregion
 
@@ -89,6 +91,14 @@ public class SoundManager : MonoBehaviour
         AudioSource.Play();
     }
 
+    /// <summary>
+    /// Metodo para Activar el sonido de inicio de partida
+    /// </summary>
+    public void InitialSound()
+    {
+        AudioSource.clip = NewGame;
+        AudioSource.Play();
+    }
     public void EscSound()
     {
         AudioSource.clip = Esc;
