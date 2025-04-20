@@ -191,7 +191,7 @@ public class WateringCanManager : MonoBehaviour
             Watering();
         }
 
-        if (_isInWellArea) // && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
+        if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
         {
             Debug.Log("Rellener");
             Press.SetActive(true);
