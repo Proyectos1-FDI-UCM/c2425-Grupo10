@@ -208,18 +208,18 @@ public class WateringCanManager : MonoBehaviour
 
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount)
         {
-            UiManager.HideNotification(1, "NoTutorial");
+            UiManager.HideNotification("NoTutorial");
 
         }
-        if (_isInCropArea && _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
+        if (_isInCropArea && _waterAmount > 0)
         {
             if (GardenData.GetPlant(_cropTransform).WaterTimer == 4)
             {
-
+                UiManager.ShowNotification("Presiona E \npara regar", "NoCounter", 1, "NoTutorial");
             }
 
         }
-        else if (!_isInCropArea || _waterAmount == 0 || UiManager.GetInventoryVisible() == true)
+        else if (!_isInCropArea || _waterAmount == 0)
         {
 
 

@@ -151,20 +151,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI TextNotification;
 
-    /// <summary>
-    /// Gameobject del contador de la notificacion
-    /// </summary>
-    [SerializeField] private GameObject NotificationCounter;
-
-    /// <summary>
-    /// Texto del contador de la notificacion
-    /// </summary>
-    [SerializeField] private TextMeshProUGUI TextNotificationCounter;
-    ///<summary>
-    /// boton de la notificacion
-    /// </summary>
-    [SerializeField] private Button NotificationButton;
-
     [Header("Notificacion 2")]
     /// <summary>
     /// Gameobject de la notificacion
@@ -174,21 +160,21 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Texto de la notificacion
     /// </summary>
-    [SerializeField] private TextMeshProUGUI TextNotification2;
+    [SerializeField] private TextMeshProUGUI Notification2Text;
 
     /// <summary>
     /// Gameobject del contador de la notificacion
     /// </summary>
-    [SerializeField] private GameObject NotificationCounter2;
+    [SerializeField] private GameObject Notification2Counter;
 
     /// <summary>
     /// Texto del contador de la notificacion
     /// </summary>
-    [SerializeField] private TextMeshProUGUI TextNotificationCounter2;
+    [SerializeField] private TextMeshProUGUI Notification2CounterText;
     ///<summary>
     /// boton de la notificacion
     /// </summary>
-    [SerializeField] private Button NotificationButton2;
+    [SerializeField] private Button Notification2Button;
 
     [Header("UI del Banco")]
 
@@ -521,7 +507,7 @@ public class UIManager : MonoBehaviour
         InitializeReferences();
         MoneyManager.InitializeUIManager();
         ShowMoneyUI();
-        NotificationButton.onClick.AddListener(TutorialManager.ActualDialogue);
+        Notification2Button.onClick.AddListener(TutorialManager.ActualDialogue);
        
     }
 
@@ -638,7 +624,7 @@ public class UIManager : MonoBehaviour
         else if (notificationID == 2)
         {
             notif = Notification2;
-            notifText = TextNotification2;
+            notifText = Notification2Text;
         }
 
         if (source == "Tutorial" && !_isTutorialNotification)
@@ -649,12 +635,12 @@ public class UIManager : MonoBehaviour
             // Colocar al final del Vertical Layout Group
             if (counterText != "NoCounter")
             {
-                NotificationCounter.SetActive(true);
-                TextNotificationCounter.text = counterText;
+                Notification2Counter.SetActive(true);
+                Notification2CounterText.text = counterText;
             }
             else
             {
-                NotificationCounter.SetActive(false);
+                Notification2Counter.SetActive(false);
             }
 
             for (int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
@@ -691,33 +677,18 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Método para ocultar la notificación
     /// </summary>
-    public void HideNotification(int notificationID, string source)
+    public void HideNotification(string source)
     {
         if (source == "Tutorial")
         {
-            if (_tutorialNotificationID == 1)
-            {
-               Notification.SetActive(false);
-                NotificationCounter.SetActive(false);
-            }
-            else if (_tutorialNotificationID == 2)
-            {
-                Notification2.SetActive(false);
-                NotificationCounter2.SetActive(false);
-            }
+            Notification2.SetActive(false);
+            Notification2Counter.SetActive(false);
 
             _isTutorialNotification = false;
         }
         else if (source == "NoTutorial")
         {
-            if (notificationID == 1)
-            {
-                Notification.SetActive(false);
-            }
-            else if (notificationID == 2)
-            {
-                Notification2.SetActive(false);
-            }
+            Notification.SetActive(false);
 
             _isOtherNotification = false;
         }

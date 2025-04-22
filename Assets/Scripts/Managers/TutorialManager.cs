@@ -133,7 +133,7 @@ public class TutorialManager : MonoBehaviour
                 }
                 if (_tutorialPhase == 8)
                 {
-                    UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", 2, "Tutorial");
+                    UIManager.ShowNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga", 2, "Tutorial");
                     _notificationActive = UIManager.GetAvailableNotification();
                 }
                 if (_tutorialPhase == 15)
@@ -197,7 +197,7 @@ public class TutorialManager : MonoBehaviour
                     UIManager.ToggleInventory();
                 }
                 
-                UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", 2, "Tutorial");
+                UIManager.ShowNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga", 2, "Tutorial");
                 _isNotificationActive = true;
                 _notificationActive = UIManager.GetAvailableNotification();
             }
@@ -228,7 +228,7 @@ public class TutorialManager : MonoBehaviour
         SoundManager.MadameMooSound();
         if (_tutorialPhase == 6 ||_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
-            UIManager.HideNotification(2, "Tutorial");
+            UIManager.HideNotification("Tutorial");
             SoundManager.NextButtonSound();
             _isNotificationActive = false;
         }
