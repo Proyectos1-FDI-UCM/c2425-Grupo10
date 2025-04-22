@@ -135,6 +135,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject Map;
 
+    /// <summary>
+    /// Conjunto de notificaciones
+    /// </summary>
+    [SerializeField] private GameObject NotificationsContainer;
+
     [Header ("Notificacion 1")]
     /// <summary>
     /// Gameobject de la notificacion
@@ -478,6 +483,10 @@ public class UIManager : MonoBehaviour
     /// Tutorial notificacion activa
     /// </summary>
     private bool _isTutorialNotification = false;
+    ///<summary>
+    ///Otra notification activa
+    /// </summary>
+    private bool _isOtherNotification = false;
 
     /// <summary>
     /// Cual es la notificacion del tutorial
@@ -614,32 +623,59 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método para mostrar una notificación.
+    /// Método para mostrar una notificación
     /// </summary>
     public void ShowNotification(string text, string counterText, int notificationID, string source)
     {
+        GameObject notif = null;
+        TMP_Text notifText = null;
+
+        if (notificationID == 1)
+        {
+            notif = Notification;
+            notifText = TextNotification;
+        }
+        else if (notificationID == 2)
+        {
+            notif = Notification2;
+            notifText = TextNotification2;
+        }
+
         if (source == "Tutorial" && !_isTutorialNotification)
         {
-            ShowNotification(text, counterText, notificationID, "NoTutorial");
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al final del Vertical Layout Group
+            if (counterText != "NoCounter")
+            {
+                NotificationCounter.SetActive(true);
+                TextNotificationCounter.text = counterText;
+            }
+            else
+            {
+                NotificationCounter.SetActive(false);
+            }
+
+            for (int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
+
             _isTutorialNotification = true;
             _tutorialNotificationID = notificationID;
         }
-
-        if (source == "NoTutorial")
+        else if (source == "NoTutorial" && !_isOtherNotification)
         {
-            if (notificationID == 1)
-            {
-                ActivateNotification(Notification, TextNotification, NotificationCounter, TextNotificationCounter, text, counterText);
-            }
-            else if (notificationID == 2)
-            {
-                ActivateNotification(Notification2, TextNotification2, NotificationCounter2, TextNotificationCounter2, text, counterText);
-            }
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al principio del Vertical Layout Group
+            notif.transform.SetSiblingIndex(0);
+
+            _isOtherNotification = true;
         }
     }
 
     /// <summary>
-    /// Método para saber qué notificación está disponible.
+    /// Método para saber qué notificación está disponible
     /// </summary>
     public int GetAvailableNotification()
     {
@@ -653,7 +689,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método para ocultar la notificación.
+    /// Método para ocultar la notificación
     /// </summary>
     public void HideNotification(int notificationID, string source)
     {
@@ -672,18 +708,18 @@ public class UIManager : MonoBehaviour
 
             _isTutorialNotification = false;
         }
-        else
+        else if (source == "NoTutorial")
         {
             if (notificationID == 1)
             {
                 Notification.SetActive(false);
-                NotificationCounter.SetActive(false);
             }
             else if (notificationID == 2)
             {
                 Notification2.SetActive(false);
-                NotificationCounter2.SetActive(false);
             }
+
+            _isOtherNotification = false;
         }
     }
 
@@ -760,27 +796,6 @@ public class UIManager : MonoBehaviour
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
     #region Métodos Privados Generales
-
-    /// <summary>
-    /// Método auxiliar para activar una notificación.
-    /// </summary>
-    private void ActivateNotification(GameObject notificationObject, TMP_Text notificationText, GameObject counterObject, TMP_Text counterText, string text, string counter)
-    {
-        notificationObject.SetActive(true);
-        notificationText.text = text;
-
-        if (counter != "NoCounter")
-        {
-            counterObject.SetActive(true);
-            counterText.text = counter;
-        }
-        else
-        {
-            counterObject.SetActive(false);
-        }
-
-        for(int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
-    }
 
     /// <summary>
     /// Metodo para actualizar la interfaz dependiendo de la escena activa

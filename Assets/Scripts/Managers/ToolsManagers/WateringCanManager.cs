@@ -64,15 +64,6 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject PrefabWatering;
 
-    ///<summary> 
-    /// GameObjectBoton
-    /// </summary>
-    [SerializeField] private GameObject Press;
-
-    ///<summary>
-    ///Texto Boton
-    /// </summary>
-    [SerializeField] private TextMeshProUGUI TextPress;
 
     ///<summary>
     ///Posición exacta del pozo
@@ -93,6 +84,11 @@ public class WateringCanManager : MonoBehaviour
     /// GardenManager, para llamar al método Watering
     /// </summary>
     [SerializeField] private GardenManager GardenManager;
+
+    ///<summary>
+    ///Ref al sound manager
+    /// </summary>
+    [SerializeField] private SoundManager SoundManager;
 
     #endregion
 
@@ -196,11 +192,11 @@ public class WateringCanManager : MonoBehaviour
             Watering();
         }
 
-        if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
+        if (_isInWellArea && _waterAmount < _maxWaterAmount)
         {
             Debug.Log("Rellenar");
-            UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", UiManager.GetAvailableNotification(), "NoTutorial");
-            _notificationActive = UiManager.GetAvailableNotification();
+            UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", 1, "NoTutorial");
+            //_notificationActive = UiManager.GetAvailableNotification();
             if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
             {
 
@@ -210,10 +206,9 @@ public class WateringCanManager : MonoBehaviour
 
         }
 
-        else if (!_isInWellArea || _waterAmount == _maxWaterAmount || UiManager.GetInventoryVisible() == true)
+        else if (!_isInWellArea || _waterAmount == _maxWaterAmount)
         {
-
-            UiManager.HideNotification(_notificationActive, "NoTutorial");
+            UiManager.HideNotification(1, "NoTutorial");
 
         }
         if (_isInCropArea && _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
@@ -468,7 +463,7 @@ public class WateringCanManager : MonoBehaviour
         {
 
             _isInWellArea = false;
-
+            SoundManager.NextButtonSound();
         }
 
         if (collision.CompareTag("Crop"))
@@ -522,6 +517,7 @@ public class WateringCanManager : MonoBehaviour
     private void InitializeReferences()
     {
         GameManager = FindObjectOfType<GameManager>();
+        SoundManager = FindObjectOfType<SoundManager>();
     }
     #endregion
 
