@@ -226,7 +226,7 @@ public class TutorialManager : MonoBehaviour
         FindTutorialPhase();
         UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
         SoundManager.MadameMooSound();
-        if (_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
+        if (_tutorialPhase == 6 ||_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
             UIManager.HideNotification(2, "Tutorial");
             SoundManager.NextButtonSound();
