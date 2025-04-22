@@ -191,9 +191,17 @@ public class GameManager : MonoBehaviour
                 InventoryManager.ModifyInventory(Items.CornSeed, 1);
             }
         }
-        if (InputManager.Instance.ExitWasPressedThisFrame())
+        if (InputManager.Instance.ExitWasPressedThisFrame()) // Menu Pausa
         {
-            Application.Quit();
+            if (SceneManager.GetActiveScene().name == "Escena_Build")
+            {
+                InventoryManager.ModifyPlayerPosition(FindObjectOfType<PlayerMovement>().transform.position);
+                SaveTime();
+            }
+            
+            ChangeScene(8);
+            //Application.Quit();
+            // 
         }
         if (MoneyCount == null)
         {

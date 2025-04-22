@@ -89,6 +89,11 @@ public class CambiarEscena : MonoBehaviour
             sound.InitialSound();
         }
     }
+
+    public void Exit()
+    {
+        Application.Quit();
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

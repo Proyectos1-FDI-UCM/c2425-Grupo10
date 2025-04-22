@@ -273,7 +273,7 @@ TextureImporter:
         width: 12
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -294,7 +294,7 @@ TextureImporter:
         width: 14
         height: 7
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -302,6 +302,90 @@ TextureImporter:
       bones: []
       spriteID: 93209f8c02e041640b95773914816c44
       internalID: 565653564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_10
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 609
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8636f9e014bcfb24e99c629483129c54
+      internalID: 932872151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_11
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 593
+        width: 30
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43c89fb6a3eaf2e498511ae347d400a5
+      internalID: 566338231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_12
+      rect:
+        serializedVersion: 2
+        x: 241
+        y: 577
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d43b51a67e8a03a4fb90309d7d910cd4
+      internalID: -1585536350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UI_ALL_13
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 577
+        width: 30
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f356dd77d612134c947e3ff1d58dc8c
+      internalID: 889480987
       vertices: []
       indices: 
       edges: []
@@ -319,6 +403,10 @@ TextureImporter:
     nameFileIdTable:
       UI_ALL_0: -917112978
       UI_ALL_1: 1779225362
+      UI_ALL_10: 932872151
+      UI_ALL_11: 566338231
+      UI_ALL_12: -1585536350
+      UI_ALL_13: 889480987
       UI_ALL_2: -1141267532
       UI_ALL_3: 1648061691
       UI_ALL_4: -433751028
