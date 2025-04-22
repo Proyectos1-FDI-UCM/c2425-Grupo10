@@ -118,28 +118,28 @@ public class TutorialManager : MonoBehaviour
             {
                 if (_tutorialPhase == 5)
                 {
-                    UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", UIManager.NotificationDisp());
-                    _notificationActive = UIManager.NotificationDisp();
+                    UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", UIManager.GetAvailableNotification(), "Tutorial");
+                    _notificationActive = UIManager.GetAvailableNotification();
                 }
                 if (_tutorialPhase == 6)
                 {
-                    UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", UIManager.NotificationDisp());
-                    _notificationActive = UIManager.NotificationDisp();
+                    UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", UIManager.GetAvailableNotification(), "Tutorial");
+                    _notificationActive = UIManager.GetAvailableNotification();
                 }
                 if (_tutorialPhase == 3)
                 {
-                    UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", UIManager.NotificationDisp());
-                    _notificationActive = UIManager.NotificationDisp();
+                    UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", UIManager.GetAvailableNotification(), "Tutorial");
+                    _notificationActive = UIManager.GetAvailableNotification();
                 }
                 if (_tutorialPhase == 8)
                 {
-                    UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", UIManager.NotificationDisp());
-                    _notificationActive = UIManager.NotificationDisp();
+                    UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", UIManager.GetAvailableNotification(), "Tutorial");
+                    _notificationActive = UIManager.GetAvailableNotification();
                 }
                 if (_tutorialPhase == 15)
                 {
-                    UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", UIManager.NotificationDisp());
-                    _notificationActive = UIManager.NotificationDisp();
+                    UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", UIManager.GetAvailableNotification(), "Tutorial");
+                    _notificationActive = UIManager.GetAvailableNotification();
 
                 }
             }
@@ -171,24 +171,24 @@ public class TutorialManager : MonoBehaviour
             if (_tutorialPhase == 5)
             {
                 UIManager.HideMap();
-                UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", UIManager.NotificationDisp());
+                UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", UIManager.GetAvailableNotification(), "Tutorial");
                 _isNotificationActive = true;
-                _notificationActive = UIManager.NotificationDisp();
+                _notificationActive = UIManager.GetAvailableNotification();
             }
             if (_tutorialPhase == 6)
             {
                 UIManager.HideMap();
-                UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", UIManager.NotificationDisp());
+                UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", UIManager.GetAvailableNotification(), "Tutorial");
                 _isNotificationActive = true;
-                _notificationActive = UIManager.NotificationDisp();
+                _notificationActive = UIManager.GetAvailableNotification();
 
             }
             if (_tutorialPhase == 3)
             {
                 UIManager.HideMap();
-                UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", UIManager.NotificationDisp());
+                UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", UIManager.GetAvailableNotification(), "Tutorial");
                 _isNotificationActive = true;
-                _notificationActive = UIManager.NotificationDisp();
+                _notificationActive = UIManager.GetAvailableNotification();
 
             }
             if (_tutorialPhase == 8)
@@ -198,15 +198,15 @@ public class TutorialManager : MonoBehaviour
                     UIManager.ToggleInventory();
                 }
                 
-                UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", UIManager.NotificationDisp());
+                UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", UIManager.GetAvailableNotification(), "Tutorial");
                 _isNotificationActive = true;
-                _notificationActive = UIManager.NotificationDisp();
+                _notificationActive = UIManager.GetAvailableNotification();
             }
             if (_tutorialPhase == 15)
             {
-                UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", UIManager.NotificationDisp());
+                UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", UIManager.GetAvailableNotification(), "Tutorial");
                 _isNotificationActive = true;
-                _notificationActive = UIManager.NotificationDisp();
+                _notificationActive = UIManager.GetAvailableNotification();
             }
         }
     }
@@ -229,7 +229,7 @@ public class TutorialManager : MonoBehaviour
         SoundManager.MadameMooSound();
         if (_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
-            UIManager.HideNotification(_notificationActive);
+            UIManager.HideNotification(_notificationActive, "Tutorial");
             _isNotificationActive = false;
         }
     }

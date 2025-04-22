@@ -199,8 +199,8 @@ public class WateringCanManager : MonoBehaviour
         if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
         {
             Debug.Log("Rellenar");
-            UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", UiManager.NotificationDisp());
-            _notificationActive = UiManager.NotificationDisp();
+            UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", UiManager.GetAvailableNotification(), "NoTutorial");
+            _notificationActive = UiManager.GetAvailableNotification();
             if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
             {
 
@@ -213,7 +213,7 @@ public class WateringCanManager : MonoBehaviour
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount || UiManager.GetInventoryVisible() == true)
         {
 
-            UiManager.HideNotification(_notificationActive);
+            UiManager.HideNotification(_notificationActive, "NoTutorial");
 
         }
         if (_isInCropArea && _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
