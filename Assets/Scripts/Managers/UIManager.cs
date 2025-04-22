@@ -135,6 +135,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject Map;
 
+    [Header ("Notificacion 1")]
     /// <summary>
     /// Gameobject de la notificacion
     /// </summary>
@@ -158,6 +159,31 @@ public class UIManager : MonoBehaviour
     /// boton de la notificacion
     /// </summary>
     [SerializeField] private Button NotificationButton;
+
+    [Header("Notificacion 2")]
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification2;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextNotification2;
+
+    /// <summary>
+    /// Gameobject del contador de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject NotificationCounter2;
+
+    /// <summary>
+    /// Texto del contador de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextNotificationCounter2;
+    ///<summary>
+    /// boton de la notificacion
+    /// </summary>
+    [SerializeField] private Button NotificationButton2;
 
     [Header("UI del Banco")]
 
@@ -582,28 +608,73 @@ public class UIManager : MonoBehaviour
     ///<sumary>
     ///Metodo para mostrar la notificacion
     /// </sumary>
-    public void ShowNotification(string text,string textCounter)
+    public void ShowNotification(string text,string textCounter, int notification)
     {
-        Notification.SetActive(true);
-        TextNotification.text = text;
-        if( textCounter != "NoCounter")
+        if (notification == 1)
         {
-            NotificationCounter.SetActive(true);
-            TextNotificationCounter.text = textCounter;
+            Notification.SetActive(true);
+            TextNotification.text = text;
+            if (textCounter != "NoCounter")
+            {
+                NotificationCounter.SetActive(true);
+                TextNotificationCounter.text = textCounter;
+            }
+            else
+            {
+                NotificationCounter.SetActive(false);
+            }
+            for (int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
         }
-        else
+        else if (notification == 2)
         {
-            NotificationCounter.SetActive(false);
+            Notification2.SetActive(true);
+            TextNotification2.text = text;
+            if (textCounter != "NoCounter")
+            {
+                NotificationCounter2.SetActive(true);
+                TextNotificationCounter2.text = textCounter;
+            }
+            else
+            {
+                NotificationCounter2.SetActive(false);
+            }
+            for (int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
         }
-        for(int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
     }
 
     ///<summary>
+    ///Metodpp para saber que notificacion esta disponible
+    /// </summary>
+    public int NotificationDisp()
+    {
+        int _numberOfNotifications = 0;
+        if (Notification.activeSelf && !Notification2.activeSelf)
+        {
+            _numberOfNotifications = 2;
+        }
+        if (Notification2.activeSelf && !Notification.activeSelf)
+        {
+            _numberOfNotifications = 1;
+        }
+        if (!Notification.activeSelf && !Notification2.activeSelf)
+        {
+            _numberOfNotifications = 1;
+        }
+        return _numberOfNotifications;
+    }
+    ///<summary>
     ///Metodo para ocultar la notificacion
     /// </summary>
-    public void HideNotificacion() 
+    public void HideNotification(int notification) 
     { 
-        Notification.SetActive(false);
+        if (notification == 1)
+        {
+            Notification.SetActive(false);
+        }
+        else if (notification == 2)
+        {
+            Notification2.SetActive(false);
+        }
     }
 
 

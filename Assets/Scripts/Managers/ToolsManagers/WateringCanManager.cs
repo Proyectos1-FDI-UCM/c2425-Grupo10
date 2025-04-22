@@ -193,9 +193,8 @@ public class WateringCanManager : MonoBehaviour
 
         if (_isInWellArea && _waterAmount < _maxWaterAmount && UiManager.GetInventoryVisible() == false)
         {
-            Debug.Log("Rellener");
-            Press.SetActive(true);
-            TextPress.text = "Presiona R \npara rellenar";
+            Debug.Log("Rellenar");
+            UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", UiManager.NotificationDisp());
 
             if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
             {
@@ -209,14 +208,13 @@ public class WateringCanManager : MonoBehaviour
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount || UiManager.GetInventoryVisible() == true)
         {
 
-            Press.SetActive(false);
+            UiManager.HideNotification();
 
         }
         if (_isInCropArea && _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
         {
             if (GardenData.GetPlant(_cropTransform).WaterTimer == 4)
             {
-                Press.SetActive(true);
                 TextPress.text = "Presiona E \npara cosechar";
 
             }
@@ -225,7 +223,6 @@ public class WateringCanManager : MonoBehaviour
         else if (!_isInCropArea || _waterAmount == 0 || UiManager.GetInventoryVisible() == true)
         {
 
-            Press.SetActive(false);
 
         }
     }

@@ -65,6 +65,11 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     private bool _isDialogueActive = false;
 
+    ///<summary>
+    ///Notificacion activada
+    /// </summary>
+    private int _notificationActive = 0;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -113,23 +118,29 @@ public class TutorialManager : MonoBehaviour
             {
                 if (_tutorialPhase == 5)
                 {
-                    UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas");
+                    UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", UIManager.NotificationDisp());
+                    _notificationActive = UIManager.NotificationDisp();
                 }
                 if (_tutorialPhase == 6)
                 {
-                    UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario");
+                    UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", UIManager.NotificationDisp());
+                    _notificationActive = UIManager.NotificationDisp();
                 }
                 if (_tutorialPhase == 3)
                 {
-                    UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa");
+                    UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", UIManager.NotificationDisp());
+                    _notificationActive = UIManager.NotificationDisp();
                 }
                 if (_tutorialPhase == 8)
                 {
-                    UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
+                    UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", UIManager.NotificationDisp());
+                    _notificationActive = UIManager.NotificationDisp();
                 }
                 if (_tutorialPhase == 15)
                 {
-                    UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba");
+                    UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", UIManager.NotificationDisp());
+                    _notificationActive = UIManager.NotificationDisp();
+
                 }
             }
         }
@@ -160,20 +171,25 @@ public class TutorialManager : MonoBehaviour
             if (_tutorialPhase == 5)
             {
                 UIManager.HideMap();
-                UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas");
+                UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", UIManager.NotificationDisp());
                 _isNotificationActive = true;
+                _notificationActive = UIManager.NotificationDisp();
             }
             if (_tutorialPhase == 6)
             {
                 UIManager.HideMap();
-                UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario");
+                UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", UIManager.NotificationDisp());
                 _isNotificationActive = true;
+                _notificationActive = UIManager.NotificationDisp();
+
             }
             if (_tutorialPhase == 3)
             {
                 UIManager.HideMap();
-                UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa");
+                UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", UIManager.NotificationDisp());
                 _isNotificationActive = true;
+                _notificationActive = UIManager.NotificationDisp();
+
             }
             if (_tutorialPhase == 8)
             {
@@ -181,13 +197,16 @@ public class TutorialManager : MonoBehaviour
                 {
                     UIManager.ToggleInventory();
                 }
-                UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter");
+                
+                UIManager.ShowNotification("Ve a la casa \nde compra", "NoCounter", UIManager.NotificationDisp());
                 _isNotificationActive = true;
+                _notificationActive = UIManager.NotificationDisp();
             }
             if (_tutorialPhase == 15)
             {
-                UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba");
+                UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", UIManager.NotificationDisp());
                 _isNotificationActive = true;
+                _notificationActive = UIManager.NotificationDisp();
             }
         }
     }
@@ -210,7 +229,7 @@ public class TutorialManager : MonoBehaviour
         SoundManager.MadameMooSound();
         if (_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
         {
-            UIManager.HideNotificacion();
+            UIManager.HideNotification(_notificationActive);
             _isNotificationActive = false;
         }
     }
