@@ -138,6 +138,11 @@ public class WateringCanManager : MonoBehaviour
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
     private Transform[] Pots;
+
+    ///<summary>
+    ///Notificacion activada
+    /// </summary>
+    private int _notificationActive = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -195,7 +200,7 @@ public class WateringCanManager : MonoBehaviour
         {
             Debug.Log("Rellenar");
             UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", UiManager.NotificationDisp());
-
+            _notificationActive = UiManager.NotificationDisp();
             if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
             {
 
@@ -208,14 +213,13 @@ public class WateringCanManager : MonoBehaviour
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount || UiManager.GetInventoryVisible() == true)
         {
 
-            UiManager.HideNotification();
+            UiManager.HideNotification(_notificationActive);
 
         }
         if (_isInCropArea && _waterAmount > 0 && UiManager.GetInventoryVisible() == false)
         {
             if (GardenData.GetPlant(_cropTransform).WaterTimer == 4)
             {
-                TextPress.text = "Presiona E \npara cosechar";
 
             }
 
