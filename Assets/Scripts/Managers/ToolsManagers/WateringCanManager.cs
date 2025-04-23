@@ -187,7 +187,7 @@ public class WateringCanManager : MonoBehaviour
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
-        if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+        if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && !_isInWellArea)
         {
             Watering();
         }
@@ -195,9 +195,9 @@ public class WateringCanManager : MonoBehaviour
         if (_isInWellArea && _waterAmount < _maxWaterAmount)
         {
             Debug.Log("Rellenar");
-            UiManager.ShowNotification("Presiona R \npara rellenar", "NoCounter", 1, "NoTutorial");
+            UiManager.ShowNotification("Presiona E \npara rellenar", "NoCounter", 1, "NoTutorial");
             //_notificationActive = UiManager.GetAvailableNotification();
-            if (InputManager.Instance.FillWateringCanWasPressedThisFrame())
+            if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
             {
 
                 FillWateringCan(_maxWaterAmount);
