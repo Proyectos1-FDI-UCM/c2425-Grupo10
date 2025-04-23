@@ -949,7 +949,7 @@ public class UIManager : MonoBehaviour
             {
                 _crops.SetActive(true);
                 _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
-                _units.text = "x" + InventoryManager.GetInventory(i);
+               // _units.text = "x" + InventoryManager.GetInventory(i);
             }
             else _crops.SetActive(false);
         }

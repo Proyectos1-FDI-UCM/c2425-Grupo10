@@ -117,7 +117,14 @@ public class TutorialManager : MonoBehaviour
         {
             SoundManager = FindObjectOfType<SoundManager>();
         }
-       
+
+        if (GetTutorialPhase() == 8 && InventoryManager.GetInventory(Items.Letuce) >= 1) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            UIManager.Check(0);
+            Invoke("NextDialogue", 0.1f);
+        }
+        //if (InventoryManager.GetInventory(Items.Letuce) >= 1 && _tutorialPhase == 8) 
+
     }
     #endregion
 

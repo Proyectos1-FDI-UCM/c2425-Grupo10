@@ -182,7 +182,7 @@ public class SelectorManager : MonoBehaviour
 
         _spriteRenderer = SeedTool.GetComponent<SpriteRenderer>();
 
-        _currentSeed = 0; // Aparece la semilla primera semilla del array por defecto 
+        _currentSeed = 1; // Aparece la lechuga como primera semilla del array por defecto 
         for (int i = 1; i < SeedsQAB.Length; i++)
         {
             SeedsQAB[i].SetActive(false);
