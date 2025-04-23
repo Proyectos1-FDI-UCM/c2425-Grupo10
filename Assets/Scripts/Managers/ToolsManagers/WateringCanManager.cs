@@ -139,6 +139,11 @@ public class WateringCanManager : MonoBehaviour
     ///Notificacion activada
     /// </summary>
     private int _notificationActive = 0;
+
+    /// <summary>
+    /// Tutorial Manager
+    /// </summary>
+    private TutorialManager TutorialManager;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -174,7 +179,9 @@ public class WateringCanManager : MonoBehaviour
             Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
 
-    }
+        TutorialManager = FindObjectOfType<TutorialManager>();
+
+}
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -190,6 +197,12 @@ public class WateringCanManager : MonoBehaviour
         if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && !_isInWellArea)
         {
             Watering();
+
+            if(TutorialManager.GetTutorialPhase() == 11)
+            {
+                TutorialManager.CheckBox(0);
+                TutorialManager.Invoke("NextDialogue", 0.6f);
+            }
         }
 
         if (_isInWellArea && _waterAmount < _maxWaterAmount)
@@ -202,6 +215,12 @@ public class WateringCanManager : MonoBehaviour
             {
 
                 FillWateringCan(_maxWaterAmount);
+
+                if (TutorialManager.GetTutorialPhase() == 12)
+                {
+                    TutorialManager.CheckBox(0);
+                    TutorialManager.Invoke("NextDialogue", 0.6f);
+                }
             }
 
         }

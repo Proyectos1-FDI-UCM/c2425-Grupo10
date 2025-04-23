@@ -50,10 +50,26 @@ public class TutorialManager : MonoBehaviour
     private int _tutorialPhase = 0;
 
     /// <summary>
+    /// Int para saber la fase del tutorial de compra 
+    /// </summary>
+    private int _tutorialPhaseEscenas = 0;
+    private bool _tutorialInProgress = false;
+
+    /// <summary>
     /// Dialogo actual del tutorial
     /// </summary>
     private string _actualDialogueText;
     private string _actualDialogueButtonText;
+
+    /// <summary>
+    /// Dialogo Actual de las notificaciones
+    /// </summary>
+    private string _actualNotificationText;
+
+    /// <summary>
+    /// Dialogo Actual de las tareas de notificaciones
+    /// </summary>
+    private string _actualNotificationTaskText;
 
     /// <summary>
     /// Booeano para saber si la notificacion esta activa
@@ -101,7 +117,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (SceneManager.GetActiveScene().name != "Menu")
+        if (SceneManager.GetActiveScene().name != "Menu" || SceneManager.GetActiveScene().name != "Menu_Pausa")
         {
             InitializeReferences();
             if (GameManager.GetCinematicState() == false && _tutorialPhase == 0)
@@ -117,13 +133,24 @@ public class TutorialManager : MonoBehaviour
         {
             SoundManager = FindObjectOfType<SoundManager>();
         }
-
-        if (GetTutorialPhase() == 8 && InventoryManager.GetInventory(Items.Letuce) >= 1) // Verifica si es la fase 3 o la fase que corresponda
-        {
-            UIManager.Check(0);
-            Invoke("NextDialogue", 0.1f);
-        }
         //if (InventoryManager.GetInventory(Items.Letuce) >= 1 && _tutorialPhase == 8) 
+        if (SceneManager.GetActiveScene().name == "Escena_Build" && _tutorialPhase == 9) 
+        {
+            NextDialogue();
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Compra" && _tutorialPhaseEscenas == 0)
+        {
+            UIManager.HideNotification("NoTutorial");
+            _tutorialInProgress = true;
+            NextDialogue();
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Venta" && _tutorialPhaseEscenas == 3)
+        {
+            UIManager.HideNotification("NoTutorial");
+            _tutorialInProgress = true;
+            _tutorialPhaseEscenas = 0;
+            NextDialogue();
+        }
 
     }
     #endregion
@@ -140,52 +167,34 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("Boton:" + buttonText);
         if (buttonText == "Continuar")
         {
-            NextDialogue();
+            Invoke("NextDialogue", 0.1f);
             FindTutorialPhase();
             UIManager.HideDialogueButton();
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
         }
-        else if (buttonText == "Probar" || buttonText == "Cerrar")
+        else if (buttonText == "Probar")
         {
-            UIManager.HideDialogue(); // Asume que tienes un método para ocultarlo
-            if (_tutorialPhase == 5)
+            if (_actualNotificationText != " ")
             {
-                UIManager.HideMap();
-                UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", 2, "Tutorial");
-                _isNotificationActive = true;
-                _notificationActive = UIManager.GetAvailableNotification();
-            }
-            if (_tutorialPhase == 6)
-            {
-                UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", 2, "Tutorial");
-                _isNotificationActive = true;
-                _notificationActive = UIManager.GetAvailableNotification();
-
-            }
-            if (_tutorialPhase == 3)
-            {
-                UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", 2, "Tutorial");
-                _isNotificationActive = true;
-                _notificationActive = UIManager.GetAvailableNotification();
-
-            }
-            if (_tutorialPhase == 8)
-            {
-                if(UIManager.GetInventoryVisible() == true)
+                if (UIManager.GetInventoryVisible() == true)
                 {
                     UIManager.ToggleInventory();
                 }
-                
-                UIManager.ShowNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga", 2, "Tutorial");
+
+                UIManager.ShowNotification(_actualNotificationText, _actualNotificationTaskText, 2, "Tutorial");
                 _isNotificationActive = true;
                 _notificationActive = UIManager.GetAvailableNotification();
+                UIManager.HideDialogueButton();
+                UIManager.HideDialogue();
+
+                if (SceneManager.GetActiveScene().name == "Escena_Build") UIManager.HideMap();
             }
-            if (_tutorialPhase == 15)
-            {
-                UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", 2, "Tutorial");
-                _isNotificationActive = true;
-                _notificationActive = UIManager.GetAvailableNotification();
-            }
+        }
+        else if (buttonText == "Cerrar")
+        {
+            UIManager.HideDialogueButton();
+            UIManager.HideDialogue();
+            UIManager.HideNotification("Tutorial");
         }
     }
     ///<summary>
@@ -201,12 +210,23 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     public void NextDialogue()
     {
-        _tutorialPhase++;
-        FindTutorialPhase();
-        UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
-        SoundManager.MadameMooSound();
-        if (_tutorialPhase == 6 ||_tutorialPhase == 8 || _tutorialPhase == 5 || _tutorialPhase == 3)
+        if (!_tutorialInProgress)
         {
+            //UIManager.HideMap();
+            _tutorialPhase++;
+            FindTutorialPhase();
+            UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            SoundManager.MadameMooSound();
+            UIManager.HideNotification("Tutorial");
+            SoundManager.NextButtonSound();
+            _isNotificationActive = false;
+        }
+        else 
+        {
+            _tutorialPhaseEscenas++;
+            FindTutorialPhase(_tutorialPhaseEscenas);
+            UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
             SoundManager.NextButtonSound();
             _isNotificationActive = false;
@@ -229,6 +249,12 @@ public class TutorialManager : MonoBehaviour
     {
         UIManager.Check(checkbox);
     }
+
+    public void ModifyNotification (string text, string task)
+    {
+        _actualNotificationText = text;
+        _actualNotificationTaskText = task;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -245,98 +271,161 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Estoy aquí para enseñarte cómo convertirte en la mejor granjera de RootWood.\r\n¡Sigue mis consejos y estarás un paso más cerca de tu casa soñada y una vida de lujo y fertilizante premium!";
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 2)
         {
             _actualDialogueText = MadameMooColor + " Para usar cosas, como palas o regaderas, solo tienes que pulsar la tecla E.\r\n¡Es como decirle a la vida: “¡Estoy lista para interactuar contigo!”";
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 3)
         {
             _actualDialogueText = MadameMooColor + " ¿Te perdiste? ¿No sabes si estás en tu huerto o en casa de la vecina?\r\nPulsa la tecla M y abre el mapa. ¡Orientarte es clave para no acabar regando el gallinero!";
             _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Abre el mapa\nPulsa M";
+            _actualNotificationTaskText = "[ ] Mapa";
         }
         if (_tutorialPhase == 4)
         {
             _actualDialogueText = MadameMooColor + " ¡Muuhh! (Alegría), ya casi lo tienes. A lo largo del pueblo hay varias casas a tu disposición, y cada una sirve para algo distinto.\r\nPero de eso ya hablaremos en su momento."; 
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 5)
         {
             _actualDialogueText = MadameMooColor + " También tienes varias herramientas para usar en tu huerto.\r\nUsa el selector de herramientas (1-5) para elegir lo que necesitas.\r\n¡Una vaca no puede arar con la lengua, ni tú cosechar sin azada!";
             _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Selecciona todas \nlas herramientas";
+            _actualNotificationTaskText = "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas";
         }
         if (_tutorialPhase == 6)
         {
             _actualDialogueText = MadameMooColor + " Por último. Pulsa TAB para abrir tu inventario.\r\nAhí podrás ver todo lo que llevas encima: semillas, cultivos, y herramienta y quién sabe, ¡quizás algún queso viejo que olvidaste! (broma).";
             _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Abre el inventario\nPulsa TAB";
+            _actualNotificationTaskText = "[ ] Inventario";
         }
         if (_tutorialPhase == 7)
         {
             _actualDialogueText = MadameMooColor + " ¡Uy, Connie! Ese inventario está más vacío que una lechera en sequía...\r\n¡Vamos a llenarlo de cosas buenas antes de que los grillos monten una fiesta ahí dentro!";
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 8)
         {   
             _actualDialogueText = MadameMooColor + " Ve a la tienda y compra unas cuantas semillas.\r\nSin semillas, no hay cosecha… ¡y sin cosecha, no hay cheddar! Y no hablo de queso precisamente.";
-            _actualDialogueButtonText = "Cerrar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Ve a la casa \nde compra";
+            _actualNotificationTaskText = "[ ] Compra una\r\n    semilla de\r\n    lechuga";
         }
         if (_tutorialPhase == 9)
         {
             _actualDialogueText = MadameMooColor + " Para continuar, necesitas comprar al menos unas poquitas semillas.\r\nNo seas tímida con el monedero, Connie. ¡La inversión inicial es el primer paso hacia tu casa soñada!";
-            _actualDialogueButtonText = "Cerrar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 10)
         {
             _actualDialogueText = MadameMooColor + " ¡De vuelta al huerto!\r\nSelecciona tus semillas desde el inventario, acércate a un surco y plántalas con cariño.\r\n¡No las tires como si fueran cacahuetes! Son el futuro.";
-            _actualDialogueButtonText = "Cerrar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Planta una lechuga";
+            _actualNotificationTaskText = "[ ] Planta\r\nuna semilla de\r\nlechuga";
         }
         if (_tutorialPhase == 11)
         {
             _actualDialogueText = MadameMooColor + " Después de plantar, toca regar.\r\nUsa la regadera para darles un buen bañito. Las plantas no crecen con cariño… ¡crecen con agua!";
-            _actualDialogueButtonText = "Continuar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Riega la lechuga";
+            _actualNotificationTaskText = "[ ] Riega\r\nlas semilla de\r\nlechuga";
         }
         if (_tutorialPhase == 12)
         {
             _actualDialogueText = MadameMooColor + " ¿Se acabó el agua? ¡Normal, no eres una fuente ambulante!\r\nAcércate al pozo para rellenar tu regadera.\r\nRecuerda: una planta sedienta es una planta triste… ¡y una planta triste no se vende!";
-            _actualDialogueButtonText = "Continuar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Rellena tu regadera";
+            _actualNotificationTaskText = "[ ] Rellena\r\nla regadera";
         }
         if (_tutorialPhase == 13)
         {
             _actualDialogueText = MadameMooColor + " Cuando veas una planta bien crecidita entonces ¡Es hora de cosechar!\r\nSelecciona la HOZ y recógela, querida!";
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 14)
         {
             _actualDialogueText = MadameMooColor + " No todas las plantas prosperan, y eso está bien.\r\nSi ves una que no va a dar más de sí… arráncala con la PALA sin miedo.\r\nAsí haces espacio para nuevas oportunidades. ¡Como en la vida!";
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 15)
         {
             _actualDialogueText = MadameMooColor + " Las malas hierbas aparecen solas y molestan más que un gallo insomne.\n Arráncalas!";
-            _actualDialogueButtonText = "Cerrar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Aprende a \ncuidar tu huerto";
+            _actualNotificationTaskText = "[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba";
         }
 
         if (_tutorialPhase == 16)
         {
             _actualDialogueText = MadameMooColor + " ¡Es hora de hacer negocios!\n Dirígete al puesto de ventas con tus cultivos recién cosechados.\n Nada dice \"éxito\" como vender tu primer nabo, quiero decir… cultivo";
-            _actualDialogueButtonText = "Cerrar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Vende tu \nprimera cosecha";
+            _actualNotificationTaskText = "[ ] Vende\n una lechuga";
         }
 
         if (_tutorialPhase == 17)
         {
             _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Volveré cuando me necesites, mientras tanto asegúrate de visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
         }
 
         if (_tutorialPhase == 18)
         {
             _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Recuerda: la vida es como un cultivo... si no la riegas, se te va al pasto. ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
+            _actualNotificationText = " ";
         }
 
+    }
 
-
+    private void FindTutorialPhase(int i)
+    {
+        if (SceneManager.GetActiveScene().name == "Escena_Compra") { 
+        if (i == 1)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a comprar en el mercado, estas un paso más cerca de recoger tu primera cosecha!";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
+        }
+        if (i == 2)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Acercate al \nmostrador";
+            _actualNotificationTaskText = "Pulsa E para \nentrar en la \ninterfaz de compra";
+                _tutorialPhaseEscenas++;
+                _tutorialInProgress = false;
+        }
+    }
+        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            if (i == 1)
+            {
+                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Encantada de encontrarnos de nuevo.\r\n¡Ahora voy a enseñarte a sacar provecho de tus cultivos en el mercado, vamos a vender tu cosecha!";
+                _actualDialogueButtonText = "Continuar";
+                _actualNotificationText = " ";
+            }
+            if (i == 2)
+            {
+                _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+                _actualDialogueButtonText = "Probar";
+                _actualNotificationText = "Acercate al \nmostrador";
+                _actualNotificationTaskText = "Pulsa E para \nentrar en la \ninterfaz de compra";
+                _tutorialInProgress = false;
+            }
+        }
     }
 
     ///<summary>

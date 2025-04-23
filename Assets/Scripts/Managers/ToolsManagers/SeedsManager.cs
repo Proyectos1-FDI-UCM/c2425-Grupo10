@@ -115,6 +115,11 @@ public class SeedsManager : MonoBehaviour
     ///Nombre de la semilla para mostrar en el mensaje
     /// </summary>
     private string _nameSeed;
+
+    /// <summary>
+    /// Tutorial Manager
+    /// </summary>
+    private TutorialManager TutorialManager;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -135,7 +140,9 @@ public class SeedsManager : MonoBehaviour
         {
             _pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
-    }
+
+        TutorialManager = FindObjectOfType<TutorialManager>();
+}
 
     /// <summary>
     /// Update is called every frame, if the MonoBehaviour is enabled.
@@ -144,6 +151,11 @@ public class SeedsManager : MonoBehaviour
     {
         if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventory(_seed) > 0)
         {
+            if (TutorialManager.GetTutorialPhase() == 10)
+            {
+                TutorialManager.CheckBox(0);
+                TutorialManager.Invoke("NextDialogue", 0.6f);
+            }
             Transform Pot = FindNearestPot(transform, _pots); // Busca un lugar disponible para plantar
             if (Pot != null) // Si lo encuentra, instancia el prefab de la semilla seleccionada
             {

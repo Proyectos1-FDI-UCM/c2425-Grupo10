@@ -545,7 +545,7 @@ public class UIManager : MonoBehaviour
                 new Vector2(QuickAccessBar.anchoredPosition.x, targetQuickBarY),
                 Time.deltaTime * _transitionSpeed
             );
-            if(!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame())
+            if (!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame())
             {
                 Map.SetActive(true);
                 _isMapVisible = true;
@@ -554,7 +554,7 @@ public class UIManager : MonoBehaviour
                 if (TutorialManager.GetTutorialPhase() == 3) // Verifica si es la fase 3 o la fase que corresponda
                 {
                     Check(0);
-                    Invoke("NextDialogue", 0.1f);
+                    Invoke("NextDialogue", 0.6f);
                 }
             }
             else if (_isMapVisible && InputManager.Instance.MapWasPressedThisFrame())
@@ -564,12 +564,30 @@ public class UIManager : MonoBehaviour
                 PlayerMovement.EnablePlayerMovement();
             }
         }
+        //else if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        //{
+        //    if (TutorialManager.GetTutorialPhase() == 0)
+        //    {
+        //        //Check(0);
+        //        Invoke("NextDialogue", 0.1f);
+        //    }
+        //}
         if (_isDepositSelected)
         {
             AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
         }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
+            if (TutorialManager.GetTutorialPhase() == 8)
+            {
+                TutorialManager.ModifyNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
+                TutorialManager.NextDialogue();
+            }
+            if (TutorialManager.GetTutorialPhase() == 16)
+            {
+                TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
+                TutorialManager.NextDialogue();
+            }
             EnableInterfaz();
         }
         if (_uiActive && InputManager.Instance.SalirIsPressed())
@@ -1009,7 +1027,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhase() == 6) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
-            Invoke("NextDialogue", 0.1f);
+            Invoke("NextDialogue", 0.6f);
         }
 
 
@@ -1164,6 +1182,12 @@ public class UIManager : MonoBehaviour
         
         DescriptionText.text = "1 lechuga = 20 RootCoins.";
         UpdateUI();
+
+        if (TutorialManager.GetTutorialPhase() == 16) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            Check(0);
+            Invoke("NextDialogue", 0.6f);
+        }
     }
 
     /// <summary>
@@ -1390,6 +1414,12 @@ public class UIManager : MonoBehaviour
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
         UpdateUI();
+
+        if (TutorialManager.GetTutorialPhase() == 8) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            Check(0);
+            Invoke("NextDialogue", 0.6f);
+        }
     }
 
     public void ButtonCarrotSeedPressed()

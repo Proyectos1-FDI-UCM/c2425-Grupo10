@@ -351,7 +351,7 @@ public class SelectorManager : MonoBehaviour
             // Llamar al diálogo si se han usado 4 herramientas
             if (_tutorialCount == 4)
             {
-                TutorialManager.NextDialogue();
+                TutorialManager.Invoke("NextDialogue", 0.6f);
                 _tutorialCount = 0;
             }
         }

@@ -85,7 +85,22 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Probabilidad de que aparezca mala hierbas
     /// </summary>
-    private int _maxProb = 5;
+    private int _maxProb = 4;
+
+    /// <summary>
+    /// Tutorial Manager
+    /// </summary>
+    private TutorialManager TutorialManager;
+
+    /// <summary>
+    /// Activa una mala hierba para el tutorial
+    /// </summary>
+    private bool WeedTutorial = false;
+
+    /// <summary>
+    /// Int que controla las tareas hechas de la fase 15 del tutorial
+    /// </summary>
+    private int _tutorialList = 0;
 
     #endregion
 
@@ -102,6 +117,8 @@ public class GardenManager : MonoBehaviour
         GameManager.InitializeGardenManager();
         UpgradeLevel = GameManager.GetGardenUpgrades();
         SetUpgrade(UpgradeLevel);
+
+        TutorialManager = FindObjectOfType<TutorialManager>();
     }
 
     /// <summary>
@@ -109,6 +126,11 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (_tutorialList == 3 )
+            { 
+            _tutorialList++;
+            TutorialManager.Invoke("NextDialogue", 0.6f); 
+        }
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
             //Debug.Log(GardenData.GetPlant(i).Item);
@@ -217,7 +239,13 @@ public class GardenManager : MonoBehaviour
             Debug.Log(Plant.State);
             if (Plant.State == 4)
             {
-                int random = UnityEngine.Random.Range(0, _maxProb);
+                int random;
+                if (!WeedTutorial)
+                {
+                    random = 0;
+                    WeedTutorial = true;
+                }
+                else random = UnityEngine.Random.Range(0, _maxProb);
                 InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0) 
@@ -225,6 +253,12 @@ public class GardenManager : MonoBehaviour
                     GardenData.ModifyState(i, (-6));
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
+
+                    if (TutorialManager.GetTutorialPhase() == 15)
+                    {
+                        TutorialManager.CheckBox(0);
+                        _tutorialList++;
+                    }
                 }
                 else 
                 {
@@ -254,9 +288,17 @@ public class GardenManager : MonoBehaviour
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
+
+                if (TutorialManager.GetTutorialPhase() == 15)
+                {
+                    if (Plant.State != -6) TutorialManager.CheckBox(1);
+                    else TutorialManager.CheckBox(2);
+                    _tutorialList++;
+                }
             }
 
         }
+
     }
 
     public void SetUpgrade(int Level)
