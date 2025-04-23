@@ -1063,7 +1063,7 @@ public class UIManager : MonoBehaviour
     public void ButtonBeachHousePressed()
     {
         _isBeachHouseSelected = true;
-        DescriptionText.text = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
+        DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 100.000 RootCoins!.";
         MoveButton.SetActive(true);
     }
 
