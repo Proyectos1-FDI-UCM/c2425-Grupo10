@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Convertir segundos de la vida real a tiempo de juego
     /// </summary>
-    private const float _realSecondtoGameTime = 204f;
+    private const float _realSecondtoGameTime = 60f;
 
     #endregion
 
@@ -137,9 +137,9 @@ public class Timer : MonoBehaviour
     /// </summary>
     private void DisplayTime()
     {
-        int minutes = Mathf.FloorToInt(_gameTimeElapsed % 60f);
+        //int minutes = Mathf.FloorToInt(_gameTimeElapsed % 60f);
        int hours = Mathf.FloorToInt(_gameTimeElapsed / 60f) % 24; // Limitar a 24 horas
-        TimerText.text = $"{hours:D2}:{minutes:D2}"; // Formato HH:MM
+        TimerText.text = $"{hours:D2}:00"; // Formato HH:MM
     }
 
     #endregion
