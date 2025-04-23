@@ -530,7 +530,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 0
@@ -583,7 +583,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 0
@@ -675,7 +675,7 @@ BlendTree:
   m_Name: Run
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: d60551905f9d60041bdf2470a9286032, type: 2}
+    m_Motion: {fileID: 7400000, guid: 23d742d8171c8654b9802de01391e79d, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 1}
     m_TimeScale: 0.2
@@ -683,7 +683,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 879bd867f65a71d4ca6ea443e4bdfa9e, type: 2}
+    m_Motion: {fileID: 7400000, guid: e380e7ee464ed114e9c7bea72092c577, type: 2}
     m_Threshold: 0.11111112
     m_Position: {x: 0, y: -1}
     m_TimeScale: 0.2
@@ -691,7 +691,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: ce4669bbd3ee3b84696b80478833c319, type: 2}
+    m_Motion: {fileID: 7400000, guid: 895a2be7f086e114bae89e53c03f8a67, type: 2}
     m_Threshold: 0.22222224
     m_Position: {x: -1, y: 0}
     m_TimeScale: 0.2
@@ -699,7 +699,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 5b7bfd0e1af391f4882189ccefb252d5, type: 2}
+    m_Motion: {fileID: 7400000, guid: 73310f08dd1c66a42a827ad8abf16a78, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 1, y: 0}
     m_TimeScale: 0.2
@@ -2202,13 +2202,13 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Weeding
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
   - m_Name: Filling
     m_Type: 4
@@ -3515,7 +3515,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 1
+  - m_ConditionMode: 2
     m_ConditionEvent: HasSickle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -3615,7 +3615,7 @@ AnimatorStateTransition:
   m_PrefabAsset: {fileID: 0}
   m_Name: 
   m_Conditions:
-  - m_ConditionMode: 2
+  - m_ConditionMode: 1
     m_ConditionEvent: HasSickle
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
@@ -4493,7 +4493,7 @@ BlendTree:
   m_Name: Blend Tree
   m_Childs:
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 9f48b0f5d8b0d3f469dd6e557d16cdbe, type: 2}
+    m_Motion: {fileID: 7400000, guid: 088d654c10176f546aff56d05bca55c8, type: 2}
     m_Threshold: 0
     m_Position: {x: 0, y: 1}
     m_TimeScale: 0.1
@@ -4501,7 +4501,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 612c075d1bbffba4193d6a707be642fc, type: 2}
+    m_Motion: {fileID: 7400000, guid: e50399f9d4330cb4e8d2b2d0002c05d0, type: 2}
     m_Threshold: 0.33333334
     m_Position: {x: 0, y: -1}
     m_TimeScale: 0.1
@@ -4509,7 +4509,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 16bf1be7bc7e0574aaaeacaed2fcd4eb, type: 2}
+    m_Motion: {fileID: 7400000, guid: 00df78918abe3d44e9ddcfc4d7d9502d, type: 2}
     m_Threshold: 0.6666667
     m_Position: {x: 1, y: 0}
     m_TimeScale: 0.1
@@ -4517,7 +4517,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal
     m_Mirror: 0
   - serializedVersion: 2
-    m_Motion: {fileID: 7400000, guid: 7a19d3fd35f8d0642bcae62d65e61bf4, type: 2}
+    m_Motion: {fileID: 7400000, guid: 778c1aa73f242aa459f370fc4a91aa1b, type: 2}
     m_Threshold: 1
     m_Position: {x: -1, y: 0}
     m_TimeScale: 0.1

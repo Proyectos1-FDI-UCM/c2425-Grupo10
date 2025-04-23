@@ -206,6 +206,8 @@ public class SelectorManager : MonoBehaviour
             
 
             PlayerAnimator.SetBool("HasWateringCan", false);
+            PlayerAnimator.SetBool("HasSeedBag", true);
+
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
             DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
@@ -227,6 +229,7 @@ public class SelectorManager : MonoBehaviour
         if (InputManager.Instance.Select4WasPressedThisFrame())
         {
             PlayerAnimator.SetBool("HasWateringCan", false);
+            PlayerAnimator.SetBool("HasSeedBag", false);
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
@@ -239,6 +242,7 @@ public class SelectorManager : MonoBehaviour
         if (InputManager.Instance.Select1WasPressedThisFrame())
         {
             PlayerAnimator.SetBool("HasWateringCan", false);
+            PlayerAnimator.SetBool("HasSeedBag", false);
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
@@ -251,6 +255,7 @@ public class SelectorManager : MonoBehaviour
         if (InputManager.Instance.Select2WasPressedThisFrame())
         {
             PlayerAnimator.SetBool("HasWateringCan", true);
+            PlayerAnimator.SetBool("HasSeedBag", false);
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
@@ -262,6 +267,7 @@ public class SelectorManager : MonoBehaviour
         if (InputManager.Instance.Select3WasPressedThisFrame())
         {
             PlayerAnimator.SetBool("HasWateringCan", false);
+            PlayerAnimator.SetBool("HasSeedBag", false);
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);

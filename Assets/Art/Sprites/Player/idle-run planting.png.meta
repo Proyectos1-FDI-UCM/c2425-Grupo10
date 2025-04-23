@@ -1,0 +1,1170 @@
+fileFormatVersion: 2
+guid: 184b40a8d3e3724409bf4ccbf3cc2ca4
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: idle-run planting_0
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 525
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5751795, y: 0.19486584}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cdc3d58548f917448f54bfe63a812e3
+      internalID: -1767591943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_1
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 525
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5660721, y: 0.24247603}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04530b1a335bb4b4da9f8e4f1673f13d
+      internalID: -337426733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_2
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 525
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.55392814, y: 0.2921531}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ff2bd9f4e27dd48bc3bf8b468221a4
+      internalID: -569228376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_3
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 525
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.57214254, y: 0.19279619}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fd964c4fe762a44d99c4017b7b8fbbd
+      internalID: -571855474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_4
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 525
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56607157, y: 0.23833396}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d0b7a53203bf8849a7e2cdcb42773df
+      internalID: 1597608458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_5
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 525
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.4992808, y: 0.29422274}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7af365d75e72c24bb17a888e15403a0
+      internalID: -1543083191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_6
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 494
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5660718, y: 0.15139909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 308906d635e8e5b4e9551888b08d97f3
+      internalID: 1914042553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_7
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 494
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5630361, y: 0.15139909}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 944b9fd6901bfa14b82dde713bbe756e
+      internalID: -1502792728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_8
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 494
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56607157, y: 0.14932805}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d826a4f959be4f43999a1648786b687
+      internalID: 13561017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_9
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 494
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56910706, y: 0.13897844}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b486d12441239ce46b13926269769262
+      internalID: -675072125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_10
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 494
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56607157, y: 0.13483915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cc6030b42b8dd54393fa3dce8701c4d
+      internalID: 638766285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_11
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 494
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56607056, y: 0.13483915}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9003c71d0d1d3f7429f2bb1f6b2397b3
+      internalID: 458930273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_12
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 464
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.43528163, y: 0.2984536}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f7593a72a16edd428c6401022721f05
+      internalID: -884876545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_13
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 464
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.43356833, y: 0.2429768}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75756d7def074254a882a43965d60821
+      internalID: 1946290057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_14
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 464
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.44210407, y: 0.18819357}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1ce77d1eb3f8404b960ad21f1f537dd
+      internalID: 2086279265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_15
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 464
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.43831888, y: 0.2818881}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99178b5882511614ead10fee1ce59b2d
+      internalID: 45715770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_16
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 463
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.42996216, y: 0.27982122}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49f9ed811dff65045843e6ce09096089
+      internalID: 1783100628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_17
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 463
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.4128886, y: 0.22443043}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bd52794c2f30c244aa8556f8cb9f105
+      internalID: 1225675355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_18
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 432
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.43660355, y: 0.20075156}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9902379ebfcec94ea629fc9bf90c518
+      internalID: -1794257071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_19
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 432
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.42806754, y: 0.20625444}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2daa181cd9f43ac45b1373123057081a
+      internalID: 1935732965
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_20
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 432
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.42692465, y: 0.20475353}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 198f5ad40edee7d44a1593d45f0982bf
+      internalID: 2112492652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_21
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 432
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.44192606, y: 0.18435808}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99c380236514e6049acdee51e8a975ad
+      internalID: -1894320184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_22
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 432
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.42388916, y: 0.17979985}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13765e9e221378f409f0d28a416bfcba
+      internalID: -1603198733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_23
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 433
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.43356833, y: 0.14034896}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9ae15d85925a9849bd05780d5ffa307
+      internalID: 1139753831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_24
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 406
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56375426, y: 0.2000455}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fbf9a0a9cf790e4b9a47a195172fd59
+      internalID: 1730201586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_25
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 406
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5689779, y: 0.20166016}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b770673aada8f4bb47ea8774537af7
+      internalID: -1717051987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_26
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 406
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5694931, y: 0.1975916}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcc735f09bb35ca4abdca79e3ae5ba2c
+      internalID: -395283573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_27
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 406
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.57407224, y: 0.20210405}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3161fd45935283b40bfebd59069dca28
+      internalID: 869929198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_28
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 406
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.56618446, y: 0.20553312}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 431941f8d3dde4b45876eec5264e861d
+      internalID: -1947680862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_29
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 405
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5728027, y: 0.24631709}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37eaac4f8ab74b74187aceb771af5ef6
+      internalID: 961086045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_30
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 378
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.49915135, y: 0.2916773}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bb59cc932edf064789d35dae50d84ca
+      internalID: 2076052267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_31
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 378
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.50000054, y: 0.24100564}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64fefb02ec447f94b81ced5cebb9b78b
+      internalID: 2026703473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_32
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 378
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.50000054, y: 0.19876237}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33e407b681c8fe84d9dc880f2c2efe6e
+      internalID: 1208223620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_33
+      rect:
+        serializedVersion: 2
+        x: 122
+        y: 378
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5037445, y: 0.28598717}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66f79ad72999efe45bcf762438b7c515
+      internalID: 2145032422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_34
+      rect:
+        serializedVersion: 2
+        x: 154
+        y: 378
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.49712625, y: 0.24086276}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464cd306b819db64389759bccb2996c5
+      internalID: 1706838892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_35
+      rect:
+        serializedVersion: 2
+        x: 186
+        y: 377
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5037445, y: 0.24988765}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d1aa749ce12da84aa8ddf54024f2434
+      internalID: -236546314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_36
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 342
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16970062}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a134e863a8c86c649863763cb6dda441
+      internalID: 551897942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_37
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 342
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.50388515, y: 0.17727661}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a845e75ceaac7d3418d8cb44c4acbedb
+      internalID: -543243307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_38
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 342
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.4931132, y: 0.18711299}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0ad42de36b6c6b45bab506576db842a
+      internalID: -1595938199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_39
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 342
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.49761555, y: 0.18365201}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c500760cf423fad4ba5160d2140c6e06
+      internalID: -1556090883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_40
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 342
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5001343, y: 0.17710876}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef5b759f0d671a4f87491c830ae6834
+      internalID: 180754310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_41
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 342
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5, y: 0.17710876}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f146bfecbcf3c48b479550babb15a0
+      internalID: -401462254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_42
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 313
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.49392802, y: 0.26800677}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf8a70dd9e8c7194399a87dbd4018d55
+      internalID: 1562183716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_43
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 313
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.50000054, y: 0.23653065}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf6f5dfea14f7684c943a95ad23e7276
+      internalID: -31925388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_44
+      rect:
+        serializedVersion: 2
+        x: 91
+        y: 313
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.50339407, y: 0.18969588}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93986979a970f0e48897e6f945d722bd
+      internalID: -539765653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_45
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 313
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.43603006, y: 0.2686823}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13ffc647699d1245a9bf7214a0763c8
+      internalID: 549768198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_46
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 313
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2455375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb5dd45dbf34bc34199e5447b3bd899d
+      internalID: 1081894579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle-run planting_47
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 313
+        width: 15
+        height: 22
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d659614f9cfe104980243eae4b84d60
+      internalID: -1768746800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      idle-run planting_0: -1767591943
+      idle-run planting_1: -337426733
+      idle-run planting_10: 638766285
+      idle-run planting_11: 458930273
+      idle-run planting_12: -884876545
+      idle-run planting_13: 1946290057
+      idle-run planting_14: 2086279265
+      idle-run planting_15: 45715770
+      idle-run planting_16: 1783100628
+      idle-run planting_17: 1225675355
+      idle-run planting_18: -1794257071
+      idle-run planting_19: 1935732965
+      idle-run planting_2: -569228376
+      idle-run planting_20: 2112492652
+      idle-run planting_21: -1894320184
+      idle-run planting_22: -1603198733
+      idle-run planting_23: 1139753831
+      idle-run planting_24: 1730201586
+      idle-run planting_25: -1717051987
+      idle-run planting_26: -395283573
+      idle-run planting_27: 869929198
+      idle-run planting_28: -1947680862
+      idle-run planting_29: 961086045
+      idle-run planting_3: -571855474
+      idle-run planting_30: 2076052267
+      idle-run planting_31: 2026703473
+      idle-run planting_32: 1208223620
+      idle-run planting_33: 2145032422
+      idle-run planting_34: 1706838892
+      idle-run planting_35: -236546314
+      idle-run planting_36: 551897942
+      idle-run planting_37: -543243307
+      idle-run planting_38: -1595938199
+      idle-run planting_39: -1556090883
+      idle-run planting_4: 1597608458
+      idle-run planting_40: 180754310
+      idle-run planting_41: -401462254
+      idle-run planting_42: 1562183716
+      idle-run planting_43: -31925388
+      idle-run planting_44: -539765653
+      idle-run planting_45: 549768198
+      idle-run planting_46: 1081894579
+      idle-run planting_47: -1768746800
+      idle-run planting_5: -1543083191
+      idle-run planting_6: 1914042553
+      idle-run planting_7: -1502792728
+      idle-run planting_8: 13561017
+      idle-run planting_9: -675072125
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

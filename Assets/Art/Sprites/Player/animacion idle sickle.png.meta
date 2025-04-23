@@ -1,0 +1,642 @@
+fileFormatVersion: 2
+guid: e125956dd4d69a545a1ce38ae2368e0a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: animacion idle sickle_0
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 98
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.49826416, y: 0.1729248}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70c86491172522d43a5dc97d7a4d551a
+      internalID: 362869546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 98
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2865d6fe2aa4a9c4e9303d88a6b21699
+      internalID: -410700828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 98
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fa728398980cf44a8c08479640f1836
+      internalID: -720106319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_3
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 98
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae52b58547bf234c9f4062ba0654921
+      internalID: 165885676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_4
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 98
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a877df029650bee40a6658ba996bbd37
+      internalID: 2038496026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_5
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 98
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8af8a0ee8e70404428e53295ff65e464
+      internalID: 1984384773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_6
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 72
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b40e8c2ad861044e909a7bc2294972a
+      internalID: -416650711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_7
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 72
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f392ee54d9839c4c895183261d08f2a
+      internalID: -51556077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_8
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 72
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa258d93530dbdc42843c3544439ba7c
+      internalID: -1707958703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_9
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 72
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c5c039ca2d57714c9b96e9b3f53dff2
+      internalID: 742517909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_10
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 72
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4cb85975c1606343838d7668b7b3359
+      internalID: 825887499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_11
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 72
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ca2f4934049344080e8c88aa3f0a54
+      internalID: -836819695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_12
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 40
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab4685f2d378cd4488a7dfbefd64dd1e
+      internalID: 315639504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_13
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 40
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c7235751f255f64f9c12ee37bff20ef
+      internalID: 1041923898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_14
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 40
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 510546575859a6a46882d081f7f6040a
+      internalID: 171032293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_15
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 40
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 011a4bf4856cbae429ce21b9e775a644
+      internalID: -353461940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_16
+      rect:
+        serializedVersion: 2
+        x: 138
+        y: 40
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d55de401dd1f9e4c9e858e8c71d29d8
+      internalID: -193156727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_17
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 40
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c519eca9a9329e34f9b7a1bb318d0e09
+      internalID: -1679201474
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_18
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 8
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fa6b30e323d918458a6a90e7b41a9c2
+      internalID: 582067515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_19
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 8
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dabdeba7df7e6804da732a46ad697811
+      internalID: -1835573585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_20
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 8
+        width: 14
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7188fafbc95873e4092073fd7afef4f6
+      internalID: -1714149576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_21
+      rect:
+        serializedVersion: 2
+        x: 105
+        y: 8
+        width: 13
+        height: 19
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d588d40f15086e4448ce5000a90bed5f
+      internalID: -1724432954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_22
+      rect:
+        serializedVersion: 2
+        x: 137
+        y: 8
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8728613591f9e7841b3fa698621312ef
+      internalID: 1768002858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: animacion idle sickle_23
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 8
+        width: 13
+        height: 20
+      alignment: 9
+      pivot: {x: 0.5, y: 0.2}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b859a2621b8198140a307f96f9c64cd8
+      internalID: -2091931055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      animacion idle sickle_0: 362869546
+      animacion idle sickle_1: -410700828
+      animacion idle sickle_10: 825887499
+      animacion idle sickle_11: -836819695
+      animacion idle sickle_12: 315639504
+      animacion idle sickle_13: 1041923898
+      animacion idle sickle_14: 171032293
+      animacion idle sickle_15: -353461940
+      animacion idle sickle_16: -193156727
+      animacion idle sickle_17: -1679201474
+      animacion idle sickle_18: 582067515
+      animacion idle sickle_19: -1835573585
+      animacion idle sickle_2: -720106319
+      animacion idle sickle_20: -1714149576
+      animacion idle sickle_21: -1724432954
+      animacion idle sickle_22: 1768002858
+      animacion idle sickle_23: -2091931055
+      animacion idle sickle_3: 165885676
+      animacion idle sickle_4: 2038496026
+      animacion idle sickle_5: 1984384773
+      animacion idle sickle_6: -416650711
+      animacion idle sickle_7: -51556077
+      animacion idle sickle_8: -1707958703
+      animacion idle sickle_9: 742517909
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
