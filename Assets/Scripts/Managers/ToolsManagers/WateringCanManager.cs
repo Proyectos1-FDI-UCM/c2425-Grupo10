@@ -197,11 +197,11 @@ public class WateringCanManager : MonoBehaviour
             Debug.Log("Rellenar");
             UiManager.ShowNotification("Presiona E \npara rellenar", "NoCounter", 1, "NoTutorial");
             //_notificationActive = UiManager.GetAvailableNotification();
+            // 
             if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
             {
 
                 FillWateringCan(_maxWaterAmount);
-
             }
 
         }
