@@ -71,6 +71,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
 
+    /// <summary>
+    /// Ref al notification manager
+    /// </summary>
+    [SerializeField] private NotificationManager NotificationManager;
+
 
     [Header("UI de TUTORIAL")]
     ///<summary>
@@ -486,7 +491,11 @@ public class UIManager : MonoBehaviour
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Escena_Build")
+        InitializeReferences();
+
+        
+
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // Guardamos la posición inicial de la QuickAccessBar para que siempre sea visible
             _quickBarBaseY = QuickAccessBar.anchoredPosition.y;
@@ -504,11 +513,13 @@ public class UIManager : MonoBehaviour
         {
             SceneTransition = FindObjectOfType<SceneTransition>();
         }
-        InitializeReferences();
         MoneyManager.InitializeUIManager();
+        NotificationManager.InitializeUIManager();
         ShowMoneyUI();
         Notification2Button.onClick.AddListener(TutorialManager.ActualDialogue);
-       
+
+        NotificationManager.LoadNotification("Tutorial");
+        NotificationManager.LoadNotification("NoTutorial");
     }
 
     void Update()
@@ -658,6 +669,7 @@ public class UIManager : MonoBehaviour
 
             _isOtherNotification = true;
         }
+        NotificationManager.SaveNotification(text, counterText, source);
     }
 
     /// <summary>
@@ -911,6 +923,7 @@ public class UIManager : MonoBehaviour
     {
         MoneyManager = FindObjectOfType<MoneyManager>();
         TutorialManager = FindObjectOfType<TutorialManager>();
+        NotificationManager = FindObjectOfType<NotificationManager>();
     }
 
     

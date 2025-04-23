@@ -23,6 +23,11 @@ public class SoundManager : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    /// <summary>
+    /// Ref al notification manager
+    /// </summary>
+    [SerializeField] private NotificationManager NotificationManager;
+
     [SerializeField] private AudioSource AudioSource;
     [SerializeField] private AudioClip Inventory;
     [SerializeField] private AudioClip Esc;
@@ -34,7 +39,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip MadameMoo;
     [SerializeField] private AudioClip NextButton;
     [SerializeField] private AudioClip NewGame;
-
+    
 
     #endregion
 
@@ -60,9 +65,10 @@ public class SoundManager : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Start()
+    void Awake()
     {
-        
+        InitializeReferences();
+        NotificationManager.InitializeSoundManager();
     }
 
     /// <summary>
@@ -145,7 +151,15 @@ public class SoundManager : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+    
+    /// <summary>
+    /// Metodo para inicializar referencias del script
+    /// </summary>
+    private void InitializeReferences()
+    {
+        NotificationManager = FindObjectOfType<NotificationManager>();
 
+    }
     #endregion
 
 } // class SoundManager 

@@ -112,38 +112,7 @@ public class TutorialManager : MonoBehaviour
         {
             SoundManager = FindObjectOfType<SoundManager>();
         }
-        if(SceneManager.GetActiveScene().name != "Escena_Build")
-        {
-            if (_isNotificationActive)
-            {
-                if (_tutorialPhase == 5)
-                {
-                    UIManager.ShowNotification("Selecciona todas \nlas herramientas", "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas", 2, "Tutorial");
-                    _notificationActive = UIManager.GetAvailableNotification();
-                }
-                if (_tutorialPhase == 6)
-                {
-                    UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", 2, "Tutorial");
-                    _notificationActive = UIManager.GetAvailableNotification();
-                }
-                if (_tutorialPhase == 3)
-                {
-                    UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", 2, "Tutorial");
-                    _notificationActive = UIManager.GetAvailableNotification();
-                }
-                if (_tutorialPhase == 8)
-                {
-                    UIManager.ShowNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga", 2, "Tutorial");
-                    _notificationActive = UIManager.GetAvailableNotification();
-                }
-                if (_tutorialPhase == 15)
-                {
-                    UIManager.ShowNotification("Aprende a \ncuidar tu huerto", "[ ] Regadera\r\n[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba", 2, "Tutorial");
-                    _notificationActive = UIManager.GetAvailableNotification();
-
-                }
-            }
-        }
+       
     }
     #endregion
 
@@ -176,7 +145,6 @@ public class TutorialManager : MonoBehaviour
             }
             if (_tutorialPhase == 6)
             {
-                UIManager.HideMap();
                 UIManager.ShowNotification("Abre el inventario\nPulsa TAB", "[ ] Inventario", 2, "Tutorial");
                 _isNotificationActive = true;
                 _notificationActive = UIManager.GetAvailableNotification();
@@ -184,7 +152,6 @@ public class TutorialManager : MonoBehaviour
             }
             if (_tutorialPhase == 3)
             {
-                UIManager.HideMap();
                 UIManager.ShowNotification("Abre el mapa\nPulsa M", "[ ] Mapa", 2, "Tutorial");
                 _isNotificationActive = true;
                 _notificationActive = UIManager.GetAvailableNotification();

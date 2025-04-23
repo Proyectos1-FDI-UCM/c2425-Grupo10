@@ -5589,6 +5589,7 @@ MonoBehaviour:
   SceneTransition: {fileID: 0}
   GameManager: {fileID: 0}
   TutorialManager: {fileID: 0}
+  NotificationManager: {fileID: 0}
   TutorialUI: {fileID: 1173499328}
   TutorialText: {fileID: 1854476862}
   ButtonTutorialText: {fileID: 879202917}
@@ -7603,10 +7604,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TutorialManager, Assembly-CSharp
-        m_MethodName: OnTutorialButtonPressed
-        m_Mode: 5
+      - m_Target: {fileID: 898385390}
+        m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+        m_MethodName: HideDialogue
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -22225,6 +22226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d028bf024dd7bc243b248fcb0157ac8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  NotificationManager: {fileID: 0}
   AudioSource: {fileID: 1888563639}
   Inventory: {fileID: 8300000, guid: a038c193864e2b542ba01604896749f1, type: 3}
   Esc: {fileID: 8300000, guid: d34b42ed05d6bb64aa5772f863f11382, type: 3}
