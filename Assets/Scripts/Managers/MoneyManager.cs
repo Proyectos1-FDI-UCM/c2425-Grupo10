@@ -33,11 +33,6 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     private int GardenLevel = 0;
 
-    /// <summary>
-    /// Nivel actual de mejora del inventory.
-    /// </summary>
-    private int InventoryLevel = 0;
-
 
     [Header("Precios de Semillas")]
     /// <summary>
@@ -96,12 +91,6 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int[] GardenUpgradePrices = { 5000, 10000, 15000, 20000, 30000 };
 
-
-    [Header("Precios de Mejora de Inventario")]
-    /// <summary>
-    /// Array con los precios de mejora de la regadera en cada nivel.
-    /// </summary>
-    [SerializeField] private int[] InventoryUpgradePrices = { 2000, 5000 };
 
     /// <summary>
     /// Referencia al GameManager del juego.
@@ -299,31 +288,6 @@ public class MoneyManager : MonoBehaviour
     public bool UpgradeWateringCanLevel1() => UpgradeWateringCan();
     public bool UpgradeWateringCanLevel2() => UpgradeWateringCan();
     public bool UpgradeWateringCanLevel3() => UpgradeWateringCan();
-
-    // ---- MÉTODOS PARA MEJORAR EL INVENTARIO ----
-
-    public bool UpgradeInventory()
-    {
-        if (InventoryLevel < InventoryUpgradePrices.Length)
-        {
-            int Price = InventoryUpgradePrices[InventoryLevel];
-
-            if (DeductMoney(Price))
-            {
-                InventoryLevel++;
-                Debug.Log("Inventario mejorado a nivel " + InventoryLevel);
-                return true;
-            }
-        }
-        else
-        {
-            Debug.Log("El inventory ya está al nivel máximo.");
-        }
-        return false;
-    }
-
-    public bool UpgradeInventoryLevel1() => UpgradeInventory();
-    public bool UpgradeInventoryLevel2() => UpgradeInventory();
 
     // ---- MÉTODOS PARA MEJORAR EL INVENTARIO ----
 

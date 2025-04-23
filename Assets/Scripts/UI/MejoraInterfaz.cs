@@ -188,20 +188,7 @@ public class MejoraInterfaz : MonoBehaviour
         _algoSeleccionado = true;
 
         MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), maxMejorasHuerto);
-    }
-
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Inventory".
-    /// </summary>
-    public void ButtonInventarioPressed()
-    {
-        _seleccionRegadera = false;
-        _seleccionHuerto = false;
-        _seleccionInventario = true;
-        _algoSeleccionado = true;
-
-        MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), maxMejorasInventario);
-    }
+    } 
 
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Comprar".
@@ -232,11 +219,6 @@ public class MejoraInterfaz : MonoBehaviour
             {
                 GameManager.Instance.UpgradeGarden();
                 MostrarDescripcion("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), maxMejorasHuerto);
-            }
-            else if (_seleccionInventario)
-            {
-                GameManager.Instance.MejorarInventario();
-                MostrarDescripcion("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), maxMejorasInventario);
             }
         }
     }

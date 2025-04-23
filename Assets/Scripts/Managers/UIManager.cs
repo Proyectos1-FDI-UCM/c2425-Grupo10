@@ -246,11 +246,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject WateringCanButton;
 
     /// <summary>
-    /// Boton para ampliar el inventory
-    /// </summary>
-    [SerializeField] private GameObject InventoryButton;
-
-    /// <summary>
     /// Boton para ampliar el huerto
     /// </summary>
     [SerializeField] private GameObject GardenButton;
@@ -455,10 +450,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private int _maxGardenUpgrades = 4;
 
-    /// <summary>
-    /// Numero maximo de mejoras del Inventario
-    /// </summary>
-    private int _maxInventoryUpgrades = 2;
 
     /// <summary>
     /// Booleano para saber si el mapa esta visible
@@ -817,7 +808,6 @@ public class UIManager : MonoBehaviour
         {
             WateringCanButton.SetActive(_isUpgradeSelected);
             GardenButton.SetActive(_isExtendSelected);
-            InventoryButton.SetActive(_isExtendSelected);
             BuyUpgradeButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
             AmountOfUpgradesText.text = "";
@@ -858,7 +848,7 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
-            _isUpgradeSelected = true; // Siempre inicia en "Mejorar"
+            _isUpgradeSelected = true; // Siempre inicia en Mejoras
             _isExtendSelected = false;
             _isSomethingSelected = false;
         }
@@ -894,7 +884,6 @@ public class UIManager : MonoBehaviour
             BuyUpgradeButton.SetActive(false);
             WateringCanButton.SetActive(false);
             GardenButton.SetActive(false);
-            InventoryButton.SetActive(false);
             DescriptionText.text = "";
             AmountOfUpgradesText.text = "";
         }
@@ -1119,7 +1108,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void UpdateSlider()
     {
-        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount();
+        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount() - 15;
         AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
         AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
         AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
@@ -1607,19 +1596,6 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Inventory".
-    /// </summary>
-    public void ButtonInventoryPressed()
-    {
-        _isWateringCanSelected = false;
-        _isGardenSelected = false;
-        _isInventorySelected = true;
-        _isSomethingSelected = true;
-
-        ShowDescriptionUpgrade("Expande la capacidad de almacenamiento por 2.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
-    }
-
-    /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Comprar".
     /// </summary>
     public void BuyUpgrade()
@@ -1672,19 +1648,6 @@ public class UIManager : MonoBehaviour
                     ShowDescriptionUpgrade("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
 
-            }
-            else if (_isInventorySelected)
-            {
-                if (_isInventorySelected && (MoneyManager.GetMoneyCount() >= 2000) && (GameManager.Instance.GetInventoryUpgrades() == 0))
-                {
-                    GameManager.Instance.MejorarInventario();
-                    ShowDescriptionUpgrade("Expande la capacidad de almacenamiento por 5.000 RootCoins.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
-                }
-                else if (_isInventorySelected && (MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetInventoryUpgrades() == 1))
-                {
-                    GameManager.Instance.MejorarInventario();
-                    ShowDescriptionUpgrade("Expande la capacidad de almacenamiento.", GameManager.Instance.GetInventoryUpgrades(), _maxInventoryUpgrades);
-                }
             }
         }
     }

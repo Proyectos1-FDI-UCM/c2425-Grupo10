@@ -346,25 +346,6 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para aumentar +1 la mejora del Inventory.
-    /// <summary>
-    public void MejorarInventario()
-    {
-        if (InventoryUpgrades < _maxInventoryUpgrades)
-        {
-            InventoryUpgrades += 1;
-        }
-        if (InventoryUpgrades == 1)
-        {
-            MoneyCount.UpgradeInventoryLevel1();
-        }
-        else if (InventoryUpgrades == 2)
-        {
-            MoneyCount.UpgradeInventoryLevel2();
-        }
-    }
-
-    /// <summary>
     /// Metodo para aumentar +1 la mejora de la Regadera.
     /// <summary>
     public void UpgradeWateringCan()
