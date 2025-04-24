@@ -207,6 +207,8 @@ public class SelectorManager : MonoBehaviour
 
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", true);
+            PlayerAnimator.SetBool("HasSickle", false);
+
 
             ToggleTool(SeedTool);
             EnableSelector(SeedSelector);
@@ -230,6 +232,9 @@ public class SelectorManager : MonoBehaviour
         {
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
+            PlayerAnimator.SetBool("HasSickle", false);
+
+
             EnableSelector(ShovelSelector);
             ToggleTool(ShovelTool);
             DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
@@ -243,6 +248,9 @@ public class SelectorManager : MonoBehaviour
         {
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
+            PlayerAnimator.SetBool("HasSickle", false);
+
+
             EnableSelector(GlovesSelector);
             ToggleTool(GlovesTool);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
@@ -256,6 +264,9 @@ public class SelectorManager : MonoBehaviour
         {
             PlayerAnimator.SetBool("HasWateringCan", true);
             PlayerAnimator.SetBool("HasSeedBag", false);
+            PlayerAnimator.SetBool("HasSickle", false);
+
+
             ToggleTool(WateringCanTool);
             EnableSelector(WateringCanSelector);
             DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
@@ -268,6 +279,9 @@ public class SelectorManager : MonoBehaviour
         {
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
+            PlayerAnimator.SetBool("HasSickle", true);
+
+
             ToggleTool(SickleTool);
             EnableSelector(SickleSelector);
             DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
