@@ -624,6 +624,7 @@ public class UIManager : MonoBehaviour
                 Check(0);
                 Invoke("NextDialogue", 0.6f);
             }
+            EnableInterfaz();
         }
         if (_uiActive && InputManager.Instance.SalirIsPressed())
         {
