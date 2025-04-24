@@ -275,6 +275,16 @@ public class SelectorManager : MonoBehaviour
             ShovelMessage.SetActive(false);
             WCMessage.SetActive(false);
         }
+
+        // Cambiar tipo de semilla con el botón Triángulo
+        if (InputManager.Instance.ShorcutSeedWasPressedThisFrame() && SeedTool.activeInHierarchy)
+        {
+            SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
+            _currentSeed++;
+            if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
+            ShowSeedSelected(); // Mostrar nueva semilla
+        }
+
     }
     #endregion
 

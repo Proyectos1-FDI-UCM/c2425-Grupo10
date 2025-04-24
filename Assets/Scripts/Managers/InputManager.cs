@@ -83,6 +83,10 @@ public class InputManager : MonoBehaviour
     private InputAction _ShorcutSeeds;
     private InputAction _map;
 
+    // Nuevas acciones para cambio de herramienta
+    private InputAction _changeToolUp; // Para cambiar la herramienta hacia arriba
+    private InputAction _changeToolDown; // Para cambiar la herramienta hacia abajo
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -208,6 +212,9 @@ public class InputManager : MonoBehaviour
     {
         return _fillWateringCan.IsPressed();
     }
+
+    public bool ChangeToolUpIsPressed() => _changeToolUp.IsPressed();
+    public bool ChangeToolDownIsPressed() => _changeToolDown.IsPressed();
 
     /// <summary>
     /// Método para saber si el botón de Select (1/2/3/4/5) se ha pulsado en este frame
@@ -409,6 +416,9 @@ public class InputManager : MonoBehaviour
         return _salir.WasReleasedThisFrame();
     }
 
+    public bool ChangeToolUpWasPressedThisFrame() => _changeToolUp.WasPressedThisFrame();
+    public bool ChangeToolDownWasPressedThisFrame() => _changeToolDown.WasPressedThisFrame();
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -500,6 +510,10 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (MapIsPressed, MapWasPressedThisFrame )
         _map = _theController.Player.Map;
+
+         // Inicialización de las acciones de cambio de herramienta
+        _changeToolUp = _theController.Player.ChangeToolUp; // Asigna la acción correspondiente
+        _changeToolDown = _theController.Player.ChangeToolDown; // Asigna la acción correspondiente
     }
 
     /// <summary>

@@ -190,6 +190,25 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+
+                {
+                  ""name"": ""ChangeToolUp"",
+                  ""type"": ""Button"",
+                  ""id"": ""bfeaf48c-4e6d-4e60-b86d-c8d78f1e75c2"",
+                  ""expectedControlType"": ""Button"",
+                  ""processors"": """",
+                  ""interactions"": """",
+                  ""initialStateCheck"": false
+                },
+                {
+                  ""name"": ""ChangeToolDown"",
+                  ""type"": ""Button"",
+                  ""id"": ""cebc5f7e-4382-4bb9-89be-d9a5d94e2f3c"",
+                  ""expectedControlType"": ""Button"",
+                  ""processors"": """",
+                  ""interactions"": """",
+                  ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -533,7 +552,42 @@ namespace UnityEngine.InputSystem
                     ""action"": ""Exit"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+
+                {
+                  ""name"": """",
+                  ""id"": ""10d2f145-d205-4c4c-b137-3dc460325420"",
+                  ""path"": ""<Gamepad>/leftShoulder"",
+                  ""interactions"": """",
+                  ""processors"": """",
+                  ""groups"": ""Gamepad"",
+                  ""action"": ""ChangeToolUp"",
+                  ""isComposite"": false,
+                  ""isPartOfComposite"": false
+                },
+                {
+                  ""name"": """",
+                  ""id"": ""da6b0bb2-1f15-4638-ae6d-81b27d6439e6"",
+                  ""path"": ""<Gamepad>/rightShoulder"",
+                  ""interactions"": """",
+                  ""processors"": """",
+                  ""groups"": ""Gamepad"",
+                  ""action"": ""ChangeToolDown"",
+                  ""isComposite"": false,
+                  ""isPartOfComposite"": false
+                },
+                {
+                  ""name"": """",
+                  ""id"": ""f4ff4b3e-0d3c-4f86-a3fa-73fd82e087f9"",
+                  ""path"": ""<Gamepad>/buttonNorth"",
+                  ""interactions"": """",
+                  ""processors"": """",
+                  ""groups"": ""Gamepad"",
+                  ""action"": ""ShorcutSeed"",
+                  ""isComposite"": false,
+                  ""isPartOfComposite"": false
                 }
+
             ]
         },
         {
@@ -1136,6 +1190,11 @@ namespace UnityEngine.InputSystem
             m_Player_ShorcutSeed = m_Player.FindAction("ShorcutSeed", throwIfNotFound: true);
             m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
             m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
+
+            //nuevas funciones de control con mando
+            m_Player_ChangeToolUp = m_Player.FindAction("ChangeToolUp", throwIfNotFound: true);
+            m_Player_ChangeToolDown = m_Player.FindAction("ChangeToolDown", throwIfNotFound: true);
+
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1227,6 +1286,11 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_ShorcutSeed;
         private readonly InputAction m_Player_Map;
         private readonly InputAction m_Player_Exit;
+
+        // DECLARACIÓN NUEVAS VARIABLES DE ACCIÓN PARA EL MANDO
+        private readonly InputAction m_Player_ChangeToolUp;
+        private readonly InputAction m_Player_ChangeToolDown;
+
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1249,6 +1313,8 @@ namespace UnityEngine.InputSystem
             public InputAction @ShorcutSeed => m_Wrapper.m_Player_ShorcutSeed;
             public InputAction @Map => m_Wrapper.m_Player_Map;
             public InputAction @Exit => m_Wrapper.m_Player_Exit;
+            public InputAction @ChangeToolUp => m_Wrapper.m_Player_ChangeToolUp;
+            public InputAction @ChangeToolDown => m_Wrapper.m_Player_ChangeToolDown;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1312,6 +1378,12 @@ namespace UnityEngine.InputSystem
                 @Exit.started += instance.OnExit;
                 @Exit.performed += instance.OnExit;
                 @Exit.canceled += instance.OnExit;
+                @ChangeToolUp.started += instance.OnChangeToolUp;
+                @ChangeToolUp.performed += instance.OnChangeToolUp;
+                @ChangeToolUp.canceled += instance.OnChangeToolUp;
+                @ChangeToolDown.started += instance.OnChangeToolDown;
+                @ChangeToolDown.performed += instance.OnChangeToolDown;
+                @ChangeToolDown.canceled += instance.OnChangeToolDown;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1370,6 +1442,12 @@ namespace UnityEngine.InputSystem
                 @Exit.started -= instance.OnExit;
                 @Exit.performed -= instance.OnExit;
                 @Exit.canceled -= instance.OnExit;
+                @ChangeToolUp.started -= instance.OnChangeToolUp;
+                @ChangeToolUp.performed -= instance.OnChangeToolUp;
+                @ChangeToolUp.canceled -= instance.OnChangeToolUp;
+                @ChangeToolDown.started -= instance.OnChangeToolDown;
+                @ChangeToolDown.performed -= instance.OnChangeToolDown;
+                @ChangeToolDown.canceled -= instance.OnChangeToolDown;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1570,6 +1648,9 @@ namespace UnityEngine.InputSystem
             void OnShorcutSeed(InputAction.CallbackContext context);
             void OnMap(InputAction.CallbackContext context);
             void OnExit(InputAction.CallbackContext context);
+            void OnChangeToolUp(InputAction.CallbackContext context);
+            void OnChangeToolDown(InputAction.CallbackContext context);
+
         }
         public interface IUIActions
         {

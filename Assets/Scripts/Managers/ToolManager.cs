@@ -98,6 +98,11 @@ public class ToolManager : MonoBehaviour
     /// </summary>
     private GameObject _currentTool;
 
+    private int currentToolIndex = 0; // 0: Guantes, 1: Regadera, 2: Hoz, 3: Pala, 4: Semillas
+
+    private const int maxToolIndex = 5; // total de herramientas
+
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -165,6 +170,19 @@ public class ToolManager : MonoBehaviour
             LevelManager.Instance.ChangeTool(3);
             //WaterBar.SetActive(false);
         }
+
+        // Cambiar herramienta con L1 / R1 del mando
+        if (InputManager.Instance.ChangeToolUpWasPressedThisFrame())
+        {
+            currentToolIndex = (currentToolIndex - 1 + maxToolIndex) % maxToolIndex;
+            SelectToolByIndex(currentToolIndex);
+        }
+        else if (InputManager.Instance.ChangeToolDownWasPressedThisFrame())
+        {
+            currentToolIndex = (currentToolIndex + 1) % maxToolIndex;
+            SelectToolByIndex(currentToolIndex);
+        }
+
     }
     #endregion
 
@@ -245,8 +263,45 @@ public class ToolManager : MonoBehaviour
         Toll4.SetActive(false);
     }
 
-    
+    private void SelectToolByIndex(int index)
+    {
+        switch (index)
+        {
+            case 0:
+                ToggleTool(GlovesTool);
+                EnableSelector(GlovesSelector);
+                DisableSelector(ShovelSelector, SeedSelector, WateringCanSelector, HoeSelector);
+                LevelManager.Instance.ChangeTool(1);
+                break;
+            case 1:
+                ToggleTool(WateringCanTool);
+                EnableSelector(WateringCanSelector);
+                DisableSelector(ShovelSelector, GlovesSelector, SeedSelector, HoeSelector);
+                LevelManager.Instance.ChangeTool(2);
+                break;
+            case 2:
+                ToggleTool(HoeTool);
+                EnableSelector(HoeSelector);
+                DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, SeedSelector);
+                LevelManager.Instance.ChangeTool(3);
+                break;
+            case 3:
+                ToggleTool(ShovelTool);
+                EnableSelector(ShovelSelector);
+                DisableSelector(SeedSelector, GlovesSelector, WateringCanSelector, HoeSelector);
+                LevelManager.Instance.ChangeTool(4);
+                break;
+            case 4:
+                ToggleTool(SeedTool);
+                EnableSelector(SeedSelector);
+                DisableSelector(ShovelSelector, GlovesSelector, WateringCanSelector, HoeSelector);
+                LevelManager.Instance.ChangeTool(5);
+                break;
+        }
+    }
+
+
     #endregion
 }
- // class ToolManager 
+// class ToolManager 
 // namespace
