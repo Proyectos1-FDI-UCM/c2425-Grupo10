@@ -230,6 +230,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AmountDepositedTitleText;
 
 
+    [Header("UI de Mercado")]
+
+    ///<summary>
+    ///Bloqueadores de compra/venta para el tutorial
+    /// </summary>
+    [SerializeField] private GameObject Block1;
+    [SerializeField] private GameObject Block2;
+    [SerializeField] private GameObject Block3;
+
     [Header("UI de Mejora")]
     ///<summary>
     ///Boton para elegir que mejora hacer
@@ -440,6 +449,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isSomethingSelected = false;
 
+    /// <summary>
+    /// nombre de la semilla seleccionada
+    /// </summary>
+    private string _actualSeedSelected = "";
+
 
     /// <summary>
     /// Numero maximo de mejoras de la WateringCan
@@ -594,6 +608,18 @@ public class UIManager : MonoBehaviour
         if (_uiActive && InputManager.Instance.SalirIsPressed())
         {
             DisableInterfaz();
+        }
+        if ((SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Venta") && TutorialManager.GetTutorialPhase() == 0)
+        {
+            Block1.SetActive(false);
+            Block2.SetActive(false);
+            Block3.SetActive(false);
+        }
+        else if ((SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Venta") && TutorialManager.GetTutorialPhase() > 0)
+        {
+            Block1.SetActive(true);
+            Block2.SetActive(true);
+            Block3.SetActive(true);
         }
     }
     #endregion
@@ -851,7 +877,8 @@ public class UIManager : MonoBehaviour
             DescriptionText.text = "";
             PriceAmountToBuy.text = "";
             int totalCosto = _amountBuying * _cost;
-            PriceAmountToBuy.text = $"{_amountBuying} = {totalCosto} RC";
+            //PriceAmountToBuy.text = $"{_amountBuying} {_actualSeedSelected} = {totalCosto} RC";
+            PriceAmountToBuy.text = _amountBuying + " " +_actualSeedSelected + " = " + totalCosto + "RC";
         }
     }
 
@@ -1398,6 +1425,15 @@ public class UIManager : MonoBehaviour
         _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
 
         _amountBuying = 1;
+        if (_amountBuying <= 1)
+        {
+            _actualSeedSelected = "Semilla de Maiz";
+
+        }
+        else
+        {
+            _actualSeedSelected = "Semillas de Maiz";
+        }
         _cost = 50;
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
@@ -1411,6 +1447,15 @@ public class UIManager : MonoBehaviour
         _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
 
         _amountBuying = 1;
+        if (_amountBuying <= 1)
+        {
+            _actualSeedSelected = "Semilla de Lechuga";
+
+        }
+        else
+        {
+            _actualSeedSelected = "Semillas de Lechuga";
+        }
         _cost = 15;
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
@@ -1430,6 +1475,15 @@ public class UIManager : MonoBehaviour
         _isCornSelected = _isLettuceSelected = _isStrawberriesSelected = false;
 
         _amountBuying = 1;
+        if (_amountBuying <= 1)
+        {
+            _actualSeedSelected = "Semilla de Zanahoria";
+
+        }
+        else
+        {
+            _actualSeedSelected = "Semillas de Zanahoria";
+        }
         _cost = 20;
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
@@ -1443,6 +1497,15 @@ public class UIManager : MonoBehaviour
         _isCornSelected = _isLettuceSelected = _isCarrotSelected = false;
 
         _amountBuying = 1;
+        if (_amountBuying <= 1)
+        {
+            _actualSeedSelected = "Semilla de Fresa";
+
+        }
+        else
+        {
+            _actualSeedSelected = "Semillas de Fresa";
+        }
         _cost = 30;
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
@@ -1553,7 +1616,7 @@ public class UIManager : MonoBehaviour
         }
 
         UpdateUI();  // Actualiza la UI después de la compra
-        ActualizarCantidadSeedsUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
+        ActualizarCantidadSeedsUI(); // Llamamos esto para refrescar la UI después de vender
     }
 
 

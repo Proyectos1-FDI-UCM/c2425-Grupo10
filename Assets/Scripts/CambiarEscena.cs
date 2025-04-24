@@ -36,6 +36,9 @@ public class CambiarEscena : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
     public SceneTransition _sceneTransition;
+    private TutorialManager TutorialManager;
+    private NotificationManager NotificationManager;
+    private UIManager UIManager;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -52,6 +55,9 @@ public class CambiarEscena : MonoBehaviour
     void Start()
     {
         _sceneTransition = FindObjectOfType<SceneTransition>();
+        TutorialManager = FindObjectOfType<TutorialManager>();
+        NotificationManager = FindObjectOfType<NotificationManager>();
+        UIManager = FindObjectOfType<UIManager>();
     }
 
     /// <summary>
@@ -102,7 +108,7 @@ public class CambiarEscena : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
@@ -114,13 +120,67 @@ public class CambiarEscena : MonoBehaviour
             }
             if (_sceneTransition != null)
             {
-                _sceneTransition.ChangeScene(sceneName);
-                Debug.Log("Cambiando a escena: " + sceneName);
+                if (sceneName == "Escena_Compra")
+                {
+                    if (TutorialManager.GetTutorialPhase() >= 8)
+                    {
+                        _sceneTransition.ChangeScene(sceneName);
+                        Debug.Log("Cambiando a escena: " + sceneName);
+                    }
+                    else
+                    {
+                        UIManager.ShowNotification("Avanza en el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
+                    }
+                }
+                else if (sceneName == "Escena_Venta")
+                {
+                    if (TutorialManager.GetTutorialPhase() >= 16)
+                    {
+                        _sceneTransition.ChangeScene(sceneName);
+                        Debug.Log("Cambiando a escena: " + sceneName);
+                    }
+                    else
+                    {
+                        UIManager.ShowNotification("Avanza en el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
+                    }
+                }
+                else if (sceneName == "Escena_Banco")
+                {
+                    if (TutorialManager.GetTutorialPhase() >= 18)
+                    {
+                        _sceneTransition.ChangeScene(sceneName);
+                        Debug.Log("Cambiando a escena: " + sceneName);
+                    }
+                    else
+                    {
+                        UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
+                    }
+                }
+                else if (sceneName == "Escena_Mejora")
+                {
+                    if (TutorialManager.GetTutorialPhase() >= 18)
+                    {
+                        _sceneTransition.ChangeScene(sceneName);
+                        Debug.Log("Cambiando a escena: " + sceneName);
+                    }
+                    else
+                    {
+                        UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
+                    }
+                }
+
             }
             else
             {
                 Debug.LogError("SceneTransition no está asignado en el Inspector.");
             }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            UIManager.HideNotification("NoTutorial");
         }
     }
 
