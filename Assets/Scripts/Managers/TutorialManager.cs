@@ -58,6 +58,10 @@ public class TutorialManager : MonoBehaviour
     /// Int para saber la fase del tutorial de compra 
     /// </summary>
     private int _tutorialPhaseEscenas = 0;
+
+    private int _tutorialPhaseMejora = 0;
+    private int _tutorialPhaseBanco = 0;
+
     private bool _tutorialInProgress = false;
 
     /// <summary>
@@ -159,6 +163,24 @@ public class TutorialManager : MonoBehaviour
             _tutorialPhaseEscenas = 0;
             NextDialogue();
         }
+        if (SceneManager.GetActiveScene().name == "Escena_Mejora" && _tutorialPhaseMejora == 0)
+        {
+            UIManager.HideNotification("NoTutorial");
+            NotificationManager.DestroyNotification("NoTutorial");
+            _tutorialInProgress = true;
+            _tutorialPhaseEscenas = 0;
+            _tutorialPhaseMejora = 1;
+            NextDialogue();
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Banco" && _tutorialPhaseBanco== 0)
+        {
+            UIManager.HideNotification("NoTutorial");
+            NotificationManager.DestroyNotification("NoTutorial");
+            _tutorialInProgress = true;
+            _tutorialPhaseEscenas = 0;
+            _tutorialPhaseBanco = 1;
+            NextDialogue();
+        }
 
     }
     #endregion
@@ -231,10 +253,33 @@ public class TutorialManager : MonoBehaviour
             NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
         }
-        else 
+        else if (_tutorialPhaseBanco == 0 && _tutorialPhaseMejora == 0) 
         {
             _tutorialPhaseEscenas++;
             FindTutorialPhase(_tutorialPhaseEscenas);
+            UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            SoundManager.MadameMooSound();
+            UIManager.HideNotification("Tutorial");
+            NotificationManager.DestroyNotification("Tutorial");
+            _isNotificationActive = false;
+        }
+        else if (_tutorialPhaseMejora != 0)
+        {
+            Debug.Log("Funciona Respira");
+            _tutorialPhaseMejora++;
+            FindTutorialPhaseMejora(_tutorialPhaseMejora);
+            UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            SoundManager.MadameMooSound();
+            UIManager.HideNotification("Tutorial");
+            NotificationManager.DestroyNotification("Tutorial");
+            _isNotificationActive = false;
+
+        }
+        else if (_tutorialPhaseBanco != 0)
+        {
+            Debug.Log("Funciona Respira");
+            _tutorialPhaseBanco++;
+            FindTutorialPhaseBanco(_tutorialPhaseBanco);
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
@@ -437,6 +482,44 @@ public class TutorialManager : MonoBehaviour
                 _tutorialInProgress = false;
             }
         }
+    }
+    private void FindTutorialPhaseBanco(int i)
+    {
+            if (i == 2)
+            {
+                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte todo lo que puedes hacer con tu dinero!";
+                _actualDialogueButtonText = "Continuar";
+                _actualNotificationText = " ";
+            }
+            if (i == 3)
+            {
+                _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+                _actualDialogueButtonText = "Probar";
+                _actualNotificationText = "Acercate al \nmostrador";
+                _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de banco";
+                _tutorialPhaseEscenas++;
+                _tutorialInProgress = false;
+            }
+        
+    }
+    private void FindTutorialPhaseMejora(int i)
+    {
+        if (i == 2)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a mejorar tus herramientas y tu huerto!";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = " ";
+        }
+        if (i == 3)
+        {
+            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \\r\\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Acercate al \nmostrador";
+            _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de mejora";
+            _tutorialPhaseEscenas++;
+            _tutorialInProgress = false;
+        }
+
     }
 
     ///<summary>

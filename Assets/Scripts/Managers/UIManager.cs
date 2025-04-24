@@ -593,7 +593,7 @@ public class UIManager : MonoBehaviour
         }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
-            if (TutorialManager.GetTutorialPhase() == 8)
+            if (TutorialManager.GetTutorialPhase() == 8) // Tutorial
             {
                 TutorialManager.ModifyNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
                 TutorialManager.NextDialogue();
@@ -603,7 +603,11 @@ public class UIManager : MonoBehaviour
                 TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
                 TutorialManager.NextDialogue();
             }
-            EnableInterfaz();
+            if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
+            {
+                Check(0);
+                Invoke("NextDialogue", 0.6f);
+            }
         }
         if (_uiActive && InputManager.Instance.SalirIsPressed())
         {
