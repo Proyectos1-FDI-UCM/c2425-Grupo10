@@ -109,6 +109,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject TutorialUIButton;
 
 
+
     [Header("UI de BUILD")]
     /// <summary>
     /// Ref al Panel del inventory

@@ -178,7 +178,8 @@ public class TutorialManager : MonoBehaviour
             Invoke("NextDialogue", 0.1f);
             FindTutorialPhase();
             UIManager.HideDialogueButton();
-            UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            //UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
+            SoundManager.MadameMooSound();
         }
         else if (buttonText == "Probar")
         {
@@ -228,7 +229,6 @@ public class TutorialManager : MonoBehaviour
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
             NotificationManager.DestroyNotification("Tutorial");
-            SoundManager.NextButtonSound();
             _isNotificationActive = false;
         }
         else 
@@ -239,7 +239,6 @@ public class TutorialManager : MonoBehaviour
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
             NotificationManager.DestroyNotification("Tutorial");
-            SoundManager.NextButtonSound();
             _isNotificationActive = false;
         }
     }
@@ -407,7 +406,7 @@ public class TutorialManager : MonoBehaviour
         { 
             if (i == 1)
             {
-                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a comprar en el mercado, estas un paso más cerca de recoger tu primera cosecha!";
+                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a comprar en el mercado, estas un paso más cerca de recoger tu primera cosecha!";
                 _actualDialogueButtonText = "Continuar";
                 _actualNotificationText = " ";
             }
@@ -416,7 +415,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "Pulsa E para \nentrar en la \ninterfaz de compra";
+                _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de compra";
                 _tutorialPhaseEscenas++;
                 _tutorialInProgress = false;
             }
@@ -425,7 +424,7 @@ public class TutorialManager : MonoBehaviour
         {
             if (i == 1)
             {
-                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Encantada de encontrarnos de nuevo.\r\n¡Ahora voy a enseñarte a sacar provecho de tus cultivos en el mercado, vamos a vender tu cosecha!";
+                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Vaca-Connie! Perdona... era un chiste, ¿Lo entiendes? La vaca soy yo (risa).\r\nBueno, ¡Ahora voy a enseñarte a sacar provecho de tus cultivos en el mercado, vamos a vender tu cosecha!";
                 _actualDialogueButtonText = "Continuar";
                 _actualNotificationText = " ";
             }
@@ -434,7 +433,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "Pulsa E para \nentrar en la \ninterfaz de compra";
+                _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de compra";
                 _tutorialInProgress = false;
             }
         }
