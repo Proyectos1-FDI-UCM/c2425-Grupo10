@@ -146,16 +146,27 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject NotificationsContainer;
 
-    [Header ("Notificacion 1")]
+    [Header("Notificacion 0")]
     /// <summary>
     /// Gameobject de la notificacion
     /// </summary>
-    [SerializeField] private GameObject Notification;
+    [SerializeField] private GameObject Notification0;
 
     /// <summary>
     /// Texto de la notificacion
     /// </summary>
-    [SerializeField] private TextMeshProUGUI TextNotification;
+    [SerializeField] private TextMeshProUGUI Notification0Text;
+
+    [Header ("Notificacion 1")]
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification1;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TextNotification1;
 
     [Header("Notificacion 2")]
     /// <summary>
@@ -485,6 +496,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isOtherNotification = false;
 
+    ///<summary>
+    ///Energia notification activa
+    /// </summary>
+    private bool _isEnergyNotification = false;
+
     /// <summary>
     /// Cual es la notificacion del tutorial
     /// </summary>
@@ -666,11 +682,15 @@ public class UIManager : MonoBehaviour
     {
         GameObject notif = null;
         TMP_Text notifText = null;
-
-        if (notificationID == 1)
+        if (notificationID == 0)
         {
-            notif = Notification;
-            notifText = TextNotification;
+            notif = Notification0;
+            notifText = Notification0Text;
+        }
+        else if (notificationID == 1)
+        {
+            notif = Notification1;
+            notifText = TextNotification1;
         }
         else if (notificationID == 2)
         {
@@ -709,6 +729,16 @@ public class UIManager : MonoBehaviour
 
             _isOtherNotification = true;
         }
+        else if (source == "Energy" && !_isEnergyNotification)
+        {
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al principio del Vertical Layout Group
+            notif.transform.SetSiblingIndex(0);
+
+            _isEnergyNotification = true;
+        }
         NotificationManager.SaveNotification(text, counterText, source);
     }
 
@@ -717,10 +747,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public int GetAvailableNotification()
     {
-        if (!Notification.activeSelf && !Notification2.activeSelf)
+        if (!Notification1.activeSelf && !Notification2.activeSelf)
             return 1;
 
-        if (Notification.activeSelf && !Notification2.activeSelf)
+        if (Notification1.activeSelf && !Notification2.activeSelf)
             return 2;
 
         return 1;
@@ -740,9 +770,15 @@ public class UIManager : MonoBehaviour
         }
         else if (source == "NoTutorial" && _isOtherNotification)
         {
-            Notification.SetActive(false);
+            Notification1.SetActive(false);
 
             _isOtherNotification = false;
+        }
+        else if (source == "Energy" && _isEnergyNotification)
+        {
+            Notification0.SetActive(false);
+
+            _isEnergyNotification = false;
         }
     }
 

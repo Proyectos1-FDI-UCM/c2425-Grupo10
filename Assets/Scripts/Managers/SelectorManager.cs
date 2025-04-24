@@ -208,6 +208,7 @@ public class SelectorManager : MonoBehaviour
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", true);
             PlayerAnimator.SetBool("HasSickle", false);
+            PlayerAnimator.SetBool("HasShovel", false);
 
 
             ToggleTool(SeedTool);
@@ -233,6 +234,7 @@ public class SelectorManager : MonoBehaviour
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", false);
+            PlayerAnimator.SetBool("HasShovel", true);
 
 
             EnableSelector(ShovelSelector);
@@ -249,6 +251,7 @@ public class SelectorManager : MonoBehaviour
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", false);
+            PlayerAnimator.SetBool("HasShovel", false);
 
 
             EnableSelector(GlovesSelector);
@@ -265,6 +268,7 @@ public class SelectorManager : MonoBehaviour
             PlayerAnimator.SetBool("HasWateringCan", true);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", false);
+            PlayerAnimator.SetBool("HasShovel", false);
 
 
             ToggleTool(WateringCanTool);
@@ -280,6 +284,7 @@ public class SelectorManager : MonoBehaviour
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", true);
+            PlayerAnimator.SetBool("HasShovel", false);
 
 
             ToggleTool(SickleTool);

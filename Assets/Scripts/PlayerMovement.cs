@@ -278,14 +278,14 @@ public class PlayerMovement : MonoBehaviour
         if (_currentEnergy <= 0f && !_isTired)
         {
             _isTired = true;
-            UIManager.ShowTiredMessage(true);
+            UIManager.ShowNotification("Te has cansado,\n recupera energía.", "NoCounter", 0, "Energy");
             DisablePlayerMovement();
         }
         // Si recupera al menos 30, se activa
         else if (_isTired && _currentEnergy >= 30f)
         {
             _isTired = false;
-            UIManager.ShowTiredMessage(false);
+            UIManager.HideNotification("Energy");
             EnablePlayerMovement();
         }
 
