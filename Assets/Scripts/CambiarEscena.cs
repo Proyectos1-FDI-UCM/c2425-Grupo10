@@ -168,6 +168,11 @@ public class CambiarEscena : MonoBehaviour
                         UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
                 }
+                else 
+                {
+                    _sceneTransition.ChangeScene(sceneName);
+                    Debug.Log("Cambiando a escena: " + sceneName);
+                }
 
             }
             else

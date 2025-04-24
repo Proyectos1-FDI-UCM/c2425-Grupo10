@@ -727,14 +727,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HideNotification(string source)
     {
-        if (source == "Tutorial")
+        if (source == "Tutorial" && _isTutorialNotification)
         {
             Notification2.SetActive(false);
             Notification2Counter.SetActive(false);
 
             _isTutorialNotification = false;
         }
-        else if (source == "NoTutorial")
+        else if (source == "NoTutorial" && _isOtherNotification)
         {
             Notification.SetActive(false);
 

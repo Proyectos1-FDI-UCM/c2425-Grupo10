@@ -170,12 +170,12 @@ public class SeedsManager : MonoBehaviour
 
                 PlayerAnimator.SetBool("Planting", true);
                 PlantAudio.Play();
-                Invoke("NotPlanting", 1f);
+                Invoke("NotPlanting", 0.35f);
                 PlayerMovement.DisablePlayerMovement();
             }
 
         }
-            if (UIManager.GetInventoryVisible() == false)
+        if (UIManager.GetInventoryVisible() == false)
         {
             AmountOfSeeds.SetActive(true);
             AmountSeedsText.text = "x" + InventoryManager.GetInventory(_seed).ToString();
