@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 29c3e7c5c9bc8b64ea6c6ca9d4566b97
+guid: a7da65f9e9714f7428ca4ca02db33eb6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 2
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -97,11 +97,32 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: idle_run sickle_0
+      name: idle_run sickle (2)_0
       rect:
         serializedVersion: 2
         x: 10
-        y: 218
+        y: 217
+        width: 21
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c3bf999821332c44802045511b15024
+      internalID: -1791271015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_run sickle (2)_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 217
         width: 21
         height: 21
       alignment: 0
@@ -111,19 +132,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 61304f9991793cb4ca026ef4bd0c1258
-      internalID: 1933781072
+      spriteID: 479b02c1a82ba1d409a3b7d8447f911b
+      internalID: 1285255178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_1
+      name: idle_run sickle (2)_2
       rect:
         serializedVersion: 2
-        x: 42
-        y: 218
-        width: 21
+        x: 74
+        y: 217
+        width: 20
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -132,20 +153,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2254be3db91c32e4ebf99fb2f926fea7
-      internalID: 1674848616
+      spriteID: 00f0902f6f5a8364aa75cd0fe95ecab7
+      internalID: 791900506
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_2
+      name: idle_run sickle (2)_3
       rect:
         serializedVersion: 2
-        x: 74
-        y: 218
+        x: 106
+        y: 217
         width: 20
-        height: 19
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -153,18 +174,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a8da93a358c56934ca761caee2c1a93e
-      internalID: 1164856869
+      spriteID: 408f819bd8267984ab4f040fa682d1db
+      internalID: 860631353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_3
+      name: idle_run sickle (2)_4
       rect:
         serializedVersion: 2
-        x: 106
-        y: 218
+        x: 138
+        y: 217
         width: 20
         height: 21
       alignment: 0
@@ -174,18 +195,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f4c5397fa6e13a54395c10db1badfc8c
-      internalID: -2065023553
+      spriteID: 6d89b4809b4e5c042b88e3ae3a4c69e4
+      internalID: 2040984406
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_4
+      name: idle_run sickle (2)_5
       rect:
         serializedVersion: 2
-        x: 138
-        y: 218
+        x: 170
+        y: 217
         width: 20
         height: 20
       alignment: 0
@@ -195,35 +216,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5c277e94a71106949b1a8edaaaf2172f
-      internalID: -647826844
+      spriteID: 95d00041a23d93f48aef8809ce0e722b
+      internalID: -1139952989
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_5
-      rect:
-        serializedVersion: 2
-        x: 170
-        y: 218
-        width: 20
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7f96084094f527644af3edab82d7d823
-      internalID: -730057010
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_run sickle_6
+      name: idle_run sickle (2)_6
       rect:
         serializedVersion: 2
         x: 10
@@ -237,14 +237,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9251abf69f07a6949940c2e48ab0b386
-      internalID: -444546679
+      spriteID: 4fc871729f42234448ed7bd4c449dfd4
+      internalID: 1384274709
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_7
+      name: idle_run sickle (2)_7
       rect:
         serializedVersion: 2
         x: 42
@@ -258,14 +258,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a70953e525e1eb6469db719022fde61c
-      internalID: 433466332
+      spriteID: c58534f3d5399b044841287e9da9e96d
+      internalID: -160737092
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_8
+      name: idle_run sickle (2)_8
       rect:
         serializedVersion: 2
         x: 74
@@ -279,14 +279,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2ad186b75663db44db5b15a7da03a157
-      internalID: 832461243
+      spriteID: 3a7c53b5a9ed2c4408f08ea94c27e17c
+      internalID: -232975839
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_9
+      name: idle_run sickle (2)_9
       rect:
         serializedVersion: 2
         x: 106
@@ -300,14 +300,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8c5422d756192a4eac20e6a78e210d3
-      internalID: -24728667
+      spriteID: 825f17b04cd7f5f42aa341aa71c21390
+      internalID: 78846449
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_10
+      name: idle_run sickle (2)_10
       rect:
         serializedVersion: 2
         x: 138
@@ -321,14 +321,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9b7441bc7a2848349bae4808d9e0b6d2
-      internalID: 379530650
+      spriteID: 25be45f853c919546be455ca24e71c76
+      internalID: -1245618781
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_11
+      name: idle_run sickle (2)_11
       rect:
         serializedVersion: 2
         x: 170
@@ -342,20 +342,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cbbd8c2c655cd04ab23f334e04d3b04
-      internalID: 1651653157
+      spriteID: 9216561f432e73f44b4c32c90b3ba882
+      internalID: -1671534987
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_12
+      name: idle_run sickle (2)_12
       rect:
         serializedVersion: 2
         x: 10
-        y: 160
+        y: 159
         width: 20
-        height: 19
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -363,20 +363,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 11f3b06bdbd611240a68eeab5170f071
-      internalID: 293504469
+      spriteID: 134879920a3aca5458e9477ba0ea0fb2
+      internalID: 1358885766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_13
+      name: idle_run sickle (2)_13
       rect:
         serializedVersion: 2
         x: 42
-        y: 160
+        y: 159
         width: 20
-        height: 20
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,20 +384,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ca7ac854a3acc940bada3bbfd9dc97e
-      internalID: 1286136918
+      spriteID: 5fa60153b51929b4287e75144c0f3971
+      internalID: 2032637284
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_14
+      name: idle_run sickle (2)_14
       rect:
         serializedVersion: 2
         x: 74
-        y: 160
+        y: 159
         width: 20
-        height: 21
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -405,39 +405,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13671358a4e16ac41b0915853d50d74c
-      internalID: -263364895
+      spriteID: 19b82da4771ad3745b70be6eaafb47cd
+      internalID: 1912728065
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_15
+      name: idle_run sickle (2)_15
       rect:
         serializedVersion: 2
         x: 106
-        y: 160
-        width: 20
-        height: 19
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6ce0a864c476306428270665bde76f89
-      internalID: -941155805
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_run sickle_16
-      rect:
-        serializedVersion: 2
-        x: 138
-        y: 160
+        y: 159
         width: 20
         height: 20
       alignment: 0
@@ -447,18 +426,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f79352b3ed6d9b49bc87b146ed11e9c
-      internalID: -800851749
+      spriteID: e699af0056fc16e4c88966b77041e0ee
+      internalID: 2125732120
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_17
+      name: idle_run sickle (2)_16
       rect:
         serializedVersion: 2
-        x: 170
-        y: 160
+        x: 138
+        y: 159
         width: 20
         height: 21
       alignment: 0
@@ -468,14 +447,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 13b4720c46ff7494b942bd24c6fd8421
-      internalID: -56220374
+      spriteID: 22ee0718a44e545488b5dfaacbe9a3d6
+      internalID: 710665444
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_18
+      name: idle_run sickle (2)_17
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 159
+        width: 20
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e878ee2862bc0244bb6ae741eb772095
+      internalID: 1106544721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_run sickle (2)_18
       rect:
         serializedVersion: 2
         x: 11
@@ -489,14 +489,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7042c453ab1084c4a930658a9a48816e
-      internalID: -57645662
+      spriteID: e5e9fa9800e8d13489fcb2f471c8acea
+      internalID: 1815592841
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_19
+      name: idle_run sickle (2)_19
       rect:
         serializedVersion: 2
         x: 43
@@ -510,14 +510,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5666a4d4ee58f5d4c8be1516a85636db
-      internalID: 990728393
+      spriteID: 8cf14f3bccbf92642bd190fad0eff453
+      internalID: 275826403
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_20
+      name: idle_run sickle (2)_20
       rect:
         serializedVersion: 2
         x: 74
@@ -531,14 +531,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f53db87b9ef929a4e86dd21d58450766
-      internalID: 201282889
+      spriteID: 9586213e4d0745c4ca9fd446a4028eb2
+      internalID: -1534833353
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_21
+      name: idle_run sickle (2)_21
       rect:
         serializedVersion: 2
         x: 106
@@ -552,14 +552,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8f451858322ae184aa57c7aaaa326d12
-      internalID: -1934010757
+      spriteID: e55406c8e801cea45bd429a2b9910a64
+      internalID: -1980450462
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_22
+      name: idle_run sickle (2)_22
       rect:
         serializedVersion: 2
         x: 139
@@ -573,14 +573,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cbf4f4630829e340bca7e971363d2e4
-      internalID: -26609458
+      spriteID: 21b84abc0a88e234fa3254ef2e7ac48d
+      internalID: -740144149
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_23
+      name: idle_run sickle (2)_23
       rect:
         serializedVersion: 2
         x: 171
@@ -594,14 +594,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1ee82aea04c3c5c4d994f2788e895838
-      internalID: -28184788
+      spriteID: 33dee9520f3afb04e9f128b88ea004bf
+      internalID: -1483015415
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_24
+      name: idle_run sickle (2)_24
       rect:
         serializedVersion: 2
         x: 10
@@ -615,20 +615,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 586322b234c2ae94dafdc1db34eae0eb
-      internalID: 1087981960
+      spriteID: 1d7f9e0c4ed3afe4881c900bb96fcd9a
+      internalID: -769965102
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_25
+      name: idle_run sickle (2)_25
       rect:
         serializedVersion: 2
         x: 42
-        y: 98
+        y: 99
         width: 20
-        height: 21
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -636,14 +636,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67dbda9eb0abf4740b8591fa5d6e6d2c
-      internalID: -1054904808
+      spriteID: e41aec65dd091614fbc2643163448e28
+      internalID: 731426790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_26
+      name: idle_run sickle (2)_26
       rect:
         serializedVersion: 2
         x: 73
@@ -657,14 +657,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f933293020d05a6408c676eb5dae13d2
-      internalID: 1888241388
+      spriteID: 4d7a510b2f868df499252163ac8f100c
+      internalID: -165432143
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_27
+      name: idle_run sickle (2)_27
       rect:
         serializedVersion: 2
         x: 105
@@ -678,14 +678,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 34ef12d79c1f036419d0af8e47bd5d9b
-      internalID: 987275759
+      spriteID: ffa4f7613742f034f8a9d2bf0dd48a82
+      internalID: 264121619
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_28
+      name: idle_run sickle (2)_28
       rect:
         serializedVersion: 2
         x: 138
@@ -699,14 +699,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b7079858f92b2dc4197a9a98b7ac8b85
-      internalID: -80070778
+      spriteID: cfe70cfbce0be6d43906dda072d32f47
+      internalID: 2124174640
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_29
+      name: idle_run sickle (2)_29
       rect:
         serializedVersion: 2
         x: 170
@@ -720,20 +720,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2e903317128661249b124d96cebe5898
-      internalID: -1275387518
+      spriteID: a150a11664e15f348aa697e373d4ac37
+      internalID: 1500776331
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_30
+      name: idle_run sickle (2)_30
       rect:
         serializedVersion: 2
         x: 9
-        y: 72
+        y: 71
         width: 20
-        height: 21
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -741,14 +741,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f86931d9f5af8b848a365e764618acc8
-      internalID: -1214356720
+      spriteID: 7dc26217a92b1a846827fb990538ae65
+      internalID: -576738769
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_31
+      name: idle_run sickle (2)_31
       rect:
         serializedVersion: 2
         x: 40
@@ -762,14 +762,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2399ec68d5881049a603e863a8a6fad
-      internalID: -1947946371
+      spriteID: fba23320cb9b11d49a6f4d1f2fc80f2e
+      internalID: 1118270096
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_32
+      name: idle_run sickle (2)_32
       rect:
         serializedVersion: 2
         x: 72
@@ -783,14 +783,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24aa1b3bc3702b8428dc7c8e5dd12d7f
-      internalID: -1930142871
+      spriteID: f73bf667f8869f8419a4887d4628495a
+      internalID: 635129309
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_33
+      name: idle_run sickle (2)_33
       rect:
         serializedVersion: 2
         x: 105
@@ -804,14 +804,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f49f4c68f63b6484eac655600ddec99f
-      internalID: 705621498
+      spriteID: 96c6cf26820df89489a6a616a4b1ce0b
+      internalID: -1801735161
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_34
+      name: idle_run sickle (2)_34
       rect:
         serializedVersion: 2
         x: 137
@@ -825,14 +825,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ac190675bbacca43a029295b3ae9774
-      internalID: 856813084
+      spriteID: b99cab6343058b34b8a4aa26f89ef0b3
+      internalID: 398339739
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_35
+      name: idle_run sickle (2)_35
       rect:
         serializedVersion: 2
         x: 169
@@ -846,20 +846,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9c262f5f6833ecb4db9835d446b98fee
-      internalID: -1441268538
+      spriteID: 6c566b083375c454e9b9943e2dd501a2
+      internalID: -999174903
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_36
+      name: idle_run sickle (2)_36
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 61
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ddcb6e4732ca97448a5334f70b04d19
+      internalID: -690181015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_run sickle (2)_37
       rect:
         serializedVersion: 2
         x: 17
-        y: 37
+        y: 35
         width: 20
-        height: 18
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -867,20 +888,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 67e93936f36f3c24994fe83124e1fe7a
-      internalID: -1613819002
+      spriteID: 61c33db73c2fcc240926bb7a1c2ed30c
+      internalID: -1997439660
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_37
+      name: idle_run sickle (2)_38
       rect:
         serializedVersion: 2
         x: 49
-        y: 37
+        y: 35
         width: 20
-        height: 18
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -888,20 +909,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7061ef2d2631f5947bbb7d0cc082871b
-      internalID: 1324565798
+      spriteID: 746294c93c3e2794397fa326e3e6d4f6
+      internalID: 1896992209
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_38
+      name: idle_run sickle (2)_39
       rect:
         serializedVersion: 2
         x: 81
-        y: 37
+        y: 35
         width: 20
-        height: 17
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -909,20 +930,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80d3c2128a5bfc64497bc525209214a2
-      internalID: 754340166
+      spriteID: 94fe8a380107eea4982f2715c9ab0257
+      internalID: 1842290772
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_39
+      name: idle_run sickle (2)_40
       rect:
         serializedVersion: 2
         x: 113
-        y: 37
+        y: 35
         width: 20
-        height: 17
+        height: 19
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -930,20 +951,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f2e19389773181b4e80dad55bdac9af2
-      internalID: -1205022887
+      spriteID: 19828a7d4b310a74d8369d80a4769cb6
+      internalID: 1675969842
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_40
+      name: idle_run sickle (2)_41
       rect:
         serializedVersion: 2
         x: 145
-        y: 37
+        y: 35
         width: 20
-        height: 18
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -951,20 +972,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7dd8afcfa6a90d649b793d54ee13c26a
-      internalID: 430834506
+      spriteID: cccbb5a24f1f7ee459817e9fb499cc5f
+      internalID: -1715605326
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_41
+      name: idle_run sickle (2)_42
       rect:
         serializedVersion: 2
         x: 177
-        y: 37
+        y: 35
         width: 20
-        height: 18
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -972,20 +993,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b37f8bc9e618e74e9c1d0da9f83cfe1
-      internalID: 599933741
+      spriteID: 96be76637566de24cb0de4e264b57ef8
+      internalID: -94915160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_42
+      name: idle_run sickle (2)_43
       rect:
         serializedVersion: 2
         x: 16
-        y: 8
+        y: 6
         width: 22
-        height: 20
+        height: 22
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -993,20 +1014,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b8db86396a61463489529476fbc0cbb7
-      internalID: -742772586
+      spriteID: c0be6b8a8084ba949b430b9761f6cef8
+      internalID: -1600955505
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_43
+      name: idle_run sickle (2)_44
       rect:
         serializedVersion: 2
         x: 49
-        y: 8
+        y: 6
         width: 20
-        height: 19
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1014,40 +1035,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e6d5968df962a9e479a16c0bd1edd73e
-      internalID: 1117636071
+      spriteID: a5e264182256e5e428b6c862d0442efc
+      internalID: -884844601
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_44
+      name: idle_run sickle (2)_45
       rect:
         serializedVersion: 2
         x: 81
-        y: 8
+        y: 6
         width: 21
-        height: 18
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a65376073ab60c5419832799cbfd3d4e
-      internalID: 716666256
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: idle_run sickle_45
-      rect:
-        serializedVersion: 2
-        x: 113
-        y: 8
-        width: 22
         height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -1056,20 +1056,41 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 883991ad33094c748a18812b1a445bde
-      internalID: 517578474
+      spriteID: 76f50e8551fde9f438dcc5bfe6a6d0e0
+      internalID: -1112799041
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_46
+      name: idle_run sickle (2)_46
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 6
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98cc817c3952b5d40b1aa1f1a5509a19
+      internalID: 1679980508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: idle_run sickle (2)_47
       rect:
         serializedVersion: 2
         x: 145
-        y: 8
+        y: 6
         width: 20
-        height: 19
+        height: 21
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1077,20 +1098,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5a47d7e05beb2a341a62f53bf9e94e88
-      internalID: -1932246338
+      spriteID: 1eff75012fb216840968c92127e4ffcc
+      internalID: -2121176235
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: idle_run sickle_47
+      name: idle_run sickle (2)_48
       rect:
         serializedVersion: 2
         x: 177
-        y: 8
+        y: 6
         width: 21
-        height: 18
+        height: 20
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1098,8 +1119,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 17e6c412211451145a5fc0b3c65509c3
-      internalID: 1085322466
+      spriteID: faa7e78b7a0a1c04d8123f6788ce27e5
+      internalID: 1493809197
       vertices: []
       indices: 
       edges: []
@@ -1115,54 +1136,55 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      idle_run sickle_0: 1933781072
-      idle_run sickle_1: 1674848616
-      idle_run sickle_10: 379530650
-      idle_run sickle_11: 1651653157
-      idle_run sickle_12: 293504469
-      idle_run sickle_13: 1286136918
-      idle_run sickle_14: -263364895
-      idle_run sickle_15: -941155805
-      idle_run sickle_16: -800851749
-      idle_run sickle_17: -56220374
-      idle_run sickle_18: -57645662
-      idle_run sickle_19: 990728393
-      idle_run sickle_2: 1164856869
-      idle_run sickle_20: 201282889
-      idle_run sickle_21: -1934010757
-      idle_run sickle_22: -26609458
-      idle_run sickle_23: -28184788
-      idle_run sickle_24: 1087981960
-      idle_run sickle_25: -1054904808
-      idle_run sickle_26: 1888241388
-      idle_run sickle_27: 987275759
-      idle_run sickle_28: -80070778
-      idle_run sickle_29: -1275387518
-      idle_run sickle_3: -2065023553
-      idle_run sickle_30: -1214356720
-      idle_run sickle_31: -1947946371
-      idle_run sickle_32: -1930142871
-      idle_run sickle_33: 705621498
-      idle_run sickle_34: 856813084
-      idle_run sickle_35: -1441268538
-      idle_run sickle_36: -1613819002
-      idle_run sickle_37: 1324565798
-      idle_run sickle_38: 754340166
-      idle_run sickle_39: -1205022887
-      idle_run sickle_4: -647826844
-      idle_run sickle_40: 430834506
-      idle_run sickle_41: 599933741
-      idle_run sickle_42: -742772586
-      idle_run sickle_43: 1117636071
-      idle_run sickle_44: 716666256
-      idle_run sickle_45: 517578474
-      idle_run sickle_46: -1932246338
-      idle_run sickle_47: 1085322466
-      idle_run sickle_5: -730057010
-      idle_run sickle_6: -444546679
-      idle_run sickle_7: 433466332
-      idle_run sickle_8: 832461243
-      idle_run sickle_9: -24728667
+      idle_run sickle (2)_0: -1791271015
+      idle_run sickle (2)_1: 1285255178
+      idle_run sickle (2)_10: -1245618781
+      idle_run sickle (2)_11: -1671534987
+      idle_run sickle (2)_12: 1358885766
+      idle_run sickle (2)_13: 2032637284
+      idle_run sickle (2)_14: 1912728065
+      idle_run sickle (2)_15: 2125732120
+      idle_run sickle (2)_16: 710665444
+      idle_run sickle (2)_17: 1106544721
+      idle_run sickle (2)_18: 1815592841
+      idle_run sickle (2)_19: 275826403
+      idle_run sickle (2)_2: 791900506
+      idle_run sickle (2)_20: -1534833353
+      idle_run sickle (2)_21: -1980450462
+      idle_run sickle (2)_22: -740144149
+      idle_run sickle (2)_23: -1483015415
+      idle_run sickle (2)_24: -769965102
+      idle_run sickle (2)_25: 731426790
+      idle_run sickle (2)_26: -165432143
+      idle_run sickle (2)_27: 264121619
+      idle_run sickle (2)_28: 2124174640
+      idle_run sickle (2)_29: 1500776331
+      idle_run sickle (2)_3: 860631353
+      idle_run sickle (2)_30: -576738769
+      idle_run sickle (2)_31: 1118270096
+      idle_run sickle (2)_32: 635129309
+      idle_run sickle (2)_33: -1801735161
+      idle_run sickle (2)_34: 398339739
+      idle_run sickle (2)_35: -999174903
+      idle_run sickle (2)_36: -690181015
+      idle_run sickle (2)_37: -1997439660
+      idle_run sickle (2)_38: 1896992209
+      idle_run sickle (2)_39: 1842290772
+      idle_run sickle (2)_4: 2040984406
+      idle_run sickle (2)_40: 1675969842
+      idle_run sickle (2)_41: -1715605326
+      idle_run sickle (2)_42: -94915160
+      idle_run sickle (2)_43: -1600955505
+      idle_run sickle (2)_44: -884844601
+      idle_run sickle (2)_45: -1112799041
+      idle_run sickle (2)_46: 1679980508
+      idle_run sickle (2)_47: -2121176235
+      idle_run sickle (2)_48: 1493809197
+      idle_run sickle (2)_5: -1139952989
+      idle_run sickle (2)_6: 1384274709
+      idle_run sickle (2)_7: -160737092
+      idle_run sickle (2)_8: -232975839
+      idle_run sickle (2)_9: 78846449
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
