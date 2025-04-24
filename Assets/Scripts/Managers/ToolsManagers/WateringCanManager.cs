@@ -90,6 +90,11 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private SoundManager SoundManager;
 
+    ///<summary>
+    ///ref al notification maanager
+    /// </summary>
+    [SerializeField] private NotificationManager NotificationManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -138,7 +143,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Notificacion activada
     /// </summary>
-    private int _notificationActive = 0;
+    private bool _notificationActive = false;
 
     /// <summary>
     /// Tutorial Manager
@@ -209,7 +214,7 @@ public class WateringCanManager : MonoBehaviour
         {
             Debug.Log("Rellenar");
             UiManager.ShowNotification("Presiona E \npara rellenar", "NoCounter", 1, "NoTutorial");
-            //_notificationActive = UiManager.GetAvailableNotification();
+            _notificationActive = true;
             // 
             if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
             {
@@ -228,6 +233,13 @@ public class WateringCanManager : MonoBehaviour
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount)
         {
             UiManager.HideNotification("NoTutorial");
+            NotificationManager.DestroyNotification("NoTutorial");
+            if (_notificationActive)
+            {
+                SoundManager.NextButtonSound();
+                _notificationActive = false;
+            }
+            
 
         }
         if (_isInCropArea && _waterAmount > 0)
@@ -482,7 +494,12 @@ public class WateringCanManager : MonoBehaviour
         {
 
             _isInWellArea = false;
-            SoundManager.NextButtonSound();
+            if(_notificationActive)
+            {
+                SoundManager.NextButtonSound();
+                _notificationActive = false;
+            }
+            
         }
 
         if (collision.CompareTag("Crop"))

@@ -67,7 +67,7 @@ public class NotificationManager : MonoBehaviour
     ///Booleanos para saber si debe haber notificacion de ese tipo activa
     /// </summary>
     private bool _isNotificationCreated = false;
-    private bool _isTutorialNotificacionCreated = false;
+    private bool _isTutorialNotificationCreated = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -110,7 +110,7 @@ public class NotificationManager : MonoBehaviour
     {
         if (source == "Tutorial")
         {
-            _isTutorialNotificacionCreated = true;
+            _isTutorialNotificationCreated = true;
             _tutorialNotificationText = text;
             _tutorialNotificationCounterText = counterText;
         }
@@ -127,7 +127,7 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     public void LoadNotification(string source)
     {
-        if (source == "Tutorial" && _isTutorialNotificacionCreated)
+        if (source == "Tutorial" && _isTutorialNotificationCreated)
         {
             UIManager.ShowNotification(_tutorialNotificationText, _tutorialNotificationCounterText, 2,"Tutorial");
             SoundManager.NextButtonSound();
@@ -136,6 +136,25 @@ public class NotificationManager : MonoBehaviour
         {
             UIManager.ShowNotification(_notificationText, _notificationCounterText, 1, "NoTutorial");
             SoundManager.NextButtonSound();
+        }
+    }
+
+    ///<summary>
+    ///Metodo para borrar la notificacion guardada
+    /// </summary>
+    public void DestroyNotification(string source)
+    {
+        if (source == "Tutorial" && _isTutorialNotificationCreated)
+        {
+            _tutorialNotificationText = "";
+            _tutorialNotificationCounterText = "";
+            _isTutorialNotificationCreated &= false;
+        }
+        else if (source == "NoTutorial" && _isNotificationCreated)
+        {
+            _notificationText = "";
+            _notificationCounterText = "";
+            _isNotificationCreated &= false;
         }
     }
     ///<summary>
