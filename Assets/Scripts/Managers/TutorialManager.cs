@@ -39,6 +39,11 @@ public class TutorialManager : MonoBehaviour
     ///Ref al soundManager
     /// </summary>
     [SerializeField] private SoundManager SoundManager;
+
+    ///<summary>
+    ///ref al notification manager
+    /// </summary>
+    [SerializeField] private NotificationManager NotificationManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -106,6 +111,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        NotificationManager = GetComponent<NotificationManager>();
         if(GameManager.GetCinematicState() == true)
         {
             //UIManager.HideDialogue();
@@ -141,12 +147,14 @@ public class TutorialManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Compra" && _tutorialPhaseEscenas == 0)
         {
             UIManager.HideNotification("NoTutorial");
+            NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             NextDialogue();
         }
         if (SceneManager.GetActiveScene().name == "Escena_Venta" && _tutorialPhaseEscenas == 3)
         {
             UIManager.HideNotification("NoTutorial");
+            NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             _tutorialPhaseEscenas = 0;
             NextDialogue();
@@ -195,6 +203,7 @@ public class TutorialManager : MonoBehaviour
             UIManager.HideDialogueButton();
             UIManager.HideDialogue();
             UIManager.HideNotification("Tutorial");
+            NotificationManager.DestroyNotification("Tutorial");
         }
     }
     ///<summary>
@@ -218,6 +227,7 @@ public class TutorialManager : MonoBehaviour
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
+            NotificationManager.DestroyNotification("Tutorial");
             SoundManager.NextButtonSound();
             _isNotificationActive = false;
         }
@@ -228,6 +238,7 @@ public class TutorialManager : MonoBehaviour
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
+            NotificationManager.DestroyNotification("Tutorial");
             SoundManager.NextButtonSound();
             _isNotificationActive = false;
         }
@@ -392,23 +403,24 @@ public class TutorialManager : MonoBehaviour
 
     private void FindTutorialPhase(int i)
     {
-        if (SceneManager.GetActiveScene().name == "Escena_Compra") { 
-        if (i == 1)
-        {
-            _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a comprar en el mercado, estas un paso más cerca de recoger tu primera cosecha!";
-            _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
-        }
-        if (i == 2)
-        {
-            _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
-            _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "Acercate al \nmostrador";
-            _actualNotificationTaskText = "Pulsa E para \nentrar en la \ninterfaz de compra";
+        if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        { 
+            if (i == 1)
+            {
+                _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a comprar en el mercado, estas un paso más cerca de recoger tu primera cosecha!";
+                _actualDialogueButtonText = "Continuar";
+                _actualNotificationText = " ";
+            }
+            if (i == 2)
+            {
+                _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+                _actualDialogueButtonText = "Probar";
+                _actualNotificationText = "Acercate al \nmostrador";
+                _actualNotificationTaskText = "Pulsa E para \nentrar en la \ninterfaz de compra";
                 _tutorialPhaseEscenas++;
                 _tutorialInProgress = false;
+            }
         }
-    }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
             if (i == 1)

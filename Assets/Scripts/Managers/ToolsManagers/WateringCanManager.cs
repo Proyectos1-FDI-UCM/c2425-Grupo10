@@ -95,6 +95,21 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private NotificationManager NotificationManager;
 
+    ///<summary>
+    ///Audio de regar
+    /// </summary>
+    [SerializeField] private AudioClip WateringAudio;
+
+    ///<summary>
+    ///Audio de rellenar
+    /// </summary>
+    [SerializeField] private AudioClip FillingAudio;
+
+    ///<summary>
+    ///Audio source
+    /// </summary>
+    [SerializeField] private AudioSource WateringCanAudio;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -149,6 +164,13 @@ public class WateringCanManager : MonoBehaviour
     /// Tutorial Manager
     /// </summary>
     private TutorialManager TutorialManager;
+
+    ///<summary>
+    ///booleanos para activar/desactivar el riego/rellenado
+    /// </summary>
+    private bool _canWater = true;
+
+    private bool _canFill = true;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -165,6 +187,7 @@ public class WateringCanManager : MonoBehaviour
     {
         InitializeReferences();
         GameManager.InitializeWateringCanManager();
+        WateringCanAudio = GetComponent<AudioSource>();
     }
     /// <summary>
     /// Start is called on the frame when a script is enabled just before 
@@ -199,11 +222,11 @@ public class WateringCanManager : MonoBehaviour
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
-        if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && !_isInWellArea)
+        if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && !_isInWellArea && _canWater)
         {
             Watering();
-
-            if(TutorialManager.GetTutorialPhase() == 11)
+            _canWater = false;
+            if (TutorialManager.GetTutorialPhase() == 11)
             {
                 TutorialManager.CheckBox(0);
                 TutorialManager.Invoke("NextDialogue", 0.6f);
@@ -216,11 +239,11 @@ public class WateringCanManager : MonoBehaviour
             UiManager.ShowNotification("Presiona E \npara rellenar", "NoCounter", 1, "NoTutorial");
             _notificationActive = true;
             // 
-            if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
+            if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && _canFill)
             {
 
                 FillWateringCan(_maxWaterAmount);
-
+                _canFill = false;
                 if (TutorialManager.GetTutorialPhase() == 12)
                 {
                     TutorialManager.CheckBox(0);
@@ -295,6 +318,9 @@ public class WateringCanManager : MonoBehaviour
     public void FillWateringCan(int i)
     {
         PlayerAnimator.SetBool("Filling", true);
+        WateringCanAudio.clip = FillingAudio;
+        WateringCanAudio.pitch = 3;
+        WateringCanAudio.Play();
         Debug.Log("Recargando");
 
         PlayerMovement.DisablePlayerMovement();
@@ -322,7 +348,9 @@ public class WateringCanManager : MonoBehaviour
         {
 
             PlayerAnimator.SetBool("Watering", true);
-
+            WateringCanAudio.clip = WateringAudio;
+            WateringCanAudio.pitch = 2;
+            WateringCanAudio.Play();
             Invoke("NotWatering", 1f);
 
 
@@ -442,7 +470,7 @@ public class WateringCanManager : MonoBehaviour
     {
 
         PlayerAnimator.SetBool("Watering", false);
-
+        _canWater = true;
         this.gameObject.SetActive(true);
 
         PlayerMovement.EnablePlayerMovement();
@@ -455,6 +483,7 @@ public class WateringCanManager : MonoBehaviour
     private void NotFilling()
     {
         PlayerAnimator.SetBool("Filling", false);
+        _canFill = true;
         Destroy(_warning);
 
         PlayerMovement.EnablePlayerMovement();

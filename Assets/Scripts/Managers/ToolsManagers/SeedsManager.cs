@@ -85,6 +85,10 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     [SerializeField] private UIManager UIManager;
 
+    ///<summary>
+    ///Audio de plantar
+    /// </summary>
+    [SerializeField] private AudioSource PlantAudio;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -142,6 +146,7 @@ public class SeedsManager : MonoBehaviour
         }
 
         TutorialManager = FindObjectOfType<TutorialManager>();
+        PlantAudio = GetComponent<AudioSource>();
 }
 
     /// <summary>
@@ -164,6 +169,7 @@ public class SeedsManager : MonoBehaviour
                 Plant.transform.SetParent(Pot);
 
                 PlayerAnimator.SetBool("Planting", true);
+                PlantAudio.Play();
                 Invoke("NotPlanting", 1f);
                 PlayerMovement.DisablePlayerMovement();
             }
