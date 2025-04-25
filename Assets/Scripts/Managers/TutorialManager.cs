@@ -146,7 +146,7 @@ public class TutorialManager : MonoBehaviour
         //if (InventoryManager.GetInventory(Items.Letuce) >= 1 && _tutorialPhase == 8) 
         if (SceneManager.GetActiveScene().name == "Escena_Build" && _tutorialPhase == 9) 
         {
-            NextDialogue();
+            //NextDialogue();
         }
         if (SceneManager.GetActiveScene().name == "Escena_Compra" && _tutorialPhaseEscenas == 0)
         {
