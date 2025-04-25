@@ -129,15 +129,6 @@ namespace UnityEngine.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""FillWateringCan"",
-                    ""type"": ""Button"",
-                    ""id"": ""bc72e750-2946-4da3-9951-8e2ab19d76aa"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""UseSickle"",
                     ""type"": ""Button"",
                     ""id"": ""cbb655af-c880-46cc-8a45-e3ee49d8cfc5"",
@@ -204,6 +195,15 @@ namespace UnityEngine.InputSystem
                     ""name"": ""ChangeToolDown"",
                     ""type"": ""Button"",
                     ""id"": ""1e9e404d-f442-47ce-9f30-df48e5137c01"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""FillWateringCan"",
+                    ""type"": ""Button"",
+                    ""id"": ""3c3f1184-6a04-47b8-8d12-045ff2c7dae8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -389,6 +389,28 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""026dab1a-d872-45a8-aa50-574df3cf8b7a"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Usar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bbb1e423-fe34-44a4-8e8c-3aa990ca36fc"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Usar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8d443f39-156f-4a7a-bf49-c9e45971875f"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
@@ -466,8 +488,52 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""34ac51ab-f361-4dea-8cb7-aa06a376b1e9"",
+                    ""path"": ""<DualShockGamepad>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ff6d65b2-b52a-49a9-bc26-c535444a37ca"",
+                    ""path"": ""<XInputController>/dpad/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tab"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""8fc50d89-1062-40e0-ab54-2fcfa376b05d"",
                     ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Salir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""677abee7-64ab-42c7-8c56-a4235253d306"",
+                    ""path"": ""<DualShockGamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Salir"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3961605-de7a-4afe-8a8c-062383d7d9fc"",
+                    ""path"": ""<XInputController>/start"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -499,12 +565,12 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2727999b-b616-4fce-895e-18befcfd2a8a"",
-                    ""path"": ""<Keyboard>/r"",
+                    ""id"": ""ceb88868-34ea-4f5a-a010-50a38c6a8b7a"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FillWateringCan"",
+                    ""action"": ""UseWateringCan"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -512,6 +578,28 @@ namespace UnityEngine.InputSystem
                     ""name"": """",
                     ""id"": ""de9afc87-ccb0-4f36-9e41-fbb9efc74982"",
                     ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseSickle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""08274b68-9e00-4809-a6f1-20a73f631057"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseSickle"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b2868bab-bb71-4dfc-8c8b-e721b04fc788"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -532,8 +620,41 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""6199c1e3-95eb-4376-8584-872c08794477"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseShovel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""64e28090-91cb-48ca-b044-a99c24180f33"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseShovel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""f87dfad0-e8d8-4d85-af9c-cf98d52a22fe"",
                     ""path"": ""<Keyboard>/p"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShorcutInventory"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2183c548-5005-42d9-8742-7e585bccf267"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -565,8 +686,52 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""bb2b2d22-91c7-4d35-b980-31c047ae1d57"",
+                    ""path"": ""<XInputController>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36c2a67b-4329-474f-8371-9e1c6dd42a05"",
+                    ""path"": ""<DualShockGamepad>/touchpadButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Map"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""6491b3d6-e28b-43cc-9bfd-bd2068978a48"",
                     ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4007a4a3-294f-4f78-94d5-35f3a54e59a3"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Exit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""173258a0-3549-49f7-8983-b7d794887f5b"",
+                    ""path"": ""<DualShockGamepad>/select"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -587,12 +752,45 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""38488411-44da-482e-b706-607604081c0f"",
+                    ""path"": ""<DualShockGamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeToolUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""d9251ad7-9736-46d0-b51f-c888ff7f6526"",
                     ""path"": ""<XInputController>/leftShoulder"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ChangeToolDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7b0b7df4-f741-4a2d-9409-8b8d6d0b0331"",
+                    ""path"": ""<DualShockGamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeToolDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e13000fa-4c66-4c47-b7cb-6c500898ba39"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FillWateringCan"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1191,7 +1389,6 @@ namespace UnityEngine.InputSystem
             m_Player_Tab = m_Player.FindAction("Tab", throwIfNotFound: true);
             m_Player_Salir = m_Player.FindAction("Salir", throwIfNotFound: true);
             m_Player_UseWateringCan = m_Player.FindAction("UseWateringCan", throwIfNotFound: true);
-            m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
             m_Player_UseSickle = m_Player.FindAction("UseSickle", throwIfNotFound: true);
             m_Player_UseShovel = m_Player.FindAction("UseShovel", throwIfNotFound: true);
             m_Player_ShorcutInventory = m_Player.FindAction("ShorcutInventory", throwIfNotFound: true);
@@ -1200,6 +1397,7 @@ namespace UnityEngine.InputSystem
             m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
             m_Player_ChangeToolUp = m_Player.FindAction("ChangeToolUp", throwIfNotFound: true);
             m_Player_ChangeToolDown = m_Player.FindAction("ChangeToolDown", throwIfNotFound: true);
+            m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1284,7 +1482,6 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Tab;
         private readonly InputAction m_Player_Salir;
         private readonly InputAction m_Player_UseWateringCan;
-        private readonly InputAction m_Player_FillWateringCan;
         private readonly InputAction m_Player_UseSickle;
         private readonly InputAction m_Player_UseShovel;
         private readonly InputAction m_Player_ShorcutInventory;
@@ -1293,6 +1490,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Exit;
         private readonly InputAction m_Player_ChangeToolUp;
         private readonly InputAction m_Player_ChangeToolDown;
+        private readonly InputAction m_Player_FillWateringCan;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1308,7 +1506,6 @@ namespace UnityEngine.InputSystem
             public InputAction @Tab => m_Wrapper.m_Player_Tab;
             public InputAction @Salir => m_Wrapper.m_Player_Salir;
             public InputAction @UseWateringCan => m_Wrapper.m_Player_UseWateringCan;
-            public InputAction @FillWateringCan => m_Wrapper.m_Player_FillWateringCan;
             public InputAction @UseSickle => m_Wrapper.m_Player_UseSickle;
             public InputAction @UseShovel => m_Wrapper.m_Player_UseShovel;
             public InputAction @ShorcutInventory => m_Wrapper.m_Player_ShorcutInventory;
@@ -1317,6 +1514,7 @@ namespace UnityEngine.InputSystem
             public InputAction @Exit => m_Wrapper.m_Player_Exit;
             public InputAction @ChangeToolUp => m_Wrapper.m_Player_ChangeToolUp;
             public InputAction @ChangeToolDown => m_Wrapper.m_Player_ChangeToolDown;
+            public InputAction @FillWateringCan => m_Wrapper.m_Player_FillWateringCan;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1359,9 +1557,6 @@ namespace UnityEngine.InputSystem
                 @UseWateringCan.started += instance.OnUseWateringCan;
                 @UseWateringCan.performed += instance.OnUseWateringCan;
                 @UseWateringCan.canceled += instance.OnUseWateringCan;
-                @FillWateringCan.started += instance.OnFillWateringCan;
-                @FillWateringCan.performed += instance.OnFillWateringCan;
-                @FillWateringCan.canceled += instance.OnFillWateringCan;
                 @UseSickle.started += instance.OnUseSickle;
                 @UseSickle.performed += instance.OnUseSickle;
                 @UseSickle.canceled += instance.OnUseSickle;
@@ -1386,6 +1581,9 @@ namespace UnityEngine.InputSystem
                 @ChangeToolDown.started += instance.OnChangeToolDown;
                 @ChangeToolDown.performed += instance.OnChangeToolDown;
                 @ChangeToolDown.canceled += instance.OnChangeToolDown;
+                @FillWateringCan.started += instance.OnFillWateringCan;
+                @FillWateringCan.performed += instance.OnFillWateringCan;
+                @FillWateringCan.canceled += instance.OnFillWateringCan;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1423,9 +1621,6 @@ namespace UnityEngine.InputSystem
                 @UseWateringCan.started -= instance.OnUseWateringCan;
                 @UseWateringCan.performed -= instance.OnUseWateringCan;
                 @UseWateringCan.canceled -= instance.OnUseWateringCan;
-                @FillWateringCan.started -= instance.OnFillWateringCan;
-                @FillWateringCan.performed -= instance.OnFillWateringCan;
-                @FillWateringCan.canceled -= instance.OnFillWateringCan;
                 @UseSickle.started -= instance.OnUseSickle;
                 @UseSickle.performed -= instance.OnUseSickle;
                 @UseSickle.canceled -= instance.OnUseSickle;
@@ -1450,6 +1645,9 @@ namespace UnityEngine.InputSystem
                 @ChangeToolDown.started -= instance.OnChangeToolDown;
                 @ChangeToolDown.performed -= instance.OnChangeToolDown;
                 @ChangeToolDown.canceled -= instance.OnChangeToolDown;
+                @FillWateringCan.started -= instance.OnFillWateringCan;
+                @FillWateringCan.performed -= instance.OnFillWateringCan;
+                @FillWateringCan.canceled -= instance.OnFillWateringCan;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1643,7 +1841,6 @@ namespace UnityEngine.InputSystem
             void OnTab(InputAction.CallbackContext context);
             void OnSalir(InputAction.CallbackContext context);
             void OnUseWateringCan(InputAction.CallbackContext context);
-            void OnFillWateringCan(InputAction.CallbackContext context);
             void OnUseSickle(InputAction.CallbackContext context);
             void OnUseShovel(InputAction.CallbackContext context);
             void OnShorcutInventory(InputAction.CallbackContext context);
@@ -1652,6 +1849,7 @@ namespace UnityEngine.InputSystem
             void OnExit(InputAction.CallbackContext context);
             void OnChangeToolUp(InputAction.CallbackContext context);
             void OnChangeToolDown(InputAction.CallbackContext context);
+            void OnFillWateringCan(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {
