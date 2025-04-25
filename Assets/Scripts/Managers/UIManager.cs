@@ -1196,7 +1196,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void UpdateSlider()
     {
-        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount() - 15;
+        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount() - 1000;
         AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
         AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
         AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
