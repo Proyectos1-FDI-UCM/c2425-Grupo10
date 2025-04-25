@@ -68,7 +68,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Booleano que indica si el movimiento del jugador está habilitado.
     /// </summary>
-    private bool _movementenabled = true;
+    [SerializeField] private bool _isMovementEnabled;
 
     /// <summary>
     /// Vector que contiene la entrada del jugador para el movimiento 
@@ -116,6 +116,7 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _isMovementEnabled = true;
         // Obtiene la referencia al Rigidbody2D del jugador.
         _playerRb = GetComponent<Rigidbody2D>();
 
@@ -138,8 +139,6 @@ public class PlayerMovement : MonoBehaviour
         UpdateEnergy();
         _currentEnergy = maxEnergy;
         UIManager = FindObjectOfType<UIManager>();
-
-
     }
 
     /// <summary>
@@ -147,40 +146,40 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (!_movementenabled)
+        if (_isMovementEnabled)
         {
-            // Si no puede moverse, fuerza animación en idle y no toma input
+            // Si el movimiento está habilitado, entonces procesamos la entrada
+            moveX = InputManager.Instance.MovementVector.x;
+            moveY = InputManager.Instance.MovementVector.y;
+            _moveInput = InputManager.Instance.MovementVector;
+
+            // Actualiza el vector de dirección solo si te estás moviendo
+            if (_moveInput.magnitude >= 0.2f)
+            {
+                _lastMoveDirection = _moveInput.normalized;
+                _playerAnimator.SetFloat("Horizontal", _moveInput.x);
+                _playerAnimator.SetFloat("Vertical", _moveInput.y);
+            }
+            else
+            {
+                // Redondea dirección cuando estás quieto
+                Vector2 cleanDirection = RoundToCardinal(_lastMoveDirection);
+                _playerAnimator.SetFloat("Horizontal", cleanDirection.x);
+                _playerAnimator.SetFloat("Vertical", cleanDirection.y);
+            }
+
+            _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
+            UpdateEnergy();
+        }
+        else
+        {
+            // Si el movimiento está deshabilitado, no proceses el input.
             _moveInput = Vector2.zero;
             _playerAnimator.SetFloat("Speed", 0);
             _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
             _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
         }
-        else
-        {
-            // Captura la entrada del jugador
-            moveX = InputManager.Instance.MovementVector.x;
-            moveY = InputManager.Instance.MovementVector.y;
-            _moveInput = InputManager.Instance.MovementVector.normalized;
 
-            if (_moveInput != Vector2.zero)
-            {
-                _lastMoveDirection = _moveInput;
-                _playerAnimator.SetFloat("Horizontal", moveX);
-                _playerAnimator.SetFloat("Vertical", moveY);
-
-                // Aquí podrías llamar a Flip() si quieres que el sprite gire
-            }
-            else
-            {
-                _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
-                _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
-            }
-
-            _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
-        }
-
-        // Siempre actualiza la energía (aunque estés quieto o cansado)
-        UpdateEnergy();
     }
 
     #endregion
@@ -193,7 +192,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void EnablePlayerMovement()
     {
-        _movementenabled = true;
+        _isMovementEnabled = true;
+        Debug.Log("Movimiento Activado");
     }
 
     ///<summary>
@@ -201,9 +201,9 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void DisablePlayerMovement()
     {
-        _movementenabled = false;
+        _isMovementEnabled = false;
+        Debug.Log("Movimiento desactivado");
     }
-
 
     /// <summary>
     /// Método para obtener la última dirección de movimiento.
@@ -222,37 +222,11 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private void FixedUpdate()
     {
-        if (_movementenabled)
+        if (_isMovementEnabled)
         {
             // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
-            _playerRb.MovePosition(_playerRb.position + InputManager.Instance.MovementVector * Speed * Time.fixedDeltaTime);
+            _playerRb.MovePosition(_playerRb.position + _moveInput * Speed * Time.fixedDeltaTime);
         }
-    }
-
-    /// <summary>
-    /// Método para voltear al jugador.
-    /// </summary>
-    private void Flip()
-    {
-        _facingRight = !_facingRight;
-        _spriteRenderer.flipX = !_spriteRenderer.flipX;
-
-        //Vector3 scale = Hand.localScale;
-        //scale.x *= -1;
-        //Hand.localPosition = scale;
-    }
-
-    /// <summary>
-    /// Método para voltear al jugador.
-    /// </summary>
-    private void FlipHand()
-    {
-        Vector3 scale = _hand.localScale;
-        Vector3 position = _hand.localPosition;
-        position.x *= -1;
-        scale.x *= -1;
-        _hand.localPosition = position;
-        _hand.localScale = scale;    
     }
 
     /// <summary>
@@ -261,7 +235,7 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateEnergy()
     {
         // Si se puede mover y hay input, gasta energía
-        if (_movementenabled && _moveInput != Vector2.zero)
+        if (_isMovementEnabled && _moveInput != Vector2.zero)
         {
             if (_currentEnergy > 0)
             {
@@ -292,6 +266,39 @@ public class PlayerMovement : MonoBehaviour
         // Actualiza la barra de energía
         UIManager.UpdateEnergyBar(_currentEnergy, maxEnergy);
     }
+
+    /// <summary>
+    /// Normaliza la entrada de movimiento: aplica un umbral para convertir la entrada en -1, 0 o 1.
+    /// </summary>
+    private Vector2 NormalizeInput(Vector2 input)
+    {
+        
+            float threshold = 0.2f;
+            float absX = Mathf.Abs(input.x);
+            float absY = Mathf.Abs(input.y);
+
+            // Si ambos son menores al threshold → quedarse quieto
+            if (absX < threshold && absY < threshold)
+                return Vector2.zero;
+
+            // Determinar dirección dominante
+            if (absX > absY)
+                return new Vector2(Mathf.Sign(input.x), 0f); // Horizontal
+            else
+                return new Vector2(0f, Mathf.Sign(input.y)); // Vertical
+        
+    }
+
+    private Vector2 RoundToCardinal(Vector2 dir)
+    {
+        
+            if (Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+                return new Vector2(Mathf.Sign(dir.x), 0f);
+            else
+                return new Vector2(0f, Mathf.Sign(dir.y));
+        
+    }
+
     #endregion
     //-----EVENTOS-----
     #region
@@ -299,4 +306,4 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
 } // class PlayerMovement 
-// namespace
+  // namespace

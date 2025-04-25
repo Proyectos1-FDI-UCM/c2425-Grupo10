@@ -239,11 +239,11 @@ public class WateringCanManager : MonoBehaviour
             UiManager.ShowNotification("Presiona E \npara rellenar", "NoCounter", 1, "NoTutorial");
             _notificationActive = true;
             // 
-            if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && _canFill)
+            if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && _canWater)
             {
 
                 FillWateringCan(_maxWaterAmount);
-                _canFill = false;
+                _canWater = false;
                 if (TutorialManager.GetTutorialPhase() == 16)
                 {
                     TutorialManager.CheckBox(0);
@@ -483,7 +483,7 @@ public class WateringCanManager : MonoBehaviour
     private void NotFilling()
     {
         PlayerAnimator.SetBool("Filling", false);
-        _canFill = true;
+        _canWater = true;
         Destroy(_warning);
 
         PlayerMovement.EnablePlayerMovement();
