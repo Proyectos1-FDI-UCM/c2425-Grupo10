@@ -254,10 +254,12 @@ public class GardenManager : MonoBehaviour
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
 
-                    if (TutorialManager.GetTutorialPhase() == 19)
+                    bool done = false;
+                    if (TutorialManager.GetTutorialPhase() == 19 && !done)
                     {
                         TutorialManager.CheckBox(0);
                         _tutorialList++;
+                        done = true;
                     }
                 }
                 else 
@@ -289,10 +291,17 @@ public class GardenManager : MonoBehaviour
                 GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
 
-                if (TutorialManager.GetTutorialPhase() == 19)
+                bool doneWeed = false;
+                if (TutorialManager.GetTutorialPhase() == 19 && Plant.State == -6 && !doneWeed)
                 {
-                    if (Plant.State != -6) TutorialManager.CheckBox(1);
-                    else TutorialManager.CheckBox(2);
+                    TutorialManager.CheckBox(2);
+                    _tutorialList++;
+                }
+
+                bool donePlant = false;
+                if (TutorialManager.GetTutorialPhase() == 19 && Plant.State < -6 && !donePlant)
+                {
+                    TutorialManager.CheckBox(2);
                     _tutorialList++;
                 }
             }
