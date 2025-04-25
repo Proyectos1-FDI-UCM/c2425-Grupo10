@@ -410,7 +410,7 @@ public class TutorialManager : MonoBehaviour
         if (_tutorialPhase == 10) // Compra
         {
             _actualDialogueText = MadameMooColor + " Para continuar, necesitas comprar al menos unas poquitas semillas.\r\nNo seas tímida con el monedero, Connie. ¡La inversión inicial es el primer paso hacia tu casa soñada!";
-            _actualDialogueButtonText = "Cerrar";
+            _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhase == 11)
         {
