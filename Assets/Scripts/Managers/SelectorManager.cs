@@ -157,6 +157,8 @@ public class SelectorManager : MonoBehaviour
     private bool _usedWateringCan = false;
     private bool _usedSickle = false;
     private bool _usedSeeds = false;
+
+    [SerializeField] private int _toolSelector = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -197,9 +199,22 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
-        if (InputManager.Instance.Select5WasPressedThisFrame())
+        if (InputManager.Instance.ChangeToolUpWasPressedThisFrame())
         {
+            if (_toolSelector < 4) _toolSelector++;
+            else if (_toolSelector == -1) _toolSelector = 0;
+        }
+        if (InputManager.Instance.ChangeToolDownWasPressedThisFrame())
+        {
+            if (_toolSelector < 4 && _toolSelector > 0) _toolSelector--;
+            else if (_toolSelector == 0) _toolSelector = 4;
+            else if (_toolSelector == -1) _toolSelector = 3;
+
+        }
+
+        if (InputManager.Instance.Select5WasPressedThisFrame() || _toolSelector == 4 || InputManager.Instance.ShorcutSeedWasPressedThisFrame())
+        {
+            _toolSelector = -1;
             SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
             if (SeedTool.activeInHierarchy) _currentSeed++;
             if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
@@ -229,8 +244,9 @@ public class SelectorManager : MonoBehaviour
             //Cambio de semillas
         }
 
-        if (InputManager.Instance.Select4WasPressedThisFrame())
+        if (InputManager.Instance.Select4WasPressedThisFrame() || _toolSelector == 3)
         {
+            _toolSelector = 3;
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", false);
@@ -246,8 +262,9 @@ public class SelectorManager : MonoBehaviour
 
         }
 
-        if (InputManager.Instance.Select1WasPressedThisFrame())
+        if (InputManager.Instance.Select1WasPressedThisFrame() || _toolSelector == 0)
         {
+            _toolSelector = 0;
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", false);
@@ -263,8 +280,9 @@ public class SelectorManager : MonoBehaviour
             ShovelMessage.SetActive(false);
         }
 
-        if (InputManager.Instance.Select2WasPressedThisFrame())
+        if (InputManager.Instance.Select2WasPressedThisFrame() || _toolSelector == 1)
         {
+            _toolSelector = 1;
             PlayerAnimator.SetBool("HasWateringCan", true);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", false);
@@ -279,8 +297,9 @@ public class SelectorManager : MonoBehaviour
             ShovelMessage.SetActive(false);
         }
 
-        if (InputManager.Instance.Select3WasPressedThisFrame())
+        if (InputManager.Instance.Select3WasPressedThisFrame() || _toolSelector == 2)
         {
+            _toolSelector = 2;
             PlayerAnimator.SetBool("HasWateringCan", false);
             PlayerAnimator.SetBool("HasSeedBag", false);
             PlayerAnimator.SetBool("HasSickle", true);
@@ -295,14 +314,6 @@ public class SelectorManager : MonoBehaviour
             WCMessage.SetActive(false);
         }
 
-        // Cambiar tipo de semilla con el botón Triángulo
-        if (InputManager.Instance.ShorcutSeedWasPressedThisFrame() && SeedTool.activeInHierarchy)
-        {
-            SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
-            _currentSeed++;
-            if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
-            ShowSeedSelected(); // Mostrar nueva semilla
-        }
 
     }
     #endregion

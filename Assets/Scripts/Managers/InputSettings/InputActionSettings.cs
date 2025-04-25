@@ -191,24 +191,23 @@ namespace UnityEngine.InputSystem
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
-
                 {
-                  ""name"": ""ChangeToolUp"",
-                  ""type"": ""Button"",
-                  ""id"": ""bfeaf48c-4e6d-4e60-b86d-c8d78f1e75c2"",
-                  ""expectedControlType"": ""Button"",
-                  ""processors"": """",
-                  ""interactions"": """",
-                  ""initialStateCheck"": false
+                    ""name"": ""ChangeToolUp"",
+                    ""type"": ""Button"",
+                    ""id"": ""d06936cd-a991-47f4-bc09-b8c42818750f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
-                  ""name"": ""ChangeToolDown"",
-                  ""type"": ""Button"",
-                  ""id"": ""cebc5f7e-4382-4bb9-89be-d9a5d94e2f3c"",
-                  ""expectedControlType"": ""Button"",
-                  ""processors"": """",
-                  ""interactions"": """",
-                  ""initialStateCheck"": false
+                    ""name"": ""ChangeToolDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""1e9e404d-f442-47ce-9f30-df48e5137c01"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -445,6 +444,17 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
+                    ""id"": ""09b106fe-46a9-4840-851b-ac4f5447af74"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Select5"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""591e4d44-186e-4bad-a610-80814d8d8f95"",
                     ""path"": ""<Keyboard>/tab"",
                     ""interactions"": """",
@@ -469,6 +479,17 @@ namespace UnityEngine.InputSystem
                     ""name"": """",
                     ""id"": ""78ab53f3-fa28-4daa-b288-d54cb0b5f795"",
                     ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseWateringCan"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1b64a2e9-eaa1-40d9-9ed4-2cf8491bd891"",
+                    ""path"": ""<XInputController>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -553,41 +574,28 @@ namespace UnityEngine.InputSystem
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
-
                 {
-                  ""name"": """",
-                  ""id"": ""10d2f145-d205-4c4c-b137-3dc460325420"",
-                  ""path"": ""<Gamepad>/leftShoulder"",
-                  ""interactions"": """",
-                  ""processors"": """",
-                  ""groups"": ""Gamepad"",
-                  ""action"": ""ChangeToolUp"",
-                  ""isComposite"": false,
-                  ""isPartOfComposite"": false
+                    ""name"": """",
+                    ""id"": ""bc7a68b2-9866-4cce-a620-7bb3059c0298"",
+                    ""path"": ""<XInputController>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeToolUp"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 },
                 {
-                  ""name"": """",
-                  ""id"": ""da6b0bb2-1f15-4638-ae6d-81b27d6439e6"",
-                  ""path"": ""<Gamepad>/rightShoulder"",
-                  ""interactions"": """",
-                  ""processors"": """",
-                  ""groups"": ""Gamepad"",
-                  ""action"": ""ChangeToolDown"",
-                  ""isComposite"": false,
-                  ""isPartOfComposite"": false
-                },
-                {
-                  ""name"": """",
-                  ""id"": ""f4ff4b3e-0d3c-4f86-a3fa-73fd82e087f9"",
-                  ""path"": ""<Gamepad>/buttonNorth"",
-                  ""interactions"": """",
-                  ""processors"": """",
-                  ""groups"": ""Gamepad"",
-                  ""action"": ""ShorcutSeed"",
-                  ""isComposite"": false,
-                  ""isPartOfComposite"": false
+                    ""name"": """",
+                    ""id"": ""d9251ad7-9736-46d0-b51f-c888ff7f6526"",
+                    ""path"": ""<XInputController>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeToolDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
-
             ]
         },
         {
@@ -1190,11 +1198,8 @@ namespace UnityEngine.InputSystem
             m_Player_ShorcutSeed = m_Player.FindAction("ShorcutSeed", throwIfNotFound: true);
             m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
             m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
-
-            //nuevas funciones de control con mando
             m_Player_ChangeToolUp = m_Player.FindAction("ChangeToolUp", throwIfNotFound: true);
             m_Player_ChangeToolDown = m_Player.FindAction("ChangeToolDown", throwIfNotFound: true);
-
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1286,11 +1291,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_ShorcutSeed;
         private readonly InputAction m_Player_Map;
         private readonly InputAction m_Player_Exit;
-
-        // DECLARACIÓN NUEVAS VARIABLES DE ACCIÓN PARA EL MANDO
         private readonly InputAction m_Player_ChangeToolUp;
         private readonly InputAction m_Player_ChangeToolDown;
-
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1650,7 +1652,6 @@ namespace UnityEngine.InputSystem
             void OnExit(InputAction.CallbackContext context);
             void OnChangeToolUp(InputAction.CallbackContext context);
             void OnChangeToolDown(InputAction.CallbackContext context);
-
         }
         public interface IUIActions
         {
