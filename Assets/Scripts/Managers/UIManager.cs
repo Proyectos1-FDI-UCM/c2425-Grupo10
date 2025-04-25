@@ -639,7 +639,7 @@ public class UIManager : MonoBehaviour
         {
             if (TutorialManager.GetTutorialPhase() == 9) // Tutorial
             {
-                TutorialManager.ModifyNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
+                TutorialManager.ModifyNotification("Mi primera \ncompra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
                 TutorialManager.NextDialogue();
             }
             if (TutorialManager.GetTutorialPhase() == 20)

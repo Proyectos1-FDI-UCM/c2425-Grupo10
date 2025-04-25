@@ -59,15 +59,17 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     [SerializeField]private int _tutorialPhaseEscenas = 0;
 
-    private int _tutorialPhaseMejora = 0;
-    private int _tutorialPhaseBanco = 0;
+    [SerializeField] private int _tutorialPhaseMejora = 0;
+    private bool tutorialMejora = false;
+    [SerializeField] private int _tutorialPhaseBanco = 0;
+    private bool tutorialBanco = false;
 
     private bool _tutorialInProgress = false;
 
     /// <summary>
     /// Dialogo actual del tutorial
     /// </summary>
-    private string _actualDialogueText;
+    [SerializeField]private string _actualDialogueText;
     private string _actualDialogueButtonText;
 
     /// <summary>
@@ -163,22 +165,27 @@ public class TutorialManager : MonoBehaviour
             //_tutorialPhaseEscenas = 3;
             NextDialogue();
         }
-        if (SceneManager.GetActiveScene().name == "Escena_Mejora" && _tutorialPhaseMejora == 0)
+        if (SceneManager.GetActiveScene().name == "Escena_Mejora" && _tutorialPhaseMejora == 0 && !tutorialMejora)
         {
             UIManager.HideNotification("NoTutorial");
             NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             _tutorialPhaseEscenas = 0;
+            _tutorialPhaseBanco = 0;
+            tutorialMejora = true;
             _tutorialPhaseMejora = 1;
+
             NextDialogue();
         }
-        if (SceneManager.GetActiveScene().name == "Escena_Banco" && _tutorialPhaseBanco== 0)
+        if (SceneManager.GetActiveScene().name == "Escena_Banco" && _tutorialPhaseBanco== 0 && !tutorialBanco)
         {
             UIManager.HideNotification("NoTutorial");
             NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             _tutorialPhaseEscenas = 0;
+            _tutorialPhaseMejora = 0;
             _tutorialPhaseBanco = 1;
+            tutorialBanco = true;
             NextDialogue();
         }
 
@@ -216,8 +223,6 @@ public class TutorialManager : MonoBehaviour
         }
         else if (buttonText == "Probar")
         {
-            if (_actualNotificationText != " ")
-            {
                 if (UIManager.GetInventoryVisible() == true)
                 {
                     UIManager.ToggleInventory();
@@ -230,7 +235,6 @@ public class TutorialManager : MonoBehaviour
                 UIManager.HideDialogue();
 
                 if (SceneManager.GetActiveScene().name == "Escena_Build") UIManager.HideMap();
-            }
         }
         else if (buttonText == "Cerrar")
         {
@@ -353,13 +357,11 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Estoy aquí para enseñarte cómo convertirte en la mejor granjera de RootWood.\r\n¡Sigue mis consejos y estarás un paso más cerca de tu casa soñada y una vida de lujo y fertilizante premium!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 2)
         {
             _actualDialogueText = MadameMooColor + " Para usar cosas, como palas o regaderas, solo tienes que pulsar la tecla E.\r\n¡Es como decirle a la vida: “¡Estoy lista para interactuar contigo!”";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 3)
         {
@@ -372,13 +374,11 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Muuhh! (Alegría), ya casi lo tienes. A lo largo del pueblo hay varias casas a tu disposición, y cada una sirve para algo distinto.\r\nPero de eso ya hablaremos en su momento."; 
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 5)
         {
             _actualDialogueText = MadameMooColor + " También tienes varias herramientas para usar en tu huerto.\r\nUsa el selector de herramientas (1-5) para elegir lo que necesitas.\r\n¡Una vaca no puede arar con la lengua, ni tú cosechar sin azada!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 6)
         {
@@ -398,7 +398,6 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Uy, Connie! Ese inventario está más vacío que una lechera en sequía...\r\n¡Vamos a llenarlo de cosas buenas antes de que los grillos monten una fiesta ahí dentro!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 9)
         {   
@@ -416,19 +415,16 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para comprar tu primera semilla.";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhase == 12)
         {
             _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más, para añadir unas pocas semillas";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhase == 13)
         {
             _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora)";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhase == 14) // Huerto
         {
@@ -455,13 +451,11 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Cuando veas una planta bien crecidita entonces ¡Es hora de cosechar!\r\nSelecciona la HOZ y recógela, querida!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 18)
         {
             _actualDialogueText = MadameMooColor + " No todas las plantas prosperan, y eso está bien.\r\nSi ves una que no va a dar más de sí… arráncala con la PALA sin miedo.\r\nAsí haces espacio para nuevas oportunidades. ¡Como en la vida!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhase == 19)
         {
@@ -483,33 +477,28 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para vender tu primera cultivo.";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhase == 22)
         {
             _actualDialogueText = MadameMooColor + " ¿Tienes más lechugas que vender?.\r\nPulsa el botón de más, para añadir más";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhase == 23)
         {
             _actualDialogueText = MadameMooColor + " Con todo listo es hora de ver cuanto nos dan por tu primera cosecha.\r\nPulsa el botón de vender, y verás que sembrar te traerá algo más que plantas";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "";
         }
 
             if (_tutorialPhase == 24)
         {
             _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Volveré cuando me necesites, mientras tanto asegúrate de visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
 
         if (_tutorialPhase == 25)
         {
-            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Explora el pueblo de RootWood, entra en todas las casas ¿y vigila tu energía! \nCasi se me olvidaba, arriba a la derecha tienes la barra de energía que disminuye al correr. Ahora si, ¡Muuucha suerte ahí fuera!";
+            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Explora el pueblo de RootWood, entra en todas las casas ¡y vigila tu energía! \nCasi se me olvidaba, arriba a la derecha tienes la barra de energía que disminuye al correr. Ahora si, ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
-            _actualNotificationText = " ";
         }
 
     }
@@ -522,7 +511,6 @@ public class TutorialManager : MonoBehaviour
             {
                 _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a comprar en el mercado, estas un paso más cerca de recoger tu primera cosecha!";
                 _actualDialogueButtonText = "Continuar";
-                _actualNotificationText = " ";
             }
             if (i == 2)
             {
@@ -540,7 +528,6 @@ public class TutorialManager : MonoBehaviour
             {
                 _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Vaca-Connie! Perdona... era un chiste, ¿Lo entiendes? La vaca soy yo (risa).\r\nBueno, ¡Ahora voy a enseñarte a sacar provecho de tus cultivos en el mercado, vamos a vender tu cosecha!";
                 _actualDialogueButtonText = "Continuar";
-                _actualNotificationText = " ";
             }
             if (i == 5)
             {
@@ -558,7 +545,6 @@ public class TutorialManager : MonoBehaviour
             {
                 _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte todo lo que puedes hacer con tu dinero!";
                 _actualDialogueButtonText = "Continuar";
-                _actualNotificationText = " ";
             }
             if (_tutorialPhaseMejora == 3)
             {
@@ -578,7 +564,6 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Cuando ingreses dinero, tienes que estar segura de que no lo vas a necesitar \r\nLuego no podrás recuperarlo. \nAdemás nunca podrás ingresar todo tu dinero, siempre debes quedarte al menos con 1000 RootCoins ";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhaseMejora == 6)
         {
@@ -591,7 +576,6 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Vamos con la mudanza! Como bien sabes para mudarte a tu deseada casa en la playa necesitas dinero\r\n Con tu dinero del banco, podrás comprar tu nuevo hogar";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhaseMejora == 8)
         {
@@ -616,7 +600,6 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a mejorar tus herramientas y tu huerto!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = " ";
         }
         if (_tutorialPhaseMejora == 3)
         {
@@ -629,7 +612,6 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Vamos con las ampliaciones! \r\nCon ellas podrás hacer crecer el tamaño de tu huerto y el de tu cosecha! ";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhaseMejora == 5)
         {
@@ -642,13 +624,11 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta ampliación \r\n¡Mientras tanto toca trabajar duro Connie!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhaseMejora == 7)
         {
             _actualDialogueText = MadameMooColor + " ¡Vamos con las mejoras! \r\nCon ellas podrás ampliar la capacidad de tu regadera. ¡Al final vas a ser un pozo con patas (risa)!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = "";
         }
         if (_tutorialPhaseMejora == 8)
         {
@@ -661,14 +641,12 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta mejora ¡Mientras tanto toca hacer viajes al pozo!";
             _actualDialogueButtonText = "Continuar";
-            _actualNotificationText = "";
 
         }
         if (_tutorialPhaseMejora == 10)
         {
             _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? \rRecuerda: no esperes cosechar aguacates si solo siembras excusas. ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
-            _actualNotificationText = " ";
             _tutorialInProgress = false;
         }
 
