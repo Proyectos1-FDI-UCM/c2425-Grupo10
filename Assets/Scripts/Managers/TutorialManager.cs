@@ -507,7 +507,7 @@ public class TutorialManager : MonoBehaviour
 
         if (_tutorialPhase == 25)
         {
-            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Recuerda: la vida es como un cultivo... si no la riegas, se te va al pasto. ¡Muuucha suerte ahí fuera!";
+            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Explora el pueblo de RootWood, entra en todas las casas ¿y vigila tu energía! \nCasi se me olvidaba, arriba a la derecha tienes la barra de energía que disminuye al correr. Ahora si, ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
             _actualNotificationText = " ";
         }
@@ -620,7 +620,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseMejora == 3)
         {
-            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \\r\\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
+            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Acercate al \nmostrador";
             _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de mejora";
