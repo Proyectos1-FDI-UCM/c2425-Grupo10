@@ -146,7 +146,7 @@ public class CambiarEscena : MonoBehaviour
                 }
                 else if (sceneName == "Escena_Banco")
                 {
-                    if (TutorialManager.GetTutorialPhase() >= 18)
+                    if (TutorialManager.GetTutorialPhase() >= 25)
                     {
                         _sceneTransition.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);
@@ -158,7 +158,7 @@ public class CambiarEscena : MonoBehaviour
                 }
                 else if (sceneName == "Escena_Mejora")
                 {
-                    if (TutorialManager.GetTutorialPhase() >= 18)
+                    if (TutorialManager.GetTutorialPhase() >= 25)
                     {
                         _sceneTransition.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);

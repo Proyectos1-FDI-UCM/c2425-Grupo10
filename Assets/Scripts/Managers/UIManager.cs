@@ -561,18 +561,15 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-        if (InputManager.Instance.ExitWasPressedThisFrame())
-        {
-            _isPauseMenuActive= !_isPauseMenuActive;
-        }
-
-        if (_isPauseMenuActive)
+        if (InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == false)
         {
             ShowPauseMenu();
+            _isPauseMenuActive = true;
         }
-        else if (!_isPauseMenuActive)
+        else if(InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == true)
         {
             HidePauseMenu();
+            _isPauseMenuActive = false;
         }
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
@@ -896,7 +893,6 @@ public class UIManager : MonoBehaviour
     public void ShowPauseMenu()
     {
         PauseMenu.SetActive(true);
-        PlayerMovement.DisablePlayerMovement();
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             HideMap();
@@ -909,7 +905,8 @@ public class UIManager : MonoBehaviour
         {
             DisableInterfaz();
         }
-
+        PlayerMovement.DisablePlayerMovement();
+        _isPauseMenuActive = true;
     }
     ///<summary>
     ///Metodo para esconder el menu de pausa 
@@ -917,16 +914,10 @@ public class UIManager : MonoBehaviour
     public void HidePauseMenu()
     {
         PauseMenu.SetActive(false);
-        PlayerMovement.EnablePlayerMovement();   
+        PlayerMovement.EnablePlayerMovement();
+        _isPauseMenuActive = false;
     }
 
-    /// <summary>
-    /// Metodo para cambiar el valor del booleano del menu de pausa
-    /// </summary>
-    public void ButtonPauseMenuPressed()
-    {
-        _isPauseMenuActive = !_isPauseMenuActive;
-    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
