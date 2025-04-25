@@ -254,7 +254,7 @@ public class GardenManager : MonoBehaviour
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
 
-                    if (TutorialManager.GetTutorialPhase() == 15)
+                    if (TutorialManager.GetTutorialPhase() == 19)
                     {
                         TutorialManager.CheckBox(0);
                         _tutorialList++;
@@ -289,7 +289,7 @@ public class GardenManager : MonoBehaviour
                 GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
 
-                if (TutorialManager.GetTutorialPhase() == 15)
+                if (TutorialManager.GetTutorialPhase() == 19)
                 {
                     if (Plant.State != -6) TutorialManager.CheckBox(1);
                     else TutorialManager.CheckBox(2);

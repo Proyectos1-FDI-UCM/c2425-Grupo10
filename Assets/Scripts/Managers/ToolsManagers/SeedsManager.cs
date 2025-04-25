@@ -156,7 +156,7 @@ public class SeedsManager : MonoBehaviour
     {
         if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventory(_seed) > 0)
         {
-            if (TutorialManager.GetTutorialPhase() == 10)
+            if (TutorialManager.GetTutorialPhase() == 14)
             {
                 TutorialManager.CheckBox(0);
                 TutorialManager.Invoke("NextDialogue", 0.6f);

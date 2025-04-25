@@ -226,7 +226,7 @@ public class WateringCanManager : MonoBehaviour
         {
             Watering();
             _canWater = false;
-            if (TutorialManager.GetTutorialPhase() == 11)
+            if (TutorialManager.GetTutorialPhase() == 15)
             {
                 TutorialManager.CheckBox(0);
                 TutorialManager.Invoke("NextDialogue", 0.6f);
@@ -244,7 +244,7 @@ public class WateringCanManager : MonoBehaviour
 
                 FillWateringCan(_maxWaterAmount);
                 _canFill = false;
-                if (TutorialManager.GetTutorialPhase() == 12)
+                if (TutorialManager.GetTutorialPhase() == 16)
                 {
                     TutorialManager.CheckBox(0);
                     TutorialManager.Invoke("NextDialogue", 0.6f);

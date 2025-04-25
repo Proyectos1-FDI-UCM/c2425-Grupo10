@@ -350,7 +350,7 @@ public class SelectorManager : MonoBehaviour
         // Activa la nueva herramienta y la establece como actual
         _currentTool = newTool;
         _currentTool.SetActive(true);
-        if (TutorialManager.GetTutorialPhase() == 5)
+        if (TutorialManager.GetTutorialPhase() == 6)
         {
             if (newTool == ShovelTool && !_usedShovel)
             {

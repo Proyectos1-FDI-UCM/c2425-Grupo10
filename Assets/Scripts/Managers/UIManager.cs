@@ -609,12 +609,12 @@ public class UIManager : MonoBehaviour
         }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
-            if (TutorialManager.GetTutorialPhase() == 8) // Tutorial
+            if (TutorialManager.GetTutorialPhase() == 10) // Tutorial
             {
                 TutorialManager.ModifyNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
                 TutorialManager.NextDialogue();
             }
-            if (TutorialManager.GetTutorialPhase() == 16)
+            if (TutorialManager.GetTutorialPhase() == 20)
             {
                 TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
                 TutorialManager.NextDialogue();
@@ -622,7 +622,7 @@ public class UIManager : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
             {
                 Check(0);
-                Invoke("NextDialogue", 0.6f);
+               //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
             }
             EnableInterfaz();
         }
@@ -1093,7 +1093,8 @@ public class UIManager : MonoBehaviour
     public void ToggleInventory()
     {
         _isInventoryVisible = !_isInventoryVisible;
-        if (TutorialManager.GetTutorialPhase() == 6) // Verifica si es la fase 3 o la fase que corresponda
+        bool desactivate = false;
+        if (TutorialManager.GetTutorialPhase() == 7) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1252,7 +1253,7 @@ public class UIManager : MonoBehaviour
         DescriptionText.text = "1 lechuga = 20 RootCoins.";
         UpdateUI();
 
-        if (TutorialManager.GetTutorialPhase() == 16) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 21) // Verifica que ha puslsado el botón de lechuga venta
         {
             Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1358,7 +1359,7 @@ public class UIManager : MonoBehaviour
 
         ActualizarCantidadUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
         
-        if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 23) // Verifica que ha pulsado el boton de venta
         {
             //Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1383,7 +1384,7 @@ public class UIManager : MonoBehaviour
             ActualizarTextoCantidad();
         }
 
-        if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 22) // Verifica si ha pulsado el botón + de venta
         {
             //Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1518,7 +1519,7 @@ public class UIManager : MonoBehaviour
 
         UpdateUI();
 
-        if (TutorialManager.GetTutorialPhase() == 10) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1605,7 +1606,7 @@ public class UIManager : MonoBehaviour
         _amountBuying++;
         UpdateUI();
 
-        if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1681,7 +1682,7 @@ public class UIManager : MonoBehaviour
         UpdateUI();  // Actualiza la UI después de la compra
         ActualizarCantidadSeedsUI(); // Llamamos esto para refrescar la UI después de vender
 
-        if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 13) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
             Invoke("NextDialogue", 0.6f);
