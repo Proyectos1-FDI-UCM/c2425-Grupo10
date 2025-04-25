@@ -637,32 +637,21 @@ public class UIManager : MonoBehaviour
         }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
-            bool done = false;
-            if (TutorialManager.GetTutorialPhase() == 10 && !done) // Tutorial
+            if (TutorialManager.GetTutorialPhase() == 10) // Tutorial
             {
                 TutorialManager.ModifyNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
                 TutorialManager.NextDialogue();
-                done = true;
             }
-            if (TutorialManager.GetTutorialPhase() == 20 && !done)
+            if (TutorialManager.GetTutorialPhase() == 20)
             {
                 TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
                 TutorialManager.NextDialogue();
-                done = true;
             }
-            if (TutorialManager.GetTutorialPhaseMejora() == 3 && !done)
+            if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
             {
-                TutorialManager.ModifyNotification("Usar la \ncasa de mejora", " ");
-                TutorialManager.NextDialogue();
-                done = true;
+                Check(0);
+               //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
             }
-            if (TutorialManager.GetTutorialPhaseBanco() == 3 && !done)
-            {
-                done = true;
-                //TutorialManager.ModifyNotification("Usar la \ncasa de banco", " ");
-                TutorialManager.NextDialogue();
-            }
-
             EnableInterfaz();
         }
         if (_uiActive && InputManager.Instance.SalirIsPressed())
@@ -1208,13 +1197,6 @@ public class UIManager : MonoBehaviour
         _isMovingSelected = false;
         _isBeachHouseSelected = false;
         UpdateUI();
-
-        if (TutorialManager.GetTutorialPhaseBanco() == 6)
-        {
-            Check(0);
-
-        }
-
     }
 
     /// <summary>
@@ -1226,13 +1208,6 @@ public class UIManager : MonoBehaviour
         _isMovingSelected = true;
         _isBeachHouseSelected = false;
         UpdateUI();
-
-        if (TutorialManager.GetTutorialPhaseBanco() == 6) // Verifica si ha pulsado el botón + de venta
-        {
-            Check(1);
-            Invoke("NextDialogue", 0.6f);
-
-        }
     }
 
     /// <summary>
@@ -1243,13 +1218,6 @@ public class UIManager : MonoBehaviour
         _isBeachHouseSelected = true;
         DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 100.000 RootCoins!.";
         MoveButton.SetActive(true);
-
-        if (TutorialManager.GetTutorialPhaseBanco() == 9) // Verifica si ha pulsado el botón + de venta
-        {
-            Check(1);
-            Invoke("NextDialogue", 0.6f);
-
-        }
     }
 
     /// <summary>
@@ -1270,11 +1238,6 @@ public class UIManager : MonoBehaviour
             _newDescriptionText = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
             Invoke("ChangeDescription", 1f);
             Debug.Log("No tienes suficiente dinero para mudarte.");
-        }
-        if (TutorialManager.GetTutorialPhaseBanco() == 9) // Verifica si ha pulsado el botón + de venta
-        {
-            Check(0);
-
         }
     }
 
@@ -1814,7 +1777,7 @@ public class UIManager : MonoBehaviour
     // ---- METODOS PUBLICOS (MEJORA) ----
     #region Metodos Publicos (Mejora)
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Ampliar".
+    /// Metodo para detectar cuando el jugador pulsa el boton "Maíz".
     /// </summary>
     public void ButtonExtendPressed()
     {
@@ -1822,7 +1785,6 @@ public class UIManager : MonoBehaviour
         _isExtendSelected = true;
         _isSomethingSelected = false;
         UpdateUI();
-        if (TutorialManager.GetTutorialPhaseMejora() == 8) Check(0);
     }
 
     /// <summary>
@@ -1834,7 +1796,6 @@ public class UIManager : MonoBehaviour
         _isExtendSelected = false;
         _isSomethingSelected = false;
         UpdateUI();
-        if(TutorialManager.GetTutorialPhaseMejora() == 8) Check(0);
     }
 
     /// <summary>
@@ -1848,11 +1809,6 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
 
         ShowDescriptionUpgrade("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
-        if (TutorialManager.GetTutorialPhaseMejora() == 8) 
-        { 
-            Check(2);
-            Invoke("NextDialogue", 0.6f);
-        }
     }
 
     /// <summary>
@@ -1866,12 +1822,6 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
 
         ShowDescriptionUpgrade("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-        
-        if (TutorialManager.GetTutorialPhaseMejora() == 5)
-        {
-            Check(2);
-            Invoke("NextDialogue", 0.6f);
-        }
     }
 
     /// <summary>
