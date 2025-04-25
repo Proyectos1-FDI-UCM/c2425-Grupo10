@@ -166,6 +166,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeToolUp",
+                    "type": "Button",
+                    "id": "d06936cd-a991-47f4-bc09-b8c42818750f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeToolDown",
+                    "type": "Button",
+                    "id": "1e9e404d-f442-47ce-9f30-df48e5137c01",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -402,6 +420,17 @@
                 },
                 {
                     "name": "",
+                    "id": "09b106fe-46a9-4840-851b-ac4f5447af74",
+                    "path": "<XInputController>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Select5",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "591e4d44-186e-4bad-a610-80814d8d8f95",
                     "path": "<Keyboard>/tab",
                     "interactions": "",
@@ -426,6 +455,17 @@
                     "name": "",
                     "id": "78ab53f3-fa28-4daa-b288-d54cb0b5f795",
                     "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseWateringCan",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1b64a2e9-eaa1-40d9-9ed4-2cf8491bd891",
+                    "path": "<XInputController>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -507,6 +547,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "Exit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bc7a68b2-9866-4cce-a620-7bb3059c0298",
+                    "path": "<XInputController>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeToolUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d9251ad7-9736-46d0-b51f-c888ff7f6526",
+                    "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeToolDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
