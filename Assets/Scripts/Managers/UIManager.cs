@@ -14,6 +14,8 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using System;
 using Random = System.Random;
+using static System.Net.Mime.MediaTypeNames;
+using UnityEngine.InputSystem.Utilities;
 
 /// <summary>
 /// La Clase UIManager se encarga de mostrar la UI del juego correcta para cada escena, ya sea la principal o las del mercado
@@ -202,6 +204,7 @@ public class UIManager : MonoBehaviour
     /// boton de la notificacion
     /// </summary>
     [SerializeField] private Button Notification2Button;
+
 
     [Header("UI del Banco")]
 
@@ -634,7 +637,7 @@ public class UIManager : MonoBehaviour
         }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
-            if (TutorialManager.GetTutorialPhase() == 10) // Tutorial
+            if (TutorialManager.GetTutorialPhase() == 9) // Tutorial
             {
                 TutorialManager.ModifyNotification("Ve a la casa \nde compra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
                 TutorialManager.NextDialogue();
@@ -714,7 +717,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Método para mostrar una notificación
     /// </summary>
-    public void ShowNotification(string text, string counterText, int notificationID, string source)
+    public void ShowNotification(string text, string counterText, int notificationID, string source, int check=0)
     {
         GameObject notif = null;
         TMP_Text notifText = null;
@@ -750,7 +753,11 @@ public class UIManager : MonoBehaviour
                 Notification2Counter.SetActive(false);
             }
 
-            for (int i = 0; i < CheckBox.Length; i++) CheckBox[i].SetActive(false);
+            for (int i = 0; i < CheckBox.Length; i++) 
+            { 
+                if (i < check) CheckBox[i].SetActive(true); 
+                else CheckBox[i].SetActive(false);
+            }
 
             _isTutorialNotification = true;
             _tutorialNotificationID = notificationID;
@@ -876,6 +883,7 @@ public class UIManager : MonoBehaviour
     public void Check(int i)
     {
         if (i < CheckBox.Length) CheckBox[i].SetActive(true);
+        NotificationManager.EditNotification(i++);
     }
 
     ///<summary>

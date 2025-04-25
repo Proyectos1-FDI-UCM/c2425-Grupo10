@@ -62,12 +62,20 @@ public class NotificationManager : MonoBehaviour
     ///Texto del contador notificacion tutorail
     /// </summary>
     private string _tutorialNotificationCounterText = "";
+    ///<summary>
+    ///Texto del contador notificacion tutorail
+    /// </summary>
+    private int _tutorialNotificationCheck;
 
     ///<summary>
     ///Booleanos para saber si debe haber notificacion de ese tipo activa
     /// </summary>
     private bool _isNotificationCreated = false;
     private bool _isTutorialNotificationCreated = false;
+
+    private bool _check0 = false;
+    private bool _check1 = false;
+    private bool _check2 = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -106,13 +114,15 @@ public class NotificationManager : MonoBehaviour
     ///<summary>
     ///Metodo para guardar la notificacion
     /// </summary>
-    public void SaveNotification(string text, string counterText, string source)
+    public void SaveNotification(string text, string counterText, string source, int check=0)
     {
         if (source == "Tutorial")
         {
             _isTutorialNotificationCreated = true;
             _tutorialNotificationText = text;
             _tutorialNotificationCounterText = counterText;
+            _tutorialNotificationCheck = 0;
+
         }
         else if (source == "NoTutorial")
         {
@@ -120,6 +130,14 @@ public class NotificationManager : MonoBehaviour
             _notificationText = text;
             _notificationCounterText = counterText;
         }
+
+    }
+    ///<summary>
+    ///Metodo para guardar la notificacion
+    /// </summary>
+    public void EditNotification(int check)
+    {
+        _tutorialNotificationCheck = check;
     }
 
     ///<summary>
@@ -129,6 +147,7 @@ public class NotificationManager : MonoBehaviour
     {
         if (source == "Tutorial" && _isTutorialNotificationCreated)
         {
+            
             UIManager.ShowNotification(_tutorialNotificationText, _tutorialNotificationCounterText, 2,"Tutorial");
             SoundManager.NextButtonSound();
         }
