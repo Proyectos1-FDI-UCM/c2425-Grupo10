@@ -1244,11 +1244,11 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
         _isLettuceSelected = true;
         _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
-       
+
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         _cost = 20;
         ActualizarTextoCantidad();
-        
+
         DescriptionText.text = "1 lechuga = 20 RootCoins.";
         UpdateUI();
 
@@ -1257,6 +1257,7 @@ public class UIManager : MonoBehaviour
             Check(0);
             Invoke("NextDialogue", 0.6f);
         }
+
     }
 
     /// <summary>
@@ -1356,6 +1357,14 @@ public class UIManager : MonoBehaviour
         ActualizarTextoCantidad();
 
         ActualizarCantidadUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
+        
+        if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            //Check(0);
+            Invoke("NextDialogue", 0.6f);
+
+        }
+
     }
 
 
@@ -1372,6 +1381,13 @@ public class UIManager : MonoBehaviour
         {
             _amountBuying++;
             ActualizarTextoCantidad();
+        }
+
+        if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            //Check(0);
+            Invoke("NextDialogue", 0.6f);
+
         }
     }
 
@@ -1502,7 +1518,7 @@ public class UIManager : MonoBehaviour
 
         UpdateUI();
 
-        if (TutorialManager.GetTutorialPhase() == 8) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 10) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
             Invoke("NextDialogue", 0.6f);
@@ -1588,6 +1604,12 @@ public class UIManager : MonoBehaviour
 
         _amountBuying++;
         UpdateUI();
+
+        if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            Check(0);
+            Invoke("NextDialogue", 0.6f);
+        }
     }
 
 
@@ -1658,6 +1680,12 @@ public class UIManager : MonoBehaviour
 
         UpdateUI();  // Actualiza la UI después de la compra
         ActualizarCantidadSeedsUI(); // Llamamos esto para refrescar la UI después de vender
+
+        if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
+        {
+            Check(0);
+            Invoke("NextDialogue", 0.6f);
+        }
     }
 
 

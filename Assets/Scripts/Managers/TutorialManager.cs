@@ -52,7 +52,7 @@ public class TutorialManager : MonoBehaviour
     /// <summary>
     /// Int para saber la fase del tutorial 
     /// </summary>
-    private int _tutorialPhase = 0;
+    [SerializeField] private int _tutorialPhase = 0;
 
     /// <summary>
     /// Int para saber la fase del tutorial de compra 
@@ -374,46 +374,63 @@ public class TutorialManager : MonoBehaviour
             _actualNotificationText = "Ve a la casa \nde compra";
             _actualNotificationTaskText = "[ ] Compra una\r\n    semilla de\r\n    lechuga";
         }
-        if (_tutorialPhase == 9)
+        if (_tutorialPhase == 9) // Cambiar numeros
         {
             _actualDialogueText = MadameMooColor + " Para continuar, necesitas comprar al menos unas poquitas semillas.\r\nNo seas tímida con el monedero, Connie. ¡La inversión inicial es el primer paso hacia tu casa soñada!";
+            _actualDialogueButtonText = "Continuar";
+        }
+        if (_tutorialPhase == 10)
+        {
+            _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para comprar tu primera semilla.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = " ";
         }
-        if (_tutorialPhase == 10)
+        if (_tutorialPhase == 11)
+        {
+            _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más, para añadir unas pocas semillas";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = " ";
+        }
+        if (_tutorialPhase == 12)
+        {
+            _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora)";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = " ";
+        }
+        if (_tutorialPhase == 13) // Cambiar numeros
         {
             _actualDialogueText = MadameMooColor + " ¡De vuelta al huerto!\r\nSelecciona tus semillas desde el inventario, acércate a un surco y plántalas con cariño.\r\n¡No las tires como si fueran cacahuetes! Son el futuro.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Planta una lechuga";
             _actualNotificationTaskText = "[ ] Planta\r\nuna semilla de\r\nlechuga";
         }
-        if (_tutorialPhase == 11)
+        if (_tutorialPhase == 14)
         {
             _actualDialogueText = MadameMooColor + " Después de plantar, toca regar.\r\nUsa la regadera para darles un buen bañito. Las plantas no crecen con cariño… ¡crecen con agua!";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Riega la lechuga";
             _actualNotificationTaskText = "[ ] Riega\r\nlas semilla de\r\nlechuga";
         }
-        if (_tutorialPhase == 12)
+        if (_tutorialPhase == 15)
         {
             _actualDialogueText = MadameMooColor + " ¿Se acabó el agua? ¡Normal, no eres una fuente ambulante!\r\nAcércate al pozo para rellenar tu regadera.\r\nRecuerda: una planta sedienta es una planta triste… ¡y una planta triste no se vende!";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Rellena tu regadera";
             _actualNotificationTaskText = "[ ] Rellena\r\nla regadera";
         }
-        if (_tutorialPhase == 13)
+        if (_tutorialPhase == 15)
         {
             _actualDialogueText = MadameMooColor + " Cuando veas una planta bien crecidita entonces ¡Es hora de cosechar!\r\nSelecciona la HOZ y recógela, querida!";
             _actualDialogueButtonText = "Continuar";
             _actualNotificationText = " ";
         }
-        if (_tutorialPhase == 14)
+        if (_tutorialPhase == 16)
         {
             _actualDialogueText = MadameMooColor + " No todas las plantas prosperan, y eso está bien.\r\nSi ves una que no va a dar más de sí… arráncala con la PALA sin miedo.\r\nAsí haces espacio para nuevas oportunidades. ¡Como en la vida!";
             _actualDialogueButtonText = "Continuar";
             _actualNotificationText = " ";
         }
-        if (_tutorialPhase == 15)
+        if (_tutorialPhase == 17)
         {
             _actualDialogueText = MadameMooColor + " Las malas hierbas aparecen solas y molestan más que un gallo insomne.\n Arráncalas!";
             _actualDialogueButtonText = "Probar";
@@ -421,7 +438,7 @@ public class TutorialManager : MonoBehaviour
             _actualNotificationTaskText = "[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba";
         }
 
-        if (_tutorialPhase == 16)
+        if (_tutorialPhase == 18)
         {
             _actualDialogueText = MadameMooColor + " ¡Es hora de hacer negocios!\n Dirígete al puesto de ventas con tus cultivos recién cosechados.\n Nada dice \"éxito\" como vender tu primer nabo, quiero decir… cultivo";
             _actualDialogueButtonText = "Probar";
@@ -429,14 +446,14 @@ public class TutorialManager : MonoBehaviour
             _actualNotificationTaskText = "[ ] Vende\n una lechuga";
         }
 
-        if (_tutorialPhase == 17)
+        if (_tutorialPhase == 19)
         {
             _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Volveré cuando me necesites, mientras tanto asegúrate de visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
             _actualNotificationText = " ";
         }
 
-        if (_tutorialPhase == 18)
+        if (_tutorialPhase == 20)
         {
             _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Recuerda: la vida es como un cultivo... si no la riegas, se te va al pasto. ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
