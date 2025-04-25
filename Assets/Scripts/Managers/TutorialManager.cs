@@ -198,7 +198,18 @@ public class TutorialManager : MonoBehaviour
         if (buttonText == "Continuar")
         {
             Invoke("NextDialogue", 0.1f);
-            FindTutorialPhase();
+            if (SceneManager.GetActiveScene().name == "Escena_Build")
+            {
+                FindTutorialPhase();
+            }
+            if (SceneManager.GetActiveScene().name == "Escena_Mejora")
+            {
+                FindTutorialPhaseMejora();
+            }
+            if (SceneManager.GetActiveScene().name == "Escena_Banco")
+            {
+                FindTutorialPhaseBanco();
+            }
             UIManager.HideDialogueButton();
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
@@ -238,6 +249,22 @@ public class TutorialManager : MonoBehaviour
     }
 
     ///<summary>
+    ///Metodo para obtener la fase del tutorial mejora
+    /// </summary>
+    public int GetTutorialPhaseMejora()
+    {
+        return _tutorialPhaseMejora;
+    }
+
+    ///<summary>
+    ///Metodo para obtener la fase del tutorial banco
+    /// </summary>
+    public int GetTutorialPhaseBanco()
+    {
+        return _tutorialPhaseBanco;
+    }
+
+    ///<summary>
     ///Metodo para avanzar en el dialogo
     /// </summary>
     public void NextDialogue()
@@ -253,7 +280,7 @@ public class TutorialManager : MonoBehaviour
             NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
         }
-        else if (_tutorialPhaseBanco == 0 && _tutorialPhaseMejora == 0) 
+        else if (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta") 
         {
             _tutorialPhaseEscenas++;
             FindTutorialPhase(_tutorialPhaseEscenas);
@@ -263,11 +290,11 @@ public class TutorialManager : MonoBehaviour
             NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
         }
-        else if (_tutorialPhaseMejora != 0)
+        else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
             Debug.Log("Funciona Respira");
             _tutorialPhaseMejora++;
-            FindTutorialPhaseMejora(_tutorialPhaseMejora);
+            FindTutorialPhaseMejora();
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
@@ -275,11 +302,11 @@ public class TutorialManager : MonoBehaviour
             _isNotificationActive = false;
 
         }
-        else if (_tutorialPhaseBanco != 0)
+        else if (SceneManager.GetActiveScene().name == "Escena_Banco")
         {
             Debug.Log("Funciona Respira");
             _tutorialPhaseBanco++;
-            FindTutorialPhaseBanco(_tutorialPhaseBanco);
+            FindTutorialPhaseBanco();
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
@@ -525,40 +552,123 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
-    private void FindTutorialPhaseBanco(int i)
+    private void FindTutorialPhaseBanco()
     {
-            if (i == 2)
+            if (_tutorialPhaseMejora == 2)
             {
                 _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte todo lo que puedes hacer con tu dinero!";
                 _actualDialogueButtonText = "Continuar";
                 _actualNotificationText = " ";
             }
-            if (i == 3)
+            if (_tutorialPhaseMejora == 3)
             {
                 _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de banco";
                 _tutorialPhaseEscenas++;
-                _tutorialInProgress = false;
             }
-        
+        if (_tutorialPhaseMejora == 4)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Vamos a ingresar dinero! \r\nPero antes hay varias cosas importantes que debes saber ";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+        }
+        if (_tutorialPhaseMejora == 5)
+        {
+            _actualDialogueText = MadameMooColor + " Cuando ingreses dinero, tienes que estar segura de que no lo vas a necesitar \r\nLuego no podrás recuperarlo. \nAdemás nunca podrás ingresar todo tu dinero, siempre debes quedarte al menos con 1000 RootCoins ";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+        }
+        if (_tutorialPhaseMejora == 6)
+        {
+            _actualDialogueText = MadameMooColor + " Pulsa el botón ingresar \r\n Después desliza la barra hasta llegar a la cantidad justa que quieras ingresar";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Ingresa dinero";
+            _actualNotificationTaskText = "[ ] Pulsa ingresar \n[ ] Desliza \n la barra";
+        }
+        if (_tutorialPhaseMejora == 7)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Vamos con la mudanza! Como bien sabes para mudarte a tu deseada casa en la playa necesitas dinero\r\n Con tu dinero del banco, podrás comprar tu nuevo hogar";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+        }
+        if (_tutorialPhaseMejora == 8)
+        {
+            _actualDialogueText = MadameMooColor + " Pulsa el botón mudanza \r\n Después selecciona la casa\n Cuando tengas el suficiente dinero, repite estos pasos y podrás mudarte a tu casa soñada";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Mudanza";
+            _actualNotificationTaskText = "[ ] Pulsa mudanza \n[ ] Pulsa la casa";
+        }
+        if (_tutorialPhaseMejora == 9)
+        {
+            _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? \rRecuerda: no todo es tumbarse al sol… alguien tiene que clavar la sombrilla.. ¡Muuucha suerte ahí fuera!";
+            _actualDialogueButtonText = "Cerrar";
+            _actualNotificationText = " ";
+            _tutorialInProgress = false;
+        }
+
+
     }
-    private void FindTutorialPhaseMejora(int i)
+    private void FindTutorialPhaseMejora()
     {
-        if (i == 2)
+        if (_tutorialPhaseMejora == 2)
         {
             _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte a mejorar tus herramientas y tu huerto!";
             _actualDialogueButtonText = "Continuar";
             _actualNotificationText = " ";
         }
-        if (i == 3)
+        if (_tutorialPhaseMejora == 3)
         {
             _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \\r\\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Acercate al \nmostrador";
             _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de mejora";
-            _tutorialPhaseEscenas++;
+        }
+        if (_tutorialPhaseMejora == 4)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Vamos con las ampliaciones! \r\nCon ellas podrás hacer crecer el tamaño de tu huerto y el de tu cosecha! ";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+        }
+        if (_tutorialPhaseMejora == 5)
+        {
+            _actualDialogueText = MadameMooColor + " Pulsa el botón de Ampliar y después selecciona la maceta";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Prueba a \ampliar \ntu huerto";
+            _actualNotificationTaskText = "[ ] Pulsa Ampliar\n[ ] Pulsa la maceta";
+        }
+        if (_tutorialPhaseMejora == 6)
+        {
+            _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta ampliación \r\n¡Mientras tanto toca trabajar duro Connie!";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+        }
+        if (_tutorialPhaseMejora == 7)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Vamos con las mejoras! \r\nCon ellas podrás ampliar la capacidad de tu regadera. ¡Al final vas a ser un pozo con patas (risa)!";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+        }
+        if (_tutorialPhaseMejora == 8)
+        {
+            _actualDialogueText = MadameMooColor + " Pulsa el botón de Mejorar y después selecciona la regadera";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Prueba a \nmejorar \ntu regadera";
+            _actualNotificationTaskText = "[ ] Pulsa Mejorar\n[ ] Pulsa la regadera";
+        }
+        if (_tutorialPhaseMejora == 9)
+        {
+            _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta mejora ¡Mientras tanto toca hacer viajes al pozo!";
+            _actualDialogueButtonText = "Continuar";
+            _actualNotificationText = "";
+
+        }
+        if (_tutorialPhaseMejora == 10)
+        {
+            _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? \rRecuerda: no esperes cosechar aguacates si solo siembras excusas. ¡Muuucha suerte ahí fuera!";
+            _actualDialogueButtonText = "Cerrar";
+            _actualNotificationText = " ";
             _tutorialInProgress = false;
         }
 
