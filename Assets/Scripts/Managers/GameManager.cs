@@ -180,8 +180,8 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        //if (!Build)
-        //{
+        if (!Build)
+        {
             if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
             {
                 InventoryManager.ModifyInventory(Items.Corn, 1);
@@ -190,7 +190,12 @@ public class GameManager : MonoBehaviour
             {
                 InventoryManager.ModifyInventory(Items.CornSeed, 1);
             }
-       // }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TutorialManager.NextDialogue();
+            }
+
+        }
         if (InputManager.Instance.ExitWasPressedThisFrame()) // Menu Pausa
         {
             if (SceneManager.GetActiveScene().name == "Escena_Build")

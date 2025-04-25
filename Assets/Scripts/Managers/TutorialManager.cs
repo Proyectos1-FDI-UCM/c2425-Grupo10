@@ -155,12 +155,12 @@ public class TutorialManager : MonoBehaviour
             _tutorialInProgress = true;
             NextDialogue();
         }
-        if (SceneManager.GetActiveScene().name == "Escena_Venta" && _tutorialPhaseEscenas == 0)
+        if (SceneManager.GetActiveScene().name == "Escena_Venta" && _tutorialPhaseEscenas == 3)
         {
             UIManager.HideNotification("NoTutorial");
             NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
-            _tutorialPhaseEscenas = 3;
+            //_tutorialPhaseEscenas = 3;
             NextDialogue();
         }
         if (SceneManager.GetActiveScene().name == "Escena_Mejora" && _tutorialPhaseMejora == 0)
@@ -389,19 +389,19 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para comprar tu primera semilla.";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = " ";
+            _actualNotificationText = "";
         }
         if (_tutorialPhase == 12)
         {
             _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más, para añadir unas pocas semillas";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = " ";
+            _actualNotificationText = "";
         }
         if (_tutorialPhase == 13)
         {
             _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora)";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = " ";
+            _actualNotificationText = "";
         }
         if (_tutorialPhase == 14) // Huerto
         {
@@ -456,19 +456,19 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para vender tu primera cultivo.";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = " ";
+            _actualNotificationText = "";
         }
         if (_tutorialPhase == 22)
         {
             _actualDialogueText = MadameMooColor + " ¿Tienes más lechugas que vender?.\r\nPulsa el botón de más, para añadir más";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = " ";
+            _actualNotificationText = "";
         }
         if (_tutorialPhase == 23)
         {
             _actualDialogueText = MadameMooColor + " Con todo listo es hora de ver cuanto nos dan por tu primera cosecha.\r\nPulsa el botón de vender, y verás que sembrar te traerá algo más que plantas";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = " ";
+            _actualNotificationText = "";
         }
 
             if (_tutorialPhase == 24)
