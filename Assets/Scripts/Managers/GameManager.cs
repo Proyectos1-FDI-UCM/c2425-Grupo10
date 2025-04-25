@@ -199,7 +199,6 @@ public class GameManager : MonoBehaviour
                 SaveTime();
             }
             
-            ChangeScene(8);
             //Application.Quit();
             // 
         }

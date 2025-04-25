@@ -76,6 +76,16 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private NotificationManager NotificationManager;
 
+    /// <summary>
+    /// Boton de menu de pausa
+    /// </summary>
+    [SerializeField] private Button PauseMenuButton;
+
+    /// <summary>
+    /// Menu de pausa
+    /// </summary>
+    [SerializeField] private GameObject PauseMenu;
+
 
     [Header("UI de TUTORIAL")]
     ///<summary>
@@ -505,6 +515,11 @@ public class UIManager : MonoBehaviour
     /// Cual es la notificacion del tutorial
     /// </summary>
     [SerializeField] private int _tutorialNotificationID = 0;
+    /// <summary>
+    /// Booleano para saber si el menú de pausa está mostrado
+    /// </summary>
+    private bool _isPauseMenuActive = false;
+
 
     #endregion
 
@@ -514,7 +529,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         InitializeReferences();
-
+        
         
 
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -546,6 +561,19 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
+        if (InputManager.Instance.ExitWasPressedThisFrame())
+        {
+            _isPauseMenuActive= !_isPauseMenuActive;
+        }
+
+        if (_isPauseMenuActive)
+        {
+            ShowPauseMenu();
+        }
+        else if (!_isPauseMenuActive)
+        {
+            HidePauseMenu();
+        }
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // La subida/Bajada del inventario se activa con el TAB.
@@ -851,6 +879,43 @@ public class UIManager : MonoBehaviour
         Map.SetActive(false);
         _isMapVisible = false;
         PlayerMovement.EnablePlayerMovement();
+    }
+    ///<summary>
+    ///Metodo para mostrar el menu de pausa
+    /// </summary>
+    public void ShowPauseMenu()
+    {
+        PauseMenu.SetActive(true);
+        PlayerMovement.DisablePlayerMovement();
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
+        {
+            HideMap();
+            if (_isInventoryVisible)
+            {
+                ToggleInventory();
+            }
+        }
+        else
+        {
+            DisableInterfaz();
+        }
+
+    }
+    ///<summary>
+    ///Metodo para esconder el menu de pausa 
+    /// </summary>
+    public void HidePauseMenu()
+    {
+        PauseMenu.SetActive(false);
+        PlayerMovement.EnablePlayerMovement();   
+    }
+
+    /// <summary>
+    /// Metodo para cambiar el valor del booleano del menu de pausa
+    /// </summary>
+    public void ButtonPauseMenuPressed()
+    {
+        _isPauseMenuActive = !_isPauseMenuActive;
     }
     #endregion
 
