@@ -97,6 +97,10 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     private bool WeedTutorial = false;
 
+    private bool doneWeed = false;
+    private bool donePlant = false;
+    private bool done = false;
+
     /// <summary>
     /// Int que controla las tareas hechas de la fase 15 del tutorial
     /// </summary>
@@ -254,7 +258,6 @@ public class GardenManager : MonoBehaviour
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
 
-                    bool done = false;
                     if (TutorialManager.GetTutorialPhase() == 19 && !done)
                     {
                         TutorialManager.CheckBox(0);
@@ -291,18 +294,19 @@ public class GardenManager : MonoBehaviour
                 GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
 
-                bool doneWeed = false;
                 if (TutorialManager.GetTutorialPhase() == 19 && Plant.State == -6 && !doneWeed)
                 {
                     TutorialManager.CheckBox(2);
                     _tutorialList++;
+                    doneWeed = true;
                 }
 
-                bool donePlant = false;
-                if (TutorialManager.GetTutorialPhase() == 19 && Plant.State < -6 && !donePlant)
+                else if (TutorialManager.GetTutorialPhase() == 19 && Plant.State > -6 && !donePlant)
                 {
-                    TutorialManager.CheckBox(2);
+                    Debug.Log("FUNCIONAAAAA");
+                    TutorialManager.CheckBox(1);
                     _tutorialList++;
+                    donePlant = true;
                 }
             }
 
