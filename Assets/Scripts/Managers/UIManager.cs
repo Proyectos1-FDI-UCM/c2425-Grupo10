@@ -754,17 +754,9 @@ public class UIManager : MonoBehaviour
             {
                 Notification2Counter.SetActive(true);
                 Notification2CounterText.text = counterText;
-                for (int i = 0; i < CheckBox.Length; i++)
-                {
-                    if (NotificationManager.GetCheckActive(i + 1)) // Verifica si el check está activo
-                    {
-                        CheckBox[i].SetActive(true);
-                    }
-                    else
-                    {
-                        CheckBox[i].SetActive(false);
-                    }
-                }
+                if (check1 == 1) CheckBox[0].SetActive(true);
+                    if (check2 == 1) CheckBox[1].SetActive(true);
+                if (check3 == 1) CheckBox[2].SetActive(true);
             }
             else
             {
