@@ -1937,7 +1937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4986598c6c7948c4aa631333aab53149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoneyCount: 100
+  MoneyCount: 200000
   CornSeedPrice: 50
   CarrotSeedPrice: 20
   LettuceSeedPrice: 15
@@ -1946,8 +1946,8 @@ MonoBehaviour:
   CarrotPlantPrice: 65
   LettucePlantPrice: 20
   StrawberryPlantPrice: 40
-  WateringCanUpgradePrices: 010000000100000001000000
-  GardenUpgradePrices: 0100000001000000010000000100000001000000
+  WateringCanUpgradePrices: e80300008813000010270000
+  GardenUpgradePrices: 8813000010270000983a0000204e000030750000
   GameManager: {fileID: 1967186901}
   UIManager: {fileID: 0}
 --- !u!114 &1967186901 stripped
@@ -1980,6 +1980,9 @@ MonoBehaviour:
   NotificationManager: {fileID: 0}
   _tutorialPhase: 0
   _tutorialPhaseEscenas: 0
+  _tutorialPhaseMejora: 0
+  _tutorialPhaseBanco: 0
+  _actualDialogueText: 
 --- !u!114 &1967186905
 MonoBehaviour:
   m_ObjectHideFlags: 0

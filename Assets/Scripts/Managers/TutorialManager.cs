@@ -273,7 +273,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     public void NextDialogue()
     {
-        if (!_tutorialInProgress)
+        if (!_tutorialInProgress && SceneManager.GetActiveScene().name != "Escena_Banco")
         {
             //UIManager.HideMap();
             _tutorialPhase++;
@@ -541,12 +541,12 @@ public class TutorialManager : MonoBehaviour
     }
     private void FindTutorialPhaseBanco()
     {
-            if (_tutorialPhaseMejora == 2)
+            if (_tutorialPhaseBanco == 2)
             {
                 _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Encantada de encontrarnos de nuevo.\r\nAhora voy a enseñarte todo lo que puedes hacer con tu dinero!";
                 _actualDialogueButtonText = "Continuar";
             }
-            if (_tutorialPhaseMejora == 3)
+            if (_tutorialPhaseBanco == 3)
             {
                 _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
@@ -554,37 +554,37 @@ public class TutorialManager : MonoBehaviour
                 _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de banco";
                 _tutorialPhaseEscenas++;
             }
-        if (_tutorialPhaseMejora == 4)
+        if (_tutorialPhaseBanco == 4)
         {
             _actualDialogueText = MadameMooColor + " ¡Vamos a ingresar dinero! \r\nPero antes hay varias cosas importantes que debes saber ";
             _actualDialogueButtonText = "Continuar";
             _actualNotificationText = "";
         }
-        if (_tutorialPhaseMejora == 5)
+        if (_tutorialPhaseBanco == 5)
         {
             _actualDialogueText = MadameMooColor + " Cuando ingreses dinero, tienes que estar segura de que no lo vas a necesitar \r\nLuego no podrás recuperarlo. \nAdemás nunca podrás ingresar todo tu dinero, siempre debes quedarte al menos con 1000 RootCoins ";
             _actualDialogueButtonText = "Continuar";
         }
-        if (_tutorialPhaseMejora == 6)
+        if (_tutorialPhaseBanco == 6)
         {
             _actualDialogueText = MadameMooColor + " Pulsa el botón ingresar \r\n Después desliza la barra hasta llegar a la cantidad justa que quieras ingresar";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Ingresa dinero";
             _actualNotificationTaskText = "[ ] Pulsa ingresar \n[ ] Desliza \n la barra";
         }
-        if (_tutorialPhaseMejora == 7)
+        if (_tutorialPhaseBanco == 7)
         {
             _actualDialogueText = MadameMooColor + " ¡Vamos con la mudanza! Como bien sabes para mudarte a tu deseada casa en la playa necesitas dinero\r\n Con tu dinero del banco, podrás comprar tu nuevo hogar";
             _actualDialogueButtonText = "Continuar";
         }
-        if (_tutorialPhaseMejora == 8)
+        if (_tutorialPhaseBanco == 8)
         {
             _actualDialogueText = MadameMooColor + " Pulsa el botón mudanza \r\n Después selecciona la casa\n Cuando tengas el suficiente dinero, repite estos pasos y podrás mudarte a tu casa soñada";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Mudanza";
             _actualNotificationTaskText = "[ ] Pulsa mudanza \n[ ] Pulsa la casa";
         }
-        if (_tutorialPhaseMejora == 9)
+        if (_tutorialPhaseBanco == 9)
         {
             _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? \rRecuerda: no todo es tumbarse al sol… alguien tiene que clavar la sombrilla.. ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
