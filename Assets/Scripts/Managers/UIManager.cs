@@ -292,7 +292,11 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
-    [SerializeField] private GameObject BuyUpgradeButton;
+    [SerializeField] private GameObject BuyUpgradeObj;
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
+    /// </summary>
+    [SerializeField] private Button BuyUpgradeButton;
 
     /// <summary>
     /// Contador de mejoras/ampliaciones compradas
@@ -324,8 +328,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     ///Botón de vender
     /// </summary>
-    [SerializeField] private GameObject SellButton;
+    [SerializeField] private GameObject SellObj;
 
+    /// <summary>
+    ///Botón de vender
+    /// </summary>
+    [SerializeField] private Button SellButton;
     /// <summary>
     /// Botón para sumar 1 cultivo para vender
     /// </summary>
@@ -361,8 +369,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
-    [SerializeField] private GameObject BuySeedsButton;
+    [SerializeField] private GameObject BuySeedsObj;
 
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
+    /// </summary>
+    [SerializeField] private Button BuySeedsButton;
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
@@ -1022,7 +1034,7 @@ public class UIManager : MonoBehaviour
             ExtendButton.Select();
             WateringCanButton.SetActive(_isUpgradeSelected);
             GardenButton.SetActive(_isExtendSelected);
-            BuyUpgradeButton.SetActive(_isSomethingSelected);
+            BuyUpgradeObj.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
             AmountOfUpgradesText.text = "";
         }
@@ -1030,7 +1042,7 @@ public class UIManager : MonoBehaviour
         {
             LettuceButton.Select();
 
-            SellButton.SetActive(_isSomethingSelected);
+            SellObj.SetActive(_isSomethingSelected);
             PlusButton.SetActive(_isSomethingSelected);
             MinusButton.SetActive(_isSomethingSelected);
 
@@ -1043,7 +1055,7 @@ public class UIManager : MonoBehaviour
         {
             LettuceSeedsButton.Select();
 
-            BuySeedsButton.SetActive(_isSomethingSelected);
+            BuySeedsObj.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
 
@@ -1057,6 +1069,7 @@ public class UIManager : MonoBehaviour
 
     private void EnableInterfaz()
     {
+        GameManager.ShowCursor();
         _uiActive = true;
         UI.SetActive(true);
         NpcMessage.SetActive(false);
@@ -1086,6 +1099,7 @@ public class UIManager : MonoBehaviour
 
     private void DisableInterfaz()
     {
+        GameManager.HideCursor();
         _uiActive = false;
         UI.SetActive(false);
         NpcMessage.SetActive(true);
@@ -1100,7 +1114,7 @@ public class UIManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
-            BuyUpgradeButton.SetActive(false);
+            BuyUpgradeObj.SetActive(false);
             WateringCanButton.SetActive(false);
             GardenButton.SetActive(false);
             DescriptionText.text = "";
@@ -1108,7 +1122,7 @@ public class UIManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            SellButton.SetActive(_isSomethingSelected);
+            SellObj.SetActive(_isSomethingSelected);
             PlusButton.SetActive(_isSomethingSelected);
             MinusButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
@@ -1117,7 +1131,7 @@ public class UIManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-            BuySeedsButton.SetActive(_isSomethingSelected);
+            BuySeedsObj.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
@@ -1383,7 +1397,7 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
         _isCornSelected = true;
         _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
-
+        SellButton.Select();
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         _cost = 90;
         ActualizarTextoCantidad();
@@ -1400,6 +1414,7 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
         _isLettuceSelected = true;
         _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
+        SellButton.Select();
 
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         _cost = 20;
@@ -1424,7 +1439,8 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
         _isCarrotSelected = true;
         _isLettuceSelected = _isCornSelected = _isStrawberriesSelected = false;
-        
+        SellButton.Select();
+
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         _cost = 65;
         ActualizarTextoCantidad();
@@ -1441,7 +1457,8 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
         _isStrawberriesSelected = true;
         _isLettuceSelected = _isCarrotSelected = _isCornSelected = false;
-        
+        SellButton.Select();
+
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         ActualizarTextoCantidad();
         _cost = 40;
@@ -1601,12 +1618,12 @@ public class UIManager : MonoBehaviour
         if (actual >= max)
         {
             DescriptionText.text = "No tienes cultivos para vender.";
-            SellButton.SetActive(true);
+            SellObj.SetActive(true);
         }
         else
         {
             DescriptionText.text = "TOTAL: " + actual * coste + "RC";
-            SellButton.SetActive(true);
+            SellObj.SetActive(true);
             //ContadorTexto.text = actual + "/" + max;
             Counter.text = actual + "/" + max;
 
@@ -1636,6 +1653,7 @@ public class UIManager : MonoBehaviour
         _isSomethingSelected = true;
         _isCornSelected = true;
         _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
+        BuySeedsButton.Select();
 
         _amountBuying = 1;
         if (_amountBuying <= 1)
@@ -1655,6 +1673,7 @@ public class UIManager : MonoBehaviour
 
     public void ButtonLettuceSeedPressed()
     {
+        BuySeedsButton.Select();
         _isSomethingSelected = true;
         _isLettuceSelected = true;
         _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
@@ -1683,6 +1702,7 @@ public class UIManager : MonoBehaviour
 
     public void ButtonCarrotSeedPressed()
     {
+        BuySeedsButton.Select();
         _isSomethingSelected = true;
         _isCarrotSelected = true;
         _isCornSelected = _isLettuceSelected = _isStrawberriesSelected = false;
@@ -1705,6 +1725,7 @@ public class UIManager : MonoBehaviour
 
     public void ButtonStrawberriesSeedPressed()
     {
+        BuySeedsButton.Select();
         _isSomethingSelected = true;
         _isStrawberriesSelected = true;
         _isCornSelected = _isLettuceSelected = _isCarrotSelected = false;
@@ -1997,12 +2018,12 @@ public class UIManager : MonoBehaviour
         if (actualUpgrades >= maxUpgrades)
         {
             DescriptionText.text = "Ya no quedan más mejoras.";
-            BuyUpgradeButton.SetActive(false);
+            BuyUpgradeObj.SetActive(false);
         }
         else
         {
             DescriptionText.text = text;
-            BuyUpgradeButton.SetActive(true);
+            BuyUpgradeObj.SetActive(true);
         }
         AmountOfUpgradesText.text = actualUpgrades + "/" + maxUpgrades;
     }

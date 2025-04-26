@@ -266,27 +266,7 @@ public class PlayerMovement : MonoBehaviour
         UIManager.UpdateEnergyBar(_currentEnergy, maxEnergy);
     }
 
-    /// <summary>
-    /// Normaliza la entrada de movimiento: aplica un umbral para convertir la entrada en -1, 0 o 1.
-    /// </summary>
-    private Vector2 NormalizeInput(Vector2 input)
-    {
-        
-            float threshold = 0.2f;
-            float absX = Mathf.Abs(input.x);
-            float absY = Mathf.Abs(input.y);
-
-            // Si ambos son menores al threshold → quedarse quieto
-            if (absX < threshold && absY < threshold)
-                return Vector2.zero;
-
-            // Determinar dirección dominante
-            if (absX > absY)
-                return new Vector2(Mathf.Sign(input.x), 0f); // Horizontal
-            else
-                return new Vector2(0f, Mathf.Sign(input.y)); // Vertical
-        
-    }
+    
 
     private Vector2 RoundToCardinal(Vector2 dir)
     {
