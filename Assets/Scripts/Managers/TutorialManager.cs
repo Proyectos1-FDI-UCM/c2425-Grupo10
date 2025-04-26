@@ -437,16 +437,25 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para comprar tu primera semilla.";
             _actualDialogueButtonText = "Probar";
+
+            _actualNotificationText = "Mi primera \ncompra";
+            _actualNotificationTaskText = "[ ] Pulsa la\r\nlechuga";
+
         }
         if (_tutorialPhase == 12)
         {
             _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más, para añadir unas pocas semillas";
             _actualDialogueButtonText = "Probar";
+
+            _actualNotificationText = "Mi primera \ncompra";
+            _actualNotificationTaskText = "[ ] Pulsa el\r\nbotón de más";
         }
         if (_tutorialPhase == 13)
         {
             _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora)";
             _actualDialogueButtonText = "Probar";
+            _actualNotificationText = "Mi primera \ncompra";
+            _actualNotificationTaskText = "[ ] Pulsa \r\ncomprar";
         }
         if (_tutorialPhase == 14) // Huerto
         {
