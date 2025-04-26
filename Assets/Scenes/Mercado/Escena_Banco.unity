@@ -1087,12 +1087,14 @@ MonoBehaviour:
   ExtendButtonObj: {fileID: 0}
   WateringCanButton: {fileID: 0}
   GardenButton: {fileID: 0}
+  BuyUpgradeObj: {fileID: 0}
   BuyUpgradeButton: {fileID: 0}
   AmountOfUpgradesText: {fileID: 0}
   CornButton: {fileID: 0}
   LettuceButtonObj: {fileID: 0}
   CarrotButton: {fileID: 0}
   StrawberryButton: {fileID: 0}
+  SellObj: {fileID: 0}
   SellButton: {fileID: 0}
   PlusButton: {fileID: 0}
   MinusButton: {fileID: 0}
@@ -1102,6 +1104,7 @@ MonoBehaviour:
   CarrotText: {fileID: 0}
   StrawberryText: {fileID: 0}
   PriceAmountToBuy: {fileID: 0}
+  BuySeedsObj: {fileID: 0}
   BuySeedsButton: {fileID: 0}
   IncreaseAmountButton: {fileID: 0}
   DecreaseAmountButton: {fileID: 0}
@@ -2887,12 +2890,14 @@ MonoBehaviour:
   ExtendButtonObj: {fileID: 0}
   WateringCanButton: {fileID: 0}
   GardenButton: {fileID: 0}
+  BuyUpgradeObj: {fileID: 0}
   BuyUpgradeButton: {fileID: 0}
   AmountOfUpgradesText: {fileID: 0}
   CornButton: {fileID: 0}
   LettuceButtonObj: {fileID: 0}
   CarrotButton: {fileID: 0}
   StrawberryButton: {fileID: 0}
+  SellObj: {fileID: 0}
   SellButton: {fileID: 0}
   PlusButton: {fileID: 0}
   MinusButton: {fileID: 0}
@@ -2902,6 +2907,7 @@ MonoBehaviour:
   CarrotText: {fileID: 0}
   StrawberryText: {fileID: 0}
   PriceAmountToBuy: {fileID: 0}
+  BuySeedsObj: {fileID: 0}
   BuySeedsButton: {fileID: 0}
   IncreaseAmountButton: {fileID: 0}
   DecreaseAmountButton: {fileID: 0}
@@ -5972,9 +5978,9 @@ SpriteRenderer:
   m_SortingLayerID: 571459705
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1896550824, guid: 11b3198dff5d5ad4a9f275f6a1ebc2f8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6f569fa01b62c54a8e85385ddec6075, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
+  m_FlipX: 1
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -5992,8 +5998,8 @@ Transform:
   m_GameObject: {fileID: 611261882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.37, y: -9.87, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -10.315, y: -9.674, z: 0}
+  m_LocalScale: {x: 6, y: 6.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 399323413}
@@ -22766,8 +22772,8 @@ Transform:
   m_GameObject: {fileID: 996543211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.31, y: -9.87, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.301, y: -9.69, z: 0}
+  m_LocalScale: {x: 6, y: 6.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 275213579}
@@ -22814,7 +22820,7 @@ SpriteRenderer:
   m_SortingLayerID: 571459705
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1896550824, guid: 11b3198dff5d5ad4a9f275f6a1ebc2f8, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64cc132f04659814d8a6ea5a98d58c89, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -23577,8 +23583,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -81.037994, y: 23.100002}
-  m_SizeDelta: {x: 202.806, y: 241.4318}
+  m_AnchoredPosition: {x: -90.51999, y: 6.4}
+  m_SizeDelta: {x: 122.8948, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168054659
 MonoBehaviour:
@@ -23600,7 +23606,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -800315950, guid: 10c9acbc25637a84c97c457fe1f9065c, type: 3}
+  m_Sprite: {fileID: -458665397, guid: bc513aedb048ecf4ca9199ae539f0145, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
