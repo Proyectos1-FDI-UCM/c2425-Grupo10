@@ -1309,11 +1309,14 @@ MonoBehaviour:
 
 
     []
-    Dinero inicial especifico para esta prueba.
+    Dinero inicial aumentado para esta prueba.
 
 
-    [] Tiempos de crecimiento especificos
-    para esta prueba.'
+    [] Tiempos de crecimiento disminuidos
+    para esta prueba.
+
+
+    [] Velocidad aumentada para esta pruebas.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
@@ -1997,6 +2000,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIManager: {fileID: 0}
   SoundManager: {fileID: 0}
+  _isNotificationCreated: 0
+  _check1: 0
+  _check2: 0
+  _check3: 0
+  _intCheck1: 0
+  _intCheck2: 0
+  _intCheck3: 0
 --- !u!1001 &1064466768653621601
 PrefabInstance:
   m_ObjectHideFlags: 0

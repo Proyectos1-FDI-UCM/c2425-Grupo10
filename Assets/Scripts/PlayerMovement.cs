@@ -169,7 +169,6 @@ public class PlayerMovement : MonoBehaviour
             }
 
             _playerAnimator.SetFloat("Speed", _moveInput.sqrMagnitude);
-            UpdateEnergy();
         }
         else
         {
@@ -179,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
             _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
             _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
         }
-
+        UpdateEnergy();
     }
 
     #endregion
