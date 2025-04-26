@@ -122,7 +122,7 @@ public class CambiarEscena : MonoBehaviour
             {
                 if (sceneName == "Escena_Compra")
                 {
-                    if (TutorialManager.GetTutorialPhase() >= 8)
+                    if (TutorialManager.GetTutorialPhase() >= 1)
                     {
                         _sceneTransition.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);

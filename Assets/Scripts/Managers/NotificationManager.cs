@@ -63,19 +63,33 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     private string _tutorialNotificationCounterText = "";
     ///<summary>
-    ///Texto del contador notificacion tutorail
+    ///int para saber si el check1 esta activo
     /// </summary>
-    private int _tutorialNotificationCheck;
+    private int _tutorialNotificationCheck1;
+
+    ///<summary>
+    ///int para saber si el check2 esta activo
+    /// </summary>
+    private int _tutorialNotificationCheck2;
+
+    ///<summary>
+    ///int para saber si el check3 esta activo
+    /// </summary>
+    private int _tutorialNotificationCheck3;
 
     ///<summary>
     ///Booleanos para saber si debe haber notificacion de ese tipo activa
     /// </summary>
-    private bool _isNotificationCreated = false;
+    [SerializeField]private bool _isNotificationCreated = false;
     private bool _isTutorialNotificationCreated = false;
 
-    private bool _check0 = false;
-    private bool _check1 = false;
-    private bool _check2 = false;
+    [SerializeField]  private bool _check1 = false;
+    [SerializeField] private bool _check2 = false;
+    [SerializeField] private bool _check3 = false;
+
+    [SerializeField] private int _intCheck1 = 0;
+    [SerializeField] private int _intCheck2 = 0;
+    [SerializeField] private int _intCheck3 = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -114,14 +128,25 @@ public class NotificationManager : MonoBehaviour
     ///<summary>
     ///Metodo para guardar la notificacion
     /// </summary>
-    public void SaveNotification(string text, string counterText, string source, int check=0)
+    public void SaveNotification(string text, string counterText, string source, int check1 = 0, int check2 = 0, int check3 = 0)
     {
         if (source == "Tutorial")
         {
             _isTutorialNotificationCreated = true;
             _tutorialNotificationText = text;
             _tutorialNotificationCounterText = counterText;
-            _tutorialNotificationCheck = 0;
+            if (check1 == 1)
+            {
+                _check1 = true;
+            }
+            if (check2 == 1)
+            {
+                _check2 = true;
+            }
+            if(check3 == 1)
+            {
+                _check3 = true;
+            }
 
         }
         else if (source == "NoTutorial")
@@ -137,7 +162,21 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     public void EditNotification(int check)
     {
-        _tutorialNotificationCheck = check;
+        Debug.Log("Noti Mod check" + check);
+
+        if (check == 0)
+        {
+            _check1 = true;
+        }
+        else if (check == 1)
+        {
+            _check2 = true;
+        }
+        else if (check == 2)
+        {
+            _check3 = true;
+        }
+
     }
 
     ///<summary>
@@ -147,9 +186,20 @@ public class NotificationManager : MonoBehaviour
     {
         if (source == "Tutorial" && _isTutorialNotificationCreated)
         {
-            
-            UIManager.ShowNotification(_tutorialNotificationText, _tutorialNotificationCounterText, 2,"Tutorial");
+            if (_check1) _intCheck1 = 1;
+            if (_check2) _intCheck2 = 1;
+            if (_check3) _intCheck3 = 1;
+
+            UIManager.ShowNotification(_tutorialNotificationText, _tutorialNotificationCounterText, 2, "Tutorial", _intCheck1, _intCheck2, _intCheck3);
             SoundManager.NextButtonSound();
+
+            // Reseteo de checks para que no queden marcados al recargar
+            _check1 = false;
+            _check2 = false;
+            _check3 = false;
+            _intCheck1 = 0;
+            _intCheck2 = 0;
+            _intCheck3 = 0;
         }
         else if (source == "NoTutorial" && _isNotificationCreated)
         {
@@ -168,6 +218,12 @@ public class NotificationManager : MonoBehaviour
             _tutorialNotificationText = "";
             _tutorialNotificationCounterText = "";
             _isTutorialNotificationCreated &= false;
+            _check1 = false;
+            _check2 = false;
+            _check3 = false;
+            _intCheck1 = 0;
+            _intCheck2 = 0; 
+            _intCheck3 = 0;
         }
         else if (source == "NoTutorial" && _isNotificationCreated)
         {
@@ -184,6 +240,22 @@ public class NotificationManager : MonoBehaviour
         SoundManager = FindObjectOfType<SoundManager>();
     }
 
+    public bool GetCheckActive(int i)
+    {
+        if (i == 0)
+        {
+            return _check1;
+        }
+        else if (i == 1)
+        {
+            return _check2;
+        }
+        else if (i == 2)
+        {
+            return _check3;
+        }
+        return false;
+    }
     ///<summary>
     ///Metodo para inicializar el uimanager
     /// </summary>

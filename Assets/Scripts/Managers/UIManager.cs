@@ -680,6 +680,13 @@ public class UIManager : MonoBehaviour
             Block2.SetActive(true);
             Block3.SetActive(true);
         }
+        for (int i = 0; i < CheckBox.Length; i++) 
+        {
+            if (CheckBox[i].activeSelf)
+            {
+                NotificationManager.EditNotification(i);
+            }
+        }
     }
     #endregion
 
@@ -717,7 +724,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Método para mostrar una notificación
     /// </summary>
-    public void ShowNotification(string text, string counterText, int notificationID, string source, int check=0)
+    public void ShowNotification(string text, string counterText, int notificationID, string source, int check1 = 0, int check2 = 0, int check3 = 0)
     {
         GameObject notif = null;
         TMP_Text notifText = null;
@@ -747,16 +754,21 @@ public class UIManager : MonoBehaviour
             {
                 Notification2Counter.SetActive(true);
                 Notification2CounterText.text = counterText;
+                for (int i = 0; i < CheckBox.Length; i++)
+                {
+                    if (NotificationManager.GetCheckActive(i + 1)) // Verifica si el check está activo
+                    {
+                        CheckBox[i].SetActive(true);
+                    }
+                    else
+                    {
+                        CheckBox[i].SetActive(false);
+                    }
+                }
             }
             else
             {
                 Notification2Counter.SetActive(false);
-            }
-
-            for (int i = 0; i < CheckBox.Length; i++) 
-            { 
-                if (i < check) CheckBox[i].SetActive(true); 
-                else CheckBox[i].SetActive(false);
             }
 
             _isTutorialNotification = true;
@@ -808,8 +820,12 @@ public class UIManager : MonoBehaviour
         {
             Notification2.SetActive(false);
             Notification2Counter.SetActive(false);
-
             _isTutorialNotification = false;
+            for (int i = 0; i < CheckBox.Length; i++)
+            {
+                CheckBox[i].SetActive(false);                
+            }
+            NotificationManager.DestroyNotification(source);
         }
         else if (source == "NoTutorial" && _isOtherNotification)
         {
