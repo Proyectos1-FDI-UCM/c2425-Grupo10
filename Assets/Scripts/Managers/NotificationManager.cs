@@ -65,7 +65,7 @@ public class NotificationManager : MonoBehaviour
     ///<summary>
     ///Texto del contador notificacion tutorail
     /// </summary>
-    private int _tutorialNotificationCheck;
+    private int[] _tutorialNotificationCheck = {0,0,0};
 
     ///<summary>
     ///Booleanos para saber si debe haber notificacion de ese tipo activa
@@ -114,14 +114,15 @@ public class NotificationManager : MonoBehaviour
     ///<summary>
     ///Metodo para guardar la notificacion
     /// </summary>
-    public void SaveNotification(string text, string counterText, string source, int check=0)
+    public void SaveNotification(string text, string counterText, string source)
     {
         if (source == "Tutorial")
         {
             _isTutorialNotificationCreated = true;
             _tutorialNotificationText = text;
             _tutorialNotificationCounterText = counterText;
-            _tutorialNotificationCheck = 0;
+            for(int i = 0; i < _tutorialNotificationCheck.Length; i++)_tutorialNotificationCheck[i] = 0;
+
 
         }
         else if (source == "NoTutorial")
@@ -137,7 +138,9 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     public void EditNotification(int check)
     {
-        _tutorialNotificationCheck = check;
+
+        _tutorialNotificationCheck[check] = 1;
+        Debug.Log("Notification saved");
     }
 
     ///<summary>

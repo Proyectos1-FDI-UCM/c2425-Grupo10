@@ -334,6 +334,7 @@ public class TutorialManager : MonoBehaviour
     public void CheckBox(int checkbox)
     {
         UIManager.Check(checkbox);
+        NotificationManager.EditNotification(checkbox++);
     }
 
     public void ModifyNotification (string text, string task)
@@ -586,7 +587,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseBanco == 9)
         {
-            _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? \rRecuerda: no todo es tumbarse al sol… alguien tiene que clavar la sombrilla.. ¡Muuucha suerte ahí fuera!";
+            _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? Recuerda: no todo es tumbarse al sol… alguien tiene que clavar la sombrilla.. ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
             _actualNotificationText = " ";
             _tutorialInProgress = false;
