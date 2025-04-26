@@ -303,6 +303,7 @@ public class GardenManager : MonoBehaviour
 
                 else if (TutorialManager.GetTutorialPhase() == 19 && Plant.State > -6 && !donePlant)
                 {
+                    Debug.Log("FUNCIONAAAAA");
                     TutorialManager.CheckBox(1);
                     _tutorialList++;
                     donePlant = true;

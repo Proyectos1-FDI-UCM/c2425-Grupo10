@@ -633,9 +633,7 @@ public class UIManager : MonoBehaviour
         //}
         if (_isDepositSelected)
         {
-
             AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
-
         }
         if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
         {
@@ -1208,10 +1206,6 @@ public class UIManager : MonoBehaviour
         _isMovingSelected = false;
         _isBeachHouseSelected = false;
         UpdateUI();
-        if (TutorialManager.GetTutorialPhaseBanco() == 6 )
-        {
-            Check(0);
-        }
     }
 
     /// <summary>
@@ -1224,7 +1218,7 @@ public class UIManager : MonoBehaviour
         _isBeachHouseSelected = false;
         UpdateUI();
 
-        if (TutorialManager.GetTutorialPhaseBanco() == 8)
+        if (TutorialManager.GetTutorialPhaseBanco() == 6)
         {
             Check(0);
 
@@ -1239,9 +1233,9 @@ public class UIManager : MonoBehaviour
         _isBeachHouseSelected = true;
         DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 100.000 RootCoins!.";
         MoveButton.SetActive(true);
-        if (TutorialManager.GetTutorialPhaseBanco() == 8) // Verifica si ha pulsado el botón + de venta
+        if (TutorialManager.GetTutorialPhaseBanco() == 9) // Verifica si ha pulsado el botón + de venta
         {
-            Check(2);
+            Check(1);
             Invoke("NextDialogue", 0.6f);
 
         }
@@ -1267,6 +1261,11 @@ public class UIManager : MonoBehaviour
             Debug.Log("No tienes suficiente dinero para mudarte.");
 
         }
+        if (TutorialManager.GetTutorialPhaseBanco() == 9) // Verifica si ha pulsado el botón + de venta
+        {
+            Check(0);
+
+        }
     }
 
     /// <summary>
@@ -1282,12 +1281,6 @@ public class UIManager : MonoBehaviour
             UpdateSlider();
             AmountMoneyToDeposit.value = 0;
         }
-        if (TutorialManager.GetTutorialPhaseBanco() == 6) // Verifica si ha pulsado el botón + de venta
-        {
-            Check(2);
-            Invoke("NextDialogue", 0.6f);
-
-        }
     }
 
     /// <summary>
@@ -1299,6 +1292,7 @@ public class UIManager : MonoBehaviour
         AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
         AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
         AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
+
     }
     #endregion
 
