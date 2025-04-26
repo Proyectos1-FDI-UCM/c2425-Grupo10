@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 
@@ -21,12 +22,13 @@ public class SceneTransition : MonoBehaviour
     /// <summary>
     /// Instancia de la clase SceneTransition para asegurar que solo haya una.
     /// </summary>
-    [SerializeField] private SceneTransition Instance;
+    private static SceneTransition Instance;
 
     /// <summary>
     /// SpriteRenderer utilizado para el efecto de desvanecimiento.
     /// </summary>
-    [SerializeField] private SpriteRenderer FadeSprite;
+    [SerializeField] private Image FadeSprite;
+    [SerializeField] private GameObject FadeObject;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -41,7 +43,7 @@ public class SceneTransition : MonoBehaviour
     /// <summary>
     /// Velocidad de degradado.
     /// </summary>
-    private float _fadeSpeed =5f;
+    private float _fadeSpeed =2f;
 
     /// <summary>
     /// Booleanos para saber si se esta degradando para salir de escena o para entrar.
@@ -65,18 +67,25 @@ public class SceneTransition : MonoBehaviour
     /// <summary>
     /// Se llama al comenzar el juego. Inicializa la instancia y asegura que no se destruya al cambiar de escena.
     /// </summary>
-    void Start()
+    void Awake()
     {
+
         if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(FadeObject);
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
+    }
+    private void Start()
+    {
+        //FadeSprite.raycastTarget = false; // Permitir clics a través de la imagen
+        //FadeSprite.color = new Color(0, 0, 0, 0);
+
     }
 
     /// <summary>
@@ -85,6 +94,25 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     void Update()
     {
+        // Aumentar la opacidad (Fade Out)
+        if (_fadingOut)
+        {
+            float alpha = Mathf.MoveTowards(FadeSprite.color.a, 1, _fadeSpeed * Time.deltaTime);
+            FadeSprite.color = new Color(0, 0, 0, alpha);
+            FadeSprite.raycastTarget = true; // Bloquea clics durante el fade out
+
+            if (alpha >= 0.99f)
+            {
+                FadeSprite.color = new Color(0, 0, 0, 1); // Totalmente opaco
+                _fadingOut = false;
+                SceneManager.LoadScene(_sceneToLoad); // Cambiar de escena
+                _fadingIn = true;
+
+
+            }
+        }
+
+        // Después de que la escena se cargue, disminuir la opacidad (Fade In)
         if (_fadingIn)
         {
             float alpha = Mathf.MoveTowards(FadeSprite.color.a, 0, _fadeSpeed * Time.deltaTime);
@@ -92,24 +120,13 @@ public class SceneTransition : MonoBehaviour
 
             if (alpha <= 0.01f)
             {
-                FadeSprite.color = new Color(0, 0, 0, 0);
+                FadeSprite.color = new Color(0, 0, 0, 0); // Totalmente transparente
+                FadeSprite.raycastTarget = false; // Permitir clics a través de la imagen
                 _fadingIn = false;
             }
         }
 
-        if (_fadingOut)
-        {
-            float alpha = Mathf.MoveTowards(FadeSprite.color.a, 1, _fadeSpeed * Time.deltaTime);
-            FadeSprite.color = new Color(0, 0, 0, alpha);
 
-            if (alpha >= 0.99f)
-            {
-                FadeSprite.color = new Color(0, 0, 0, 1);
-                _fadingOut = false;
-                SceneManager.LoadScene(_sceneToLoad);
-                _fadingIn = true; // Iniciar el Fade In en la nueva escena
-            }
-        }
     }
     #endregion
 
@@ -122,7 +139,8 @@ public class SceneTransition : MonoBehaviour
     public void ChangeScene(string sceneName)
     {
         _sceneToLoad = sceneName;
-        _fadingOut = true;
+        _fadingOut = true; // Comienza el fade out
+        FadeSprite.raycastTarget = true; // Bloquear clics durante la transición
     }
     #endregion
 

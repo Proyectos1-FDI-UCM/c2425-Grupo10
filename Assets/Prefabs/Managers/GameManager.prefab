@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3508149303559959704
+--- !u!1 &999510548685471150
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,9 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3639006963915896903}
-  - component: {fileID: 6925631106774318371}
-  - component: {fileID: 2598751330512981393}
+  - component: {fileID: 7219990337915446216}
+  - component: {fileID: 8600601485489430643}
+  - component: {fileID: 6772875118860407773}
+  - component: {fileID: 7169075296061298459}
+  - component: {fileID: 4044256605162452566}
+  - component: {fileID: 8471350740250977019}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -18,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3639006963915896903
+--- !u!4 &7219990337915446216
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3508149303559959704}
+  m_GameObject: {fileID: 999510548685471150}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.458826, y: 0.12971503, z: -0.058967065}
@@ -33,31 +36,105 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6925631106774318371
+--- !u!114 &8600601485489430643
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3508149303559959704}
+  m_GameObject: {fileID: 999510548685471150}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55695a01267fa4264b28ed5ffab61a33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MejorasRegadera: 0
-  MejorasHuerto: 0
-  MejorasInventario: 0
-  ContadorDinero: {fileID: 0}
---- !u!114 &2598751330512981393
+  Build: 1
+  WateringCanUpgrades: 0
+  GardenUpgrades: 0
+  InventoryUpgrades: 0
+  MoneyCount: {fileID: 7169075296061298459}
+  WateringCanManager: {fileID: 0}
+  GardenManager: {fileID: 0}
+  TutorialManager: {fileID: 0}
+  GameManagerPrefab: {fileID: 999510548685471150}
+  _isInCinematic: 0
+--- !u!114 &6772875118860407773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3508149303559959704}
+  m_GameObject: {fileID: 999510548685471150}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c23b75e5bd40a4bb18a055b69393ed67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7169075296061298459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999510548685471150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4986598c6c7948c4aa631333aab53149, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoneyCount: 200000
+  CornSeedPrice: 50
+  CarrotSeedPrice: 20
+  LettuceSeedPrice: 15
+  StrawberrySeedPrice: 30
+  CornPlantPrice: 90
+  CarrotPlantPrice: 65
+  LettucePlantPrice: 20
+  StrawberryPlantPrice: 40
+  WateringCanUpgradePrices: e80300008813000010270000
+  GardenUpgradePrices: 8813000010270000983a0000204e000030750000
+  GameManager: {fileID: 8600601485489430643}
+  UIManager: {fileID: 0}
+--- !u!114 &4044256605162452566
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999510548685471150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c2ccaa5a16bb2247b9d1e2a9e45d750, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameManager: {fileID: 8600601485489430643}
+  PlayerMovement: {fileID: 0}
+  UIManager: {fileID: 0}
+  SoundManager: {fileID: 0}
+  NotificationManager: {fileID: 0}
+  _tutorialPhase: 0
+  _tutorialPhaseEscenas: 0
+  _tutorialPhaseMejora: 0
+  _tutorialPhaseBanco: 0
+  _actualDialogueText: 
+--- !u!114 &8471350740250977019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 999510548685471150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c08c8272d00bee4bac03a0a918e5a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UIManager: {fileID: 0}
+  SoundManager: {fileID: 0}
+  _isNotificationCreated: 0
+  _check1: 0
+  _check2: 0
+  _check3: 0
+  _intCheck1: 0
+  _intCheck2: 0
+  _intCheck3: 0

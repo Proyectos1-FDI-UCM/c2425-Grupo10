@@ -42,18 +42,15 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Numero de mejoras activas de la Regadera.
     /// <summary>
-    [SerializeField] int WateringCanUpgrades = 0;
+    [SerializeField] private int _wateringCanUpgrades = 0;
 
     /// <summary>
     /// Numero de mejoras activas del Huerto.
     /// <summary>
-    [SerializeField] int GardenUpgrades = 0;
+    [SerializeField] private int _gardenUpgrades = 0;
 
-    /// <summary>
-    /// Numero de mejoras activas del Inventory.
-    /// <summary>
-    [SerializeField] int InventoryUpgrades = 0;
 
+    [SerializeField] private int InitialAmountMoney;
     /// <summary>
     /// Referencia al script que maneja el dinero
     /// <summary>
@@ -73,6 +70,10 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
 
+    ///<summary>
+    ///Prefab de GameManager
+    /// </summary>
+    [SerializeField] private GameObject GameManagerPrefab;
 
     #endregion
 
@@ -129,6 +130,11 @@ public class GameManager : MonoBehaviour
     /// Tiempo que ha pasado en la escena principal
     /// </summary>
     private float realTime;
+
+    ///<summary>
+    ///Booleano para saber si es una nueva partida
+    /// </summary>
+    [SerializeField] private bool _newGame = true;
 
     ///<summary>
     ///Booleano para saber si el jugador esta en la cinematica inicial
@@ -307,10 +313,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventory.
     /// <summary>
-    public int GetWateringCanUpgrades() { return WateringCanUpgrades; }
-    public int GetGardenUpgrades() { return GardenUpgrades; }
-    public int GetInventoryUpgrades() { return InventoryUpgrades; }
-
+    public int GetWateringCanUpgrades() { return _wateringCanUpgrades; }
+    public int GetGardenUpgrades() { return _gardenUpgrades; }
+    public bool GetNewGame() { return _newGame; }
     public void SetTimer(Timer timercomponent)
     {
         timer = timercomponent;
@@ -327,23 +332,23 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void UpgradeGarden()
     {
-        if (GardenUpgrades < _maxGardenUpgrades)
+        if (_gardenUpgrades < _maxGardenUpgrades)
         {
-            GardenUpgrades += 1;
+            _gardenUpgrades += 1;
         }
-        if (GardenUpgrades == 1)
+        if (_gardenUpgrades == 1)
         {
             MoneyCount.UpgradeGardenLevel1();
         }
-        else if (GardenUpgrades == 2)
+        else if (_gardenUpgrades == 2)
         {
             MoneyCount.UpgradeGardenLevel2();
         }
-        else if (GardenUpgrades == 3)
+        else if (_gardenUpgrades == 3)
         {
             MoneyCount.UpgradeGardenLevel3();
         }
-        else if (GardenUpgrades == 4)
+        else if (_gardenUpgrades == 4)
         {
             MoneyCount.UpgradeGardenLevel4();
         }
@@ -354,19 +359,19 @@ public class GameManager : MonoBehaviour
     /// <summary>
     public void UpgradeWateringCan()
     {
-        if (WateringCanUpgrades < _maxWateringCanUpgrades)
+        if (_wateringCanUpgrades < _maxWateringCanUpgrades)
         {
-            WateringCanUpgrades += 1;
+            _wateringCanUpgrades += 1;
         }
-        if (WateringCanUpgrades == 1)
+        if (_wateringCanUpgrades == 1)
         {
             MoneyCount.UpgradeWateringCanLevel1();
         }
-        else if (WateringCanUpgrades == 2)
+        else if (_wateringCanUpgrades == 2)
         {
             MoneyCount.UpgradeWateringCanLevel2();
         }
-        else if (WateringCanUpgrades == 3)
+        else if (_wateringCanUpgrades == 3)
         {
             MoneyCount.UpgradeWateringCanLevel3();
         }
@@ -489,16 +494,34 @@ public class GameManager : MonoBehaviour
         MoneyCount = FindObjectOfType<MoneyManager>();
 
     }
-    #endregion
 
-    // ---- MÉTODOS PRIVADOS ----
+    public void NewGame()
+    {
+        _wateringCanUpgrades = 0;
+        _gardenUpgrades = 0;
+        _moneyInvested = 0;
+        _amountWater = 6;
+        _isInCinematic = true;
+        ResetInitialMoney();
+        _newGame = false;
+    }
 
-    #region Métodos Privados
+    
+    public void ResetInitialMoney()
+    {
+        MoneyCount.InitialMoney(InitialAmountMoney);
 
-    /// <summary>
-    /// Dispara la inicialización.
-    /// </summary>
-    private void Init()
+    }
+#endregion
+
+// ---- MÉTODOS PRIVADOS ----
+
+#region Métodos Privados
+
+/// <summary>
+/// Dispara la inicialización.
+/// </summary>
+private void Init()
     {
         // De momento no hay nada que inicializar
     }

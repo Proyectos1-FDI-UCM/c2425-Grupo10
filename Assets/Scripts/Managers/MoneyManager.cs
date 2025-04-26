@@ -185,6 +185,10 @@ public class MoneyManager : MonoBehaviour
         UIManager = FindObjectOfType<UIManager>();
     }
 
+    public void InitialMoney(int amount)
+    {
+        MoneyCount = amount;
+    }
 
     // ---- MÉTODOS PARA COMPRAR SEMILLAS ----
     // Método genérico para comprar semillas
