@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 509514236}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &289810503
@@ -230,8 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d68588176b81fd0468f02752cec4f011, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Instance: {fileID: 0}
   FadeSprite: {fileID: 448902185}
+  FadeObject: {fileID: 0}
 --- !u!212 &448902185
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -805,7 +805,7 @@ PrefabInstance:
     - target: {fileID: 6925631106774318371, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: MoneyCount
       value: 
-      objectReference: {fileID: 1967186899}
+      objectReference: {fileID: 0}
     - target: {fileID: 6925631106774318371, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: GardenManager
       value: 
@@ -813,7 +813,7 @@ PrefabInstance:
     - target: {fileID: 6925631106774318371, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: ContadorDinero
       value: 
-      objectReference: {fileID: 1967186899}
+      objectReference: {fileID: 0}
     - target: {fileID: 6925631106774318371, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: SelectorManager
       value: 
@@ -825,13 +825,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3508149303559959704, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1967186899}
-    - targetCorrespondingSourceObject: {fileID: 3508149303559959704, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1967186904}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
 --- !u!1 &1430918878
 GameObject:
@@ -1141,66 +1135,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1967186898 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3508149303559959704, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
-  m_PrefabInstance: {fileID: 1137635500}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1967186899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967186898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4986598c6c7948c4aa631333aab53149, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MoneyCount: 100
-  CornSeedPrice: 50
-  CarrotSeedPrice: 20
-  LettuceSeedPrice: 15
-  StrawberrySeedPrice: 30
-  CornPlantPrice: 90
-  CarrotPlantPrice: 65
-  LettucePlantPrice: 20
-  StrawberryPlantPrice: 40
-  WateringCanUpgradePrices: e80300008813000010270000
-  GardenUpgradePrices: 8813000010270000983a0000204e000030750000
-  GameManager: {fileID: 1967186901}
-  UIManager: {fileID: 0}
---- !u!114 &1967186901 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6925631106774318371, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
-  m_PrefabInstance: {fileID: 1137635500}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967186898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55695a01267fa4264b28ed5ffab61a33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1967186904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967186898}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c2ccaa5a16bb2247b9d1e2a9e45d750, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GameManager: {fileID: 1967186901}
-  PlayerMovement: {fileID: 0}
-  UIManager: {fileID: 0}
-  SoundManager: {fileID: 0}
-  NotificationManager: {fileID: 0}
-  _tutorialPhase: 0
-  _tutorialPhaseEscenas: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

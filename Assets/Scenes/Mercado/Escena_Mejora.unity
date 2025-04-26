@@ -1680,6 +1680,7 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 446521060}
+  _isMovementEnabled: 0
 --- !u!212 &230413356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2865,6 +2866,17 @@ MonoBehaviour:
   sceneName: Escena_Build
   sound: {fileID: 0}
   _sceneTransition: {fileID: 0}
+--- !u!114 &370124277 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
+  m_PrefabInstance: {fileID: 370124273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370124275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &375966904
 GameObject:
   m_ObjectHideFlags: 0
@@ -3251,6 +3263,7 @@ MonoBehaviour:
   NotificationManager: {fileID: 0}
   PauseMenuButton: {fileID: 678881853}
   PauseMenu: {fileID: 1262132440}
+  ContinueButton: {fileID: 370124277}
   TutorialUI: {fileID: 94485000}
   TutorialText: {fileID: 632937290}
   ButtonTutorialText: {fileID: 1242360695}
@@ -3286,17 +3299,20 @@ MonoBehaviour:
   AmountToDepositText: {fileID: 0}
   AmountDepositedText: {fileID: 0}
   AmountDepositedTitleText: {fileID: 0}
-  Block1: {fileID: 0}
-  Block2: {fileID: 0}
-  Block3: {fileID: 0}
+  BlockMarketSeeds: []
+  BlockMarketPlants: []
+  LettuceButton: {fileID: 0}
+  LettuceSeedsButton: {fileID: 0}
+  DepositeMoneyButton: {fileID: 0}
+  ExtendButton: {fileID: 1167710144}
   UpgradeButton: {fileID: 688584463}
-  ExtendButton: {fileID: 1167710142}
+  ExtendButtonObj: {fileID: 0}
   WateringCanButton: {fileID: 1404854458}
   GardenButton: {fileID: 1269472783}
   BuyUpgradeButton: {fileID: 669749680}
   AmountOfUpgradesText: {fileID: 366144407}
   CornButton: {fileID: 0}
-  LettuceButton: {fileID: 0}
+  LettuceButtonObj: {fileID: 0}
   CarrotButton: {fileID: 0}
   StrawberryButton: {fileID: 0}
   SellButton: {fileID: 0}

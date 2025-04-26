@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 1667463063}
+  m_FirstSelected: {fileID: 116666126}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &289810503
@@ -467,7 +467,7 @@ MonoBehaviour:
   m_SendPointerHoverToParent: 1
   m_MoveRepeatDelay: 0.5
   m_MoveRepeatRate: 0.1
-  m_XRTrackingOrigin: {fileID: 0}
+  m_XRTrackingOrigin: {fileID: 2061481293}
   m_ActionsAsset: {fileID: -944628639613478452, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_PointAction: {fileID: -1654692200621890270, guid: 842a061437231409385e5d08046b3753, type: 3}
   m_MoveAction: {fileID: -8784545083839296357, guid: 842a061437231409385e5d08046b3753, type: 3}
@@ -536,7 +536,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &448902184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1085,13 +1085,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NewGameButton: {fileID: 116666130}
-  ContinueGameButton: {fileID: 1667463065}
-  Continue: {fileID: 917006353}
-  GameManager: {fileID: 6231360116996774195}
-  LoadingScreen: {fileID: 1422138510}
-  NewGameMenu: {fileID: 699775267}
+  ContinueButton: {fileID: 1667463065}
   NOButton: {fileID: 695948511}
   YESButton: {fileID: 1115517361}
+  CreditsButton: {fileID: 1378875608}
+  ExitGameButton: {fileID: 1916504218}
+  Continue: {fileID: 917006353}
+  GameManager: {fileID: 6231360116996774195}
+  CambiarEscena: {fileID: 116666129}
+  LoadingScreen: {fileID: 1422138510}
+  PopUp: {fileID: 699775267}
+  PopUpText: {fileID: 75535810}
 --- !u!4 &823271000
 Transform:
   m_ObjectHideFlags: 0
@@ -1388,7 +1392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -1405,11 +1409,11 @@ PrefabInstance:
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6231360116996774195}
+      objectReference: {fileID: 823270999}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
-      objectReference: {fileID: 116666129}
+      objectReference: {fileID: 823270999}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
@@ -1428,23 +1432,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: NewGame
+      value: ContinueorYesPressed
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: ChangeScene
+      value: ContinueorYesPressed
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: ContinueorNewGamePressed
+      value: ContinueorYesPressed
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GameManager, Assembly-CSharp
+      value: MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: CambiarEscena, Assembly-CSharp
+      value: MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
@@ -2142,6 +2146,17 @@ MonoBehaviour:
   sceneName: Credits
   sound: {fileID: 1564137556}
   _sceneTransition: {fileID: 448902184}
+--- !u!114 &1378875608 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
+  m_PrefabInstance: {fileID: 1378875604}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378875606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1422138510
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,18 +3164,18 @@ PrefabInstance:
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1916504217}
+      objectReference: {fileID: 823270999}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Exit
+      value: ExitButtonPressed
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CambiarEscena, Assembly-CSharp
+      value: MenuManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -3239,6 +3254,17 @@ MonoBehaviour:
   sceneName: EXIT
   sound: {fileID: 1564137556}
   _sceneTransition: {fileID: 448902184}
+--- !u!114 &1916504218 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
+  m_PrefabInstance: {fileID: 1916504214}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916504216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1933713317
 GameObject:
   m_ObjectHideFlags: 0

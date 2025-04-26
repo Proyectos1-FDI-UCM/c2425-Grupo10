@@ -5,17 +5,13 @@
 // Curso 2024-25
 //---------------------------------------------------------
 
-using System.Collections.Generic;
 
 // Añadir aquí el resto de directivas using
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
-using UnityEngine.SceneManagement;
 using System;
-using Random = System.Random;
-using static System.Net.Mime.MediaTypeNames;
-using UnityEngine.InputSystem.Utilities;
+using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// La Clase UIManager se encarga de mostrar la UI del juego correcta para cada escena, ya sea la principal o las del mercado
@@ -87,6 +83,11 @@ public class UIManager : MonoBehaviour
     /// Menu de pausa
     /// </summary>
     [SerializeField] private GameObject PauseMenu;
+
+    /// <summary>
+    /// boton del menu pausa para volver a la escena
+    /// </summary>
+    [SerializeField] private Button ContinueButton;
 
 
     [Header("UI de TUTORIAL")]
@@ -260,8 +261,13 @@ public class UIManager : MonoBehaviour
     ///Bloqueadores de compra/venta para el tutorial
     /// </summary>
     [SerializeField] private GameObject[] BlockMarketSeeds;
-    [SerializeField] private GameObject[] BlockMarketPlants
-        ;
+    [SerializeField] private GameObject[] BlockMarketPlants;
+    [SerializeField] private Button LettuceButton;
+    [SerializeField] private Button LettuceSeedsButton;
+    [SerializeField] private Button DepositeMoneyButton;
+    [SerializeField] private Button ExtendButton;
+
+
     [Header("UI de Mejora")]
     ///<summary>
     ///Boton para elegir que mejora hacer
@@ -271,7 +277,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Boton para elegir que ampliacion hacer
     /// </summary>
-    [SerializeField] private GameObject ExtendButton;
+    [SerializeField] private GameObject ExtendButtonObj;
 
     /// <summary>
     /// Boton para mejorar la regadera
@@ -303,7 +309,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Botón lechuga
     /// </summary>
-    [SerializeField] private GameObject LettuceButton;
+    [SerializeField] private GameObject LettuceButtonObj;
 
     /// <summary>
     /// Botón zanahoria
@@ -889,6 +895,7 @@ public class UIManager : MonoBehaviour
     public void ShowDialogueButton()
     {
         TutorialUIButton.SetActive(true);
+        TutorialButton.Select();
     }
 
     ///<summary>
@@ -934,6 +941,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowPauseMenu()
     {
+        ContinueButton.Select();
+        TutorialButton.interactable = false;
         PauseMenu.SetActive(true);
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
@@ -955,9 +964,18 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HidePauseMenu()
     {
+        TutorialButton.interactable = true;
+        if(TutorialManager.IsDialogueActive())
+        {
+            TutorialButton.Select();
+        }
         PauseMenu.SetActive(false);
         PlayerMovement.EnablePlayerMovement();
         _isPauseMenuActive = false;
+    }
+    public bool GetPauseMenu()
+    {
+        return _isPauseMenuActive;
     }
 
     #endregion
@@ -972,6 +990,7 @@ public class UIManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().name == "Escena_Banco")
         {
+            DepositeMoneyButton.Select();
             if (_isDepositSelected)
             {
                 AmountDepositedTitleText.gameObject.SetActive(true);
@@ -1000,6 +1019,7 @@ public class UIManager : MonoBehaviour
 
         else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
+            ExtendButton.Select();
             WateringCanButton.SetActive(_isUpgradeSelected);
             GardenButton.SetActive(_isExtendSelected);
             BuyUpgradeButton.SetActive(_isSomethingSelected);
@@ -1008,6 +1028,8 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
+            LettuceButton.Select();
+
             SellButton.SetActive(_isSomethingSelected);
             PlusButton.SetActive(_isSomethingSelected);
             MinusButton.SetActive(_isSomethingSelected);
@@ -1019,6 +1041,8 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
+            LettuceSeedsButton.Select();
+
             BuySeedsButton.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);

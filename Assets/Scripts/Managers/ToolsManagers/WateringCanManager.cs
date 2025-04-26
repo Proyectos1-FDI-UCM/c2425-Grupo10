@@ -583,6 +583,7 @@ public class WateringCanManager : MonoBehaviour
     {
         GameManager = FindObjectOfType<GameManager>();
         SoundManager = FindObjectOfType<SoundManager>();
+        NotificationManager = FindObjectOfType<NotificationManager>();
     }
     #endregion
 

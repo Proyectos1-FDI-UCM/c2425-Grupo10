@@ -280,6 +280,10 @@ public class TutorialManager : MonoBehaviour
     {
         return _tutorialPhase;
     }
+    public bool IsDialogueActive()
+    {
+        return _isDialogueActive;
+    }
 
     public void ResetTutorialManager()
     {

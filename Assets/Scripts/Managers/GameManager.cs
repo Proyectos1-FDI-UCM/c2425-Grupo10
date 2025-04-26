@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 
 
 /// <summary>
@@ -101,10 +102,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     private int _maxGardenUpgrades = 4;
 
-    /// <summary>
-    /// Numero de máximo de mejoras para el Inventory.
-    /// <summary>
-    private int _maxInventoryUpgrades = 2;
+    private bool _isCursorVisible = true;
 
     /// <summary>
     /// Cantidad de agua de la regadera.
@@ -140,6 +138,11 @@ public class GameManager : MonoBehaviour
     ///Booleano para saber si es una nueva partida
     /// </summary>
     [SerializeField] private bool _newGame = true;
+
+    ///<summary>
+    ///bool para saber si hay mando
+    /// </summary>
+    private bool _isGameController = false;
 
     ///<summary>
     ///Booleano para saber si el jugador esta en la cinematica inicial
@@ -186,7 +189,30 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             Init();
         } // if-else somos instancia nueva o no.
-
+        InputSystem.onDeviceChange += (device, change) =>
+        {
+            switch (change)
+            {
+                case InputDeviceChange.Added:
+                    HideCursor();
+                    _isGameController = true;
+                    break;
+                case InputDeviceChange.Removed:
+                    ShowCursor();
+                    _isGameController = false;
+                    break;
+            }
+        };
+        if (_isCursorVisible)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         _isInCinematic = true;
     }
     private void Update()
@@ -390,6 +416,22 @@ public class GameManager : MonoBehaviour
     {
         bool _harvested = true; // Variable que indica que la cosecha ha sido realizada
         return _harvested; // Retorna el estado de la cosecha
+    }
+
+    public void HideCursor()
+    {
+        _isCursorVisible = false;
+        // Ocultar el cursor
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void ShowCursor()
+    {
+        _isCursorVisible =true;
+        // Desbloquear el cursor
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     /// <summary>

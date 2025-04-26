@@ -2211,6 +2211,7 @@ MonoBehaviour:
   NotificationManager: {fileID: 0}
   PauseMenuButton: {fileID: 1071331172}
   PauseMenu: {fileID: 1420290660}
+  ContinueButton: {fileID: 1360035371}
   TutorialUI: {fileID: 1171756496}
   TutorialText: {fileID: 1454277225}
   ButtonTutorialText: {fileID: 1572439034}
@@ -2251,14 +2252,18 @@ MonoBehaviour:
   - {fileID: 471571746}
   - {fileID: 574398385}
   - {fileID: 338763635}
-  UpgradeButton: {fileID: 0}
+  LettuceButton: {fileID: 958553770}
+  LettuceSeedsButton: {fileID: 0}
+  DepositeMoneyButton: {fileID: 0}
   ExtendButton: {fileID: 0}
+  UpgradeButton: {fileID: 0}
+  ExtendButtonObj: {fileID: 0}
   WateringCanButton: {fileID: 0}
   GardenButton: {fileID: 0}
   BuyUpgradeButton: {fileID: 0}
   AmountOfUpgradesText: {fileID: 0}
   CornButton: {fileID: 2101349556}
-  LettuceButton: {fileID: 958553768}
+  LettuceButtonObj: {fileID: 958553768}
   CarrotButton: {fileID: 2132772866}
   StrawberryButton: {fileID: 203700760}
   SellButton: {fileID: 1936599714}
@@ -20702,6 +20707,17 @@ MonoBehaviour:
   sceneName: Escena_Build
   sound: {fileID: 0}
   _sceneTransition: {fileID: 0}
+--- !u!114 &1360035371 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
+  m_PrefabInstance: {fileID: 1360035367}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360035369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1371235709
 GameObject:
   m_ObjectHideFlags: 0

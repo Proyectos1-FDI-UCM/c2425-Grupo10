@@ -5,8 +5,10 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 // Añadir aquí el resto de directivas using
 
 
@@ -23,15 +25,31 @@ public class MenuManager : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
+
+    /// <summary>
+    /// Botones de la interfaz
+    /// </summary>
     [SerializeField] private Button NewGameButton;
-    [SerializeField] private Button ContinueGameButton;
-    [SerializeField] private GameObject Continue;
-    [SerializeField] private GameManager GameManager;
-    [SerializeField] private GameObject LoadingScreen;
-    [SerializeField] private GameObject NewGameMenu;
+
+    [SerializeField] private Button ContinueButton;
 
     [SerializeField] private Button NOButton;
+
     [SerializeField] private Button YESButton;
+
+    [SerializeField] private Button CreditsButton;
+
+    [SerializeField] private Button ExitGameButton;
+
+    [SerializeField] private GameObject Continue;
+    [SerializeField] private GameManager GameManager;
+    [SerializeField] private CambiarEscena CambiarEscena;
+
+    [SerializeField] private GameObject LoadingScreen;
+    [SerializeField] private GameObject PopUp;
+    [SerializeField] private TextMeshProUGUI PopUpText;
+
+
 
     #endregion
 
@@ -44,6 +62,8 @@ public class MenuManager : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    private bool _newGameSelected = false;
+    private bool _exitGameSelected = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -59,11 +79,20 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-       GameManager = FindObjectOfType<GameManager>();
+        GameManager = FindObjectOfType<GameManager>();
         YESButton.onClick.AddListener(GameManager.NewGame);
         LoadingScreen.SetActive(false);
-        NewGameMenu.SetActive(false);
-
+        PopUp.SetActive(false);
+        if(GameManager.GetNewGame())
+        {
+            NewGameButton.Select();
+        }
+        else
+        {
+            ContinueButton.Select();
+        }
+        GameManager.HideCursor();
+        
     }
 
     /// <summary>
@@ -92,19 +121,68 @@ public class MenuManager : MonoBehaviour
     public void ContinueorYesPressed()
     {
         LoadingScreen.SetActive(true);
-        NewGameMenu.SetActive(false);
+        PopUp.SetActive(false);
     }
     public void NoButtonPressed()
     {
-        NewGameMenu.SetActive(false);
+        if (_newGameSelected)
+        {
+            NewGameButton.Select();
+        }
+        else if (_exitGameSelected)
+        {
+            ExitGameButton.Select();
+        }
+        PopUp.SetActive(false);
+        CreditsButton.interactable = true;
+        ContinueButton.interactable = true;
+        ExitGameButton.interactable = true;
+        NewGameButton.interactable = true;
     }
 
+    public void ExitButtonPressed()
+    {
+        YESButton.Select();
+        PopUp.SetActive(true);
+        
+        _exitGameSelected |= true;
+        PopUpText.text = "¿Estás seguro de que quieres salir?";
+        YESButton.onClick.AddListener(CambiarEscena.Exit);
+        YESButton.onClick.RemoveListener(GameManager.NewGame);
+        YESButton.onClick.RemoveListener(CambiarEscena.ChangeScene);
+
+        CreditsButton.interactable = false;
+        ContinueButton.interactable = false;
+        ExitGameButton.interactable = false;
+        NewGameButton.interactable = false;
+
+    }
     public void NewGameButtonPressed()
     {
-        NewGameMenu.SetActive(true);
+        if(!GameManager.GetNewGame())
+        {
+            YESButton.Select();
+            PopUp.SetActive(true);
+            _newGameSelected |= true;
+            PopUpText.text = "¿Estás seguro de que quieres crear una nueva partida?\n Tu partida actual se eliminará.";
+            YESButton.onClick.AddListener(GameManager.NewGame);
+            YESButton.onClick.AddListener(CambiarEscena.ChangeScene);
+            YESButton.onClick.RemoveListener(CambiarEscena.Exit);
+            CreditsButton.interactable = false;
+            ContinueButton.interactable = false;
+            ExitGameButton.interactable = false;
+            NewGameButton.interactable = false;
+        }
+        else
+        {
+            ContinueorYesPressed();
+            GameManager.NewGame();
+            CambiarEscena.ChangeScene();
+        }
+        
     }
     #endregion
-    
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
     // Documentar cada método que aparece aquí
@@ -112,7 +190,7 @@ public class MenuManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    #endregion   
+    #endregion
 
 } // class MenuManager 
 // namespace
