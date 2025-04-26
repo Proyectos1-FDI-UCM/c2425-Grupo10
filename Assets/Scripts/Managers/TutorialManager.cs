@@ -102,6 +102,16 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     private string MadameMooColor = "<color=white>Madame Moo:</color>";
 
+    /// <summary>
+    /// Subtareas totales
+    /// </summary>
+    private int _toTaskCompleted = 0;
+    
+    /// <summary>
+    /// Tareas hechas
+    /// </summary>
+    private int _taskDone = 0;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -188,6 +198,10 @@ public class TutorialManager : MonoBehaviour
             tutorialBanco = true;
             NextDialogue();
         }
+        if (SceneManager.GetActiveScene().name == "Escena_Build" && _toTaskCompleted !=0)
+        {
+           if ( _toTaskCompleted -_taskDone == 0) Invoke("NextDialogue", 0.6f);
+        }
 
     }
     #endregion
@@ -266,6 +280,14 @@ public class TutorialManager : MonoBehaviour
     public int GetTutorialPhaseBanco()
     {
         return _tutorialPhaseBanco;
+    }
+    public void SubTask()
+    {
+        _taskDone--;
+    }
+    public void SetTask(int i)
+    {
+        _toTaskCompleted = i;
     }
 
     ///<summary>
@@ -463,6 +485,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Aprende a \ncuidar tu huerto";
             _actualNotificationTaskText = "[ ] Cosechar\r\n[ ] Muerte\r\n[ ] Mala hierba";
+            SetTask(3);
         }
 
         if (_tutorialPhase == 20) // Venta

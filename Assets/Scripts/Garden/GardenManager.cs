@@ -101,11 +101,6 @@ public class GardenManager : MonoBehaviour
     private bool donePlant = false;
     private bool done = false;
 
-    /// <summary>
-    /// Int que controla las tareas hechas de la fase 15 del tutorial
-    /// </summary>
-    private int _tutorialList = 0;
-
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -130,11 +125,6 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_tutorialList == 3 )
-            { 
-            _tutorialList++;
-            TutorialManager.Invoke("NextDialogue", 0.6f); 
-        }
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
             //Debug.Log(GardenData.GetPlant(i).Item);
@@ -261,7 +251,7 @@ public class GardenManager : MonoBehaviour
                     if (TutorialManager.GetTutorialPhase() == 19 && !done)
                     {
                         TutorialManager.CheckBox(0);
-                        _tutorialList++;
+                        TutorialManager.SubTask();
                         done = true;
                     }
                 }
@@ -297,14 +287,14 @@ public class GardenManager : MonoBehaviour
                 if (TutorialManager.GetTutorialPhase() == 19 && Plant.State == -6 && !doneWeed)
                 {
                     TutorialManager.CheckBox(2);
-                    _tutorialList++;
+                    TutorialManager.SubTask();
                     doneWeed = true;
                 }
 
                 else if (TutorialManager.GetTutorialPhase() == 19 && Plant.State > -6 && !donePlant)
                 {
                     TutorialManager.CheckBox(1);
-                    _tutorialList++;
+                    TutorialManager.SubTask();
                     donePlant = true;
                 }
             }
