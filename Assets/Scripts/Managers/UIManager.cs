@@ -1222,6 +1222,10 @@ public class UIManager : MonoBehaviour
         _isMovingSelected = false;
         _isBeachHouseSelected = false;
         UpdateUI();
+        if (TutorialManager.GetTutorialPhaseBanco() == 6 )
+        {
+            Check(0);
+        }
     }
 
     /// <summary>
@@ -1234,7 +1238,7 @@ public class UIManager : MonoBehaviour
         _isBeachHouseSelected = false;
         UpdateUI();
 
-        if (TutorialManager.GetTutorialPhaseBanco() == 6)
+        if (TutorialManager.GetTutorialPhaseBanco() == 8)
         {
             Check(0);
 
@@ -1249,7 +1253,7 @@ public class UIManager : MonoBehaviour
         _isBeachHouseSelected = true;
         DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 100.000 RootCoins!.";
         MoveButton.SetActive(true);
-        if (TutorialManager.GetTutorialPhaseBanco() == 9) // Verifica si ha pulsado el botón + de venta
+        if (TutorialManager.GetTutorialPhaseBanco() == 8) // Verifica si ha pulsado el botón + de venta
         {
             Check(1);
             Invoke("NextDialogue", 0.6f);
@@ -1277,11 +1281,6 @@ public class UIManager : MonoBehaviour
             Debug.Log("No tienes suficiente dinero para mudarte.");
 
         }
-        if (TutorialManager.GetTutorialPhaseBanco() == 9) // Verifica si ha pulsado el botón + de venta
-        {
-            Check(0);
-
-        }
     }
 
     /// <summary>
@@ -1296,6 +1295,12 @@ public class UIManager : MonoBehaviour
             GameManager.Instance.AddIncome(AmountDeposited);
             UpdateSlider();
             AmountMoneyToDeposit.value = 0;
+            if (TutorialManager.GetTutorialPhaseBanco() == 6) // Verifica si ha pulsado el botón + de venta
+            {
+                Check(2);
+                Invoke("NextDialogue", 0.6f);
+
+            }
         }
     }
 
