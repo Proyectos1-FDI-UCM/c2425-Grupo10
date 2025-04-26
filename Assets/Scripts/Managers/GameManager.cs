@@ -189,20 +189,6 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(this.gameObject);
             Init();
         } // if-else somos instancia nueva o no.
-        InputSystem.onDeviceChange += (device, change) =>
-        {
-            switch (change)
-            {
-                case InputDeviceChange.Added:
-                    HideCursor();
-                    _isGameController = true;
-                    break;
-                case InputDeviceChange.Removed:
-                    ShowCursor();
-                    _isGameController = false;
-                    break;
-            }
-        };
         if (_isCursorVisible)
         {
             Cursor.visible = true;
@@ -217,6 +203,39 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        foreach (var device in InputSystem.devices)
+        {
+            if (device is Gamepad)
+            {
+                Debug.Log($"Gamepad detectado al inicio: {device.name}");
+                _isGameController = true;
+                HideCursor();
+                break; // Suponemos que solo quieres ocultar el cursor al detectar el primer gamepad
+            }
+        }
+
+        InputSystem.onDeviceChange += (device, change) =>
+        {
+            if (change == InputDeviceChange.Added)
+            {
+                if (device is Gamepad && !_isGameController)
+                {
+                    Debug.Log($"Gamepad conectado: {device.name}");
+                    _isGameController = true;
+                    HideCursor();
+                }
+            }
+            else if (change == InputDeviceChange.Removed)
+            {
+                if (device is Gamepad)
+                {
+                    Debug.Log($"Gamepad desconectado: {device.name}");
+                    _isGameController = false;
+                    ShowCursor();
+                }
+            }
+        };
+
         if (!Build)
         {
             if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
@@ -347,6 +366,7 @@ public class GameManager : MonoBehaviour
     public int GetWateringCanUpgrades() { return _wateringCanUpgrades; }
     public int GetGardenUpgrades() { return _gardenUpgrades; }
     public bool GetNewGame() { return _newGame; }
+    public bool GetControllerUsing() { return _isGameController; }
     public void SetTimer(Timer timercomponent)
     {
         timer = timercomponent;

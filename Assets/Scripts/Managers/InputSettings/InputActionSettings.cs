@@ -544,7 +544,7 @@ namespace UnityEngine.InputSystem
                 {
                     ""name"": """",
                     ""id"": ""677abee7-64ab-42c7-8c56-a4235253d306"",
-                    ""path"": ""<DualShockGamepad>/select"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",

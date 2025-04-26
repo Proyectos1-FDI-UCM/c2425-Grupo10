@@ -170,7 +170,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private bool _canWater = true;
 
-    private bool _canFill = true;
+    private string _use;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -216,7 +216,15 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        GetUpgradeWateringCan();
+        if (GameManager.GetControllerUsing())
+        {
+            _use = "Cuadrado";
+        }
+        else
+        {
+            _use = "E";
+        }
+            GetUpgradeWateringCan();
 
         SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
 
@@ -236,7 +244,7 @@ public class WateringCanManager : MonoBehaviour
         if (_isInWellArea && _waterAmount < _maxWaterAmount)
         {
             Debug.Log("Rellenar");
-            UiManager.ShowNotification("Presiona E \npara rellenar", "NoCounter", 1, "NoTutorial");
+            UiManager.ShowNotification("Presiona "+ _use + "\npara rellenar", "NoCounter", 1, "NoTutorial");
             _notificationActive = true;
             // 
             if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && _canWater)
@@ -269,7 +277,7 @@ public class WateringCanManager : MonoBehaviour
         {
             if (GardenData.GetPlant(_cropTransform).WaterTimer == 4)
             {
-                UiManager.ShowNotification("Presiona E \npara regar", "NoCounter", 1, "NoTutorial");
+                UiManager.ShowNotification("Presiona "+ _use + "\npara regar", "NoCounter", 1, "NoTutorial");
             }
 
         }

@@ -114,6 +114,12 @@ public class TutorialManager : MonoBehaviour
     private int _taskDone = 0;
 
     private bool _isInMainTutorial = false;
+    private string _use;
+    private string _map;
+    private string _inventory;
+    private string _toolSelector;
+    private string _seedSelector;
+    private string _exit;
 
     #endregion
 
@@ -142,6 +148,25 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (GameManager.GetControllerUsing())
+        {
+            _use = "Cuadrado";
+            _map = "Panel";
+            _inventory = "Fl. Arriba";
+            _toolSelector = "(R1/L1)";
+            _seedSelector = "Triangulo";
+            _exit = "Círculo";
+        }
+        else
+        {
+            _use = "E";
+            _map = "M";
+            _inventory = "TAB";
+            _toolSelector = "(1-5)";
+            _seedSelector = "5";
+            _exit = "Q";
+        }
+
         if (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta")
         {
             if (_isInMainTutorial == true)
@@ -418,14 +443,14 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 2)
         {
-            _actualDialogueText = MadameMooColor + " Para usar cosas, como palas o regaderas, solo tienes que pulsar la tecla E.\r\n¡Es como decirle a la vida: “¡Estoy lista para interactuar contigo!”";
+            _actualDialogueText = MadameMooColor + " Para usar cosas, como palas o regaderas, solo tienes que pulsar la tecla "+  _use +".\r\n¡Es como decirle a la vida: “¡Estoy lista para interactuar contigo!”";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhase == 3)
         {
-            _actualDialogueText = MadameMooColor + " ¿Te perdiste? ¿No sabes si estás en tu huerto o en casa de la vecina?\r\nPulsa la tecla M y abre el mapa. ¡Orientarte es clave para no acabar regando el gallinero!";
+            _actualDialogueText = MadameMooColor + " ¿Te perdiste? ¿No sabes si estás en tu huerto o en casa de la vecina?\r\nPulsa la tecla "+ _map + " y abre el mapa. ¡Orientarte es clave para no acabar regando el gallinero!";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "Abre el mapa\nPulsa M";
+            _actualNotificationText = "Abre el mapa\nPulsa "+ _map;
             _actualNotificationTaskText = "[ ] Mapa";
         }
         if (_tutorialPhase == 4)
@@ -435,21 +460,21 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 5)
         {
-            _actualDialogueText = MadameMooColor + " También tienes varias herramientas para usar en tu huerto.\r\nUsa el selector de herramientas (1-5) para elegir lo que necesitas.\r\n¡Una vaca no puede arar con la lengua, ni tú cosechar sin azada!";
+            _actualDialogueText = MadameMooColor + " También tienes varias herramientas para usar en tu huerto.\r\nUsa el selector de herramientas "+ _toolSelector+" para elegir lo que necesitas.\r\n¡Una vaca no puede arar con la lengua, ni tú cosechar sin azada!";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhase == 6)
         {
-            _actualDialogueText = MadameMooColor + " Para que tu huerto tenga color necesitarás más de un tipo de semilla.\r\nUsa el selector de herramientas (5) para cambiar entre las diferentes semillas.";
+            _actualDialogueText = MadameMooColor + " Para que tu huerto tenga color necesitarás más de un tipo de semilla.\r\nUsa el selector de herramientas "+ _seedSelector+" para cambiar entre las diferentes semillas.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Selecciona todas \nlas herramientas";
             _actualNotificationTaskText = "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas";
         }
         if (_tutorialPhase == 7)
         {
-            _actualDialogueText = MadameMooColor + " Por último. Pulsa TAB para abrir tu inventario.\r\nAhí podrás ver todo lo que llevas encima: semillas, cultivos, y herramienta y quién sabe, ¡quizás algún queso viejo que olvidaste! (broma).";
+            _actualDialogueText = MadameMooColor + " Por último. Pulsa "+ _inventory +" para abrir tu inventario.\r\nAhí podrás ver todo lo que llevas encima: semillas, cultivos, y herramienta y quién sabe, ¡quizás algún queso viejo que olvidaste! (broma).";
             _actualDialogueButtonText = "Probar";
-            _actualNotificationText = "Abre el inventario\nPulsa TAB";
+            _actualNotificationText = "Abre el inventario\nPulsa " + _inventory;
             _actualNotificationTaskText = "[ ] Inventario";
         }
         if (_tutorialPhase == 8)
@@ -480,15 +505,15 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 12)
         {
-            _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más, para añadir unas pocas semillas";
+            _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más(+), para añadir unas pocas semillas";
             _actualDialogueButtonText = "Probar";
 
             _actualNotificationText = "Mi primera \ncompra";
-            _actualNotificationTaskText = "[ ] Pulsa el\r\nbotón de más";
+            _actualNotificationTaskText = "[ ] Pulsa el\r\nbotón de más(+)";
         }
         if (_tutorialPhase == 13)
         {
-            _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora)";
+            _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora).\nPara salir de la interfaz pulsa " + _exit;
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Mi primera \ncompra";
             _actualNotificationTaskText = "[ ] Pulsa \r\ncomprar";
@@ -586,7 +611,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de compra";
+                _actualNotificationTaskText = "[ ] Pulsa " + _use+" para entrar en la \ninterfaz de compra";
                 _tutorialPhaseEscenas++;
                 _tutorialInProgress = false;
             }
@@ -603,7 +628,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de compra";
+                _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para entrar en la \ninterfaz de compra";
                 _tutorialInProgress = false;
             }
         }
@@ -620,7 +645,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de banco";
+                _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para entrar en la \ninterfaz de banco";
                 _tutorialPhaseEscenas++;
             }
         if (_tutorialPhaseBanco == 4)
@@ -675,7 +700,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Acercate al \nmostrador";
-            _actualNotificationTaskText = "[ ] Pulsa E para \nentrar en la \ninterfaz de mejora";
+            _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para entrar en la \ninterfaz de mejora";
         }
         if (_tutorialPhaseMejora == 4)
         {

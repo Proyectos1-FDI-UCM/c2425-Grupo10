@@ -1146,6 +1146,7 @@ public class UIManager : MonoBehaviour
         MoneyManager = FindObjectOfType<MoneyManager>();
         TutorialManager = FindObjectOfType<TutorialManager>();
         NotificationManager = FindObjectOfType<NotificationManager>();
+        GameManager = FindObjectOfType<GameManager>();
     }
 
     
