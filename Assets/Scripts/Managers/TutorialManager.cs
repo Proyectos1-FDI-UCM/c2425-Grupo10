@@ -112,6 +112,8 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     private int _taskDone = 0;
 
+    private bool _isInMainTutorial = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -139,6 +141,18 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            if (_isInMainTutorial == true)
+            {
+                UIManager.BlockMarket();
+            }
+            else if (_isInMainTutorial == false)
+            {
+                UIManager.UnblockMarket();
+            }
+        }
+
         if (SceneManager.GetActiveScene().name != "Menu" || SceneManager.GetActiveScene().name != "Menu_Pausa")
         {
             InitializeReferences();
@@ -379,6 +393,7 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Muuuy buenas, Connie! Soy Madame Moo, vaca de gafas y sabia consejera. Estoy aquí para enseñarte cómo convertirte en la mejor granjera de RootWood.\r\n¡Sigue mis consejos y estarás un paso más cerca de tu casa soñada y una vida de lujo y fertilizante premium!";
             _actualDialogueButtonText = "Continuar";
+            _isInMainTutorial = true;
         }
         if (_tutorialPhase == 2)
         {
@@ -531,6 +546,7 @@ public class TutorialManager : MonoBehaviour
         {
             _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Explora el pueblo de RootWood, entra en todas las casas ¡y vigila tu energía! \nCasi se me olvidaba, arriba a la derecha tienes la barra de energía que disminuye al correr. Ahora si, ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
+            _isInMainTutorial = false;
         }
 
     }

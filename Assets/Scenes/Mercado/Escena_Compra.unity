@@ -1217,6 +1217,7 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 898385390}
+  _isMovementEnabled: 0
 --- !u!212 &230413356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6428,9 +6429,14 @@ MonoBehaviour:
   AmountToDepositText: {fileID: 0}
   AmountDepositedText: {fileID: 0}
   AmountDepositedTitleText: {fileID: 0}
-  Block1: {fileID: 163017328}
-  Block2: {fileID: 1732724138}
-  Block3: {fileID: 1841209573}
+  BlockMarketSeeds:
+  - {fileID: 163017328}
+  - {fileID: 1732724138}
+  - {fileID: 1841209573}
+  BlockMarketPlants:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   UpgradeButton: {fileID: 0}
   ExtendButton: {fileID: 0}
   WateringCanButton: {fileID: 0}

@@ -259,10 +259,9 @@ public class UIManager : MonoBehaviour
     ///<summary>
     ///Bloqueadores de compra/venta para el tutorial
     /// </summary>
-    [SerializeField] private GameObject Block1;
-    [SerializeField] private GameObject Block2;
-    [SerializeField] private GameObject Block3;
-
+    [SerializeField] private GameObject[] BlockMarketSeeds;
+    [SerializeField] private GameObject[] BlockMarketPlants
+        ;
     [Header("UI de Mejora")]
     ///<summary>
     ///Boton para elegir que mejora hacer
@@ -668,18 +667,7 @@ public class UIManager : MonoBehaviour
         {
             DisableInterfaz();
         }
-        if ((SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Venta") && TutorialManager.GetTutorialPhase() == 0)
-        {
-            Block1.SetActive(false);
-            Block2.SetActive(false);
-            Block3.SetActive(false);
-        }
-        else if ((SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Venta") && TutorialManager.GetTutorialPhase() > 0)
-        {
-            Block1.SetActive(true);
-            Block2.SetActive(true);
-            Block3.SetActive(true);
-        }
+        
         for (int i = 0; i < CheckBox.Length; i++) 
         {
             if (CheckBox[i].activeSelf)
@@ -720,6 +708,44 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    public void BlockMarket()
+    {
+        if(SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            for (int i = 0; i < BlockMarketSeeds.Length; i++)
+            {
+                BlockMarketSeeds[i].SetActive(true);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            for (int i = 0; i < BlockMarketPlants.Length; i++)
+            {
+                BlockMarketPlants[i].SetActive(true);
+            }
+        }
+
+    }
+
+    public void UnblockMarket()
+    {
+        if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            for (int i = 0; i < BlockMarketSeeds.Length; i++)
+            {
+                BlockMarketSeeds[i].SetActive(false);
+            }
+        }
+        if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            for (int i = 0; i < BlockMarketPlants.Length; i++)
+            {
+                BlockMarketPlants[i].SetActive(false);
+            }
+        }
+    }
+
 
     /// <summary>
     /// Método para mostrar una notificación

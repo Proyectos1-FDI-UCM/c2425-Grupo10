@@ -2246,9 +2246,11 @@ MonoBehaviour:
   AmountToDepositText: {fileID: 0}
   AmountDepositedText: {fileID: 0}
   AmountDepositedTitleText: {fileID: 0}
-  Block1: {fileID: 471571746}
-  Block2: {fileID: 574398385}
-  Block3: {fileID: 338763635}
+  BlockMarketSeeds: []
+  BlockMarketPlants:
+  - {fileID: 471571746}
+  - {fileID: 574398385}
+  - {fileID: 338763635}
   UpgradeButton: {fileID: 0}
   ExtendButton: {fileID: 0}
   WateringCanButton: {fileID: 0}
@@ -19821,6 +19823,7 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 275213580}
+  _isMovementEnabled: 0
 --- !u!61 &1195905024
 BoxCollider2D:
   m_ObjectHideFlags: 0
