@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using System;
+using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 // Añadir aquí el resto de directivas using
@@ -278,6 +279,22 @@ public class TutorialManager : MonoBehaviour
     public int GetTutorialPhase()
     {
         return _tutorialPhase;
+    }
+
+    public void ResetTutorialManager()
+    {
+        _tutorialPhase = 0;
+        _actualDialogueButtonText = "";
+        _actualDialogueText = "";
+        _actualNotificationTaskText = "";
+        _actualNotificationText = "";
+        _isDialogueActive = false;
+        _isNotificationActive = false;
+        _taskDone = 0;
+        _tutorialPhaseMejora = 0;
+        _tutorialInProgress = false;
+        _tutorialPhaseBanco = 0;
+        _tutorialPhaseEscenas = 0;
     }
 
     ///<summary>

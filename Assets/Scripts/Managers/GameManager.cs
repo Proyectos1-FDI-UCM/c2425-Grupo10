@@ -71,6 +71,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TutorialManager TutorialManager;
 
     ///<summary>
+    ///Ref al Notification manager
+    /// </summary>
+    [SerializeField] private NotificationManager NotificationManager;
+
+    ///<summary>
     ///Prefab de GameManager
     /// </summary>
     [SerializeField] private GameObject GameManagerPrefab;
@@ -504,6 +509,8 @@ public class GameManager : MonoBehaviour
         _isInCinematic = true;
         ResetInitialMoney();
         _newGame = false;
+        TutorialManager.ResetTutorialManager();
+        NotificationManager.ResetNotificationManager();
     }
 
     
@@ -542,7 +549,7 @@ private void Init()
         GardenManager = FindObjectOfType<GardenManager>();
         WateringCanManager = FindObjectOfType<WateringCanManager>();
         TutorialManager = FindObjectOfType<TutorialManager>();
-
+        NotificationManager = FindObjectOfType<NotificationManager>();
     }
     public void EndCinematic()
     {

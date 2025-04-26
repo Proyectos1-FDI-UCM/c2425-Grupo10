@@ -28,6 +28,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private GameObject Continue;
     [SerializeField] private GameManager GameManager;
     [SerializeField] private GameObject LoadingScreen;
+    [SerializeField] private GameObject NewGameMenu;
+
+    [SerializeField] private Button NOButton;
+    [SerializeField] private Button YESButton;
 
     #endregion
 
@@ -56,8 +60,9 @@ public class MenuManager : MonoBehaviour
     void Start()
     {
        GameManager = FindObjectOfType<GameManager>();
-        NewGameButton.onClick.AddListener(GameManager.NewGame);
+        YESButton.onClick.AddListener(GameManager.NewGame);
         LoadingScreen.SetActive(false);
+        NewGameMenu.SetActive(false);
 
     }
 
@@ -84,9 +89,19 @@ public class MenuManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void ContinueorNewGamePressed()
+    public void ContinueorYesPressed()
     {
         LoadingScreen.SetActive(true);
+        NewGameMenu.SetActive(false);
+    }
+    public void NoButtonPressed()
+    {
+        NewGameMenu.SetActive(false);
+    }
+
+    public void NewGameButtonPressed()
+    {
+        NewGameMenu.SetActive(true);
     }
     #endregion
     

@@ -217,7 +217,7 @@ public class NotificationManager : MonoBehaviour
         {
             _tutorialNotificationText = "";
             _tutorialNotificationCounterText = "";
-            _isTutorialNotificationCreated &= false;
+            _isTutorialNotificationCreated = false;
             _check1 = false;
             _check2 = false;
             _check3 = false;
@@ -229,7 +229,7 @@ public class NotificationManager : MonoBehaviour
         {
             _notificationText = "";
             _notificationCounterText = "";
-            _isNotificationCreated &= false;
+            _isNotificationCreated = false;
         }
     }
     ///<summary>
@@ -264,6 +264,21 @@ public class NotificationManager : MonoBehaviour
         UIManager = FindObjectOfType<UIManager>();
     }
 
+    public void ResetNotificationManager()
+    {
+        _isNotificationCreated = false;
+        _isTutorialNotificationCreated = false;
+        _check1 = false;
+        _check2 = false;
+        _check3 = false;
+        _intCheck3 = 0;
+        _intCheck1 = 0;
+        _intCheck2 = 0;
+        _notificationText = "";
+        _tutorialNotificationText = "";
+        _notificationCounterText = "";
+        _tutorialNotificationCounterText = "";
+}
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
