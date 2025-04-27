@@ -316,7 +316,12 @@ public class GameManager : MonoBehaviour
         {
             EndCinematic();
         }
-        if((SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora") && !UIManager.GetPauseMenu()  && _isCursorVisible && !UIManager.GetDialogueActive() && !_isGameController)
+        if((SceneManager.GetActiveScene().name == "Escena_Build") && !UIManager.GetPauseMenu()  && _isCursorVisible && !UIManager.GetDialogueActive() && !_isGameController)
+        {
+            HideCursor();
+            _isCursorVisible = false;
+        }
+        else if ((SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora") && !UIManager.GetPauseMenu() && _isCursorVisible && !UIManager.GetDialogueActive() && !_isGameController && !UIManager.GetUIActive())
         {
             HideCursor();
             _isCursorVisible = false;

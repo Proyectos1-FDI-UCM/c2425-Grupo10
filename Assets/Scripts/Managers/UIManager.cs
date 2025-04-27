@@ -947,11 +947,26 @@ public class UIManager : MonoBehaviour
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
         TutorialUIButton.SetActive(false);
-        PlayerMovement.EnablePlayerMovement();
-        if(!GameManager.GetControllerUsing())
+        if(SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
-            GameManager.HideCursor();
+            if(!_uiActive)
+            {
+                if (!GameManager.GetControllerUsing())
+                {
+                    GameManager.HideCursor();
+                }
+                PlayerMovement.EnablePlayerMovement();
+            }
         }
+        else
+        {
+            PlayerMovement.EnablePlayerMovement();
+            if (!GameManager.GetControllerUsing())
+            {
+                GameManager.HideCursor();
+            }
+        }
+        
     }
 
     /// <summary>
@@ -1031,7 +1046,10 @@ public class UIManager : MonoBehaviour
     {
         return _isPauseMenuActive;
     }
-
+    public bool GetUIActive()
+    {
+        return _uiActive;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS GENERALES ----

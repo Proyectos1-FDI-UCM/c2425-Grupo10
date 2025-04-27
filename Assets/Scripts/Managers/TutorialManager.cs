@@ -610,7 +610,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "[ ] Pulsa " + _use+" para entrar en la \ninterfaz de compra";
+                _actualNotificationTaskText = "[ ] Pulsa " + _use+" para hablar.";
                 _tutorialPhaseEscenas++;
                 _tutorialInProgress = false;
             }
@@ -627,7 +627,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para entrar en la \ninterfaz de compra";
+                _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
                 _tutorialInProgress = false;
             }
         }
@@ -644,7 +644,7 @@ public class TutorialManager : MonoBehaviour
                 _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
-                _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para entrar en la \ninterfaz de banco";
+                _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
                 _tutorialPhaseEscenas++;
             }
         if (_tutorialPhaseBanco == 4)
@@ -663,7 +663,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueText = MadameMooColor + " Pulsa el botón ingresar \r\n Después desliza la barra hasta llegar a la cantidad justa que quieras ingresar";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Ingresa dinero";
-            _actualNotificationTaskText = "[ ] Pulsa ingresar \n[ ] Desliza \n la barra";
+            _actualNotificationTaskText = "[ ] Pulsa ingresar. \n[ ] Desliza \n la barra.";
         }
         if (_tutorialPhaseBanco == 7)
         {
@@ -675,7 +675,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueText = MadameMooColor + " Pulsa el botón mudanza \r\n Después selecciona la casa\n Cuando tengas el suficiente dinero, repite estos pasos y podrás mudarte a tu casa soñada";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Mudanza";
-            _actualNotificationTaskText = "[ ] Pulsa mudanza \n[ ] Pulsa la casa";
+            _actualNotificationTaskText = "[ ] Pulsa mudanza. \n[ ] Pulsa la casa.";
         }
         if (_tutorialPhaseBanco == 9)
         {
@@ -699,7 +699,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Acercate al \nmostrador";
-            _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para entrar en la \ninterfaz de mejora";
+            _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
         }
         if (_tutorialPhaseMejora == 4)
         {
