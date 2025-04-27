@@ -887,6 +887,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowDialogue(string dialogueText, string buttonText)
     {
+        if(!GameManager.GetControllerUsing())
+        {
+            GameManager.ShowCursor();
+        }
         _isDialogueActive = true;
         PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
@@ -905,14 +909,25 @@ public class UIManager : MonoBehaviour
             TutorialManager.OnTutorialButtonPressed(buttonText);
         });
     }
-
+    /// <summary>
+    /// Metodo para saber si el dialogo se esta mostrando
+    /// </summary>
+    /// <returns></returns>
+    public bool GetDialogueActive()
+    {
+        return _isDialogueActive;
+    }
     ///<summary>
     ///Metodo para activar el boton de continuar/cerrar en el dialogo
     /// </summary>
     public void ShowDialogueButton()
     {
         TutorialUIButton.SetActive(true);
-        TutorialButton.Select();
+        if(GameManager.GetControllerUsing())
+        {
+            TutorialButton.Select();
+        }
+        
     }
 
     ///<summary>
@@ -933,6 +948,10 @@ public class UIManager : MonoBehaviour
         TutorialUI.SetActive(false);
         TutorialUIButton.SetActive(false);
         PlayerMovement.EnablePlayerMovement();
+        if(!GameManager.GetControllerUsing())
+        {
+            GameManager.HideCursor();
+        }
     }
 
     /// <summary>
@@ -995,12 +1014,17 @@ public class UIManager : MonoBehaviour
             ContinueButton.Select();
         }
         TutorialButton.interactable = true;
-        if(TutorialManager.IsDialogueActive() && GameManager.GetControllerUsing() == true)
+        if(_isDialogueActive && GameManager.GetControllerUsing() == true)
         {
+            Debug.Log("boton tuto selec");
             TutorialButton.Select();
         }
+        else if (!_isDialogueActive)
+        {
+            PlayerMovement.EnablePlayerMovement();
+
+        }
         PauseMenu.SetActive(false);
-        PlayerMovement.EnablePlayerMovement();
         _isPauseMenuActive = false;
     }
     public bool GetPauseMenu()
