@@ -540,6 +540,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isPauseMenuActive = false;
 
+    /// <summary>
+    /// Booleano para saber si el dialogo esta activado
+    /// </summary>
+    private bool _isDialogueActive = false;
 
     #endregion
 
@@ -549,7 +553,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         InitializeReferences();
-        
+        GameManager.InitializeUIManager();
         
 
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -594,7 +598,7 @@ public class UIManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
             // La subida/Bajada del inventario se activa con el TAB.
-            if (!_isMapVisible && InputManager.Instance.TabWasPressedThisFrame())
+            if (!_isMapVisible && InputManager.Instance.TabWasPressedThisFrame() && !_isDialogueActive)
             {
                 ToggleInventory();
                 ActualizeInventory();
@@ -621,7 +625,7 @@ public class UIManager : MonoBehaviour
                 new Vector2(QuickAccessBar.anchoredPosition.x, targetQuickBarY),
                 Time.deltaTime * _transitionSpeed
             );
-            if (!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame())
+            if (!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame() && !_isDialogueActive)
             {
                 Map.SetActive(true);
                 _isMapVisible = true;
@@ -883,6 +887,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowDialogue(string dialogueText, string buttonText)
     {
+        _isDialogueActive = true;
         PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
         if (!TutorialUIButton.activeSelf)
@@ -923,6 +928,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HideDialogue()
     {
+        _isDialogueActive = false;
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
         TutorialUIButton.SetActive(false);
@@ -953,7 +959,14 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowPauseMenu()
     {
-        ContinueButton.Select();
+        if(GameManager.GetControllerUsing() == false)
+        {
+            GameManager.ShowCursor();
+        }
+        else
+        {
+            ContinueButton.Select();
+        }
         TutorialButton.interactable = false;
         PauseMenu.SetActive(true);
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -976,8 +989,13 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HidePauseMenu()
     {
+        if (GameManager.GetControllerUsing() == false)
+        {
+            GameManager.HideCursor();
+            ContinueButton.Select();
+        }
         TutorialButton.interactable = true;
-        if(TutorialManager.IsDialogueActive())
+        if(TutorialManager.IsDialogueActive() && GameManager.GetControllerUsing() == true)
         {
             TutorialButton.Select();
         }
@@ -1148,6 +1166,8 @@ public class UIManager : MonoBehaviour
         NotificationManager = FindObjectOfType<NotificationManager>();
         GameManager = FindObjectOfType<GameManager>();
     }
+
+
 
     
     #endregion

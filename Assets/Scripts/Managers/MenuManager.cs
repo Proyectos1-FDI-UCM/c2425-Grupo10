@@ -64,6 +64,7 @@ public class MenuManager : MonoBehaviour
 
     private bool _newGameSelected = false;
     private bool _exitGameSelected = false;
+    private bool _updateControllers = true;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -83,16 +84,16 @@ public class MenuManager : MonoBehaviour
         YESButton.onClick.AddListener(GameManager.NewGame);
         LoadingScreen.SetActive(false);
         PopUp.SetActive(false);
-        if(GameManager.GetNewGame())
+        if(GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
         {
             NewGameButton.Select();
         }
-        else
+        else if (!GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
         {
             ContinueButton.Select();
         }
-        GameManager.HideCursor();
-        
+        GameManager.InitializeMenuManager();
+
     }
 
     /// <summary>
@@ -108,6 +109,20 @@ public class MenuManager : MonoBehaviour
         {
             Continue.SetActive(true);
         }
+        if (_updateControllers)
+        {
+            if (GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
+            {
+                NewGameButton.Select();
+                _updateControllers = false;
+            }
+            else if (!GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
+            {
+                ContinueButton.Select();
+                _updateControllers = false;
+            }
+        }
+        
     }
     #endregion
 
@@ -125,11 +140,11 @@ public class MenuManager : MonoBehaviour
     }
     public void NoButtonPressed()
     {
-        if (_newGameSelected)
+        if (_newGameSelected && GameManager.GetControllerUsing() == true)
         {
             NewGameButton.Select();
         }
-        else if (_exitGameSelected)
+        else if (_exitGameSelected && GameManager.GetControllerUsing() == true)
         {
             ExitGameButton.Select();
         }
@@ -140,9 +155,16 @@ public class MenuManager : MonoBehaviour
         NewGameButton.interactable = true;
     }
 
+    public void UpdateControllers()
+    {
+        _updateControllers = true;
+    }
     public void ExitButtonPressed()
     {
-        YESButton.Select();
+        if(GameManager.GetControllerUsing() == true)
+        {
+            YESButton.Select();
+        }
         PopUp.SetActive(true);
         
         _exitGameSelected |= true;
@@ -161,7 +183,10 @@ public class MenuManager : MonoBehaviour
     {
         if(!GameManager.GetNewGame())
         {
-            YESButton.Select();
+            if(GameManager.GetControllerUsing()) 
+            {
+                YESButton.Select();
+            }
             PopUp.SetActive(true);
             _newGameSelected |= true;
             PopUpText.text = "¿Estás seguro de que quieres crear una nueva partida?\n Tu partida actual se eliminará.";

@@ -6,7 +6,6 @@
 //---------------------------------------------------------
 
 using System;
-using UnityEditorInternal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 // Añadir aquí el resto de directivas using

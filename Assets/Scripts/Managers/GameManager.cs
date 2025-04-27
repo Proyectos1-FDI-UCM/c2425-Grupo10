@@ -81,6 +81,15 @@ public class GameManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject GameManagerPrefab;
 
+    ///<summary>
+    ///Ref al uimanager
+    /// </summary>
+    [SerializeField] private UIManager UIManager;
+
+    ///<summary>
+    ///ref al menumanager
+    /// </summary>
+    [SerializeField] private MenuManager MenuManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -145,6 +154,12 @@ public class GameManager : MonoBehaviour
     private bool _isGameController = false;
 
     ///<summary>
+    ///int para saber cuantos mandos hay conectados
+    /// </summary>
+    [SerializeField] private int numberOfGamepads = 0;
+
+
+    ///<summary>
     ///Booleano para saber si el jugador esta en la cinematica inicial
     /// </summary>
     [SerializeField] private bool _isInCinematic = false;
@@ -207,11 +222,16 @@ public class GameManager : MonoBehaviour
         {
             if (device is Gamepad)
             {
+                numberOfGamepads += 1;
                 Debug.Log($"Gamepad detectado al inicio: {device.name}");
                 _isGameController = true;
                 HideCursor();
                 break; // Suponemos que solo quieres ocultar el cursor al detectar el primer gamepad
             }
+        }
+        if (numberOfGamepads == 0)
+        {
+            _isGameController = false;
         }
 
         InputSystem.onDeviceChange += (device, change) =>
@@ -223,6 +243,7 @@ public class GameManager : MonoBehaviour
                     Debug.Log($"Gamepad conectado: {device.name}");
                     _isGameController = true;
                     HideCursor();
+                    
                 }
             }
             else if (change == InputDeviceChange.Removed)
@@ -232,6 +253,10 @@ public class GameManager : MonoBehaviour
                     Debug.Log($"Gamepad desconectado: {device.name}");
                     _isGameController = false;
                     ShowCursor();
+                    if (SceneManager.GetActiveScene().name == "Menu")
+                    {
+                        MenuManager.UpdateControllers();
+                    }
                 }
             }
         };
@@ -290,6 +315,10 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Menu")
         {
             EndCinematic();
+        }
+        if((SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora") && !UIManager.GetPauseMenu()  && _isCursorVisible)
+        {
+            HideCursor();
         }
     }
     /// <summary>
@@ -440,6 +469,7 @@ public class GameManager : MonoBehaviour
 
     public void HideCursor()
     {
+        Debug.Log("Raton Ocultado");
         _isCursorVisible = false;
         // Ocultar el cursor
         Cursor.visible = false;
@@ -448,7 +478,8 @@ public class GameManager : MonoBehaviour
 
     public void ShowCursor()
     {
-        _isCursorVisible =true;
+        Debug.Log("Raton visible");
+        _isCursorVisible = true;
         // Desbloquear el cursor
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
@@ -554,6 +585,24 @@ public class GameManager : MonoBehaviour
     }
 
     ///<summary>
+    ///Metodo para inicializar UIManager
+    /// </summary>
+    public void InitializeUIManager()
+    {
+        UIManager = FindObjectOfType<UIManager>();
+
+    }
+
+    ///<summary>
+    ///Metodo para inicializar MenuManager
+    /// </summary>
+    public void InitializeMenuManager()
+    {
+        MenuManager = FindObjectOfType<MenuManager>();
+
+    }
+
+    ///<summary>
     ///Metodo para inicializar MoneyManager
     /// </summary>
     public void InitializeMoneyManager()
@@ -612,6 +661,7 @@ private void Init()
         WateringCanManager = FindObjectOfType<WateringCanManager>();
         TutorialManager = FindObjectOfType<TutorialManager>();
         NotificationManager = FindObjectOfType<NotificationManager>();
+        MenuManager = FindObjectOfType<MenuManager>();
     }
     public void EndCinematic()
     {
