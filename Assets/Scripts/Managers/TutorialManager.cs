@@ -105,12 +105,12 @@ public class TutorialManager : MonoBehaviour
     /// <summary>
     /// Subtareas totales
     /// </summary>
-    private int _toTaskCompleted = 0;
+    [SerializeField]private int _toTaskCompleted = 0;
     
     /// <summary>
     /// Tareas hechas
     /// </summary>
-    private int _taskDone = 0;
+    [SerializeField]private int _taskDone = 0;
 
     private bool _isInMainTutorial = false;
     private string _use;
@@ -237,9 +237,14 @@ public class TutorialManager : MonoBehaviour
             tutorialBanco = true;
             NextDialogue();
         }
-        if (SceneManager.GetActiveScene().name == "Escena_Build" && _toTaskCompleted !=0)
+        if (SceneManager.GetActiveScene().name == "Escena_Build" && _toTaskCompleted != 0)
         {
-           if ( _toTaskCompleted -_taskDone == 0) Invoke("NextDialogue", 0.6f);
+            if (_toTaskCompleted - _taskDone == 0)
+            {
+                _toTaskCompleted = 0;
+                _taskDone = 0;
+                Invoke("NextDialogue", 0.6f);
+            }
         }
 
     }
@@ -342,7 +347,7 @@ public class TutorialManager : MonoBehaviour
     }
     public void SubTask()
     {
-        _taskDone--;
+        _taskDone++;
     }
     public void SetTask(int i)
     {
