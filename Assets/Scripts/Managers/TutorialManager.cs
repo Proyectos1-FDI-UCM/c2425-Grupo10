@@ -743,7 +743,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseMejora == 10)
         {
-            _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? \rRecuerda: no esperes cosechar aguacates si solo siembras excusas. ¡Muuucha suerte ahí fuera!";
+            _actualDialogueText = MadameMooColor + " Esto es todo por ahora ¿Crees que volveremos a vernos? Recuerda: no esperes cosechar aguacates si solo siembras excusas. ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
             _tutorialInProgress = false;
         }

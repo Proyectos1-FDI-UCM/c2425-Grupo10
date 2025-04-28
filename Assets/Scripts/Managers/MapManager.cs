@@ -20,6 +20,8 @@ public class MapManager : MonoBehaviour
 
     [SerializeField] private Transform player; // El transform del jugador (para obtener la posición)
 
+    [SerializeField] private Transform Text;
+
 
     #endregion
 

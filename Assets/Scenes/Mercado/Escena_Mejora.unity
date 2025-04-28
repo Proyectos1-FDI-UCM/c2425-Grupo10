@@ -3266,6 +3266,9 @@ MonoBehaviour:
   DescriptionText: {fileID: 1856980369}
   MoneyText: {fileID: 1604577332}
   PlayerMovement: {fileID: 230413355}
+  Player: {fileID: 0}
+  PlayerScale: {x: 0, y: 0, z: 0}
+  PlayerMarker: {fileID: 0}
   MoneyManager: {fileID: 0}
   SceneTransition: {fileID: 0}
   GameManager: {fileID: 0}
@@ -8588,7 +8591,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 165.6, y: 136}
+  m_AnchoredPosition: {x: 220.6, y: 136}
   m_SizeDelta: {x: 80, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1404854460

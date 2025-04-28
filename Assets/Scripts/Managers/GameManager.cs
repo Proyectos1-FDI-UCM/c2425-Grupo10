@@ -111,7 +111,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     private int _maxGardenUpgrades = 4;
 
-    private bool _isCursorVisible = true;
+    [SerializeField] private bool _isCursorVisible = true;
 
     /// <summary>
     /// Cantidad de agua de la regadera.
@@ -151,7 +151,7 @@ public class GameManager : MonoBehaviour
     ///<summary>
     ///bool para saber si hay mando
     /// </summary>
-    private bool _isGameController = false;
+    [SerializeField] private bool _isGameController = false;
 
     ///<summary>
     ///int para saber cuantos mandos hay conectados

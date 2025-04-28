@@ -426,12 +426,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Booleano para saber si esta en el area de interaccion con el npc
     /// </summary>
-    private bool _isInNpcArea = false;
+    [SerializeField] private bool _isInNpcArea = false;
 
     /// <summary>
     /// Booleano para saber si esta activa la interfaz
     /// </summary>
-    private bool _uiActive = false;
+   [SerializeField] private bool _uiActive = false;
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton ingresar
@@ -545,12 +545,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Booleano para saber si el menú de pausa está mostrado
     /// </summary>
-    private bool _isPauseMenuActive = false;
+   [SerializeField] private bool _isPauseMenuActive = false;
 
     /// <summary>
     /// Booleano para saber si el dialogo esta activado
     /// </summary>
-    private bool _isDialogueActive = false;
+   [SerializeField] private bool _isDialogueActive = false;
 
     #endregion
 
@@ -966,6 +966,10 @@ public class UIManager : MonoBehaviour
                     GameManager.HideCursor();
                 }
                 PlayerMovement.EnablePlayerMovement();
+            }
+            else
+            {
+                GameManager.ShowCursor();
             }
         }
         else

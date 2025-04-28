@@ -989,7 +989,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.72983336, y: 0.054508764}
+  m_Offset: {x: 0.6036605, y: 0.05450876}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1000,7 +1000,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.66254854, y: 0.24304625}
+  m_Size: {x: 0.41020262, y: 0.24304625}
   m_EdgeRadius: 0
 --- !u!4 &275213579
 Transform:
@@ -1034,6 +1034,9 @@ MonoBehaviour:
   DescriptionText: {fileID: 1811816825}
   MoneyText: {fileID: 472646897}
   PlayerMovement: {fileID: 1195905023}
+  Player: {fileID: 0}
+  PlayerScale: {x: 0, y: 0, z: 0}
+  PlayerMarker: {fileID: 0}
   MoneyManager: {fileID: 0}
   SceneTransition: {fileID: 0}
   GameManager: {fileID: 0}
@@ -1112,7 +1115,11 @@ MonoBehaviour:
   SeedLettuceText: {fileID: 0}
   SeedCarrotText: {fileID: 0}
   SeedStrawberryText: {fileID: 0}
+  _isInNpcArea: 0
+  _uiActive: 0
   _tutorialNotificationID: 0
+  _isPauseMenuActive: 0
+  _isDialogueActive: 0
 --- !u!1 &282233968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2837,6 +2844,9 @@ MonoBehaviour:
   DescriptionText: {fileID: 1811816825}
   MoneyText: {fileID: 472646897}
   PlayerMovement: {fileID: 1195905023}
+  Player: {fileID: 0}
+  PlayerScale: {x: 0, y: 0, z: 0}
+  PlayerMarker: {fileID: 0}
   MoneyManager: {fileID: 0}
   SceneTransition: {fileID: 0}
   GameManager: {fileID: 0}
@@ -2915,7 +2925,11 @@ MonoBehaviour:
   SeedLettuceText: {fileID: 0}
   SeedCarrotText: {fileID: 0}
   SeedStrawberryText: {fileID: 0}
+  _isInNpcArea: 0
+  _uiActive: 0
   _tutorialNotificationID: 0
+  _isPauseMenuActive: 0
+  _isDialogueActive: 0
 --- !u!61 &399323415
 BoxCollider2D:
   m_ObjectHideFlags: 0
