@@ -49,6 +49,13 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private PlayerMovement PlayerMovement;
 
+    ///<summary>
+    ///Tamaño del jugador
+    /// </summary>
+    [SerializeField] private Transform Player;
+    [SerializeField] private Vector3 PlayerScale;
+    [SerializeField] private Transform PlayerMarker;
+
     /// <summary>
     /// Ref al moneymanager
     /// </summary>
@@ -630,6 +637,7 @@ public class UIManager : MonoBehaviour
                 Map.SetActive(true);
                 _isMapVisible = true;
                 PlayerMovement.DisablePlayerMovement();
+                //Player.localScale = new Vector3 (15f, 15f, 1f);
 
                 if (TutorialManager.GetTutorialPhase() == 3) // Verifica si es la fase 3 o la fase que corresponda
                 {
@@ -642,6 +650,8 @@ public class UIManager : MonoBehaviour
                 Map.SetActive(false);
                 _isMapVisible = false;
                 PlayerMovement.EnablePlayerMovement();
+                Player.localScale = new Vector3(7f, 7f, 1f);
+
             }
         }
         //else if (SceneManager.GetActiveScene().name == "Escena_Compra")
@@ -984,9 +994,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HideMap()
     {
+        Player.localScale = new Vector3(7f, 7f, 1f);
         Map.SetActive(false);
         _isMapVisible = false;
         PlayerMovement.EnablePlayerMovement();
+
     }
     ///<summary>
     ///Metodo para mostrar el menu de pausa
@@ -1049,6 +1061,10 @@ public class UIManager : MonoBehaviour
     public bool GetUIActive()
     {
         return _uiActive;
+    }
+    public bool GetMapVisible()
+    {
+        return _isMapVisible;
     }
     #endregion
 
