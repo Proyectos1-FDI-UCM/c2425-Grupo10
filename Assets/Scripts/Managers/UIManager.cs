@@ -645,22 +645,20 @@ public class UIManager : MonoBehaviour
 
         NotificationManager.LoadNotification("Tutorial");
         NotificationManager.LoadNotification("NoTutorial");
-
-        UpdateLibrary();
-
+        PlacesDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(0); });
+        CharactersDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(1); });
+        PlantsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(2); });
+        UpdateLibrary(0);
     }
 
     void Update()
     {
 
-        if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == false)
-        {
+         if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == true)
+         {
             HideLibrary();
-        }
-        else if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == true)
-        {
-            HideLibrary();
-        }
+         }
+         
         if (InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == false)
         {
             ShowPauseMenu();
@@ -679,6 +677,7 @@ public class UIManager : MonoBehaviour
                 ToggleInventory();
                 ActualizeInventory();
             }
+
 
             // Define la posición objetivo del inventory
             float targetInventoryY = _isInventoryVisible ? _visibleY : _hiddenY;
@@ -938,10 +937,6 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowDialogue(string dialogueText, string buttonText)
     {
-        if(!GameManager.GetControllerUsing())
-        {
-            GameManager.ShowCursor();
-        }
         _isDialogueActive = true;
         PlayerMovement.DisablePlayerMovement();
         TutorialUI.SetActive(true);
@@ -1002,24 +997,15 @@ public class UIManager : MonoBehaviour
         {
             if(!_uiActive)
             {
-                if (!GameManager.GetControllerUsing())
-                {
-                    GameManager.HideCursor();
-                }
+              
                 PlayerMovement.EnablePlayerMovement();
             }
-            else
-            {
-                GameManager.ShowCursor();
-            }
+            
         }
         else
         {
             PlayerMovement.EnablePlayerMovement();
-            if (!GameManager.GetControllerUsing())
-            {
-                GameManager.HideCursor();
-            }
+            
         }
         
     }
@@ -1051,14 +1037,9 @@ public class UIManager : MonoBehaviour
     public void ShowPauseMenu()
     {
         HideLibrary();
-        if(GameManager.GetControllerUsing() == false)
-        {
-            GameManager.ShowCursor();
-        }
-        else
-        {
-            ContinueButton.Select();
-        }
+
+        ContinueButton.Select();
+
         TutorialButton.interactable = false;
         PauseMenu.SetActive(true);
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -1083,7 +1064,6 @@ public class UIManager : MonoBehaviour
     {
         if (GameManager.GetControllerUsing() == false)
         {
-            GameManager.HideCursor();
             ContinueButton.Select();
         }
         TutorialButton.interactable = true;
@@ -1116,13 +1096,12 @@ public class UIManager : MonoBehaviour
     public void ShowLibrary()
     {
 
-            PlayerMovement.DisablePlayerMovement();
             Library.SetActive(true);
             _isLibraryActive = true;
             PlacesDropdown.value = 0;
             CharactersDropdown.value = 0;
+            CharactersDropdown.Select();
             PlantsDropdown.value = 0;
-            GameManager.ShowCursor();
             if (GameManager.GetAmountSold("Lettuce") >= 10)
             {
                 CarrotDescription.text = "Fiel y subterránea, crece bajo tierra como los secretos del bosque. A todos les encanta, y a los comerciantes también.";
@@ -1133,6 +1112,8 @@ public class UIManager : MonoBehaviour
                 StrawberryDescription.text = "Desbloquea el cultivo anterior para mas información.";
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
             }
+
+
             if (GameManager.GetAmountSold("Carrot") >= 30)
             {
                 StrawberryDescription.text = "Pequeña, dulce y jugosa. Aunque tarda un poco más, su valor es alto. Ideal para quienes cultivan con amor (y paciencia).";
@@ -1140,7 +1121,10 @@ public class UIManager : MonoBehaviour
             else if (GameManager.GetAmountSold("Carrot") < 30 && GameManager.GetAmountSold("Lettuce") >= 10)
             {
                 StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.GetAmountSold("Carrot");
-            }
+                CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
+        }
+
+
             if (GameManager.GetAmountSold("Strawberry") >= 50)
             {
                 CornDescription.text = "Alto y orgulloso. Su crecimiento es lento pero produce mucho. Cuando lo cosechas, suena a victoria. Literalmente, crack.";
@@ -1150,6 +1134,23 @@ public class UIManager : MonoBehaviour
                 CornDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.GetAmountSold("Carrot");
             }
 
+
+            if((SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra") && _uiActive)
+            {
+               DisableInterfaz();
+            }
+            else if(SceneManager.GetActiveScene().name == "Escena_Build")
+            {
+                if(_isInventoryVisible)
+                {
+                    ToggleInventory();
+                }
+                else if(_isMapVisible)
+                {
+                    HideMap();
+                }
+            }
+        PlayerMovement.DisablePlayerMovement();
     }
     public void HideLibrary()
     {
@@ -1166,47 +1167,66 @@ public class UIManager : MonoBehaviour
     ///<summary>
     ///library cambios
     /// </summary>
-    public void UpdateLibrary()
+    public void UpdateLibrary(int changedDropdown)
     {
-        // Desactivar todos
+        // Desactivar todo
         foreach (var obj in PlacesRootWood) obj.SetActive(false);
         foreach (var obj in CharactersRootWood) obj.SetActive(false);
         foreach (var obj in PlantsRootWood) obj.SetActive(false);
+
         LibraryDescription.text = "Busca información de todo lo descubierto en la Enciclopedia.";
-        // Si seleccionas un lugar
-        if (PlacesDropdown.value > 0)
-        {
-            LibraryDescription.text = "";
-            // Resetear los otros dropdowns
-            CharactersDropdown.value = 0;
-            PlantsDropdown.value = 0;
 
-            int index = PlacesDropdown.value - 1;
-            if (index < PlacesRootWood.Length)
-                PlacesRootWood[index].SetActive(true);
-        }
-        // Si seleccionas un personaje
-        else if (CharactersDropdown.value > 0)
-        {
-            LibraryDescription.text = "";
-            PlacesDropdown.value = 0;
-            PlantsDropdown.value = 0;
+        // Desconectar temporalmente los listeners para evitar llamadas recursivas
+        PlacesDropdown.onValueChanged.RemoveAllListeners();
+        CharactersDropdown.onValueChanged.RemoveAllListeners();
+        PlantsDropdown.onValueChanged.RemoveAllListeners();
 
-            int index = CharactersDropdown.value - 1;
-            if (index < CharactersRootWood.Length)
-                CharactersRootWood[index].SetActive(true);
-        }
-        // Si seleccionas una planta
-        else if (PlantsDropdown.value > 0)
+        switch (changedDropdown)
         {
-            LibraryDescription.text = "";
-            PlacesDropdown.value = 0;
-            CharactersDropdown.value = 0;
+            case 0: // Lugar seleccionado
+                if (PlacesDropdown.value > 0)
+                {
+                    LibraryDescription.text = "";
+                    CharactersDropdown.value = 0;
+                    PlantsDropdown.value = 0;
 
-            int index = PlantsDropdown.value - 1;
-            if (index < PlantsRootWood.Length)
-                PlantsRootWood[index].SetActive(true);
+                    int index = PlacesDropdown.value - 1;
+                    if (index < PlacesRootWood.Length)
+                        PlacesRootWood[index].SetActive(true);
+                }
+                break;
+
+            case 1: // Personaje seleccionado
+                if (CharactersDropdown.value > 0)
+                {
+                    LibraryDescription.text = "";
+                    PlacesDropdown.value = 0;
+                    PlantsDropdown.value = 0;
+
+                    int index = CharactersDropdown.value - 1;
+                    if (index < CharactersRootWood.Length)
+                        CharactersRootWood[index].SetActive(true);
+                }
+                break;
+
+            case 2: // Planta seleccionada
+                if (PlantsDropdown.value > 0)
+                {
+                    LibraryDescription.text = "";
+                    PlacesDropdown.value = 0;
+                    CharactersDropdown.value = 0;
+
+                    int index = PlantsDropdown.value - 1;
+                    if (index < PlantsRootWood.Length)
+                        PlantsRootWood[index].SetActive(true);
+                }
+                break;
         }
+
+        // Reconectar los listeners
+        PlacesDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(0); });
+        CharactersDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(1); });
+        PlantsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(2); });
     }
     #endregion
 
@@ -1312,7 +1332,6 @@ public class UIManager : MonoBehaviour
 
     private void EnableInterfaz()
     {
-        GameManager.ShowCursor();
         _uiActive = true;
         UI.SetActive(true);
         NpcMessage.SetActive(false);
@@ -1344,7 +1363,6 @@ public class UIManager : MonoBehaviour
 
     private void DisableInterfaz()
     {
-        GameManager.HideCursor();
         _uiActive = false;
         UI.SetActive(false);
         NpcMessage.SetActive(true);

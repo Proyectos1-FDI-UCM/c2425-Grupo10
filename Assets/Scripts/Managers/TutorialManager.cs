@@ -488,7 +488,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 11)
         {
-            _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para comprar tu primera semilla.";
+            _actualDialogueText = MadameMooColor + "Mas adelantes podras desbloquear nuevas semillas pero de momento...\n pulsa el icono de lechuga para comprar tu primera semilla";
             _actualDialogueButtonText = "Probar";
 
             _actualNotificationText = "Mi primera \ncompra";
@@ -574,7 +574,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueButtonText = "Probar";
         }
 
-            if (_tutorialPhase == 24)
+        if (_tutorialPhase == 24)
         {
             _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Volveré cuando me necesites, mientras tanto asegúrate de visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
@@ -582,7 +582,12 @@ public class TutorialManager : MonoBehaviour
 
         if (_tutorialPhase == 25)
         {
-            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora, constelación de estiércol! Explora el pueblo de RootWood, entra en todas las casas ¡y vigila tu energía! \nCasi se me olvidaba, arriba a la derecha tienes la barra de energía que disminuye al correr. Ahora si, ¡Muuucha suerte ahí fuera!";
+            _actualDialogueText = MadameMooColor + " ¡Ay Querida! Explora el pueblo de RootWood, entra en todas las casas ¡y vigila tu energía! \nArriba a la derecha tienes la barra de energía que disminuye al correr.";
+            _actualDialogueButtonText = "Continuar";
+        }
+        if (_tutorialPhase == 26)
+        {
+            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora...\nCasi se me olvidaba, para que no te olvides de las cosas como me pasa a mi, consulta la enciclopedia en el menú para resolver tus dudas. Ahora si, ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
             _isInMainTutorial = false;
         }

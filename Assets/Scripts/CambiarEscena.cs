@@ -182,7 +182,7 @@ public class CambiarEscena : MonoBehaviour
                 }
                 else if (sceneName == "Escena_Mejora")
                 {
-                    if (TutorialManager.GetTutorialPhase() >= 25)
+                    if (TutorialManager.GetTutorialPhase() >= 26)
                     {
                         _sceneTransition.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);

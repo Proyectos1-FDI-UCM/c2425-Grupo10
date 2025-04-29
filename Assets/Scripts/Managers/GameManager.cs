@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     private int _maxGardenUpgrades = 4;
 
     [SerializeField] private bool _isCursorVisible = true;
+    private bool _shouldShowCursor = false;
 
     /// <summary>
     /// Cantidad de agua de la regadera.
@@ -183,6 +184,15 @@ public class GameManager : MonoBehaviour
     /// Int para contar cuantos maices has vendido de cada cosa
     /// </summary>
     [SerializeField] private int _amountOfCornSold = 0;
+
+    private string _scene;
+
+    private bool _isBuildScene;
+    private bool _isShopScene;
+    private bool _isPause;
+    private bool _isDialogue;
+    private bool _isLibrary;
+    private bool _isUI;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -245,7 +255,7 @@ public class GameManager : MonoBehaviour
                 numberOfGamepads += 1;
                 Debug.Log($"Gamepad detectado al inicio: {device.name}");
                 _isGameController = true;
-                HideCursor();
+                //SetCursorState(false);
                 break; // Suponemos que solo quieres ocultar el cursor al detectar el primer gamepad
             }
         }
@@ -262,8 +272,8 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log($"Gamepad conectado: {device.name}");
                     _isGameController = true;
-                    HideCursor();
-                    
+                    SetCursorState(false);
+
                 }
             }
             else if (change == InputDeviceChange.Removed)
@@ -272,7 +282,7 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log($"Gamepad desconectado: {device.name}");
                     _isGameController = false;
-                    ShowCursor();
+                    SetCursorState(true);
                     if (SceneManager.GetActiveScene().name == "Menu")
                     {
                         MenuManager.UpdateControllers();
@@ -336,22 +346,46 @@ public class GameManager : MonoBehaviour
         {
             EndCinematic();
         }
-        if ((SceneManager.GetActiveScene().name == "Escena_Build") && !UIManager.GetPauseMenu() && _isCursorVisible && !UIManager.GetDialogueActive() && !UIManager.GetLibraryActive())
+
+         FindActualScene();
+         _isBuildScene = _scene == "Escena_Build";
+         _isShopScene = _scene == "Escena_Compra" || _scene == "Escena_Banco" || _scene == "Escena_Venta" || _scene == "Escena_Mejora";
+
+        if(SceneManager.GetActiveScene().name != "Menu")
         {
-            HideCursor();
-            _isCursorVisible = false;
+            _isPause = UIManager.GetPauseMenu();
+            _isDialogue = UIManager.GetDialogueActive();
+            _isLibrary = UIManager.GetLibraryActive();
+            _isUI = UIManager.GetUIActive();
         }
-        else if ((SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora") && !UIManager.GetPauseMenu() && _isCursorVisible && !UIManager.GetDialogueActive() && !_isGameController && !UIManager.GetUIActive())
+
+
+        if (_isGameController)
         {
-            HideCursor();
-            _isCursorVisible = false;
+            // Si hay mando, solo mostramos el cursor si hay UI activa
+            _shouldShowCursor = _isUI;
         }
-        else if((SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora") && (!_isCursorVisible && !_isGameController) && (UIManager.GetDialogueActive() || UIManager.GetLibraryActive()))
+        else
         {
-            ShowCursor();
-            _isCursorVisible = true;
+            // Si no hay mando, mostrar el cursor cuando haya UI activa
+            if (_isBuildScene || _isShopScene)
+            {
+                _shouldShowCursor = _isUI || _isPause || _isDialogue || _isLibrary;
+            }
         }
+
+        // Cambiar estado del cursor solo si hay cambio
+        if (_shouldShowCursor && !_isCursorVisible)
+        {
+            SetCursorState(true);
+        }
+        else if (!_shouldShowCursor && _isCursorVisible)
+        {
+            SetCursorState(false);
+        }
+
     }
+
     /// <summary>
     /// Método llamado cuando se destruye el componente.
     /// </summary>
@@ -436,6 +470,11 @@ public class GameManager : MonoBehaviour
     public void SaveTime()
     {
         realTime = timer.GetRealTime();
+    }
+
+    public void FindActualScene()
+    {
+        _scene = SceneManager.GetActiveScene().name;
     }
 
     ///<summary>
@@ -539,24 +578,6 @@ public class GameManager : MonoBehaviour
         return _harvested; // Retorna el estado de la cosecha
     }
 
-    public void HideCursor()
-    {
-        Debug.Log("Raton Ocultado");
-        _isCursorVisible = false;
-        // Ocultar el cursor
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    public void ShowCursor()
-    {
-        Debug.Log("Raton visible");
-        _isCursorVisible = true;
-        // Desbloquear el cursor
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-    }
-
     /// <summary>
     /// Actualiza y obtiene la cantidad de agua disponible en la regadera.
     /// </summary>
@@ -636,6 +657,17 @@ public class GameManager : MonoBehaviour
     public bool GetCinematicState()
     {
         return _isInCinematic;
+    }
+
+    /// <summary>
+    /// Metodo para activar/desactivar el raton
+    /// </summary>
+    /// <param name="visible"></param>
+    public void SetCursorState(bool visible)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = visible ? CursorLockMode.None : CursorLockMode.Locked;
+        _isCursorVisible = visible;
     }
 
     ///<summary>
@@ -721,6 +753,7 @@ private void Init()
         // De momento no hay que transferir ningún estado
         // entre escenas
     }
+    
 
     ///<summary>
     ///Metodo para inicializar las referencias en awake
