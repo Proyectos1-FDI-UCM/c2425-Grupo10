@@ -128,6 +128,58 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject TutorialUIButton;
 
+    [Header("UI de ENCICLOPEDIA")]
+    ///<summary>
+    /// lugares de rootwood
+    /// </summary>
+    [SerializeField] private TMP_Dropdown PlacesDropdown;
+
+    ///<summary>
+    /// personajes de rootwood
+    /// </summary>
+    [SerializeField] private TMP_Dropdown CharactersDropdown;
+
+    ///<summary>
+    /// cultivos de rootwood
+    /// </summary>
+    [SerializeField] private TMP_Dropdown PlantsDropdown;
+
+    /// <summary>
+    /// UI de enciclopedia
+    /// </summary>
+    [SerializeField] private GameObject Library;
+
+    /// <summary>
+    /// descripcion de enciclopedia
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI LibraryDescription;
+
+    /// <summary>
+    /// boton de enciclopedia
+    /// </summary>
+    [SerializeField] private GameObject LibraryButton;
+
+    /// <summary>
+    /// lugares
+    /// </summary>
+    [SerializeField] private GameObject[] PlacesRootWood;
+
+    /// <summary>
+    /// lugares
+    /// </summary>
+    [SerializeField] private GameObject[] CharactersRootWood;
+
+    /// <summary>
+    /// lugares
+    /// </summary>
+    [SerializeField] private GameObject[] PlantsRootWood;
+
+    /// <summary>
+    /// Descripciones de cultivos
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI CarrotDescription;
+    [SerializeField] private TextMeshProUGUI StrawberryDescription;
+    [SerializeField] private TextMeshProUGUI CornDescription;
 
 
     [Header("UI de BUILD")]
@@ -552,7 +604,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
    [SerializeField] private bool _isDialogueActive = false;
 
-  
+    /// <summary>
+    /// bool para saber si la enciclopedia esta activa
+    /// </summary>
+    private bool _isLibraryActive = false;
 
     #endregion
 
@@ -590,10 +645,22 @@ public class UIManager : MonoBehaviour
 
         NotificationManager.LoadNotification("Tutorial");
         NotificationManager.LoadNotification("NoTutorial");
+
+        UpdateLibrary();
+
     }
 
     void Update()
     {
+
+        if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == false)
+        {
+            HideLibrary();
+        }
+        else if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == true)
+        {
+            HideLibrary();
+        }
         if (InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == false)
         {
             ShowPauseMenu();
@@ -655,6 +722,14 @@ public class UIManager : MonoBehaviour
                 Player.localScale = new Vector3(7f, 7f, 1f);
 
             }
+            if (TutorialManager.GetTutorialPhase() >= 25)
+            {
+                LibraryButton.SetActive(true);
+            }
+            else
+            {
+                LibraryButton.SetActive(false);
+            }
         }
         //else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         //{
@@ -709,6 +784,7 @@ public class UIManager : MonoBehaviour
                 NotificationManager.EditNotification(i);
             }
         }
+
     }
     #endregion
 
@@ -974,6 +1050,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ShowPauseMenu()
     {
+        HideLibrary();
         if(GameManager.GetControllerUsing() == false)
         {
             GameManager.ShowCursor();
@@ -1015,7 +1092,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("boton tuto selec");
             TutorialButton.Select();
         }
-        else if (!_isDialogueActive)
+        else if (!_isDialogueActive && !_isLibraryActive)
         {
             PlayerMovement.EnablePlayerMovement();
 
@@ -1035,10 +1112,109 @@ public class UIManager : MonoBehaviour
     {
         return _isMapVisible;
     }
+
+    public void ShowLibrary()
+    {
+
+            PlayerMovement.DisablePlayerMovement();
+            Library.SetActive(true);
+            _isLibraryActive = true;
+            PlacesDropdown.value = 0;
+            CharactersDropdown.value = 0;
+            PlantsDropdown.value = 0;
+            GameManager.ShowCursor();
+            if (GameManager.GetAmountSold("Lettuce") >= 10)
+            {
+                CarrotDescription.text = "Fiel y subterránea, crece bajo tierra como los secretos del bosque. A todos les encanta, y a los comerciantes también.";
+            }
+            else
+            {
+                CarrotDescription.text = "Cultivo no descubierto, vende 10 Lechugas para desbloquear. Lechugas vendidas:\n" + GameManager.GetAmountSold("Lettuce");
+                StrawberryDescription.text = "Desbloquea el cultivo anterior para mas información.";
+                CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
+            }
+            if (GameManager.GetAmountSold("Carrot") >= 30)
+            {
+                StrawberryDescription.text = "Pequeña, dulce y jugosa. Aunque tarda un poco más, su valor es alto. Ideal para quienes cultivan con amor (y paciencia).";
+            }
+            else if (GameManager.GetAmountSold("Carrot") < 30 && GameManager.GetAmountSold("Lettuce") >= 10)
+            {
+                StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.GetAmountSold("Carrot");
+            }
+            if (GameManager.GetAmountSold("Strawberry") >= 50)
+            {
+                CornDescription.text = "Alto y orgulloso. Su crecimiento es lento pero produce mucho. Cuando lo cosechas, suena a victoria. Literalmente, crack.";
+            }
+            else if (GameManager.GetAmountSold("Strawberry") < 50 && GameManager.GetAmountSold("Carrot") >= 30)
+            {
+                CornDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.GetAmountSold("Carrot");
+            }
+
+    }
+    public void HideLibrary()
+    {
+        PlayerMovement.EnablePlayerMovement();
+        Library.SetActive(false);
+        _isLibraryActive = false;
+    }
+
+    public bool GetLibraryActive()
+    {
+        return _isLibraryActive;
+    }
+
+    ///<summary>
+    ///library cambios
+    /// </summary>
+    public void UpdateLibrary()
+    {
+        // Desactivar todos
+        foreach (var obj in PlacesRootWood) obj.SetActive(false);
+        foreach (var obj in CharactersRootWood) obj.SetActive(false);
+        foreach (var obj in PlantsRootWood) obj.SetActive(false);
+        LibraryDescription.text = "Busca información de todo lo descubierto en la Enciclopedia.";
+        // Si seleccionas un lugar
+        if (PlacesDropdown.value > 0)
+        {
+            LibraryDescription.text = "";
+            // Resetear los otros dropdowns
+            CharactersDropdown.value = 0;
+            PlantsDropdown.value = 0;
+
+            int index = PlacesDropdown.value - 1;
+            if (index < PlacesRootWood.Length)
+                PlacesRootWood[index].SetActive(true);
+        }
+        // Si seleccionas un personaje
+        else if (CharactersDropdown.value > 0)
+        {
+            LibraryDescription.text = "";
+            PlacesDropdown.value = 0;
+            PlantsDropdown.value = 0;
+
+            int index = CharactersDropdown.value - 1;
+            if (index < CharactersRootWood.Length)
+                CharactersRootWood[index].SetActive(true);
+        }
+        // Si seleccionas una planta
+        else if (PlantsDropdown.value > 0)
+        {
+            LibraryDescription.text = "";
+            PlacesDropdown.value = 0;
+            CharactersDropdown.value = 0;
+
+            int index = PlantsDropdown.value - 1;
+            if (index < PlantsRootWood.Length)
+                PlantsRootWood[index].SetActive(true);
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS GENERALES ----
     #region Métodos Privados Generales
+
+
+
 
     /// <summary>
     /// Metodo para actualizar la interfaz dependiendo de la escena activa

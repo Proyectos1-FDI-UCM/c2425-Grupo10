@@ -336,7 +336,7 @@ public class GameManager : MonoBehaviour
         {
             EndCinematic();
         }
-        if((SceneManager.GetActiveScene().name == "Escena_Build") && !UIManager.GetPauseMenu()  && _isCursorVisible && !UIManager.GetDialogueActive() && !_isGameController)
+        if ((SceneManager.GetActiveScene().name == "Escena_Build") && !UIManager.GetPauseMenu() && _isCursorVisible && !UIManager.GetDialogueActive() && !UIManager.GetLibraryActive())
         {
             HideCursor();
             _isCursorVisible = false;
@@ -346,7 +346,7 @@ public class GameManager : MonoBehaviour
             HideCursor();
             _isCursorVisible = false;
         }
-        else if((SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora") && UIManager.GetDialogueActive() && !_isCursorVisible && !_isGameController)
+        else if((SceneManager.GetActiveScene().name == "Escena_Build" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora") && (!_isCursorVisible && !_isGameController) && (UIManager.GetDialogueActive() || UIManager.GetLibraryActive()))
         {
             ShowCursor();
             _isCursorVisible = true;
