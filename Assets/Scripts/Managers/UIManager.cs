@@ -552,6 +552,8 @@ public class UIManager : MonoBehaviour
     /// </summary>
    [SerializeField] private bool _isDialogueActive = false;
 
+  
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -741,43 +743,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void BlockMarket()
-    {
-        if(SceneManager.GetActiveScene().name == "Escena_Compra")
-        {
-            for (int i = 0; i < BlockMarketSeeds.Length; i++)
-            {
-                BlockMarketSeeds[i].SetActive(true);
-            }
-        }
-        if (SceneManager.GetActiveScene().name == "Escena_Venta")
-        {
-            for (int i = 0; i < BlockMarketPlants.Length; i++)
-            {
-                BlockMarketPlants[i].SetActive(true);
-            }
-        }
-
-    }
-
-    public void UnblockMarket()
-    {
-        if (SceneManager.GetActiveScene().name == "Escena_Compra")
-        {
-            for (int i = 0; i < BlockMarketSeeds.Length; i++)
-            {
-                BlockMarketSeeds[i].SetActive(false);
-            }
-        }
-        if (SceneManager.GetActiveScene().name == "Escena_Venta")
-        {
-            for (int i = 0; i < BlockMarketPlants.Length; i++)
-            {
-                BlockMarketPlants[i].SetActive(false);
-            }
-        }
-    }
-
 
     /// <summary>
     /// Método para mostrar una notificación
@@ -880,13 +845,13 @@ public class UIManager : MonoBehaviour
         else if (source == "NoTutorial" && _isOtherNotification)
         {
             Notification1.SetActive(false);
-
+            NotificationManager.DestroyNotification(source);
             _isOtherNotification = false;
         }
         else if (source == "Energy" && _isEnergyNotification)
         {
             Notification0.SetActive(false);
-
+            NotificationManager.DestroyNotification(source);
             _isEnergyNotification = false;
         }
     }
@@ -1120,12 +1085,22 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            LettuceButton.Select();
 
             SellObj.SetActive(_isSomethingSelected);
             PlusButton.SetActive(_isSomethingSelected);
             MinusButton.SetActive(_isSomethingSelected);
-
+            if(GameManager.GetAmountSold("Lettuce") >= 10)
+            {
+                BlockMarketPlants[0].SetActive(false);
+            }
+            if(GameManager.GetAmountSold("Carrot") >= 30)
+            {
+                BlockMarketPlants[1].SetActive(false);
+            }
+            if (GameManager.GetAmountSold("Strawberry") >= 50)
+            {
+                BlockMarketPlants[2].SetActive(false);
+            }
             DescriptionText.text = "";
             Counter.text = "";
             int totalCosto = _amountBuying * _cost;
@@ -1133,11 +1108,23 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-            LettuceSeedsButton.Select();
 
             BuySeedsObj.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
+
+            if (GameManager.GetAmountSold("Lettuce") >= 10)
+            {
+                BlockMarketSeeds[0].SetActive(false);
+            }
+            if (GameManager.GetAmountSold("Carrot") >= 30)
+            {
+                BlockMarketSeeds[1].SetActive(false);
+            }
+            if (GameManager.GetAmountSold("Strawberry") >= 50)
+            {
+                BlockMarketSeeds[2].SetActive(false);
+            }
 
             DescriptionText.text = "";
             PriceAmountToBuy.text = "";
@@ -1166,13 +1153,15 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            _isCornSelected = true;
+            _isLettuceSelected = true;
+            LettuceButton.Select();
             // _isSellPressed = true;
             ActualizarCantidadUI();
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-            _isCornSelected = true;
+            _isLettuceSelected = true;
+            LettuceSeedsButton.Select();
             ActualizarCantidadSeedsUI();
         }
     }
@@ -1557,7 +1546,6 @@ public class UIManager : MonoBehaviour
         _isSellPressed = true;
         Debug.Log("Vender presionado");
         _isSomethingSelected = false;
-        UpdateUI();
 
         int cantidadDisponible = 0;
         int precioUnitario = 0;
@@ -1607,6 +1595,22 @@ public class UIManager : MonoBehaviour
             _isCarrotSelected ? Items.Carrot :
             Items.Strawberry, _amountBuying
         );
+        if ( _isLettuceSelected )
+        {
+            GameManager.AddAmountSold("Lettuce", _amountBuying);
+        }
+        else if (_isCarrotSelected)
+        {
+            GameManager.AddAmountSold("Carrot", _amountBuying);
+        }
+        else if (_isStrawberriesSelected)
+        {
+            GameManager.AddAmountSold("Strawberry", _amountBuying);
+        }
+        else if (_isCornSelected)
+        {
+            GameManager.AddAmountSold("Corn", _amountBuying);
+        }
 
         DescriptionText.text = $"Has vendido {_amountBuying} por {totalGanado} RC.";
         _amountBuying = 1; // Reiniciar cantidad
@@ -1620,6 +1624,7 @@ public class UIManager : MonoBehaviour
             Invoke("NextDialogue", 0.6f);
 
         }
+        UpdateUI();
 
     }
 
@@ -1756,30 +1761,33 @@ public class UIManager : MonoBehaviour
 
     public void ButtonLettuceSeedPressed()
     {
-        BuySeedsButton.Select();
-        _isSomethingSelected = true;
-        _isLettuceSelected = true;
-        _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
-
-        _amountBuying = 1;
-        if (_amountBuying <= 1)
+        if((TutorialManager.GetTutorialPhase() == 11) || (TutorialManager.GetTutorialPhase() >= 14))
         {
-            _actualSeedSelected = "Semilla de Lechuga";
+            BuySeedsButton.Select();
+            _isSomethingSelected = true;
+            _isLettuceSelected = true;
+            _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
 
-        }
-        else
-        {
-            _actualSeedSelected = "Semillas de Lechuga";
-        }
-        _cost = 15;
-        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
+            _amountBuying = 1;
+            if (_amountBuying <= 1)
+            {
+                _actualSeedSelected = "Semilla de Lechuga";
 
-        UpdateUI();
+            }
+            else
+            {
+                _actualSeedSelected = "Semillas de Lechuga";
+            }
+            _cost = 15;
+            DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
-        if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
-        {
-            Check(0);
-            Invoke("NextDialogue", 0.6f);
+            UpdateUI();
+
+            if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
+            {
+                Check(0);
+                Invoke("NextDialogue", 0.1f);
+            }
         }
     }
 

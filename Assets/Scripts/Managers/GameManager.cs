@@ -163,6 +163,26 @@ public class GameManager : MonoBehaviour
     ///Booleano para saber si el jugador esta en la cinematica inicial
     /// </summary>
     [SerializeField] private bool _isInCinematic = false;
+
+    /// <summary>
+    /// Int para contar cuantas lechugas has vendido de cada cosa
+    /// </summary>
+    [SerializeField] private int _amountOfLettuceSold = 0;
+
+    /// <summary>
+    /// Int para contar cuantas zanahorias has vendido de cada cosa
+    /// </summary>
+    [SerializeField] private int _amountOfCarrotSold = 0;
+
+    /// <summary>
+    /// Int para contar cuantas fresas has vendido de cada cosa
+    /// </summary>
+    [SerializeField] private int _amountOfStrawberrySold = 0;
+
+    /// <summary>
+    /// Int para contar cuantos maices has vendido de cada cosa
+    /// </summary>
+    [SerializeField] private int _amountOfCornSold = 0;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -265,7 +285,7 @@ public class GameManager : MonoBehaviour
         {
             if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
             {
-                InventoryManager.ModifyInventory(Items.Corn, 1);
+                InventoryManager.ModifyInventory(Items.Letuce, 1);
             }
             if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
             {
@@ -416,6 +436,47 @@ public class GameManager : MonoBehaviour
     public void SaveTime()
     {
         realTime = timer.GetRealTime();
+    }
+
+    ///<summary>
+    ///metodo para obtener el contador de venta de un cultivo
+    /// </summary>
+    public int GetAmountSold(string type)
+    {
+        switch (type)
+        {
+            case "Lettuce":
+                return _amountOfLettuceSold;
+            case "Carrot":
+                return _amountOfCarrotSold;
+            case "Strawberry":
+                return _amountOfStrawberrySold;
+            case "Corn":
+                return _amountOfCornSold;
+        }
+        return 0;
+    }
+
+    ///<summary>
+    ///metodo para añadir 1 al contador de venta de un cultivo
+    /// </summary>
+    public void AddAmountSold(string type, int amount)
+    {
+        switch (type)
+        {
+            case "Lettuce":
+                 _amountOfLettuceSold += amount;
+                break;
+            case "Carrot":
+                _amountOfCarrotSold += amount;
+                break;
+            case "Strawberry":
+                 _amountOfStrawberrySold += amount;
+                break;
+            case "Corn":
+                 _amountOfCornSold += amount;
+                break;
+        }
     }
 
     /// <summary>

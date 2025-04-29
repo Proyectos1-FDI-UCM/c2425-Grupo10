@@ -166,18 +166,6 @@ public class TutorialManager : MonoBehaviour
             _exit = "Q";
         }
 
-        if (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta")
-        {
-            if (_isInMainTutorial == true)
-            {
-                UIManager.BlockMarket();
-            }
-            else if (_isInMainTutorial == false)
-            {
-                UIManager.UnblockMarket();
-            }
-        }
-
         if (SceneManager.GetActiveScene().name != "Menu" || SceneManager.GetActiveScene().name != "Menu_Pausa")
         {
             InitializeReferences();
@@ -517,7 +505,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 13)
         {
-            _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de vender, y despidete de algunas moneditas (Por ahora).\nPara salir de la interfaz pulsa " + _exit;
+            _actualDialogueText = MadameMooColor + " Con todo listo es hora de pasar por caja.\r\nPulsa el botón de comprar, y despidete de algunas moneditas (Por ahora).\nPara salir de la interfaz pulsa " + _exit;
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Mi primera \ncompra";
             _actualNotificationTaskText = "[ ] Pulsa \r\ncomprar";
@@ -572,7 +560,7 @@ public class TutorialManager : MonoBehaviour
 
         if (_tutorialPhase == 21)
         {
-            _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para vender tu primera cultivo.";
+            _actualDialogueText = MadameMooColor + " Pulsa el icono de lechuga para vender tu primer cultivo.";
             _actualDialogueButtonText = "Probar";
         }
         if (_tutorialPhase == 22)

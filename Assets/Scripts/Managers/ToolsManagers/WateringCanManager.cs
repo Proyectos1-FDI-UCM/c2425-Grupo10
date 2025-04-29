@@ -247,7 +247,7 @@ public class WateringCanManager : MonoBehaviour
             UiManager.ShowNotification("Presiona "+ _use + "\npara rellenar", "NoCounter", 1, "NoTutorial");
             _notificationActive = true;
             // 
-            if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && _canWater)
+            if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
             {
 
                 FillWateringCan(_maxWaterAmount);
