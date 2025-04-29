@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  sound: {fileID: 1564137556}
+  SoundManager: {fileID: 0}
   _sceneTransition: {fileID: 448902184}
 --- !u!114 &116666130 stripped
 MonoBehaviour:
@@ -1002,7 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  sound: {fileID: 1564137556}
+  SoundManager: {fileID: 0}
   _sceneTransition: {fileID: 448902184}
 --- !u!114 &695948511 stripped
 MonoBehaviour:
@@ -1537,7 +1537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  sound: {fileID: 1564137556}
+  SoundManager: {fileID: 0}
   _sceneTransition: {fileID: 448902184}
 --- !u!114 &1115517361 stripped
 MonoBehaviour:
@@ -2144,7 +2144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Credits
-  sound: {fileID: 1564137556}
+  SoundManager: {fileID: 0}
   _sceneTransition: {fileID: 448902184}
 --- !u!114 &1378875608 stripped
 MonoBehaviour:
@@ -2976,7 +2976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  sound: {fileID: 1564137556}
+  SoundManager: {fileID: 0}
   _sceneTransition: {fileID: 448902184}
 --- !u!114 &1667463065 stripped
 MonoBehaviour:
@@ -3252,7 +3252,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: EXIT
-  sound: {fileID: 1564137556}
+  SoundManager: {fileID: 0}
   _sceneTransition: {fileID: 448902184}
 --- !u!114 &1916504218 stripped
 MonoBehaviour:
@@ -3756,7 +3756,7 @@ PrefabInstance:
       objectReference: {fileID: 999510548685471150, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
     - target: {fileID: 8600601485489430643, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: InitialAmountMoney
-      value: 100000
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

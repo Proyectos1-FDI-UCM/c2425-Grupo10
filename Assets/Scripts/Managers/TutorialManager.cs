@@ -605,7 +605,7 @@ public class TutorialManager : MonoBehaviour
             }
             if (i == 2)
             {
-                _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+                _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con el Señor Relincho";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa " + _use+" para hablar.";
@@ -622,7 +622,7 @@ public class TutorialManager : MonoBehaviour
             }
             if (i == 5)
             {
-                _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+                _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con el joven de Jamoncio";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
@@ -639,7 +639,7 @@ public class TutorialManager : MonoBehaviour
             }
             if (_tutorialPhaseBanco == 3)
             {
-                _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]";
+                _actualDialogueText = MadameMooColor + "¡Lo primero es saludar a los gemelos Copi y Pasti, Connie! \r\nAcercate al mostrador y habla con Capi... bueno o con Pasti";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
@@ -694,7 +694,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseMejora == 3)
         {
-            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con [Nombre del bicho ese]\"";
+            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con Lana del Rey, antigua cantante, ahora oveja.\"";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Acercate al \nmostrador";
             _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";

@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     private int _maxGardenUpgrades = 4;
 
     [SerializeField] private bool _isCursorVisible = true;
-    private bool _shouldShowCursor = false;
+    private bool _shouldShowCursor = true;
 
     /// <summary>
     /// Cantidad de agua de la regadera.
@@ -342,9 +342,9 @@ public class GameManager : MonoBehaviour
                 WateringCanManager = WCObject.GetComponent<WateringCanManager>();
             }
         }
-        if (SceneManager.GetActiveScene().name != "Menu")
+        if (SceneManager.GetActiveScene().name != "Menu" && _isInCinematic)
         {
-            EndCinematic();
+            Invoke("EndCinematic", 1f);
         }
 
          FindActualScene();
@@ -724,6 +724,10 @@ public class GameManager : MonoBehaviour
         _isInCinematic = true;
         ResetInitialMoney();
         _newGame = false;
+        _amountOfCarrotSold = 0;
+        _amountOfLettuceSold = 0;
+        _amountOfCornSold = 0;
+        _amountOfStrawberrySold = 0;
         TutorialManager.ResetTutorialManager();
         NotificationManager.ResetNotificationManager();
     }
@@ -770,11 +774,9 @@ private void Init()
     }
     public void EndCinematic()
     {
-        if (_isInCinematic && Input.GetKeyDown(KeyCode.Return)) // Return = Enter
-        {
+
             _isInCinematic = false;
             //TutorialManager.NextDialogue();
-        }
     }
     #endregion
 } // class GameManager 
