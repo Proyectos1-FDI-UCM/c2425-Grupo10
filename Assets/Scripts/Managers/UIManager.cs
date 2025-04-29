@@ -24,10 +24,6 @@ public class UIManager : MonoBehaviour
 
 
     [Header("UI Comunes")]
-    ///<summary>
-    ///Pop up del npc cuando te acercas para interactuar con el
-    /// </summary>
-    [SerializeField] private GameObject NpcMessage;
 
     /// <summary>
     /// Conjunto de objetos que forman la interfaz
@@ -742,34 +738,39 @@ public class UIManager : MonoBehaviour
         {
             AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
         }
-        if (_isInNpcArea && InputManager.Instance.UsarIsPressed())
+        if (_isInNpcArea)
         {
-            if (TutorialManager.GetTutorialPhase() == 9) // Tutorial
+            ShowNotification("Presiona E para\nhablar", "NoCounter", 1, "NoTutorial");
+            if (InputManager.Instance.UsarIsPressed())
             {
-                TutorialManager.ModifyNotification("Mi primera \ncompra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
-                TutorialManager.NextDialogue();
+                if (TutorialManager.GetTutorialPhase() == 9) // Tutorial
+                {
+                    TutorialManager.ModifyNotification("Mi primera \ncompra", "[ ] Compra una\r\n    semilla de\r\n    lechuga");
+                    TutorialManager.NextDialogue();
+                }
+                if (TutorialManager.GetTutorialPhase() == 20)
+                {
+                    TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
+                    TutorialManager.NextDialogue();
+                }
+                if (TutorialManager.GetTutorialPhaseMejora() == 3)
+                {
+                    //TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
+                    TutorialManager.NextDialogue();
+                }
+                if (TutorialManager.GetTutorialPhaseBanco() == 3)
+                {
+                    //TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
+                    TutorialManager.NextDialogue();
+                }
+                if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
+                {
+                    Check(0);
+                    //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
+                }
+                EnableInterfaz();
             }
-            if (TutorialManager.GetTutorialPhase() == 20)
-            {
-                TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
-                TutorialManager.NextDialogue();
-            }
-            if (TutorialManager.GetTutorialPhaseMejora() == 3)
-            {
-                //TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
-                TutorialManager.NextDialogue();
-            }
-            if (TutorialManager.GetTutorialPhaseBanco() == 3)
-            {
-                //TutorialManager.ModifyNotification("Vende tu \nprimera cosecha", "[ ] Vende\n una lechuga");
-                TutorialManager.NextDialogue();
-            }
-            if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
-            {
-                Check(0);
-               //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
-            }
-            EnableInterfaz();
+            
         }
         if (_uiActive && InputManager.Instance.SalirIsPressed())
         {
@@ -797,11 +798,10 @@ public class UIManager : MonoBehaviour
     {
         MoneyText.text = "x" + Convert.ToString(MoneyManager.GetMoneyCount());
     }
-    public void OnTriggerStay2D(Collider2D other)
+    public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            NpcMessage.SetActive(true);
             _isInNpcArea = true;
         }
     }
@@ -812,8 +812,8 @@ public class UIManager : MonoBehaviour
         {
             if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
             {
-                NpcMessage.SetActive(false);
                 _isInNpcArea = false;
+                HideNotification("NoTutorial");
             }
         }
     }
@@ -1334,7 +1334,8 @@ public class UIManager : MonoBehaviour
     {
         _uiActive = true;
         UI.SetActive(true);
-        NpcMessage.SetActive(false);
+        _isInNpcArea = false;
+        HideNotification("NoTutorial");
         PlayerMovement.DisablePlayerMovement();
         if (SceneManager.GetActiveScene().name == "Escena_Banco")
         {
@@ -1365,14 +1366,13 @@ public class UIManager : MonoBehaviour
     {
         _uiActive = false;
         UI.SetActive(false);
-        NpcMessage.SetActive(true);
         _isInNpcArea = true;
+        ShowNotification("Presiona E para\nhablar", "NoCounter", 1, "NoTutorial");
         PlayerMovement.EnablePlayerMovement();
     }
 
     private void ResetInterfaz()
     {
-        NpcMessage.SetActive(false);
         UI.SetActive(false);
 
         if (SceneManager.GetActiveScene().name == "Escena_Mejora")

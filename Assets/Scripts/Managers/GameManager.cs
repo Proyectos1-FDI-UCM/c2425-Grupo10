@@ -112,7 +112,9 @@ public class GameManager : MonoBehaviour
     private int _maxGardenUpgrades = 4;
 
     [SerializeField] private bool _isCursorVisible = true;
-    private bool _shouldShowCursor = true;
+    [SerializeField] private bool _shouldShowCursor = true;
+    [SerializeField] private bool _shouldHideCursor = true;
+
 
     /// <summary>
     /// Cantidad de agua de la regadera.
@@ -357,29 +359,19 @@ public class GameManager : MonoBehaviour
             _isDialogue = UIManager.GetDialogueActive();
             _isLibrary = UIManager.GetLibraryActive();
             _isUI = UIManager.GetUIActive();
+             _shouldShowCursor = (_isDialogue || _isLibrary || _isPause || _isUI);
+             _shouldHideCursor = !_isDialogue && !_isLibrary && !_isPause && !_isUI;
         }
 
-
-        if (_isGameController)
-        {
-            // Si hay mando, solo mostramos el cursor si hay UI activa
-            _shouldShowCursor = _isUI;
-        }
-        else
-        {
-            // Si no hay mando, mostrar el cursor cuando haya UI activa
-            if (_isBuildScene || _isShopScene)
-            {
-                _shouldShowCursor = _isUI || _isPause || _isDialogue || _isLibrary;
-            }
-        }
-
-        // Cambiar estado del cursor solo si hay cambio
-        if (_shouldShowCursor && !_isCursorVisible)
+        if ((_isBuildScene || _isShopScene) && _shouldShowCursor && !_isCursorVisible)
         {
             SetCursorState(true);
         }
-        else if (!_shouldShowCursor && _isCursorVisible)
+        else if (_isShopScene && _shouldHideCursor && _isCursorVisible && !_isGameController)
+        {
+            SetCursorState(false);
+        }
+        else if (_isBuildScene && _shouldHideCursor && _isCursorVisible && !_isGameController)
         {
             SetCursorState(false);
         }
