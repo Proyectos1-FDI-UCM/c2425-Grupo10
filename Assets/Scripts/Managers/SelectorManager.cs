@@ -149,7 +149,7 @@ public class SelectorManager : MonoBehaviour
     ///<summary>
     ///Int para el contador del tutorial
     /// </summary>
-    [SerializeField] private int _tutorialCount = 0;
+    //[SerializeField] private int _tutorialCount = 0;
 
     // Booleanos para controlar si una herramienta ya fue usada
     private bool _usedGloves = false;
@@ -366,33 +366,26 @@ public class SelectorManager : MonoBehaviour
             if (newTool == ShovelTool && !_usedShovel)
             {
                 _usedShovel = true;
-                _tutorialCount++;
+                TutorialManager.SubTask();
                 TutorialManager.CheckBox(2);
             }
             else if (newTool == WateringCanTool && !_usedWateringCan)
             {
                 _usedWateringCan = true;
-                _tutorialCount++;
+                TutorialManager.SubTask();
                 TutorialManager.CheckBox(0);
             }
             else if (newTool == SickleTool && !_usedSickle)
             {
                 _usedSickle = true;
-                _tutorialCount++;
+                TutorialManager.SubTask();
                 TutorialManager.CheckBox(1);
             }
             else if (newTool == SeedTool && !_usedSeeds)
             {
                 _usedSeeds = true;
-                _tutorialCount++;
+                TutorialManager.SubTask();
                 TutorialManager.CheckBox(3);
-            }
-
-            // Llamar al diálogo si se han usado 4 herramientas
-            if (_tutorialCount == 4)
-            {
-                TutorialManager.Invoke("NextDialogue", 0.6f);
-                _tutorialCount = 0;
             }
         }
         

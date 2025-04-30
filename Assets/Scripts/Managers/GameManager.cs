@@ -464,6 +464,11 @@ public class GameManager : MonoBehaviour
         realTime = timer.GetRealTime();
     }
 
+    public void SaveTime(float time)
+    {
+        realTime = time;
+    }
+
     public void FindActualScene()
     {
         _scene = SceneManager.GetActiveScene().name;
@@ -730,6 +735,50 @@ public class GameManager : MonoBehaviour
         MoneyCount.InitialMoney(InitialAmountMoney);
 
     }
+
+    public void SaveGame()
+    {
+        SaveData data = new SaveData();
+
+        #region Métodos Privados
+        data.PlayerPosition = InventoryManager.GetPlayerPosition();
+        data.Inventory = InventoryManager.GetInventory();
+        data.ActivePlants = GardenData.GetActivePlants();
+        data.Garden = GardenData.GetGarden();
+        data.timer = realTime;
+        data.money = MoneyCount.GetMoneyCount();
+        data.tutorialPhase = TutorialManager.GetTutorialPhase();
+        data.waterUpdate = _wateringCanUpgrades;
+        data.gardenUpdate = _gardenUpgrades;
+
+    }
+    public void LoadGame()
+    {
+        string path = Application.persistentDataPath + "/savefile.json";
+
+        if (System.IO.File.Exists(path))
+        {
+            string json = System.IO.File.ReadAllText(path);
+            SaveData data = JsonUtility.FromJson<SaveData>(json);
+
+            InventoryManager.SetPlayerPosition(data.PlayerPosition);
+            InventoryManager.SetInventory(data.Inventory);
+            GardenData.SetActivePlants(data.ActivePlants);
+            GardenData.SetGarden(data.Garden);
+            SaveTime(data.timer);
+            MoneyCount.SetMoneyCount(data.money);
+            TutorialManager.SetTutorialPhase(data.tutorialPhase);
+            _wateringCanUpgrades = data.waterUpdate;
+            _gardenUpgrades = data.gardenUpdate;
+
+            Debug.Log("Partida cargada correctamente");
+        }
+        else
+        {
+            Debug.LogWarning("No existe partida guardada.");
+        }
+    }
+
 #endregion
 
 // ---- MÉTODOS PRIVADOS ----
@@ -772,4 +821,5 @@ private void Init()
     }
     #endregion
 } // class GameManager 
+#endregion
 // namespace

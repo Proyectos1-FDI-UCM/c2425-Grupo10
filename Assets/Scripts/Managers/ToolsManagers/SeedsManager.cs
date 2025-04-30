@@ -154,7 +154,7 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventory(_seed) > 0)
+        if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventoryItem(_seed) > 0)
         {
             if (TutorialManager.GetTutorialPhase() == 14)
             {
@@ -178,7 +178,7 @@ public class SeedsManager : MonoBehaviour
         if (UIManager.GetInventoryVisible() == false)
         {
             AmountOfSeeds.SetActive(true);
-            AmountSeedsText.text = "x" + InventoryManager.GetInventory(_seed).ToString();
+            AmountSeedsText.text = "x" + InventoryManager.GetInventoryItem(_seed).ToString();
         }
         else 
         {

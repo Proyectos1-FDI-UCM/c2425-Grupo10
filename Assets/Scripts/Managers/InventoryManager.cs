@@ -6,6 +6,7 @@
 //---------------------------------------------------------
 
 using UnityEngine;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Items es un Enum que asocia la lista de items que puede tener el jugador con un entero
@@ -50,22 +51,39 @@ public static class InventoryManager
     [SerializeField] private static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventory para las semillas
     [SerializeField] private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventory para los cultivos
 
-    /// <summary>
-    /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
-    /// </summary>
-    public static int GetInventory(Items item)  
-    {
-        return Inventory[(int)item];
-    }
 
-    public static int GetInventory(int item)
+
+    public static void SetPlayerPosition(Vector3 position)
     {
-        return Inventory[(int)item];
+        PlayerPosition = position;
     }
 
     public static Vector3 GetPlayerPosition()
     {
         return PlayerPosition;
+    }
+
+    public static int[] GetInventory()
+    {
+        return Inventory;
+    }
+
+    public static void SetInventory(int[] inventory)
+    {
+        Inventory = inventory;
+    }
+
+    /// <summary>
+    /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
+    /// </summary>
+    public static int GetInventoryItem(Items item)  
+    {
+        return Inventory[(int)item];
+    }
+
+    public static int GetInventoryItem(int item)
+    {
+        return Inventory[(int)item];
     }
 
     public static void ModifyPlayerPosition(Vector3 position)

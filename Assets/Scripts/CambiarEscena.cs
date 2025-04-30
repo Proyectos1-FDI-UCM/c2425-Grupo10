@@ -100,6 +100,7 @@ public class CambiarEscena : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+        GameManager.Instance.SaveGame();
     }
     #endregion
 

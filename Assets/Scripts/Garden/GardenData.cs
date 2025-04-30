@@ -5,9 +5,11 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
+[Serializable]
 public struct Plant
 {
     public Items Item;
@@ -54,7 +56,7 @@ public struct CropVariables
      
      * MAXWATERTIME - El tiempo que debe pasar entre regados
      * MAXGROWTHTIME - El tiempo que pasa entre una fase y otra
-     * MAXDEATHTIME - EL tiempo que pasa desde que se debía regar hasta que muere. Si la planta pasa más de MAXDEATHTIME sin regar muere
+     * MAXDEATHTIME - El tiempo que pasa desde que se debía regar hasta que muere. Si la planta pasa más de MAXDEATHTIME sin regar muere
      
      */
 }
@@ -78,11 +80,43 @@ public static class GardenData
     new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 1.3f, MaxDeathTime = 1.5f } //fresa
     };
 
+    public static Plant[] GetGarden()
+    {
+        Plant[] garden = new Plant[GardenMax];
+        for (int i = 0; i < garden.Length; i++)
+        {
+            Garden[i].Active = false;
+            garden[i] = Garden[i];
+        }
+        return garden;
+    }
+    public static void SetGarden(Plant[] garden)
+    {
+        for (int i = 0; i < garden.Length; i++)
+        {
+            Garden[i] = garden[i];
+        }
+    }
+
+    public static void SetActivePlants(int activePlants)
+    {
+        ActivePlants = activePlants;
+    }
+
+    /// <summary>
+    /// Devuelve el numero (int) de plantas activas
+    /// </summary>
+    public static int GetActivePlants()
+    {
+        return ActivePlants;
+    }
+
     static void Main()
     {
         for (int i = 0; i < GardenMax; i++)
         {
-            Garden[i].Active = false;
+            if (!Garden[i].Active)
+                Garden[i].Active = false;
         }
 
     }
@@ -238,14 +272,6 @@ public static class GardenData
         }
         if (i < Garden.Length && Found) Plant = Garden[i];
         return Plant;
-    }
-
-    /// <summary>
-    /// Devuelve el numero (int) de plantas activas
-    /// </summary>
-    public static int GetActivePlants()
-    {
-        return ActivePlants;
     }
 
     // ---------------- ITEM DATA ------------------

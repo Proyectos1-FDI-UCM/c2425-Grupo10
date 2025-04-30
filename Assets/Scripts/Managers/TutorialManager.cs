@@ -297,6 +297,15 @@ public class TutorialManager : MonoBehaviour
     {
         return _tutorialPhase;
     }
+
+    /// <summary>
+    /// Cambia la fase del tutorial, solo se usa al cargar el juego
+    /// </summary>
+    /// <param name="phase"></param>
+    public void SetTutorialPhase(int phase)
+    {
+        _tutorialPhase = phase;
+    }
     public bool IsDialogueActive()
     {
         return _isDialogueActive;
@@ -461,6 +470,7 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Selecciona todas \nlas herramientas";
             _actualNotificationTaskText = "[ ] Regadera\r\n[ ] Hoz\r\n[ ] Pala\r\n[ ] Semillas";
+            _toTaskCompleted = 4;
         }
         if (_tutorialPhase == 7)
         {

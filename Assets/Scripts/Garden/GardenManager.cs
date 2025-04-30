@@ -254,7 +254,7 @@ public class GardenManager : MonoBehaviour
 
                     if (TutorialManager.GetTutorialPhase() == 19 && !done)
                     {
-                        //TutorialManager.CheckBox(0);
+                        TutorialManager.CheckBox(0);
                         TutorialManager.SubTask();
                         done = true;
                     }

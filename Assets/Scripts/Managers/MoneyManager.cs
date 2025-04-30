@@ -265,6 +265,14 @@ public class MoneyManager : MonoBehaviour
         return MoneyCount;
     }
 
+    /// <summary>
+    /// Modifica la cantidad de dinero (Solo se usa al cargar el juego).
+    /// </summary>
+    public void SetMoneyCount(int money)
+    {
+        MoneyCount = money;
+    }
+
 
     // ---- MÉTODOS PARA MEJORAR LA REGADERA ----
 

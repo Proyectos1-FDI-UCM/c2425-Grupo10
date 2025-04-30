@@ -1444,11 +1444,11 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < (int)Items.Count / 2; i++)
         {
             GameObject _crops = InventoryIcons.transform.GetChild(i).gameObject;
-            if (InventoryManager.GetInventory(i) != 0)
+            if (InventoryManager.GetInventoryItem(i) != 0)
             {
                 _crops.SetActive(true);
                 _units = _crops.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                _units.text = "x" + InventoryManager.GetInventory(i);
+                _units.text = "x" + InventoryManager.GetInventoryItem(i);
             }
             else _crops.SetActive(false);
         }
@@ -1456,7 +1456,7 @@ public class UIManager : MonoBehaviour
         // Muestra los cultivos
         for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++)
         {
-            if (InventoryManager.GetInventory(i) != 0)
+            if (InventoryManager.GetInventoryItem(i) != 0)
             {
                 int actualSlot = 1; // El Slot actual que está estableciendo
                 bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
@@ -1466,13 +1466,13 @@ public class UIManager : MonoBehaviour
                     GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
                     _crops.SetActive(true);
                     _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
-                    if (InventoryManager.GetInventory(i) / (actualSlot * _slotsCapacity) != 0)
+                    if (InventoryManager.GetInventoryItem(i) / (actualSlot * _slotsCapacity) != 0)
                     {
                         _units.text = "x" + _slotsCapacity;
                     }
-                    else if (InventoryManager.GetInventory(i) - ((actualSlot - 1) * _slotsCapacity) != 0)
+                    else if (InventoryManager.GetInventoryItem(i) - ((actualSlot - 1) * _slotsCapacity) != 0)
                     {
-                        _units.text = InventoryManager.GetInventory(i) - ((actualSlot - 1) * _slotsCapacity) + "x";
+                        _units.text = InventoryManager.GetInventoryItem(i) - ((actualSlot - 1) * _slotsCapacity) + "x";
                         fullSlot = true;
                     }
                     else
@@ -1746,22 +1746,22 @@ public class UIManager : MonoBehaviour
 
         if (_isCornSelected)
         {
-            cantidadDisponible = InventoryManager.GetInventory(Items.Corn);
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Corn);
             precioUnitario = 90;
         }
         else if (_isLettuceSelected)
         {
-            cantidadDisponible = InventoryManager.GetInventory(Items.Letuce);
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Letuce);
             precioUnitario = 20;
         }
         else if (_isCarrotSelected)
         {
-            cantidadDisponible = InventoryManager.GetInventory(Items.Carrot);
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Carrot);
             precioUnitario = 65;
         }
         else if (_isStrawberriesSelected)
         {
-            cantidadDisponible = InventoryManager.GetInventory(Items.Strawberry);
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Strawberry);
             precioUnitario = 40;
         }
 
@@ -1827,10 +1827,10 @@ public class UIManager : MonoBehaviour
     {
         int maxCantidad = 0;
 
-        if (_isCornSelected) maxCantidad = InventoryManager.GetInventory(Items.Corn);
-        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventory(Items.Letuce);
-        else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventory(Items.Carrot);
-        else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventory(Items.Strawberry);
+        if (_isCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
+        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Letuce);
+        else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
+        else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
 
         if (_amountBuying < maxCantidad)
         {
@@ -1850,10 +1850,10 @@ public class UIManager : MonoBehaviour
     {
         int maxCantidad = 0;
 
-        if (_isCornSelected) maxCantidad = InventoryManager.GetInventory(Items.Corn);
-        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventory(Items.Letuce);
-        else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventory(Items.Carrot);
-        else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventory(Items.Strawberry);
+        if (_isCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
+        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Letuce);
+        else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
+        else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
 
         if (_amountBuying < maxCantidad)
         {
@@ -1914,10 +1914,10 @@ public class UIManager : MonoBehaviour
 
     public void ActualizarCantidadUI()
     {
-        CornText.text = "x" + InventoryManager.GetInventory(Items.Corn);
-        LettuceText.text = "x" + InventoryManager.GetInventory(Items.Letuce);
-        CarrotText.text = "x" + InventoryManager.GetInventory(Items.Carrot);
-        StrawberryText.text = "x" + InventoryManager.GetInventory(Items.Strawberry);
+        CornText.text = "x" + InventoryManager.GetInventoryItem(Items.Corn);
+        LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Letuce);
+        CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
+        StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
 
     }
     #endregion
@@ -2035,22 +2035,22 @@ public class UIManager : MonoBehaviour
     public void IncreaseAmount()
     {
         // Verifica si se ha alcanzado el máximo de semillas para la semilla seleccionada
-        if (_isCornSelected && InventoryManager.GetInventory(Items.CornSeed) + _amountBuying >= 30)
+        if (_isCornSelected && InventoryManager.GetInventoryItem(Items.CornSeed) + _amountBuying >= 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de maíz (30).";
             return;
         }
-        if (_isCarrotSelected && InventoryManager.GetInventory(Items.CarrotSeed) + _amountBuying >= 30)
+        if (_isCarrotSelected && InventoryManager.GetInventoryItem(Items.CarrotSeed) + _amountBuying >= 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de zanahoria (30).";
             return;
         }
-        if (_isLettuceSelected && InventoryManager.GetInventory(Items.LettuceSeed) + _amountBuying >= 30)
+        if (_isLettuceSelected && InventoryManager.GetInventoryItem(Items.LettuceSeed) + _amountBuying >= 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de lechuga (30).";
             return;
         }
-        if (_isStrawberriesSelected && InventoryManager.GetInventory(Items.StrawberrySeed) + _amountBuying >= 30)
+        if (_isStrawberriesSelected && InventoryManager.GetInventoryItem(Items.StrawberrySeed) + _amountBuying >= 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de fresa (30).";
             return;
@@ -2088,22 +2088,22 @@ public class UIManager : MonoBehaviour
     public void ButtonBuyPressed()
     {
         // Verifica el máximo de semillas solo para el tipo seleccionado
-        if (_isCornSelected && InventoryManager.GetInventory(Items.CornSeed) + _amountBuying > 30)
+        if (_isCornSelected && InventoryManager.GetInventoryItem(Items.CornSeed) + _amountBuying > 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de maíz (30).";
             return;
         }
-        if (_isCarrotSelected && InventoryManager.GetInventory(Items.CarrotSeed) + _amountBuying > 30)
+        if (_isCarrotSelected && InventoryManager.GetInventoryItem(Items.CarrotSeed) + _amountBuying > 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de zanahoria (30).";
             return;
         }
-        if (_isLettuceSelected && InventoryManager.GetInventory(Items.LettuceSeed) + _amountBuying > 30)
+        if (_isLettuceSelected && InventoryManager.GetInventoryItem(Items.LettuceSeed) + _amountBuying > 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de lechuga (30).";
             return;
         }
-        if (_isStrawberriesSelected && InventoryManager.GetInventory(Items.StrawberrySeed) + _amountBuying > 30)
+        if (_isStrawberriesSelected && InventoryManager.GetInventoryItem(Items.StrawberrySeed) + _amountBuying > 30)
         {
             DescriptionText.text = "Ya tienes el máximo de semillas de fresa (30).";
             return;
@@ -2158,10 +2158,10 @@ public class UIManager : MonoBehaviour
     #region
     public void ActualizarCantidadSeedsUI()
     {
-        SeedCornText.text = "x" + InventoryManager.GetInventory(Items.CornSeed);
-        SeedLettuceText.text = "x" + InventoryManager.GetInventory(Items.LettuceSeed);
-        SeedCarrotText.text = "x" + InventoryManager.GetInventory(Items.CarrotSeed);
-        SeedStrawberryText.text = "x" + InventoryManager.GetInventory(Items.StrawberrySeed);
+        SeedCornText.text = "x" + InventoryManager.GetInventoryItem(Items.CornSeed);
+        SeedLettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.LettuceSeed);
+        SeedCarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.CarrotSeed);
+        SeedStrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.StrawberrySeed);
 
     }
     #endregion
