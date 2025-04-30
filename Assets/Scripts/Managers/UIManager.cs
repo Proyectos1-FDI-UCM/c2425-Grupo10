@@ -92,6 +92,18 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Button ContinueButton;
 
+    [Header("UI de CONTROLES")]
+    ///<summary>
+    /// controles
+    /// </summary>
+    [SerializeField] private TMP_Dropdown ControlsDropdown;
+
+    ///<summary>
+    ///Gameobject con todos las partes de la ui
+    /// </summary>
+    [SerializeField] private GameObject []Controls;
+
+
 
     [Header("UI de TUTORIAL")]
     ///<summary>
@@ -616,6 +628,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isLibraryActive = false;
 
+    /// <summary>
+    /// bool para saber si los controles están activos
+    /// </summary>
+    private bool _isControlsActive;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -656,6 +673,9 @@ public class UIManager : MonoBehaviour
         CharactersDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(1); });
         PlantsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(2); });
         UpdateLibrary(0);
+
+        ControlsDropdown.value = 0;
+        UpdateControls(0);
     }
 
     void Update()
@@ -671,7 +691,7 @@ public class UIManager : MonoBehaviour
             ShowPauseMenu();
             _isPauseMenuActive = true;
         }
-        else if(InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == true)
+        else if(InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == true && !_isControlsActive)
         {
             HidePauseMenu();
             _isPauseMenuActive = false;
@@ -795,7 +815,13 @@ public class UIManager : MonoBehaviour
                 NotificationManager.EditNotification(i);
             }
         }
-
+        if (SceneManager.GetActiveScene().name != "Menu")
+        {
+            if(_isControlsActive && InputManager.Instance.ExitWasPressedThisFrame())
+            {
+                HideControls();
+            }
+        }
     }
     #endregion
 
@@ -1260,6 +1286,35 @@ public class UIManager : MonoBehaviour
         PlantsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(2); });
         ToolsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(3); });
 
+    }
+
+    public void HideControls()
+    {
+        _isControlsActive = false;
+        ControlsDropdown.value = 0;
+        UpdateControls(0);
+    }
+
+    public void UpdateControls(int changedDropdown)
+    {
+        // Desactivar todo
+        foreach (var obj in Controls) obj.SetActive(false);
+        // Desconectar temporalmente los listeners para evitar llamadas recursivas
+        ControlsDropdown.onValueChanged.RemoveAllListeners();
+
+        switch (changedDropdown)
+        {
+            case 0: // Lugar seleccionado
+                if (ControlsDropdown.value > 0)
+                {
+                    int index = ControlsDropdown.value - 1;
+                    if (index < Controls.Length)
+                        Controls[index].SetActive(true);
+                    _isControlsActive = true;
+                }
+                break;
+        }
+        ControlsDropdown.onValueChanged.AddListener(delegate { UpdateControls(0); });
     }
     #endregion
 
