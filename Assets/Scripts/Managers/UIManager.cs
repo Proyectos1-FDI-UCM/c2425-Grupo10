@@ -727,7 +727,7 @@ public class UIManager : MonoBehaviour
                 new Vector2(QuickAccessBar.anchoredPosition.x, targetQuickBarY),
                 Time.deltaTime * _transitionSpeed
             );
-            if (!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame() && !_isDialogueActive)
+            if (!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame() && !_isDialogueActive && !_isPauseMenuActive && !_isControlsActive && !_isLibraryActive)
             {
                 Map.SetActive(true);
                 _isMapVisible = true;
