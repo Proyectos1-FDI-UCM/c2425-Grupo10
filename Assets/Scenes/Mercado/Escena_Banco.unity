@@ -2363,8 +2363,8 @@ Transform:
   m_GameObject: {fileID: 275213576}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.71, y: -0.08, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.618, y: -0.082, z: 0}
+  m_LocalScale: {x: 0.8, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 996543212}
@@ -8666,6 +8666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 611261884}
   - component: {fileID: 611261883}
+  - component: {fileID: 611261885}
   m_Layer: 0
   m_Name: NPC Banco izq
   m_TagString: Untagged
@@ -8714,9 +8715,9 @@ SpriteRenderer:
   m_SortingLayerID: 571459705
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: d6f569fa01b62c54a8e85385ddec6075, type: 3}
+  m_Sprite: {fileID: 435785801, guid: 5bc478a9215079a4d8356214eba2a89c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 1
+  m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
   m_Size: {x: 2, y: 2}
@@ -8734,12 +8735,33 @@ Transform:
   m_GameObject: {fileID: 611261882}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.315, y: -9.674, z: 0}
-  m_LocalScale: {x: 6, y: 6.5, z: 1}
+  m_LocalPosition: {x: -10.21, y: -9.63, z: 0}
+  m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &611261885
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611261882}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18e17045a0337ea449c62af2a6e412fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &611291326
 GameObject:
   m_ObjectHideFlags: 0
@@ -28418,6 +28440,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996543212}
   - component: {fileID: 996543213}
+  - component: {fileID: 996543214}
   m_Layer: 0
   m_Name: NPC Banco der
   m_TagString: Untagged
@@ -28435,7 +28458,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.301, y: -9.69, z: 0}
-  m_LocalScale: {x: 6, y: 6.5, z: 1}
+  m_LocalScale: {x: 7, y: 7, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 275213579}
@@ -28482,7 +28505,7 @@ SpriteRenderer:
   m_SortingLayerID: 571459705
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 64cc132f04659814d8a6ea5a98d58c89, type: 3}
+  m_Sprite: {fileID: 353551493, guid: ce77ff383890c6d409e1ed21610cf1d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -28493,6 +28516,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &996543214
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996543211}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 093e044009246044497c3f7bdcaedc10, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1001850511
 GameObject:
   m_ObjectHideFlags: 0
@@ -29950,6 +29994,7 @@ GameObject:
   - component: {fileID: 1168054658}
   - component: {fileID: 1168054660}
   - component: {fileID: 1168054659}
+  - component: {fileID: 1168054661}
   m_Layer: 5
   m_Name: Imagen Vendedor
   m_TagString: Untagged
@@ -29973,8 +30018,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -104.61, y: 14.531}
-  m_SizeDelta: {x: 122.8948, y: 100}
+  m_AnchoredPosition: {x: -129, y: 36.5}
+  m_SizeDelta: {x: 82.615, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1168054659
 MonoBehaviour:
@@ -29996,7 +30041,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -458665397, guid: bc513aedb048ecf4ca9199ae539f0145, type: 3}
+  m_Sprite: {fileID: 795986221, guid: 847ec45c1f01fdd4ea40d9051d4a596c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -30014,6 +30059,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1168054657}
   m_CullTransparentMesh: 1
+--- !u!95 &1168054661
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168054657}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2361b04d82ff57f48b8b0a62511295b0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1178107441
 GameObject:
   m_ObjectHideFlags: 0
@@ -37981,6 +38047,7 @@ GameObject:
   - component: {fileID: 1941777613}
   - component: {fileID: 1941777615}
   - component: {fileID: 1941777614}
+  - component: {fileID: 1941777616}
   m_Layer: 5
   m_Name: Imagen Vendedor (1)
   m_TagString: Untagged
@@ -37995,17 +38062,17 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941777612}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 893751932}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -61.447, y: -6.5}
-  m_SizeDelta: {x: 122.8948, y: 100}
+  m_AnchoredPosition: {x: -50.1, y: 4}
+  m_SizeDelta: {x: 82.615, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1941777614
 MonoBehaviour:
@@ -38027,7 +38094,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -458665397, guid: bc513aedb048ecf4ca9199ae539f0145, type: 3}
+  m_Sprite: {fileID: -1013530758, guid: 3a6956b774254d74c91ebb5feaca3bc3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -38045,6 +38112,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1941777612}
   m_CullTransparentMesh: 1
+--- !u!95 &1941777616
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1941777612}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 31af942dcd2ce8a4ba1b02a505712d0a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1949696827
 GameObject:
   m_ObjectHideFlags: 0
