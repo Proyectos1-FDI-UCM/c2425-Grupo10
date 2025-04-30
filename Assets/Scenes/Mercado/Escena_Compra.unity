@@ -12452,6 +12452,7 @@ GameObject:
   - component: {fileID: 1044368785}
   - component: {fileID: 1044368787}
   - component: {fileID: 1044368786}
+  - component: {fileID: 1044368788}
   m_Layer: 5
   m_Name: Imagen Vendedor
   m_TagString: Untagged
@@ -12516,6 +12517,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044368784}
   m_CullTransparentMesh: 1
+--- !u!95 &1044368788
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044368784}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0482f8f29eacb5940a890a4fead4fcc2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1050313910
 GameObject:
   m_ObjectHideFlags: 0
@@ -13458,6 +13480,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1128037754}
   - component: {fileID: 1128037755}
+  - component: {fileID: 1128037756}
   m_Layer: 0
   m_Name: NPC Compra
   m_TagString: Untagged
@@ -13533,6 +13556,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1128037756
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1128037753}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6c785c776c96ab945af8d84d29198ff3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1144424120
 GameObject:
   m_ObjectHideFlags: 0
