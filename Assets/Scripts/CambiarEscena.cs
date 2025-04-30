@@ -142,30 +142,6 @@ public class CambiarEscena : MonoBehaviour
                     UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
                 }
             }
-            if(SceneManager.GetActiveScene().name == "Escena_Banco")
-            {
-                if (TutorialManager.GetTutorialPhaseBanco() >= 9)
-                {
-                    _sceneTransition.ChangeScene(sceneName);
-                    Debug.Log("Cambiando a escena: " + sceneName);
-                }
-                else
-                {
-                    UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
-                }
-            }
-            if (SceneManager.GetActiveScene().name == "Escena_Mejora")
-            {
-                if (TutorialManager.GetTutorialPhaseBanco() >= 10)
-                {
-                    _sceneTransition.ChangeScene(sceneName);
-                    Debug.Log("Cambiando a escena: " + sceneName);
-                }
-                else
-                {
-                    UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
-                }
-            }
 
             if (_sceneTransition != null)
             {
