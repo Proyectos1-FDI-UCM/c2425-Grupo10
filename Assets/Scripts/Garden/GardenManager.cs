@@ -129,14 +129,17 @@ public class GardenManager : MonoBehaviour
         {
             //Debug.Log(GardenData.GetPlant(i).Item);
 
+            Plant Plant = GardenData.GetPlant(i);
+
             if (GardenData.GetPlant(i).Active)
             {
-                Items item = GardenData.GetPlant(i).Item;
+                Items item = Plant.Item;
                 float MaxGrowth = GardenData.GetMaxGrowthTime(item);
                 float MaxWater = GardenData.GetMaxWaterTime(item);
                 float MaxDeath = GardenData.GetMaxDeathTime(item);
+                int State = Plant.State;
 
-                if (GardenData.GetPlant(i).State == 0)
+                if (State == 0)
                 {
                     GardenData.ModifyGrowthTimer(i, gameTimer.GetGameTimeInHours());
                     GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
@@ -145,7 +148,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Lógica Crecimiento
-                if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).GrowthTimer) >= GardenData.GetMaxGrowthTime((GardenData.GetPlant(i).Item)) && GardenData.GetPlant(i).State < 5 && GardenData.GetPlant(i).State > 0)
+                if ((gameTimer.GetGameTimeInHours() - Plant.GrowthTimer) >= MaxGrowth && State < 5 && State > 0)
                 {
                     GrowthWarning(GardenData.GetPlant(i), i);
                 }
@@ -153,14 +156,14 @@ public class GardenManager : MonoBehaviour
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
 
                 // Aviso Riego
-                 if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) < MaxWater + (MaxDeath/2) && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
+                 if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath/2) && State > 0 && State < 4)
                 {
                     WaterWarning(GardenData.GetPlant(i));
                     //GardenData.ModifyWaterWarning(i);
                 }
 
                  // Aviso Muerte
-                else if ((gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer < MaxWater + MaxDeath && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
+                else if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4)
                 {
                     Debug.Log("Aviso Muerte");
                     DeathWarning(GardenData.GetPlant(i), i);
@@ -168,14 +171,14 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Muerte
-                else if (gameTimer.GetGameTimeInHours() - GardenData.GetPlant(i).WaterTimer >= MaxWater + MaxDeath && GardenData.GetPlant(i).State > 0 && GardenData.GetPlant(i).State < 5)
+                else if (gameTimer.GetGameTimeInHours() - Plant.WaterTimer >= MaxWater + MaxDeath && State > 0 && State < 4)
                 {
-                    Death(GardenData.GetPlant(i), i);
+                    Death(Plant, i);
                     Debug.Log("Muerte");
                 }
 
                 //Cosechar
-                else if (GardenData.GetPlant(i).State > 3)
+                else if (State == 4)
                 {
                     HarvestWarning(GardenData.GetPlant(i));
                 }
@@ -240,6 +243,7 @@ public class GardenManager : MonoBehaviour
                     WeedTutorial = true;
                 }
                 else random = UnityEngine.Random.Range(0, _maxProb);
+                
                 InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0) 
@@ -250,7 +254,7 @@ public class GardenManager : MonoBehaviour
 
                     if (TutorialManager.GetTutorialPhase() == 19 && !done)
                     {
-                        TutorialManager.CheckBox(0);
+                        //TutorialManager.CheckBox(0);
                         TutorialManager.SubTask();
                         done = true;
                     }
