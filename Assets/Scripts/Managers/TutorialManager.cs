@@ -325,6 +325,7 @@ public class TutorialManager : MonoBehaviour
         _tutorialInProgress = false;
         _tutorialPhaseBanco = 0;
         _tutorialPhaseEscenas = 0;
+        Debug.Log("ResetTutorial");
     }
 
     ///<summary>

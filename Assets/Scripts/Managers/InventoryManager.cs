@@ -73,6 +73,14 @@ public static class InventoryManager
         Inventory = inventory;
     }
 
+    public static void ResetInventory()
+    {
+        for (int i = 0; i < Inventory.Length; i++)
+        {
+            Inventory[i] = 0;
+        }
+    }
+
     /// <summary>
     /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
     /// </summary>

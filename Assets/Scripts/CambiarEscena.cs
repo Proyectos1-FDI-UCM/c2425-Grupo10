@@ -99,7 +99,7 @@ public class CambiarEscena : MonoBehaviour
 
     public void Exit()
     {
-        //GameManager.Instance.SaveGame(); Comentado para cargar una nueva partida rapidamente
+        GameManager.Instance.SaveGame(); //Comentado para cargar una nueva partida rapidamente
         Application.Quit();
     }
     #endregion

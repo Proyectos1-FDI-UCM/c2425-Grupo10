@@ -80,7 +80,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        GameManager.LoadGame();
+        //GameManager.LoadGame();
 
         GameManager = FindObjectOfType<GameManager>();
         YESButton.onClick.AddListener(GameManager.NewGame);

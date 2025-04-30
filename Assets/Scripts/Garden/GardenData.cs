@@ -85,7 +85,7 @@ public static class GardenData
         Plant[] garden = new Plant[GardenMax];
         for (int i = 0; i < garden.Length; i++)
         {
-            Garden[i].Active = false;
+            //Garden[i].Active = false;
             garden[i] = Garden[i];
         }
         return garden;
@@ -95,6 +95,14 @@ public static class GardenData
         for (int i = 0; i < garden.Length; i++)
         {
             Garden[i] = garden[i];
+        }
+    }
+
+    public static void ResetGarden()
+    {
+        for (int i = 0; i < Garden.Length; i++)
+        {
+            Garden[i].Active = false;
         }
     }
 
@@ -115,8 +123,7 @@ public static class GardenData
     {
         for (int i = 0; i < GardenMax; i++)
         {
-            if (!Garden[i].Active)
-                Garden[i].Active = false;
+            if (Garden[i].Active == null) Garden[i].Active = false;
         }
 
     }

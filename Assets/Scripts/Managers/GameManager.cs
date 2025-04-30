@@ -149,7 +149,7 @@ public class GameManager : MonoBehaviour
     ///<summary>
     ///Booleano para saber si es una nueva partida
     /// </summary>
-    [SerializeField] private bool _newGame = true;
+    [SerializeField] private bool _newGame = false;
 
     ///<summary>
     ///bool para saber si hay mando
@@ -195,6 +195,8 @@ public class GameManager : MonoBehaviour
     private bool _isDialogue;
     private bool _isLibrary;
     private bool _isUI;
+
+    private bool _gameCharged = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -208,6 +210,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     protected void Awake()
     {
+
         InitializeReferences();
         if (_instance != null)
         {
@@ -247,6 +250,12 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
         }
         _isInCinematic = true;
+
+    }
+
+    private void Start()
+    {
+        LoadGame();
     }
     private void Update()
     {
@@ -720,13 +729,18 @@ public class GameManager : MonoBehaviour
         _amountWater = 6;
         _isInCinematic = true;
         ResetInitialMoney();
-        _newGame = false;
         _amountOfCarrotSold = 0;
         _amountOfLettuceSold = 0;
         _amountOfCornSold = 0;
         _amountOfStrawberrySold = 0;
         TutorialManager.ResetTutorialManager();
         NotificationManager.ResetNotificationManager();
+        GardenData.ResetGarden();
+        InventoryManager.ResetInventory();
+        InventoryManager.ModifyPlayerPosition(new Vector3(14.14f, -9.62f, 0));
+        SaveTime(0f);
+        _newGame = false;
+
     }
 
     
@@ -771,15 +785,18 @@ public class GameManager : MonoBehaviour
             GardenData.SetGarden(data.Garden);
             SaveTime(data.timer);
             MoneyCount.SetMoneyCount(data.money);
-            TutorialManager.SetTutorialPhase(data.tutorialPhase);
             _wateringCanUpgrades = data.waterUpdate;
             _gardenUpgrades = data.gardenUpdate;
+            TutorialManager.SetTutorialPhase(data.tutorialPhase);
 
             Debug.Log("Partida cargada correctamente");
+
+            _newGame = false;
         }
         else
         {
             Debug.LogWarning("No existe partida guardada.");
+            _newGame= true;
         }
     }
 
