@@ -22710,6 +22710,7 @@ GameObject:
   - component: {fileID: 953155061}
   - component: {fileID: 953155063}
   - component: {fileID: 953155062}
+  - component: {fileID: 953155064}
   m_Layer: 5
   m_Name: Imagen Vendedor
   m_TagString: Untagged
@@ -22774,6 +22775,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953155060}
   m_CullTransparentMesh: 1
+--- !u!95 &953155064
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953155060}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ab8001ba14648db42af850629282fada, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &954822701
 GameObject:
   m_ObjectHideFlags: 0
@@ -23922,6 +23944,7 @@ GameObject:
   m_Component:
   - component: {fileID: 996543212}
   - component: {fileID: 996543213}
+  - component: {fileID: 996543214}
   m_Layer: 0
   m_Name: NPC Venta
   m_TagString: Untagged
@@ -23938,7 +23961,7 @@ Transform:
   m_GameObject: {fileID: 996543211}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.06, y: -9.66, z: 0}
+  m_LocalPosition: {x: -0.01, y: -9.67, z: 0}
   m_LocalScale: {x: 9, y: 9, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23983,10 +24006,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 571459705
-  m_SortingLayer: 3
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -635630633, guid: 1010f88215d04434291ad3552caa02ca, type: 3}
+  m_SortingLayerID: 1623947203
+  m_SortingLayer: 1
+  m_SortingOrder: 1
+  m_Sprite: {fileID: -1944481464, guid: 371cea9ca91cfae44b69a230e2ea9da2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -23997,6 +24020,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &996543214
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 996543211}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d4ba3ecda2c3d584c8a76f22ee100121, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1014654693
 GameObject:
   m_ObjectHideFlags: 0
