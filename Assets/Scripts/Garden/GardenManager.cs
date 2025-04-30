@@ -157,7 +157,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Lógica Crecimiento
-                if ((gameTimer.GetGameTimeInHours() - Plant.GrowthTimer) >= MaxGrowth && State < 5 && State > 0)
+                if ((gameTimer.GetGameTimeInHours() - Plant.GrowthTimer) >= MaxGrowth && State < 4 && State > 0)
                 {
                     GrowthWarning(GardenData.GetPlant(i), i);
                 }
@@ -165,14 +165,14 @@ public class GardenManager : MonoBehaviour
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
 
                 // Aviso Riego
-                 if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath/2) && State > 0 && State < 4)
+                 if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath/2) && State > 0 && State < 4 )
                 {
-                    WaterWarning(GardenData.GetPlant(i));
+                    WaterWarning(GardenData.GetPlant(i), i);
                     //GardenData.ModifyWaterWarning(i);
                 }
 
                  // Aviso Muerte
-                else if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4)
+                else if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4 )
                 {
                     Debug.Log("Aviso Muerte");
                     DeathWarning(GardenData.GetPlant(i), i);
@@ -187,9 +187,9 @@ public class GardenManager : MonoBehaviour
                 }
 
                 //Cosechar
-                else if (State == 4)
+                if (State == 4)
                 {
-                    HarvestWarning(GardenData.GetPlant(i));
+                    HarvestWarning(GardenData.GetPlant(i), i);
                 }
 
             }
@@ -258,6 +258,8 @@ public class GardenManager : MonoBehaviour
                 if (random == 0) 
                 {
                     GardenData.ModifyState(i, (-6));
+                    GardenData.ModifyHarvestWarning(i, false);
+
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
 
@@ -425,12 +427,15 @@ public class GardenManager : MonoBehaviour
                 GameObject Crop = Instantiate(Prefab, plant.Position, Quaternion.identity);
                 Crop.transform.parent = PlantingSpots.transform.GetChild(plant.Child);
 
+                WaterWarning(plant, i);
+                DeathWarning(plant, i);
+                HarvestWarning(plant, i);
+
                 CropSpriteEditor cropSpriteEditor = Crop.GetComponent<CropSpriteEditor>();
 
                 if (cropSpriteEditor != null) 
                 { 
                     cropSpriteEditor.Growing(plant.State);
-                    cropSpriteEditor.Warning("Desactivate");
                 }
             }
         }
@@ -443,14 +448,17 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Método para avisar del riego
     /// </summary>
-    public void WaterWarning(Plant plant)
+    public void WaterWarning(Plant plant, int ArrayIndex)
     {
-        Transform Crop = SearchPlant(plant);
+        if (!plant.WaterWarning) {
+            Transform Crop = SearchPlant(plant);
 
-        if (Crop != null)
-        {
-            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
-            Call.Warning("Water");
+            if (Crop != null)
+            {
+                CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                Call.Warning("Water");
+                GardenData.ModifyWaterWarning(ArrayIndex, true);
+            }
         }
     }
 
@@ -478,14 +486,18 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void DeathWarning(Plant plant, int ArrayIndex)
     {
-        Debug.Log("DeathWarning");
-        GardenData.ModifyState(ArrayIndex, plant.State);
-        Transform Crop = SearchPlant(plant);
-
-        if (Crop != null)
+        if (!plant.DeathWarning)
         {
-            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
-            Call.Warning("Death");
+            Debug.Log("DeathWarning");
+            GardenData.ModifyState(ArrayIndex, plant.State);
+            Transform Crop = SearchPlant(plant);
+
+            if (Crop != null)
+            {
+                CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                Call.Warning("Death");
+                GardenData.ModifyDeathWarning(ArrayIndex, true);
+            }
         }
     }
 
@@ -509,7 +521,7 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Método para avisar de la muerte
     /// </summary>
-    public void HarvestWarning(Plant plant)
+    public void HarvestWarning(Plant plant, int ArrayIndex)
     {
         Transform Crop = SearchPlant(plant);
 
@@ -517,6 +529,8 @@ public class GardenManager : MonoBehaviour
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
             Call.Warning("Harvest");
+            GardenData.ModifyHarvestWarning(ArrayIndex, true);
+
         }
     }
 

@@ -17,6 +17,8 @@ public struct Plant
     public float WaterTimer;
     public float GrowthTimer;
     public bool WaterWarning;
+    public bool DeathWarning;
+    public bool HarvestWarning;
     public int State;
     public Vector3 Position;
     public int Child;
@@ -153,6 +155,8 @@ public static class GardenData
             Garden[i].Item = item;
             Garden[i].State = 0;
             Garden[i].WaterWarning = false;
+            Garden[i].DeathWarning = false;
+            Garden[i].HarvestWarning = false;
             Garden[i].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
             Garden[i].GrowthTimer = 0;
 
@@ -180,6 +184,8 @@ public static class GardenData
             Garden[i].WaterTimer = 0;
             Garden[i].GrowthTimer = 0;
             Garden[i].WaterWarning = false;
+            Garden[i].DeathWarning = false;
+            Garden[i].HarvestWarning = false;
             Garden[i].Child =
 
             ActivePlants--;
@@ -199,6 +205,8 @@ public static class GardenData
             Garden[i].WaterTimer = 0;
             Garden[i].GrowthTimer = 0;
             Garden[i].WaterWarning = false;
+            Garden[i].DeathWarning = false;
+            Garden[i].HarvestWarning = false;
             Garden[i].Child =
 
             ActivePlants--;
@@ -233,9 +241,40 @@ public static class GardenData
     /// <summary>
     /// Modifica el bool de Aviso Riego
     /// </summary>
-    public static void ModifyWaterWarning(int i)
+    public static void ModifyWaterWarning(int i, bool b)
     {
-        Garden[i].WaterWarning = Garden[i].WaterWarning!;
+        Garden[i].WaterWarning = b;
+        if (b = true)
+        {
+            Garden[i].DeathWarning = false;
+            Garden[i].HarvestWarning = false;
+        }
+    }
+
+    /// <summary>
+    /// Modifica el bool de Aviso Muerte
+    /// </summary>
+    public static void ModifyDeathWarning(int i, bool b)
+    {
+        Garden[i].DeathWarning = b;
+        if (b = true)
+        {
+            Garden[i].WaterWarning = false;
+            Garden[i].HarvestWarning = false;
+        }
+    }
+
+    /// <summary>
+    /// Modifica el bool de Aviso Cosecha
+    /// </summary>
+    public static void ModifyHarvestWarning(int i, bool b)
+    {
+        Garden[i].HarvestWarning = b;
+        if (b = true)
+        {
+            Garden[i].DeathWarning = false;
+            Garden[i].WaterWarning = false;
+        }
     }
 
     /// <summary>
