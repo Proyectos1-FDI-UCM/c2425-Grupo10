@@ -751,6 +751,10 @@ public class GameManager : MonoBehaviour
         data.waterUpdate = _wateringCanUpgrades;
         data.gardenUpdate = _gardenUpgrades;
 
+        string json = JsonUtility.ToJson(data, true);
+        System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
+
+        Debug.Log("Partida guardada en " + Application.persistentDataPath);
     }
     public void LoadGame()
     {

@@ -80,6 +80,8 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        GameManager.LoadGame();
+
         GameManager = FindObjectOfType<GameManager>();
         YESButton.onClick.AddListener(GameManager.NewGame);
         LoadingScreen.SetActive(false);

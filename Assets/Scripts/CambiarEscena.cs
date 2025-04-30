@@ -99,8 +99,8 @@ public class CambiarEscena : MonoBehaviour
 
     public void Exit()
     {
-        Application.Quit();
         GameManager.Instance.SaveGame();
+        Application.Quit();
     }
     #endregion
 
@@ -156,6 +156,8 @@ public class CambiarEscena : MonoBehaviour
                     {
                         UIManager.ShowNotification("Avanza en el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
+                    Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
+                    InventoryManager.SetPlayerPosition(newPosition);
                 }
                 else if (sceneName == "Escena_Venta")
                 {
@@ -168,6 +170,8 @@ public class CambiarEscena : MonoBehaviour
                     {
                         UIManager.ShowNotification("Avanza en el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
+                    Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
+                    InventoryManager.SetPlayerPosition(newPosition);
                 }
                 else if (sceneName == "Escena_Banco")
                 {
@@ -180,6 +184,8 @@ public class CambiarEscena : MonoBehaviour
                     {
                         UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
+                    Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
+                    InventoryManager.SetPlayerPosition(newPosition);
                 }
                 else if (sceneName == "Escena_Mejora")
                 {
@@ -192,6 +198,8 @@ public class CambiarEscena : MonoBehaviour
                     {
                         UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
+                    Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
+                    InventoryManager.SetPlayerPosition(newPosition);
                 }
                 
 

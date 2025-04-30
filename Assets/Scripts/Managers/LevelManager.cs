@@ -99,7 +99,7 @@ public class LevelManager : MonoBehaviour
         GardenManager.InitChangeScene();
         PlayerMovement player = FindObjectOfType<PlayerMovement>();
         Vector3 newPosition = InventoryManager.GetPlayerPosition();
-        if (player != null && newPosition != null) player.transform.position = newPosition + new Vector3 (0, -1, 0);
+        if (player != null && newPosition != null) player.transform.position = newPosition;
     }
 
     #endregion
