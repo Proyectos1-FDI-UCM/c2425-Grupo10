@@ -140,6 +140,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TMP_Dropdown PlantsDropdown;
 
+    ///<summary>
+    /// herramientas de rootwood
+    /// </summary>
+    [SerializeField] private TMP_Dropdown ToolsDropdown;
+
     /// <summary>
     /// UI de enciclopedia
     /// </summary>
@@ -169,6 +174,11 @@ public class UIManager : MonoBehaviour
     /// lugares
     /// </summary>
     [SerializeField] private GameObject[] PlantsRootWood;
+
+    /// <summary>
+    /// herramientas
+    /// </summary>
+    [SerializeField] private GameObject[] ToolsRootWood;
 
     /// <summary>
     /// Descripciones de cultivos
@@ -260,6 +270,7 @@ public class UIManager : MonoBehaviour
     /// boton de la notificacion
     /// </summary>
     [SerializeField] private Button Notification2Button;
+    
 
 
     [Header("UI del Banco")]
@@ -1173,6 +1184,7 @@ public class UIManager : MonoBehaviour
         foreach (var obj in PlacesRootWood) obj.SetActive(false);
         foreach (var obj in CharactersRootWood) obj.SetActive(false);
         foreach (var obj in PlantsRootWood) obj.SetActive(false);
+        foreach (var obj in ToolsRootWood) obj.SetActive(false);
 
         LibraryDescription.text = "Busca información de todo lo descubierto en la Enciclopedia.";
 
@@ -1180,6 +1192,7 @@ public class UIManager : MonoBehaviour
         PlacesDropdown.onValueChanged.RemoveAllListeners();
         CharactersDropdown.onValueChanged.RemoveAllListeners();
         PlantsDropdown.onValueChanged.RemoveAllListeners();
+        ToolsDropdown.onValueChanged.RemoveAllListeners();
 
         switch (changedDropdown)
         {
@@ -1189,6 +1202,7 @@ public class UIManager : MonoBehaviour
                     LibraryDescription.text = "";
                     CharactersDropdown.value = 0;
                     PlantsDropdown.value = 0;
+                    ToolsDropdown.value = 0;
 
                     int index = PlacesDropdown.value - 1;
                     if (index < PlacesRootWood.Length)
@@ -1202,6 +1216,8 @@ public class UIManager : MonoBehaviour
                     LibraryDescription.text = "";
                     PlacesDropdown.value = 0;
                     PlantsDropdown.value = 0;
+                    ToolsDropdown.value = 0;
+
 
                     int index = CharactersDropdown.value - 1;
                     if (index < CharactersRootWood.Length)
@@ -1215,10 +1231,25 @@ public class UIManager : MonoBehaviour
                     LibraryDescription.text = "";
                     PlacesDropdown.value = 0;
                     CharactersDropdown.value = 0;
+                    ToolsDropdown.value = 0;
+
 
                     int index = PlantsDropdown.value - 1;
                     if (index < PlantsRootWood.Length)
                         PlantsRootWood[index].SetActive(true);
+                }
+                break;
+            case 3: //Herramienta seleccionada
+                if (ToolsDropdown.value > 0)
+                {
+                    LibraryDescription.text = "";
+                    PlacesDropdown.value = 0;
+                    CharactersDropdown.value = 0;
+                    PlantsDropdown.value = 0;
+
+                    int index = ToolsDropdown.value - 1;
+                    if (index < ToolsRootWood.Length)
+                        ToolsRootWood[index].SetActive(true);
                 }
                 break;
         }
@@ -1227,6 +1258,8 @@ public class UIManager : MonoBehaviour
         PlacesDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(0); });
         CharactersDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(1); });
         PlantsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(2); });
+        ToolsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(3); });
+
     }
     #endregion
 
