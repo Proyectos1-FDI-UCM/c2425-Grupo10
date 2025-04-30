@@ -101,6 +101,8 @@ public class GardenManager : MonoBehaviour
     private bool donePlant = false;
     private bool done = false;
 
+    [SerializeField] Plant[] Garden;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -122,7 +124,8 @@ public class GardenManager : MonoBehaviour
 
     private void Start()
     {
-        InitChangeScene();
+        //InitChangeScene();
+        Garden = GardenData.GetGarden();
     }
 
     /// <summary>
@@ -130,6 +133,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        Garden = GardenData.GetGarden();
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
             //Debug.Log(GardenData.GetPlant(i).Item);
