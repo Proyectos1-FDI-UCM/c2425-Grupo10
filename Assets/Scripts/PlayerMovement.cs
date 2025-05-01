@@ -45,8 +45,24 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     [SerializeField] private UIManager UIManager;
 
+    /// <summary>
+    /// ref al tutorial manager
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
+
+    /// <summary>
+    /// reproductor de audio de pasos
+    /// </summary>
     [SerializeField] private AudioSource AudioSource;
+
+    /// <summary>
+    /// pasos de connie en hierba
+    /// </summary>
     [SerializeField] private AudioClip GrassSteps;
+
+    /// <summary>
+    /// pasos de connie en madera
+    /// </summary>
     [SerializeField] private AudioClip WoodSteps;
 
     #endregion
@@ -142,6 +158,7 @@ public class PlayerMovement : MonoBehaviour
 
         UpdateEnergy();
         _currentEnergy = maxEnergy;
+        TutorialManager = FindObjectOfType<TutorialManager>();
         UIManager = FindObjectOfType<UIManager>();
     }
 
@@ -196,7 +213,10 @@ public class PlayerMovement : MonoBehaviour
             _playerAnimator.SetFloat("Horizontal", _lastMoveDirection.x);
             _playerAnimator.SetFloat("Vertical", _lastMoveDirection.y);
         }
-        UpdateEnergy();
+        if(TutorialManager.GetTutorialPhase() >= 25)
+        {
+            UpdateEnergy();
+        }
     }
 
     #endregion

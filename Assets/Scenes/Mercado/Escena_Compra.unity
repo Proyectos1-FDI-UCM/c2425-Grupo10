@@ -2385,6 +2385,7 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 898385390}
+  TutorialManager: {fileID: 0}
   AudioSource: {fileID: 230413360}
   GrassSteps: {fileID: 0}
   WoodSteps: {fileID: 8300000, guid: 79c1be814855bc8408efb47e3e13e00d, type: 3}
@@ -5968,15 +5969,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.41509432, g: 0.29263395, b: 0.18992524, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -1802099933, guid: 7565f8b398973264faf4401f9c12877b, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -8640,18 +8641,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9960785, g: 0.9058824, b: 0.3803922, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 103104031, guid: cc2c8112ac23d6044b0d41218c2f7db6, type: 3}
+  m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
-  m_FillMethod: 4
+  m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
@@ -10330,6 +10331,9 @@ MonoBehaviour:
   EnergySlider: {fileID: 2144247974}
   Map: {fileID: 0}
   NotificationsContainer: {fileID: 1957662805}
+  WaterMessage: {fileID: 0}
+  WaterBar: {fileID: 0}
+  WaterBarText: {fileID: 0}
   Notification0: {fileID: 2095312159}
   Notification0Text: {fileID: 400938471}
   Notification1: {fileID: 1292550327}
@@ -10339,6 +10343,10 @@ MonoBehaviour:
   Notification2Counter: {fileID: 1279834152}
   Notification2CounterText: {fileID: 319509438}
   Notification2Button: {fileID: 619505119}
+  Notification3: {fileID: 0}
+  Notification3Text: {fileID: 0}
+  Notification4: {fileID: 0}
+  Notification4Text: {fileID: 0}
   DepositButton: {fileID: 0}
   MovingButton: {fileID: 0}
   BeachHouseButton: {fileID: 0}

@@ -587,13 +587,13 @@ public class TutorialManager : MonoBehaviour
 
         if (_tutorialPhase == 24)
         {
-            _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Volveré cuando me necesites, mientras tanto asegúrate de visitar todo el pueblo.";
+            _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Ya estas preparada para visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
         }
 
         if (_tutorialPhase == 25)
         {
-            _actualDialogueText = MadameMooColor + " ¡Ay Querida! Explora el pueblo de RootWood, entra en todas las casas ¡y vigila tu energía! \nArriba a la derecha tienes la barra de energía que disminuye al correr.";
+            _actualDialogueText = MadameMooColor + " ¡Ay! Querida, mientras entras en todas las casas ¡vigila tu energía! \nArriba a la derecha tienes la barra de energía que disminuye al correr. Para recuperar energia simplemente deberás estar quieta, pero seguro que con la edad que tienes ya lo sabias... ¿Como? ¡Connie yo estoy como nueva! No inventes...";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhase == 26)
