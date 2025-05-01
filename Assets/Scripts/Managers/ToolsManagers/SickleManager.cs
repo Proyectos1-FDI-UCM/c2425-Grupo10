@@ -78,6 +78,8 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
 
+    [SerializeField] private AudioClip HarvestSound;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -108,6 +110,8 @@ public class SickleManager : MonoBehaviour
     ///Planta para recolectar
     /// </summary>
     private Plant _plant;
+
+    private AudioSource _audioSource;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -123,6 +127,7 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         TutorialManager = FindObjectOfType<TutorialManager>();
         Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < GardenManager.GetGardenSize(); i++)
@@ -196,6 +201,9 @@ public class SickleManager : MonoBehaviour
         PlayerMovement.DisablePlayerMovement();
         PlayerAnimator.SetBool("Harvesting", true);
 
+        _audioSource.clip = HarvestSound;
+        _audioSource.Play();
+
         Invoke("NotHarvest", 0.8f);
 
         // Lo moveremos a después del mensaje (si funciona)
@@ -210,7 +218,7 @@ public class SickleManager : MonoBehaviour
     public void HarvestPlant()
     {
         Transform Pot = FindNearestPot(transform, Pots);
-
+  
         Debug.Log("FindNearestPot: " + Pot);
         //Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);
 
