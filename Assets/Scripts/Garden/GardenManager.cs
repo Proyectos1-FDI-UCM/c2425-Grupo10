@@ -254,11 +254,11 @@ public class GardenManager : MonoBehaviour
                     WeedTutorial = true;
                 }
                 else random = UnityEngine.Random.Range(0, _maxProb);
-                
+
                 InventoryManager.ModifyInventory(Plant.Item, 1);
                 GardenData.ModifyHarvestWarning(i, false);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
-                if (random == 0) 
+                if (random == 0)
                 {
                     GardenData.ModifyState(i, (-6));
                     cropSpriteEditor.Warning("Desactivate");
@@ -271,12 +271,13 @@ public class GardenManager : MonoBehaviour
                         done = true;
                     }
                 }
-                else 
+                else
                 {
                     GardenData.Deactivate(i);
-                    cropSpriteEditor.Destroy(); 
+                    cropSpriteEditor.Destroy();
                 }
             }
+        }
     }
 
     /// <summary>
