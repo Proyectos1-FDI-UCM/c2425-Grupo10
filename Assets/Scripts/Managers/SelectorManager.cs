@@ -125,6 +125,7 @@ public class SelectorManager : MonoBehaviour
     ///Ref al tutorial manager
     /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
+    [SerializeField] private AudioSource AudioSource;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -357,7 +358,7 @@ public class SelectorManager : MonoBehaviour
 
         // Desactiva la herramienta actualmente seleccionada
         DeselectCurrentTool();
-
+        AudioSource.Play();
         // Activa la nueva herramienta y la establece como actual
         _currentTool = newTool;
         _currentTool.SetActive(true);
@@ -438,6 +439,7 @@ public class SelectorManager : MonoBehaviour
     private void ShowSeedSelected()
     {
         SeedsQAB[_currentSeed].SetActive(true);
+        AudioSource.Play();
         //_spriteRenderer.sprite = SeedsHand[_currentSeed];
         SeedsManager Manager = SeedTool.GetComponent<SeedsManager>();
         Manager.ChangeSeed(_currentSeed); // Modifica el prefab de planta en funcion de la semilla seleccionada en el SeedManager

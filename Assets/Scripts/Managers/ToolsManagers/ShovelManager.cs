@@ -59,6 +59,8 @@ public class ShovelManager : MonoBehaviour
     /// GardenManager, para llamar al método Watering
     /// </summary>
     [SerializeField] private GardenManager GardenManager;
+    [SerializeField] private AudioClip WeedingSound;
+    [SerializeField] private AudioSource AudioSource;
 
     #endregion
 
@@ -95,6 +97,7 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        AudioSource = GetComponent<AudioSource>();
         Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < GardenManager.GetGardenSize(); i++)
         {
@@ -146,6 +149,8 @@ public class ShovelManager : MonoBehaviour
     public void Weeding()
     {
         PlayerAnimator.SetBool("Weeding", true);
+        AudioSource.clip = WeedingSound;
+        AudioSource.Play();
         Invoke("NotWeeding", 0.8f);
         PlayerMovement.DisablePlayerMovement();
 

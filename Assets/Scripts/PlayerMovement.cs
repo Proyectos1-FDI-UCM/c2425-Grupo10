@@ -45,6 +45,10 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     [SerializeField] private UIManager UIManager;
 
+    [SerializeField] private AudioSource AudioSource;
+    [SerializeField] private AudioClip GrassSteps;
+    [SerializeField] private AudioClip WoodSteps;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -156,12 +160,19 @@ public class PlayerMovement : MonoBehaviour
             // Actualiza el vector de dirección solo si te estás moviendo
             if (_moveInput.magnitude >= 0.2f)
             {
+                if(SceneManager.GetActiveScene().name == "Escena_Build")
+                {
+                    AudioSource.clip = GrassSteps;
+                    AudioSource.Play();
+                }
                 _lastMoveDirection = _moveInput.normalized;
                 _playerAnimator.SetFloat("Horizontal", _moveInput.x);
                 _playerAnimator.SetFloat("Vertical", _moveInput.y);
             }
             else
             {
+                AudioSource.clip = null;
+                AudioSource.Stop();
                 // Redondea dirección cuando estás quieto
                 Vector2 cleanDirection = RoundToCardinal(_lastMoveDirection);
                 _playerAnimator.SetFloat("Horizontal", cleanDirection.x);

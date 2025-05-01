@@ -170,7 +170,7 @@ public class SeedsManager : MonoBehaviour
 
                 PlayerAnimator.SetBool("Planting", true);
                 PlantAudio.Play();
-                Invoke("NotPlanting", 0.35f);
+                Invoke("NotPlanting", 0.4f);
                 PlayerMovement.DisablePlayerMovement();
             }
 
