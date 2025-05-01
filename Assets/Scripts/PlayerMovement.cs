@@ -179,12 +179,14 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(SceneManager.GetActiveScene().name == "Escena_Build" && AudioSource.clip == null)
                 {
+                    AudioSource.pitch = 2.5f;
                     AudioSource.clip = GrassSteps;
                     AudioSource.Play();
                 }
                 bool _shopScene = FindActualScene() == "Escena_Banco" || FindActualScene() == "Escena_Mejora" || FindActualScene() == "Escena_Compra" || FindActualScene() == "Escena_Venta";
                 if (_shopScene && AudioSource.clip == null)
                 {
+                    AudioSource.pitch = 1.3f;
                     AudioSource.clip = WoodSteps;
                     AudioSource.Play();
                 }
@@ -238,6 +240,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     public void DisablePlayerMovement()
     {
+        AudioSource.clip = null;
+        AudioSource.Pause();
         _isMovementEnabled = false;
         Debug.Log("Movimiento desactivado");
     }

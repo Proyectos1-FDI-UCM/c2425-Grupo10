@@ -1073,7 +1073,7 @@ public class UIManager : MonoBehaviour
             WaterBarText.text = Water.ToString();
             ShowNotification("Regadera Vacía", "NoCounter", 3, "WC");
         }
-        else if ( Water < (MaxWaterAmount/2)+1)
+        else if ( Water < (MaxWaterAmount/2))
         {
             WaterBarText.color = Color.black;
             WaterBarText.text = Water.ToString();
