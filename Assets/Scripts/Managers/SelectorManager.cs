@@ -125,6 +125,7 @@ public class SelectorManager : MonoBehaviour
     ///Ref al tutorial manager
     /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
+    [SerializeField] private UIManager UIManager;
     [SerializeField] private AudioSource AudioSource;
     #endregion
 
@@ -174,6 +175,7 @@ public class SelectorManager : MonoBehaviour
     void Start()
     {
         TutorialManager = FindObjectOfType<TutorialManager>();
+        UIManager = FindObjectOfType<UIManager>();
         UpdateWaterBar(6, 6);
 
         DeselectCurrentTool();
@@ -200,121 +202,123 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.ChangeToolUpWasPressedThisFrame())
+        if (!UIManager.GetPauseMenu() && !UIManager.GetLibraryActive())
         {
-            if (_toolSelector < 4) _toolSelector++;
-            else if (_toolSelector == -1) _toolSelector = 0;
+            if (InputManager.Instance.ChangeToolUpWasPressedThisFrame())
+            {
+                if (_toolSelector < 4) _toolSelector++;
+                else if (_toolSelector == -1) _toolSelector = 0;
+            }
+            if (InputManager.Instance.ChangeToolDownWasPressedThisFrame())
+            {
+                if (_toolSelector < 4 && _toolSelector > 0) _toolSelector--;
+                else if (_toolSelector == 0) _toolSelector = 4;
+                else if (_toolSelector == -1) _toolSelector = 3;
+
+            }
+
+            if (InputManager.Instance.Select5WasPressedThisFrame() || _toolSelector == 4 || InputManager.Instance.ShorcutSeedWasPressedThisFrame())
+            {
+                _toolSelector = -1;
+                SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
+                if (SeedTool.activeInHierarchy) _currentSeed++;
+                if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
+
+
+                PlayerAnimator.SetBool("HasWateringCan", false);
+                PlayerAnimator.SetBool("HasSeedBag", true);
+                PlayerAnimator.SetBool("HasSickle", false);
+                PlayerAnimator.SetBool("HasShovel", false);
+
+
+                ToggleTool(SeedTool);
+                EnableSelector(SeedSelector);
+                DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
+                LevelManager.Instance.ChangeTool(5);
+
+                //Cambio de semillas
+
+                SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
+
+                //if (SeedTool.activeInHierarchy) _currentSeed++; 
+
+                // if (_currentSeed == SeedsQAB.Length) _currentSeed = 0; 
+
+                ShowSeedSelected();
+
+                //Cambio de semillas
+            }
+
+            if (InputManager.Instance.Select4WasPressedThisFrame() || _toolSelector == 3)
+            {
+                _toolSelector = 3;
+                PlayerAnimator.SetBool("HasWateringCan", false);
+                PlayerAnimator.SetBool("HasSeedBag", false);
+                PlayerAnimator.SetBool("HasSickle", false);
+                PlayerAnimator.SetBool("HasShovel", true);
+
+
+                EnableSelector(ShovelSelector);
+                ToggleTool(ShovelTool);
+                DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
+                SeedsMessage.SetActive(false);
+                SickleMessage.SetActive(false);
+                WCMessage.SetActive(false);
+
+            }
+
+            if (InputManager.Instance.Select1WasPressedThisFrame() || _toolSelector == 0)
+            {
+                _toolSelector = 0;
+                PlayerAnimator.SetBool("HasWateringCan", false);
+                PlayerAnimator.SetBool("HasSeedBag", false);
+                PlayerAnimator.SetBool("HasSickle", false);
+                PlayerAnimator.SetBool("HasShovel", false);
+
+
+                EnableSelector(GlovesSelector);
+                ToggleTool(GlovesTool);
+                DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
+                SeedsMessage.SetActive(false);
+                SickleMessage.SetActive(false);
+                WCMessage.SetActive(false);
+                ShovelMessage.SetActive(false);
+            }
+
+            if (InputManager.Instance.Select2WasPressedThisFrame() || _toolSelector == 1)
+            {
+                _toolSelector = 1;
+                PlayerAnimator.SetBool("HasWateringCan", true);
+                PlayerAnimator.SetBool("HasSeedBag", false);
+                PlayerAnimator.SetBool("HasSickle", false);
+                PlayerAnimator.SetBool("HasShovel", false);
+
+
+                ToggleTool(WateringCanTool);
+                EnableSelector(WateringCanSelector);
+                DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
+                SeedsMessage.SetActive(false);
+                SickleMessage.SetActive(false);
+                ShovelMessage.SetActive(false);
+            }
+
+            if (InputManager.Instance.Select3WasPressedThisFrame() || _toolSelector == 2)
+            {
+                _toolSelector = 2;
+                PlayerAnimator.SetBool("HasWateringCan", false);
+                PlayerAnimator.SetBool("HasSeedBag", false);
+                PlayerAnimator.SetBool("HasSickle", true);
+                PlayerAnimator.SetBool("HasShovel", false);
+
+
+                ToggleTool(SickleTool);
+                EnableSelector(SickleSelector);
+                DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
+                SeedsMessage.SetActive(false);
+                ShovelMessage.SetActive(false);
+                WCMessage.SetActive(false);
+            }
         }
-        if (InputManager.Instance.ChangeToolDownWasPressedThisFrame())
-        {
-            if (_toolSelector < 4 && _toolSelector > 0) _toolSelector--;
-            else if (_toolSelector == 0) _toolSelector = 4;
-            else if (_toolSelector == -1) _toolSelector = 3;
-
-        }
-
-        if (InputManager.Instance.Select5WasPressedThisFrame() || _toolSelector == 4 || InputManager.Instance.ShorcutSeedWasPressedThisFrame())
-        {
-            _toolSelector = -1;
-            SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
-            if (SeedTool.activeInHierarchy) _currentSeed++;
-            if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
-            
-
-            PlayerAnimator.SetBool("HasWateringCan", false);
-            PlayerAnimator.SetBool("HasSeedBag", true);
-            PlayerAnimator.SetBool("HasSickle", false);
-            PlayerAnimator.SetBool("HasShovel", false);
-
-
-            ToggleTool(SeedTool);
-            EnableSelector(SeedSelector);
-            DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
-            LevelManager.Instance.ChangeTool(5);
-            
-            //Cambio de semillas
-
-            SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
-
-            //if (SeedTool.activeInHierarchy) _currentSeed++; 
-            
-           // if (_currentSeed == SeedsQAB.Length) _currentSeed = 0; 
-            
-            ShowSeedSelected();
-
-            //Cambio de semillas
-        }
-
-        if (InputManager.Instance.Select4WasPressedThisFrame() || _toolSelector == 3)
-        {
-            _toolSelector = 3;
-            PlayerAnimator.SetBool("HasWateringCan", false);
-            PlayerAnimator.SetBool("HasSeedBag", false);
-            PlayerAnimator.SetBool("HasSickle", false);
-            PlayerAnimator.SetBool("HasShovel", true);
-
-
-            EnableSelector(ShovelSelector);
-            ToggleTool(ShovelTool);
-            DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            SeedsMessage.SetActive(false);
-            SickleMessage.SetActive(false);
-            WCMessage.SetActive(false);
-
-        }
-
-        if (InputManager.Instance.Select1WasPressedThisFrame() || _toolSelector == 0)
-        {
-            _toolSelector = 0;
-            PlayerAnimator.SetBool("HasWateringCan", false);
-            PlayerAnimator.SetBool("HasSeedBag", false);
-            PlayerAnimator.SetBool("HasSickle", false);
-            PlayerAnimator.SetBool("HasShovel", false);
-
-
-            EnableSelector(GlovesSelector);
-            ToggleTool(GlovesTool);
-            DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
-            SeedsMessage.SetActive(false);
-            SickleMessage.SetActive(false);
-            WCMessage.SetActive(false);
-            ShovelMessage.SetActive(false);
-        }
-
-        if (InputManager.Instance.Select2WasPressedThisFrame() || _toolSelector == 1)
-        {
-            _toolSelector = 1;
-            PlayerAnimator.SetBool("HasWateringCan", true);
-            PlayerAnimator.SetBool("HasSeedBag", false);
-            PlayerAnimator.SetBool("HasSickle", false);
-            PlayerAnimator.SetBool("HasShovel", false);
-
-
-            ToggleTool(WateringCanTool);
-            EnableSelector(WateringCanSelector);
-            DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
-            SeedsMessage.SetActive(false);
-            SickleMessage.SetActive(false);
-            ShovelMessage.SetActive(false);
-        }
-
-        if (InputManager.Instance.Select3WasPressedThisFrame() || _toolSelector == 2)
-        {
-            _toolSelector = 2;
-            PlayerAnimator.SetBool("HasWateringCan", false);
-            PlayerAnimator.SetBool("HasSeedBag", false);
-            PlayerAnimator.SetBool("HasSickle", true);
-            PlayerAnimator.SetBool("HasShovel", false);
-
-
-            ToggleTool(SickleTool);
-            EnableSelector(SickleSelector);
-            DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
-            SeedsMessage.SetActive(false);
-            ShovelMessage.SetActive(false);
-            WCMessage.SetActive(false);
-        }
-
 
     }
     #endregion
@@ -356,44 +360,45 @@ public class SelectorManager : MonoBehaviour
     {
         if (newTool == null) return;
 
-        // Desactiva la herramienta actualmente seleccionada
-        DeselectCurrentTool();
-        AudioSource.Play();
-        // Activa la nueva herramienta y la establece como actual
-        _currentTool = newTool;
-        _currentTool.SetActive(true);
-        if (TutorialManager.GetTutorialPhase() == 6)
-        {
-            if (newTool == ShovelTool && !_usedShovel)
+            // Desactiva la herramienta actualmente seleccionada
+            DeselectCurrentTool();
+            AudioSource.Play();
+            // Activa la nueva herramienta y la establece como actual
+            _currentTool = newTool;
+            _currentTool.SetActive(true);
+            if (TutorialManager.GetTutorialPhase() == 6)
             {
-                _usedShovel = true;
-                TutorialManager.SubTask();
-                TutorialManager.CheckBox(2);
+                if (newTool == ShovelTool && !_usedShovel)
+                {
+                    _usedShovel = true;
+                    TutorialManager.SubTask();
+                    TutorialManager.CheckBox(2);
+                }
+                else if (newTool == WateringCanTool && !_usedWateringCan)
+                {
+                    _usedWateringCan = true;
+                    TutorialManager.SubTask();
+                    TutorialManager.CheckBox(0);
+                }
+                else if (newTool == SickleTool && !_usedSickle)
+                {
+                    _usedSickle = true;
+                    TutorialManager.SubTask();
+                    TutorialManager.CheckBox(1);
+                }
+                else if (newTool == SeedTool && !_usedSeeds)
+                {
+                    _usedSeeds = true;
+                    TutorialManager.SubTask();
+                    TutorialManager.CheckBox(3);
+                }
             }
-            else if (newTool == WateringCanTool && !_usedWateringCan)
-            {
-                _usedWateringCan = true;
-                TutorialManager.SubTask();
-                TutorialManager.CheckBox(0);
-            }
-            else if (newTool == SickleTool && !_usedSickle)
-            {
-                _usedSickle = true;
-                TutorialManager.SubTask();
-                TutorialManager.CheckBox(1);
-            }
-            else if (newTool == SeedTool && !_usedSeeds)
-            {
-                _usedSeeds = true;
-                TutorialManager.SubTask();
-                TutorialManager.CheckBox(3);
-            }
-        }
+
+            // Poner la herramienta en la mano del jugador
+            _currentTool.transform.SetParent(HandPosition);
+            _currentTool.transform.localPosition = Vector3.zero; // Asegurar que esté en la posición exacta de la mano
+            _currentTool.transform.localRotation = Quaternion.identity; // Resetear rotación si es necesario
         
-        // Poner la herramienta en la mano del jugador
-        _currentTool.transform.SetParent(HandPosition);
-        _currentTool.transform.localPosition = Vector3.zero; // Asegurar que esté en la posición exacta de la mano
-        _currentTool.transform.localRotation = Quaternion.identity; // Resetear rotación si es necesario
     }
 
     /// <summary>
