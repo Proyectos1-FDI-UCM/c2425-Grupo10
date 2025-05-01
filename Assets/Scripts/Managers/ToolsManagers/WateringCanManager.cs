@@ -232,12 +232,20 @@ public class WateringCanManager : MonoBehaviour
 
         if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && !_isInWellArea && _canWater)
         {
-            Watering();
-            _canWater = false;
-            if (TutorialManager.GetTutorialPhase() == 15)
+            if(TutorialManager.GetTutorialPhase() >= 15)
             {
-                TutorialManager.CheckBox(0);
-                TutorialManager.Invoke("NextDialogue", 0.6f);
+                Watering();
+                _canWater = false;
+                if (TutorialManager.GetTutorialPhase() == 15)
+                {
+                    TutorialManager.CheckBox(0);
+                    TutorialManager.Invoke("NextDialogue", 0.6f);
+                }
+            }
+            else
+            {
+                UIManager.ShowNotification("Avanza en el tutorial\npara usar", "NoCounter", 4, "Tool");
+                Invoke("NoWarning", 1f);
             }
         }
 
@@ -496,6 +504,13 @@ public class WateringCanManager : MonoBehaviour
 
         PlayerMovement.EnablePlayerMovement();
 
+    }
+    ///<summary>
+    ///metodo para ocultar la notificacion
+    /// </summary>
+    private void NoWarning()
+    {
+        UIManager.HideNotification("Tool");
     }
 
     /// <summary>

@@ -73,6 +73,11 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GardenManager GardenManager;
 
+    ///<summary>
+    ///ref al tutorial manager 
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -118,6 +123,7 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        TutorialManager = FindObjectOfType<TutorialManager>();
         Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < GardenManager.GetGardenSize(); i++)
         {
@@ -130,34 +136,47 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        _plant = CheckCollison();
+        
 
-        // Verifica si se ha presionado la tecla para usar la hoz.
-        if (InputManager.Instance.UseSickleWasPressedThisFrame())
-        {
+            _plant = CheckCollison();
 
-            Harvest();
-
-        }
-
-        if (!Build)
-
-        if (_isInCropArea && UIManager.GetInventoryVisible() == false)
-        {
-            if (_plant.State >= 5)
+            // Verifica si se ha presionado la tecla para usar la hoz.
+            if (InputManager.Instance.UseSickleWasPressedThisFrame())
             {
-                Press.SetActive(true);
-                TextPress.text = "Presiona E \npara recolectar";
-            }
+
+                if (TutorialManager.GetTutorialPhase() >= 19)
+                {
+                    Harvest();
+                }
+                else
+                {
+
+                    UIManager.ShowNotification("Avanza en el tutorial\npara usar", "NoCounter", 4, "Tool");
+                    Invoke("NoWarning", 1f);
+
+                }
         }
 
+            if (!Build)
 
-        else if (!_isInCropArea || UIManager.GetInventoryVisible() == true)
-        {
+                if (_isInCropArea && UIManager.GetInventoryVisible() == false)
+                {
+                    if (_plant.State >= 5)
+                    {
+                        Press.SetActive(true);
+                        TextPress.text = "Presiona E \npara recolectar";
+                    }
+                }
 
-            Press.SetActive(false);
 
-        }
+                else if (!_isInCropArea || UIManager.GetInventoryVisible() == true)
+                {
+
+                    Press.SetActive(false);
+
+                }
+        
+
     }
     #endregion
 
@@ -258,6 +277,15 @@ public class SickleManager : MonoBehaviour
 
     // ---- EVENTOS----
     #region
+
+
+    ///<summary>
+    ///metodo para ocultar la notificacion
+    /// </summary>
+    private void NoWarning()
+    {
+        UIManager.HideNotification("Tool");
+    }
 
     /// <summary>
     /// Método para detectar las colisiones con los cultivos

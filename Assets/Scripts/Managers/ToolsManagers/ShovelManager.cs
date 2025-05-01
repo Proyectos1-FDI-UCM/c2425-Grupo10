@@ -59,7 +59,17 @@ public class ShovelManager : MonoBehaviour
     /// GardenManager, para llamar al método Watering
     /// </summary>
     [SerializeField] private GardenManager GardenManager;
+
+    [SerializeField] private TutorialManager TutorialManager;
+
+    /// <summary>
+    /// sonido de usar pala
+    /// </summary>
     [SerializeField] private AudioClip WeedingSound;
+
+    /// <summary>
+    /// reproductor de sonido
+    /// </summary>
     [SerializeField] private AudioSource AudioSource;
 
     #endregion
@@ -97,6 +107,7 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     void Start()
     {
+        TutorialManager = FindObjectOfType<TutorialManager>();
         AudioSource = GetComponent<AudioSource>();
         Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < GardenManager.GetGardenSize(); i++)
@@ -110,10 +121,19 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+
         // Verifica si se ha presionado la tecla para usar la pala.
         if (InputManager.Instance.UseShovelWasPressedThisFrame())
         {
-            Weeding();
+            if (TutorialManager.GetTutorialPhase() >= 19)
+            {
+                Weeding();
+            }
+            else
+            {
+                UIManager.ShowNotification("Avanza en el tutorial\npara usar", "NoCounter", 4, "Tool");
+                Invoke("NoWarning", 1f);
+            }
         }
 
         else if (_isInWeedArea && !UIManager.GetInventoryVisible())
@@ -130,7 +150,7 @@ public class ShovelManager : MonoBehaviour
         else if (!_isInWeedArea || UIManager.GetInventoryVisible())
         {
             Press.SetActive(false);
-        }
+        }        
     }
     #endregion
 
@@ -197,6 +217,15 @@ public class ShovelManager : MonoBehaviour
     {
         PlayerAnimator.SetBool("Weeding", false);
         PlayerMovement.EnablePlayerMovement();
+    }
+
+
+    ///<summary>
+    ///metodo para ocultar la notificacion
+    /// </summary>
+    private void NoWarning()
+    {
+        UIManager.HideNotification("Tool");
     }
 
     /// <summary>

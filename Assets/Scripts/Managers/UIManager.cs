@@ -246,6 +246,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Slider WaterBar;
 
+    /// <summary>
+    /// text agua en regadera
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI WaterBarText;
+
 
     [Header("Notificacion 0")]
     /// <summary>
@@ -293,7 +298,28 @@ public class UIManager : MonoBehaviour
     /// boton de la notificacion
     /// </summary>
     [SerializeField] private Button Notification2Button;
-    
+
+    [Header("Notificacion 3")]
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification3;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI Notification3Text;
+
+    [Header("Notificacion 4")]
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification4;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI Notification4Text;
 
 
     [Header("UI del Banco")]
@@ -620,6 +646,15 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isEnergyNotification = false;
 
+    ///<summary>
+    ///regadera vacia notification activa
+    /// </summary>
+    private bool _isWcNotification = false;
+
+    ///<summary>
+    ///herramienta notification activa
+    /// </summary>
+    private bool _isToolNotification = false;
     /// <summary>
     /// Cual es la notificacion del tutorial
     /// </summary>
@@ -889,6 +924,16 @@ public class UIManager : MonoBehaviour
             notif = Notification2;
             notifText = Notification2Text;
         }
+        else if (notificationID == 3)
+        {
+            notif = Notification3;
+            notifText = Notification3Text;
+        }
+        else if (notificationID == 4)
+        {
+            notif = Notification4;
+            notifText = Notification4Text;
+        }
 
         if (source == "Tutorial" && !_isTutorialNotification)
         {
@@ -931,6 +976,26 @@ public class UIManager : MonoBehaviour
             notif.transform.SetSiblingIndex(0);
 
             _isEnergyNotification = true;
+        }
+        else if (source == "WC" && !_isWcNotification)
+        {
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al principio del Vertical Layout Group
+            notif.transform.SetSiblingIndex(0);
+
+            _isWcNotification = true;
+        }
+        else if (source == "Tool" && !_isToolNotification)
+        {
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al principio del Vertical Layout Group
+            notif.transform.SetSiblingIndex(0);
+
+            _isToolNotification = true;
         }
         NotificationManager.SaveNotification(text, counterText, source);
     }
@@ -977,6 +1042,18 @@ public class UIManager : MonoBehaviour
             NotificationManager.DestroyNotification(source);
             _isEnergyNotification = false;
         }
+        else if (source == "WC" && _isWcNotification)
+        {
+            Notification3.SetActive(false);
+            NotificationManager.DestroyNotification(source);
+            _isWcNotification = false;
+        }
+        else if (source == "Tool" && _isToolNotification)
+        {
+            Notification4.SetActive(false);
+            NotificationManager.DestroyNotification(source);
+            _isToolNotification = false;
+        }
     }
 
     public void ShowWaterBar()
@@ -986,9 +1063,28 @@ public class UIManager : MonoBehaviour
     public void HideWaterBar()
     {
         WaterMessage.SetActive(false);
+        HideNotification("WC");
     }
     public void UpdateWaterBar(float Water, float MaxWaterAmount)
     {
+        if (Water == 0)
+        {
+            WaterBarText.color = Color.red;
+            WaterBarText.text = Water.ToString();
+            ShowNotification("Regadera Vacía", "NoCounter", 3, "WC");
+        }
+        else if ( Water < (MaxWaterAmount/2)+1)
+        {
+            WaterBarText.color = Color.black;
+            WaterBarText.text = Water.ToString();
+            HideNotification("WC");
+        }
+        else
+        {
+            WaterBarText.color = Color.white;
+            WaterBarText.text = Water.ToString();
+            HideNotification("WC");
+        }
         WaterBar.value = Water / MaxWaterAmount;
     }
 
