@@ -233,18 +233,17 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Cultiva: Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
     /// </summary>
-    public void Harvest(Transform transform, Plant Plant)
+    public void Harvest(Transform transform)
     {
-        //int i = 0;
-        //while (i < GardenSize[UpgradeLevel] && !GardenData.GetPlant(i).Active && GardenData.GetPlant(i).Position != transform.position)
-        //{
-        //    i++;
-        //}
-        //Plant Plant = GardenData.GetPlant(i);
+        int i = 0;
+        while (i < GardenSize[UpgradeLevel] && !GardenData.GetPlant(i).Active && GardenData.GetPlant(i).Position != transform.position)
+        {
+            i++;
+        }
+        Plant Plant = GardenData.GetPlant(i);
 
-        //if (Plant.Position == transform.position)
-        //{
-        int ArrayIndex = GardenData.IndexGarden(Plant);
+        if (Plant.Position == transform.position)
+        {
             Debug.Log(Plant.State);
             if (Plant.State == 4)
             {
@@ -257,11 +256,11 @@ public class GardenManager : MonoBehaviour
                 else random = UnityEngine.Random.Range(0, _maxProb);
                 
                 InventoryManager.ModifyInventory(Plant.Item, 1);
-                GardenData.ModifyHarvestWarning(ArrayIndex, false);
+                GardenData.ModifyHarvestWarning(i, false);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0) 
                 {
-                    GardenData.ModifyState(ArrayIndex, (-6));
+                    GardenData.ModifyState(i, (-6));
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
 
@@ -274,7 +273,7 @@ public class GardenManager : MonoBehaviour
                 }
                 else 
                 {
-                    GardenData.Deactivate(ArrayIndex);
+                    GardenData.Deactivate(i);
                     cropSpriteEditor.Destroy(); 
                 }
             }
