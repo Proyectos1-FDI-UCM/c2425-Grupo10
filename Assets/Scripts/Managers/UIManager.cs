@@ -1899,7 +1899,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhase() == 21) // Verifica que ha puslsado el botón de lechuga venta
         {
             Check(0);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
         }
 
     }
@@ -2022,7 +2022,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhase() == 23) // Verifica que ha pulsado el boton de venta
         {
             //Check(0);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
 
         }
         UpdateUI();
@@ -2048,7 +2048,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhase() == 22) // Verifica si ha pulsado el botón + de venta
         {
             //Check(0);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
 
         }
     }
@@ -2187,7 +2187,7 @@ public class UIManager : MonoBehaviour
             if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
             {
                 Check(0);
-                Invoke("NextDialogue", 0.1f);
+                Invoke("NextDialogue", 0f);
             }
         }
     }
@@ -2277,7 +2277,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
         }
     }
 
@@ -2353,7 +2353,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhase() == 13) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
         }
     }
 
@@ -2418,7 +2418,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhaseMejora() == 8)
         {
             Check(2);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
             if (TutorialManager.GetTutorialPhaseMejora() == 8) Check(0);
         }
     }
@@ -2437,7 +2437,7 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhaseMejora() == 5)
         {
             Check(2);
-            Invoke("NextDialogue", 0.6f);
+            Invoke("NextDialogue", 0f);
         }
     }
 
