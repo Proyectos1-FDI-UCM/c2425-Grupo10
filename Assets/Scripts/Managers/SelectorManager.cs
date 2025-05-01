@@ -176,7 +176,6 @@ public class SelectorManager : MonoBehaviour
     {
         TutorialManager = FindObjectOfType<TutorialManager>();
         UIManager = FindObjectOfType<UIManager>();
-        UpdateWaterBar(6, 6);
 
         DeselectCurrentTool();
         EnableSelector(GlovesSelector);
@@ -233,6 +232,8 @@ public class SelectorManager : MonoBehaviour
 
                 ToggleTool(SeedTool);
                 EnableSelector(SeedSelector);
+                UIManager.HideWaterBar();
+
                 DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
                 LevelManager.Instance.ChangeTool(5);
 
@@ -260,6 +261,8 @@ public class SelectorManager : MonoBehaviour
 
                 EnableSelector(ShovelSelector);
                 ToggleTool(ShovelTool);
+                UIManager.HideWaterBar();
+
                 DisableSelector(GlovesTool, SeedTool, WateringCanTool, SickleTool, GlovesSelector, SeedSelector, WateringCanSelector, SickleSelector);
                 SeedsMessage.SetActive(false);
                 SickleMessage.SetActive(false);
@@ -278,6 +281,7 @@ public class SelectorManager : MonoBehaviour
 
                 EnableSelector(GlovesSelector);
                 ToggleTool(GlovesTool);
+                UIManager.HideWaterBar();
                 DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
                 SeedsMessage.SetActive(false);
                 SickleMessage.SetActive(false);
@@ -296,6 +300,7 @@ public class SelectorManager : MonoBehaviour
 
                 ToggleTool(WateringCanTool);
                 EnableSelector(WateringCanSelector);
+                UIManager.ShowWaterBar();
                 DisableSelector(ShovelTool, SeedTool, GlovesTool, SickleTool, ShovelSelector, SeedSelector, GlovesSelector, SickleSelector);
                 SeedsMessage.SetActive(false);
                 SickleMessage.SetActive(false);
@@ -313,6 +318,8 @@ public class SelectorManager : MonoBehaviour
 
                 ToggleTool(SickleTool);
                 EnableSelector(SickleSelector);
+                UIManager.HideWaterBar();
+
                 DisableSelector(ShovelTool, SeedTool, WateringCanTool, GlovesTool, ShovelSelector, SeedSelector, WateringCanSelector, GlovesSelector);
                 SeedsMessage.SetActive(false);
                 ShovelMessage.SetActive(false);
@@ -330,10 +337,6 @@ public class SelectorManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void UpdateWaterBar(float Water, float MaxWaterAmount)
-    {
-        WaterBar.value = Water / MaxWaterAmount;
-    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

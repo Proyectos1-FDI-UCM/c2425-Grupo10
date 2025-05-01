@@ -236,6 +236,17 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject NotificationsContainer;
 
+    /// <summary>
+    /// Mensaje de regadera
+    /// </summary>
+    [SerializeField] private GameObject WaterMessage;
+
+    /// <summary>
+    /// barra de regadera
+    /// </summary>
+    [SerializeField] private Slider WaterBar;
+
+
     [Header("Notificacion 0")]
     /// <summary>
     /// Gameobject de la notificacion
@@ -968,6 +979,18 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void ShowWaterBar()
+    {
+        WaterMessage.SetActive(true);
+    }
+    public void HideWaterBar()
+    {
+        WaterMessage.SetActive(false);
+    }
+    public void UpdateWaterBar(float Water, float MaxWaterAmount)
+    {
+        WaterBar.value = Water / MaxWaterAmount;
+    }
 
     /// <summary>
     /// Metodo para mostrar el dialogo actual del tutorial

@@ -57,7 +57,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary> 
     /// Referencia al InventoryUI
     /// </summary>
-    [SerializeField] private UIManager UiManager; 
+    [SerializeField] private UIManager UIManager; 
 
     ///<summary>
     ///PrefabAvisoRiego
@@ -197,7 +197,7 @@ public class WateringCanManager : MonoBehaviour
     {
         GetUpgradeWateringCan();
 
-        SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+        UIManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
@@ -226,7 +226,7 @@ public class WateringCanManager : MonoBehaviour
         }
             GetUpgradeWateringCan();
 
-        SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+        UIManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
 
         _waterAmount = GameManager.Instance.LastWaterAmount();
 
@@ -244,7 +244,7 @@ public class WateringCanManager : MonoBehaviour
         if (_isInWellArea && _waterAmount < _maxWaterAmount)
         {
             Debug.Log("Rellenar");
-            UiManager.ShowNotification("Presiona "+ _use + "\npara rellenar", "NoCounter", 1, "NoTutorial");
+            UIManager.ShowNotification("Presiona "+ _use + "\npara rellenar", "NoCounter", 1, "NoTutorial");
             _notificationActive = true;
             // 
             if (InputManager.Instance.UseWateringCanWasPressedThisFrame())
@@ -263,7 +263,7 @@ public class WateringCanManager : MonoBehaviour
 
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount)
         {
-            UiManager.HideNotification("NoTutorial");
+            UIManager.HideNotification("NoTutorial");
             NotificationManager.DestroyNotification("NoTutorial");
             if (_notificationActive)
             {
@@ -277,7 +277,7 @@ public class WateringCanManager : MonoBehaviour
         {
             if (GardenData.GetPlant(_cropTransform).WaterTimer == 4)
             {
-                UiManager.ShowNotification("Presiona "+ _use + "\npara regar", "NoCounter", 1, "NoTutorial");
+                UIManager.ShowNotification("Presiona "+ _use + "\npara regar", "NoCounter", 1, "NoTutorial");
             }
 
         }
@@ -337,7 +337,7 @@ public class WateringCanManager : MonoBehaviour
 
         InstanceWarning();
 
-        SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+        UIManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
 
         GameManager.Instance.UpdateWaterAmount();
 
@@ -366,7 +366,7 @@ public class WateringCanManager : MonoBehaviour
 
             _waterAmount -= 1; ;
 
-            SelectorManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
+            UIManager.UpdateWaterBar(_waterAmount, _maxWaterAmount);
 
             GameManager.Instance.UpdateWaterAmount();
 
