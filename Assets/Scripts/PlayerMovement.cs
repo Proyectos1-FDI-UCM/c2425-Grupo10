@@ -179,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 if(SceneManager.GetActiveScene().name == "Escena_Build" && AudioSource.clip == null)
                 {
-                    AudioSource.pitch = 2.5f;
+                    AudioSource.pitch = 2f;
                     AudioSource.clip = GrassSteps;
                     AudioSource.Play();
                 }
