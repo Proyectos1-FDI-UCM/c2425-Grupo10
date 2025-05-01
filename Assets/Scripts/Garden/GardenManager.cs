@@ -224,24 +224,27 @@ public class GardenManager : MonoBehaviour
         if (GardenData.GetPlant(i).Position == transform.position)
         {
             GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
-            //GardenData.ModifyWaterWarning(i);
+            GardenData.ModifyWaterWarning(i, false);
+            GardenData.ModifyDeathWarning(i, false);
+
         }
     }
 
     /// <summary>
     /// Cultiva: Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
     /// </summary>
-    public void Harvest(Transform transform)
+    public void Harvest(Transform transform, Plant Plant)
     {
-        int i = 0;
-        while (i < GardenSize[UpgradeLevel] && GardenData.GetPlant(i).Position != transform.position)
-        {
-            i++;
-        }
-        Plant Plant = GardenData.GetPlant(i);
+        //int i = 0;
+        //while (i < GardenSize[UpgradeLevel] && !GardenData.GetPlant(i).Active && GardenData.GetPlant(i).Position != transform.position)
+        //{
+        //    i++;
+        //}
+        //Plant Plant = GardenData.GetPlant(i);
 
-        if (Plant.Position == transform.position)
-        {
+        //if (Plant.Position == transform.position)
+        //{
+        int ArrayIndex = GardenData.IndexGarden(Plant);
             Debug.Log(Plant.State);
             if (Plant.State == 4)
             {
@@ -253,13 +256,12 @@ public class GardenManager : MonoBehaviour
                 }
                 else random = UnityEngine.Random.Range(0, _maxProb);
                 
-                InventoryManager.ModifyInventory(GardenData.GetPlant(i).Item, 1);
+                InventoryManager.ModifyInventory(Plant.Item, 1);
+                GardenData.ModifyHarvestWarning(ArrayIndex, false);
                 CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0) 
                 {
-                    GardenData.ModifyState(i, (-6));
-                    GardenData.ModifyHarvestWarning(i, false);
-
+                    GardenData.ModifyState(ArrayIndex, (-6));
                     cropSpriteEditor.Warning("Desactivate");
                     cropSpriteEditor.Growing(-6);
 
@@ -272,11 +274,10 @@ public class GardenManager : MonoBehaviour
                 }
                 else 
                 {
-                    GardenData.Deactivate(i);
+                    GardenData.Deactivate(ArrayIndex);
                     cropSpriteEditor.Destroy(); 
                 }
             }
-        }
     }
 
     /// <summary>
@@ -285,7 +286,7 @@ public class GardenManager : MonoBehaviour
     public void Weed(Transform transform)
     {
         int i = 0;
-        while (i < GardenSize[UpgradeLevel] && GardenData.GetPlant(i).Position != transform.position)
+        while (i < GardenSize[UpgradeLevel] && GardenData.GetPlant(i).Active && GardenData.GetPlant(i).Position != transform.position)
         {
             i++;
         }
@@ -418,6 +419,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void InitChangeScene()
     {
+
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
@@ -429,7 +431,7 @@ public class GardenManager : MonoBehaviour
 
                 WaterWarning(plant, i);
                 DeathWarning(plant, i);
-                HarvestWarning(plant, i);
+                //HarvestWarning(plant, i);
 
                 CropSpriteEditor cropSpriteEditor = Crop.GetComponent<CropSpriteEditor>();
 
@@ -438,7 +440,9 @@ public class GardenManager : MonoBehaviour
                     cropSpriteEditor.Growing(plant.State);
                 }
             }
+            Debug.Log($"Plant: {i} instanciated in child: {plant.Child}");
         }
+        Debug.Log("ChangeScene");
     }
     #endregion
 
@@ -486,7 +490,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void DeathWarning(Plant plant, int ArrayIndex)
     {
-        if (!plant.DeathWarning)
+        if (plant.DeathWarning)
         {
             Debug.Log("DeathWarning");
             GardenData.ModifyState(ArrayIndex, plant.State);

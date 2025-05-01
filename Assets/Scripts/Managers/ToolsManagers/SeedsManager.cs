@@ -7,6 +7,7 @@
 
 using TMPro;
 using UnityEngine;
+using static UnityEditor.Progress;
 // Añadir aquí el resto de directivas using
 
 
@@ -167,6 +168,11 @@ public class SeedsManager : MonoBehaviour
                 GameObject Plant = Instantiate(_prefab, Pot.position, Quaternion.identity);
                 InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);
+
+                GardenData.Active(Pot.transform, _seed);
+
+                CropSpriteEditor crop = Plant.GetComponent<CropSpriteEditor>();
+                crop.Warning("Water");
 
                 PlayerAnimator.SetBool("Planting", true);
                 PlantAudio.Play();

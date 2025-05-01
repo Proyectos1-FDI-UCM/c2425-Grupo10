@@ -157,7 +157,7 @@ public static class GardenData
             Garden[i].WaterWarning = false;
             Garden[i].DeathWarning = false;
             Garden[i].HarvestWarning = false;
-            Garden[i].Child = transform.parent.transform.GetSiblingIndex(); // Guarda el index de la planta
+            Garden[i].Child = transform.GetSiblingIndex(); // Guarda el index de la planta
             Garden[i].GrowthTimer = 0;
 
             ActivePlants++;
@@ -318,6 +318,12 @@ public static class GardenData
         }
         if (i < Garden.Length && Found) Plant = Garden[i];
         return Plant;
+    }
+
+    public static int IndexGarden(Plant plant)
+    {
+        int Index = System.Array.IndexOf(Garden, plant);
+        return Index;
     }
 
     // ---------------- ITEM DATA ------------------

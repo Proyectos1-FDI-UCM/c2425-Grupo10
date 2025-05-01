@@ -741,6 +741,8 @@ public class GameManager : MonoBehaviour
         SaveTime(0f);
         _newGame = false;
 
+        Debug.Log("Partida Reiniciada correctamente");
+
     }
 
     

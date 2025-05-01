@@ -80,9 +80,9 @@ public class CropSpriteEditor : MonoBehaviour
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
-        _spriteRenderer.enabled = false;
+        _spriteRenderer.enabled = true;
         _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
-        _warning.enabled = false;
+        _warning.enabled = true;
     }
 
     /// <summary>
@@ -91,13 +91,13 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //_spriteRenderer = GetComponent<SpriteRenderer>();
-        //_warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
         if (!GardenData.GetPlant(transform).Active)
         {
-            GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
+            //GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
 
-            Warning("Water");
+            //Warning("Water");
         }
     }
 
