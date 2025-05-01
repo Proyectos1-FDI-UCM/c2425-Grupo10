@@ -160,11 +160,18 @@ public class PlayerMovement : MonoBehaviour
             // Actualiza el vector de dirección solo si te estás moviendo
             if (_moveInput.magnitude >= 0.2f)
             {
-                if(SceneManager.GetActiveScene().name == "Escena_Build")
+                if(SceneManager.GetActiveScene().name == "Escena_Build" && AudioSource.clip == null)
                 {
                     AudioSource.clip = GrassSteps;
                     AudioSource.Play();
                 }
+                bool _shopScene = FindActualScene() == "Escena_Banco" || FindActualScene() == "Escena_Mejora" || FindActualScene() == "Escena_Compra" || FindActualScene() == "Escena_Venta";
+                if (_shopScene && AudioSource.clip == null)
+                {
+                    AudioSource.clip = WoodSteps;
+                    AudioSource.Play();
+                }
+
                 _lastMoveDirection = _moveInput.normalized;
                 _playerAnimator.SetFloat("Horizontal", _moveInput.x);
                 _playerAnimator.SetFloat("Vertical", _moveInput.y);
@@ -172,7 +179,7 @@ public class PlayerMovement : MonoBehaviour
             else
             {
                 AudioSource.clip = null;
-                AudioSource.Stop();
+                AudioSource.Pause();
                 // Redondea dirección cuando estás quieto
                 Vector2 cleanDirection = RoundToCardinal(_lastMoveDirection);
                 _playerAnimator.SetFloat("Horizontal", cleanDirection.x);
@@ -289,6 +296,11 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    private string FindActualScene()
+    {
+        string _scene = SceneManager.GetActiveScene().name;
+        return _scene;
+    }
     #endregion
     //-----EVENTOS-----
     #region
