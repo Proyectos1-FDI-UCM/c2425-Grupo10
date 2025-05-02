@@ -378,7 +378,16 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] BlockMarketSeeds;
     [SerializeField] private GameObject[] BlockMarketPlants;
     [SerializeField] private Button LettuceButton;
+    [SerializeField] private Button CarrotsButton;
+    [SerializeField] private Button StrawberriesButton;
+    [SerializeField] private Button CornsButton;
+
+
     [SerializeField] private Button LettuceSeedsButton;
+    [SerializeField] private Button CarrotSeedsButton;
+    [SerializeField] private Button StrawberrySeedsButton;
+    [SerializeField] private Button CornSeedsButton;
+
     [SerializeField] private Button DepositeMoneyButton;
     [SerializeField] private Button ExtendButton;
 
@@ -794,23 +803,15 @@ public class UIManager : MonoBehaviour
                 Player.localScale = new Vector3(7f, 7f, 1f);
 
             }
-            if (TutorialManager.GetTutorialPhase() >= 25)
-            {
-                LibraryButton.SetActive(true);
-            }
-            else
-            {
-                LibraryButton.SetActive(false);
-            }
         }
-        //else if (SceneManager.GetActiveScene().name == "Escena_Compra")
-        //{
-        //    if (TutorialManager.GetTutorialPhase() == 0)
-        //    {
-        //        //Check(0);
-        //        Invoke("NextDialogue", 0.1f);
-        //    }
-        //}
+        if (TutorialManager.GetTutorialPhase() >= 25)
+        {
+            LibraryButton.SetActive(true);
+        }
+        else
+        {
+            LibraryButton.SetActive(false);
+        }
         if (_isDepositSelected)
         {
             AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
@@ -1149,21 +1150,29 @@ public class UIManager : MonoBehaviour
         Debug.Log("Cerrando diálogo");
         TutorialUI.SetActive(false);
         TutorialUIButton.SetActive(false);
-        if(SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Mejora")
+        if (SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
-            if(!_uiActive)
+            if (!_uiActive)
             {
-              
+
                 PlayerMovement.EnablePlayerMovement();
             }
-            
+            else if (_uiActive && GameManager.GetControllerUsing())
+            {
+                if(SceneManager.GetActiveScene().name == "Escena_Compra")
+                {
+                    LettuceSeedsButton.Select();
+                }
+                else if (SceneManager.GetActiveScene().name == "Escena_Venta")
+                {
+                    LettuceButton.Select();
+                }
+            }
+            else
+            {
+                PlayerMovement.EnablePlayerMovement();
+            }
         }
-        else
-        {
-            PlayerMovement.EnablePlayerMovement();
-            
-        }
-        
     }
 
     /// <summary>
@@ -1495,14 +1504,30 @@ public class UIManager : MonoBehaviour
             if(GameManager.GetAmountSold("Lettuce") >= 10)
             {
                 BlockMarketPlants[0].SetActive(false);
+                CarrotsButton.interactable = true;
             }
-            if(GameManager.GetAmountSold("Carrot") >= 30)
+            else
+            {
+                CarrotsButton.interactable = false;
+
+            }
+            if (GameManager.GetAmountSold("Carrot") >= 30)
             {
                 BlockMarketPlants[1].SetActive(false);
+                StrawberriesButton.interactable = true;
+            }
+            else
+            {
+                StrawberriesButton.interactable = false;
             }
             if (GameManager.GetAmountSold("Strawberry") >= 50)
             {
                 BlockMarketPlants[2].SetActive(false);
+                CornsButton.interactable = true;
+            }
+            else
+            {
+                CornsButton.interactable = false;
             }
             DescriptionText.text = "";
             Counter.text = "";
@@ -1516,17 +1541,80 @@ public class UIManager : MonoBehaviour
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
 
+
+            // Botón Lechuga (siempre activo)
+            Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
+
             if (GameManager.GetAmountSold("Lettuce") >= 10)
             {
                 BlockMarketSeeds[0].SetActive(false);
+                CarrotSeedsButton.interactable = true;
+
+                // Lechuga -> Zanahoria
+                navLettuce.selectOnRight = CarrotSeedsButton;
+                navLettuce.selectOnDown = BuySeedsButton;
+                LettuceSeedsButton.navigation = navLettuce;
+
+                // Zanahoria <- Lechuga
+                Navigation navCarrot = new Navigation { mode = Navigation.Mode.Explicit };
+                navCarrot.selectOnLeft = LettuceSeedsButton;
+                navCarrot.selectOnDown = BuySeedsButton;
+                CarrotSeedsButton.navigation = navCarrot;
+
+
+                if (GameManager.GetAmountSold("Carrot") >= 30)
+                {
+                    BlockMarketSeeds[1].SetActive(false);
+                    StrawberrySeedsButton.interactable = true;
+
+                    // Zanahoria -> Fresa
+                    navCarrot.selectOnRight = StrawberrySeedsButton;
+                    navCarrot.selectOnLeft = LettuceSeedsButton;
+                    navCarrot.selectOnDown = BuySeedsButton;
+                    CarrotSeedsButton.navigation = navCarrot;
+
+                    // Fresa <- Zanahoria
+                    Navigation navStrawberry = new Navigation { mode = Navigation.Mode.Explicit };
+                    navStrawberry.selectOnLeft = CarrotSeedsButton;
+                    navStrawberry.selectOnDown = BuySeedsButton;
+                    StrawberrySeedsButton.navigation = navStrawberry;
+
+
+
+                    if (GameManager.GetAmountSold("Strawberry") >= 50)
+                    {
+                        BlockMarketSeeds[2].SetActive(false);
+                        CornSeedsButton.interactable = true;
+
+                        // Fresa -> Maíz
+                        navStrawberry.selectOnRight = CornSeedsButton;
+                        navStrawberry.selectOnLeft = CarrotSeedsButton;
+                        navStrawberry.selectOnDown = BuySeedsButton;
+                        StrawberrySeedsButton.navigation = navStrawberry;
+
+                        // Maíz <- Fresa
+                        Navigation navCorn = new Navigation { mode = Navigation.Mode.Explicit };
+                        navCorn.selectOnLeft = StrawberrySeedsButton;
+                        navCorn.selectOnDown = BuySeedsButton;
+                        CornSeedsButton.navigation = navCorn;
+                    }
+                    else
+                    {
+                        CornSeedsButton.interactable = false;
+                        StrawberrySeedsButton.navigation = navStrawberry;
+                    }
+                }
+                else
+                {
+                    StrawberrySeedsButton.interactable = false;
+                    CarrotSeedsButton.navigation = navCarrot;
+                }
             }
-            if (GameManager.GetAmountSold("Carrot") >= 30)
+            else
             {
-                BlockMarketSeeds[1].SetActive(false);
-            }
-            if (GameManager.GetAmountSold("Strawberry") >= 50)
-            {
-                BlockMarketSeeds[2].SetActive(false);
+                CarrotSeedsButton.interactable = false;
+                navLettuce.selectOnDown = BuySeedsButton;
+                LettuceSeedsButton.navigation = navLettuce;
             }
 
             DescriptionText.text = "";
