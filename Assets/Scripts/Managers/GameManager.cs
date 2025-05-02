@@ -372,15 +372,15 @@ public class GameManager : MonoBehaviour
              _shouldHideCursor = !_isDialogue && !_isLibrary && !_isPause && !_isUI;
         }
 
-        if ((_isBuildScene || _isShopScene) && _shouldShowCursor && !_isCursorVisible)
+        if ((_isBuildScene || _isShopScene) && _shouldShowCursor && !_isCursorVisible && !_isGameController)
         {
             SetCursorState(true);
         }
-        else if (_isShopScene && _shouldHideCursor && _isCursorVisible && !_isGameController)
+        else if (_isShopScene && _shouldHideCursor && _isCursorVisible)
         {
             SetCursorState(false);
         }
-        else if (_isBuildScene && _shouldHideCursor && _isCursorVisible && !_isGameController)
+        else if (_isBuildScene && _shouldHideCursor && _isCursorVisible)
         {
             SetCursorState(false);
         }
