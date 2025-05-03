@@ -5,6 +5,7 @@
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
+using System;
 using UnityEngine;
 // Añadir aquí el resto de directivas using
 
@@ -28,6 +29,9 @@ public class BeachHouseCamera : MonoBehaviour
     [SerializeField] float moveSpeed = 2f;
     [SerializeField] float zoomSpeed = 2f;
 
+    // Límites para que la cámara pare de hacer zoom 
+    [SerializeField] float stopDistance = 0.05f; // Umbral de distancia para detener
+    [SerializeField] float stopZoomThreshold = 0.05f; // Umbral de zoom para detener
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -59,11 +63,10 @@ public class BeachHouseCamera : MonoBehaviour
     {
         cam = Camera.main;
 
-        // Verificar si se debe activar
         if (PlayerPrefs.GetInt("activarCamara", 0) == 1)
         {
             active = true;
-            PlayerPrefs.SetInt("activarCamara", 0); // Reset variable
+            PlayerPrefs.SetInt("activarCamara", 0); // Reset variable 
         }
     }
 
@@ -71,8 +74,22 @@ public class BeachHouseCamera : MonoBehaviour
     {
         if (!active) return;
 
-        transform.position = Vector3.Lerp(transform.position, new Vector3(targetPosition.x, targetPosition.y, transform.position.z), Time.deltaTime * moveSpeed);
+        // Movimiento
+        Vector3 currentPos = transform.position;
+        Vector3 desiredPos = new Vector3(targetPosition.x, targetPosition.y, currentPos.z);
+        transform.position = Vector3.Lerp(currentPos, desiredPos, Time.deltaTime * moveSpeed);
+
+        // Zoom
         cam.orthographicSize = Mathf.Lerp(cam.orthographicSize, targetZoom, Time.deltaTime * zoomSpeed);
+
+        // Verificar si ya llegó al destino y al zoom deseado
+        bool reachedPosition = Vector2.Distance(new Vector2(currentPos.x, currentPos.y), new Vector2(targetPosition.x, targetPosition.y)) < stopDistance;
+        bool reachedZoom = Mathf.Abs(cam.orthographicSize - targetZoom) < stopZoomThreshold;
+
+        if (reachedPosition && reachedZoom)
+        {
+            active = false;
+        }
     }
     #endregion
 
