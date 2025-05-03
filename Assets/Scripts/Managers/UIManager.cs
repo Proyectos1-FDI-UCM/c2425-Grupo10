@@ -793,6 +793,7 @@ public class UIManager : MonoBehaviour
                 {
                     Check(0);
                     Invoke("NextDialogue", 0.6f);
+                    
                 }
             }
             else if (_isMapVisible && InputManager.Instance.MapWasPressedThisFrame())
@@ -1858,7 +1859,6 @@ public class UIManager : MonoBehaviour
         if (TutorialManager.GetTutorialPhaseBanco() == 8)
         {
             Check(0);
-
         }
     }
 
@@ -1874,7 +1874,6 @@ public class UIManager : MonoBehaviour
         {
             Check(1);
             Invoke("NextDialogue", 0.6f);
-
         }
     }
 
@@ -1887,7 +1886,9 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Mudanza realizada con éxito.");
             GameManager.Instance.DeductDepositedMoney(100000);
-            SceneTransition.ChangeScene("Menu");
+            // SceneTransition.ChangeScene("Menu");
+            PlayerPrefs.SetInt("activarCamara", 1); // Activar la nueva cámara
+            SceneTransition.ChangeScene("Escena_Build");
 
         }
         else
