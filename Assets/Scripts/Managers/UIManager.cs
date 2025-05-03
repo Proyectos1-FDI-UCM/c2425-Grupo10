@@ -251,6 +251,12 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI WaterBarText;
 
+    /// <summary>
+    /// Numeros quickacccesbar
+    /// </summary>
+    [SerializeField] private GameObject[] BarNumbersKeyBoard;
+    [SerializeField] private GameObject[] BarNumbersController;
+
 
     [Header("Notificacion 0")]
     /// <summary>
@@ -736,6 +742,8 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
+        
+
          if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == true)
          {
             HideLibrary();
@@ -803,6 +811,23 @@ public class UIManager : MonoBehaviour
                 PlayerMovement.EnablePlayerMovement();
                 Player.localScale = new Vector3(7f, 7f, 1f);
 
+            }
+
+            if (GameManager.GetControllerUsing())
+            {
+                for (int i = 0; i < BarNumbersKeyBoard.Length; i++)
+                {
+                    BarNumbersKeyBoard[i].SetActive(false);
+                    BarNumbersController[i].SetActive(true);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < BarNumbersKeyBoard.Length; i++)
+                {
+                    BarNumbersKeyBoard[i].SetActive(true);
+                    BarNumbersController[i].SetActive(false);
+                }
             }
         }
         if (TutorialManager.GetTutorialPhase() >= 25)
