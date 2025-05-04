@@ -45,6 +45,7 @@ public class Cloud : MonoBehaviour
     private float _tiempo = 0f;
     private bool _animando;
     private bool _aclarando;
+    private AudioSource _audioSource;
 
     #endregion
 
@@ -82,7 +83,7 @@ public class Cloud : MonoBehaviour
         _posOpenIzq2 = _posIniIzq2 + Vector3.left * DistanciaSeparacion;
         _posOpenDer = _posIniDer + Vector3.right * DistanciaSeparacion;
         _posOpenDer2 = _posIniDer2 + Vector3.right * DistanciaSeparacion;
-
+        _audioSource = GetComponent<AudioSource>();
         HideClouds();
     }
 
@@ -144,6 +145,7 @@ public class Cloud : MonoBehaviour
         _tiempo = 0f;
         _aclarando = false;
         _animando = true;
+        _audioSource.Play();
     }
 
     /// <summary>
@@ -154,6 +156,7 @@ public class Cloud : MonoBehaviour
         _tiempo = 0f;
         _aclarando = true;
         _animando = true;
+        _audioSource.Play();
     }
 
     #endregion

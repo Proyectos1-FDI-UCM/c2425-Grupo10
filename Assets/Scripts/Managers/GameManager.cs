@@ -304,6 +304,10 @@ public class GameManager : MonoBehaviour
 
         if (!Build)
         {
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                MoneyCount.AddMoney(100000);
+            }
             if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
             {
                 InventoryManager.ModifyInventory(Items.Letuce, 1);
