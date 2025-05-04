@@ -39,6 +39,9 @@ public class CambiarEscena : MonoBehaviour
     private TutorialManager TutorialManager;
     private NotificationManager NotificationManager;
     private UIManager UIManager;
+    private Cloud Cloud;
+    private string _currentSceneName;
+    private bool _shouldUseClouds = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -59,6 +62,7 @@ public class CambiarEscena : MonoBehaviour
         NotificationManager = FindObjectOfType<NotificationManager>();
         UIManager = FindObjectOfType<UIManager>();
         SoundManager = FindObjectOfType<SoundManager>();
+        Cloud = FindObjectOfType<Cloud>();
     }
 
     /// <summary>
@@ -90,7 +94,17 @@ public class CambiarEscena : MonoBehaviour
     // Ejemplo: GetPlayerController
     public void ChangeScene()
     {
-        _sceneTransition.ChangeScene(sceneName);
+        _currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Verifica si vamos desde o hacia el menú
+        _shouldUseClouds = (_currentSceneName == "Menu" || sceneName == "Menu");
+
+        // Llamar a ShowClouds si se necesita (solo si estamos en transición a/desde el menú)
+        if (_shouldUseClouds && Cloud != null)
+        {
+            Cloud.ShowClouds();
+        }
+        Invoke("LoadScene", 1.5f);
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             SoundManager.InitialSound();
@@ -101,6 +115,10 @@ public class CambiarEscena : MonoBehaviour
     {
         GameManager.Instance.SaveGame(); //Comentado para cargar una nueva partida rapidamente
         Application.Quit();
+    }
+    private void LoadScene()
+    {
+        _sceneTransition.ChangeScene(sceneName);
     }
     #endregion
 

@@ -355,7 +355,7 @@ public class GameManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name != "Menu" && _isInCinematic)
         {
-            Invoke("EndCinematic", 1f);
+            Invoke("EndCinematic", 2f);
         }
 
          FindActualScene();

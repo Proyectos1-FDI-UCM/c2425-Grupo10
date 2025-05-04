@@ -8,6 +8,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using System.Collections;
 // Añadir aquí el resto de directivas using
 
 
@@ -29,6 +30,7 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     [SerializeField] private Image FadeSprite;
     [SerializeField] private GameObject FadeObject;
+    [SerializeField] private Cloud Cloud;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -55,6 +57,9 @@ public class SceneTransition : MonoBehaviour
     /// Nombre de la escena a la que quieres cambiar.
     /// </summary>
     private string _sceneToLoad;
+
+    [SerializeField] private string _currentSceneName;
+    [SerializeField] private bool _shouldUseClouds;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -85,6 +90,7 @@ public class SceneTransition : MonoBehaviour
     {
         //FadeSprite.raycastTarget = false; // Permitir clics a través de la imagen
         //FadeSprite.color = new Color(0, 0, 0, 0);
+        Cloud = FindObjectOfType<Cloud>();
 
     }
 
@@ -94,25 +100,25 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
         // Aumentar la opacidad (Fade Out)
         if (_fadingOut)
         {
+            
+
             float alpha = Mathf.MoveTowards(FadeSprite.color.a, 1, _fadeSpeed * Time.deltaTime);
             FadeSprite.color = new Color(0, 0, 0, alpha);
-            FadeSprite.raycastTarget = true; // Bloquea clics durante el fade out
+            FadeSprite.raycastTarget = true;
 
             if (alpha >= 0.99f)
             {
-                FadeSprite.color = new Color(0, 0, 0, 1); // Totalmente opaco
+                LoadScene();
+                FadeSprite.color = new Color(0, 0, 0, 1);
                 _fadingOut = false;
-                SceneManager.LoadScene(_sceneToLoad); // Cambiar de escena
                 _fadingIn = true;
-
-
             }
         }
 
-        // Después de que la escena se cargue, disminuir la opacidad (Fade In)
         if (_fadingIn)
         {
             float alpha = Mathf.MoveTowards(FadeSprite.color.a, 0, _fadeSpeed * Time.deltaTime);
@@ -120,8 +126,11 @@ public class SceneTransition : MonoBehaviour
 
             if (alpha <= 0.01f)
             {
-                FadeSprite.color = new Color(0, 0, 0, 0); // Totalmente transparente
-                FadeSprite.raycastTarget = false; // Permitir clics a través de la imagen
+                if (_shouldUseClouds && Cloud != null)
+                    Cloud.HideClouds();
+
+                FadeSprite.color = new Color(0, 0, 0, 0);
+                FadeSprite.raycastTarget = false;
                 _fadingIn = false;
             }
         }
@@ -139,9 +148,24 @@ public class SceneTransition : MonoBehaviour
     public void ChangeScene(string sceneName)
     {
         _sceneToLoad = sceneName;
+        _currentSceneName = SceneManager.GetActiveScene().name;
+
+        // Verifica si vamos desde o hacia el menú
+        _shouldUseClouds = (_currentSceneName == "Menu" || sceneName == "Menu");
+
         _fadingOut = true; // Comienza el fade out
         FadeSprite.raycastTarget = true; // Bloquear clics durante la transición
+
     }
+
+    public void LoadScene()
+    {
+        SceneManager.LoadScene(_sceneToLoad);
+    }
+    // Coroutine para esperar que las nubes estén completamente visibles
+
+
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -150,7 +174,6 @@ public class SceneTransition : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
-
     #endregion
 
 } // class SceneTransition 
