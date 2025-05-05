@@ -51,6 +51,7 @@ public static class InventoryManager
     [SerializeField] private static int MaxSeedQuantity = 30; // Cantidad máxima de espacio disponible en el inventory para las semillas
     [SerializeField] private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventory para los cultivos
 
+    private static bool _inventoryFull = false;
 
 
     public static void SetPlayerPosition(Vector3 position)
@@ -108,20 +109,30 @@ public static class InventoryManager
     {
         if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
         {
-            if (Inventory[(int)item] + quantity <= MaxCropQuantity) 
-            { Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] + quantity <= MaxCropQuantity)
+            {
+                Inventory[(int)item] += quantity;
                 return true;
             }
-            else Debug.Log("InventarioLleno");
+            else 
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+            }
             return false;
         }
         else // Es una semilla
         {
-            if (Inventory[(int)item] + quantity <= MaxSeedQuantity) 
-            {Inventory[(int)item] += quantity; 
-            return true;
+            if (Inventory[(int)item] + quantity <= MaxSeedQuantity)
+            {
+                Inventory[(int)item] += quantity;
+                return true;
             }
-            else Debug.Log("InventarioLleno");
+            else
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+            }
             return false;
         }
     }
@@ -155,14 +166,22 @@ public static class InventoryManager
         if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity) Inventory[(int)item] += quantity;
-            else Debug.Log("InventarioLleno");
+            else
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+            }
         }
         else // Es una semilla
         {
             if (Inventory[(int)item] + quantity <= MaxSeedQuantity) Inventory[(int)item] += quantity;
-            else Debug.Log("InventarioLleno");
+            else
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+            }
+            Debug.Log("Item" + item.ToString() + " Cantidad: " + quantity);
         }
-        Debug.Log("Item" + item.ToString() + " Cantidad: " + quantity);
     }
 
     /// <summary>
@@ -207,6 +226,21 @@ public static class InventoryManager
     public static int GetMaxCrop()
     {
         return MaxCropQuantity;
+    }
+    ///<summary>
+    /// Metodo para cambiar el bool del inventario
+    /// </summary>
+    public static void InventoryNotFull()
+    {
+        _inventoryFull = false;
+    }
+
+    ///<summary>
+    ///metodo para saber si el inventario esta lleno
+    /// </summary>
+    public static bool BoolInventoryFull()
+    {
+        return _inventoryFull;
     }
 
     /// <summary>

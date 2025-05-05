@@ -710,6 +710,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isControlsActive;
 
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -758,7 +759,11 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
-        
+        if(InventoryManager.BoolInventoryFull())
+        {
+            ShowNotification("Inventario Lleno", "NoCounter", 5, "Inventory");
+            InventoryManager.InventoryNotFull();
+        }
 
          if (InputManager.Instance.SalirIsPressed() && _isLibraryActive == true)
          {
@@ -1055,6 +1060,7 @@ public class UIManager : MonoBehaviour
             notif.transform.SetSiblingIndex(0);
 
             _isToolNotification = true;
+            Invoke("NotificationInventory", 1.5f);
         }
         NotificationManager.SaveNotification(text, counterText, source);
     }
@@ -1120,6 +1126,10 @@ public class UIManager : MonoBehaviour
             _isInventoryNotification = false;
         }
     }
+    public void NotificationInventory()
+    {
+        HideNotification("Inventory");
+    }
 
     public void ShowWaterBar()
     {
@@ -1134,7 +1144,7 @@ public class UIManager : MonoBehaviour
     {
         if (Water == 0)
         {
-            WaterBarText.color = Color.red;
+            WaterBarText.color = new Color32(0xAB, 0x00, 0x2C, 0xFF);
             WaterBarText.text = Water.ToString();
             ShowNotification("Regadera Vacía", "NoCounter", 3, "WC");
         }
