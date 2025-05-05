@@ -108,13 +108,19 @@ public static class InventoryManager
     {
         if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
         {
-            if (Inventory[(int)item] + quantity <= MaxCropQuantity) Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] + quantity <= MaxCropQuantity) 
+            { Inventory[(int)item] += quantity;
+                return true;
+            }
             else Debug.Log("InventarioLleno");
-            return true;
+            return false;
         }
         else // Es una semilla
         {
-            if (Inventory[(int)item] + quantity <= MaxSeedQuantity) Inventory[(int)item] += quantity;
+            if (Inventory[(int)item] + quantity <= MaxSeedQuantity) 
+            {Inventory[(int)item] += quantity; 
+            return true;
+            }
             else Debug.Log("InventarioLleno");
             return false;
         }
