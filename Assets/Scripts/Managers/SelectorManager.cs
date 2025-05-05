@@ -81,10 +81,7 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Slider WaterBar;
 
-    /// <summary>
-    /// Referencia al LevelManager.
-    /// </summary>
-    [SerializeField] private LevelManager LevelManager;
+
 
     /// <summary>
     /// Referencia al animator del player
@@ -235,7 +232,6 @@ public class SelectorManager : MonoBehaviour
                 UIManager.HideWaterBar();
 
                 DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
-                LevelManager.Instance.ChangeTool(5);
 
                 //Cambio de semillas
 
