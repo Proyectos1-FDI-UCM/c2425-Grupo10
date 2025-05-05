@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -43,12 +43,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,7 +72,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -95,7 +95,175 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Big_Torch_Anim_0
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 13
+        width: 8
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 841ca0b214128a24594c9df89fd3eda0
+      internalID: -1218041287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_1
+      rect:
+        serializedVersion: 2
+        x: 20
+        y: 13
+        width: 9
+        height: 29
+      alignment: 9
+      pivot: {x: 0.5671317, y: 0.46093637}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16dd9137b733734fa0d736537706602
+      internalID: -223621002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_2
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 13
+        width: 9
+        height: 32
+      alignment: 9
+      pivot: {x: 0.541957, y: 0.41031665}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 241243be5baa86348b6402744c3f8a09
+      internalID: 842396955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_3
+      rect:
+        serializedVersion: 2
+        x: 52
+        y: 13
+        width: 9
+        height: 31
+      alignment: 9
+      pivot: {x: 0.55873996, y: 0.42934954}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce0aa413ff0c9cd44b28b326773c661b
+      internalID: 2009203456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_4
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 13
+        width: 8
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5094404, y: 0.40795654}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 532f4c96792bc8b4a8273b55cc69d446
+      internalID: 2028426328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_5
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 13
+        width: 9
+        height: 32
+      alignment: 9
+      pivot: {x: 0.55034804, y: 0.41267663}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62bd9f90fe6940d448b40e825ac40699
+      internalID: 1481595984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_6
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 13
+        width: 9
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5419566, y: 0.40559644}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f73866916ef76b0448e26338fd2df62e
+      internalID: -1108086706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Big_Torch_Anim_7
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 13
+        width: 9
+        height: 32
+      alignment: 9
+      pivot: {x: 0.5587404, y: 0.41267663}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e9d0708ad455f843846103c67551b33
+      internalID: -144936243
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -106,7 +274,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Big_Torch_Anim_0: -1218041287
+      Big_Torch_Anim_1: -223621002
+      Big_Torch_Anim_2: 842396955
+      Big_Torch_Anim_3: 2009203456
+      Big_Torch_Anim_4: 2028426328
+      Big_Torch_Anim_5: 1481595984
+      Big_Torch_Anim_6: -1108086706
+      Big_Torch_Anim_7: -144936243
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
