@@ -44,10 +44,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     [SerializeField] private SelectorManager SelectorManager;
 
-    ///<summary> 
-    ///Referencia al GameManager
-    /// </summary>
-    [SerializeField] private GameManager GameManager;
+
 
     ///<summary> 
     ///Referencia al SelectorManager
@@ -186,7 +183,7 @@ public class WateringCanManager : MonoBehaviour
     private void Awake()
     {
         InitializeReferences();
-        GameManager.InitializeWateringCanManager();
+        GameManager.Instance.InitializeWateringCanManager();
         WateringCanAudio = GetComponent<AudioSource>();
     }
     /// <summary>
@@ -216,7 +213,7 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (GameManager.GetControllerUsing())
+        if (GameManager.Instance.GetControllerUsing())
         {
             _use = "Cuadrado";
         }
@@ -470,10 +467,10 @@ public class WateringCanManager : MonoBehaviour
     private void GetUpgradeWateringCan()
     {
 
-        if ((GameManager.GetWateringCanUpgrades() == 0)) UpgradeWateringCan(0);
-        else if ((GameManager.GetWateringCanUpgrades() == 1)) UpgradeWateringCan(1);
-        else if ((GameManager.GetWateringCanUpgrades() == 2)) UpgradeWateringCan(2);
-        else if ((GameManager.GetWateringCanUpgrades() == 3)) UpgradeWateringCan(3);
+        if ((GameManager.Instance.GetWateringCanUpgrades() == 0)) UpgradeWateringCan(0);
+        else if ((GameManager.Instance.GetWateringCanUpgrades() == 1)) UpgradeWateringCan(1);
+        else if ((GameManager.Instance.GetWateringCanUpgrades() == 2)) UpgradeWateringCan(2);
+        else if ((GameManager.Instance.GetWateringCanUpgrades() == 3)) UpgradeWateringCan(3);
 
 
     }
@@ -603,7 +600,6 @@ public class WateringCanManager : MonoBehaviour
     /// </summary>
     private void InitializeReferences()
     {
-        GameManager = FindObjectOfType<GameManager>();
         SoundManager = FindObjectOfType<SoundManager>();
         NotificationManager = FindObjectOfType<NotificationManager>();
     }

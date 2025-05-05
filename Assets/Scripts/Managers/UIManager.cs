@@ -63,11 +63,6 @@ public class UIManager : MonoBehaviour
     [SerializeField] private SceneTransition SceneTransition;
 
     /// <summary>
-    /// Ref al GameManager
-    /// </summary>
-    [SerializeField] private GameManager GameManager;
-
-    /// <summary>
     /// Ref al tutorial manager
     /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
@@ -719,7 +714,7 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         InitializeReferences();
-        GameManager.InitializeUIManager();
+        GameManager.Instance.InitializeUIManager();
         
 
         if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -834,7 +829,7 @@ public class UIManager : MonoBehaviour
 
             }
 
-            if (GameManager.GetControllerUsing())
+            if (GameManager.Instance.GetControllerUsing())
             {
                 for (int i = 0; i < BarNumbersKeyBoard.Length; i++)
                 {
@@ -1200,7 +1195,7 @@ public class UIManager : MonoBehaviour
     public void ShowDialogueButton()
     {
         TutorialUIButton.SetActive(true);
-        if(GameManager.GetControllerUsing())
+        if(GameManager.Instance.GetControllerUsing())
         {
             TutorialButton.Select();
         }
@@ -1231,7 +1226,7 @@ public class UIManager : MonoBehaviour
 
                 PlayerMovement.EnablePlayerMovement();
             }
-            else if (_uiActive && GameManager.GetControllerUsing())
+            else if (_uiActive && GameManager.Instance.GetControllerUsing())
             {
                 if(SceneManager.GetActiveScene().name == "Escena_Compra")
                 {
@@ -1301,12 +1296,12 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void HidePauseMenu()
     {
-        if (GameManager.GetControllerUsing() == false)
+        if (GameManager.Instance.GetControllerUsing() == false)
         {
             ContinueButton.Select();
         }
         TutorialButton.interactable = true;
-        if(_isDialogueActive && GameManager.GetControllerUsing() == true)
+        if(_isDialogueActive && GameManager.Instance.GetControllerUsing() == true)
         {
             Debug.Log("boton tuto selec");
             TutorialButton.Select();
@@ -1341,36 +1336,36 @@ public class UIManager : MonoBehaviour
             CharactersDropdown.value = 0;
             CharactersDropdown.Select();
             PlantsDropdown.value = 0;
-            if (GameManager.GetAmountSold("Lettuce") >= 10)
+            if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
                 CarrotDescription.text = "Fiel y subterránea, crece bajo tierra como los secretos del bosque. A todos les encanta, y a los comerciantes también.";
             }
             else
             {
-                CarrotDescription.text = "Cultivo no descubierto, vende 10 Lechugas para desbloquear. Lechugas vendidas:\n" + GameManager.GetAmountSold("Lettuce");
+                CarrotDescription.text = "Cultivo no descubierto, vende 10 Lechugas para desbloquear. Lechugas vendidas:\n" + GameManager.Instance.GetAmountSold("Lettuce");
                 StrawberryDescription.text = "Desbloquea el cultivo anterior para mas información.";
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
             }
 
 
-            if (GameManager.GetAmountSold("Carrot") >= 30)
+            if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
             {
                 StrawberryDescription.text = "Pequeña, dulce y jugosa. Aunque tarda un poco más, su valor es alto. Ideal para quienes cultivan con amor (y paciencia).";
             }
-            else if (GameManager.GetAmountSold("Carrot") < 30 && GameManager.GetAmountSold("Lettuce") >= 10)
+            else if (GameManager.Instance.GetAmountSold("Carrot") < 30 && GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
-                StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.GetAmountSold("Carrot");
+                StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.Instance.GetAmountSold("Carrot");
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
         }
 
 
-            if (GameManager.GetAmountSold("Strawberry") >= 50)
+            if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
             {
                 CornDescription.text = "Alto y orgulloso. Su crecimiento es lento pero produce mucho. Cuando lo cosechas, suena a victoria. Literalmente, crack.";
             }
-            else if (GameManager.GetAmountSold("Strawberry") < 50 && GameManager.GetAmountSold("Carrot") >= 30)
+            else if (GameManager.Instance.GetAmountSold("Strawberry") < 50 && GameManager.Instance.GetAmountSold("Carrot") >= 30)
             {
-                CornDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.GetAmountSold("Carrot");
+                CornDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.Instance.GetAmountSold("Carrot");
             }
 
 
@@ -1575,7 +1570,7 @@ public class UIManager : MonoBehaviour
             SellObj.SetActive(_isSomethingSelected);
             PlusButton.SetActive(_isSomethingSelected);
             MinusButton.SetActive(_isSomethingSelected);
-            if(GameManager.GetAmountSold("Lettuce") >= 10)
+            if(GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
                 BlockMarketPlants[0].SetActive(false);
                 CarrotsButton.interactable = true;
@@ -1585,7 +1580,7 @@ public class UIManager : MonoBehaviour
                 CarrotsButton.interactable = false;
 
             }
-            if (GameManager.GetAmountSold("Carrot") >= 30)
+            if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
             {
                 BlockMarketPlants[1].SetActive(false);
                 StrawberriesButton.interactable = true;
@@ -1594,7 +1589,7 @@ public class UIManager : MonoBehaviour
             {
                 StrawberriesButton.interactable = false;
             }
-            if (GameManager.GetAmountSold("Strawberry") >= 50)
+            if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
             {
                 BlockMarketPlants[2].SetActive(false);
                 CornsButton.interactable = true;
@@ -1619,7 +1614,7 @@ public class UIManager : MonoBehaviour
             // Botón Lechuga (siempre activo)
             Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
 
-            if (GameManager.GetAmountSold("Lettuce") >= 10)
+            if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
                 BlockMarketSeeds[0].SetActive(false);
                 CarrotSeedsButton.interactable = true;
@@ -1636,7 +1631,7 @@ public class UIManager : MonoBehaviour
                 CarrotSeedsButton.navigation = navCarrot;
 
 
-                if (GameManager.GetAmountSold("Carrot") >= 30)
+                if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
                 {
                     BlockMarketSeeds[1].SetActive(false);
                     StrawberrySeedsButton.interactable = true;
@@ -1655,7 +1650,7 @@ public class UIManager : MonoBehaviour
 
 
 
-                    if (GameManager.GetAmountSold("Strawberry") >= 50)
+                    if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
                     {
                         BlockMarketSeeds[2].SetActive(false);
                         CornSeedsButton.interactable = true;
@@ -1778,7 +1773,6 @@ public class UIManager : MonoBehaviour
         MoneyManager = FindObjectOfType<MoneyManager>();
         TutorialManager = FindObjectOfType<TutorialManager>();
         NotificationManager = FindObjectOfType<NotificationManager>();
-        GameManager = FindObjectOfType<GameManager>();
     }
 
 
@@ -2160,19 +2154,19 @@ public class UIManager : MonoBehaviour
         );
         if ( _isLettuceSelected )
         {
-            GameManager.AddAmountSold("Lettuce", _amountBuying);
+            GameManager.Instance.AddAmountSold("Lettuce", _amountBuying);
         }
         else if (_isCarrotSelected)
         {
-            GameManager.AddAmountSold("Carrot", _amountBuying);
+            GameManager.Instance.AddAmountSold("Carrot", _amountBuying);
         }
         else if (_isStrawberriesSelected)
         {
-            GameManager.AddAmountSold("Strawberry", _amountBuying);
+            GameManager.Instance.AddAmountSold("Strawberry", _amountBuying);
         }
         else if (_isCornSelected)
         {
-            GameManager.AddAmountSold("Corn", _amountBuying);
+            GameManager.Instance.AddAmountSold("Corn", _amountBuying);
         }
 
         DescriptionText.text = $"Has vendido {_amountBuying} por {totalGanado} RC.";

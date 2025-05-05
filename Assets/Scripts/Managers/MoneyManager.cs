@@ -91,42 +91,14 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int[] GardenUpgradePrices = { 5000, 10000, 15000, 20000, 30000 };
 
-
-    /// <summary>
-    /// Referencia al GameManager del juego.
-    /// </summary>
-    [SerializeField] private GameManager GameManager;
-
     /// <summary>
     /// Referencia al UIManager
     /// </summary>
     [SerializeField] private UIManager UIManager;
 
-
-
-    private void Awake()
-    {
-
-        GameManager.InitializeMoneyManager();
-        // Singleton
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        // Asegurar que el dinero se muestra al iniciar
-        //SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
     private void Start()
     {
-
+        GameManager.Instance.InitializeMoneyManager();
     }
 
 
@@ -166,8 +138,6 @@ public class MoneyManager : MonoBehaviour
 
     private void Sell(int Quantity, int Price, Items Item)
     {
-        if (GameManager == null) return;
-
         // Verifica si el jugador tiene suficientes cultivos en el inventory.
         if (InventoryManager.BoolModifyInventorySubstract(Item, Quantity))
         {

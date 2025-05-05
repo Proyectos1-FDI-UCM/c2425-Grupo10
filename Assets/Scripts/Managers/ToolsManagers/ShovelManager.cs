@@ -60,6 +60,9 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GardenManager GardenManager;
 
+    /// <summary>
+    /// ref al tutorial manager
+    /// </summary>
     [SerializeField] private TutorialManager TutorialManager;
 
     /// <summary>

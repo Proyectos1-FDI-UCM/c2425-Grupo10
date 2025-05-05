@@ -42,7 +42,6 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private Button ExitGameButton;
 
     [SerializeField] private GameObject Continue;
-    [SerializeField] private GameManager GameManager;
     [SerializeField] private CambiarEscena CambiarEscena;
 
     [SerializeField] private GameObject LoadingScreen;
@@ -80,21 +79,18 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        //GameManager.LoadGame();
-
-        GameManager = FindObjectOfType<GameManager>();
-        YESButton.onClick.AddListener(GameManager.NewGame);
+        YESButton.onClick.AddListener(GameManager.Instance.NewGame);
         LoadingScreen.SetActive(false);
         PopUp.SetActive(false);
-        if(GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
+        if(GameManager.Instance.GetNewGame() && GameManager.Instance.GetControllerUsing() == true)
         {
             NewGameButton.Select();
         }
-        else if (!GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
+        else if (!GameManager.Instance.GetNewGame() && GameManager.Instance.GetControllerUsing() == true)
         {
             ContinueButton.Select();
         }
-        GameManager.InitializeMenuManager();
+        GameManager.Instance.InitializeMenuManager();
 
     }
 
@@ -103,7 +99,7 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if(GameManager.GetNewGame())
+        if(GameManager.Instance.GetNewGame())
         {
             Continue.SetActive(false);
         }
@@ -113,12 +109,12 @@ public class MenuManager : MonoBehaviour
         }
         if (_updateControllers)
         {
-            if (GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
+            if (GameManager.Instance.GetNewGame() && GameManager.Instance.GetControllerUsing() == true)
             {
                 NewGameButton.Select();
                 _updateControllers = false;
             }
-            else if (!GameManager.GetNewGame() && GameManager.GetControllerUsing() == true)
+            else if (!GameManager.Instance.GetNewGame() && GameManager.Instance.GetControllerUsing() == true)
             {
                 ContinueButton.Select();
                 _updateControllers = false;
@@ -142,11 +138,11 @@ public class MenuManager : MonoBehaviour
     }
     public void NoButtonPressed()
     {
-        if (_newGameSelected && GameManager.GetControllerUsing() == true)
+        if (_newGameSelected && GameManager.Instance.GetControllerUsing() == true)
         {
             NewGameButton.Select();
         }
-        else if (_exitGameSelected && GameManager.GetControllerUsing() == true)
+        else if (_exitGameSelected && GameManager.Instance.GetControllerUsing() == true)
         {
             ExitGameButton.Select();
         }
@@ -163,7 +159,7 @@ public class MenuManager : MonoBehaviour
     }
     public void ExitButtonPressed()
     {
-        if(GameManager.GetControllerUsing() == true)
+        if(GameManager.Instance.GetControllerUsing() == true)
         {
             YESButton.Select();
         }
@@ -172,7 +168,7 @@ public class MenuManager : MonoBehaviour
         _exitGameSelected |= true;
         PopUpText.text = "¿Estás seguro de que quieres salir?";
         YESButton.onClick.AddListener(CambiarEscena.Exit);
-        YESButton.onClick.RemoveListener(GameManager.NewGame);
+        YESButton.onClick.RemoveListener(GameManager.Instance.NewGame);
         YESButton.onClick.RemoveListener(CambiarEscena.ChangeScene);
 
         CreditsButton.interactable = false;
@@ -183,16 +179,16 @@ public class MenuManager : MonoBehaviour
     }
     public void NewGameButtonPressed()
     {
-        if(!GameManager.GetNewGame())
+        if(!GameManager.Instance.GetNewGame())
         {
-            if(GameManager.GetControllerUsing()) 
+            if(GameManager.Instance.GetControllerUsing()) 
             {
                 YESButton.Select();
             }
             PopUp.SetActive(true);
             _newGameSelected |= true;
             PopUpText.text = "¿Estás seguro de que quieres crear una nueva partida?\n Tu partida actual se eliminará.";
-            YESButton.onClick.AddListener(GameManager.NewGame);
+            YESButton.onClick.AddListener(GameManager.Instance.NewGame);
             YESButton.onClick.AddListener(CambiarEscena.ChangeScene);
             YESButton.onClick.RemoveListener(CambiarEscena.Exit);
             CreditsButton.interactable = false;
@@ -203,7 +199,7 @@ public class MenuManager : MonoBehaviour
         else
         {
             ContinueorYesPressed();
-            GameManager.NewGame();
+            GameManager.Instance.NewGame();
             CambiarEscena.ChangeScene();
         }
         

@@ -30,7 +30,6 @@ public class VentaManager : MonoBehaviour
     [SerializeField] int CantidadSemillas = 100; // Seeds
     [SerializeField] int AguaRegadera = 50; // Regadera (lleno)
     [SerializeField] GameObject PrefabSemilla1;
-    [SerializeField] GameManager GameManager;
     [SerializeField] ToolManager ToolManager;
 
     [SerializeField] private Text mensajeErrorTexto; // Referencia al objeto UI de texto
@@ -65,14 +64,6 @@ public class VentaManager : MonoBehaviour
         {
             _instance = this;
             Init();
-        }
-        if (GameManager == null)
-        {
-            GameObject ObjetoTexto = GameObject.FindGameObjectWithTag("GameManager");
-            if (ObjetoTexto != null)
-            {
-                GameManager = ObjetoTexto.GetComponent<GameManager>();
-            }
         }
     }
 

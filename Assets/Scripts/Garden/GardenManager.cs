@@ -53,10 +53,6 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject GardenLevel4;
 
-    /// <summary>
-    /// Ref al gamemanager
-    /// </summary>
-    [SerializeField] private GameManager GameManager;
 
     ///<summary>
     /// Mejora Actual
@@ -115,8 +111,8 @@ public class GardenManager : MonoBehaviour
     void Awake() 
     {
         InitializeReferences();
-        GameManager.InitializeGardenManager();
-        UpgradeLevel = GameManager.GetGardenUpgrades();
+        GameManager.Instance.InitializeGardenManager();
+        UpgradeLevel = GameManager.Instance.GetGardenUpgrades();
         SetUpgrade(UpgradeLevel);
 
         TutorialManager = FindObjectOfType<TutorialManager>();
@@ -195,7 +191,7 @@ public class GardenManager : MonoBehaviour
             }
         }
 
-        if (GameManager.GetGardenUpgrades() > UpgradeLevel)
+        if (GameManager.Instance.GetGardenUpgrades() > UpgradeLevel)
         {
             UpgradeLevel++;
             SetUpgrade(UpgradeLevel);
@@ -564,7 +560,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     private void InitGarden()
     {
-        SetUpgrade(GameManager.GetGardenUpgrades());
+        SetUpgrade(GameManager.Instance.GetGardenUpgrades());
     }
 
     ///<summary>
@@ -572,10 +568,6 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     private void InitializeReferences()
     {
-        if (GameManager == null)
-        {
-            GameManager = FindObjectOfType<GameManager>();
-        }
         if (gameTimer == null)
         {
             gameTimer = FindObjectOfType<Timer>();

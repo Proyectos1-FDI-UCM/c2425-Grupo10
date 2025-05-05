@@ -20,10 +20,7 @@ public class TutorialManager : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-    /// <summary>
-    /// Ref al GameManager
-    /// </summary>
-    [SerializeField] private GameManager GameManager;
+
 
     ///<summary>
     ///Ref al PlayerMovement
@@ -136,7 +133,7 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         NotificationManager = GetComponent<NotificationManager>();
-        if(GameManager.GetCinematicState() == true)
+        if(GameManager.Instance.GetCinematicState() == true)
         {
             //UIManager.HideDialogue();
         }
@@ -147,7 +144,7 @@ public class TutorialManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (GameManager.GetControllerUsing())
+        if (GameManager.Instance.GetControllerUsing())
         {
             _use = "Cuadrado/X";
             _map = "Panel";
@@ -169,7 +166,7 @@ public class TutorialManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name != "Menu" || SceneManager.GetActiveScene().name != "Menu_Pausa")
         {
             InitializeReferences();
-            if (GameManager.GetCinematicState() == false && _tutorialPhase == 0)
+            if (GameManager.Instance.GetCinematicState() == false && _tutorialPhase == 0)
             {
                 //Activar el tutorial
                 _tutorialPhase++;

@@ -44,11 +44,6 @@ public class LevelManager : MonoBehaviour
     /// <summary>
     /// Referencia al GameManager para gestionar la información del juego.
     /// </summary>
-    [SerializeField] GameManager GameManager;
-
-    /// <summary>
-    /// Referencia al GameManager para gestionar la información del juego.
-    /// </summary>
     [SerializeField] GardenManager GardenManager;
 
     #endregion
@@ -60,10 +55,6 @@ public class LevelManager : MonoBehaviour
     /// </summary>
     private static LevelManager _instance;
 
-    /// <summary>
-    /// Inventory de cultivos recolectados.
-    /// </summary>
-    private int[] _inventory;
 
     #endregion
 
@@ -80,17 +71,6 @@ public class LevelManager : MonoBehaviour
         {
             _instance = this;
         }
-        if (GameManager == null)
-        {
-            GameObject _textObject = GameObject.FindGameObjectWithTag("GameManager");
-            if (_textObject != null)
-            {
-                GameManager = _textObject.GetComponent<GameManager>();
-            }
-        }
-
-        _inventory = GameManager.Instance.Inventory(); // Inicializa el inventory desde el GameManager
-
     }
 
     void Start()

@@ -3671,7 +3671,6 @@ MonoBehaviour:
   PlayerMarker: {fileID: 0}
   MoneyManager: {fileID: 0}
   SceneTransition: {fileID: 0}
-  GameManager: {fileID: 0}
   TutorialManager: {fileID: 0}
   NotificationManager: {fileID: 0}
   PauseMenuButton: {fileID: 1071331172}
@@ -3734,6 +3733,8 @@ MonoBehaviour:
   WaterMessage: {fileID: 0}
   WaterBar: {fileID: 0}
   WaterBarText: {fileID: 0}
+  BarNumbersKeyBoard: []
+  BarNumbersController: []
   Notification0: {fileID: 283414417}
   Notification0Text: {fileID: 705390980}
   Notification1: {fileID: 1372410464}
@@ -3747,6 +3748,8 @@ MonoBehaviour:
   Notification3Text: {fileID: 0}
   Notification4: {fileID: 0}
   Notification4Text: {fileID: 0}
+  Notification5: {fileID: 0}
+  Notification5Text: {fileID: 0}
   DepositButton: {fileID: 0}
   MovingButton: {fileID: 0}
   BeachHouseButton: {fileID: 0}
@@ -9536,7 +9539,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 774026179}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d86e030d5dc8ef419aa624af56627cf, type: 3}
   m_Name: 
@@ -9545,7 +9548,6 @@ MonoBehaviour:
   CantidadSemillas: 100
   AguaRegadera: 50
   PrefabSemilla1: {fileID: 0}
-  GameManager: {fileID: 0}
   ToolManager: {fileID: 0}
   mensajeErrorTexto: {fileID: 0}
 --- !u!1 &781816620
@@ -26990,6 +26992,10 @@ PrefabInstance:
     - target: {fileID: 8748518255323718334, guid: 169c1e6c903971e4e811ea23ae8a325e, type: 3}
       propertyPath: m_Name
       value: VentaManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8748518255323718334, guid: 169c1e6c903971e4e811ea23ae8a325e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
