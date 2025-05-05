@@ -78,20 +78,6 @@ public class NotificationManager : MonoBehaviour
     ///Texto del contador notificacion tutorail
     /// </summary>
     private string _tutorialNotificationCounterText = "";
-    ///<summary>
-    ///int para saber si el check1 esta activo
-    /// </summary>
-    private int _tutorialNotificationCheck1;
-
-    ///<summary>
-    ///int para saber si el check2 esta activo
-    /// </summary>
-    private int _tutorialNotificationCheck2;
-
-    ///<summary>
-    ///int para saber si el check3 esta activo
-    /// </summary>
-    private int _tutorialNotificationCheck3;
 
     ///<summary>
     ///Booleanos para saber si debe haber notificacion de ese tipo activa
@@ -365,6 +351,59 @@ public class NotificationManager : MonoBehaviour
         _notificationCounterText = "";
         _tutorialNotificationCounterText = "";
 }
+    public bool[] SaveNotifications()
+    {
+        bool[] _activeNotifications = new bool[6];
+
+        _activeNotifications[0] = _isNotificationCreated;
+        _activeNotifications[1] = _isTutorialNotificationCreated;
+        _activeNotifications[2] = _isEnergyNotificationCreated;
+        _activeNotifications[3] = _isToolNotificationCreated;
+        _activeNotifications[4] = _isWcNotificationCreated;
+        _activeNotifications[5] = _isInventoryNotificationCreated;
+
+        return _activeNotifications;
+
+    }
+
+    public void SetNotifications(bool[] _activeNotifications)
+    {
+        _isNotificationCreated = _activeNotifications[0];
+        _isTutorialNotificationCreated = _activeNotifications[0];
+        _isEnergyNotificationCreated = _activeNotifications[0];
+        _isToolNotificationCreated = _activeNotifications[0];
+        _isWcNotificationCreated = _activeNotifications[0];
+        _isInventoryNotificationCreated = _activeNotifications[0];
+    }
+
+    public string[] SaveNotificationText()
+    {
+        string[] _textNotification = new string[8];
+
+        _textNotification[0] = _notificationText;
+        _textNotification[1] = _energyNotificationText;
+        _textNotification[2] = _toolNotificationText;
+        _textNotification[3] = _wcNotificationText;
+        _textNotification[4] = _inventoryNotificationText;
+        _textNotification[5] = _tutorialNotificationText;
+        _textNotification[6] = _notificationCounterText;
+        _textNotification[7] = _tutorialNotificationCounterText;
+
+        return _textNotification;
+}
+
+    public void SetNotificationText(string[] _textNotification)
+    {
+        _notificationText = _textNotification[0];
+        _energyNotificationText = _textNotification[1];
+        _toolNotificationText = _textNotification[2];
+        _wcNotificationText = _textNotification[3];
+        _inventoryNotificationText = _textNotification[4];
+        _tutorialNotificationText = _textNotification[5];
+        _notificationCounterText = _textNotification[6];
+        _tutorialNotificationCounterText = _textNotification[7];
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
