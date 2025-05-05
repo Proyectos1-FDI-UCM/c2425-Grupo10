@@ -21,7 +21,7 @@ public enum Items
     CarrotSeed,
     StrawberrySeed,
     Corn,
-    Letuce,
+    Lettuce,
     Carrot,
     Strawberry,
     Count
@@ -156,6 +156,7 @@ public static class InventoryManager
             if (Inventory[(int)item] + quantity <= MaxSeedQuantity) Inventory[(int)item] += quantity;
             else Debug.Log("InventarioLleno");
         }
+        Debug.Log("Item" + item.ToString() + " Cantidad: " + quantity);
     }
 
     /// <summary>

@@ -310,7 +310,7 @@ public class GameManager : MonoBehaviour
             }
             if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
             {
-                InventoryManager.ModifyInventory(Items.Letuce, 1);
+                InventoryManager.ModifyInventory(Items.Corn, 1);
             }
             if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
             {

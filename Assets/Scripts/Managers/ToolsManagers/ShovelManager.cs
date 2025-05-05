@@ -191,12 +191,7 @@ public class ShovelManager : MonoBehaviour
 
         if (Pot != null)
         {
-            Transform Plant = Pot.transform.GetChild(0);
-
-            if (Plant != null)
-            {
-                GardenManager.Weed(Pot);
-            }
+            GardenManager.Weed(Pot);
         }
     }
 

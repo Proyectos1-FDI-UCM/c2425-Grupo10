@@ -147,7 +147,7 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Vende una cantidad específica de lechugas.
     /// </summary>
-    public void SellLettuce(int Quantity) => Sell(Quantity, LettucePlantPrice, Items.Letuce);
+    public void SellLettuce(int Quantity) => Sell(Quantity, LettucePlantPrice, Items.Lettuce);
 
     /// <summary>
     /// Vende una cantidad específica de maíz.

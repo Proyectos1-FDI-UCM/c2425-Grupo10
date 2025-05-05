@@ -165,7 +165,7 @@ public class VentaInterfaz : MonoBehaviour
         int maxCantidad = 0;
 
         if (_isMaizSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
-        else if (_isLechugaSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Letuce);
+        else if (_isLechugaSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
         else if (_isZanahoriaSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
         else if (_isFresasSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
 
@@ -179,7 +179,7 @@ public class VentaInterfaz : MonoBehaviour
     public void ActualizarCantidadUI()
     {
         TextoCantidadMaiz.text = "x" + InventoryManager.GetInventoryItem(Items.Corn);
-        TextoCantidadLechuga.text = "x" + InventoryManager.GetInventoryItem(Items.Letuce);
+        TextoCantidadLechuga.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
         TextoCantidadZanahoria.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
         TextoCantidadFresa.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
 
@@ -204,7 +204,7 @@ public class VentaInterfaz : MonoBehaviour
         }
         else if (_isLechugaSelected)
         {
-            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Letuce);
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Lettuce);
             precioUnitario = 20;
         }
         else if (_isZanahoriaSelected)
@@ -238,7 +238,7 @@ public class VentaInterfaz : MonoBehaviour
         // Restar del inventory
         InventoryManager.ModifyInventorySubstract(
             _isMaizSelected ? Items.Corn :
-            _isLechugaSelected ? Items.Letuce :
+            _isLechugaSelected ? Items.Lettuce :
             _isZanahoriaSelected ? Items.Carrot :
             Items.Strawberry, _cantidadAVender
         );

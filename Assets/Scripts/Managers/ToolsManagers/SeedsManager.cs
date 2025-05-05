@@ -167,7 +167,7 @@ public class SeedsManager : MonoBehaviour
                 InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);
 
-                GardenData.Active(Pot.transform, _seed);
+                GardenData.Active(Pot.transform, (int)_seed + ((int)Items.Count/2));
 
                 CropSpriteEditor crop = Plant.GetComponent<CropSpriteEditor>();
                 crop.Warning("Water");

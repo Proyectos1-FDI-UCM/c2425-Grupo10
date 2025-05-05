@@ -224,12 +224,7 @@ public class SickleManager : MonoBehaviour
 
         if (Pot != null)
         {
-            Transform Plant = Pot.transform.GetChild(0);
-
-            if (Plant != null)
-            {
-                GardenManager.Harvest(Pot);
-            }
+            GardenManager.Harvest(Pot);
         }
     }
 

@@ -2072,7 +2072,7 @@ public class UIManager : MonoBehaviour
         }
         else if (_isLettuceSelected)
         {
-            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Letuce);
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Lettuce);
             precioUnitario = 20;
         }
         else if (_isCarrotSelected)
@@ -2106,7 +2106,7 @@ public class UIManager : MonoBehaviour
         // Restar del inventario
         InventoryManager.ModifyInventorySubstract(
             _isCornSelected ? Items.Corn :
-            _isLettuceSelected ? Items.Letuce :
+            _isLettuceSelected ? Items.Lettuce :
             _isCarrotSelected ? Items.Carrot :
             Items.Strawberry, _amountBuying
         );
@@ -2149,7 +2149,7 @@ public class UIManager : MonoBehaviour
         int maxCantidad = 0;
 
         if (_isCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
-        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Letuce);
+        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
         else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
         else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
 
@@ -2172,7 +2172,7 @@ public class UIManager : MonoBehaviour
         int maxCantidad = 0;
 
         if (_isCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
-        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Letuce);
+        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
         else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
         else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
 
@@ -2236,7 +2236,7 @@ public class UIManager : MonoBehaviour
     public void ActualizarCantidadUI()
     {
         CornText.text = "x" + InventoryManager.GetInventoryItem(Items.Corn);
-        LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Letuce);
+        LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
         CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
         StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
 

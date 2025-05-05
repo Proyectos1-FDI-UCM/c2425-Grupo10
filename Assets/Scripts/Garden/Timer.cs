@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Convertir segundos de la vida real a tiempo de juego
     /// </summary>
-    private const float _realSecondtoGameTime = 60f;
+    [SerializeField] private float _realSecondtoGameTime = 60f;
 
     #endregion
 

@@ -133,7 +133,7 @@ public static class GardenData
     /// <summary>
     /// Activa una planta con los valores de transform de la planta y el tipo de cultivo
     /// </summary>
-    public static void Active(Transform transform, Items item)
+    public static void Active(Transform transform, int item)
     {
         int i = 0;
         bool PlantActive = true;
@@ -152,7 +152,7 @@ public static class GardenData
 
             Garden[i].Position = transform.position;
             Garden[i].Active = true;
-            Garden[i].Item = item;
+            Garden[i].Item = (Items)item;
             Garden[i].State = 0;
             Garden[i].WaterWarning = false;
             Garden[i].DeathWarning = false;
@@ -161,7 +161,7 @@ public static class GardenData
             Garden[i].GrowthTimer = 0;
 
             ActivePlants++;
-            Debug.Log($"Planta creada Array: {i} y Pot: {Garden[i].Child}, ");
+            Debug.Log($"Planta creada Array: {i} y Pot: {Garden[i].Child}, Type: {Garden[i].Item.ToString()}");
         }
     }
 

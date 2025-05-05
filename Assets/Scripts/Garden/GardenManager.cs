@@ -172,7 +172,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                  // Aviso Muerte
-                else if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4 )
+                if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4 )
                 {
                     Debug.Log("Aviso Muerte");
                     DeathWarning(GardenData.GetPlant(i), i);
@@ -180,7 +180,7 @@ public class GardenManager : MonoBehaviour
                 }
 
                 // Muerte
-                else if (gameTimer.GetGameTimeInHours() - Plant.WaterTimer >= MaxWater + MaxDeath && State > 0 && State < 4)
+                if (gameTimer.GetGameTimeInHours() - Plant.WaterTimer >= MaxWater + MaxDeath && State > 0 && State < 4)
                 {
                     Death(Plant, i);
                     Debug.Log("Muerte");
@@ -236,17 +236,22 @@ public class GardenManager : MonoBehaviour
     public void Harvest(Transform transform)
     {
         int i = 0;
-        while (i < GardenSize[UpgradeLevel] && !GardenData.GetPlant(i).Active && GardenData.GetPlant(i).Position != transform.position)
+        while (i <= GardenSize[UpgradeLevel] && (!GardenData.GetPlant(i).Active || GardenData.GetPlant(i).Position != transform.position))
         {
             i++;
         }
         Plant Plant = GardenData.GetPlant(i);
+        Debug.Log("Plant position: " + Plant.Position + "Transform Position: " + transform.position + "i: " + i);
 
         if (Plant.Position == transform.position)
         {
             Debug.Log(Plant.State);
             if (Plant.State == 4)
             {
+                InventoryManager.ModifyInventory(Plant.Item, 1);
+                GardenData.ModifyHarvestWarning(i, false);
+                CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
+
                 int random;
                 if (!WeedTutorial)
                 {
@@ -255,9 +260,6 @@ public class GardenManager : MonoBehaviour
                 }
                 else random = UnityEngine.Random.Range(0, _maxProb);
 
-                InventoryManager.ModifyInventory(Plant.Item, 1);
-                GardenData.ModifyHarvestWarning(i, false);
-                CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
                 if (random == 0)
                 {
                     GardenData.ModifyState(i, (-6));
@@ -278,6 +280,7 @@ public class GardenManager : MonoBehaviour
                 }
             }
         }
+        else Debug.Log("Plant.Position != transform");
     }
 
     /// <summary>
@@ -286,11 +289,12 @@ public class GardenManager : MonoBehaviour
     public void Weed(Transform transform)
     {
         int i = 0;
-        while (i < GardenSize[UpgradeLevel] && GardenData.GetPlant(i).Active && GardenData.GetPlant(i).Position != transform.position)
+        while (i < GardenSize[UpgradeLevel] && (!GardenData.GetPlant(i).Active || GardenData.GetPlant(i).Position != transform.position))
         {
             i++;
         }
         Plant Plant = GardenData.GetPlant(i);
+        Debug.Log("Plant position: " + Plant.Position + "Transform Position: " + transform.position + "i: " + i);
 
         if (Plant.Position == transform.position)
         {
@@ -314,9 +318,7 @@ public class GardenManager : MonoBehaviour
                     donePlant = true;
                 }
             }
-
         }
-
     }
 
     public void SetUpgrade(int Level)
@@ -490,7 +492,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void DeathWarning(Plant plant, int ArrayIndex)
     {
-        if (plant.DeathWarning)
+        if (!plant.DeathWarning)
         {
             Debug.Log("DeathWarning");
             GardenData.ModifyState(ArrayIndex, plant.State);
