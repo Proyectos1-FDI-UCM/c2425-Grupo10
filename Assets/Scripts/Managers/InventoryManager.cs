@@ -238,7 +238,7 @@ public static class InventoryManager
     ///<summary>
     ///metodo para saber si el inventario esta lleno
     /// </summary>
-    public static bool BoolInventoryFull()
+    public static bool GetBoolInventoryFull()
     {
         return _inventoryFull;
     }

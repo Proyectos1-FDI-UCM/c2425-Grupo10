@@ -759,7 +759,7 @@ public class UIManager : MonoBehaviour
     void Update()
     {
 
-        if(InventoryManager.BoolInventoryFull())
+        if(InventoryManager.GetBoolInventoryFull())
         {
             ShowNotification("Inventario Lleno", "NoCounter", 5, "Inventory");
             InventoryManager.InventoryNotFull();
@@ -1059,7 +1059,7 @@ public class UIManager : MonoBehaviour
             // Colocar al principio del Vertical Layout Group
             notif.transform.SetSiblingIndex(0);
 
-            _isToolNotification = true;
+            _isInventoryNotification = true;
             Invoke("NotificationInventory", 1.5f);
         }
         NotificationManager.SaveNotification(text, counterText, source);
