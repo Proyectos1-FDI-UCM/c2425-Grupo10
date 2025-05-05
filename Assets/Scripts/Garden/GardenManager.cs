@@ -248,35 +248,37 @@ public class GardenManager : MonoBehaviour
             Debug.Log(Plant.State);
             if (Plant.State == 4)
             {
-                InventoryManager.ModifyInventory(Plant.Item, 1);
-                GardenData.ModifyHarvestWarning(i, false);
-                CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
-
-                int random;
-                if (!WeedTutorial)
+                if (InventoryManager.BoolModifyInventory(Plant.Item, 1))
                 {
-                    random = 0;
-                    WeedTutorial = true;
-                }
-                else random = UnityEngine.Random.Range(0, _maxProb);
+                    GardenData.ModifyHarvestWarning(i, false);
+                    CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
 
-                if (random == 0)
-                {
-                    GardenData.ModifyState(i, (-6));
-                    cropSpriteEditor.Warning("Desactivate");
-                    cropSpriteEditor.Growing(-6);
-
-                    if (TutorialManager.GetTutorialPhase() == 19 && !done)
+                    int random;
+                    if (!WeedTutorial)
                     {
-                        TutorialManager.CheckBox(0);
-                        TutorialManager.SubTask();
-                        done = true;
+                        random = 0;
+                        WeedTutorial = true;
                     }
-                }
-                else
-                {
-                    GardenData.Deactivate(i);
-                    cropSpriteEditor.Destroy();
+                    else random = UnityEngine.Random.Range(0, _maxProb);
+
+                    if (random == 0)
+                    {
+                        GardenData.ModifyState(i, (-6));
+                        cropSpriteEditor.Warning("Desactivate");
+                        cropSpriteEditor.Growing(-6);
+
+                        if (TutorialManager.GetTutorialPhase() == 19 && !done)
+                        {
+                            TutorialManager.CheckBox(0);
+                            TutorialManager.SubTask();
+                            done = true;
+                        }
+                    }
+                    else
+                    {
+                        GardenData.Deactivate(i);
+                        cropSpriteEditor.Destroy();
+                    }
                 }
             }
         }
