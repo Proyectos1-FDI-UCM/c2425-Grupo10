@@ -48,6 +48,22 @@ public class NotificationManager : MonoBehaviour
     ///Texto de la notificacion normal
     /// </summary>
     private string _notificationText = "";
+    ///<summary>
+    ///Texto de la notificacion normal
+    /// </summary>
+    private string _energyNotificationText = "";
+    ///<summary>
+    ///Texto de la notificacion normal
+    /// </summary>
+    private string _toolNotificationText = "";
+    ///<summary>
+    ///Texto de la notificacion normal
+    /// </summary>
+    private string _wcNotificationText = "";
+    ///<summary>
+    ///Texto de la notificacion normal
+    /// </summary>
+    private string _inventoryNotificationText = "";
 
     ///<summary>
     ///Texto de la notificacion tutorail
@@ -82,6 +98,10 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     [SerializeField]private bool _isNotificationCreated = false;
     private bool _isTutorialNotificationCreated = false;
+    private bool _isEnergyNotificationCreated = false;
+    private bool _isToolNotificationCreated = false;
+    private bool _isWcNotificationCreated = false;
+    private bool _isInventoryNotificationCreated = false;
 
     [SerializeField]  private bool _check1 = false;
     [SerializeField] private bool _check2 = false;
@@ -153,7 +173,26 @@ public class NotificationManager : MonoBehaviour
         {
             _isNotificationCreated = true;
             _notificationText = text;
-            _notificationCounterText = counterText;
+        }
+        else if (source == "Energy")
+        {
+            _isEnergyNotificationCreated = true;
+            _energyNotificationText = text;
+        }
+        else if(source == "WC")
+        {
+            _isWcNotificationCreated = true;
+            _wcNotificationText = text;
+        }
+        else if (source == "Tool")
+        {
+            _isToolNotificationCreated = true;
+            _toolNotificationText = text;
+        }
+        else if (source == "Inventory")
+        {
+            _isInventoryNotificationCreated = true;
+            _inventoryNotificationText = text;
         }
 
     }
@@ -206,6 +245,26 @@ public class NotificationManager : MonoBehaviour
             UIManager.ShowNotification(_notificationText, _notificationCounterText, 1, "NoTutorial");
             SoundManager.NextButtonSound();
         }
+        else if (source == "Energy" && _isEnergyNotificationCreated)
+        {
+            UIManager.ShowNotification(_energyNotificationText, "NoCounter", 1, "NoTutorial");
+            SoundManager.NextButtonSound();
+        }
+        else if (source == "Tool" && _isToolNotificationCreated)
+        {
+            UIManager.ShowNotification(_toolNotificationText, "NoCounter", 1, "NoTutorial");
+            SoundManager.NextButtonSound();
+        }
+        else if (source == "WC" && _isWcNotificationCreated)
+        {
+            UIManager.ShowNotification(_wcNotificationText, "NoCounter", 1, "NoTutorial");
+            SoundManager.NextButtonSound();
+        }
+        else if (source == "Inventory" && _isInventoryNotificationCreated)
+        {
+            UIManager.ShowNotification(_wcNotificationText, "NoCounter", 1, "NoTutorial");
+            SoundManager.NextButtonSound();
+        }
     }
 
     ///<summary>
@@ -230,6 +289,26 @@ public class NotificationManager : MonoBehaviour
             _notificationText = "";
             _notificationCounterText = "";
             _isNotificationCreated = false;
+        }
+        else if (source == "Energy" && _isEnergyNotificationCreated)
+        {
+            _energyNotificationText = "";
+            _isEnergyNotificationCreated = false;
+        }
+        else if (source == "WC" && _isWcNotificationCreated)
+        {
+            _wcNotificationText = "";
+            _isWcNotificationCreated = false;
+        }
+        else if (source == "Tool" && _isToolNotificationCreated)
+        {
+            _toolNotificationText = "";
+            _isToolNotificationCreated = false;
+        }
+        else if (source == "Inventory" && _isInventoryNotificationCreated)
+        {
+            _inventoryNotificationText = "";
+            _isInventoryNotificationCreated = false;
         }
     }
     ///<summary>
@@ -268,6 +347,9 @@ public class NotificationManager : MonoBehaviour
     {
         _isNotificationCreated = false;
         _isTutorialNotificationCreated = false;
+        _isEnergyNotificationCreated = false;
+        _isToolNotificationCreated = false;
+        _isWcNotificationCreated= false;
         _check1 = false;
         _check2 = false;
         _check3 = false;
@@ -276,6 +358,10 @@ public class NotificationManager : MonoBehaviour
         _intCheck2 = 0;
         _notificationText = "";
         _tutorialNotificationText = "";
+        _toolNotificationText = "";
+        _energyNotificationText = "";
+        _wcNotificationText = "";
+        _inventoryNotificationText = "";
         _notificationCounterText = "";
         _tutorialNotificationCounterText = "";
 }

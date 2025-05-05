@@ -149,12 +149,12 @@ public class TutorialManager : MonoBehaviour
     {
         if (GameManager.GetControllerUsing())
         {
-            _use = "Cuadrado";
+            _use = "Cuadrado/X";
             _map = "Panel";
-            _inventory = "Fl. Arriba";
+            _inventory = "Flecha Arriba";
             _toolSelector = "(R1/L1)";
-            _seedSelector = "Triangulo";
-            _exit = "Círculo";
+            _seedSelector = "Triangulo/Y";
+            _exit = "Círculo/B";
         }
         else
         {
@@ -190,14 +190,12 @@ public class TutorialManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Compra" && _tutorialPhaseEscenas == 0)
         {
             UIManager.HideNotification("NoTutorial");
-            NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             NextDialogue();
         }
         if (SceneManager.GetActiveScene().name == "Escena_Venta" && _tutorialPhaseEscenas == 3)
         {
             UIManager.HideNotification("NoTutorial");
-            NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             //_tutorialPhaseEscenas = 3;
             NextDialogue();
@@ -205,7 +203,6 @@ public class TutorialManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Mejora" && _tutorialPhaseMejora == 0 && !tutorialMejora)
         {
             UIManager.HideNotification("NoTutorial");
-            NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             _tutorialPhaseEscenas = 0;
             _tutorialPhaseBanco = 0;
@@ -217,7 +214,6 @@ public class TutorialManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Banco" && _tutorialPhaseBanco== 0 && !tutorialBanco)
         {
             UIManager.HideNotification("NoTutorial");
-            NotificationManager.DestroyNotification("NoTutorial");
             _tutorialInProgress = true;
             _tutorialPhaseEscenas = 0;
             _tutorialPhaseMejora = 0;
@@ -287,7 +283,6 @@ public class TutorialManager : MonoBehaviour
             UIManager.HideDialogueButton();
             UIManager.HideDialogue();
             UIManager.HideNotification("Tutorial");
-            NotificationManager.DestroyNotification("Tutorial");
         }
     }
     ///<summary>
@@ -365,7 +360,6 @@ public class TutorialManager : MonoBehaviour
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
-            NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta") 
@@ -375,7 +369,6 @@ public class TutorialManager : MonoBehaviour
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
-            NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
@@ -386,7 +379,6 @@ public class TutorialManager : MonoBehaviour
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
-            NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
 
         }
@@ -398,7 +390,6 @@ public class TutorialManager : MonoBehaviour
             UIManager.ShowDialogue(_actualDialogueText, _actualDialogueButtonText);
             SoundManager.MadameMooSound();
             UIManager.HideNotification("Tutorial");
-            NotificationManager.DestroyNotification("Tutorial");
             _isNotificationActive = false;
         }
     }
@@ -593,12 +584,12 @@ public class TutorialManager : MonoBehaviour
 
         if (_tutorialPhase == 25)
         {
-            _actualDialogueText = MadameMooColor + " ¡Ay! Querida, mientras entras en todas las casas ¡vigila tu energía! \nArriba a la derecha tienes la barra de energía que disminuye al correr. Para recuperar energia simplemente deberás estar quieta, pero seguro que con la edad que tienes ya lo sabias... ¿Como? ¡Connie yo estoy como nueva! No inventes...";
+            _actualDialogueText = MadameMooColor + " ¡Ay! Querida, mientras entras en todas las casas ¡vigila tu energía! Arriba a la derecha tienes la barra de energía que disminuye al correr. Para recuperar energia simplemente deberás estar quieta, pero seguro que con la edad que tienes ya lo sabias... ¿Como? ¡Connie yo estoy como nueva! No inventes...";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhase == 26)
         {
-            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora...\nCasi se me olvidaba, para que no te olvides de las cosas como me pasa a mi, consulta la enciclopedia en el menú para resolver tus dudas. Ahora si, ¡Muuucha suerte ahí fuera!";
+            _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora...Casi se me olvidaba, para que no te olvides de las cosas como me pasa a mi, consulta la enciclopedia en el menú para resolver tus dudas. Ahora si, ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";
             _isInMainTutorial = false;
         }

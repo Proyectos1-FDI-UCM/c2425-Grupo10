@@ -327,6 +327,17 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI Notification4Text;
 
+    [Header("Notificacion 5")]
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification5;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI Notification5Text;
+
 
     [Header("UI del Banco")]
 
@@ -670,6 +681,11 @@ public class UIManager : MonoBehaviour
     ///herramienta notification activa
     /// </summary>
     private bool _isToolNotification = false;
+
+    ///<summary>
+    ///herramienta notification activa
+    /// </summary>
+    private bool _isInventoryNotification = false;
     /// <summary>
     /// Cual es la notificacion del tutorial
     /// </summary>
@@ -961,6 +977,12 @@ public class UIManager : MonoBehaviour
             notif = Notification4;
             notifText = Notification4Text;
         }
+        else if (notificationID == 5)
+        {
+            notif = Notification5;
+            notifText = Notification5Text;
+        }
+
 
         if (source == "Tutorial" && !_isTutorialNotification)
         {
@@ -1015,6 +1037,16 @@ public class UIManager : MonoBehaviour
             _isWcNotification = true;
         }
         else if (source == "Tool" && !_isToolNotification)
+        {
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al principio del Vertical Layout Group
+            notif.transform.SetSiblingIndex(0);
+
+            _isToolNotification = true;
+        }
+        else if (source == "Inventory" && !_isInventoryNotification)
         {
             notif.SetActive(true);
             notifText.text = text;
@@ -1080,6 +1112,12 @@ public class UIManager : MonoBehaviour
             Notification4.SetActive(false);
             NotificationManager.DestroyNotification(source);
             _isToolNotification = false;
+        }
+        else if (source == "Inventory" && _isInventoryNotification)
+        {
+            Notification5.SetActive(false);
+            NotificationManager.DestroyNotification(source);
+            _isInventoryNotification = false;
         }
     }
 

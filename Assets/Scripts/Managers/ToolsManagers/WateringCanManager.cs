@@ -272,7 +272,6 @@ public class WateringCanManager : MonoBehaviour
         else if (!_isInWellArea || _waterAmount == _maxWaterAmount)
         {
             UIManager.HideNotification("NoTutorial");
-            NotificationManager.DestroyNotification("NoTutorial");
             if (_notificationActive)
             {
                 SoundManager.NextButtonSound();
