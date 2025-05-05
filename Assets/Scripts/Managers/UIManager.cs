@@ -57,10 +57,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private MoneyManager MoneyManager;
 
-    /// <summary>
-    /// Ref al scenetransition
-    /// </summary>
-    [SerializeField] private SceneTransition SceneTransition;
+
 
     /// <summary>
     /// Ref al tutorial manager
@@ -96,7 +93,7 @@ public class UIManager : MonoBehaviour
     ///<summary>
     ///Gameobject con todos las partes de la ui
     /// </summary>
-    [SerializeField] private GameObject []Controls;
+    [SerializeField] private GameObject[] Controls;
 
 
 
@@ -204,7 +201,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Ref a la Barra de acceso rápido
     /// </summary>
-    [SerializeField] private RectTransform QuickAccessBar;  
+    [SerializeField] private RectTransform QuickAccessBar;
 
     /// <summary>
     /// Ref a los Iconos del Inventory
@@ -264,7 +261,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI Notification0Text;
 
-    [Header ("Notificacion 1")]
+    [Header("Notificacion 1")]
     /// <summary>
     /// Gameobject de la notificacion
     /// </summary>
@@ -345,7 +342,7 @@ public class UIManager : MonoBehaviour
     /// Boton de mudanza
     /// </summary>
     [SerializeField] private GameObject MovingButton;
-    
+
     /// <summary>
     /// Boton de la Casa en la Playa
     /// </summary>
@@ -536,7 +533,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Estado del inventory
     /// </summary>
-    private bool _isInventoryVisible = false; 
+    private bool _isInventoryVisible = false;
 
     /// <summary>
     /// Posiciones y velocidades
@@ -560,7 +557,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Booleano para saber si esta activa la interfaz
     /// </summary>
-   [SerializeField] private bool _uiActive = false;
+    [SerializeField] private bool _uiActive = false;
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton ingresar
@@ -576,7 +573,7 @@ public class UIManager : MonoBehaviour
     /// Booleano para saber si el juagdor ha pulsado el boton de la casa en la playa
     /// </summary>
     private bool _isBeachHouseSelected = false;
-    
+
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton mejora
     /// </summary>
@@ -688,12 +685,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Booleano para saber si el menú de pausa está mostrado
     /// </summary>
-   [SerializeField] private bool _isPauseMenuActive = false;
+    [SerializeField] private bool _isPauseMenuActive = false;
 
     /// <summary>
     /// Booleano para saber si el dialogo esta activado
     /// </summary>
-   [SerializeField] private bool _isDialogueActive = false;
+    [SerializeField] private bool _isDialogueActive = false;
 
     /// <summary>
     /// bool para saber si la enciclopedia esta activa
@@ -704,6 +701,8 @@ public class UIManager : MonoBehaviour
     /// bool para saber si los controles están activos
     /// </summary>
     private bool _isControlsActive;
+
+    private Vector3 _newHousePosition = new Vector3(70f, -55f, 0f);
 
 
     #endregion
@@ -731,10 +730,6 @@ public class UIManager : MonoBehaviour
             ResetInterfaz();
         }
 
-        if (SceneManager.GetActiveScene().name == "Escena_Banco")
-        {
-            SceneTransition = FindObjectOfType<SceneTransition>();
-        }
         MoneyManager.InitializeUIManager();
         NotificationManager.InitializeUIManager();
         ShowMoneyUI();
@@ -912,6 +907,8 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+
     #endregion
 
     // ---- METODOS PUBLICOS GENERALES ----
@@ -1953,9 +1950,11 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Mudanza realizada con éxito.");
             GameManager.Instance.DeductDepositedMoney(100000);
-            // SceneTransition.ChangeScene("Menu");
-            PlayerPrefs.SetInt("activarCamara", 1); // Activar la nueva cámara
-            SceneTransition.ChangeScene("Escena_Build");
+            InventoryManager.SetPlayerPosition(_newHousePosition);
+            SceneTransition.Instance.FinalCamera();
+            Cloud.Instance.FinalCamera();
+            GameManager.Instance.FinalScene();
+            SceneTransition.Instance.ChangeScene("Escena_Build");
 
         }
         else

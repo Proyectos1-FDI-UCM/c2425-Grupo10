@@ -35,11 +35,9 @@ public class CambiarEscena : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-    public SceneTransition _sceneTransition;
     private TutorialManager TutorialManager;
     private NotificationManager NotificationManager;
     private UIManager UIManager;
-    private Cloud Cloud;
     private string _currentSceneName;
     private bool _shouldUseClouds = false;
     #endregion
@@ -57,12 +55,7 @@ public class CambiarEscena : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _sceneTransition = FindObjectOfType<SceneTransition>();
-        TutorialManager = FindObjectOfType<TutorialManager>();
-        NotificationManager = FindObjectOfType<NotificationManager>();
-        UIManager = FindObjectOfType<UIManager>();
-        SoundManager = FindObjectOfType<SoundManager>();
-        Cloud = FindObjectOfType<Cloud>();
+        InitializeReferences();
     }
 
     /// <summary>
@@ -70,18 +63,7 @@ public class CambiarEscena : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (_sceneTransition == null)
-        {
-            GameObject transitionObject = GameObject.FindGameObjectWithTag("ObjetoTransicion");
-            if (transitionObject != null)
-            {
-                _sceneTransition = transitionObject.GetComponent<SceneTransition>();
-            }
-            else
-            {
-                Debug.Log("No se encontró un objeto con la etiqueta 'ObjetoTransicion'.");
-            }
-        }
+
     }
     #endregion
 
@@ -97,14 +79,15 @@ public class CambiarEscena : MonoBehaviour
         _currentSceneName = SceneManager.GetActiveScene().name;
 
         // Verifica si vamos desde o hacia el menú
-        _shouldUseClouds = (_currentSceneName == "Menu" || sceneName == "Menu");
+        //_shouldUseClouds = (_currentSceneName == "Menu" || sceneName == "Menu");
 
         // Llamar a ShowClouds si se necesita (solo si estamos en transición a/desde el menú)
-        if (_shouldUseClouds && Cloud != null)
-        {
-            Cloud.ShowClouds();
-        }
-        Invoke("LoadScene", 1.5f);
+        //if (_shouldUseClouds)
+        //{
+        //    //Cloud.Instance.ShowClouds();
+        //}
+        //Invoke("LoadScene", 1.5f);
+        LoadScene();
         if (SceneManager.GetActiveScene().name == "Menu")
         {
             SoundManager.InitialSound();
@@ -118,7 +101,7 @@ public class CambiarEscena : MonoBehaviour
     }
     private void LoadScene()
     {
-        _sceneTransition.ChangeScene(sceneName);
+        SceneTransition.Instance.ChangeScene(sceneName);
     }
     #endregion
 
@@ -140,7 +123,7 @@ public class CambiarEscena : MonoBehaviour
             {
                 if(TutorialManager.GetTutorialPhase() >= 14)
                 {
-                    _sceneTransition.ChangeScene(sceneName);
+                    SceneTransition.Instance.ChangeScene(sceneName);
                     Debug.Log("Cambiando a escena: " + sceneName);
                 }
                 else
@@ -152,7 +135,7 @@ public class CambiarEscena : MonoBehaviour
             {
                 if (TutorialManager.GetTutorialPhase() >= 25)
                 {
-                    _sceneTransition.ChangeScene(sceneName);
+                    SceneTransition.Instance.ChangeScene(sceneName);
                     Debug.Log("Cambiando a escena: " + sceneName);
                 }
                 else
@@ -161,13 +144,11 @@ public class CambiarEscena : MonoBehaviour
                 }
             }
 
-            if (_sceneTransition != null)
-            {
                 if (sceneName == "Escena_Compra")
                 {
                     if (TutorialManager.GetTutorialPhase() >= 9)
                     {
-                        _sceneTransition.ChangeScene(sceneName);
+                        SceneTransition.Instance.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);
                     }
                     else
@@ -181,7 +162,7 @@ public class CambiarEscena : MonoBehaviour
                 {
                     if (TutorialManager.GetTutorialPhase() >= 16)
                     {
-                        _sceneTransition.ChangeScene(sceneName);
+                        SceneTransition.Instance.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);
                     }
                     else
@@ -195,7 +176,7 @@ public class CambiarEscena : MonoBehaviour
                 {
                     if (TutorialManager.GetTutorialPhase() >= 25)
                     {
-                        _sceneTransition.ChangeScene(sceneName);
+                        SceneTransition.Instance.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);
                     }
                     else
@@ -209,7 +190,7 @@ public class CambiarEscena : MonoBehaviour
                 {
                     if (TutorialManager.GetTutorialPhase() >= 26)
                     {
-                        _sceneTransition.ChangeScene(sceneName);
+                        SceneTransition.Instance.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);
                     }
                     else
@@ -219,13 +200,6 @@ public class CambiarEscena : MonoBehaviour
                     Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
                     InventoryManager.SetPlayerPosition(newPosition);
                 }
-                
-
-            }
-            else
-            {
-                Debug.LogError("SceneTransition no está asignado en el Inspector.");
-            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -241,6 +215,14 @@ public class CambiarEscena : MonoBehaviour
         InventoryManager.ModifyPlayerPosition(FindObjectOfType<PlayerMovement>().transform.position);
         Debug.Log("SavePosition" + InventoryManager.GetPlayerPosition());
         GameManager.Instance.SaveTime();
+    }
+
+    private void InitializeReferences()
+    {
+        TutorialManager = FindObjectOfType<TutorialManager>();
+        NotificationManager = FindObjectOfType<NotificationManager>();
+        UIManager = FindObjectOfType<UIManager>();
+        SoundManager = FindObjectOfType<SoundManager>();
     }
     #endregion
 

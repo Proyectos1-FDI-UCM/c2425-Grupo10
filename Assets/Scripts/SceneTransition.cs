@@ -1,16 +1,14 @@
 //---------------------------------------------------------
-// Transicion antes del cambio de escena.
+// Transición antes del cambio de escena.
 // Javier Librada Jerez
 // Roots of Life
-// Proyectos 1 - Curso 2024-25
+// Proyecto 1 - Curso 2024-25
 //---------------------------------------------------------
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
-// Añadir aquí el resto de directivas using
-
 
 /// <summary>
 /// Clase que maneja la transición entre escenas,
@@ -19,33 +17,28 @@ using System.Collections;
 public class SceneTransition : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
-    #region Atributos del Inspector (serialized fields)
-    /// <summary>
-    /// Instancia de la clase SceneTransition para asegurar que solo haya una.
-    /// </summary>
-    private static SceneTransition Instance;
+    #region Atributos del Inspector (Serialized Fields)
 
     /// <summary>
     /// SpriteRenderer utilizado para el efecto de desvanecimiento.
     /// </summary>
     [SerializeField] private Image FadeSprite;
     [SerializeField] private GameObject FadeObject;
-    [SerializeField] private Cloud Cloud;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
-    
+    #region Atributos Privados (Private Fields)
+
+    /// <summary>
+    /// Instancia de la clase SceneTransition para asegurar que solo haya una.
+    /// </summary>
+    private static SceneTransition _instance;
+
     /// <summary>
     /// Velocidad de degradado.
     /// </summary>
-    private float _fadeSpeed =2f;
+    private float _fadeSpeed = 2f;
 
     /// <summary>
     /// Booleanos para saber si se esta degradando para salir de escena o para entrar.
@@ -58,40 +51,33 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     private string _sceneToLoad;
 
+    private bool _isFinalCamera = false;
+
     [SerializeField] private string _currentSceneName;
     [SerializeField] private bool _shouldUseClouds;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
     #region Métodos de MonoBehaviour
-
-    // Por defecto están los típicos (Update y Start) pero:
-    // - Hay que añadir todos los que sean necesarios
-    // - Hay que borrar los que no se usen 
 
     /// <summary>
     /// Se llama al comenzar el juego. Inicializa la instancia y asegura que no se destruya al cambiar de escena.
     /// </summary>
     void Awake()
     {
-
-        if (Instance == null)
+        if (_instance != null)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-            DontDestroyOnLoad(FadeObject);
+            // Nos destruimos si ya hay una instancia existente.
+            DestroyImmediate(this.gameObject);
         }
         else
         {
-            Destroy(gameObject);
+            // Configuramos la instancia y evitamos que se destruya al cambiar de escena.
+            _instance = this;
+            DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(FadeObject);
         }
-    }
-    private void Start()
-    {
-        //FadeSprite.raycastTarget = false; // Permitir clics a través de la imagen
-        //FadeSprite.color = new Color(0, 0, 0, 0);
-        Cloud = FindObjectOfType<Cloud>();
-
     }
 
     /// <summary>
@@ -100,25 +86,23 @@ public class SceneTransition : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
-        // Aumentar la opacidad (Fade Out)
+        // Fade Out
         if (_fadingOut)
         {
-            
-
             float alpha = Mathf.MoveTowards(FadeSprite.color.a, 1, _fadeSpeed * Time.deltaTime);
             FadeSprite.color = new Color(0, 0, 0, alpha);
             FadeSprite.raycastTarget = true;
 
             if (alpha >= 0.99f)
             {
-                LoadScene();
+                SceneManager.LoadScene(_sceneToLoad);
                 FadeSprite.color = new Color(0, 0, 0, 1);
                 _fadingOut = false;
                 _fadingIn = true;
             }
         }
 
+        // Fade In
         if (_fadingIn)
         {
             float alpha = Mathf.MoveTowards(FadeSprite.color.a, 0, _fadeSpeed * Time.deltaTime);
@@ -126,21 +110,56 @@ public class SceneTransition : MonoBehaviour
 
             if (alpha <= 0.01f)
             {
-                if (_shouldUseClouds && Cloud != null)
-                    Cloud.HideClouds();
+                if (_shouldUseClouds)
+                {
+                    Cloud.Instance.HideClouds();
+                    _isFinalCamera = false;
+                }
 
                 FadeSprite.color = new Color(0, 0, 0, 0);
                 FadeSprite.raycastTarget = false;
                 _fadingIn = false;
             }
         }
-
-
     }
+
+    /// <summary>
+    /// Se llama cuando el componente se destruye.
+    /// </summary>
+    protected void OnDestroy()
+    {
+        if (this == _instance)
+        {
+            _instance = null;
+        }
+    }
+
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
+    #region Métodos Públicos
+
+    /// <summary>
+    /// Propiedad para acceder a la única instancia de la clase.
+    /// </summary>
+    public static SceneTransition Instance
+    {
+        get
+        {
+            Debug.Assert(_instance != null);
+            return _instance;
+        }
+    }
+
+    /// <summary>
+    /// Devuelve cierto si la instancia del singleton está creada y falso en otro caso.
+    /// </summary>
+    /// <returns>Cierto si hay instancia creada.</returns>
+    public static bool HasInstance()
+    {
+        return _instance != null;
+    }
+
     /// <summary>
     /// Método para cambiar de escena.
     /// </summary>
@@ -151,30 +170,36 @@ public class SceneTransition : MonoBehaviour
         _currentSceneName = SceneManager.GetActiveScene().name;
 
         // Verifica si vamos desde o hacia el menú
-        _shouldUseClouds = (_currentSceneName == "Menu" || sceneName == "Menu");
-
-        _fadingOut = true; // Comienza el fade out
+        _shouldUseClouds = (_currentSceneName == "Menu" || sceneName == "Menu" || _isFinalCamera == true);
+        if (_shouldUseClouds)
+        {
+            Cloud.Instance.ShowClouds();
+            Invoke("LoadScene", 1.5f);
+        }
+        else
+        {
+            LoadScene();
+        }
         FadeSprite.raycastTarget = true; // Bloquear clics durante la transición
-
     }
 
+    /// <summary>
+    /// Método para cargar la escena.
+    /// </summary>
     public void LoadScene()
     {
-        SceneManager.LoadScene(_sceneToLoad);
+        _fadingOut = true; // Comienza el fade out
     }
-    // Coroutine para esperar que las nubes estén completamente visibles
 
-
-
+    public void FinalCamera()
+    {
+        _isFinalCamera = true;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
+    // Documentar aquí si agregas métodos privados adicionales.
     #endregion
 
-} // class SceneTransition 
-// namespace
+} // class SceneTransition

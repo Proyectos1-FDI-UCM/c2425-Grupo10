@@ -31,10 +31,11 @@ public class Cloud : MonoBehaviour
     [SerializeField] private Transform NubeDerecha3;
     [SerializeField] private Transform NubeDerecha4;
 
-    [SerializeField] private float DistanciaSeparacion = 10f;
-    [SerializeField] private float Duracion = 2f;
-    [SerializeField] private float ZoomCerca = 6f;
-    [SerializeField] private float ZoomLejos = 10f;
+    private float DistanciaSeparacion = 1200f;
+    private float DuracionNubes = 1f;
+    private float DuracionZoom = 1f;
+    private float ZoomCerca = 6f;
+    private float ZoomLejos = 10f;
 
     [SerializeField] private CinemachineVirtualCamera VirtualCamera;
     [SerializeField] private Camera Cam;
@@ -51,6 +52,7 @@ public class Cloud : MonoBehaviour
 
     private float _tiempo = 0f;
     private bool _animando;
+
     private bool _aclarando;
     private AudioSource _audioSource;
 
@@ -122,8 +124,9 @@ public class Cloud : MonoBehaviour
         if (_animando)
         {
             _tiempo += Time.deltaTime;
-            float t = Mathf.Clamp01(_tiempo / Duracion);
+            float t = Mathf.Clamp01(_tiempo / DuracionNubes);  // Duración de las nubes
 
+            // Animación de las nubes
             if (_aclarando)
             {
                 NubeIzquierda.position = Vector3.Lerp(_posIniIzq, _posOpenIzq, t);
@@ -138,18 +141,6 @@ public class Cloud : MonoBehaviour
                 NubeDerecha3.position = Vector3.Lerp(_posIniDer3, _posOpenDer3, t);
                 NubeDerecha4.position = Vector3.Lerp(_posIniDer4, _posOpenDer4, t);
 
-
-                if (SceneManager.GetActiveScene().name == "Escena_Build")
-                {
-
-                    VirtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(ZoomLejos, ZoomCerca, t);
-
-                }
-                else
-                {
-                    Cam = Camera.main;
-                    Cam.orthographicSize = Mathf.Lerp(ZoomLejos, ZoomCerca, t);
-                }
             }
             else
             {
@@ -167,15 +158,69 @@ public class Cloud : MonoBehaviour
 
             }
 
-            if (t >= 1f)
+            // Animación del zoom de la cámara
+            float cameraT = Mathf.Clamp01(_tiempo / DuracionZoom);  // Duración para el zoom de la cámara
+            if (_aclarando)
+            {
+                if (SceneManager.GetActiveScene().name == "Escena_Build")
+                {
+                    VirtualCamera.m_Lens.OrthographicSize = Mathf.Lerp(ZoomLejos, ZoomCerca, cameraT);
+                }
+                else
+                {
+                    Cam = Camera.main;
+                    Cam.orthographicSize = Mathf.Lerp(ZoomLejos, ZoomCerca, cameraT);
+                }
+            }
+
+            // Si ya ha alcanzado el final de la animación, detener la animación
+            if (t >= 1f && cameraT >= 1f)
                 _animando = false;
         }
+    }
+
+    /// <summary>
+    /// Método llamado cuando se destruye el componente.
+    /// </summary>
+    protected void OnDestroy()
+    {
+        if (this == _instance)
+        {
+            // Éramos la instancia de verdad, no un clon.
+            _instance = null;
+        } // if somos la instancia principal  
+
     }
 
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
+
+    /// <summary>
+    /// Propiedad para acceder a la única instancia de la clase.
+    /// </summary>
+    public static Cloud Instance
+    {
+        get
+        {
+            Debug.Assert(_instance != null);
+            return _instance;
+        }
+    }
+
+    /// <summary>
+    /// Devuelve cierto si la instancia del singleton está creada y
+    /// falso en otro caso.
+    /// Lo normal es que esté creada, pero puede ser útil durante el
+    /// cierre para evitar usar el GameManager que podría haber sido
+    /// destruído antes de tiempo.
+    /// </summary>
+    /// <returns>Cierto si hay instancia creada.</returns>
+    public static bool HasInstance()
+    {
+        return _instance != null;
+    }
 
     /// <summary>
     /// Muestra las nubes cerrándose. Se usa para ocultar contenido antes del cambio de escena.
@@ -197,6 +242,12 @@ public class Cloud : MonoBehaviour
         _aclarando = true;
         _animando = true;
         _audioSource.Play();
+    }
+    public void FinalCamera()
+    {
+        ZoomLejos = 20f;
+        ZoomCerca = 8f;
+        DuracionZoom = 10;
     }
 
     #endregion

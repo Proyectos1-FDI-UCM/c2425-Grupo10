@@ -154,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
         {
             // Obtiene la referencia a la mano del jugador.
             _hand = gameObject.transform.GetChild(0);
+            gameObject.transform.position = InventoryManager.GetPlayerPosition();
         }
 
         UpdateEnergy();
@@ -235,6 +236,10 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Movimiento Activado");
     }
 
+    public void ChangePlayerPosition(Vector3 position)
+    {
+        gameObject.transform.position = position;
+    }
     ///<summary>
     ///Metodo para desactivar el movimiento
     /// </summary>
@@ -244,6 +249,11 @@ public class PlayerMovement : MonoBehaviour
         AudioSource.Pause();
         _isMovementEnabled = false;
         Debug.Log("Movimiento desactivado");
+    }
+
+    public bool IsMovementEnable()
+    {
+        return _isMovementEnabled;
     }
 
     /// <summary>

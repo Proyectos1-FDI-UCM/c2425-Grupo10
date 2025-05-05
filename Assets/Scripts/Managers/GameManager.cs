@@ -90,6 +90,11 @@ public class GameManager : MonoBehaviour
     ///ref al menumanager
     /// </summary>
     [SerializeField] private MenuManager MenuManager;
+
+    ///<summary>
+    ///ref al player movement
+    /// </summary>
+    [SerializeField] private PlayerMovement PlayerMovement;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -197,6 +202,8 @@ public class GameManager : MonoBehaviour
     private bool _isUI;
 
     private bool _gameCharged = false;
+
+    private bool _isFinalScene = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -259,6 +266,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        
         foreach (var device in InputSystem.devices)
         {
             if (device is Gamepad)
@@ -314,13 +322,21 @@ public class GameManager : MonoBehaviour
             }
             if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
             {
-                InventoryManager.ModifyInventory(Items.CornSeed, 1);
+                InventoryManager.ModifyInventory(Items.LettuceSeed, 1);
             }
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 TutorialManager.NextDialogue();
             }
 
+        }
+        if ((_isShopScene || _isBuildScene) && PlayerMovement == null)
+        {
+            PlayerMovement = FindObjectOfType<PlayerMovement>();
+        }
+        if (_isFinalScene && PlayerMovement.IsMovementEnable())
+        {
+            PlayerMovement.DisablePlayerMovement();
         }
         if (InputManager.Instance.ExitWasPressedThisFrame()) // Menu Pausa
         {
@@ -329,33 +345,18 @@ public class GameManager : MonoBehaviour
                 InventoryManager.ModifyPlayerPosition(FindObjectOfType<PlayerMovement>().transform.position);
                 SaveTime();
             }
-            
-            //Application.Quit();
-            // 
         }
         if (MoneyCount == null)
         {
-            GameObject TextObject = GameObject.FindGameObjectWithTag("GameManager");
-            if (TextObject != null)
-            {
-                MoneyCount = TextObject.GetComponent<MoneyManager>();
-            }
+            InitializeMoneyManager();
         }
         if (GardenManager == null)
         {
-            GameObject ObjetoGarden = GameObject.FindGameObjectWithTag("GardenManager");
-            if (ObjetoGarden != null)
-            {
-                GardenManager = ObjetoGarden.GetComponent<GardenManager>();
-            }
+            InitializeGardenManager();
         }
         if (WateringCanManager == null)
         {
-            GameObject WCObject = GameObject.FindGameObjectWithTag("WateringCan");
-            if ( WCObject != null )
-            {
-                WateringCanManager = WCObject.GetComponent<WateringCanManager>();
-            }
+            InitializeWateringCanManager();
         }
         if (SceneManager.GetActiveScene().name != "Menu" && _isInCinematic)
         {
@@ -365,7 +366,7 @@ public class GameManager : MonoBehaviour
          FindActualScene();
          _isBuildScene = _scene == "Escena_Build";
          _isShopScene = _scene == "Escena_Compra" || _scene == "Escena_Banco" || _scene == "Escena_Venta" || _scene == "Escena_Mejora";
-
+        
         if(SceneManager.GetActiveScene().name != "Menu")
         {
             _isPause = UIManager.GetPauseMenu();
@@ -477,6 +478,10 @@ public class GameManager : MonoBehaviour
         realTime = timer.GetRealTime();
     }
 
+    public void FinalScene()
+    {
+        _isFinalScene = true;
+    }
     public void SaveTime(float time)
     {
         realTime = time;
