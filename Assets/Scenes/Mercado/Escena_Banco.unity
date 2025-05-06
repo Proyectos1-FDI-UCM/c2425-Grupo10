@@ -1647,7 +1647,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 0}
 --- !u!61 &205092572
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2389,8 +2388,6 @@ MonoBehaviour:
   PlayerScale: {x: 0, y: 0, z: 0}
   PlayerMarker: {fileID: 0}
   MoneyManager: {fileID: 0}
-  SceneTransition: {fileID: 0}
-  GameManager: {fileID: 0}
   TutorialManager: {fileID: 0}
   NotificationManager: {fileID: 0}
   PauseMenuButton: {fileID: 1051993362}
@@ -2453,6 +2450,8 @@ MonoBehaviour:
   WaterMessage: {fileID: 0}
   WaterBar: {fileID: 0}
   WaterBarText: {fileID: 0}
+  BarNumbersKeyBoard: []
+  BarNumbersController: []
   Notification0: {fileID: 889002584}
   Notification0Text: {fileID: 355340650}
   Notification1: {fileID: 1595242200}
@@ -2466,6 +2465,8 @@ MonoBehaviour:
   Notification3Text: {fileID: 0}
   Notification4: {fileID: 0}
   Notification4Text: {fileID: 0}
+  Notification5: {fileID: 0}
+  Notification5Text: {fileID: 0}
   DepositButton: {fileID: 993252741}
   MovingButton: {fileID: 322530079}
   BeachHouseButton: {fileID: 1429320032}
@@ -27113,7 +27114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Menu
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 0}
 --- !u!1 &967807261
 GameObject:
   m_ObjectHideFlags: 0
@@ -28431,7 +28431,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 0}
 --- !u!114 &996095228 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
