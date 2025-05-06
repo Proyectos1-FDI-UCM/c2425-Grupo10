@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c4e0b0a11c49af34dbeb8a9ce1110210
+guid: 81371bea31ae4094697bb25e9dc8855b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -95,91 +95,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Boat_Anim_0
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 3
-        width: 40
-        height: 31
-      alignment: 9
-      pivot: {x: 0.53681356, y: 0.49762493}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7afae2105a412f44a93a4a7cd824edda
-      internalID: -1291135711
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boat_Anim_1
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 3
-        width: 41
-        height: 31
-      alignment: 9
-      pivot: {x: 0.52141535, y: 0.47026044}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c9da46497a58c1441a4cdddd7a112389
-      internalID: -1707808335
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boat_Anim_2
-      rect:
-        serializedVersion: 2
-        x: 98
-        y: 2
-        width: 41
-        height: 32
-      alignment: 9
-      pivot: {x: 0.52248627, y: 0.45335478}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9b28aad67641aff419a3191be1185d9d
-      internalID: 131450129
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Boat_Anim_3
-      rect:
-        serializedVersion: 2
-        x: 146
-        y: 2
-        width: 46
-        height: 32
-      alignment: 9
-      pivot: {x: 0.46453062, y: 0.48153007}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b1e5fba88345ca44b83bdd51fc4d1bde
-      internalID: 154876479
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -190,11 +106,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      Boat_Anim_0: -1291135711
-      Boat_Anim_1: -1707808335
-      Boat_Anim_2: 131450129
-      Boat_Anim_3: 154876479
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
