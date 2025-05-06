@@ -705,6 +705,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isLibraryActive = false;
 
+
     /// <summary>
     /// bool para saber si los controles están activos
     /// </summary>
@@ -731,10 +732,7 @@ public class UIManager : MonoBehaviour
             // Inicializamos la posición del inventory en oculto
             InventoryPanel.anchoredPosition = new Vector2(InventoryPanel.anchoredPosition.x, _hiddenY);
             Map.SetActive(false);
-            if(TutorialManager.GetTutorialPhase() <= 26 && TutorialManager.GetTutorialPhase() > 0)
-            {
-                Invoke("ShowLastDialogue", 1.5f);
-            }
+
         }
 
         if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
@@ -1206,13 +1204,6 @@ public class UIManager : MonoBehaviour
         return _isDialogueActive;
     }
 
-    /// <summary>
-    /// metodo para mostrar el ultimo dialogo al entrar a la escena
-    /// </summary>
-    public void ShowLastDialogue()
-    {
-        ShowDialogue(TutorialManager.GetDialogueText(), TutorialManager.GetDialogueButtonText());
-    }
     ///<summary>
     ///Metodo para activar el boton de continuar/cerrar en el dialogo
     /// </summary>
@@ -1351,6 +1342,53 @@ public class UIManager : MonoBehaviour
         return _isMapVisible;
     }
 
+    public void CanExitGame()
+    {
+        if (SceneManager.GetActiveScene().name == "Escena_Banco")
+        {
+            if (TutorialManager.GetTutorialPhaseBanco() < 9)
+            {
+                ShowNotification("Termina el tutorial\n para ir al menú.", "NoCounter", 4, "Tool");
+                HidePauseMenu();
+                Invoke("HideExitGameMessage", 1.5f);
+            }
+            else
+            {
+                SceneTransition.Instance.ChangeScene("Menu");
+            }
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
+        {
+            if (TutorialManager.GetTutorialPhaseBanco() < 10)
+            {
+                ShowNotification("Termina el tutorial\n para ir al menú.", "NoCounter", 4, "Tool");
+                HidePauseMenu();
+                Invoke("HideExitGameMessage", 1.5f);
+            }
+            else
+            {
+                SceneTransition.Instance.ChangeScene("Menu");
+            }
+        }
+        else
+        {
+            if (TutorialManager.GetTutorialPhase() < 26)
+            {
+                ShowNotification("Termina el tutorial\n para ir al menú.", "NoCounter", 4, "Tool");
+                HidePauseMenu();
+                Invoke("HideExitGameMessage", 1.5f);
+            }
+            else
+            {
+                SceneTransition.Instance.ChangeScene("Menu");
+            }
+        }
+            
+    }
+    public void HideExitGameMessage()
+    {
+        HideNotification("Tool");
+    }
     public void ShowLibrary()
     {
 

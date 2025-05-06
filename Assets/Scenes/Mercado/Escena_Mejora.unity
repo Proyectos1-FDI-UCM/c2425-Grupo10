@@ -5972,7 +5972,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 0}
 --- !u!114 &370124277 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -6540,6 +6539,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58160b7d401e8b64d8c7cf88c0461dbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PopUp: {fileID: 0}
+  YesButton: {fileID: 0}
   UI: {fileID: 1180666538}
   DescriptionText: {fileID: 1856980369}
   MoneyText: {fileID: 1604577332}
@@ -6548,8 +6549,6 @@ MonoBehaviour:
   PlayerScale: {x: 0, y: 0, z: 0}
   PlayerMarker: {fileID: 0}
   MoneyManager: {fileID: 0}
-  SceneTransition: {fileID: 0}
-  GameManager: {fileID: 0}
   TutorialManager: {fileID: 0}
   NotificationManager: {fileID: 0}
   PauseMenuButton: {fileID: 678881853}
@@ -6612,6 +6611,10 @@ MonoBehaviour:
   WaterMessage: {fileID: 0}
   WaterBar: {fileID: 0}
   WaterBarText: {fileID: 0}
+  BarNumbersKeyBoard: []
+  BarNumbersController: []
+  FinalCanvas: {fileID: 0}
+  FinalButton: {fileID: 0}
   Notification0: {fileID: 1029971275}
   Notification0Text: {fileID: 1444920755}
   Notification1: {fileID: 1709881119}
@@ -6625,6 +6628,8 @@ MonoBehaviour:
   Notification3Text: {fileID: 0}
   Notification4: {fileID: 0}
   Notification4Text: {fileID: 0}
+  Notification5: {fileID: 0}
+  Notification5Text: {fileID: 0}
   DepositButton: {fileID: 0}
   MovingButton: {fileID: 0}
   BeachHouseButton: {fileID: 0}
@@ -6637,7 +6642,13 @@ MonoBehaviour:
   BlockMarketSeeds: []
   BlockMarketPlants: []
   LettuceButton: {fileID: 0}
+  CarrotsButton: {fileID: 0}
+  StrawberriesButton: {fileID: 0}
+  CornsButton: {fileID: 0}
   LettuceSeedsButton: {fileID: 0}
+  CarrotSeedsButton: {fileID: 0}
+  StrawberrySeedsButton: {fileID: 0}
+  CornSeedsButton: {fileID: 0}
   DepositeMoneyButton: {fileID: 0}
   ExtendButton: {fileID: 1167710144}
   UpgradeButton: {fileID: 688584463}
@@ -13153,7 +13164,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 0}
 --- !u!1 &1103469034
 GameObject:
   m_ObjectHideFlags: 0
@@ -16957,18 +16967,18 @@ PrefabInstance:
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1344078916}
+      objectReference: {fileID: 446521060}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: CanExitGame
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: CambiarEscena, Assembly-CSharp
+      value: UIManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -17017,36 +17027,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8158885962986307221, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1344078916}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
 --- !u!224 &1344078914 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7001314624494379611, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
   m_PrefabInstance: {fileID: 1344078913}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1344078915 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8158885962986307221, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
-  m_PrefabInstance: {fileID: 1344078913}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1344078916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1344078915}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbf7cde4a1eeed942b54f334bf22b3de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: Menu
-  SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 0}
 --- !u!1 &1344308815
 GameObject:
   m_ObjectHideFlags: 0
