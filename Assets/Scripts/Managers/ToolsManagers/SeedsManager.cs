@@ -155,14 +155,14 @@ public class SeedsManager : MonoBehaviour
     {
         if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventoryItem(_seed) > 0)
         {
-            if (TutorialManager.GetTutorialPhase() == 14)
-            {
-                TutorialManager.CheckBox(0);
-                TutorialManager.Invoke("NextDialogue", 0.6f);
-            }
             Transform Pot = FindNearestPot(transform, _pots); // Busca un lugar disponible para plantar
             if (Pot != null) // Si lo encuentra, instancia el prefab de la semilla seleccionada
             {
+                if (TutorialManager.GetTutorialPhase() == 14)
+                {
+                    TutorialManager.CheckBox(0);
+                    TutorialManager.Invoke("NextDialogue", 0.6f);
+                }
                 GameObject Plant = Instantiate(_prefab, Pot.position, Quaternion.identity);
                 InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);

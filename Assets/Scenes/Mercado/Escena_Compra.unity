@@ -5270,6 +5270,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1490725489}
     m_Modifications:
+    - target: {fileID: 160713608545995120, guid: 15b6ba7c68c80d0448177722d65ea06b, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 160713608545995120, guid: 15b6ba7c68c80d0448177722d65ea06b, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6758223071065652953, guid: 15b6ba7c68c80d0448177722d65ea06b, type: 3}
       propertyPath: m_Name
       value: Estanteria (1)
@@ -18231,6 +18239,7 @@ Transform:
   - {fileID: 2133046937}
   - {fileID: 1179036843}
   - {fileID: 5598660264611467287}
+  - {fileID: 1807811077}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1504793888
@@ -34876,7 +34885,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 1490725489}
     m_Modifications:
     - target: {fileID: 846171340622051596, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
       propertyPath: m_Sprite
@@ -34884,15 +34893,15 @@ PrefabInstance:
       objectReference: {fileID: -1762656276, guid: 9ee33dccc660fc449a3d3c35112cc47f, type: 3}
     - target: {fileID: 1372284298127022149, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.4
+      value: -3.4760706
       objectReference: {fileID: 0}
     - target: {fileID: 1372284298127022149, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -11.33
+      value: -1.8289738
       objectReference: {fileID: 0}
     - target: {fileID: 1372284298127022149, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -1.103904
       objectReference: {fileID: 0}
     - target: {fileID: 1372284298127022149, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
       propertyPath: m_LocalRotation.w
@@ -34932,6 +34941,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
+--- !u!4 &1807811077 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1372284298127022149, guid: ec99d648f4eaa4748b71d5fcc658d628, type: 3}
+  m_PrefabInstance: {fileID: 1807811076}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1818021002
 GameObject:
   m_ObjectHideFlags: 0
@@ -40454,6 +40468,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1490725489}
     m_Modifications:
+    - target: {fileID: 160713608545995120, guid: 15b6ba7c68c80d0448177722d65ea06b, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 160713608545995120, guid: 15b6ba7c68c80d0448177722d65ea06b, type: 3}
+      propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6758223071065652953, guid: 15b6ba7c68c80d0448177722d65ea06b, type: 3}
       propertyPath: m_Name
       value: Estanteria
@@ -40528,6 +40550,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1490725489}
     m_Modifications:
+    - target: {fileID: 739304638249487710, guid: c2486f872f355564da1b15e2752df856, type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 739304638249487710, guid: c2486f872f355564da1b15e2752df856, type: 3}
+      propertyPath: m_Size.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5795765570120003720, guid: c2486f872f355564da1b15e2752df856, type: 3}
       propertyPath: m_Name
       value: VerticalTable
@@ -40671,4 +40701,3 @@ SceneRoots:
   - {fileID: 2015015959}
   - {fileID: 1888563641}
   - {fileID: 1490725489}
-  - {fileID: 1807811076}
