@@ -573,6 +573,11 @@ public class UIManager : MonoBehaviour
     private bool _isDepositSelected = false;
 
     /// <summary>
+    /// Booleano para saber si el jugador ha pulsado el boton de ingresar
+    /// </summary>
+    private bool _isWithdrawSelected = false;
+
+    /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton mudanza
     /// </summary>
     private bool _isMovingSelected = false;
@@ -1586,6 +1591,9 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Metodo para actualizar la interfaz dependiendo de la escena activa
     /// </summary>
+    /// <summary>
+    /// Metodo para actualizar la interfaz dependiendo de la escena activa
+    /// </summary>
     private void UpdateUI()
     {
         if (SceneManager.GetActiveScene().name == "Escena_Banco")
@@ -1597,11 +1605,12 @@ public class UIManager : MonoBehaviour
                 DescriptionText.text = "En el banco puedes ingresar tu dinero.";
                 AmountMoneyToDeposit.gameObject.SetActive(true);
                 AmountToDepositText.gameObject.SetActive(true);
+                AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
                 BeachHouseButton.SetActive(false);
                 AmountDepositedText.gameObject.SetActive(true);
                 AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
                 MoveButton.SetActive(false);
-                AcceptButton.SetActive(AmountMoneyToDeposit.value > 0);
+                AcceptButton.SetActive(true);
                 UpdateSlider();
             }
             else if (_isMovingSelected)
@@ -1615,8 +1624,21 @@ public class UIManager : MonoBehaviour
                 AmountDepositedText.gameObject.SetActive(false);
                 MoveButton.SetActive(false);
             }
+            else if (_isWithdrawSelected)
+            {
+                AmountDepositedTitleText.gameObject.SetActive(true);
+                DescriptionText.text = "Selecciona la cantidad que deseas retirar.";
+                AmountMoneyToDeposit.gameObject.SetActive(true);
+                AmountToDepositText.gameObject.SetActive(true);
+                AmountToDepositText.text = "Dinero a retirar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
+                BeachHouseButton.SetActive(false);
+                AmountDepositedText.gameObject.SetActive(true);
+                AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
+                MoveButton.SetActive(false);
+                AcceptButton.SetActive(true);
+                UpdateSlider();
+            }
         }
-
         else if (SceneManager.GetActiveScene().name == "Escena_Mejora")
         {
             ExtendButton.Select();
@@ -1628,11 +1650,10 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-
             SellObj.SetActive(_isSomethingSelected);
             PlusButton.SetActive(_isSomethingSelected);
             MinusButton.SetActive(_isSomethingSelected);
-            if(GameManager.Instance.GetAmountSold("Lettuce") >= 10)
+            if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
                 BlockMarketPlants[0].SetActive(false);
                 CarrotsButton.interactable = true;
@@ -1640,7 +1661,6 @@ public class UIManager : MonoBehaviour
             else
             {
                 CarrotsButton.interactable = false;
-
             }
             if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
             {
@@ -1667,11 +1687,9 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-
             BuySeedsObj.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
-
 
             // Botón Lechuga (siempre activo)
             Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
@@ -1751,8 +1769,7 @@ public class UIManager : MonoBehaviour
             DescriptionText.text = "";
             PriceAmountToBuy.text = "";
             int totalCosto = _amountBuying * _cost;
-            //PriceAmountToBuy.text = $"{_amountBuying} {_actualSeedSelected} = {totalCosto} RC";
-            PriceAmountToBuy.text = _amountBuying + " " +_actualSeedSelected + " = " + totalCosto + "RC";
+            PriceAmountToBuy.text = _amountBuying + " " + _actualSeedSelected + " = " + totalCosto + "RC";
         }
     }
 
@@ -1777,7 +1794,6 @@ public class UIManager : MonoBehaviour
         {
             _isLettuceSelected = true;
             LettuceButton.Select();
-            // _isSellPressed = true;
             ActualizarCantidadUI();
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
@@ -1971,8 +1987,9 @@ public class UIManager : MonoBehaviour
         _isDepositSelected = true;
         _isMovingSelected = false;
         _isBeachHouseSelected = false;
+        _isWithdrawSelected = false; // Añadimos esta línea
         UpdateUI();
-        if (TutorialManager.GetTutorialPhaseBanco() == 6 )
+        if (TutorialManager.GetTutorialPhaseBanco() == 6)
         {
             Check(0);
         }
@@ -1986,6 +2003,7 @@ public class UIManager : MonoBehaviour
         _isDepositSelected = false;
         _isMovingSelected = true;
         _isBeachHouseSelected = false;
+        _isWithdrawSelected = false; // Añadimos esta línea
         UpdateUI();
 
         if (TutorialManager.GetTutorialPhaseBanco() == 8)
@@ -2000,6 +2018,9 @@ public class UIManager : MonoBehaviour
     public void ButtonBeachHousePressed()
     {
         _isBeachHouseSelected = true;
+        _isDepositSelected = false; // Añadimos esta línea
+        _isMovingSelected = false; // Añadimos esta línea
+        _isWithdrawSelected = false; // Añadimos esta línea
         DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 100.000 RootCoins!.";
         MoveButton.SetActive(true);
         if (TutorialManager.GetTutorialPhaseBanco() == 8) // Verifica si ha pulsado el botón + de venta
@@ -2007,6 +2028,18 @@ public class UIManager : MonoBehaviour
             Check(1);
             Invoke("NextDialogue", 0.6f);
         }
+    }
+
+    /// <summary>
+    /// Metodo para actualizar la ui cuando se pulsa el boton retirar
+    /// </summary>
+    public void ButtonWithdrawPressed()
+    {
+        _isDepositSelected = false;
+        _isMovingSelected = false;
+        _isBeachHouseSelected = false;
+        _isWithdrawSelected = true;
+        UpdateUI();
     }
 
     /// <summary>
@@ -2041,18 +2074,25 @@ public class UIManager : MonoBehaviour
     public void ButtonAcceptPressed()
     {
         float AmountDeposited = AmountMoneyToDeposit.value;
-        if (AmountDeposited > 0 && MoneyManager.GetMoneyCount() >= AmountDeposited)
+        if (_isDepositSelected && AmountDeposited > 0 && MoneyManager.GetMoneyCount() >= AmountDeposited)
         {
             MoneyManager.DeductMoney(Mathf.FloorToInt(AmountDeposited));  // O usar Mathf.RoundToInt
             GameManager.Instance.AddIncome(AmountDeposited);
             UpdateSlider();
             AmountMoneyToDeposit.value = 0;
-            if (TutorialManager.GetTutorialPhaseBanco() == 6) // Verifica si ha pulsado el botón + de venta
+            if (TutorialManager.GetTutorialPhaseBanco() == 6)
             {
                 Check(2);
                 Invoke("NextDialogue", 0.6f);
 
             }
+        }
+        else if (_isWithdrawSelected && AmountDeposited > 0 && GameManager.Instance.GetTotalMoneyDeposited() >= AmountDeposited)
+        {
+            GameManager.Instance.DeductDepositedMoney(Convert.ToInt32(AmountDeposited));
+            MoneyManager.AddMoney(Mathf.FloorToInt(AmountDeposited)); // O usar Mathf.RoundToInt
+            UpdateSlider();
+            AmountMoneyToDeposit.value = 0;
         }
     }
 
@@ -2061,11 +2101,19 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void UpdateSlider()
     {
-        AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount() - 1000;
-        AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
+        if (_isDepositSelected)
+        {
+            AmountMoneyToDeposit.maxValue = MoneyManager.GetMoneyCount();
+            AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
+            AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
+        }
+        else if (_isWithdrawSelected)
+        {
+            AmountMoneyToDeposit.maxValue = GameManager.Instance.GetTotalMoneyDeposited();
+            AmountMoneyToDeposit.interactable = AmountMoneyToDeposit.maxValue > 0;
+            AmountToDepositText.text = "Dinero a retirar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
+        }
         AmountDepositedText.text = GameManager.Instance.GetTotalMoneyDeposited() + " RC";
-        AmountToDepositText.text = "Dinero a ingresar: " + Convert.ToInt32(AmountMoneyToDeposit.value);
-
     }
     #endregion
 
@@ -2076,7 +2124,6 @@ public class UIManager : MonoBehaviour
         DescriptionText.text = _newDescriptionText;
     }
     #endregion
-
     #endregion
 
     // ---- VENTA ----
@@ -2084,7 +2131,7 @@ public class UIManager : MonoBehaviour
 
     // ---- METODOS PUBLICOS (VENTA) ----
     #region Metodos Publicos (Venta)
-   
+
     /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el botón "Maíz".
     /// </summary>
