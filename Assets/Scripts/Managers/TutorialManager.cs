@@ -133,10 +133,8 @@ public class TutorialManager : MonoBehaviour
     void Start()
     {
         NotificationManager = GetComponent<NotificationManager>();
-        if(GameManager.Instance.GetCinematicState() == true)
-        {
-            //UIManager.HideDialogue();
-        }
+
+        
     }
 
     /// <summary>
@@ -319,6 +317,23 @@ public class TutorialManager : MonoBehaviour
         _tutorialPhaseEscenas = 0;
         Debug.Log("ResetTutorial");
     }
+
+    ///<summary>
+    ///metodo para obtener el texto del dialogo actual
+    /// </summary>
+    public string GetDialogueText()
+    {
+        return _actualDialogueText;
+    }
+
+    ///<summary>
+    ///metodo para obtener el texto del dialogo actual
+    /// </summary>
+    public string GetDialogueButtonText()
+    {
+        return _actualDialogueButtonText;
+    }
+
 
     ///<summary>
     ///Metodo para obtener la fase del tutorial mejora

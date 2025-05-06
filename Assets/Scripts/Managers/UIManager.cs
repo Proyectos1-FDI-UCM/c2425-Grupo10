@@ -731,6 +731,10 @@ public class UIManager : MonoBehaviour
             // Inicializamos la posición del inventory en oculto
             InventoryPanel.anchoredPosition = new Vector2(InventoryPanel.anchoredPosition.x, _hiddenY);
             Map.SetActive(false);
+            if(TutorialManager.GetTutorialPhase() <= 26 && TutorialManager.GetTutorialPhase() > 0)
+            {
+                Invoke("ShowLastDialogue", 1.5f);
+            }
         }
 
         if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
@@ -1201,6 +1205,14 @@ public class UIManager : MonoBehaviour
     {
         return _isDialogueActive;
     }
+
+    /// <summary>
+    /// metodo para mostrar el ultimo dialogo al entrar a la escena
+    /// </summary>
+    public void ShowLastDialogue()
+    {
+        ShowDialogue(TutorialManager.GetDialogueText(), TutorialManager.GetDialogueButtonText());
+    }
     ///<summary>
     ///Metodo para activar el boton de continuar/cerrar en el dialogo
     /// </summary>
@@ -1296,7 +1308,7 @@ public class UIManager : MonoBehaviour
                 ToggleInventory();
             }
         }
-        else
+        else if (GetUIActive())
         {
             DisableInterfaz();
         }
@@ -1742,7 +1754,10 @@ public class UIManager : MonoBehaviour
     {
         _uiActive = false;
         UI.SetActive(false);
-        _isInNpcArea = true;
+        if(!_isPauseMenuActive)
+        {
+            _isInNpcArea = true;
+        }
         ShowNotification("Presiona E para\nhablar", "NoCounter", 1, "NoTutorial");
         PlayerMovement.EnablePlayerMovement();
     }
