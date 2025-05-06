@@ -249,6 +249,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject[] BarNumbersKeyBoard;
     [SerializeField] private GameObject[] BarNumbersController;
 
+    [SerializeField] private GameObject FinalCanvas;
+    [SerializeField] private Button FinalButton;
+
 
     [Header("Notificacion 0")]
     /// <summary>
@@ -530,6 +533,11 @@ public class UIManager : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
 
+    ///<summary>
+    ///boool para saber si ya se esta mostrando el canvas con el boton de volver al final de la partida
+    /// </summary>
+    private bool _isFinalCanvasActive = false;
+
     /// <summary>
     /// Estado del inventory
     /// </summary>
@@ -759,7 +767,7 @@ public class UIManager : MonoBehaviour
          {
             HideLibrary();
          }
-         
+        
         if (InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == false)
         {
             ShowPauseMenu();
@@ -839,6 +847,13 @@ public class UIManager : MonoBehaviour
                     BarNumbersKeyBoard[i].SetActive(true);
                     BarNumbersController[i].SetActive(false);
                 }
+            }
+
+            if (GameManager.Instance.GetFinalScene() && !_isFinalCanvasActive)
+            {
+                FinalCanvas.SetActive(true);
+                _isFinalCanvasActive = true;
+                FinalButton.Select();
             }
         }
         if (TutorialManager.GetTutorialPhase() >= 25)

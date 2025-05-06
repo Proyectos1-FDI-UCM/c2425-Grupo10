@@ -245,8 +245,8 @@ public class Cloud : MonoBehaviour
     }
     public void FinalCamera()
     {
-        ZoomLejos = 20f;
-        ZoomCerca = 8f;
+        ZoomLejos = 25;
+        ZoomCerca = 10;
         DuracionZoom = 10;
     }
 

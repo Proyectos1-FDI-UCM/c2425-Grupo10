@@ -95,6 +95,9 @@ public class GameManager : MonoBehaviour
     ///ref al player movement
     /// </summary>
     [SerializeField] private PlayerMovement PlayerMovement;
+
+
+    [SerializeField] private GameObject CanvasRootWood;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -200,6 +203,8 @@ public class GameManager : MonoBehaviour
     private bool _isDialogue;
     private bool _isLibrary;
     private bool _isUI;
+    private bool _isFinal;
+
 
     private bool _gameCharged = false;
 
@@ -318,7 +323,7 @@ public class GameManager : MonoBehaviour
             }
             if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
             {
-                InventoryManager.ModifyInventory(Items.Corn, 1);
+                InventoryManager.ModifyInventory(Items.Lettuce, 1);
             }
             if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
             {
@@ -334,10 +339,15 @@ public class GameManager : MonoBehaviour
         {
             PlayerMovement = FindObjectOfType<PlayerMovement>();
         }
-        if (_isFinalScene && PlayerMovement.IsMovementEnable())
+        if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
-            PlayerMovement.DisablePlayerMovement();
+            if (_isFinalScene && PlayerMovement.IsMovementEnable())
+            {
+                PlayerMovement.DisablePlayerMovement();
+                CanvasRootWood.SetActive(false);
+            }
         }
+        
         if (InputManager.Instance.ExitWasPressedThisFrame()) // Menu Pausa
         {
             if (SceneManager.GetActiveScene().name == "Escena_Build")
@@ -373,8 +383,9 @@ public class GameManager : MonoBehaviour
             _isDialogue = UIManager.GetDialogueActive();
             _isLibrary = UIManager.GetLibraryActive();
             _isUI = UIManager.GetUIActive();
-             _shouldShowCursor = (_isDialogue || _isLibrary || _isPause || _isUI);
-             _shouldHideCursor = !_isDialogue && !_isLibrary && !_isPause && !_isUI;
+            _isFinal = GetFinalScene();
+             _shouldShowCursor = (_isDialogue || _isLibrary || _isPause || _isUI || _isFinal);
+             _shouldHideCursor = !_isDialogue && !_isLibrary && !_isPause && !_isUI && !_isFinal;
         }
 
         if ((_isBuildScene || _isShopScene) && _shouldShowCursor && !_isCursorVisible && !_isGameController)
@@ -481,6 +492,11 @@ public class GameManager : MonoBehaviour
     public void FinalScene()
     {
         _isFinalScene = true;
+    }
+
+    public bool GetFinalScene()
+    {
+        return _isFinalScene;
     }
     public void SaveTime(float time)
     {
@@ -602,6 +618,11 @@ public class GameManager : MonoBehaviour
         _amountWater = WateringCanManager.GetAmountWateringCan(); // Obtiene la cantidad de agua de la regadera
         return _amountWater; // Retorna la cantidad de agua
 
+    }
+
+    public void SetCanvas(GameObject canvas)
+    {
+        CanvasRootWood = canvas;
     }
 
     /// <summary>
@@ -749,6 +770,7 @@ public class GameManager : MonoBehaviour
         InventoryManager.ModifyPlayerPosition(new Vector3(14.14f, -9.62f, 0));
         SaveTime(0f);
         _newGame = false;
+        _isFinalScene = false;
 
         Debug.Log("Partida Reiniciada correctamente");
 
