@@ -209,6 +209,7 @@ public class NotificationManager : MonoBehaviour
     /// </summary>
     public void LoadNotification(string source)
     {
+        Debug.Log("Notification Loading");
         if (source == "Tutorial" && _isTutorialNotificationCreated)
         {
             if (_check1) _intCheck1 = 1;
@@ -369,11 +370,11 @@ public class NotificationManager : MonoBehaviour
     public void SetNotifications(bool[] _activeNotifications)
     {
         _isNotificationCreated = _activeNotifications[0];
-        _isTutorialNotificationCreated = _activeNotifications[0];
-        _isEnergyNotificationCreated = _activeNotifications[0];
-        _isToolNotificationCreated = _activeNotifications[0];
-        _isWcNotificationCreated = _activeNotifications[0];
-        _isInventoryNotificationCreated = _activeNotifications[0];
+        _isTutorialNotificationCreated = _activeNotifications[1];
+        _isEnergyNotificationCreated = _activeNotifications[2];
+        _isToolNotificationCreated = _activeNotifications[3];
+        _isWcNotificationCreated = _activeNotifications[4];
+        _isInventoryNotificationCreated = _activeNotifications[5];
     }
 
     public string[] SaveNotificationText()
@@ -402,6 +403,22 @@ public class NotificationManager : MonoBehaviour
         _tutorialNotificationText = _textNotification[5];
         _notificationCounterText = _textNotification[6];
         _tutorialNotificationCounterText = _textNotification[7];
+    }
+
+    public bool[] SaveChecks()
+    {
+        bool[] _checks = new bool[3];
+        _checks[0] = _check1;
+        _checks[1] = _check2;
+        _checks[2] = _check3;
+        return _checks;
+    }
+
+    public void SetChecks(bool[] _checks)
+    {
+        _check1 = _checks[0];
+        _check2 = _checks[1];
+        _check3 = _checks[2];
     }
 
     #endregion

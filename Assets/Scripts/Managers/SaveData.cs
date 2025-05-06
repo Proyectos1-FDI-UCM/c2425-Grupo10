@@ -24,6 +24,9 @@ public class SaveData
     public int tutorialPhase;
     public int waterUpdate;
     public int gardenUpdate;
+    public bool[] notifications;
+    public string[] textNotifications;
+    public bool[] checks;
 
 } // class SaveData 
 // namespace

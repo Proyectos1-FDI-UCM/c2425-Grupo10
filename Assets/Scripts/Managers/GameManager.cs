@@ -764,8 +764,6 @@ public class GameManager : MonoBehaviour
     public void SaveGame()
     {
         SaveData data = new SaveData();
-
-        #region Métodos Privados
         data.PlayerPosition = InventoryManager.GetPlayerPosition();
         data.Inventory = InventoryManager.GetInventory();
         data.ActivePlants = GardenData.GetActivePlants();
@@ -776,6 +774,10 @@ public class GameManager : MonoBehaviour
         data.waterUpdate = _wateringCanUpgrades;
         data.gardenUpdate = _gardenUpgrades;
 
+        data.notifications = NotificationManager.SaveNotifications();
+        data.textNotifications = NotificationManager.SaveNotificationText();
+        data.checks = NotificationManager.SaveChecks();
+        
         string json = JsonUtility.ToJson(data, true);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
 
@@ -800,6 +802,10 @@ public class GameManager : MonoBehaviour
             _gardenUpgrades = data.gardenUpdate;
             TutorialManager.SetTutorialPhase(data.tutorialPhase);
 
+            NotificationManager.SetNotifications(data.notifications);
+            NotificationManager.SetNotificationText(data.textNotifications);
+            NotificationManager.SetChecks(data.checks);
+
             Debug.Log("Partida cargada correctamente");
 
             _newGame = false;
@@ -811,16 +817,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-#endregion
+    #endregion
 
-// ---- MÉTODOS PRIVADOS ----
+    // ---- MÉTODOS PRIVADOS ----
 
-#region Métodos Privados
+    #region Métodos Privados
 
-/// <summary>
-/// Dispara la inicialización.
-/// </summary>
-private void Init()
+    /// <summary>
+    /// Dispara la inicialización.
+    /// </summary>
+    private void Init()
     {
         // De momento no hay nada que inicializar
     }
@@ -853,5 +859,4 @@ private void Init()
     }
     #endregion
 } // class GameManager 
-#endregion
 // namespace
