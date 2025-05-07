@@ -236,6 +236,11 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Movimiento Activado");
     }
 
+    public bool GetPlayerTired()
+    {
+        return _isTired;
+    }
+
     public void ChangePlayerPosition(Vector3 position)
     {
         gameObject.transform.position = position;
