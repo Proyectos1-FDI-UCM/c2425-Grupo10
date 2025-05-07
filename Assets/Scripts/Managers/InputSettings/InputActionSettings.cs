@@ -201,9 +201,18 @@ namespace UnityEngine.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""FillWateringCan"",
+                    ""name"": ""AddMoney"",
                     ""type"": ""Button"",
-                    ""id"": ""3c3f1184-6a04-47b8-8d12-045ff2c7dae8"",
+                    ""id"": ""e943b4e5-dd61-4c08-8ac8-4a64b448f2cb"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""NextDialogue"",
+                    ""type"": ""Button"",
+                    ""id"": ""9f0e8a54-dfad-456a-aff8-f2ecfda7ab06"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -807,12 +816,23 @@ namespace UnityEngine.InputSystem
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e13000fa-4c66-4c47-b7cb-6c500898ba39"",
-                    ""path"": """",
+                    ""id"": ""a5098604-6bc5-44df-890a-ebb11cc10348"",
+                    ""path"": ""<Keyboard>/i"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""FillWateringCan"",
+                    ""action"": ""AddMoney"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6392a9cf-9450-4a8a-bdb0-f0b1afa80e56"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""NextDialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1419,7 +1439,8 @@ namespace UnityEngine.InputSystem
             m_Player_Exit = m_Player.FindAction("Exit", throwIfNotFound: true);
             m_Player_ChangeToolUp = m_Player.FindAction("ChangeToolUp", throwIfNotFound: true);
             m_Player_ChangeToolDown = m_Player.FindAction("ChangeToolDown", throwIfNotFound: true);
-            m_Player_FillWateringCan = m_Player.FindAction("FillWateringCan", throwIfNotFound: true);
+            m_Player_AddMoney = m_Player.FindAction("AddMoney", throwIfNotFound: true);
+            m_Player_NextDialogue = m_Player.FindAction("NextDialogue", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1512,7 +1533,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_Exit;
         private readonly InputAction m_Player_ChangeToolUp;
         private readonly InputAction m_Player_ChangeToolDown;
-        private readonly InputAction m_Player_FillWateringCan;
+        private readonly InputAction m_Player_AddMoney;
+        private readonly InputAction m_Player_NextDialogue;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1536,7 +1558,8 @@ namespace UnityEngine.InputSystem
             public InputAction @Exit => m_Wrapper.m_Player_Exit;
             public InputAction @ChangeToolUp => m_Wrapper.m_Player_ChangeToolUp;
             public InputAction @ChangeToolDown => m_Wrapper.m_Player_ChangeToolDown;
-            public InputAction @FillWateringCan => m_Wrapper.m_Player_FillWateringCan;
+            public InputAction @AddMoney => m_Wrapper.m_Player_AddMoney;
+            public InputAction @NextDialogue => m_Wrapper.m_Player_NextDialogue;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1603,9 +1626,12 @@ namespace UnityEngine.InputSystem
                 @ChangeToolDown.started += instance.OnChangeToolDown;
                 @ChangeToolDown.performed += instance.OnChangeToolDown;
                 @ChangeToolDown.canceled += instance.OnChangeToolDown;
-                @FillWateringCan.started += instance.OnFillWateringCan;
-                @FillWateringCan.performed += instance.OnFillWateringCan;
-                @FillWateringCan.canceled += instance.OnFillWateringCan;
+                @AddMoney.started += instance.OnAddMoney;
+                @AddMoney.performed += instance.OnAddMoney;
+                @AddMoney.canceled += instance.OnAddMoney;
+                @NextDialogue.started += instance.OnNextDialogue;
+                @NextDialogue.performed += instance.OnNextDialogue;
+                @NextDialogue.canceled += instance.OnNextDialogue;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1667,9 +1693,12 @@ namespace UnityEngine.InputSystem
                 @ChangeToolDown.started -= instance.OnChangeToolDown;
                 @ChangeToolDown.performed -= instance.OnChangeToolDown;
                 @ChangeToolDown.canceled -= instance.OnChangeToolDown;
-                @FillWateringCan.started -= instance.OnFillWateringCan;
-                @FillWateringCan.performed -= instance.OnFillWateringCan;
-                @FillWateringCan.canceled -= instance.OnFillWateringCan;
+                @AddMoney.started -= instance.OnAddMoney;
+                @AddMoney.performed -= instance.OnAddMoney;
+                @AddMoney.canceled -= instance.OnAddMoney;
+                @NextDialogue.started -= instance.OnNextDialogue;
+                @NextDialogue.performed -= instance.OnNextDialogue;
+                @NextDialogue.canceled -= instance.OnNextDialogue;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1871,7 +1900,8 @@ namespace UnityEngine.InputSystem
             void OnExit(InputAction.CallbackContext context);
             void OnChangeToolUp(InputAction.CallbackContext context);
             void OnChangeToolDown(InputAction.CallbackContext context);
-            void OnFillWateringCan(InputAction.CallbackContext context);
+            void OnAddMoney(InputAction.CallbackContext context);
+            void OnNextDialogue(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

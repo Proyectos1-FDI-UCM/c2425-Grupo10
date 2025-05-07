@@ -317,7 +317,7 @@ public class GameManager : MonoBehaviour
 
         if (!Build)
         {
-            if(Input.GetKeyDown(KeyCode.I))
+            if (InputManager.Instance.AddMoneyTestWasPressedThisFrame())
             {
                 MoneyCount.AddMoney(100000);
             }
@@ -329,11 +329,10 @@ public class GameManager : MonoBehaviour
             {
                 InventoryManager.ModifyInventory(Items.LettuceSeed, 1);
             }
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (InputManager.Instance.NextDialogueWasPressedThisFrame())
             {
                 TutorialManager.NextDialogue();
             }
-
         }
         if ((_isShopScene || _isBuildScene) && PlayerMovement == null)
         {

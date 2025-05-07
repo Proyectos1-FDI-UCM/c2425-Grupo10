@@ -76,7 +76,6 @@ public class InputManager : MonoBehaviour
     private InputAction _exit;
     private InputAction _salir;
     private InputAction _useWateringCan;
-    private InputAction _fillWateringCan;
     private InputAction _useSickle;
     private InputAction _useShovel;
     private InputAction _ShorcutInventory;
@@ -87,6 +86,9 @@ public class InputManager : MonoBehaviour
     private InputAction _changeToolUp; // Para cambiar la herramienta hacia arriba
     private InputAction _changeToolDown; // Para cambiar la herramienta hacia abajo
 
+    //acciones para cheats
+    private InputAction _addMoney;
+    private InputAction _nextDialogue;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -208,13 +210,19 @@ public class InputManager : MonoBehaviour
     {
         return _useSickle.IsPressed();
     }
-    public bool FillWateringCanIsPressed()
-    {
-        return _fillWateringCan.IsPressed();
-    }
 
     public bool ChangeToolUpIsPressed() => _changeToolUp.IsPressed();
     public bool ChangeToolDownIsPressed() => _changeToolDown.IsPressed();
+
+    public bool AddMoneyTestIsPressed()
+    {
+        return _addMoney.IsPressed();
+    }
+
+    public bool NextDialogueIsPressed()
+    {
+        return _nextDialogue.IsPressed();
+    }
 
     /// <summary>
     /// Método para saber si el botón de Select (1/2/3/4/5) se ha pulsado en este frame
@@ -322,17 +330,6 @@ public class InputManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método para saber si el botón de Use Watering Can (usar regadera) se ha pulsado en este frame
-    /// <returns>Devuelve true, si el botón ha sido pulsado en este frame
-    /// y false, en otro caso
-    /// </returns>
-    /// </summary>
-    public bool FillWateringCanWasPressedThisFrame()
-    {
-        return _fillWateringCan.WasPressedThisFrame();
-    }
-
-    /// <summary>
     /// Método para saber si el botón de Tab está pulsado
     /// <returns>True, si el botón ha sido pulsado en este frame
     /// y false, en otro caso
@@ -419,6 +416,16 @@ public class InputManager : MonoBehaviour
     public bool ChangeToolUpWasPressedThisFrame() => _changeToolUp.WasPressedThisFrame();
     public bool ChangeToolDownWasPressedThisFrame() => _changeToolDown.WasPressedThisFrame();
 
+    public bool AddMoneyTestWasPressedThisFrame()
+    {
+        return _addMoney.WasPressedThisFrame();
+    }
+
+    public bool NextDialogueWasPressedThisFrame()
+    {
+        return _nextDialogue.WasPressedThisFrame();
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -481,11 +488,6 @@ public class InputManager : MonoBehaviour
         // (UseWateringCanIsPressed, UseWateringCanWasPressedThisFrame )
         _useWateringCan = _theController.Player.UseWateringCan;
 
-        // Fill Watering Can input system
-        // El estado lo consultaremos a través de los métodos públicos que 
-        // (FillWateringCanIsPressed, FillWateringCanWasPressedThisFrame )
-        _fillWateringCan = _theController.Player.FillWateringCan;
-
         // Use Sickle input system
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseSickleIsPressed, UseSickleWasPressedThisFrame )
@@ -514,6 +516,11 @@ public class InputManager : MonoBehaviour
          // Inicialización de las acciones de cambio de herramienta
         _changeToolUp = _theController.Player.ChangeToolUp; // Asigna la acción correspondiente
         _changeToolDown = _theController.Player.ChangeToolDown; // Asigna la acción correspondiente
+
+        //cheats de añadir dinero y pasar el tutorial
+        _addMoney = _theController.Player.AddMoney;
+        _nextDialogue = _theController.Player.NextDialogue;
+
     }
 
     /// <summary>
