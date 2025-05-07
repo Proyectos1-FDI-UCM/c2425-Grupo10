@@ -133,7 +133,31 @@ public class CambiarEscena : MonoBehaviour
             }
             if (SceneManager.GetActiveScene().name == "Escena_Venta")
             {
-                if (TutorialManager.GetTutorialPhase() >= 25)
+                if (TutorialManager.GetTutorialPhase() >= 23)
+                {
+                    SceneTransition.Instance.ChangeScene(sceneName);
+                    Debug.Log("Cambiando a escena: " + sceneName);
+                }
+                else
+                {
+                    UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
+                }
+            }
+            if (SceneManager.GetActiveScene().name == "Escena_Banco")
+            {
+                if (TutorialManager.GetTutorialPhaseBanco() >= 9)
+                {
+                    SceneTransition.Instance.ChangeScene(sceneName);
+                    Debug.Log("Cambiando a escena: " + sceneName);
+                }
+                else
+                {
+                    UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
+                }
+            }
+            if (SceneManager.GetActiveScene().name == "Escena_Mejora")
+            {
+                if (TutorialManager.GetTutorialPhaseMejora() >= 10)
                 {
                     SceneTransition.Instance.ChangeScene(sceneName);
                     Debug.Log("Cambiando a escena: " + sceneName);
@@ -144,7 +168,7 @@ public class CambiarEscena : MonoBehaviour
                 }
             }
 
-                if (sceneName == "Escena_Compra")
+            if (sceneName == "Escena_Compra")
                 {
                     if (TutorialManager.GetTutorialPhase() >= 9)
                     {
@@ -174,14 +198,14 @@ public class CambiarEscena : MonoBehaviour
                 }
                 else if (sceneName == "Escena_Banco")
                 {
-                    if (TutorialManager.GetTutorialPhase() >= 25)
+                    if (TutorialManager.GetTutorialPhase() >= 26)
                     {
                         SceneTransition.Instance.ChangeScene(sceneName);
                         Debug.Log("Cambiando a escena: " + sceneName);
                     }
                     else
                     {
-                        UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
+                        UIManager.ShowNotification("Avanza en el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
                     Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
                     InventoryManager.SetPlayerPosition(newPosition);
@@ -195,7 +219,7 @@ public class CambiarEscena : MonoBehaviour
                     }
                     else
                     {
-                        UIManager.ShowNotification("Termina el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
+                        UIManager.ShowNotification("Avanza en el tutorial \npara entrar", "NoCounter", 1, "NoTutorial");
                     }
                     Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
                     InventoryManager.SetPlayerPosition(newPosition);

@@ -454,7 +454,8 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void WaterWarning(Plant plant, int ArrayIndex)
     {
-        if (!plant.WaterWarning) {
+        if (!plant.WaterWarning && plant.State > 0) // Solo si no está muerto
+        {
             Transform Crop = SearchPlant(plant);
 
             if (Crop != null)

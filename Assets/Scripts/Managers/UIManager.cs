@@ -2287,13 +2287,25 @@ public class UIManager : MonoBehaviour
         ActualizarTextoCantidad();
 
         ActualizarCantidadUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
-        
-        if (TutorialManager.GetTutorialPhase() == 23) // Verifica que ha pulsado el boton de venta
-        {
-            //Check(0);
-            Invoke("NextDialogue", 0f);
 
+        //if (TutorialManager.GetTutorialPhase() == 23) // Verifica que ha pulsado el boton de venta
+        // {
+        //Check(0);
+        // Invoke("NextDialogue", 0f);
+
+        //}
+        int phase = TutorialManager.GetTutorialPhase();
+        if (phase == 21 || phase == 22)
+        {
+            // Saltamos directamente a la fase 23 si aún no ha llegado
+            TutorialManager.SetTutorialPhase(23);
+            Invoke("NextDialogue", 0f);
         }
+        else if (phase == 23)
+        {
+            Invoke("NextDialogue", 0f);
+        }
+
         UpdateUI();
 
     }
