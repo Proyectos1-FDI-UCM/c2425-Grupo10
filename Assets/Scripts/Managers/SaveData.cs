@@ -15,18 +15,53 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    public Vector3 PlayerPosition;
-    public int[] Inventory;
-    public int ActivePlants;
-    public Plant[] Garden = new Plant[36];
-    public float timer;
-    public int money;
-    public int tutorialPhase;
-    public int waterUpdate;
-    public int gardenUpdate;
-    public bool[] notifications;
-    public string[] textNotifications;
-    public bool[] checks;
+    private Vector3 PlayerPosition;
+    private int[] Inventory;
+    private int ActivePlants;
+    private Plant[] Garden = new Plant[36];
+    private float timer;
+    private int money;
+    private int tutorialPhase;
+    private int tutorialPhaseEscena;
+    private int tutorialPhaseBanco;
+    private int tutorialPhaseMejora;
+    private int waterUpdate;
+    private int gardenUpdate;
+    private bool[] notifications;
+    private string[] textNotifications;
+    private bool[] checks;
+
+    public Vector3 GetPlayerPosition() {  return PlayerPosition; }
+    public int[] GetInventory() { return Inventory; }
+    public int GetActivePlants() { return ActivePlants; }
+    public Plant[] GetGarden() { return Garden; }
+    public float GetTimer() { return timer; }
+    public int GetMoney() { return money; }
+    public int GetTutorialPhase() { return tutorialPhase; }
+    public int GetTutorialPhaseEscena() { return tutorialPhaseEscena; }
+    public int GetTutorialPhaseBanco() { return tutorialPhaseBanco; }
+    public int GetTutorialPhaseMejora() {return tutorialPhaseMejora; }
+    public int GetwaterUpdate() { return waterUpdate; }
+    public int GetGardenUpdate() { return gardenUpdate; }
+    public bool[] Getnotification() { return notifications;  }
+    public string[] GettextNotifications() { return textNotifications; }
+    public bool[] Getchecks () { return checks; }
+
+    public void SetPlayerPosition(Vector3 playerPosition) { PlayerPosition = playerPosition; }
+    public void SetInventory(int[] inventory) { Inventory = inventory; }
+    public void SetActivePlants(int activePlants) { ActivePlants = activePlants; }
+    public void SetGarden(Plant[] garden) { Garden = garden; }
+    public void SetTimer(float Timer) { timer = Timer; }
+    public void SetMoney(int Money) { money = Money; }
+    public void SetTutorialPhase(int TutorialPhase) { tutorialPhase = TutorialPhase; }
+    public void SetTutorialPhaseEscena(int TutorialPhaseEscena) { tutorialPhaseEscena = TutorialPhaseEscena; }
+    public void SetTutorialPhaseBanco(int TutorialPhaseBanco) { tutorialPhaseBanco = TutorialPhaseBanco; }
+    public void SetTutorialPhaseMejora(int TutorialPhaseMejora) { tutorialPhaseMejora = TutorialPhaseMejora; }
+    public void SetwaterUpdate(int WaterUpdate) { waterUpdate = WaterUpdate; }
+    public void SetGardenUpdate(int GardenUpdate) { gardenUpdate = GardenUpdate; }
+    public void Setnotification(bool[] Notifications) { notifications = Notifications; }
+    public void SettextNotifications(string[] TextNotifications) { textNotifications = TextNotifications; }
+    public void Setchecks(bool[] Checks) { checks = Checks; }
 
 } // class SaveData 
 // namespace

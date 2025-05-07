@@ -296,6 +296,54 @@ public class TutorialManager : MonoBehaviour
     {
         _tutorialPhase = phase;
     }
+    ///<summary>
+    ///Metodo para obtener la fase del tutorial (escena)
+    /// </summary>
+    public int GetTutorialPhaseEscena()
+    {
+        return _tutorialPhaseEscenas;
+    }
+
+    /// <summary>
+    /// Cambia la fase del tutorial (escena), solo se usa al cargar el juego
+    /// </summary>
+    /// <param name="phase"></param>
+    public void SetTutorialPhaseEscena(int phase)
+    {
+        _tutorialPhaseEscenas = phase;
+    }
+    ///<summary>
+    ///Metodo para obtener la fase del tutorial (Mejora)
+    /// </summary>
+    public int GetTutorialPhaseMejora()
+    {
+        return _tutorialPhaseMejora;
+    }
+
+    /// <summary>
+    /// Cambia la fase del tutorial (Banco), solo se usa al cargar el juego
+    /// </summary>
+    /// <param name="phase"></param>
+    public void SetTutorialPhaseBanco(int phase)
+    {
+        _tutorialPhaseBanco = phase;
+    }
+    ///<summary>
+    ///Metodo para obtener la fase del tutorial (Banco)
+    /// </summary>
+    public int GetTutorialPhaseBanco()
+    {
+        return _tutorialPhaseBanco;
+    }
+
+    /// <summary>
+    /// Cambia la fase del tutorial (Mejora), solo se usa al cargar el juego
+    /// </summary>
+    /// <param name="phase"></param>
+    public void SetTutorialPhaseMejora(int phase)
+    {
+        _tutorialPhaseMejora = phase;
+    }
     public bool IsDialogueActive()
     {
         return _isDialogueActive;
@@ -332,23 +380,6 @@ public class TutorialManager : MonoBehaviour
     public string GetDialogueButtonText()
     {
         return _actualDialogueButtonText;
-    }
-
-
-    ///<summary>
-    ///Metodo para obtener la fase del tutorial mejora
-    /// </summary>
-    public int GetTutorialPhaseMejora()
-    {
-        return _tutorialPhaseMejora;
-    }
-
-    ///<summary>
-    ///Metodo para obtener la fase del tutorial banco
-    /// </summary>
-    public int GetTutorialPhaseBanco()
-    {
-        return _tutorialPhaseBanco;
     }
     public void SubTask()
     {

@@ -786,20 +786,24 @@ public class GameManager : MonoBehaviour
     public void SaveGame()
     {
         SaveData data = new SaveData();
-        data.PlayerPosition = InventoryManager.GetPlayerPosition();
-        data.Inventory = InventoryManager.GetInventory();
-        data.ActivePlants = GardenData.GetActivePlants();
-        data.Garden = GardenData.GetGarden();
-        data.timer = realTime;
-        data.money = MoneyCount.GetMoneyCount();
-        data.tutorialPhase = TutorialManager.GetTutorialPhase();
-        data.waterUpdate = _wateringCanUpgrades;
-        data.gardenUpdate = _gardenUpgrades;
+        data.SetPlayerPosition(InventoryManager.GetPlayerPosition());
+        data.SetInventory(InventoryManager.GetInventory());
+        data.SetActivePlants( GardenData.GetActivePlants());
+        data.SetGarden(GardenData.GetGarden());
+        data.SetTimer(realTime);
+        data.SetMoney (MoneyCount.GetMoneyCount());
+        data.SetwaterUpdate (_wateringCanUpgrades);
+        data.SetGardenUpdate( _gardenUpgrades);
 
-        data.notifications = NotificationManager.SaveNotifications();
-        data.textNotifications = NotificationManager.SaveNotificationText();
-        data.checks = NotificationManager.SaveChecks();
-        
+        data.Setnotification(NotificationManager.SaveNotifications());
+        data.SettextNotifications(NotificationManager.SaveNotificationText());
+        data.Setchecks(NotificationManager.SaveChecks());
+
+        data.SetTutorialPhase(TutorialManager.GetTutorialPhase());
+        data.SetTutorialPhaseEscena(TutorialManager.GetTutorialPhaseEscena());
+        data.SetTutorialPhaseMejora(TutorialManager.GetTutorialPhaseMejora());
+        data.SetTutorialPhaseBanco(TutorialManager.GetTutorialPhaseBanco());
+
         string json = JsonUtility.ToJson(data, true);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
 
@@ -814,19 +818,23 @@ public class GameManager : MonoBehaviour
             string json = System.IO.File.ReadAllText(path);
             SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-            InventoryManager.SetPlayerPosition(data.PlayerPosition);
-            InventoryManager.SetInventory(data.Inventory);
-            GardenData.SetActivePlants(data.ActivePlants);
-            GardenData.SetGarden(data.Garden);
-            SaveTime(data.timer);
-            MoneyCount.SetMoneyCount(data.money);
-            _wateringCanUpgrades = data.waterUpdate;
-            _gardenUpgrades = data.gardenUpdate;
-            TutorialManager.SetTutorialPhase(data.tutorialPhase);
+            InventoryManager.SetPlayerPosition(data.GetPlayerPosition());
+            InventoryManager.SetInventory(data.GetInventory());
+            GardenData.SetActivePlants(data.GetActivePlants());
+            GardenData.SetGarden(data.GetGarden());
+            SaveTime(data.GetTimer());
+            MoneyCount.SetMoneyCount(data.GetMoney());
+            _wateringCanUpgrades = data.GetwaterUpdate();
+            _gardenUpgrades = data.GetGardenUpdate();
 
-            NotificationManager.SetNotifications(data.notifications);
-            NotificationManager.SetNotificationText(data.textNotifications);
-            NotificationManager.SetChecks(data.checks);
+            NotificationManager.SetNotifications(data.Getnotification());
+            NotificationManager.SetNotificationText(data.GettextNotifications());
+            NotificationManager.SetChecks(data.Getchecks());
+
+            TutorialManager.SetTutorialPhase(data.GetTutorialPhase());
+            TutorialManager.SetTutorialPhaseEscena(data.GetTutorialPhaseEscena());
+            TutorialManager.SetTutorialPhaseMejora(data.GetTutorialPhaseMejora());
+            TutorialManager.SetTutorialPhaseBanco(data.GetTutorialPhaseBanco());
 
             Debug.Log("Partida cargada correctamente");
 
