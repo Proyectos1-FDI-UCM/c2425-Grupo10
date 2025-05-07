@@ -1326,7 +1326,7 @@ public class UIManager : MonoBehaviour
             Debug.Log("boton tuto selec");
             TutorialButton.Select();
         }
-        else if (!_isDialogueActive && !_isLibraryActive)
+        else if (!_isDialogueActive && !_isLibraryActive && !PlayerMovement.GetPlayerTired())
         {
             PlayerMovement.EnablePlayerMovement();
 

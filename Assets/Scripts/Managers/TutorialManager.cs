@@ -478,7 +478,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 7)
         {
-            _actualDialogueText = MadameMooColor + " Por último. Pulsa "+ _inventory +" para abrir tu inventario.\r\nAhí podrás ver todo lo que llevas encima: semillas, cultivos, y herramienta y quién sabe, ¡quizás algún queso viejo que olvidaste! (broma).";
+            _actualDialogueText = MadameMooColor + " Por último. Pulsa "+ _inventory +" para abrir tu inventario.\r\nAhí podrás ver todo lo que llevas encima: semillas, cultivos y herramientas y quién sabe, ¡quizás algún queso viejo que olvidaste! (broma).";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Abre el inventario\nPulsa " + _inventory;
             _actualNotificationTaskText = "[ ] Inventario";
