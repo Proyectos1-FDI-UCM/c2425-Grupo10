@@ -15,21 +15,21 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    private Vector3 PlayerPosition;
-    private int[] Inventory;
-    private int ActivePlants;
-    private Plant[] Garden = new Plant[36];
-    private float timer;
-    private int money;
-    private int tutorialPhase;
-    private int tutorialPhaseEscena;
-    private int tutorialPhaseBanco;
-    private int tutorialPhaseMejora;
-    private int waterUpdate;
-    private int gardenUpdate;
-    private bool[] notifications;
-    private string[] textNotifications;
-    private bool[] checks;
+    [SerializeField]private Vector3 PlayerPosition;
+    [SerializeField] private int[] Inventory;
+    [SerializeField] private int ActivePlants;
+    [SerializeField] private Plant[] Garden = new Plant[36];
+    [SerializeField] private float timer;
+    [SerializeField] private int money;
+    [SerializeField] private int tutorialPhase;
+    [SerializeField] private int tutorialPhaseEscena;
+    [SerializeField] private int tutorialPhaseBanco;
+    [SerializeField] private int tutorialPhaseMejora;
+    [SerializeField] private int waterUpdate;
+    [SerializeField] private int gardenUpdate;
+    [SerializeField] private bool[] notifications;
+    [SerializeField] private string[] textNotifications;
+    [SerializeField] private bool[] checks;
 
     public Vector3 GetPlayerPosition() {  return PlayerPosition; }
     public int[] GetInventory() { return Inventory; }
