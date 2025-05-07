@@ -76,10 +76,10 @@ public static class GardenData
 
     private static CropVariables[] CropsData =
     {
-    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 1.8f, MaxDeathTime = 2f }, //maiz
-    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 0.1f, MaxDeathTime = 0.2f },//lechuga
-    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 0.8f, MaxDeathTime = 1f }, //zanahoria
-    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 1.3f, MaxDeathTime = 1.5f } //fresa
+    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 2f, MaxDeathTime = 1.8f }, //maiz
+    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 0.4f, MaxDeathTime = 0.2f },//lechuga
+    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 1f, MaxDeathTime = 0.8f }, //zanahoria
+    new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 1.5f, MaxDeathTime = 1.3f } //fresa
     };
 
     public static Plant[] GetGarden()
