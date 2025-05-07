@@ -209,6 +209,10 @@ public class GameManager : MonoBehaviour
     private bool _gameCharged = false;
 
     private bool _isFinalScene = false;
+
+    // 0: Lechuga, 1: Zanahoria, 2: Fresa, 3: Maíz
+    private bool[] _unlockedCrops = new bool[4] { true, false, false, false };
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -546,6 +550,7 @@ public class GameManager : MonoBehaviour
                  _amountOfCornSold += amount;
                 break;
         }
+        CheckCropUnlocks();
     }
 
     /// <summary>
@@ -770,6 +775,9 @@ public class GameManager : MonoBehaviour
         SaveTime(0f);
         _newGame = false;
         _isFinalScene = false;
+        _unlockedCrops = new bool[4];
+        _unlockedCrops[0] = true; // Lechuga desbloqueada por defecto
+
 
         Debug.Log("Partida Reiniciada correctamente");
 
@@ -802,6 +810,7 @@ public class GameManager : MonoBehaviour
         data.SetTutorialPhaseEscena(TutorialManager.GetTutorialPhaseEscena());
         data.SetTutorialPhaseMejora(TutorialManager.GetTutorialPhaseMejora());
         data.SetTutorialPhaseBanco(TutorialManager.GetTutorialPhaseBanco());
+        data.SetUnlockedCrops(_unlockedCrops);
 
         string json = JsonUtility.ToJson(data, true);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
@@ -834,6 +843,7 @@ public class GameManager : MonoBehaviour
             TutorialManager.SetTutorialPhaseEscena(data.GetTutorialPhaseEscena());
             TutorialManager.SetTutorialPhaseMejora(data.GetTutorialPhaseMejora());
             TutorialManager.SetTutorialPhaseBanco(data.GetTutorialPhaseBanco());
+            _unlockedCrops = data.GetUnlockedCrops();
 
             Debug.Log("Partida cargada correctamente");
 
@@ -844,6 +854,21 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("No existe partida guardada.");
             _newGame= true;
         }
+    }
+
+    public bool IsCropUnlocked(int index)
+    {
+        return _unlockedCrops[index];
+    }
+
+    public void SetUnlockedCrops(bool[] crops)
+    {
+        _unlockedCrops = crops;
+    }
+
+    public bool[] GetUnlockedCrops()
+    {
+        return _unlockedCrops;
     }
 
     #endregion
@@ -880,6 +905,31 @@ public class GameManager : MonoBehaviour
         NotificationManager = FindObjectOfType<NotificationManager>();
         MenuManager = FindObjectOfType<MenuManager>();
     }
+
+    private void CheckCropUnlocks()
+    {
+        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 10) // Desbloquear zanahoria
+        {
+            _unlockedCrops[1] = true;
+            NotificationManager.SaveNotification("¡Has desbloqueado la zanahoria!", "Nuevo cultivo", "NoTutorial");
+            NotificationManager.LoadNotification("NoTutorial");
+        }
+
+        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 30) // Desbloquear fresa
+        {
+            _unlockedCrops[2] = true;
+            NotificationManager.SaveNotification("¡Has desbloqueado la fresa!", "Nuevo cultivo", "NoTutorial");
+            NotificationManager.LoadNotification("NoTutorial");
+        }
+
+        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 40) // Desbloquear maíz
+        {
+            _unlockedCrops[3] = true;
+            NotificationManager.SaveNotification("¡Has desbloqueado el maíz!", "Nuevo cultivo", "NoTutorial");
+            NotificationManager.LoadNotification("NoTutorial");
+        }
+    }
+
     public void EndCinematic()
     {
 

@@ -30,6 +30,7 @@ public class SaveData
     [SerializeField] private bool[] notifications;
     [SerializeField] private string[] textNotifications;
     [SerializeField] private bool[] checks;
+    [SerializeField] private bool[] unlockedCrops = new bool[4]; // 0: Lechuga, 1: Zanahoria, 2: Fresa, 3: Maíz
 
     public Vector3 GetPlayerPosition() {  return PlayerPosition; }
     public int[] GetInventory() { return Inventory; }
@@ -46,6 +47,7 @@ public class SaveData
     public bool[] Getnotification() { return notifications;  }
     public string[] GettextNotifications() { return textNotifications; }
     public bool[] Getchecks () { return checks; }
+    public bool[] GetUnlockedCrops() { return unlockedCrops; }
 
     public void SetPlayerPosition(Vector3 playerPosition) { PlayerPosition = playerPosition; }
     public void SetInventory(int[] inventory) { Inventory = inventory; }
@@ -62,6 +64,7 @@ public class SaveData
     public void Setnotification(bool[] Notifications) { notifications = Notifications; }
     public void SettextNotifications(string[] TextNotifications) { textNotifications = TextNotifications; }
     public void Setchecks(bool[] Checks) { checks = Checks; }
+    public void SetUnlockedCrops(bool[] value) { unlockedCrops = value; }
 
 } // class SaveData 
 // namespace
