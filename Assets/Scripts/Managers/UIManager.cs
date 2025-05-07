@@ -1329,7 +1329,6 @@ public class UIManager : MonoBehaviour
         else if (!_isDialogueActive && !_isLibraryActive && !PlayerMovement.GetPlayerTired())
         {
             PlayerMovement.EnablePlayerMovement();
-
         }
         PauseMenu.SetActive(false);
         _isPauseMenuActive = false;
