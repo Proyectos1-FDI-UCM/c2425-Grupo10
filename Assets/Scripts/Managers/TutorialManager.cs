@@ -502,7 +502,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 11)
         {
-            _actualDialogueText = MadameMooColor + "Mas adelantes podras desbloquear nuevas semillas pero de momento...\n pulsa el icono de lechuga para comprar tu primera semilla";
+            _actualDialogueText = MadameMooColor + "Más adelante podrás desbloquear nuevas semillas pero de momento...\n pulsa el icono de lechuga para comprar tu primera semilla.";
             _actualDialogueButtonText = "Probar";
 
             _actualNotificationText = "Mi primera \ncompra";
@@ -511,7 +511,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 12)
         {
-            _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más(+), para añadir unas pocas semillas";
+            _actualDialogueText = MadameMooColor + " Con una no será suficiente para cultivar todo un huerto no crees?.\r\nPulsa el botón de más (+), para añadir unas pocas semillas.";
             _actualDialogueButtonText = "Probar";
 
             _actualNotificationText = "Mi primera \ncompra";
@@ -566,7 +566,7 @@ public class TutorialManager : MonoBehaviour
 
         if (_tutorialPhase == 20) // Venta
         {
-            _actualDialogueText = MadameMooColor + " ¡Es hora de hacer negocios!\n Dirígete al puesto de ventas con tus cultivos recién cosechados.\n Nada dice \"éxito\" como vender tu primer nabo, quiero decir… cultivo";
+            _actualDialogueText = MadameMooColor + " ¡Es hora de hacer negocios!\n Dirígete al puesto de ventas con tus cultivos recién cosechados.\n Nada dice \"éxito\" como vender tu primer nabo, quiero decir… cultivo.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Vende tu \nprimera cosecha";
             _actualNotificationTaskText = "[ ] Vende\n una lechuga";
@@ -579,18 +579,18 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhase == 22)
         {
-            _actualDialogueText = MadameMooColor + " ¿Tienes más lechugas que vender?.\r\nPulsa el botón de más, para añadir más";
+            _actualDialogueText = MadameMooColor + " ¿Tienes más lechugas que vender?.\r\nPulsa el botón de más, para añadir más.";
             _actualDialogueButtonText = "Probar";
         }
         if (_tutorialPhase == 23)
         {
-            _actualDialogueText = MadameMooColor + " Con todo listo es hora de ver cuanto nos dan por tu primera cosecha.\r\nPulsa el botón de vender, y verás que sembrar te traerá algo más que plantas";
+            _actualDialogueText = MadameMooColor + " Con todo listo es hora de ver cuanto nos dan por tu primera cosecha.\r\nPulsa el botón de vender, y verás que sembrar te traerá algo más que plantas.";
             _actualDialogueButtonText = "Probar";
         }
 
         if (_tutorialPhase == 24)
         {
-            _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Ya estas preparada para visitar todo el pueblo.";
+            _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Ya estás preparada para visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
         }
 
@@ -619,7 +619,7 @@ public class TutorialManager : MonoBehaviour
             }
             if (i == 2)
             {
-                _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcercate al mostrador y habla con el Señor Relincho";
+                _actualDialogueText = MadameMooColor + " ¡Lo primero es lo primero, Connie! Hay que saludar. \r\nAcércate al mostrador y habla con el Señor Relincho.";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa " + _use+" para hablar.";
@@ -636,7 +636,7 @@ public class TutorialManager : MonoBehaviour
             }
             if (i == 5)
             {
-                _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con el joven de Jamoncio";
+                _actualDialogueText = MadameMooColor + " ¡Ya lo has aprendido, lo primero es lo primero, Connie! A saludar. \r\nAcercate al mostrador y habla con el joven de Jamoncio.";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
@@ -653,7 +653,7 @@ public class TutorialManager : MonoBehaviour
             }
             if (_tutorialPhaseBanco == 3)
             {
-                _actualDialogueText = MadameMooColor + "¡Lo primero es saludar a los gemelos Copi y Pasti, Connie! \r\nAcercate al mostrador y habla con Capi... bueno o con Pasti";
+                _actualDialogueText = MadameMooColor + "¡Lo primero es saludar a los gemelos Copi y Pasti, Connie! \r\nAcercate al mostrador y habla con Capi... bueno o con Pasti.";
                 _actualDialogueButtonText = "Probar";
                 _actualNotificationText = "Acercate al \nmostrador";
                 _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
@@ -661,30 +661,30 @@ public class TutorialManager : MonoBehaviour
             }
         if (_tutorialPhaseBanco == 4)
         {
-            _actualDialogueText = MadameMooColor + " ¡Vamos a ingresar dinero! \r\nPero antes hay varias cosas importantes que debes saber ";
+            _actualDialogueText = MadameMooColor + " ¡Vamos a ingresar dinero! \r\nPero antes hay varias cosas importantes que debes saber. ";
             _actualDialogueButtonText = "Continuar";
             _actualNotificationText = "";
         }
         if (_tutorialPhaseBanco == 5)
         {
-            _actualDialogueText = MadameMooColor + " Cuando ingreses dinero, tienes que estar segura de que no lo vas a necesitar \r\nLuego no podrás recuperarlo. \nAdemás nunca podrás ingresar todo tu dinero, siempre debes quedarte al menos con 1000 RootCoins ";
+            _actualDialogueText = MadameMooColor + " Cuando ingreses dinero, tienes que estar segura de que no lo vas a necesitar \r\nLuego no podrás recuperarlo. \nAdemás nunca podrás ingresar todo tu dinero, siempre debes quedarte al menos con 1000 RootCoins. ";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhaseBanco == 6)
         {
-            _actualDialogueText = MadameMooColor + " Pulsa el botón ingresar \r\n Después desliza la barra hasta llegar a la cantidad justa que quieras ingresar";
+            _actualDialogueText = MadameMooColor + " Pulsa el botón ingresar \r\n Después desliza la barra hasta llegar a la cantidad justa que quieras ingresar.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Ingresa dinero";
             _actualNotificationTaskText = "[ ] Pulsa ingresar. \n[ ] Desliza \n la barra.";
         }
         if (_tutorialPhaseBanco == 7)
         {
-            _actualDialogueText = MadameMooColor + " ¡Vamos con la mudanza! Como bien sabes para mudarte a tu deseada casa en la playa necesitas dinero\r\n Con tu dinero del banco, podrás comprar tu nuevo hogar";
+            _actualDialogueText = MadameMooColor + " ¡Vamos con la mudanza! Como bien sabes para mudarte a tu deseada casa en la playa necesitas dinero\r\n Con tu dinero del banco, podrás comprar tu nuevo hogar.";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhaseBanco == 8)
         {
-            _actualDialogueText = MadameMooColor + " Pulsa el botón mudanza \r\n Después selecciona la casa\n Cuando tengas el suficiente dinero, repite estos pasos y podrás mudarte a tu casa soñada";
+            _actualDialogueText = MadameMooColor + " Pulsa el botón mudanza \r\n Después selecciona la casa\n Cuando tengas el suficiente dinero, repite estos pasos y podrás mudarte a tu casa soñada.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Mudanza";
             _actualNotificationTaskText = "[ ] Pulsa mudanza. \n[ ] Pulsa la casa.";
@@ -708,7 +708,7 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseMejora == 3)
         {
-            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcercate al mostrador y habla con Lana del Rey, antigua cantante, ahora oveja.\"";
+            _actualDialogueText = MadameMooColor + "¡Primero Saluda, Connie! \r\nAcércate al mostrador y habla con Lana del Rey, antigua cantante, ahora oveja.\"";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Acercate al \nmostrador";
             _actualNotificationTaskText = "[ ] Pulsa " + _use+ " para hablar.";
@@ -720,14 +720,14 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseMejora == 5)
         {
-            _actualDialogueText = MadameMooColor + " Pulsa el botón de Ampliar y después selecciona la maceta";
+            _actualDialogueText = MadameMooColor + " Pulsa el botón de Ampliar y después selecciona la maceta.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Prueba a \ampliar \ntu huerto";
             _actualNotificationTaskText = "[ ] Pulsa Ampliar\n[ ] Pulsa la maceta";
         }
         if (_tutorialPhaseMejora == 6)
         {
-            _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta ampliación \r\n¡Mientras tanto toca trabajar duro Connie!";
+            _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta ampliación. \r\n¡Mientras tanto toca trabajar duro Connie!";
             _actualDialogueButtonText = "Continuar";
         }
         if (_tutorialPhaseMejora == 7)
@@ -737,14 +737,14 @@ public class TutorialManager : MonoBehaviour
         }
         if (_tutorialPhaseMejora == 8)
         {
-            _actualDialogueText = MadameMooColor + " Pulsa el botón de Mejorar y después selecciona la regadera";
+            _actualDialogueText = MadameMooColor + " Pulsa el botón de Mejorar y después selecciona la regadera.";
             _actualDialogueButtonText = "Probar";
             _actualNotificationText = "Prueba a \nmejorar \ntu regadera";
             _actualNotificationTaskText = "[ ] Pulsa Mejorar\n[ ] Pulsa la regadera";
         }
         if (_tutorialPhaseMejora == 9)
         {
-            _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta mejora ¡Mientras tanto toca hacer viajes al pozo!";
+            _actualDialogueText = MadameMooColor + " Cuando reunas el suficiente dinero, podrás disfrutar de esta mejora. ¡Mientras tanto toca hacer viajes al pozo!";
             _actualDialogueButtonText = "Continuar";
 
         }
