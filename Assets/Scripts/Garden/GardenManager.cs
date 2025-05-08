@@ -130,6 +130,8 @@ public class GardenManager : MonoBehaviour
     void Update()
     {
         Garden = GardenData.GetGarden();
+        bool isFastTime = gameTimer.IsFastTimeActive(); // Obtener el estado del tiempo rápido
+
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
             //Debug.Log(GardenData.GetPlant(i).Item);
@@ -160,9 +162,10 @@ public class GardenManager : MonoBehaviour
 
                 // Lógica Aviso Cosecha y Aviso Riego / Muerte
 
-                // Aviso Riego
-                 if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath/2) && State > 0 && State < 4 )
+                // Si el tiempo rápido está activo, ignoramos la lógica de riego/muerte
+                if (!isFastTime)
                 {
+<<<<<<< Updated upstream
                     GardenData.ModifyWaterWarning(i, true);
                     WaterWarning(GardenData.GetPlant(i), i);
                     //GardenData.ModifyWaterWarning(i);
@@ -176,12 +179,52 @@ public class GardenManager : MonoBehaviour
                     DeathWarning(GardenData.GetPlant(i), i);
                     
                 }
+=======
+                    // Aviso Riego
+                    if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath / 2) && State > 0 && State < 4)
+                    {
+                        WaterWarning(GardenData.GetPlant(i), i);
+                        //GardenData.ModifyWaterWarning(i);
+                    }
 
-                // Muerte
-                if (gameTimer.GetGameTimeInHours() - Plant.WaterTimer >= MaxWater + MaxDeath && State > 0 && State < 4)
+                    // Aviso Muerte
+                    if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4)
+                    {
+                        Debug.Log("Aviso Muerte");
+                        DeathWarning(GardenData.GetPlant(i), i);
+>>>>>>> Stashed changes
+
+                    }
+
+                    // Muerte
+                    if (gameTimer.GetGameTimeInHours() - Plant.WaterTimer >= MaxWater + MaxDeath && State > 0 && State < 4)
+                    {
+                        Death(Plant, i);
+                        Debug.Log("Muerte");
+                    }
+                }
+                else
                 {
-                    Death(Plant, i);
-                    Debug.Log("Muerte");
+                    // En modo tiempo rápido, si hay avisos de riego o muerte, los quitamos
+                    if (Plant.WaterWarning || Plant.DeathWarning)
+                    {
+                        GardenData.ModifyWaterWarning(i, false);
+                        GardenData.ModifyDeathWarning(i, false);
+
+                        // Y actualizamos el timer de agua para que no necesite riego
+                        GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+
+                        // Actualizar el sprite para quitar los avisos visuales
+                        Transform Crop = SearchPlant(Plant);
+                        if (Crop != null)
+                        {
+                            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                            if (Call != null)
+                            {
+                                Call.Warning("Desactivate");
+                            }
+                        }
+                    }
                 }
 
                 //Cosechar
@@ -558,6 +601,113 @@ public class GardenManager : MonoBehaviour
         }
         return transform;
 
+    }
+
+   
+    public void UpdateAllPlantsWater()
+    {
+        Garden = GardenData.GetGarden();
+
+        // Actualizar todas las plantas activas
+        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        {
+            Plant plant = GardenData.GetPlant(i);
+
+            if (plant.Active && plant.State > 0 && plant.State < 4)
+            {
+                // Actualizar el timer de agua para que no necesite riego
+                GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+
+                // Quitar los avisos si existen
+                if (plant.WaterWarning || plant.DeathWarning)
+                {
+                    GardenData.ModifyWaterWarning(i, false);
+                    GardenData.ModifyDeathWarning(i, false);
+
+                    // Actualizar el sprite para quitar los avisos visuales
+                    Transform Crop = SearchPlant(plant);
+                    if (Crop != null)
+                    {
+                        CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                        Call.Warning("Desactivate");
+                    }
+                }
+            }
+        }
+    }
+
+    
+    public void HandleTimeSpeedChange(bool isFastMode)
+    {
+        Garden = GardenData.GetGarden();
+
+        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        {
+            Plant plant = GardenData.GetPlant(i);
+
+            if (plant.Active && plant.State > 0 && plant.State < 4)
+            {
+                if (isFastMode)
+                {
+                    // Si activamos el modo rápido, actualizar el timer de agua y quitar avisos
+                    GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+
+                    // Quitar los avisos si existen
+                    if (plant.WaterWarning || plant.DeathWarning)
+                    {
+                        GardenData.ModifyWaterWarning(i, false);
+                        GardenData.ModifyDeathWarning(i, false);
+
+                        // Actualizar el sprite para quitar los avisos visuales
+                        Transform Crop = SearchPlant(plant);
+                        if (Crop != null)
+                        {
+                            CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                            Call.Warning("Desactivate");
+                        }
+                    }
+                }
+                // No necesitamos hacer nada especial al volver al modo normal
+                // Las plantas seguirán su crecimiento normal basado en los timers actualizados
+            }
+        }
+    }
+
+    // Método para eliminar todos los avisos visuales de plantas
+    public void ClearAllWarningSprites()
+    {
+        Garden = GardenData.GetGarden(); // Asegurarse de tener datos actualizados
+
+        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        {
+            Plant plant = GardenData.GetPlant(i);
+
+            if (plant.Active) // Procesar TODAS las plantas activas, no solo las que ya tienen avisos
+            {
+                // Siempre actualizar el timer de agua para prevenir futuros avisos
+                GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+
+                // Desactivar los avisos en los datos, incluso si no tienen avisos actualmente
+                if (plant.WaterWarning || plant.DeathWarning)
+                {
+                    GardenData.ModifyWaterWarning(i, false);
+                    GardenData.ModifyDeathWarning(i, false);
+                }
+
+                // Desactivar el sprite de aviso en TODOS los casos
+                Transform Crop = SearchPlant(plant);
+                if (Crop != null)
+                {
+                    CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                    if (Call != null)
+                    {
+                        Call.Warning("Desactivate");
+                    }
+                }
+            }
+        }
+
+        Debug.Log("Todos los avisos visuales de plantas han sido limpiados");
     }
 
     ///<summary>

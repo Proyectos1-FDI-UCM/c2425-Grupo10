@@ -89,6 +89,10 @@ public class InputManager : MonoBehaviour
     //acciones para cheats
     private InputAction _addMoney;
     private InputAction _nextDialogue;
+
+    //cheat timer
+    private InputAction _toggleFastTime;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -222,6 +226,11 @@ public class InputManager : MonoBehaviour
     public bool NextDialogueIsPressed()
     {
         return _nextDialogue.IsPressed();
+    }
+
+    public bool ToggleFastTimeIsPressed()
+    {
+        return _toggleFastTime.IsPressed();
     }
 
     /// <summary>
@@ -426,6 +435,12 @@ public class InputManager : MonoBehaviour
         return _nextDialogue.WasPressedThisFrame();
     }
 
+
+    public bool ToggleFastTimeWasPressedThisFrame()
+    {
+        return _toggleFastTime.WasPressedThisFrame();
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -520,6 +535,10 @@ public class InputManager : MonoBehaviour
         //cheats de añadir dinero y pasar el tutorial
         _addMoney = _theController.Player.AddMoney;
         _nextDialogue = _theController.Player.NextDialogue;
+
+        //cheat acelerar timer
+        _toggleFastTime = _theController.Player.ToggleFastTime;
+
 
     }
 

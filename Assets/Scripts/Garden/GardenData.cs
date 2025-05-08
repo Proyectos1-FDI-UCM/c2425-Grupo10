@@ -244,7 +244,7 @@ public static class GardenData
     public static void ModifyWaterWarning(int i, bool b)
     {
         Garden[i].WaterWarning = b;
-        if (b = true)
+        if (b == true)
         {
             Garden[i].DeathWarning = false;
             Garden[i].HarvestWarning = false;
@@ -257,7 +257,7 @@ public static class GardenData
     public static void ModifyDeathWarning(int i, bool b)
     {
         Garden[i].DeathWarning = b;
-        if (b = true)
+        if (b == true)
         {
             Garden[i].WaterWarning = false;
             Garden[i].HarvestWarning = false;
@@ -270,7 +270,7 @@ public static class GardenData
     public static void ModifyHarvestWarning(int i, bool b)
     {
         Garden[i].HarvestWarning = b;
-        if (b = true)
+        if (b == true)
         {
             Garden[i].DeathWarning = false;
             Garden[i].WaterWarning = false;

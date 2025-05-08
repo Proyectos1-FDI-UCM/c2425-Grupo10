@@ -217,6 +217,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleFastTime"",
+                    ""type"": ""Button"",
+                    ""id"": ""f31ba703-46d1-4c05-8c65-4cc1e9003cb9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -835,6 +844,17 @@ namespace UnityEngine.InputSystem
                     ""action"": ""NextDialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8f5f033-5953-4d8a-94db-4b0273af2f75"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFastTime"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1441,6 +1461,7 @@ namespace UnityEngine.InputSystem
             m_Player_ChangeToolDown = m_Player.FindAction("ChangeToolDown", throwIfNotFound: true);
             m_Player_AddMoney = m_Player.FindAction("AddMoney", throwIfNotFound: true);
             m_Player_NextDialogue = m_Player.FindAction("NextDialogue", throwIfNotFound: true);
+            m_Player_ToggleFastTime = m_Player.FindAction("ToggleFastTime", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1535,6 +1556,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_ChangeToolDown;
         private readonly InputAction m_Player_AddMoney;
         private readonly InputAction m_Player_NextDialogue;
+        private readonly InputAction m_Player_ToggleFastTime;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1560,6 +1582,7 @@ namespace UnityEngine.InputSystem
             public InputAction @ChangeToolDown => m_Wrapper.m_Player_ChangeToolDown;
             public InputAction @AddMoney => m_Wrapper.m_Player_AddMoney;
             public InputAction @NextDialogue => m_Wrapper.m_Player_NextDialogue;
+            public InputAction @ToggleFastTime => m_Wrapper.m_Player_ToggleFastTime;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1632,6 +1655,9 @@ namespace UnityEngine.InputSystem
                 @NextDialogue.started += instance.OnNextDialogue;
                 @NextDialogue.performed += instance.OnNextDialogue;
                 @NextDialogue.canceled += instance.OnNextDialogue;
+                @ToggleFastTime.started += instance.OnToggleFastTime;
+                @ToggleFastTime.performed += instance.OnToggleFastTime;
+                @ToggleFastTime.canceled += instance.OnToggleFastTime;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1699,6 +1725,9 @@ namespace UnityEngine.InputSystem
                 @NextDialogue.started -= instance.OnNextDialogue;
                 @NextDialogue.performed -= instance.OnNextDialogue;
                 @NextDialogue.canceled -= instance.OnNextDialogue;
+                @ToggleFastTime.started -= instance.OnToggleFastTime;
+                @ToggleFastTime.performed -= instance.OnToggleFastTime;
+                @ToggleFastTime.canceled -= instance.OnToggleFastTime;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1902,6 +1931,7 @@ namespace UnityEngine.InputSystem
             void OnChangeToolDown(InputAction.CallbackContext context);
             void OnAddMoney(InputAction.CallbackContext context);
             void OnNextDialogue(InputAction.CallbackContext context);
+            void OnToggleFastTime(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

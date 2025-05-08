@@ -864,6 +864,28 @@ public class GameManager : MonoBehaviour
         return _unlockedCrops;
     }
 
+    public void UpdateAllPlantsWater()
+    {
+        if (GardenManager != null)
+        {
+            GardenManager.UpdateAllPlantsWater();
+        }
+    }
+
+
+    public void OnTimeSpeedChanged(bool isFastMode)
+    {
+        if (GardenManager != null)
+        {
+            GardenManager.HandleTimeSpeedChange(isFastMode);
+
+            // Si se activa el tiempo rápido, también limpiar todos los avisos visuales
+            if (isFastMode)
+            {
+                GardenManager.ClearAllWarningSprites();
+            }
+        }
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

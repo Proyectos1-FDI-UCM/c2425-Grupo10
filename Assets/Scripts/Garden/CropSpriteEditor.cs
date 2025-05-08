@@ -118,7 +118,9 @@ public class CropSpriteEditor : MonoBehaviour
     {
         if (Type == "Desactivate")
         {
+            // Asegurarnos de que el sprite de aviso se oculta completamente
             _warning.enabled = false;
+            return; // Añadir return para evitar que se procesen otras condiciones
         }
         if (Type == "Water")
         {

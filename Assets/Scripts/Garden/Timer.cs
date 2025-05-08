@@ -8,7 +8,7 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI; // Para mostrar el tiempo en pantalla
-
+using UnityEngine.InputSystem;
 
 /// <summary>
 /// Este script gestiona el tiempo del juego, 
@@ -49,6 +49,11 @@ public class Timer : MonoBehaviour
     /// </summary>
     [SerializeField] private float _realSecondtoGameTime = 60f;
 
+    //cheat
+    private bool _isFastTime = false;
+    private float _normalTimeSpeed;
+    [SerializeField] private float _fastTimeSpeed = 600f; // Por ejemplo, 1 segundo real = 10 minutos de juego
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -67,6 +72,8 @@ public class Timer : MonoBehaviour
         _realTimeElapsed = 0f; //Inicializar el tiempo real
         _gameTimeElapsed = 0f; //Inicializar el tiempo de juego
         GameManager.Instance.SetTimer(this);
+
+        _normalTimeSpeed = _realSecondtoGameTime;
     }
 
     /// <summary>
@@ -77,6 +84,34 @@ public class Timer : MonoBehaviour
         _realTimeElapsed += Time.deltaTime; //Incrementar el tiempo real
         UpdateGameTime(); //Actualizar el tiempo de juego
         DisplayTime(); //Mostrar el tiempo en pantalla
+
+        if (InputManager.Instance.ToggleFastTimeWasPressedThisFrame())
+        {
+            if (_isFastTime)
+            {
+                _isFastTime = false;
+                _realSecondtoGameTime = _normalTimeSpeed;
+
+                // Notificar al GameManager cuando desactivamos el tiempo rápido
+                GameManager.Instance.OnTimeSpeedChanged(false);
+            }
+            else
+            {
+                _isFastTime = true;
+                _realSecondtoGameTime = _fastTimeSpeed;
+
+                // Notificar al GameManager cuando activamos el tiempo rápido
+                GameManager.Instance.OnTimeSpeedChanged(true);
+
+                // Llamar directamente para asegurar que se limpian todos los avisos visuales
+                GardenManager gardenManager = FindObjectOfType<GardenManager>();
+                if (gardenManager != null)
+                {
+                    gardenManager.ClearAllWarningSprites();
+                }
+            }
+        }
+
     }
     #endregion
 
@@ -109,6 +144,12 @@ public class Timer : MonoBehaviour
     public void SetRealTime(float realTime)
     {
         _realTimeElapsed = realTime;
+    }
+
+    //método público para que GardenManager pueda saber si el tiempo rápido está activo
+    public bool IsFastTimeActive()
+    {
+        return _isFastTime;
     }
 
     #endregion
