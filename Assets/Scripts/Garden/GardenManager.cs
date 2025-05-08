@@ -163,6 +163,7 @@ public class GardenManager : MonoBehaviour
                 // Aviso Riego
                  if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath/2) && State > 0 && State < 4 )
                 {
+                    GardenData.ModifyWaterWarning(i, true);
                     WaterWarning(GardenData.GetPlant(i), i);
                     //GardenData.ModifyWaterWarning(i);
                 }
@@ -171,6 +172,7 @@ public class GardenManager : MonoBehaviour
                 if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4 )
                 {
                     Debug.Log("Aviso Muerte");
+                    GardenData.ModifyDeathWarning(i, true);
                     DeathWarning(GardenData.GetPlant(i), i);
                     
                 }
@@ -454,7 +456,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void WaterWarning(Plant plant, int ArrayIndex)
     {
-        if (!plant.WaterWarning && plant.State > 0) // Solo si no está muerto
+        if (plant.WaterWarning && plant.State > 0) // Solo si no está muerto
         {
             Transform Crop = SearchPlant(plant);
 
@@ -491,7 +493,7 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void DeathWarning(Plant plant, int ArrayIndex)
     {
-        if (!plant.DeathWarning)
+        if (plant.DeathWarning)
         {
             Debug.Log("DeathWarning");
             GardenData.ModifyState(ArrayIndex, plant.State);
@@ -520,6 +522,8 @@ public class GardenManager : MonoBehaviour
             Call.Growing(-1 * plant.State);
             Call.Warning("Desactivate");
             GardenData.ModifyState(ArrayIndex, -1 * plant.State);
+            GardenData.ModifyDeathWarning(ArrayIndex, false);
+            GardenData.ModifyWaterWarning(ArrayIndex, false);
         }
     }
 
