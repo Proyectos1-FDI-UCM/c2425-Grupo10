@@ -3897,7 +3897,8 @@ MonoBehaviour:
   CornDescription: {fileID: 1497654840}
   InventoryPanel: {fileID: 0}
   QuickAccessBar: {fileID: 0}
-  InventoryIcons: {fileID: 0}
+  InventoryIconsSeeds: []
+  InventoryIconsCrops: []
   TiredMessage: {fileID: 173215329}
   EnergySlider: {fileID: 126083248}
   Map: {fileID: 0}
@@ -23384,7 +23385,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3977405122320177929, guid: 8e5527cd96334bb4580bc88aea221677, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.3879728
+      value: -1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3977405122320177929, guid: 8e5527cd96334bb4580bc88aea221677, type: 3}
       propertyPath: m_LocalPosition.z
