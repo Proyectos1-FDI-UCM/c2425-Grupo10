@@ -2156,7 +2156,7 @@ public class UIManager : MonoBehaviour
 
             MoneyManager.AddMoney(totalGanado);
             InventoryManager.ModifyInventorySubstract(selectedItem, _amount);
-            GameManager.Instance.AddAmountSold(_selected, _amount);
+            GameManager.Instance.AddAmountSold(GetSelectedSeed(), _amount);
 
             _amount = 1;
 
