@@ -62,7 +62,7 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Carpeta con todas las posiciones en las que el jugador puede plantar
     /// </summary>
-    [SerializeField] private GameObject[] Prefabs = new GameObject[(int)Items.Count/2];
+    [SerializeField] private GameObject[] Prefabs = new GameObject[(int)Items.Count / 2];
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -108,7 +108,7 @@ public class GardenManager : MonoBehaviour
     /// Start is called on the frame when a script is enabled just before 
     /// any of the Update methods are called the first time.
     /// </summary>
-    void Awake() 
+    void Awake()
     {
         InitializeReferences();
         GameManager.Instance.InitializeGardenManager();
@@ -165,25 +165,10 @@ public class GardenManager : MonoBehaviour
                 // Si el tiempo rápido está activo, ignoramos la lógica de riego/muerte
                 if (!isFastTime)
                 {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                    GardenData.ModifyWaterWarning(i, true);
-                    WaterWarning(GardenData.GetPlant(i), i);
-                    //GardenData.ModifyWaterWarning(i);
-                }
-
-                 // Aviso Muerte
-                if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4 )
-                {
-                    Debug.Log("Aviso Muerte");
-                    GardenData.ModifyDeathWarning(i, true);
-                    DeathWarning(GardenData.GetPlant(i), i);
-                    
-                }
-=======
                     // Aviso Riego
                     if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath / 2) && State > 0 && State < 4)
                     {
+                        GardenData.ModifyWaterWarning(i, true);
                         WaterWarning(GardenData.GetPlant(i), i);
                         //GardenData.ModifyWaterWarning(i);
                     }
@@ -192,24 +177,9 @@ public class GardenManager : MonoBehaviour
                     if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4)
                     {
                         Debug.Log("Aviso Muerte");
-                        DeathWarning(GardenData.GetPlant(i), i);
->>>>>>> Stashed changes
-
-=======
-                    // Aviso Riego
-                    if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath / 2) && State > 0 && State < 4)
-                    {
-                        WaterWarning(GardenData.GetPlant(i), i);
-                        //GardenData.ModifyWaterWarning(i);
-                    }
-
-                    // Aviso Muerte
-                    if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4)
-                    {
-                        Debug.Log("Aviso Muerte");
+                        GardenData.ModifyDeathWarning(i, true);
                         DeathWarning(GardenData.GetPlant(i), i);
 
->>>>>>> Stashed changes
                     }
 
                     // Muerte
@@ -260,9 +230,9 @@ public class GardenManager : MonoBehaviour
 
     }
 
-        
 
-        #endregion
+
+    #endregion
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
@@ -484,9 +454,9 @@ public class GardenManager : MonoBehaviour
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
-            if (plant.Active) 
+            if (plant.Active)
             {
-                GameObject Prefab = Prefabs[(int)plant.Item%((int)Items.Count/2)];
+                GameObject Prefab = Prefabs[(int)plant.Item % ((int)Items.Count / 2)];
                 GameObject Crop = Instantiate(Prefab, plant.Position, Quaternion.identity);
                 Crop.transform.parent = PlantingSpots.transform.GetChild(plant.Child);
 
@@ -496,8 +466,8 @@ public class GardenManager : MonoBehaviour
 
                 CropSpriteEditor cropSpriteEditor = Crop.GetComponent<CropSpriteEditor>();
 
-                if (cropSpriteEditor != null) 
-                { 
+                if (cropSpriteEditor != null)
+                {
                     cropSpriteEditor.Growing(plant.State);
                 }
             }
@@ -542,7 +512,7 @@ public class GardenManager : MonoBehaviour
         if (Crop != null)
         {
             CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
-            Call.Growing(plant.State+ 1);
+            Call.Growing(plant.State + 1);
 
         }
     }
@@ -581,8 +551,8 @@ public class GardenManager : MonoBehaviour
             Call.Growing(-1 * plant.State);
             Call.Warning("Desactivate");
             GardenData.ModifyState(ArrayIndex, -1 * plant.State);
-            GardenData.ModifyDeathWarning(ArrayIndex, false);
-            GardenData.ModifyWaterWarning(ArrayIndex, false);
+            GardenData.ModifyDeathWarning(ArrayIndex, false); GardenData.ModifyWaterWarning(ArrayIndex, false);
+
         }
     }
 
@@ -610,8 +580,8 @@ public class GardenManager : MonoBehaviour
         Transform transform = null;
         if (PlantingSpots.transform.childCount >= plant.Child)
         {
-            if(PlantingSpots.transform.GetChild(plant.Child).transform.childCount > 0) 
-                {
+            if (PlantingSpots.transform.GetChild(plant.Child).transform.childCount > 0)
+            {
                 transform = PlantingSpots.transform.GetChild(plant.Child).transform.GetChild(0);
             }
         }
@@ -619,7 +589,7 @@ public class GardenManager : MonoBehaviour
 
     }
 
-   
+
     public void UpdateAllPlantsWater()
     {
         Garden = GardenData.GetGarden();
@@ -652,7 +622,7 @@ public class GardenManager : MonoBehaviour
         }
     }
 
-    
+
     public void HandleTimeSpeedChange(bool isFastMode)
     {
         Garden = GardenData.GetGarden();
