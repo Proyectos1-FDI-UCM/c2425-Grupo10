@@ -88,12 +88,12 @@ public class ShovelManager : MonoBehaviour
     /// <summary>
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
-    private Transform[] Pots;
+    private Transform[] _pots;
 
     ///<summary>
     ///Referencia al CropSpriteEditor
     /// </summary>
-    private CropSpriteEditor cropSpriteEditor;
+    private CropSpriteEditor _cropSpriteEditor;
 
     #endregion
 
@@ -112,10 +112,10 @@ public class ShovelManager : MonoBehaviour
     {
         TutorialManager = FindObjectOfType<TutorialManager>();
         AudioSource = GetComponent<AudioSource>();
-        Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        _pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < GardenManager.GetGardenSize(); i++)
         {
-            Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+            _pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
     }
 
@@ -187,7 +187,7 @@ public class ShovelManager : MonoBehaviour
     /// </summary>
     public void WeedingPlant()
     {
-        Transform Pot = FindNearestPot(transform, Pots);
+        Transform Pot = FindNearestPot(transform, _pots);
 
         Debug.Log("FindNearestPot: " + Pot);
         //Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);

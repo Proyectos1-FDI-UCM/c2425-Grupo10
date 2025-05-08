@@ -71,12 +71,12 @@ public class GardenManager : MonoBehaviour
     //// Tiempo desde el último riego
     //private float _timeSinceLastWatering; 
 
-    Transform[] Plants;
+    Transform[] _plants;
 
     /// <summary>
     /// Array con los tamaños de huerto
     /// </summary>
-    private int[] GardenSize = { 6, 12, 18, 24, 36 };
+    private int[] _gardenSize = { 6, 12, 18, 24, 36 };
 
     /// <summary>
     /// Probabilidad de que aparezca mala hierbas
@@ -86,18 +86,16 @@ public class GardenManager : MonoBehaviour
     /// <summary>
     /// Tutorial Manager
     /// </summary>
-    private TutorialManager TutorialManager;
+    private TutorialManager _tutorialManager;
 
     /// <summary>
     /// Activa una mala hierba para el tutorial
     /// </summary>
-    private bool WeedTutorial = false;
+    private bool _weedTutorial = false;
 
-    private bool doneWeed = false;
-    private bool donePlant = false;
-    private bool done = false;
-
-    [SerializeField] Plant[] Garden;
+    private bool _doneWeed = false;
+    private bool _donePlant = false;
+    private bool _done = false;
 
     #endregion
 
@@ -115,13 +113,7 @@ public class GardenManager : MonoBehaviour
         UpgradeLevel = GameManager.Instance.GetGardenUpgrades();
         SetUpgrade(UpgradeLevel);
 
-        TutorialManager = FindObjectOfType<TutorialManager>();
-    }
-
-    private void Start()
-    {
-        //InitChangeScene();
-        Garden = GardenData.GetGarden();
+        _tutorialManager = FindObjectOfType<TutorialManager>();
     }
 
     /// <summary>
@@ -129,14 +121,13 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        Garden = GardenData.GetGarden();
         bool isFastTime = gameTimer.IsFastTimeActive(); // Obtener el estado del tiempo rápido
         GardenData.SetFastTimeMode(isFastTime);
 
         // Si estamos en tiempo rápido, verificamos todos los avisos al inicio de cada frame
         if (isFastTime)
         {
-            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
             {
                 Plant plantCheck = GardenData.GetPlant(i);
                 if (plantCheck.Active)
@@ -181,9 +172,8 @@ public class GardenManager : MonoBehaviour
             }
         }
 
-        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
         {
-            //Debug.Log(GardenData.GetPlant(i).Item);
 
             Plant Plant = GardenData.GetPlant(i);
 
@@ -291,7 +281,7 @@ public class GardenManager : MonoBehaviour
     public void Water(Transform transform)
     {
         int i = 0;
-        while (i < GardenSize[UpgradeLevel] && GardenData.GetPlant(i).Position != transform.position)
+        while (i < _gardenSize[UpgradeLevel] && GardenData.GetPlant(i).Position != transform.position)
         {
             i++;
         }
@@ -311,7 +301,7 @@ public class GardenManager : MonoBehaviour
     public void Harvest(Transform transform)
     {
         int i = 0;
-        while (i <= GardenSize[UpgradeLevel] && (!GardenData.GetPlant(i).Active || GardenData.GetPlant(i).Position != transform.position))
+        while (i <= _gardenSize[UpgradeLevel] && (!GardenData.GetPlant(i).Active || GardenData.GetPlant(i).Position != transform.position))
         {
             i++;
         }
@@ -329,10 +319,10 @@ public class GardenManager : MonoBehaviour
                     CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
 
                     int random;
-                    if (!WeedTutorial)
+                    if (!_weedTutorial)
                     {
                         random = 0;
-                        WeedTutorial = true;
+                        _weedTutorial = true;
                     }
                     else random = UnityEngine.Random.Range(0, _maxProb);
 
@@ -342,11 +332,11 @@ public class GardenManager : MonoBehaviour
                         cropSpriteEditor.Warning("Desactivate");
                         cropSpriteEditor.Growing(-6);
 
-                        if (TutorialManager.GetTutorialPhase() == 19 && !done)
+                        if (_tutorialManager.GetTutorialPhase() == 19 && !_done)
                         {
-                            TutorialManager.CheckBox(0);
-                            TutorialManager.SubTask();
-                            done = true;
+                            _tutorialManager.CheckBox(0);
+                            _tutorialManager.SubTask();
+                            _done = true;
                         }
                     }
                     else
@@ -366,7 +356,7 @@ public class GardenManager : MonoBehaviour
     public void Weed(Transform transform)
     {
         int i = 0;
-        while (i < GardenSize[UpgradeLevel] && (!GardenData.GetPlant(i).Active || GardenData.GetPlant(i).Position != transform.position))
+        while (i < _gardenSize[UpgradeLevel] && (!GardenData.GetPlant(i).Active || GardenData.GetPlant(i).Position != transform.position))
         {
             i++;
         }
@@ -381,34 +371,38 @@ public class GardenManager : MonoBehaviour
                 GardenData.Deactivate(i);
                 cropSpriteEditor.Destroy();
 
-                if (TutorialManager.GetTutorialPhase() == 19 && Plant.State == -6 && !doneWeed)
+                if (_tutorialManager.GetTutorialPhase() == 19 && Plant.State == -6 && !_doneWeed)
                 {
-                    TutorialManager.CheckBox(2);
-                    TutorialManager.SubTask();
-                    doneWeed = true;
+                    _tutorialManager.CheckBox(2);
+                    _tutorialManager.SubTask();
+                    _doneWeed = true;
                 }
 
-                else if (TutorialManager.GetTutorialPhase() == 19 && Plant.State > -6 && !donePlant)
+                else if (_tutorialManager.GetTutorialPhase() == 19 && Plant.State > -6 && !_donePlant)
                 {
-                    TutorialManager.CheckBox(1);
-                    TutorialManager.SubTask();
-                    donePlant = true;
+                    _tutorialManager.CheckBox(1);
+                    _tutorialManager.SubTask();
+                    _donePlant = true;
                 }
             }
         }
     }
 
+    /// <summary>
+    /// Establece las mejoras del huerto
+    /// </summary>
+    /// <param name="Level"></param>
     public void SetUpgrade(int Level)
     {
         if (Level == 0)
         {
             GardenLevel0.SetActive(true);
 
-            Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            _plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
             {
-                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
-                Plants[i].gameObject.SetActive(true);
+                _plants[i] = PlantingSpots.transform.GetChild(i).transform;
+                _plants[i].gameObject.SetActive(true);
             }
 
             GardenLevel1.SetActive(false);
@@ -421,11 +415,11 @@ public class GardenManager : MonoBehaviour
         {
             GardenLevel1.SetActive(true);
 
-            Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            _plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
             {
-                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
-                Plants[i].gameObject.SetActive(true);
+                _plants[i] = PlantingSpots.transform.GetChild(i).transform;
+                _plants[i].gameObject.SetActive(true);
             }
 
             GardenLevel0.SetActive(false);
@@ -438,11 +432,11 @@ public class GardenManager : MonoBehaviour
         {
             GardenLevel2.SetActive(true);
 
-            Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            _plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
             {
-                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
-                Plants[i].gameObject.SetActive(true);
+                _plants[i] = PlantingSpots.transform.GetChild(i).transform;
+                _plants[i].gameObject.SetActive(true);
             }
 
             GardenLevel0.SetActive(false);
@@ -456,11 +450,11 @@ public class GardenManager : MonoBehaviour
         {
             GardenLevel3.SetActive(true);
 
-            Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            _plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
             {
-                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
-                Plants[i].gameObject.SetActive(true);
+                _plants[i] = PlantingSpots.transform.GetChild(i).transform;
+                _plants[i].gameObject.SetActive(true);
             }
 
             GardenLevel0.SetActive(false);
@@ -474,11 +468,11 @@ public class GardenManager : MonoBehaviour
         {
             GardenLevel4.SetActive(true);
 
-            Plants = new Transform[PlantingSpots.transform.childCount];
-            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            _plants = new Transform[PlantingSpots.transform.childCount];
+            for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
             {
-                Plants[i] = PlantingSpots.transform.GetChild(i).transform;
-                Plants[i].gameObject.SetActive(true);
+                _plants[i] = PlantingSpots.transform.GetChild(i).transform;
+                _plants[i].gameObject.SetActive(true);
             }
 
             GardenLevel0.SetActive(false);
@@ -488,9 +482,14 @@ public class GardenManager : MonoBehaviour
 
         }
     }
+
+    /// <summary>
+    /// Devuelve el tamaño del huerto
+    /// </summary>
+    /// <returns></returns>
     public int GetGardenSize()
     {
-        return GardenSize[UpgradeLevel];
+        return _gardenSize[UpgradeLevel];
     }
 
     /// <summary>
@@ -499,7 +498,7 @@ public class GardenManager : MonoBehaviour
     public void InitChangeScene()
     {
 
-        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
             if (plant.Active)
@@ -523,10 +522,6 @@ public class GardenManager : MonoBehaviour
         }
         Debug.Log("ChangeScene");
     }
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
 
     /// <summary>
     /// Método para avisar del riego
@@ -626,7 +621,6 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void Death(Plant plant, int ArrayIndex)
     {
-        Debug.Log("Death");
         Transform Crop = SearchPlant(plant);
 
         if (Crop != null)
@@ -676,10 +670,8 @@ public class GardenManager : MonoBehaviour
 
     public void UpdateAllPlantsWater()
     {
-        Garden = GardenData.GetGarden();
-
         // Actualizar todas las plantas activas
-        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
 
@@ -709,10 +701,9 @@ public class GardenManager : MonoBehaviour
 
     public void HandleTimeSpeedChange(bool isFastMode)
     {
-        Garden = GardenData.GetGarden();
         GardenData.SetFastTimeMode(isFastMode);
 
-        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
 
@@ -747,9 +738,8 @@ public class GardenManager : MonoBehaviour
     // Método para eliminar todos los avisos visuales de plantas
     public void ClearAllWarningSprites()
     {
-        Garden = GardenData.GetGarden(); // Asegurarse de tener datos actualizados
 
-        for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+        for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
 
@@ -780,6 +770,10 @@ public class GardenManager : MonoBehaviour
 
         Debug.Log("Todos los avisos visuales de plantas han sido limpiados");
     }
+    #endregion
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
 
     ///<summary>
     ///Mertodo para inicializar el huerto

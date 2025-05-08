@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1661470768852779405}
   - component: {fileID: 5969999307800299795}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Warning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 4810632415752203054}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.046, y: 0.059, z: 0}
+  m_LocalPosition: {x: 0.1, y: 0.059, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4357398492809672153}
   - component: {fileID: 4887488748166579377}
   - component: {fileID: 7271212895428673018}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Crop
   m_TagString: Crop
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ MonoBehaviour:
   - {fileID: 1727801593, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
   - {fileID: 176119741, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
   - {fileID: -143397427, guid: 38940d814ec25d14996dd276c7e64fe3, type: 3}
-  WarningWater: {fileID: 1074837354, guid: fd4bd83c3b54bfe459e1dc4580fc4d98, type: 3}
+  WarningWater: {fileID: 664189351, guid: dcd8d1719b63b954f80de49df4a9c15f, type: 3}
   WarningDeath: {fileID: -805847104, guid: ae84c9cb5ed80f84a96900b3e92c7836, type: 3}
   WarningCollect: {fileID: 1417351070, guid: a8353467bd75afa4ea7704181e471e09, type: 3}
   item: 4
@@ -186,8 +186,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -699558223
-  m_SortingLayer: 9
+  m_SortingLayerID: -728906585
+  m_SortingLayer: 10
   m_SortingOrder: 0
   m_Sprite: {fileID: -48896637, guid: 6d6ed0ada35e1874e8613d8e5bbfa3d7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

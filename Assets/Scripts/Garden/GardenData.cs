@@ -71,9 +71,9 @@ public static class GardenData
 {
     private static bool _isFastTimeMode = false;
 
-    private static int GardenMax = 36; // Se cambia con cada mejora
-    private static Plant[] Garden = new Plant[GardenMax];
-    private static int ActivePlants = 0;
+    private static int _gardenMax = 36; // Se cambia con cada mejora
+    private static Plant[] _garden = new Plant[_gardenMax];
+    private static int _activePlants = 0;
 
     private static CropVariables[] CropsData =
     {
@@ -83,35 +83,48 @@ public static class GardenData
     new CropVariables { MaxWaterTime = 0.5f, MaxGrowthTime = 1.5f, MaxDeathTime = 1.3f } //fresa
     };
 
+    /// <summary>
+    /// Devuelve todos los datos del garden (Array de Plants)
+    /// </summary>
     public static Plant[] GetGarden()
     {
-        Plant[] garden = new Plant[GardenMax];
+        Plant[] garden = new Plant[_gardenMax];
         for (int i = 0; i < garden.Length; i++)
         {
             //Garden[i].Active = false;
-            garden[i] = Garden[i];
+            garden[i] = _garden[i];
         }
         return garden;
     }
+
+    /// <summary>
+    /// Inicianiza el Garden
+    /// </summary>
     public static void SetGarden(Plant[] garden)
     {
         for (int i = 0; i < garden.Length; i++)
         {
-            Garden[i] = garden[i];
+            _garden[i] = garden[i];
         }
     }
 
+    /// <summary>
+    /// Resetea el Garden todas las plantas desactivadas
+    /// </summary>
     public static void ResetGarden()
     {
-        for (int i = 0; i < Garden.Length; i++)
+        for (int i = 0; i < _garden.Length; i++)
         {
-            Garden[i].Active = false;
+            _garden[i].Active = false;
         }
     }
 
+    /// <summary>
+    /// Al cargar partida, establece las plantas activas
+    /// </summary>
     public static void SetActivePlants(int activePlants)
     {
-        ActivePlants = activePlants;
+        _activePlants = activePlants;
     }
 
     /// <summary>
@@ -119,14 +132,14 @@ public static class GardenData
     /// </summary>
     public static int GetActivePlants()
     {
-        return ActivePlants;
+        return _activePlants;
     }
 
     static void Main()
     {
-        for (int i = 0; i < GardenMax; i++)
+        for (int i = 0; i < _gardenMax; i++)
         {
-            if (Garden[i].Active == null) Garden[i].Active = false;
+            if (_garden[i].Active == null) _garden[i].Active = false;
         }
 
     }
@@ -138,9 +151,9 @@ public static class GardenData
     {
         int i = 0;
         bool PlantActive = true;
-        while (i < GardenMax && PlantActive)
+        while (i < _gardenMax && PlantActive)
         {
-            if (Garden[i].Active)
+            if (_garden[i].Active)
             {
                 i++;
             }
@@ -151,18 +164,18 @@ public static class GardenData
         }
         if (!PlantActive) { 
 
-            Garden[i].Position = transform.position;
-            Garden[i].Active = true;
-            Garden[i].Item = (Items)item;
-            Garden[i].State = 0;
-            Garden[i].WaterWarning = false;
-            Garden[i].DeathWarning = false;
-            Garden[i].HarvestWarning = false;
-            Garden[i].Child = transform.GetSiblingIndex(); // Guarda el index de la planta
-            Garden[i].GrowthTimer = 0;
+            _garden[i].Position = transform.position;
+            _garden[i].Active = true;
+            _garden[i].Item = (Items)item;
+            _garden[i].State = 0;
+            _garden[i].WaterWarning = false;
+            _garden[i].DeathWarning = false;
+            _garden[i].HarvestWarning = false;
+            _garden[i].Child = transform.GetSiblingIndex(); // Guarda el index de la planta
+            _garden[i].GrowthTimer = 0;
 
-            ActivePlants++;
-            Debug.Log($"Planta creada Array: {i} y Pot: {Garden[i].Child}, Type: {Garden[i].Item.ToString()}");
+            _activePlants++;
+            Debug.Log($"Planta creada Array: {i} y Pot: {_garden[i].Child}, Type: {_garden[i].Item.ToString()}");
         }
     }
 
@@ -172,24 +185,24 @@ public static class GardenData
     public static void Deactivate(Vector3 position)
     {
         int i = 0;
-        while (i < ActivePlants && Garden[i].Position != position)
+        while (i < _activePlants && _garden[i].Position != position)
         {
             i++;
         }
 
-        if (Garden[i].Position == position)
+        if (_garden[i].Position == position)
         {
-            Garden[i].Position = Vector3.zero;
-            Garden[i].Active = false;
-            Garden[i].State = 0;
-            Garden[i].WaterTimer = 0;
-            Garden[i].GrowthTimer = 0;
-            Garden[i].WaterWarning = false;
-            Garden[i].DeathWarning = false;
-            Garden[i].HarvestWarning = false;
-            Garden[i].Child =
+            _garden[i].Position = Vector3.zero;
+            _garden[i].Active = false;
+            _garden[i].State = 0;
+            _garden[i].WaterTimer = 0;
+            _garden[i].GrowthTimer = 0;
+            _garden[i].WaterWarning = false;
+            _garden[i].DeathWarning = false;
+            _garden[i].HarvestWarning = false;
+            _garden[i].Child =
 
-            ActivePlants--;
+            _activePlants--;
         }
         else Debug.Log("No se elimina la planta");
     }
@@ -200,17 +213,17 @@ public static class GardenData
     public static void Deactivate(int i)
     {
 
-            Garden[i].Position = Vector3.zero;
-            Garden[i].Active = false;
-            Garden[i].State = 0;
-            Garden[i].WaterTimer = 0;
-            Garden[i].GrowthTimer = 0;
-            Garden[i].WaterWarning = false;
-            Garden[i].DeathWarning = false;
-            Garden[i].HarvestWarning = false;
-            Garden[i].Child =
+            _garden[i].Position = Vector3.zero;
+            _garden[i].Active = false;
+            _garden[i].State = 0;
+            _garden[i].WaterTimer = 0;
+            _garden[i].GrowthTimer = 0;
+            _garden[i].WaterWarning = false;
+            _garden[i].DeathWarning = false;
+            _garden[i].HarvestWarning = false;
+            _garden[i].Child =
 
-            ActivePlants--;
+            _activePlants--;
 
     }
 
@@ -219,7 +232,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyWaterTimer(int i, float value)
     {
-        Garden[i].WaterTimer = value;
+        _garden[i].WaterTimer = value;
     }
 
     /// <summary>
@@ -227,8 +240,8 @@ public static class GardenData
     /// </summary>
     public static void ModifyGrowthTimer(int i, float value)
     {
-        Debug.Log($"GrowthTimer: {Garden[i].GrowthTimer}");
-        Garden[i].GrowthTimer = value;
+        Debug.Log($"GrowthTimer: {_garden[i].GrowthTimer}");
+        _garden[i].GrowthTimer = value;
     }
 
     /// <summary>
@@ -236,7 +249,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyState(int i, int State)
     {
-        Garden[i].State = State;
+        _garden[i].State = State;
     }
 
     /// <summary>
@@ -244,11 +257,11 @@ public static class GardenData
     /// </summary>
     public static void ModifyWaterWarning(int i, bool b)
     {
-        Garden[i].WaterWarning = b;
+        _garden[i].WaterWarning = b;
         if (b == true)
         {
-            Garden[i].DeathWarning = false;
-            Garden[i].HarvestWarning = false;
+            _garden[i].DeathWarning = false;
+            _garden[i].HarvestWarning = false;
         }
     }
 
@@ -257,11 +270,11 @@ public static class GardenData
     /// </summary>
     public static void ModifyDeathWarning(int i, bool b)
     {
-        Garden[i].DeathWarning = b;
+        _garden[i].DeathWarning = b;
         if (b == true)
         {
-            Garden[i].WaterWarning = false;
-            Garden[i].HarvestWarning = false;
+            _garden[i].WaterWarning = false;
+            _garden[i].HarvestWarning = false;
         }
     }
 
@@ -270,11 +283,11 @@ public static class GardenData
     /// </summary>
     public static void ModifyHarvestWarning(int i, bool b)
     {
-        Garden[i].HarvestWarning = b;
+        _garden[i].HarvestWarning = b;
         if (b == true)
         {
-            Garden[i].DeathWarning = false;
-            Garden[i].WaterWarning = false;
+            _garden[i].DeathWarning = false;
+            _garden[i].WaterWarning = false;
         }
     }
 
@@ -283,7 +296,7 @@ public static class GardenData
     /// </summary>
     public static Plant GetPlant(int i)
     {
-        if (i < Garden.Length) return Garden[i];
+        if (i < _garden.Length) return _garden[i];
         else return new Plant();
     }
 
@@ -295,13 +308,13 @@ public static class GardenData
         Plant Plant = new Plant();
         bool Found = false;
         int i = 0;
-        while (i < Garden.Length && !Found)
+        while (i < _garden.Length && !Found)
         {
-            if (Garden[i].Child == Child) Found = true;
+            if (_garden[i].Child == Child) Found = true;
             i++;
         }
-        if (Found) Plant = Garden[i];
-        return Garden[i];
+        if (Found) Plant = _garden[i];
+        return _garden[i];
     }
 
     /// <summary>
@@ -312,21 +325,28 @@ public static class GardenData
         Plant Plant = new Plant();
         bool Found = false;
         int i = 0;
-        while (i < Garden.Length && !Found)
+        while (i < _garden.Length && !Found)
         {
-            if (Garden[i].Position == transform.position) Found = true;
+            if (_garden[i].Position == transform.position) Found = true;
            i++;
         }
-        if (i < Garden.Length && Found) Plant = Garden[i];
+        if (i < _garden.Length && Found) Plant = _garden[i];
         return Plant;
     }
 
+    /// <summary>
+    /// Devuelve el índice de una planta concreta en el array garden
+    /// </summary>
     public static int IndexGarden(Plant plant)
     {
-        int Index = System.Array.IndexOf(Garden, plant);
+        int Index = System.Array.IndexOf(_garden, plant);
         return Index;
     }
 
+    /// <summary>
+    /// Activa / desactiva el cheat del tiempo
+    /// </summary>
+    /// <param name="isFastTime"></param>
     public static void SetFastTimeMode(bool isFastTime)
     {
         _isFastTimeMode = isFastTime;

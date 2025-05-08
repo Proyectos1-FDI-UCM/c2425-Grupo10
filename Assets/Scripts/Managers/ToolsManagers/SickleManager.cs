@@ -99,12 +99,12 @@ public class SickleManager : MonoBehaviour
     /// <summary>
     /// Array con el transform de todas los lugares disponibles para plantar
     /// </summary>
-    private Transform[] Pots;
+    private Transform[] _pots;
 
     ///<summary>
     ///Referencia al CropSpriteEditor
     /// </summary>
-    private CropSpriteEditor cropSpriteEditor;
+    private CropSpriteEditor _cropSpriteEditor;
 
     ///<summary>
     ///Planta para recolectar
@@ -129,10 +129,10 @@ public class SickleManager : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         TutorialManager = FindObjectOfType<TutorialManager>();
-        Pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        _pots = new Transform[GardenManager.GetGardenSize()]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
         for (int i = 0; i < GardenManager.GetGardenSize(); i++)
         {
-            Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+            _pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
     }
 
@@ -141,45 +141,41 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        _plant = CheckCollison();
 
-            _plant = CheckCollison();
+        // Verifica si se ha presionado la tecla para usar la hoz.
+        if (InputManager.Instance.UseSickleWasPressedThisFrame())
+        {
 
-            // Verifica si se ha presionado la tecla para usar la hoz.
-            if (InputManager.Instance.UseSickleWasPressedThisFrame())
+            if (TutorialManager.GetTutorialPhase() >= 19)
+            {
+                Harvest();
+            }
+            else
             {
 
-                if (TutorialManager.GetTutorialPhase() >= 19)
-                {
-                    Harvest();
-                }
-                else
-                {
+                UIManager.ShowNotification("Avanza en el tutorial\npara usar", "NoCounter", 4, "Tool");
+                Invoke("NoWarning", 1f);
 
-                    UIManager.ShowNotification("Avanza en el tutorial\npara usar", "NoCounter", 4, "Tool");
-                    Invoke("NoWarning", 1f);
-
-                }
+            }
         }
 
-            if (!Build)
-
-                if (_isInCropArea && UIManager.GetInventoryVisible() == false)
-                {
-                    if (_plant.State >= 5)
-                    {
-                        Press.SetActive(true);
-                        TextPress.text = "Presiona E \npara recolectar";
-                    }
-                }
+        if (_isInCropArea && UIManager.GetInventoryVisible() == false)
+        {
+            if (_plant.State >= 5)
+            {
+                Press.SetActive(true);
+                TextPress.text = "Presiona E \npara recolectar";
+            }
+        }
 
 
-                else if (!_isInCropArea || UIManager.GetInventoryVisible() == true)
-                {
+        else if (!_isInCropArea || UIManager.GetInventoryVisible() == true)
+        {
 
-                    Press.SetActive(false);
+            Press.SetActive(false);
 
-                }
+        }
         
 
     }
@@ -217,7 +213,7 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     public void HarvestPlant()
     {
-        Transform Pot = FindNearestPot(transform, Pots);
+        Transform Pot = FindNearestPot(transform, _pots);
   
         Debug.Log("FindNearestPot: " + Pot);
         //Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);
@@ -296,7 +292,7 @@ public class SickleManager : MonoBehaviour
     private Plant CheckCollison()
     {
         Plant plant = new Plant();
-        Transform pot = FindNearestPot(transform, Pots);
+        Transform pot = FindNearestPot(transform, _pots);
         if (pot != null && pot.GetChild(0) != null) 
         {
             Transform crop = pot.GetChild(0);
@@ -319,7 +315,7 @@ public class SickleManager : MonoBehaviour
         if (collision.GetComponent<CropSpriteEditor>())
         {
             _isInCropArea = true;
-            cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
+            _cropSpriteEditor = collision.GetComponent<CropSpriteEditor>();
         }
 
     }
@@ -336,7 +332,7 @@ public class SickleManager : MonoBehaviour
 
             _isInCropArea = false;
 
-            cropSpriteEditor = null;
+            _cropSpriteEditor = null;
 
         }
 
