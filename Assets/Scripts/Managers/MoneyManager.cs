@@ -12,27 +12,13 @@ using UnityEngine.SceneManagement;
 
 public class MoneyManager : MonoBehaviour
 {
-    /// <summary>
-    /// Instancia única de MoneyManager (patrón Singleton).
-    /// Permite acceder a MoneyManager desde cualquier parte del código.
-    /// </summary>
-    public static MoneyManager Instance;
+    // ---- ATRIBUTOS DEL INSPECTOR ----
+    #region Atributos del Inspector (serialized fields)
 
     /// <summary>
     /// Cantidad total de dinero del jugador.
     /// </summary>
     [SerializeField] private int MoneyCount;
-
-    /// <summary>
-    /// Nivel actual de mejora de la regadera.
-    /// </summary>
-    private int WateringCanLevel = 0;
-
-    /// <summary>
-    /// Nivel actual de mejora del huerto.
-    /// </summary>
-    private int GardenLevel = 0;
-
 
     [Header("Precios de Semillas")]
     /// <summary>
@@ -55,7 +41,6 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int StrawberrySeedPrice;
 
-
     [Header("Precios de Venta de Plantas")]
     /// <summary>
     /// Precio de venta de la planta de maíz.
@@ -77,7 +62,6 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int StrawberryPlantPrice;
 
-
     [Header("Precios de Mejora de Regadera")]
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
@@ -96,11 +80,45 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private UIManager UIManager;
 
+    #endregion
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados
+
+    /// <summary>
+    /// Instancia única de MoneyManager
+    /// </summary>
+    private static MoneyManager _instance;
+
+        /// <summary>
+        /// Nivel actual de mejora de la regadera.
+        /// </summary>
+    private int _wateringCanLevel = 0;
+
+    /// <summary>
+    /// Nivel actual de mejora del huerto.
+    /// </summary>
+    private int _gardenLevel = 0;
+
+    #endregion
+
+    /// <summary>
+    /// Se llama al iniciar el script. Configura la instancia singleton
+    /// y busca el GameManager en la escena.
+    /// </summary>
+
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
+    #region Métodos de MonoBehaviour
+    protected void Awake()
+    {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+    }
     private void Start()
     {
         GameManager.Instance.InitializeMoneyManager();
     }
-
 
     /// <summary>
     /// Método que se ejecuta cuando se carga una nueva escena.
@@ -114,8 +132,42 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
-    // ---- MÉTODOS PARA VENDER CULTIVOS ----
+    #endregion
 
+    // ---- MÉTODOS PÚBLICOS ----
+    #region Métodos públicos
+    
+    /// <summary>
+    /// Propiedad para acceder a la instancia del LevelManager.
+    /// </summary>
+    public static MoneyManager Instance
+    {
+        get
+        {
+            Debug.Assert(_instance != null);
+            return _instance;
+        }
+    }
+
+    /// <summary>
+    /// Inicializar referencia UIManager
+    /// </summary>
+    public void InitializeUIManager()
+    {
+        UIManager = FindObjectOfType<UIManager>();
+    }
+
+    /// <summary>
+    /// Establecer dinero inicial
+    /// </summary>
+    /// <param name="amount"></param>
+    public void InitialMoney(int amount)
+    {
+        MoneyCount = amount;
+    }
+
+    // ---- MÉTODOS PARA VENDER CULTIVOS ----
+    #region Métodos vender
     /// <summary>
     /// Vende una cantidad específica de lechugas.
     /// </summary>
@@ -150,18 +202,16 @@ public class MoneyManager : MonoBehaviour
         }
     }
 
-    public void InitializeUIManager()
-    {
-        UIManager = FindObjectOfType<UIManager>();
-    }
-
-    public void InitialMoney(int amount)
-    {
-        MoneyCount = amount;
-    }
+    #endregion
 
     // ---- MÉTODOS PARA COMPRAR SEMILLAS ----
-    // Método genérico para comprar semillas
+    #region Métodos comprar
+    /// <summary>
+    /// Método genérico para comprar semillas
+    /// </summary>
+    /// <param name="item"></param>
+    /// <param name="price"></param>
+    /// <returns></returns>
     public bool BuySeed(Items item, int price)
     {
         // Verifica si el jugador tiene suficiente dinero
@@ -187,16 +237,31 @@ public class MoneyManager : MonoBehaviour
             return false;
         }
     }
-
+    /// <summary>
+    /// Método específico semilla maíz
+    /// </summary>
     public void BuyCornSeed() => BuySeed(Items.CornSeed, CornSeedPrice);
+
+    /// <summary>
+    /// Método específico semilla zanahoria
+    /// </summary>
     public void BuyCarrotSeed() => BuySeed(Items.CarrotSeed, CarrotSeedPrice);
+
+    /// <summary>
+    /// Método específico semilla lechuga
+    /// </summary>
     public void BuyLettuceSeed() => BuySeed(Items.LettuceSeed, LettuceSeedPrice);
+
+    /// <summary>
+    /// Método específico semilla fresa
+    /// </summary>
     public void BuyStrawberrySeed() => BuySeed(Items.StrawberrySeed, StrawberrySeedPrice);
 
-
+    #endregion
 
 
     // ---- MÉTODOS PARA MODIFICAR EL DINERO ----
+    #region Métodos Dinero
 
     /// <summary>
     /// Agrega una cantidad de dinero al jugador.
@@ -242,20 +307,27 @@ public class MoneyManager : MonoBehaviour
     {
         MoneyCount = money;
     }
+    #endregion
 
+    // ---- MÉTODOS PARA LAS MEJORARS ----
+    #region Mejoras
 
-    // ---- MÉTODOS PARA MEJORAR LA REGADERA ----
+    // ---- REGADERA ----
 
+    /// <summary>
+    /// Método mejoras regadera
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeWateringCan()
     {
-        if (WateringCanLevel < WateringCanUpgradePrices.Length)
+        if (_wateringCanLevel < WateringCanUpgradePrices.Length)
         {
-            int Price = WateringCanUpgradePrices[WateringCanLevel];
+            int Price = WateringCanUpgradePrices[_wateringCanLevel];
 
             if (DeductMoney(Price))
             {
-                WateringCanLevel++;
-                Debug.Log("Regadera mejorada a nivel " + WateringCanLevel);
+                _wateringCanLevel++;
+                Debug.Log("Regadera mejorada a nivel " + _wateringCanLevel);
                 UIManager.ShowMoneyUI();
                 return true;
             }
@@ -267,22 +339,38 @@ public class MoneyManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Método específico mejora regadera nivel 1
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeWateringCanLevel1() => UpgradeWateringCan();
+    /// <summary>
+    /// Método específico mejora regadera nivel 2
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeWateringCanLevel2() => UpgradeWateringCan();
+    /// <summary>
+    /// Método específico mejora regadera nivel 3
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeWateringCanLevel3() => UpgradeWateringCan();
 
-    // ---- MÉTODOS PARA MEJORAR EL INVENTARIO ----
+    // ---- INVENTARIO ----
 
+    /// <summary>
+    /// Método mejoras huerto
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeGarden()
     {
-        if (GardenLevel < GardenUpgradePrices.Length)
+        if (_gardenLevel < GardenUpgradePrices.Length)
         {
-            int Price = GardenUpgradePrices[GardenLevel];
+            int Price = GardenUpgradePrices[_gardenLevel];
 
             if (DeductMoney(Price))
             {
-                GardenLevel++;
-                Debug.Log("Huerto mejorado a nivel " + GardenLevel);
+                _gardenLevel++;
+                Debug.Log("Huerto mejorado a nivel " + _gardenLevel);
                 UIManager.ShowMoneyUI();
                 return true;
             }
@@ -294,10 +382,29 @@ public class MoneyManager : MonoBehaviour
         return false;
     }
 
+    /// <summary>
+    /// Método mejoras específicas huerto nivel 1
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeGardenLevel1() => UpgradeGarden();
+    /// <summary>
+    /// Método mejoras específicas huerto nivel 2
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeGardenLevel2() => UpgradeGarden();
+    /// <summary>
+    /// Método mejoras específicas huerto nivel 3
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeGardenLevel3() => UpgradeGarden();
+    /// <summary>
+    /// Método mejoras específicas huerto nivel 4
+    /// </summary>
+    /// <returns></returns>
     public bool UpgradeGardenLevel4() => UpgradeGarden();
 
+    #endregion
+    
+    #endregion // Métodos públicos
 }
 

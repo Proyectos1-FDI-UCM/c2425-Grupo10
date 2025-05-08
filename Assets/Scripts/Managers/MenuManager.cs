@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Maneja el menú, todos los botones, reinicio de partida...
+// Javier Librada
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -13,8 +13,7 @@ using UnityEngine.InputSystem;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+///  Maneja el menú, todos los botones, reinicio de partida...
 /// </summary>
 public class MenuManager : MonoBehaviour
 {
@@ -31,23 +30,55 @@ public class MenuManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Button NewGameButton;
 
+    /// <summary>
+    /// Botones de la interfaz
+    /// </summary>
     [SerializeField] private Button ContinueButton;
 
+    /// <summary>
+    /// Botones de la interfaz
+    /// </summary>
     [SerializeField] private Button NOButton;
 
+    /// <summary>
+    /// Botones de la interfaz
+    /// </summary>
     [SerializeField] private Button YESButton;
 
+    /// <summary>
+    /// Botones de la interfaz
+    /// </summary>
     [SerializeField] private Button CreditsButton;
 
+    /// <summary>
+    /// Botones de la interfaz
+    /// </summary>
     [SerializeField] private Button ExitGameButton;
 
+    /// <summary>
+    /// Transición
+    /// </summary>
     [SerializeField] private GameObject Continue;
-    [SerializeField] private CambiarEscena CambiarEscena;
 
+    /// <summary>
+    /// Transición
+    /// </summary>
     [SerializeField] private GameObject LoadingScreen;
+
+    /// <summary>
+    /// PopUp de Reiniciar Partida
+    /// </summary>
     [SerializeField] private GameObject PopUp;
+
+    /// <summary>
+    /// Texto del PopUp de Reiniciar Partida
+    /// </summary>
     [SerializeField] private TextMeshProUGUI PopUpText;
 
+    /// <summary>
+    /// Script CambiarEscena
+    /// </summary>
+    [SerializeField] private CambiarEscena CambiarEscena;
 
 
     #endregion
@@ -61,8 +92,19 @@ public class MenuManager : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
+    /// <summary>
+    /// Bool que se activa si hay un archivo de partida guardado
+    /// </summary>
     private bool _newGameSelected = false;
+
+    /// <summary>
+    /// Bool que se activa si se sale del juego
+    /// </summary>
     private bool _exitGameSelected = false;
+    
+    /// <summary>
+    /// Bool que se encarga de los controles (mando, teclado...)
+    /// </summary>
     private bool _updateControllers = true;
     #endregion
 
@@ -131,11 +173,19 @@ public class MenuManager : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-    public void ContinueorYesPressed()
+
+    /// <summary>
+    /// Método continuar, se carga una nueva pantalla
+    /// </summary>
+    public void ContinueOrYesPressed()
     {
         LoadingScreen.SetActive(true);
         PopUp.SetActive(false);
     }
+
+    /// <summary>
+    /// Método botones de la interfaz 
+    /// </summary>
     public void NoButtonPressed()
     {
         if (_newGameSelected && GameManager.Instance.GetControllerUsing() == true)
@@ -153,10 +203,17 @@ public class MenuManager : MonoBehaviour
         NewGameButton.interactable = true;
     }
 
+    /// <summary>
+    /// Modificar controladores
+    /// </summary>
     public void UpdateControllers()
     {
         _updateControllers = true;
     }
+
+    /// <summary>
+    /// Método salir del juego
+    /// </summary>
     public void ExitButtonPressed()
     {
         if(GameManager.Instance.GetControllerUsing() == true)
@@ -177,6 +234,10 @@ public class MenuManager : MonoBehaviour
         NewGameButton.interactable = false;
 
     }
+
+    /// <summary>
+    /// Método reinicio
+    /// </summary>
     public void NewGameButtonPressed()
     {
         if(!GameManager.Instance.GetNewGame())
@@ -198,21 +259,12 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            ContinueorYesPressed();
+            ContinueOrYesPressed();
             GameManager.Instance.NewGame();
             CambiarEscena.ChangeScene();
         }
         
     }
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-
     #endregion
 
 } // class MenuManager 
