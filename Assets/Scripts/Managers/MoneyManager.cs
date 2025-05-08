@@ -19,7 +19,7 @@ public class MoneyManager : MonoBehaviour
     /// Cantidad total de dinero del jugador.
     /// </summary>
     [SerializeField] private int MoneyCount;
-;
+
     [Header("Precios de Semillas")]
     /// <summary>
     /// Precio de la semilla de maíz.
