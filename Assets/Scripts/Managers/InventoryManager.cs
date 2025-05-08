@@ -171,7 +171,6 @@ public static class InventoryManager
                 Debug.Log("InventarioLleno");
                 _inventoryFull = true;
             }
-            Debug.Log("Item" + item.ToString() + " Cantidad: " + quantity);
         }
         else // Es una semilla
         {
