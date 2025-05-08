@@ -923,25 +923,37 @@ public class GameManager : MonoBehaviour
 
     private void CheckCropUnlocks()
     {
-        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 10) // Desbloquear zanahoria
+        // Verifica si se desbloquea la zanahoria (al vender 10 lechugas)
+        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 10)
         {
             _unlockedCrops[1] = true;
-            NotificationManager.SaveNotification("¡Has desbloqueado la zanahoria!", "Nuevo cultivo", "NoTutorial");
-            NotificationManager.LoadNotification("NoTutorial");
+            // Guardar la notificación en el NotificationManager
+            NotificationManager.SaveNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", "NoTutorial");
+            // Mostrar la notificación en la UI
+            UIManager.ShowNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", 1, "NoTutorial");
+           
         }
 
-        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 30) // Desbloquear fresa
+        // Verifica si se desbloquea la fresa (al vender 30 zanahorias)
+        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 30)
         {
             _unlockedCrops[2] = true;
-            NotificationManager.SaveNotification("¡Has desbloqueado la fresa!", "Nuevo cultivo", "NoTutorial");
-            NotificationManager.LoadNotification("NoTutorial");
+            // Guardar la notificación en el NotificationManager
+            NotificationManager.SaveNotification("¡Has desbloqueado \nla fresa!", "NoCounter", "NoTutorial");
+            // Mostrar la notificación en la UI
+            UIManager.ShowNotification("¡Has desbloqueado \nla fresa!", "NoCounter", 1, "NoTutorial");
+            
         }
 
-        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 40) // Desbloquear maíz
+        // Verifica si se desbloquea el maíz (al vender 50 fresas)
+        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 50)
         {
             _unlockedCrops[3] = true;
-            NotificationManager.SaveNotification("¡Has desbloqueado el maíz!", "Nuevo cultivo", "NoTutorial");
-            NotificationManager.LoadNotification("NoTutorial");
+            // Guardar la notificación en el NotificationManager
+            NotificationManager.SaveNotification("¡Has desbloqueado \nel maíz!", "NoCounter", "NoTutorial");
+            // Mostrar la notificación en la UI
+            UIManager.ShowNotification("¡Has desbloqueado \nel maíz!", "NoCounter", 1, "NoTutorial");
+           
         }
     }
 
