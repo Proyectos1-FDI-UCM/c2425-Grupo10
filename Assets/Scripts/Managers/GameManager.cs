@@ -526,20 +526,20 @@ public class GameManager : MonoBehaviour
     ///<summary>
     ///metodo para añadir 1 al contador de venta de un cultivo
     /// </summary>
-    public void AddAmountSold(string type, int amount)
+    public void AddAmountSold(Items item, int amount)
     {
-        switch (type)
+        switch (item)
         {
-            case "Lettuce":
+            case Items.Lettuce:
                  _amountOfLettuceSold += amount;
                 break;
-            case "Carrot":
+            case Items.Carrot:
                 _amountOfCarrotSold += amount;
                 break;
-            case "Strawberry":
+            case Items.Strawberry:
                  _amountOfStrawberrySold += amount;
                 break;
-            case "Corn":
+            case Items.Corn:
                  _amountOfCornSold += amount;
                 break;
         }
