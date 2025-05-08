@@ -219,7 +219,6 @@ public class GardenManager : MonoBehaviour
                     {
                         GardenData.ModifyWaterWarning(i, true);
                         WaterWarning(GardenData.GetPlant(i), i);
-                        //GardenData.ModifyWaterWarning(i);
                     }
 
                     // Aviso Muerte
@@ -552,7 +551,7 @@ public class GardenManager : MonoBehaviour
         }
 
         // Si no estamos en tiempo rápido, comportamiento normal
-        if (!plant.WaterWarning && plant.State > 0) // Solo si no está muerto
+        if (plant.WaterWarning && plant.State > 0) // Solo si no está muerto
         {
             Transform Crop = SearchPlant(plant);
 
@@ -560,7 +559,7 @@ public class GardenManager : MonoBehaviour
             {
                 CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
                 Call.Warning("Water");
-                GardenData.ModifyWaterWarning(ArrayIndex, true);
+                GardenData.ModifyWaterWarning(ArrayIndex, false);
             }
         }
     }
@@ -607,7 +606,7 @@ public class GardenManager : MonoBehaviour
         }
 
         // Si no estamos en tiempo rápido, comportamiento normal
-        if (!plant.DeathWarning)
+        if (plant.DeathWarning)
         {
             Debug.Log("DeathWarning");
             GardenData.ModifyState(ArrayIndex, plant.State);
@@ -617,7 +616,7 @@ public class GardenManager : MonoBehaviour
             {
                 CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
                 Call.Warning("Death");
-                GardenData.ModifyDeathWarning(ArrayIndex, true);
+                GardenData.ModifyDeathWarning(ArrayIndex, false);
             }
         }
     }
@@ -636,8 +635,8 @@ public class GardenManager : MonoBehaviour
             Call.Growing(-1 * plant.State);
             Call.Warning("Desactivate");
             GardenData.ModifyState(ArrayIndex, -1 * plant.State);
-            GardenData.ModifyDeathWarning(ArrayIndex, false); GardenData.ModifyWaterWarning(ArrayIndex, false);
-
+            GardenData.ModifyDeathWarning(ArrayIndex, false); 
+            GardenData.ModifyWaterWarning(ArrayIndex, false);
         }
     }
 
