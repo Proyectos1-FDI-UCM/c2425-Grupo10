@@ -206,12 +206,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Ref a los Iconos del Inventory
     /// </summary>
-    [SerializeField] private GameObject[] InventoryIconsSeeds;
-
-    /// <summary>
-    /// Ref a los Iconos del Inventory
-    /// </summary>
-    [SerializeField] private GameObject[] InventoryIconsCrops;
+    [SerializeField] private GameObject InventoryIcons;
 
     /// <summary>
     /// Ref al mensaje de estar cansado
@@ -1935,57 +1930,54 @@ public class UIManager : MonoBehaviour
     public void ActualizeInventory()
     {
         TextMeshProUGUI _units;
-        int quantity;
 
         // Muestra las semillas
         for (int i = 0; i < (int)Items.Count / 2; i++)
         {
-            quantity = InventoryManager.GetInventoryItem(i);
-            if (quantity != 0)
+            GameObject _crops = InventoryIcons.transform.GetChild(i).gameObject;
+            if (InventoryManager.GetInventoryItem(i) != 0)
             {
-
-                InventoryIconsSeeds[i].SetActive(true);
-                _units = InventoryIconsSeeds[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                _units.text = "x" + quantity;
-
+                _crops.SetActive(true);
+                _units = _crops.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                _units.text = "x" + InventoryManager.GetInventoryItem(i);
             }
+            else _crops.SetActive(false);
         }
 
         // Muestra los cultivos
-        for (int i = 0; i < (int)Items.Count/2; i++)
+        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++)
         {
-            if (InventoryManager.GetInventoryItem(i + (int)Items.Count / 2) != 0)
+            if (InventoryManager.GetInventoryItem(i) != 0)
             {
-                int actualSlot = 0; // El Slot actual que está estableciendo
+                int actualSlot = 1; // El Slot actual que está estableciendo
                 bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
 
-                quantity = InventoryManager.GetInventoryItem(i + (int)Items.Count / 2);
-
-                while (actualSlot < 4 && !fullSlot)
+                while (actualSlot < 5 && !fullSlot)
                 {
-                    if (quantity != 0)
+                    GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
+                    _crops.SetActive(true);
+                    _units = _crops.GetComponentInChildren<TextMeshProUGUI>();
+                    if (InventoryManager.GetInventoryItem(i) / (actualSlot * _slotsCapacity) != 0)
                     {
-                        InventoryIconsCrops[i + actualSlot* (int)Items.Count / 2].SetActive(true);
+                        _units.text = "x" + _slotsCapacity;
                     }
-                    if (quantity < 10) 
+                    else if (InventoryManager.GetInventoryItem(i) - ((actualSlot - 1) * _slotsCapacity) != 0)
                     {
-                        _units = InventoryIconsCrops[i + actualSlot * (int)Items.Count / 2].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        _units.text = "x" + quantity;
+                        _units.text = InventoryManager.GetInventoryItem(i) - ((actualSlot - 1) * _slotsCapacity) + "x";
                         fullSlot = true;
                     }
                     else
                     {
-                        _units = InventoryIconsCrops[i + actualSlot * (int)Items.Count / 2].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        _units.text = "x" + 10;
-                        quantity = quantity - 10;
-                        actualSlot++;
+                        _crops.SetActive(false);
+                        fullSlot = true;
                     }
-                    }
+                    actualSlot++;
+                }
             }
+            else InventoryIcons.transform.GetChild(i).gameObject.SetActive(false);
         }
 
     }
-
     public void UpdateEnergyBar(float current, int max)
     {
         EnergySlider.maxValue = max;
