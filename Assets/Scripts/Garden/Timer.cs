@@ -32,12 +32,12 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Tiempo real transcurrido.
     /// </summary>
-    [SerializeField]  private float _realTimeElapsed;
+    private float _realTimeElapsed;
 
     /// <summary>
     /// Tiempo de juego transcurrido.
     /// </summary>
-    [SerializeField] private float _gameTimeElapsed;
+    private float _gameTimeElapsed;
 
     /// <summary>
     /// 1 dia de juego = 6 minutos reales (360 segundos)
@@ -47,12 +47,12 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Convertir segundos de la vida real a tiempo de juego
     /// </summary>
-    [SerializeField] private float _realSecondtoGameTime = 60f;
+    private float _realSecondtoGameTime = 60f;
 
     //cheat
     private bool _isFastTime = false;
     private float _normalTimeSpeed;
-    [SerializeField] private float _fastTimeSpeed = 600f; // Por ejemplo, 1 segundo real = 10 minutos de juego
+     private float _fastTimeSpeed = 600f; // Por ejemplo, 1 segundo real = 10 minutos de juego
 
     #endregion
 
@@ -125,28 +125,34 @@ public class Timer : MonoBehaviour
     {
         return (_gameTimeElapsed / 60f); // Convertir a minutos
     }
-
+    /// <summary>
+    /// Devuelve el tiempo de juego transcurrido en horas.
+    /// </summary>
     public float GetGameTimeInHours()
     {
         return (_gameTimeElapsed / 3600f); // Convertir a minutos
     }
 
-    public float GetGameTimeInDays()
-    {
-        return (_gameTimeElapsed / 86400f); // Convertir a minutos
-    }
-
+    /// <summary>
+    /// Devuelve el tiempo real. (Cargar Partida)
+    /// </summary>
     public float GetRealTime()
     {
         return _realTimeElapsed;
     }
 
+    /// <summary>
+    /// Establece el tiempo real. (Cargar Partida)
+    /// </summary>
     public void SetRealTime(float realTime)
     {
         _realTimeElapsed = realTime;
     }
 
-    //método público para que GardenManager pueda saber si el tiempo rápido está activo
+    /// <summary>
+    /// Método público para que GardenManager pueda saber si el tiempo rápido está activo
+    /// </summary>
+    /// <returns></returns>
     public bool IsFastTimeActive()
     {
         return _isFastTime;

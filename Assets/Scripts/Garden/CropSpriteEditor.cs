@@ -220,16 +220,17 @@ public class CropSpriteEditor : MonoBehaviour
         Debug.Log("SpriteChanged" + state);
     }
 
-    public int GetGrowthState()
-    {
-        return GardenData.GetPlantChild(transform.GetSiblingIndex()).State;
-    }
-
+    /// <summary>
+    /// Destruye el sprite de la planta
+    /// </summary>
     public void Destroy()
     {
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Devuelve si el cheat de fast time está activo
+    /// </summary>
     private bool IsFastTimeActive()
     {
         if (gameTimer == null)
