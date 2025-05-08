@@ -21,7 +21,7 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Cantidad total de dinero del jugador.
     /// </summary>
-    [SerializeField] private int MoneyCount = 100;
+    [SerializeField] private int MoneyCount;
 
     /// <summary>
     /// Nivel actual de mejora de la regadera.
@@ -38,58 +38,58 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Precio de la semilla de maíz.
     /// </summary>
-    [SerializeField] private int CornSeedPrice = 50;
+    [SerializeField] private int CornSeedPrice;
 
     /// <summary>
     /// Precio de la semilla de zanahoria.
     /// </summary>
-    [SerializeField] private int CarrotSeedPrice = 20;
+    [SerializeField] private int CarrotSeedPrice;
 
     /// <summary>
     /// Precio de la semilla de lechuga.
     /// </summary>
-    [SerializeField] private int LettuceSeedPrice = 15;
+    [SerializeField] private int LettuceSeedPrice;
 
     /// <summary>
     /// Precio de la semilla de fresa.
     /// </summary>
-    [SerializeField] private int StrawberrySeedPrice = 30;
+    [SerializeField] private int StrawberrySeedPrice;
 
 
     [Header("Precios de Venta de Plantas")]
     /// <summary>
     /// Precio de venta de la planta de maíz.
     /// </summary>
-    [SerializeField] private int CornPlantPrice = 90;
+    [SerializeField] private int CornPlantPrice;
 
     /// <summary>
     /// Precio de venta de la planta de zanahoria.
     /// </summary>
-    [SerializeField] private int CarrotPlantPrice = 65;
+    [SerializeField] private int CarrotPlantPrice;
 
     /// <summary>
     /// Precio de venta de la planta de lechuga.
     /// </summary>
-    [SerializeField] private int LettucePlantPrice = 20;
+    [SerializeField] private int LettucePlantPrice;
 
     /// <summary>
     /// Precio de venta de la planta de fresa.
     /// </summary>
-    [SerializeField] private int StrawberryPlantPrice = 40;
+    [SerializeField] private int StrawberryPlantPrice;
 
 
     [Header("Precios de Mejora de Regadera")]
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
     /// </summary>
-    [SerializeField] private int[] WateringCanUpgradePrices = { 500, 1000, 5000 };
+    [SerializeField] private int[] WateringCanUpgradePrices;
 
 
     [Header("Precios de Mejora de Huerto")]
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
     /// </summary>
-    [SerializeField] private int[] GardenUpgradePrices = { 2500, 5000, 7500, 10000, 15000 };
+    [SerializeField] private int[] GardenUpgradePrices;
 
     /// <summary>
     /// Referencia al UIManager

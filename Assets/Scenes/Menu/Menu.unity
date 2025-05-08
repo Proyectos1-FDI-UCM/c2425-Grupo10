@@ -542,7 +542,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!114 &116666130 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -912,7 +911,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeSprite: {fileID: 448902187}
   FadeObject: {fileID: 1566042672}
-  Cloud: {fileID: 0}
   _currentSceneName: 
   _shouldUseClouds: 0
 --- !u!224 &448902186
@@ -1252,7 +1250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Credits
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!1 &523489464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2010,7 +2007,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!114 &695948511 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -2127,10 +2123,6 @@ MonoBehaviour:
   NubeDerecha1: {fileID: 2092368867}
   NubeDerecha3: {fileID: 2045553221}
   NubeDerecha4: {fileID: 967990886}
-  DistanciaSeparacion: 1200
-  Duracion: 1
-  ZoomCerca: 6
-  ZoomLejos: 10
   VirtualCamera: {fileID: 0}
   Cam: {fileID: 0}
 --- !u!82 &800240382
@@ -2391,7 +2383,6 @@ MonoBehaviour:
   CreditsButton: {fileID: 1378875608}
   ExitGameButton: {fileID: 1916504218}
   Continue: {fileID: 917006353}
-  GameManager: {fileID: 6231360116996774195}
   CambiarEscena: {fileID: 116666129}
   LoadingScreen: {fileID: 1422138510}
   PopUp: {fileID: 699775267}
@@ -3279,7 +3270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!114 &1115517361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -3940,7 +3930,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Credits
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!114 &1378875608 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -4739,7 +4728,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!114 &1667463065 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -5194,7 +5182,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneName: EXIT
   SoundManager: {fileID: 0}
-  _sceneTransition: {fileID: 448902184}
 --- !u!114 &1916504218 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -5951,6 +5938,66 @@ PrefabInstance:
       propertyPath: MoneyCount
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: CornSeedPrice
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: CornPlantPrice
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: CarrotSeedPrice
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: CarrotPlantPrice
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: LettucePlantPrice
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: StrawberrySeedPrice
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: StrawberryPlantPrice
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: GardenUpgradePrices.Array.data[0]
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: GardenUpgradePrices.Array.data[1]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: GardenUpgradePrices.Array.data[2]
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: GardenUpgradePrices.Array.data[3]
+      value: 3000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: GardenUpgradePrices.Array.data[4]
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: WateringCanUpgradePrices.Array.data[0]
+      value: 750
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: WateringCanUpgradePrices.Array.data[1]
+      value: 1500
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: WateringCanUpgradePrices.Array.data[2]
+      value: 3000
+      objectReference: {fileID: 0}
     - target: {fileID: 7219990337915446216, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.458826
@@ -6011,17 +6058,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 6231360116996774197}
   m_SourcePrefab: {fileID: 100100000, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
---- !u!114 &6231360116996774195 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8600601485489430643, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
-  m_PrefabInstance: {fileID: 6231360116996774194}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6231360116996774196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55695a01267fa4264b28ed5ffab61a33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6231360116996774196 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 999510548685471150, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}

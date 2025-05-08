@@ -440,50 +440,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AmountOfUpgradesText;
 
     [Header("UI de Venta")]
-
-    /// <summary>
-    /// Botón maíz
+    ///<summary>
+    ///Texto para mostras el precio de las semillas seleccionadas
     /// </summary>
-    [SerializeField] private GameObject CornButton;
-
-    /// <summary>
-    /// Botón lechuga
-    /// </summary>
-    [SerializeField] private GameObject LettuceButtonObj;
-
-    /// <summary>
-    /// Botón zanahoria
-    /// </summary>
-    [SerializeField] private GameObject CarrotButton;
-
-    /// <summary>
-    /// Botón fesas
-    /// </summary>
-    [SerializeField] private GameObject StrawberryButton;
-
-    /// <summary>
-    ///Botón de vender
-    /// </summary>
-    [SerializeField] private GameObject SellObj;
-
-    /// <summary>
-    ///Botón de vender
-    /// </summary>
-    [SerializeField] private Button SellButton;
-    /// <summary>
-    /// Botón para sumar 1 cultivo para vender
-    /// </summary>
-    [SerializeField] private GameObject PlusButton;
-
-    /// <summary>
-    /// Botón para restar 1 cultivo para vender
-    /// </summary>
-    [SerializeField] private GameObject MinusButton;
-
-    /// <summary>
-    /// Texto del contador
-    /// </summary>
-    [SerializeField] private TextMeshProUGUI Counter;
+    [SerializeField] private TextMeshProUGUI PriceAmountText;
 
 
     /// <summary>
@@ -497,20 +457,15 @@ public class UIManager : MonoBehaviour
 
     [Header("UI de Compra")]
 
-    ///<summary>
-    ///Texto para mostras el precio de las semillas seleccionadas
+    /// <summary>
+    /// Boton para comprar la mejora/ampliacion
     /// </summary>
-    [SerializeField] private TextMeshProUGUI PriceAmountToBuy;
+    [SerializeField] private GameObject BuySellObj;
 
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
-    [SerializeField] private GameObject BuySeedsObj;
-
-    /// <summary>
-    /// Boton para comprar la mejora/ampliacion
-    /// </summary>
-    [SerializeField] private Button BuySeedsButton;
+    [SerializeField] private Button BuySellButton;
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
@@ -618,7 +573,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isSellPressed = false;
 
-    private int _amountBuying = 1;
+    [SerializeField] private int _amount = 1;
     private int _cost;
     private int[] _inventory;
 
@@ -639,8 +594,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// nombre de la semilla seleccionada
     /// </summary>
-    private string _actualSeedSelected = "";
-
+    private string _selected = "";
 
     /// <summary>
     /// Numero maximo de mejoras de la WateringCan
@@ -1649,11 +1603,10 @@ public class UIManager : MonoBehaviour
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            SellObj.SetActive(_isSomethingSelected);
-            PlusButton.SetActive(_isSomethingSelected);
-            MinusButton.SetActive(_isSomethingSelected);
+            BuySellObj.SetActive(_isSomethingSelected);
+            IncreaseAmountButton.SetActive(_isSomethingSelected);
+            DecreaseAmountButton.SetActive(_isSomethingSelected);
 
-            // Botón Lechuga (siempre activo)
             Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
 
             if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
@@ -1663,13 +1616,13 @@ public class UIManager : MonoBehaviour
 
                 // Lechuga -> Zanahoria
                 navLettuce.selectOnRight = CarrotsButton;
-                navLettuce.selectOnDown = SellButton;
+                navLettuce.selectOnDown = BuySellButton;
                 LettuceButton.navigation = navLettuce;
 
                 // Zanahoria <- Lechuga
                 Navigation navCarrot = new Navigation { mode = Navigation.Mode.Explicit };
                 navCarrot.selectOnLeft = LettuceButton;
-                navCarrot.selectOnDown = SellButton;
+                navCarrot.selectOnDown = BuySellButton;
                 CarrotsButton.navigation = navCarrot;
 
 
@@ -1681,13 +1634,13 @@ public class UIManager : MonoBehaviour
                     // Zanahoria -> Fresa
                     navCarrot.selectOnRight = StrawberriesButton;
                     navCarrot.selectOnLeft = LettuceButton;
-                    navCarrot.selectOnDown = SellButton;
+                    navCarrot.selectOnDown = BuySellButton;
                     CarrotsButton.navigation = navCarrot;
 
                     // Fresa <- Zanahoria
                     Navigation navStrawberry = new Navigation { mode = Navigation.Mode.Explicit };
                     navStrawberry.selectOnLeft = CarrotsButton;
-                    navStrawberry.selectOnDown = SellButton;
+                    navStrawberry.selectOnDown = BuySellButton;
                     StrawberriesButton.navigation = navStrawberry;
 
 
@@ -1700,13 +1653,13 @@ public class UIManager : MonoBehaviour
                         // Fresa -> Maíz
                         navStrawberry.selectOnRight = CornsButton;
                         navStrawberry.selectOnLeft = CarrotsButton;
-                        navStrawberry.selectOnDown = SellButton;
+                        navStrawberry.selectOnDown = BuySellButton;
                         StrawberriesButton.navigation = navStrawberry;
 
                         // Maíz <- Fresa
                         Navigation navCorn = new Navigation { mode = Navigation.Mode.Explicit };
                         navCorn.selectOnLeft = StrawberriesButton;
-                        navCorn.selectOnDown = BuySeedsButton;
+                        navCorn.selectOnDown = BuySellButton;
                         CornsButton.navigation = navCorn;
                     }
                     else
@@ -1724,17 +1677,18 @@ public class UIManager : MonoBehaviour
             else
             {
                 //CarrotsButton.interactable = false;
-                navLettuce.selectOnDown = SellButton;
+                navLettuce.selectOnDown = BuySellButton;
                 LettuceButton.navigation = navLettuce;
             }
             DescriptionText.text = "";
-            Counter.text = "";
-            int totalCosto = _amountBuying * _cost;
-            Counter.text = $"{_amountBuying} = {totalCosto} RC";
+            PriceAmountText.text = "";
+            int totalCosto = _amount * _cost;
+            _selected = GetSeedPlantName();
+            PriceAmountText.text = _amount + " " + _selected + " = " + totalCosto + "RC";
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-            BuySeedsObj.SetActive(_isSomethingSelected);
+            BuySellObj.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
 
@@ -1748,13 +1702,13 @@ public class UIManager : MonoBehaviour
 
                 // Lechuga -> Zanahoria
                 navLettuce.selectOnRight = CarrotSeedsButton;
-                navLettuce.selectOnDown = BuySeedsButton;
+                navLettuce.selectOnDown = BuySellButton;
                 LettuceSeedsButton.navigation = navLettuce;
 
                 // Zanahoria <- Lechuga
                 Navigation navCarrot = new Navigation { mode = Navigation.Mode.Explicit };
                 navCarrot.selectOnLeft = LettuceSeedsButton;
-                navCarrot.selectOnDown = BuySeedsButton;
+                navCarrot.selectOnDown = BuySellButton;
                 CarrotSeedsButton.navigation = navCarrot;
 
 
@@ -1766,13 +1720,13 @@ public class UIManager : MonoBehaviour
                     // Zanahoria -> Fresa
                     navCarrot.selectOnRight = StrawberrySeedsButton;
                     navCarrot.selectOnLeft = LettuceSeedsButton;
-                    navCarrot.selectOnDown = BuySeedsButton;
+                    navCarrot.selectOnDown = BuySellButton;
                     CarrotSeedsButton.navigation = navCarrot;
 
                     // Fresa <- Zanahoria
                     Navigation navStrawberry = new Navigation { mode = Navigation.Mode.Explicit };
                     navStrawberry.selectOnLeft = CarrotSeedsButton;
-                    navStrawberry.selectOnDown = BuySeedsButton;
+                    navStrawberry.selectOnDown = BuySellButton;
                     StrawberrySeedsButton.navigation = navStrawberry;
 
 
@@ -1785,13 +1739,13 @@ public class UIManager : MonoBehaviour
                         // Fresa -> Maíz
                         navStrawberry.selectOnRight = CornSeedsButton;
                         navStrawberry.selectOnLeft = CarrotSeedsButton;
-                        navStrawberry.selectOnDown = BuySeedsButton;
+                        navStrawberry.selectOnDown = BuySellButton;
                         StrawberrySeedsButton.navigation = navStrawberry;
 
                         // Maíz <- Fresa
                         Navigation navCorn = new Navigation { mode = Navigation.Mode.Explicit };
                         navCorn.selectOnLeft = StrawberrySeedsButton;
-                        navCorn.selectOnDown = BuySeedsButton;
+                        navCorn.selectOnDown = BuySellButton;
                         CornSeedsButton.navigation = navCorn;
                     }
                     else
@@ -1809,14 +1763,15 @@ public class UIManager : MonoBehaviour
             else
             {
                 //CarrotSeedsButton.interactable = false;
-                navLettuce.selectOnDown = BuySeedsButton;
+                navLettuce.selectOnDown = BuySellButton;
                 LettuceSeedsButton.navigation = navLettuce;
             }
 
             DescriptionText.text = "";
-            PriceAmountToBuy.text = "";
-            int totalCosto = _amountBuying * _cost;
-            PriceAmountToBuy.text = _amountBuying + " " + _actualSeedSelected + " = " + totalCosto + "RC";
+            PriceAmountText.text = "";
+            int totalCosto = _amount * _cost;
+            _selected = GetSeedPlantName();
+            PriceAmountText.text = _amount + " " + _selected + " = " + totalCosto + "RC";
         }
     }
 
@@ -1841,7 +1796,7 @@ public class UIManager : MonoBehaviour
         {
             _isLettuceSelected = true;
             LettuceButton.Select();
-            ActualizarCantidadUI();
+            ActualizarCantidadPlantsUI();
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
@@ -1877,20 +1832,20 @@ public class UIManager : MonoBehaviour
         }
         if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            SellObj.SetActive(_isSomethingSelected);
-            PlusButton.SetActive(_isSomethingSelected);
-            MinusButton.SetActive(_isSomethingSelected);
+            BuySellObj.SetActive(_isSomethingSelected);
+            IncreaseAmountButton.SetActive(_isSomethingSelected);
+            DecreaseAmountButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
-            Counter.text = "";
+            PriceAmountText.text = "";
         }
 
         if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-            BuySeedsObj.SetActive(_isSomethingSelected);
+            BuySellObj.SetActive(_isSomethingSelected);
             IncreaseAmountButton.SetActive(_isSomethingSelected);
             DecreaseAmountButton.SetActive(_isSomethingSelected);
             DescriptionText.text = "";
-            PriceAmountToBuy.text = "";
+            PriceAmountText.text = "";
         }
     }
     /// <summary>
@@ -1902,10 +1857,6 @@ public class UIManager : MonoBehaviour
         TutorialManager = FindObjectOfType<TutorialManager>();
         NotificationManager = FindObjectOfType<NotificationManager>();
     }
-
-
-
-    
     #endregion
 
     // ---- BUILD ----
@@ -2068,7 +2019,7 @@ public class UIManager : MonoBehaviour
         _isDepositSelected = false; // Añadimos esta línea
         _isMovingSelected = false; // Añadimos esta línea
         _isWithdrawSelected = false; // Añadimos esta línea
-        DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 100.000 RootCoins!.";
+        DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 50.000 RootCoins!.";
         MoveButton.SetActive(true);
         if (TutorialManager.GetTutorialPhaseBanco() == 8) // Verifica si ha pulsado el botón + de venta
         {
@@ -2094,10 +2045,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonMovePressed()
     {
-        if (GameManager.Instance.GetTotalMoneyDeposited() >= 100000)
+        if (GameManager.Instance.GetTotalMoneyDeposited() >= 50000)
         {
             Debug.Log("Mudanza realizada con éxito.");
-            GameManager.Instance.DeductDepositedMoney(100000);
+            GameManager.Instance.DeductDepositedMoney(50000);
             InventoryManager.SetPlayerPosition(_newHousePosition);
             SceneTransition.Instance.FinalCamera();
             Cloud.Instance.FinalCamera();
@@ -2108,7 +2059,7 @@ public class UIManager : MonoBehaviour
         else
         {
             DescriptionText.text = "No tienes suficiente dinero.";
-            _newDescriptionText = "Has seleccionado la Casa Playa. Pulsa 'Mudarse' para continuar.";
+            _newDescriptionText = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 50.000 RootCoins!.";
             Invoke("ChangeDescription", 1f);
             Debug.Log("No tienes suficiente dinero para mudarte.");
 
@@ -2180,284 +2131,45 @@ public class UIManager : MonoBehaviour
     #region Metodos Publicos (Venta)
 
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el botón "Maíz".
-    /// </summary>
-    public void ButtonCornPressed()
-    {
-        _isSomethingSelected = true;
-        _isCornSelected = true;
-        _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
-        SellButton.Select();
-        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
-        _cost = 90;
-        ActualizarTextoCantidad();
-        
-        DescriptionText.text = "1 maíz = 90 RootCoins.";      
-        UpdateUI();
-    }
-
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el botón "Lechuga".
-    /// </summary>
-    public void ButtonLettucePressed()
-    {
-        _isSomethingSelected = true;
-        _isLettuceSelected = true;
-        _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
-        SellButton.Select();
-
-        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
-        _cost = 20;
-        ActualizarTextoCantidad();
-
-        DescriptionText.text = "1 lechuga = 20 RootCoins.";
-        UpdateUI();
-
-        if (TutorialManager.GetTutorialPhase() == 21) // Verifica que ha puslsado el botón de lechuga venta
-        {
-            Check(0);
-            Invoke("NextDialogue", 0f);
-        }
-
-    }
-
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el botón "Zanahoria".
-    /// </summary>
-    public void ButtonCarrotPressed()
-    {
-        _isSomethingSelected = true;
-        _isCarrotSelected = true;
-        _isLettuceSelected = _isCornSelected = _isStrawberriesSelected = false;
-        SellButton.Select();
-
-        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
-        _cost = 65;
-        ActualizarTextoCantidad();
-        
-        DescriptionText.text = "1 zanahoria = 65 RootCoins.";
-        UpdateUI();
-    }
-
-    /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el botón "Maíz".
-    /// </summary>
-    public void ButtonStrawberriesPressed()
-    {
-        _isSomethingSelected = true;
-        _isStrawberriesSelected = true;
-        _isLettuceSelected = _isCarrotSelected = _isCornSelected = false;
-        SellButton.Select();
-
-        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
-        ActualizarTextoCantidad();
-        _cost = 40;
-        DescriptionText.text = "1 fresa = 40 RootCoins.";
-        UpdateUI();
-    }
-
-    /// <summary>
     /// Metodo para detectar cuando el jugador pulsa el boton "Sell".
     /// </summary>
     public void ButtonSellPressed()
     {
         _isSellPressed = true;
+        _isSomethingSelected = true;
+
         Debug.Log("Vender presionado");
-        _isSomethingSelected = false;
 
-        int cantidadDisponible = 0;
-        int precioUnitario = 0;
-
-        if (_isCornSelected)
+        Items selectedItem = GetSelectedSeed();
+        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
+        _selected = GetSeedPlantName();
+        if(_amount <= currentAmount)
         {
-            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Corn);
-            precioUnitario = 90;
-        }
-        else if (_isLettuceSelected)
-        {
-            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Lettuce);
-            precioUnitario = 20;
-        }
-        else if (_isCarrotSelected)
-        {
-            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Carrot);
-            precioUnitario = 65;
-        }
-        else if (_isStrawberriesSelected)
-        {
-            cantidadDisponible = InventoryManager.GetInventoryItem(Items.Strawberry);
-            precioUnitario = 40;
-        }
+            int totalGanado = _amount * _cost;
 
-        // Si no hay cultivos disponibles, mostrar mensaje y salir
-        if (cantidadDisponible <= 0)
-        {
-            DescriptionText.text = "No tienes cultivos de este tipo para vender.";
-            return;
-        }
+            MoneyManager.AddMoney(totalGanado);
+            InventoryManager.ModifyInventorySubstract(selectedItem, _amount);
+            GameManager.Instance.AddAmountSold(_selected, _amount);
 
-        // Verifica que no intente vender más de los que tiene
-        if (_amountBuying > cantidadDisponible)
-        {
-            _amountBuying = cantidadDisponible;
-        }
+            _amount = 1;
 
-        // Realizar la venta
-        int totalGanado = _amountBuying * precioUnitario;
-        MoneyManager.AddMoney(totalGanado);
-
-        // Restar del inventario
-        InventoryManager.ModifyInventorySubstract(
-            _isCornSelected ? Items.Corn :
-            _isLettuceSelected ? Items.Lettuce :
-            _isCarrotSelected ? Items.Carrot :
-            Items.Strawberry, _amountBuying
-        );
-        if ( _isLettuceSelected )
-        {
-            GameManager.Instance.AddAmountSold("Lettuce", _amountBuying);
-        }
-        else if (_isCarrotSelected)
-        {
-            GameManager.Instance.AddAmountSold("Carrot", _amountBuying);
-        }
-        else if (_isStrawberriesSelected)
-        {
-            GameManager.Instance.AddAmountSold("Strawberry", _amountBuying);
-        }
-        else if (_isCornSelected)
-        {
-            GameManager.Instance.AddAmountSold("Corn", _amountBuying);
-        }
-
-        DescriptionText.text = $"Has vendido {_amountBuying} por {totalGanado} RC.";
-        _amountBuying = 1; // Reiniciar cantidad
-        ActualizarTextoCantidad();
-
-        ActualizarCantidadUI(); // ⬅️ Llamamos esto para refrescar la UI después de vender
-
-        //if (TutorialManager.GetTutorialPhase() == 23) // Verifica que ha pulsado el boton de venta
-        // {
-        //Check(0);
-        // Invoke("NextDialogue", 0f);
-
-        //}
-        int phase = TutorialManager.GetTutorialPhase();
-        if (phase == 21 || phase == 22)
-        {
-            // Saltamos directamente a la fase 23 si aún no ha llegado
-            TutorialManager.SetTutorialPhase(23);
-            Invoke("NextDialogue", 0f);
-        }
-        else if (phase == 23)
-        {
-            Invoke("NextDialogue", 0f);
-        }
-
-        UpdateUI();
-
-    }
-
-
-    public void ButtonPlusPressed()
-    {
-        int maxCantidad = 0;
-
-        if (_isCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
-        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
-        else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
-        else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
-
-        if (_amountBuying < maxCantidad)
-        {
-            _amountBuying++;
-            ActualizarTextoCantidad();
-        }
-
-        if (TutorialManager.GetTutorialPhase() == 22) // Verifica si ha pulsado el botón + de venta
-        {
-            //Check(0);
-            Invoke("NextDialogue", 0f);
-
-        }
-    }
-
-    public void ButtonMinusPressed()
-    {
-        int maxCantidad = 0;
-
-        if (_isCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Corn);
-        else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
-        else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
-        else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
-
-        if (_amountBuying < maxCantidad)
-        {
-            _amountBuying--;
-            ActualizarTextoCantidad();
-        }
-    }
-
-    #endregion
-
-    // ---- METODOS PRIVADOS (VENTA) ----
-    #region Metodos Privados (venta)
-    /// <summary>
-    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
-    /// </summary>
-
-    private void ActualizarTextoCantidad()
-    {
-        if (MoneyManager == null)
-        {
-          //  Debug.LogError("ContadorTexto no está asignado en el Inspector.");
-            return;
-        }
-
-        int precioUnitario = 0;
-
-        if (_isCornSelected) precioUnitario = 90;
-        else if (_isLettuceSelected) precioUnitario = 20;
-        else if (_isCarrotSelected) precioUnitario = 65;
-        else if (_isStrawberriesSelected) precioUnitario = 40;
-
-        int totalGanado = _amountBuying * precioUnitario;
-
-        // Mostrar la cantidad junto con el dinero ganado
-        Counter.text = _amountBuying + " = " + totalGanado + " RC";
-    }
-
-
-    /// <summary>
-    /// Metodo para que la descripcion cambie dependiendo del boton seleccionado.
-    /// </summary>
-    private void MostrarDescripcion(int actual, int max, int coste)
-    {
-        if (actual >= max)
-        {
-            DescriptionText.text = "No tienes cultivos para vender.";
-            SellObj.SetActive(true);
+            UpdateUI();
+            ActualizarCantidadPlantsUI();
         }
         else
         {
-            DescriptionText.text = "TOTAL: " + actual * coste + "RC";
-            SellObj.SetActive(true);
-            //ContadorTexto.text = actual + "/" + max;
-            Counter.text = actual + "/" + max;
+            DescriptionText.text = $"No tienes suficientes cultivos de {_selected} para vender.";
+        }
 
+        int phase = TutorialManager.GetTutorialPhase();
+        if (phase >= 21 && phase <= 23)
+        {
+            TutorialManager.SetTutorialPhase(23);
+            Invoke("NextDialogue", 0f);
         }
     }
 
-    public void ActualizarCantidadUI()
-    {
-        CornText.text = "x" + InventoryManager.GetInventoryItem(Items.Corn);
-        LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
-        CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
-        StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
-
-    }
     #endregion
-
 
     #endregion
 
@@ -2466,225 +2178,244 @@ public class UIManager : MonoBehaviour
 
     // ---- METODOS PUBLICOS (COMPRA) ----
     #region
-    public void ButtonCornSeedPressed()
+    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed }
+
+
+    private void SelectSeed(SeedOrPlantType type, int cost, string singularName, string pluralName)
     {
         _isSomethingSelected = true;
-        _isCornSelected = true;
-        _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = false;
-        BuySeedsButton.Select();
+        _isCornSelected = type == SeedOrPlantType.Corn || type == SeedOrPlantType.CornSeed;
+        _isCarrotSelected = type == SeedOrPlantType.Carrot || type == SeedOrPlantType.CarrotSeed;
+        _isLettuceSelected = type == SeedOrPlantType.Lettuce || type == SeedOrPlantType.LettuceSeed;
+        _isStrawberriesSelected = type == SeedOrPlantType.Strawberry || type == SeedOrPlantType.StrawberriesSeed;
 
-        _amountBuying = 1;
-        if (_amountBuying <= 1)
-        {
-            _actualSeedSelected = "Semilla de Maiz";
-
-        }
-        else
-        {
-            _actualSeedSelected = "Semillas de Maiz";
-        }
-        _cost = 50;
-        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
-
+        BuySellButton.Select();
+        _amount = 1;
+        _cost = cost;
+        _selected = _amount <= 1 ? singularName : pluralName;
+        DescriptionText.text = "";
         UpdateUI();
+    }
+
+    private string GetSingularName(Items item)
+    {
+        if (item == Items.Carrot) return "zanahoria";
+        else if (item == Items.Lettuce) return "lechuga";
+        else if (item == Items.Corn) return "maíz";
+        else if (item == Items.Strawberry) return "fresa";
+
+        else if (item == Items.CarrotSeed) return "semilla de zanahoria";
+        else if (item == Items.LettuceSeed) return "semilla de lechuga";
+        else if (item == Items.CornSeed) return "semilla de  maíz";
+        else if (item == Items.StrawberrySeed) return "semilla de fresa";
+        return "";
+    }
+
+    private string GetPluralName(Items item)
+    {
+        if (item == Items.Carrot) return "zanahorias";
+        else if (item == Items.Lettuce) return "lechugas";
+        else if (item == Items.Corn) return "maíces";
+        else if (item == Items.Strawberry) return "fresas";
+
+        else if (item == Items.CarrotSeed) return "semillas de zanahoria";
+        else if (item == Items.LettuceSeed) return "semillas de lechuga";
+        else if (item == Items.CornSeed) return "semillas de  maíz";
+        else if (item == Items.StrawberrySeed) return "semillas de fresa";
+        return "";
+    }
+    public void ButtonCornSeedPressed()
+    {
+        SelectSeed(SeedOrPlantType.CornSeed, 70, "Semilla de Maíz", "Semillas de Maíz");
+    }
+    public void ButtonCornPressed()
+    {
+        SelectSeed(SeedOrPlantType.Corn, 70, "Maíz", "Maíces");
+    }
+
+    public void ButtonCarrotSeedPressed()
+    {
+        SelectSeed(SeedOrPlantType.CarrotSeed, 30, "Semilla de Zanahoria", "Semillas de Zanahoria");
+    }
+    public void ButtonCarrotPressed()
+    {
+        SelectSeed(SeedOrPlantType.Carrot, 30, "Zanahoria", "Zanahorias");
     }
 
     public void ButtonLettuceSeedPressed()
     {
-        if((TutorialManager.GetTutorialPhase() == 11) || (TutorialManager.GetTutorialPhase() >= 14))
+        if (TutorialManager.GetTutorialPhase() == 11 || TutorialManager.GetTutorialPhase() >= 14)
         {
-            BuySeedsButton.Select();
-            _isSomethingSelected = true;
-            _isLettuceSelected = true;
-            _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = false;
+            SelectSeed(SeedOrPlantType.Lettuce, 15, "Semilla de Lechuga", "Semillas de Lechuga");
 
-            _amountBuying = 1;
-            if (_amountBuying <= 1)
-            {
-                _actualSeedSelected = "Semilla de Lechuga";
-
-            }
-            else
-            {
-                _actualSeedSelected = "Semillas de Lechuga";
-            }
-            _cost = 15;
-            DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
-
-            UpdateUI();
-
-            if (TutorialManager.GetTutorialPhase() == 11) // Verifica si es la fase 3 o la fase que corresponda
+            if (TutorialManager.GetTutorialPhase() == 11)
             {
                 Check(0);
                 Invoke("NextDialogue", 0f);
             }
         }
     }
-
-    public void ButtonCarrotSeedPressed()
+    public void ButtonLettucePressed()
     {
-        BuySeedsButton.Select();
-        _isSomethingSelected = true;
-        _isCarrotSelected = true;
-        _isCornSelected = _isLettuceSelected = _isStrawberriesSelected = false;
+        SelectSeed(SeedOrPlantType.Lettuce, 15, "Lechuga", "Lechugas");
 
-        _amountBuying = 1;
-        if (_amountBuying <= 1)
+        if (TutorialManager.GetTutorialPhase() == 21)
         {
-            _actualSeedSelected = "Semilla de Zanahoria";
-
+            Check(0);
+            Invoke("NextDialogue", 0f);
         }
-        else
-        {
-            _actualSeedSelected = "Semillas de Zanahoria";
-        }
-        _cost = 20;
-        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
-
-        UpdateUI();
     }
 
     public void ButtonStrawberriesSeedPressed()
     {
-        BuySeedsButton.Select();
-        _isSomethingSelected = true;
-        _isStrawberriesSelected = true;
-        _isCornSelected = _isLettuceSelected = _isCarrotSelected = false;
-
-        _amountBuying = 1;
-        if (_amountBuying <= 1)
-        {
-            _actualSeedSelected = "Semilla de Fresa";
-
-        }
-        else
-        {
-            _actualSeedSelected = "Semillas de Fresa";
-        }
-        _cost = 30;
-        DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
-
-        UpdateUI();
+        SelectSeed(SeedOrPlantType.Strawberry, 50, "Semilla de Fresa", "Semillas de Fresa");
+    }
+    public void ButtonStrawberriesPressed()
+    {
+        SelectSeed(SeedOrPlantType.Strawberry, 50, "Fresa", "Fresas");
     }
 
+
+    private Items GetSelectedSeed()
+    {
+        if(SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            if (_isCornSelected) return Items.CornSeed;
+            if (_isCarrotSelected) return Items.CarrotSeed;
+            if (_isLettuceSelected) return Items.LettuceSeed;
+            if (_isStrawberriesSelected) return Items.StrawberrySeed;
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            if (_isCornSelected) return Items.Corn;
+            if (_isCarrotSelected) return Items.Carrot;
+            if (_isLettuceSelected) return Items.Lettuce;
+            if (_isStrawberriesSelected) return Items.Strawberry;
+        }
+        return Items.Count;
+    }
+
+    private string GetSeedPlantName()
+    {
+        Items selectedItem = GetSelectedSeed();
+
+        string singularName = GetSingularName(selectedItem);
+        string pluralName = GetPluralName(selectedItem);
+
+        string _selected = _amount <= 1 ? singularName : pluralName;
+        return _selected;
+    }
+
+    private bool HasReachedLimit()
+    {
+        Items selectedItem = GetSelectedSeed();
+        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
+
+        if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            return currentAmount + _amount >= 30;
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            return _amount >= currentAmount;
+        }
+
+        return false;
+    }
 
     public void IncreaseAmount()
     {
-        // Verifica si se ha alcanzado el máximo de semillas para la semilla seleccionada
-        if (_isCornSelected && InventoryManager.GetInventoryItem(Items.CornSeed) + _amountBuying >= 30)
+        if(SceneManager.GetActiveScene().name == "Escena_Compra")
         {
-            DescriptionText.text = "Ya tienes el máximo de semillas de maíz (30).";
-            return;
+            if (HasReachedLimit())
+            {
+                DescriptionText.text = $"Ya tienes el máximo de {GetSeedPlantName()} (30).";
+                return;
+            }
+
+            int totalCost = (_amount + 1) * _cost;
+
+            if (totalCost > MoneyManager.GetMoneyCount())
+            {
+                DescriptionText.text = "No tienes suficiente dinero para más semillas.";
+                return;
+            }
+
+            _amount++;
+            UpdateUI();
+
+            if (TutorialManager.GetTutorialPhase() == 12)
+            {
+                Check(0);
+                Invoke("NextDialogue", 0f);
+            }
         }
-        if (_isCarrotSelected && InventoryManager.GetInventoryItem(Items.CarrotSeed) + _amountBuying >= 30)
+        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
-            DescriptionText.text = "Ya tienes el máximo de semillas de zanahoria (30).";
-            return;
-        }
-        if (_isLettuceSelected && InventoryManager.GetInventoryItem(Items.LettuceSeed) + _amountBuying >= 30)
-        {
-            DescriptionText.text = "Ya tienes el máximo de semillas de lechuga (30).";
-            return;
-        }
-        if (_isStrawberriesSelected && InventoryManager.GetInventoryItem(Items.StrawberrySeed) + _amountBuying >= 30)
-        {
-            DescriptionText.text = "Ya tienes el máximo de semillas de fresa (30).";
-            return;
+            if (HasReachedLimit())
+            {
+                DescriptionText.text = $"No tienes más {GetSeedPlantName()}.";
+                return;
+            }
+
+            _amount++;
+
+
+            if (TutorialManager.GetTutorialPhase() == 22)
+            {
+                //Check(0);
+                Invoke("NextDialogue", 0f);
+            }
+            UpdateUI();
         }
 
-        int totalCost = (_amountBuying + 1) * _cost;
-
-        if (totalCost > MoneyManager.GetMoneyCount())
-        {
-            DescriptionText.text = "No tienes suficiente dinero para más semillas.";
-            return;
-        }
-
-        _amountBuying++;
-        UpdateUI();
-
-        if (TutorialManager.GetTutorialPhase() == 12) // Verifica si es la fase 3 o la fase que corresponda
-        {
-            Check(0);
-            Invoke("NextDialogue", 0f);
-        }
     }
-
-
-
 
     public void DecreaseAmount()
     {
-        if (_amountBuying > 1)
+        if (_amount > 1)
         {
-            _amountBuying--;
+            _amount--;
             UpdateUI();
         }
     }
+
     public void ButtonBuyPressed()
     {
-        // Verifica el máximo de semillas solo para el tipo seleccionado
-        if (_isCornSelected && InventoryManager.GetInventoryItem(Items.CornSeed) + _amountBuying > 30)
+        Items selectedItem = GetSelectedSeed();
+        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
+        _selected = GetSeedPlantName();
+        if (_amount + currentAmount <= 30)
         {
-            DescriptionText.text = "Ya tienes el máximo de semillas de maíz (30).";
-            return;
-        }
-        if (_isCarrotSelected && InventoryManager.GetInventoryItem(Items.CarrotSeed) + _amountBuying > 30)
-        {
-            DescriptionText.text = "Ya tienes el máximo de semillas de zanahoria (30).";
-            return;
-        }
-        if (_isLettuceSelected && InventoryManager.GetInventoryItem(Items.LettuceSeed) + _amountBuying > 30)
-        {
-            DescriptionText.text = "Ya tienes el máximo de semillas de lechuga (30).";
-            return;
-        }
-        if (_isStrawberriesSelected && InventoryManager.GetInventoryItem(Items.StrawberrySeed) + _amountBuying > 30)
-        {
-            DescriptionText.text = "Ya tienes el máximo de semillas de fresa (30).";
-            return;
-        }
+            int totalCost = _amount * _cost;
 
-        int TotalCost = _amountBuying * _cost;
-
-        if (MoneyManager.GetMoneyCount() >= TotalCost)
-        {
-            MoneyManager.DeductMoney(TotalCost); // Resta el dinero correctamente
-
-            // Actualiza el inventory según el tipo de semilla seleccionada
-            if (_isCornSelected)
+            if (MoneyManager.GetMoneyCount() >= totalCost)
             {
-                InventoryManager.ModifyInventory(Items.CornSeed, _amountBuying);
+                MoneyManager.DeductMoney(totalCost);
+                InventoryManager.ModifyInventory(GetSelectedSeed(), _amount);
+                DescriptionText.text = "Compra realizada con éxito.";
             }
-            if (_isLettuceSelected)
+            else
             {
-                InventoryManager.ModifyInventory(Items.LettuceSeed, _amountBuying);
+                DescriptionText.text = "No tienes suficiente dinero.";
             }
-            if (_isCarrotSelected)
-            {
-                InventoryManager.ModifyInventory(Items.CarrotSeed, _amountBuying);
-            }
-            if (_isStrawberriesSelected)
-            {
-                InventoryManager.ModifyInventory(Items.StrawberrySeed, _amountBuying);
-            }
-
-            DescriptionText.text = "Compra realizada con éxito.";
+            _amount = 1;
+            UpdateUI();
+            ActualizarCantidadSeedsUI();
         }
         else
         {
-            DescriptionText.text = "No tienes suficiente dinero.";  // Mensaje si no hay dinero suficiente
+            DescriptionText.text = $"Ya tienes el máximo de {_selected} (30).";
         }
 
-        UpdateUI();  // Actualiza la UI después de la compra
-        ActualizarCantidadSeedsUI(); // Llamamos esto para refrescar la UI después de vender
 
-        if (TutorialManager.GetTutorialPhase() == 13) // Verifica si es la fase 3 o la fase que corresponda
+        if (TutorialManager.GetTutorialPhase() == 13)
         {
             Check(0);
             Invoke("NextDialogue", 0f);
         }
     }
+
 
 
 
@@ -2698,6 +2429,14 @@ public class UIManager : MonoBehaviour
         SeedLettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.LettuceSeed);
         SeedCarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.CarrotSeed);
         SeedStrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.StrawberrySeed);
+
+    }
+    public void ActualizarCantidadPlantsUI()
+    {
+        CornText.text = "x" + InventoryManager.GetInventoryItem(Items.Corn);
+        LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
+        CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
+        StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
 
     }
     #endregion
@@ -2743,7 +2482,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescriptionUpgrade("Aumenta la capacidad de agua por 1.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+        ShowDescriptionUpgrade("Aumenta la capacidad de agua por 750 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
         if (TutorialManager.GetTutorialPhaseMejora() == 8)
         {
             Check(2);
@@ -2762,7 +2501,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescriptionUpgrade("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+        ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
         if (TutorialManager.GetTutorialPhaseMejora() == 5)
         {
             Check(2);
@@ -2777,17 +2516,17 @@ public class UIManager : MonoBehaviour
     {
         if (_isUpgradeSelected && _isSomethingSelected)
         {
-            if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 1000) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
+            if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 750) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 5.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 1.500 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
             }
-            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
+            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 1500) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
             {
                 GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 10.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 3.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
             }
-            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
+            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 3000) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
             {
                 GameManager.Instance.UpgradeWateringCan();
                 ShowDescriptionUpgrade("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
@@ -2797,27 +2536,27 @@ public class UIManager : MonoBehaviour
         {
             if (_isGardenSelected)
             {
-                if ((MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetGardenUpgrades() == 0))
+                if ((MoneyManager.GetMoneyCount() >= 1000) && (GameManager.Instance.GetGardenUpgrades() == 0))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 10.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.500 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
-                else if ((MoneyManager.GetMoneyCount() >= 10000) && (GameManager.Instance.GetGardenUpgrades() == 1))
+                else if ((MoneyManager.GetMoneyCount() >= 1500) && (GameManager.Instance.GetGardenUpgrades() == 1))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 15.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 2.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
-                else if ((MoneyManager.GetMoneyCount() >= 15000) && (GameManager.Instance.GetGardenUpgrades() == 2))
+                else if ((MoneyManager.GetMoneyCount() >= 2000) && (GameManager.Instance.GetGardenUpgrades() == 2))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 20.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 3.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
-                else if ((MoneyManager.GetMoneyCount() >= 20000) && (GameManager.Instance.GetGardenUpgrades() == 3))
+                else if ((MoneyManager.GetMoneyCount() >= 3000) && (GameManager.Instance.GetGardenUpgrades() == 3))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 30.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
-                else if ((MoneyManager.GetMoneyCount() >= 30000) && (GameManager.Instance.GetGardenUpgrades() == 4))
+                else if ((MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetGardenUpgrades() == 4))
                 {
                     GameManager.Instance.UpgradeGarden();
                     ShowDescriptionUpgrade("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
