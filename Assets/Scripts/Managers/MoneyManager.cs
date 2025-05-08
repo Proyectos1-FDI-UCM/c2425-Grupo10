@@ -82,14 +82,14 @@ public class MoneyManager : MonoBehaviour
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
     /// </summary>
-    [SerializeField] private int[] WateringCanUpgradePrices = { 1000, 5000, 10000 };
+    [SerializeField] private int[] WateringCanUpgradePrices = { 500, 1000, 5000 };
 
 
     [Header("Precios de Mejora de Huerto")]
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
     /// </summary>
-    [SerializeField] private int[] GardenUpgradePrices = { 5000, 10000, 15000, 20000, 30000 };
+    [SerializeField] private int[] GardenUpgradePrices = { 2500, 5000, 7500, 10000, 15000 };
 
     /// <summary>
     /// Referencia al UIManager
