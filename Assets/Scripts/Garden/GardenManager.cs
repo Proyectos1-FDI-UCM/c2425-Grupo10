@@ -131,6 +131,55 @@ public class GardenManager : MonoBehaviour
     {
         Garden = GardenData.GetGarden();
         bool isFastTime = gameTimer.IsFastTimeActive(); // Obtener el estado del tiempo rápido
+        GardenData.SetFastTimeMode(isFastTime);
+
+        // Si estamos en tiempo rápido, verificamos todos los avisos al inicio de cada frame
+        if (isFastTime)
+        {
+            for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
+            {
+                Plant plantCheck = GardenData.GetPlant(i);
+                if (plantCheck.Active)
+                {
+                    // Siempre actualizar el timer de agua para evitar avisos en modo rápido
+                    GardenData.ModifyWaterTimer(i, gameTimer.GetGameTimeInHours());
+
+                    // Si hay algún aviso, lo desactivamos
+                    if (plantCheck.WaterWarning || plantCheck.DeathWarning)
+                    {
+                        GardenData.ModifyWaterWarning(i, false);
+                        GardenData.ModifyDeathWarning(i, false);
+
+                        // Forzar la desactivación del sprite de aviso visual
+                        Transform cropCheck = SearchPlant(plantCheck);
+                        if (cropCheck != null)
+                        {
+                            CropSpriteEditor callCheck = cropCheck.GetComponent<CropSpriteEditor>();
+                            if (callCheck != null)
+                            {
+                                callCheck.Warning("Desactivate");
+                            }
+                        }
+                    }
+
+                    // Verificación adicional: desactivar todos los sprites de aviso en los hijos
+                    Transform spotCheck = PlantingSpots.transform.GetChild(plantCheck.Child);
+                    if (spotCheck != null && spotCheck.childCount > 0)
+                    {
+                        Transform plantTransform = spotCheck.GetChild(0);
+                        if (plantTransform != null && plantTransform.childCount > 0)
+                        {
+                            // Desactivar el sprite de aviso (generalmente es el primer hijo)
+                            SpriteRenderer warningRenderer = plantTransform.GetChild(0).GetComponent<SpriteRenderer>();
+                            if (warningRenderer != null)
+                            {
+                                warningRenderer.enabled = false;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
@@ -485,7 +534,25 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void WaterWarning(Plant plant, int ArrayIndex)
     {
-        if (plant.WaterWarning && plant.State > 0) // Solo si no está muerto
+        // Primero verificar si estamos en tiempo rápido
+        if (gameTimer.IsFastTimeActive())
+        {
+            // Si estamos en tiempo rápido, NO mostrar avisos de agua
+            GardenData.ModifyWaterWarning(ArrayIndex, false);
+            Transform Crop = SearchPlant(plant);
+            if (Crop != null)
+            {
+                CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                if (Call != null)
+                {
+                    Call.Warning("Desactivate");
+                }
+            }
+            return; // Salir del método
+        }
+
+        // Si no estamos en tiempo rápido, comportamiento normal
+        if (!plant.WaterWarning && plant.State > 0) // Solo si no está muerto
         {
             Transform Crop = SearchPlant(plant);
 
@@ -522,7 +589,25 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     public void DeathWarning(Plant plant, int ArrayIndex)
     {
-        if (plant.DeathWarning)
+        // Primero verificar si estamos en tiempo rápido
+        if (gameTimer.IsFastTimeActive())
+        {
+            // Si estamos en tiempo rápido, NO mostrar avisos de muerte
+            GardenData.ModifyDeathWarning(ArrayIndex, false);
+            Transform Crop = SearchPlant(plant);
+            if (Crop != null)
+            {
+                CropSpriteEditor Call = Crop.GetComponent<CropSpriteEditor>();
+                if (Call != null)
+                {
+                    Call.Warning("Desactivate");
+                }
+            }
+            return; // Salir del método
+        }
+
+        // Si no estamos en tiempo rápido, comportamiento normal
+        if (!plant.DeathWarning)
         {
             Debug.Log("DeathWarning");
             GardenData.ModifyState(ArrayIndex, plant.State);
@@ -626,6 +711,7 @@ public class GardenManager : MonoBehaviour
     public void HandleTimeSpeedChange(bool isFastMode)
     {
         Garden = GardenData.GetGarden();
+        GardenData.SetFastTimeMode(isFastMode);
 
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {

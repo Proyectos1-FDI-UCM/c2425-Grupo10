@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Este Script guarda los datos de todas las plantas del huerto
-// Julia Vera Ruiz
+// Julia Vera Ruiz, Alexia Pérez Santana
 // Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
@@ -69,6 +69,7 @@ public struct CropVariables
 /// </summary>
 public static class GardenData
 {
+    private static bool _isFastTimeMode = false;
 
     private static int GardenMax = 36; // Se cambia con cada mejora
     private static Plant[] Garden = new Plant[GardenMax];
@@ -324,6 +325,11 @@ public static class GardenData
     {
         int Index = System.Array.IndexOf(Garden, plant);
         return Index;
+    }
+
+    public static void SetFastTimeMode(bool isFastTime)
+    {
+        _isFastTimeMode = isFastTime;
     }
 
     // ---------------- ITEM DATA ------------------

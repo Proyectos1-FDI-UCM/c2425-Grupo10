@@ -93,11 +93,27 @@ public class CropSpriteEditor : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
+
+        // Si estamos en tiempo rápido, desactivar inmediatamente
+        if (IsFastTimeActive())
+        {
+            _warning.enabled = false;
+        }
+
         if (!GardenData.GetPlant(transform).Active)
         {
             //GardenData.Active(transform, item); // Inicializa la Planta en GardenManager
 
             //Warning("Water");
+        }
+    }
+
+    void OnEnable()
+    {
+        // Verificar si estamos en tiempo rápido cada vez que se habilita este objeto
+        if (IsFastTimeActive() && _warning != null)
+        {
+            _warning.enabled = false;
         }
     }
 
@@ -116,6 +132,13 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     public void Warning(string Type)
     {
+        // Si estamos en tiempo rápido, siempre mantener los avisos desactivados
+        if (IsFastTimeActive() && (Type == "Water" || Type == "Death"))
+        {
+            _warning.enabled = false;
+            return;
+        }
+
         if (Type == "Desactivate")
         {
             // Asegurarnos de que el sprite de aviso se oculta completamente
@@ -207,6 +230,27 @@ public class CropSpriteEditor : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private bool IsFastTimeActive()
+    {
+        if (gameTimer == null)
+        {
+            gameTimer = FindObjectOfType<Timer>();
+        }
+
+        if (gameTimer != null)
+        {
+            return gameTimer.IsFastTimeActive();
+        }
+
+        // Si no podemos acceder al timer, consultamos al GameManager
+        GardenManager gardenManager = FindObjectOfType<GardenManager>();
+        if (gardenManager != null)
+        {
+            return gardenManager.GetComponent<Timer>().IsFastTimeActive();
+        }
+
+        return false;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
