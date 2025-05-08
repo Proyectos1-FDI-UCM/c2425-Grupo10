@@ -166,6 +166,7 @@ public class GardenManager : MonoBehaviour
                 if (!isFastTime)
                 {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                     GardenData.ModifyWaterWarning(i, true);
                     WaterWarning(GardenData.GetPlant(i), i);
                     //GardenData.ModifyWaterWarning(i);
@@ -194,6 +195,21 @@ public class GardenManager : MonoBehaviour
                         DeathWarning(GardenData.GetPlant(i), i);
 >>>>>>> Stashed changes
 
+=======
+                    // Aviso Riego
+                    if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath / 2) && State > 0 && State < 4)
+                    {
+                        WaterWarning(GardenData.GetPlant(i), i);
+                        //GardenData.ModifyWaterWarning(i);
+                    }
+
+                    // Aviso Muerte
+                    if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4)
+                    {
+                        Debug.Log("Aviso Muerte");
+                        DeathWarning(GardenData.GetPlant(i), i);
+
+>>>>>>> Stashed changes
                     }
 
                     // Muerte
