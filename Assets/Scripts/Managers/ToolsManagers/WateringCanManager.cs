@@ -134,7 +134,7 @@ public class WateringCanManager : MonoBehaviour
     ///<summary>
     ///Booleano para permitir recargar
     /// </summary>
-    [SerializeField] private bool _isInWellArea = false;
+    private bool _isInWellArea = false;
 
     ///<summary>
     ///Booleano para permitir regar
@@ -160,7 +160,7 @@ public class WateringCanManager : MonoBehaviour
     /// <summary>
     /// Tutorial Manager
     /// </summary>
-    private TutorialManager TutorialManager;
+    private TutorialManager _tutorialManager;
 
     ///<summary>
     ///booleanos para activar/desactivar el riego/rellenado
@@ -204,7 +204,7 @@ public class WateringCanManager : MonoBehaviour
             Pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
         }
 
-        TutorialManager = FindObjectOfType<TutorialManager>();
+        _tutorialManager = FindObjectOfType<TutorialManager>();
 
 }
 
@@ -229,14 +229,14 @@ public class WateringCanManager : MonoBehaviour
 
         if (InputManager.Instance.UseWateringCanWasPressedThisFrame() && !_isInWellArea && _canWater)
         {
-            if(TutorialManager.GetTutorialPhase() >= 15)
+            if(_tutorialManager.GetTutorialPhase() >= 15)
             {
                 Watering();
                 _canWater = false;
-                if (TutorialManager.GetTutorialPhase() == 15)
+                if (_tutorialManager.GetTutorialPhase() == 15)
                 {
-                    TutorialManager.CheckBox(0);
-                    TutorialManager.Invoke("NextDialogue", 0.6f);
+                    _tutorialManager.CheckBox(0);
+                    _tutorialManager.Invoke("NextDialogue", 0.6f);
                 }
             }
             else
@@ -257,10 +257,10 @@ public class WateringCanManager : MonoBehaviour
 
                 FillWateringCan(_maxWaterAmount);
                 _canWater = false;
-                if (TutorialManager.GetTutorialPhase() == 16)
+                if (_tutorialManager.GetTutorialPhase() == 16)
                 {
-                    TutorialManager.CheckBox(0);
-                    TutorialManager.Invoke("NextDialogue", 0.6f);
+                    _tutorialManager.CheckBox(0);
+                    _tutorialManager.Invoke("NextDialogue", 0.6f);
                 }
             }
 
