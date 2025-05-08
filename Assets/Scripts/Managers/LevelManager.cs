@@ -2,7 +2,7 @@
 // Gestor de escena. Podemos crear uno diferente con un
 // nombre significativo para cada escena, si es necesario
 // Guillermo Jiménez Díaz, Pedro Pablo Gómez Martín, Alexia Pérez Santana
-// TemplateP1
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -123,11 +123,6 @@ public class LevelManager : MonoBehaviour
     /// Verifica si existe una instancia del LevelManager.
     /// </summary>
     public static bool HasInstance() { return _instance != null; }
-
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
 
     #endregion
 }
