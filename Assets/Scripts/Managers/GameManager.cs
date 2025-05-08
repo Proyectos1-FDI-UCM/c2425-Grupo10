@@ -325,14 +325,6 @@ public class GameManager : MonoBehaviour
             {
                 MoneyCount.AddMoney(100000);
             }
-            if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
-            {
-                InventoryManager.ModifyInventory(Items.Lettuce, 1);
-            }
-            if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
-            {
-                InventoryManager.ModifyInventory(Items.LettuceSeed, 1);
-            }
             if (InputManager.Instance.NextDialogueWasPressedThisFrame())
             {
                 TutorialManager.NextDialogue();
@@ -481,6 +473,7 @@ public class GameManager : MonoBehaviour
     public int GetGardenUpgrades() { return _gardenUpgrades; }
     public bool GetNewGame() { return _newGame; }
     public bool GetControllerUsing() { return _isGameController; }
+    public bool GetBuild() { return Build; }
     public void SetTimer(Timer timercomponent)
     {
         timer = timercomponent;

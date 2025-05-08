@@ -201,6 +201,17 @@ public class SelectorManager : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (!GameManager.Instance.GetBuild())
+        {
+            if (InputManager.Instance.ShorcutInventoryWasPressedThisFrame())
+            {
+                InventoryManager.ModifyInventory((Items)(_currentSeed+(int)Items.Count/2), 1);
+            }
+            if (InputManager.Instance.ShorcutSeedWasPressedThisFrame())
+            {
+                InventoryManager.ModifyInventory((Items)_currentSeed, 1);
+            }
+        }
         if (!UIManager.GetPauseMenu() && !UIManager.GetLibraryActive())
         {
             if (InputManager.Instance.ChangeToolUpWasPressedThisFrame())
@@ -216,7 +227,7 @@ public class SelectorManager : MonoBehaviour
 
             }
 
-            if (InputManager.Instance.Select5WasPressedThisFrame() || _toolSelector == 4 || InputManager.Instance.ShorcutSeedWasPressedThisFrame())
+            if (InputManager.Instance.Select5WasPressedThisFrame() || _toolSelector == 4)
             {
                 _toolSelector = -1;
                 SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
