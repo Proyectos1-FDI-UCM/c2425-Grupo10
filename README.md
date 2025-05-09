@@ -10,10 +10,10 @@ Mueves el personaje por el mundo y cultivas tus plantas a base de comprar las se
 
 ### Controles (teclado / Play / XBOX)
 
-*ASDW O FLECHAS / JOYSTICK / JOYSTICK* - Movimiento
-*PULSAR E / CUADRADO / X* - Usar / Recargar regadera / Interactuar
-*PULSAR M / PANEL / PANEL* - Mapa
-*PULSAR 1, 2, 3, 4, 5 / L1-R1 / L1-R1* - Selector de herramientas
+- *ASDW O FLECHAS / JOYSTICK / JOYSTICK* - Movimiento
+- *PULSAR E / CUADRADO / X* - Usar / Recargar regadera / Interactuar
+- *PULSAR M / PANEL / PANEL* - Mapa
+- *PULSAR 1, 2, 3, 4, 5 / L1-R1 / L1-R1* - Selector de herramientas
 	1 - Guantes 
 		Los guantes es el sprite en el que el personaje no tiene ninguna herramienta.
 	2 - Regadera 
@@ -25,10 +25,19 @@ Mueves el personaje por el mundo y cultivas tus plantas a base de comprar las se
 	5 - Semillas 
 		Las semillas se plantan en el huerto. Solo puedes plantar si tienes semillas disponibles.
 		*PULSAR 5 / TRIÁNGULO / Y* - Cambiar entre semillas
-*TAB / ↑ / ↑* - Abre el inventario
-*PULSAR Q / CÍRCULO / B* - Salir de interfaz
-*RATÓN*	 - Controla la escena de mejoras/Compra/Venta/Banco
-*ESC / ESC / ESC* - Menú de pausa
+- *TAB / ↑ / ↑* - Abre el inventario
+- *PULSAR Q / CÍRCULO / B* - Salir de interfaz
+- *RATÓN*	 - Controla la escena de mejoras/Compra/Venta/Banco
+- *ESC* - Menú de pausa
+
+### Cheats 
+
+Para Activar los Cheats PULSAR (F6)
+
+- Timer: (Pulsar t) Hace que el tiempo vaya más rápido
+- Semillas: (Pulsar O) Añade una unidad de las semillas seleccionados
+- Cultivos: (Pulsar P) Añade una unidad de los cultivos seleccionados
+- Dinero: (Pulsar I) Añade Dinero
 
 ### Consideraciones sobre los cheats
 
