@@ -119,9 +119,9 @@ public class GameManager : MonoBehaviour
     /// <summary>
     private int _maxGardenUpgrades = 4;
 
-    [SerializeField] private bool _isCursorVisible = true;
-    [SerializeField] private bool _shouldShowCursor = true;
-    [SerializeField] private bool _shouldHideCursor = true;
+    private bool _isCursorVisible = true;
+    private bool _shouldShowCursor = true;
+    private bool _shouldHideCursor = true;
 
 
     /// <summary>
@@ -157,57 +157,79 @@ public class GameManager : MonoBehaviour
     ///<summary>
     ///Booleano para saber si es una nueva partida
     /// </summary>
-    [SerializeField] private bool _newGame = false;
+    private bool _newGame = false;
 
     ///<summary>
     ///bool para saber si hay mando
     /// </summary>
-    [SerializeField] private bool _isGameController = false;
+    private bool _isGameController = false;
 
     ///<summary>
     ///int para saber cuantos mandos hay conectados
     /// </summary>
-    [SerializeField] private int numberOfGamepads = 0;
-
+    private int numberOfGamepads = 0;
 
     ///<summary>
     ///Booleano para saber si el jugador esta en la cinematica inicial
     /// </summary>
-    [SerializeField] private bool _isInCinematic = false;
+    private bool _isInCinematic = false;
 
     /// <summary>
     /// Int para contar cuantas lechugas has vendido de cada cosa
     /// </summary>
-    [SerializeField] private int _amountOfLettuceSold = 0;
+    private int _amountOfLettuceSold = 0;
 
     /// <summary>
     /// Int para contar cuantas zanahorias has vendido de cada cosa
     /// </summary>
-    [SerializeField] private int _amountOfCarrotSold = 0;
+    private int _amountOfCarrotSold = 0;
 
     /// <summary>
     /// Int para contar cuantas fresas has vendido de cada cosa
     /// </summary>
-    [SerializeField] private int _amountOfStrawberrySold = 0;
+    private int _amountOfStrawberrySold = 0;
 
     /// <summary>
     /// Int para contar cuantos maices has vendido de cada cosa
     /// </summary>
-    [SerializeField] private int _amountOfCornSold = 0;
+    private int _amountOfCornSold = 0;
 
+    /// <summary>
+    /// nombre de la escena
+    /// </summary>
     private string _scene;
 
+    /// <summary>
+    /// booleanos de tipo de escena
+    /// </summary>
     private bool _isBuildScene;
     private bool _isShopScene;
+    
+    /// <summary>
+    /// bool para saber si esta activado el menupausa
+    /// </summary>
     private bool _isPause;
+
+    /// <summary>
+    /// bool para saber si esta activado el dialogo
+    /// </summary>
     private bool _isDialogue;
+
+    /// <summary>
+    /// bool para saber si esta actiada la enciclopedia
+    /// </summary>
     private bool _isLibrary;
+
+    /// <summary>
+    /// bool para saber si esta activada la interfaz de ui
+    /// </summary>
     private bool _isUI;
+
+    /// <summary>
+    /// bools para saber si ya esta la escena final
+    /// </summary>
     private bool _isFinal;
-
-
     private bool _gameCharged = false;
-
     private bool _isFinalScene = false;
 
     // 0: Lechuga, 1: Zanahoria, 2: Fresa, 3: Maíz
@@ -230,16 +252,7 @@ public class GameManager : MonoBehaviour
         InitializeReferences();
         if (_instance != null)
         {
-            // No somos la primera instancia. Se supone que somos un
-            // GameManager de una escena que acaba de cargarse, pero
-            // ya había otro en DontDestroyOnLoad que se ha registrado
-            // como la única instancia.
-            // Si es necesario, transferimos la configuración que es
-            // dependiente de la escena. Esto permitirá al GameManager
-            // real mantener su estado interno pero acceder a los elementos
-            // de la escena particulares o bien olvidar los de la escena
-            // previa de la que venimos para que sean efectivamente liberados.
-            TransferSceneState();
+
 
             // Y ahora nos destruímos del todo. DestroyImmediate y no Destroy para evitar
             // que se inicialicen el resto de componentes del GameObject para luego ser
@@ -253,7 +266,6 @@ public class GameManager : MonoBehaviour
             // Queremos sobrevivir a cambios de escena.
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
-            Init();
         } // if-else somos instancia nueva o no.
         if (_isCursorVisible)
         {
@@ -467,38 +479,67 @@ public class GameManager : MonoBehaviour
     } // ChangeScene
 
     /// <summary>
-    /// Metodo para obtener la cantidad de mejoras que tiene la Regadera/Huerto/Inventory.
+    /// Metodos para obtener la cantidad de mejoras que tiene la Regadera/Huerto.
     /// <summary>
     public int GetWateringCanUpgrades() { return _wateringCanUpgrades; }
     public int GetGardenUpgrades() { return _gardenUpgrades; }
+
+    /// <summary>
+    /// devuelve si es una nueva partida
+    /// </summary>
+    /// <returns></returns>
     public bool GetNewGame() { return _newGame; }
+
+    /// <summary>
+    /// devuelve si hay mando activo
+    /// </summary>
+    /// <returns></returns>
     public bool GetControllerUsing() { return _isGameController; }
+
+    /// <summary>
+    /// devuelve si hay cheats o es build
+    /// </summary>
+    /// <returns></returns>
     public bool GetBuild() { return Build; }
+
     public void SetTimer(Timer timercomponent)
     {
         timer = timercomponent;
         timer.SetRealTime(realTime);
     }
-
+    /// <summary>
+    /// guarda en el gameManager el tiempo actual para volverlo a cargar cuando vuelvas a la escena
+    /// </summary>
     public void SaveTime()
     {
         realTime = timer.GetRealTime();
     }
-
+    /// <summary>
+    /// activa el bool de escena final
+    /// </summary>
     public void FinalScene()
     {
         _isFinalScene = true;
     }
-
+    /// <summary>
+    /// devuelve el bool de si es escena final
+    /// </summary>
+    /// <returns></returns>
     public bool GetFinalScene()
     {
         return _isFinalScene;
     }
+    /// <summary>
+    /// metodo al que le pasas el time que se ha guardado en el archivo guardar partida para cargar una partida
+    /// </summary>
+    /// <param name="time"></param>
     public void SaveTime(float time)
     {
         realTime = time;
     }
-
+    /// <summary>
+    /// busca cual es el nombre de la escena actual
+    /// </summary>
     public void FindActualScene()
     {
         _scene = SceneManager.GetActiveScene().name;
@@ -616,7 +657,10 @@ public class GameManager : MonoBehaviour
         return _amountWater; // Retorna la cantidad de agua
 
     }
-
+    /// <summary>
+    /// establece el canvas del juego(no final) para luego desactivarlo desde otro metodo
+    /// </summary>
+    /// <param name="canvas"></param>
     public void SetCanvas(GameObject canvas)
     {
         CanvasRootWood = canvas;
@@ -747,7 +791,9 @@ public class GameManager : MonoBehaviour
         MoneyCount = FindObjectOfType<MoneyManager>();
 
     }
-
+    /// <summary>
+    /// reinicia datos para una nueva partida
+    /// </summary>
     public void NewGame()
     {
         _wateringCanUpgrades = 0;
@@ -776,13 +822,18 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
+    /// <summary>
+    /// este metodo llama al moneymanager para reiniciar su dinero inicial
+    /// </summary>
     public void ResetInitialMoney()
     {
         MoneyCount.InitialMoney(InitialAmountMoney);
 
     }
 
+    /// <summary>
+    /// metodo para guardar el juego en save data
+    /// </summary>
     public void SaveGame()
     {
         SaveData data = new SaveData();
@@ -810,6 +861,10 @@ public class GameManager : MonoBehaviour
 
         Debug.Log("Partida guardada en " + Application.persistentDataPath);
     }
+
+    /// <summary>
+    /// metodo apra cargar el juego desde el archivo
+    /// </summary>
     public void LoadGame()
     {
         string path = Application.persistentDataPath + "/savefile.json";
@@ -849,21 +904,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// booleano que comprueba si el cultivo esta desbloqueado
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
     public bool IsCropUnlocked(int index)
     {
         return _unlockedCrops[index];
     }
 
+    /// <summary>
+    /// estabalece un cultivo como desbloqueado
+    /// </summary>
+    /// <param name="crops"></param>
     public void SetUnlockedCrops(bool[] crops)
     {
         _unlockedCrops = crops;
     }
 
+    /// <summary>
+    /// metodo para obtener el array de booleanos con cultivos desbloqueados
+    /// </summary>
+    /// <returns></returns>
     public bool[] GetUnlockedCrops()
     {
         return _unlockedCrops;
     }
 
+    /// <summary>
+    /// Actualiza el aviso 
+    /// </summary>
     public void UpdateAllPlantsWater()
     {
         if (GardenManager != null)
@@ -872,7 +943,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// metodo para desactivar los avisos del huerto cuando el tiempo esta rapido
+    /// </summary>
+    /// <param name="isFastMode"></param>
     public void OnTimeSpeedChanged(bool isFastMode)
     {
         if (GardenManager != null)
@@ -886,26 +960,58 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+
+    /// <summary>
+    /// este metodo comprueba las condiciones para desbloquear un cultivo, y manda notificacion en caso de ser asi
+    /// </summary>
+    public void CheckCropUnlocks()
+    {
+        // Verifica si se desbloquea la zanahoria (al vender 10 lechugas)
+        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 10)
+        {
+            _unlockedCrops[1] = true;
+
+            // Mostrar la notificación en la UI
+            UIManager.ShowNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", 4, "Tool");
+            Invoke("HideSeedNotification", 2f);
+
+
+        }
+
+        // Verifica si se desbloquea la fresa (al vender 30 zanahorias)
+        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 30)
+        {
+            _unlockedCrops[2] = true;
+
+            // Mostrar la notificación en la UI
+            UIManager.ShowNotification("¡Has desbloqueado \nla fresa!", "NoCounter", 4, "Tool");
+            Invoke("HideSeedNotification", 2f);
+
+        }
+
+        // Verifica si se desbloquea el maíz (al vender 50 fresas)
+        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 50)
+        {
+            _unlockedCrops[3] = true;
+
+            // Mostrar la notificación en la UI
+            UIManager.ShowNotification("¡Has desbloqueado \nel maíz!", "NoCounter", 4, "Tool");
+            Invoke("HideSeedNotification", 2f);
+        }
+    }
+    /// <summary>
+    /// este metodo desactiva el bool de la cinematca inicial(no existe)
+    /// </summary>
+    public void EndCinematic()
+    {
+        _isInCinematic = false;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
 
     #region Métodos Privados
-
-    /// <summary>
-    /// Dispara la inicialización.
-    /// </summary>
-    private void Init()
-    {
-        // De momento no hay nada que inicializar
-    }
-
-    private void TransferSceneState()
-    {
-        // De momento no hay que transferir ningún estado
-        // entre escenas
-    }
-    
 
     ///<summary>
     ///Metodo para inicializar las referencias en awake
@@ -921,47 +1027,12 @@ public class GameManager : MonoBehaviour
         MenuManager = FindObjectOfType<MenuManager>();
     }
 
-    private void CheckCropUnlocks()
+    /// <summary>
+    /// este metodo oculta la notificacion lanzada al desbloquear semilla
+    /// </summary>
+    private void HideSeedNotification()
     {
-        // Verifica si se desbloquea la zanahoria (al vender 10 lechugas)
-        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 10)
-        {
-            _unlockedCrops[1] = true;
-            // Guardar la notificación en el NotificationManager
-            NotificationManager.SaveNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", "NoTutorial");
-            // Mostrar la notificación en la UI
-            UIManager.ShowNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", 1, "NoTutorial");
-           
-        }
-
-        // Verifica si se desbloquea la fresa (al vender 30 zanahorias)
-        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 30)
-        {
-            _unlockedCrops[2] = true;
-            // Guardar la notificación en el NotificationManager
-            NotificationManager.SaveNotification("¡Has desbloqueado \nla fresa!", "NoCounter", "NoTutorial");
-            // Mostrar la notificación en la UI
-            UIManager.ShowNotification("¡Has desbloqueado \nla fresa!", "NoCounter", 1, "NoTutorial");
-            
-        }
-
-        // Verifica si se desbloquea el maíz (al vender 50 fresas)
-        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 50)
-        {
-            _unlockedCrops[3] = true;
-            // Guardar la notificación en el NotificationManager
-            NotificationManager.SaveNotification("¡Has desbloqueado \nel maíz!", "NoCounter", "NoTutorial");
-            // Mostrar la notificación en la UI
-            UIManager.ShowNotification("¡Has desbloqueado \nel maíz!", "NoCounter", 1, "NoTutorial");
-           
-        }
-    }
-
-    public void EndCinematic()
-    {
-
-            _isInCinematic = false;
-            //TutorialManager.NextDialogue();
+        UIManager.HideNotification("Tool");
     }
     #endregion
 } // class GameManager 
