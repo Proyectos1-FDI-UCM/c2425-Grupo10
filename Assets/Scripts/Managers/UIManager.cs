@@ -444,12 +444,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI AmountOfUpgradesText;
 
-    [Header("UI de Venta")]
+    [Header("UI de Venta/Compra")]
     ///<summary>
     ///Texto para mostras el precio de las semillas seleccionadas
     /// </summary>
     [SerializeField] private TextMeshProUGUI PriceAmountText;
-
 
     /// <summary>
     /// Textos de la cantidad de cultivos que tienes en el inventario
@@ -458,9 +457,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI LettuceText;
     [SerializeField] private TextMeshProUGUI CarrotText;
     [SerializeField] private TextMeshProUGUI StrawberryText;
-
-
-    [Header("UI de Compra")]
+    [SerializeField] private TextMeshProUGUI SeedCornText;
+    [SerializeField] private TextMeshProUGUI SeedLettuceText;
+    [SerializeField] private TextMeshProUGUI SeedCarrotText;
+    [SerializeField] private TextMeshProUGUI SeedStrawberryText;
 
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
@@ -480,14 +480,6 @@ public class UIManager : MonoBehaviour
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
     [SerializeField] private GameObject DecreaseAmountButton;
-
-    /// <summary>
-    /// Textos de la cantidad de cultivos que tienes en el inventario
-    /// </summary>
-    [SerializeField] private TextMeshProUGUI SeedCornText;
-    [SerializeField] private TextMeshProUGUI SeedLettuceText;
-    [SerializeField] private TextMeshProUGUI SeedCarrotText;
-    [SerializeField] private TextMeshProUGUI SeedStrawberryText;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -520,12 +512,12 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// Booleano para saber si esta en el area de interaccion con el npc
     /// </summary>
-    [SerializeField] private bool _isInNpcArea = false;
+    private bool _isInNpcArea = false;
 
     /// <summary>
     /// Booleano para saber si esta activa la interfaz
     /// </summary>
-    [SerializeField] private bool _uiActive = false;
+    private bool _uiActive = false;
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton ingresar
@@ -578,9 +570,15 @@ public class UIManager : MonoBehaviour
     /// </summary>
     private bool _isSellPressed = false;
 
-    [SerializeField] private int _amount = 1;
+    /// <summary>
+    /// controla la cantidad de items a comprar/vender
+    /// </summary>
+    private int _amount = 1;
+
+    /// <summary>
+    /// se le asigna el precio de cada item 
+    /// </summary>
     private int _cost;
-    private int[] _inventory;
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado el boton de maiz
@@ -650,31 +648,35 @@ public class UIManager : MonoBehaviour
     ///herramienta notification activa
     /// </summary>
     private bool _isInventoryNotification = false;
+
     /// <summary>
     /// Cual es la notificacion del tutorial
     /// </summary>
-    [SerializeField] private int _tutorialNotificationID = 0;
+    private int _tutorialNotificationID = 0;
+
     /// <summary>
     /// Booleano para saber si el menú de pausa está mostrado
     /// </summary>
-    [SerializeField] private bool _isPauseMenuActive = false;
+    private bool _isPauseMenuActive = false;
 
     /// <summary>
     /// Booleano para saber si el dialogo esta activado
     /// </summary>
-    [SerializeField] private bool _isDialogueActive = false;
+    private bool _isDialogueActive = false;
 
     /// <summary>
     /// bool para saber si la enciclopedia esta activa
     /// </summary>
     private bool _isLibraryActive = false;
 
-
     /// <summary>
     /// bool para saber si los controles están activos
     /// </summary>
     private bool _isControlsActive;
 
+    /// <summary>
+    /// Posicion a la que se mueve el jugador cuando se muda
+    /// </summary>
     private Vector3 _newHousePosition = new Vector3(70f, -55f, 0f);
 
 
@@ -780,7 +782,6 @@ public class UIManager : MonoBehaviour
                 Map.SetActive(true);
                 _isMapVisible = true;
                 PlayerMovement.DisablePlayerMovement();
-                //Player.localScale = new Vector3 (15f, 15f, 1f);
 
                 if (TutorialManager.GetTutorialPhase() == 3) // Verifica si es la fase 3 o la fase que corresponda
                 {
@@ -1099,20 +1100,33 @@ public class UIManager : MonoBehaviour
             _isInventoryNotification = false;
         }
     }
+    /// <summary>
+    /// oculta la notificacion de inventario desde invoke
+    /// </summary>
     public void NotificationInventory()
     {
         HideNotification("Inventory");
     }
-
+    /// <summary>
+    /// muestra la barra de agua
+    /// </summary>
     public void ShowWaterBar()
     {
         WaterMessage.SetActive(true);
     }
+    /// <summary>
+    /// oculta la barra de agua
+    /// </summary>
     public void HideWaterBar()
     {
         WaterMessage.SetActive(false);
         HideNotification("WC");
     }
+    /// <summary>
+    /// actualiza los datos de la barra de agua
+    /// </summary>
+    /// <param name="Water"></param>
+    /// <param name="MaxWaterAmount"></param>
     public void UpdateWaterBar(float Water, float MaxWaterAmount)
     {
         if (Water == 0)
@@ -1292,19 +1306,34 @@ public class UIManager : MonoBehaviour
         PauseMenu.SetActive(false);
         _isPauseMenuActive = false;
     }
+    /// <summary>
+    /// devuelve si el menu de pausa esta activo
+    /// </summary>
+    /// <returns></returns>
     public bool GetPauseMenu()
     {
         return _isPauseMenuActive;
     }
+    /// <summary>
+    /// devuelve si la UI de mercado esta activa
+    /// </summary>
+    /// <returns></returns>
     public bool GetUIActive()
     {
         return _uiActive;
     }
+
+    /// <summary>
+    /// devuelve si el mapa esta activado
+    /// </summary>
+    /// <returns></returns>
     public bool GetMapVisible()
     {
         return _isMapVisible;
     }
-
+    /// <summary>
+    /// al pulsar inicio en menu pausa, se comprueba que debe de hacer el onclick, si salir del juego o esperar a que termine el tutorial
+    /// </summary>
     public void CanExitGame()
     {
         if (SceneManager.GetActiveScene().name == "Escena_Banco")
@@ -1348,10 +1377,17 @@ public class UIManager : MonoBehaviour
         }
             
     }
+    /// <summary>
+    /// oculta notificacion del canexitgame desde invoke
+    /// </summary>
     public void HideExitGameMessage()
     {
         HideNotification("Tool");
     }
+
+    /// <summary>
+    /// muetsra la enciclopedia
+    /// </summary>
     public void ShowLibrary()
     {
 
@@ -1411,6 +1447,9 @@ public class UIManager : MonoBehaviour
             }
         PlayerMovement.DisablePlayerMovement();
     }
+    /// <summary>
+    /// oculta la enciclopedia
+    /// </summary>
     public void HideLibrary()
     {
         PlayerMovement.EnablePlayerMovement();
@@ -1418,6 +1457,10 @@ public class UIManager : MonoBehaviour
         _isLibraryActive = false;
     }
 
+    /// <summary>
+    /// devuelve si la enciclopedia esta activa
+    /// </summary>
+    /// <returns></returns>
     public bool GetLibraryActive()
     {
         return _isLibraryActive;
@@ -1509,14 +1552,19 @@ public class UIManager : MonoBehaviour
         ToolsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(3); });
 
     }
-
+    /// <summary>
+    /// oculta el panel de controles
+    /// </summary>
     public void HideControls()
     {
         _isControlsActive = false;
         ControlsDropdown.value = 0;
         UpdateControls(0);
     }
-
+    /// <summary>
+    /// actualiza el panel de controles dependiendo del valor del dropdown
+    /// </summary>
+    /// <param name="changedDropdown"></param>
     public void UpdateControls(int changedDropdown)
     {
         // Desactivar todo
@@ -1779,7 +1827,9 @@ public class UIManager : MonoBehaviour
             PriceAmountText.text = _amount + " " + _selected + " = " + totalCosto + "RC";
         }
     }
-
+    /// <summary>
+    /// activa la interfaz de mercado y varia dependiendo de la escena
+    /// </summary>
     private void EnableInterfaz()
     {
         _uiActive = true;
@@ -1802,15 +1852,20 @@ public class UIManager : MonoBehaviour
             _isLettuceSelected = true;
             LettuceButton.Select();
             ActualizarCantidadPlantsUI();
+            GameManager.Instance.CheckCropUnlocks();
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
             _isLettuceSelected = true;
             LettuceSeedsButton.Select();
             ActualizarCantidadSeedsUI();
+            GameManager.Instance.CheckCropUnlocks();
         }
     }
 
+    /// <summary>
+    /// Desactiva la interfaz de mercado
+    /// </summary>
     private void DisableInterfaz()
     {
         _uiActive = false;
@@ -1822,7 +1877,9 @@ public class UIManager : MonoBehaviour
         ShowNotification("Presiona E para\nhablar", "NoCounter", 1, "NoTutorial");
         PlayerMovement.EnablePlayerMovement();
     }
-
+    /// <summary>
+    /// resetea la interfaz de mercado al abrirse
+    /// </summary>
     private void ResetInterfaz()
     {
         UI.SetActive(false);
@@ -1936,15 +1993,15 @@ public class UIManager : MonoBehaviour
             }        
         }    
     }
+    /// <summary>
+    /// Actualiza la barra de la energia con los valores maximao y actual
+    /// </summary>
+    /// <param name="current"></param>
+    /// <param name="max"></param>
     public void UpdateEnergyBar(float current, int max)
     {
         EnergySlider.maxValue = max;
         EnergySlider.value = current;
-    }
-
-    public void ShowTiredMessage(bool show)
-    {
-        TiredMessage.SetActive(show);
     }
     #endregion
 
@@ -1954,7 +2011,6 @@ public class UIManager : MonoBehaviour
     public void ToggleInventory()
     {
         _isInventoryVisible = !_isInventoryVisible;
-        bool desactivate = false;
         if (TutorialManager.GetTutorialPhase() == 7) // Verifica si es la fase 3 o la fase que corresponda
         {
             Check(0);
@@ -1971,11 +2027,6 @@ public class UIManager : MonoBehaviour
     {
         TutorialManager.NextDialogue();
     }
-
-    // ---- METODOS PRIVADOS (BUILD) ----
-    #region Metodos Privados (Build)
-
-    #endregion
 
     #endregion
 
@@ -2124,6 +2175,9 @@ public class UIManager : MonoBehaviour
 
     // ---- METODOS PRIVADOS (BANCO)
     #region Metodos Privados (Banco)
+    /// <summary>
+    /// cambia el texto de la descripcion por el nuevo
+    /// </summary>
     private void ChangeDescription()
     {
         DescriptionText.text = _newDescriptionText;
@@ -2131,124 +2185,47 @@ public class UIManager : MonoBehaviour
     #endregion
     #endregion
 
-    // ---- VENTA ----
-    #region Venta
+    // ---- COMPRA/VENTA ----
+    #region
 
-    // ---- METODOS PUBLICOS (VENTA) ----
-    #region Metodos Publicos (Venta)
-
+    // ---- METODOS PUBLICOS (COMPRA/VENTA) ----
+    #region
+    
     /// <summary>
-    /// Metodo para detectar cuando el jugador pulsa el boton "Sell".
+    /// llama al metodo de seleccionar con todas sus variables
     /// </summary>
-    public void ButtonSellPressed()
-    {
-        _isSellPressed = true;
-        _isSomethingSelected = true;
-
-        Debug.Log("Vender presionado");
-
-        Items selectedItem = GetSelectedSeed();
-        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
-        _selected = GetSeedPlantName();
-        if(_amount <= currentAmount)
-        {
-            int totalGanado = _amount * _cost;
-
-            MoneyManager.AddMoney(totalGanado);
-            InventoryManager.ModifyInventorySubstract(selectedItem, _amount);
-            GameManager.Instance.AddAmountSold(GetSelectedSeed(), _amount);
-
-            _amount = 1;
-
-            UpdateUI();
-            ActualizarCantidadPlantsUI();
-        }
-        else
-        {
-            DescriptionText.text = $"No tienes suficientes cultivos de {_selected} para vender.";
-        }
-
-        int phase = TutorialManager.GetTutorialPhase();
-        if (phase >= 21 && phase <= 23)
-        {
-            TutorialManager.SetTutorialPhase(23);
-            Invoke("NextDialogue", 0f);
-        }
-    }
-
-    #endregion
-
-    #endregion
-
-    // ---- COMPRA ----
-    #region
-
-    // ---- METODOS PUBLICOS (COMPRA) ----
-    #region
-    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed }
-
-
-    private void SelectSeed(SeedOrPlantType type, int cost, string singularName, string pluralName)
-    {
-        _isSomethingSelected = true;
-        _isCornSelected = type == SeedOrPlantType.Corn || type == SeedOrPlantType.CornSeed;
-        _isCarrotSelected = type == SeedOrPlantType.Carrot || type == SeedOrPlantType.CarrotSeed;
-        _isLettuceSelected = type == SeedOrPlantType.Lettuce || type == SeedOrPlantType.LettuceSeed;
-        _isStrawberriesSelected = type == SeedOrPlantType.Strawberry || type == SeedOrPlantType.StrawberriesSeed;
-
-        BuySellButton.Select();
-        _amount = 1;
-        _cost = cost;
-        _selected = _amount <= 1 ? singularName : pluralName;
-        DescriptionText.text = "";
-        UpdateUI();
-    }
-
-    private string GetSingularName(Items item)
-    {
-        if (item == Items.Carrot) return "zanahoria";
-        else if (item == Items.Lettuce) return "lechuga";
-        else if (item == Items.Corn) return "maíz";
-        else if (item == Items.Strawberry) return "fresa";
-
-        else if (item == Items.CarrotSeed) return "semilla de zanahoria";
-        else if (item == Items.LettuceSeed) return "semilla de lechuga";
-        else if (item == Items.CornSeed) return "semilla de  maíz";
-        else if (item == Items.StrawberrySeed) return "semilla de fresa";
-        return "";
-    }
-
-    private string GetPluralName(Items item)
-    {
-        if (item == Items.Carrot) return "zanahorias";
-        else if (item == Items.Lettuce) return "lechugas";
-        else if (item == Items.Corn) return "maíces";
-        else if (item == Items.Strawberry) return "fresas";
-
-        else if (item == Items.CarrotSeed) return "semillas de zanahoria";
-        else if (item == Items.LettuceSeed) return "semillas de lechuga";
-        else if (item == Items.CornSeed) return "semillas de  maíz";
-        else if (item == Items.StrawberrySeed) return "semillas de fresa";
-        return "";
-    }
     public void ButtonCornSeedPressed()
     {
         SelectSeed(SeedOrPlantType.CornSeed, 70, "Semilla de Maíz", "Semillas de Maíz");
     }
+
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonCornPressed()
     {
         SelectSeed(SeedOrPlantType.Corn, 70, "Maíz", "Maíces");
     }
 
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonCarrotSeedPressed()
     {
         SelectSeed(SeedOrPlantType.CarrotSeed, 30, "Semilla de Zanahoria", "Semillas de Zanahoria");
     }
+
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonCarrotPressed()
     {
         SelectSeed(SeedOrPlantType.Carrot, 30, "Zanahoria", "Zanahorias");
     }
 
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonLettuceSeedPressed()
     {
         if (TutorialManager.GetTutorialPhase() == 11 || TutorialManager.GetTutorialPhase() >= 14)
@@ -2262,6 +2239,10 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonLettucePressed()
     {
         SelectSeed(SeedOrPlantType.Lettuce, 15, "Lechuga", "Lechugas");
@@ -2273,63 +2254,25 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonStrawberriesSeedPressed()
     {
         SelectSeed(SeedOrPlantType.Strawberry, 50, "Semilla de Fresa", "Semillas de Fresa");
     }
+
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
     public void ButtonStrawberriesPressed()
     {
         SelectSeed(SeedOrPlantType.Strawberry, 50, "Fresa", "Fresas");
     }
 
-
-    private Items GetSelectedSeed()
-    {
-        if(SceneManager.GetActiveScene().name == "Escena_Compra")
-        {
-            if (_isCornSelected) return Items.CornSeed;
-            if (_isCarrotSelected) return Items.CarrotSeed;
-            if (_isLettuceSelected) return Items.LettuceSeed;
-            if (_isStrawberriesSelected) return Items.StrawberrySeed;
-        }
-        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
-        {
-            if (_isCornSelected) return Items.Corn;
-            if (_isCarrotSelected) return Items.Carrot;
-            if (_isLettuceSelected) return Items.Lettuce;
-            if (_isStrawberriesSelected) return Items.Strawberry;
-        }
-        return Items.Count;
-    }
-
-    private string GetSeedPlantName()
-    {
-        Items selectedItem = GetSelectedSeed();
-
-        string singularName = GetSingularName(selectedItem);
-        string pluralName = GetPluralName(selectedItem);
-
-        string _selected = _amount <= 1 ? singularName : pluralName;
-        return _selected;
-    }
-
-    private bool HasReachedLimit()
-    {
-        Items selectedItem = GetSelectedSeed();
-        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
-
-        if (SceneManager.GetActiveScene().name == "Escena_Compra")
-        {
-            return currentAmount + _amount >= 30;
-        }
-        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
-        {
-            return _amount >= currentAmount;
-        }
-
-        return false;
-    }
-
+    /// <summary>
+    /// Metodo para aumentar la cantidad seleccionada en UI
+    /// </summary>
     public void IncreaseAmount()
     {
         if(SceneManager.GetActiveScene().name == "Escena_Compra")
@@ -2378,6 +2321,9 @@ public class UIManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Metodo para disminuir la cantidad seleecionada en la UI
+    /// </summary>
     public void DecreaseAmount()
     {
         if (_amount > 1)
@@ -2387,6 +2333,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para Comprar las semillas seleccionadas por el jugdor y llamar al MoneyM para restar dinero
+    /// </summary>
     public void ButtonBuyPressed()
     {
         Items selectedItem = GetSelectedSeed();
@@ -2423,14 +2372,55 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo para detectar cuando el jugador pulsa el boton "Sell".
+    /// </summary>
+    public void ButtonSellPressed()
+    {
+        _isSellPressed = true;
+        _isSomethingSelected = true;
+
+        Debug.Log("Vender presionado");
+
+        Items selectedItem = GetSelectedSeed();
+        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
+        _selected = GetSeedPlantName();
+        if (_amount <= currentAmount)
+        {
+            int totalGanado = _amount * _cost;
+
+            MoneyManager.AddMoney(totalGanado);
+            InventoryManager.ModifyInventorySubstract(selectedItem, _amount);
+            GameManager.Instance.AddAmountSold(GetSelectedSeed(), _amount);
+
+            _amount = 1;
+
+            UpdateUI();
+            ActualizarCantidadPlantsUI();
+        }
+        else
+        {
+            DescriptionText.text = $"No tienes suficientes cultivos de {_selected} para vender.";
+        }
+
+        int phase = TutorialManager.GetTutorialPhase();
+        if (phase >= 21 && phase <= 23)
+        {
+            TutorialManager.SetTutorialPhase(23);
+            Invoke("NextDialogue", 0f);
+        }
+    }
 
 
 
     #endregion
 
-    // ---- METODOS PRIVADOS (COMPRA) ----
+    // ---- METODOS PRIVADOS (COMPRA/VENTA) ----
     #region
-    public void ActualizarCantidadSeedsUI()
+    /// <summary>
+    /// muestra la cantidad de semillas que tiene el jugador de cada tipo
+    /// </summary>
+    private void ActualizarCantidadSeedsUI()
     {
         SeedCornText.text = "x" + InventoryManager.GetInventoryItem(Items.CornSeed);
         SeedLettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.LettuceSeed);
@@ -2438,13 +2428,141 @@ public class UIManager : MonoBehaviour
         SeedStrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.StrawberrySeed);
 
     }
-    public void ActualizarCantidadPlantsUI()
+    /// <summary>
+    /// muetsra la cantidad de plantas que tiene el jugador de cada tipo
+    /// </summary>
+    private void ActualizarCantidadPlantsUI()
     {
         CornText.text = "x" + InventoryManager.GetInventoryItem(Items.Corn);
         LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
         CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
         StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
 
+    }
+
+    /// <summary>
+    /// ENUM que contiene todos los cultivos/emillas
+    /// </summary>
+    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed }
+
+    /// <summary>
+    /// asigna las variables dependiendo de la semilla seleccionada
+    /// </summary>
+    /// <param name="type"></param>
+    /// <param name="cost"></param>
+    /// <param name="singularName"></param>
+    /// <param name="pluralName"></param>
+    private void SelectSeed(SeedOrPlantType type, int cost, string singularName, string pluralName)
+    {
+        _isSomethingSelected = true;
+        _isCornSelected = type == SeedOrPlantType.Corn || type == SeedOrPlantType.CornSeed;
+        _isCarrotSelected = type == SeedOrPlantType.Carrot || type == SeedOrPlantType.CarrotSeed;
+        _isLettuceSelected = type == SeedOrPlantType.Lettuce || type == SeedOrPlantType.LettuceSeed;
+        _isStrawberriesSelected = type == SeedOrPlantType.Strawberry || type == SeedOrPlantType.StrawberriesSeed;
+
+        BuySellButton.Select();
+        _amount = 1;
+        _cost = cost;
+        _selected = _amount <= 1 ? singularName : pluralName;
+        DescriptionText.text = "";
+        UpdateUI();
+    }
+
+    /// <summary>
+    /// obtiene el nombre del item seleccionado en singular
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    private string GetSingularName(Items item)
+    {
+        if (item == Items.Carrot) return "zanahoria";
+        else if (item == Items.Lettuce) return "lechuga";
+        else if (item == Items.Corn) return "maíz";
+        else if (item == Items.Strawberry) return "fresa";
+
+        else if (item == Items.CarrotSeed) return "semilla de zanahoria";
+        else if (item == Items.LettuceSeed) return "semilla de lechuga";
+        else if (item == Items.CornSeed) return "semilla de  maíz";
+        else if (item == Items.StrawberrySeed) return "semilla de fresa";
+        return "";
+    }
+
+    /// <summary>
+    /// obtiene el nombre del item seleccionado en plural
+    /// </summary>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    private string GetPluralName(Items item)
+    {
+        if (item == Items.Carrot) return "zanahorias";
+        else if (item == Items.Lettuce) return "lechugas";
+        else if (item == Items.Corn) return "maíces";
+        else if (item == Items.Strawberry) return "fresas";
+
+        else if (item == Items.CarrotSeed) return "semillas de zanahoria";
+        else if (item == Items.LettuceSeed) return "semillas de lechuga";
+        else if (item == Items.CornSeed) return "semillas de  maíz";
+        else if (item == Items.StrawberrySeed) return "semillas de fresa";
+        return "";
+    }
+
+    /// <summary>
+    /// obtiene el item seleccionado a partir del bool en true
+    /// </summary>
+    /// <returns></returns>
+    private Items GetSelectedSeed()
+    {
+        if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            if (_isCornSelected) return Items.CornSeed;
+            if (_isCarrotSelected) return Items.CarrotSeed;
+            if (_isLettuceSelected) return Items.LettuceSeed;
+            if (_isStrawberriesSelected) return Items.StrawberrySeed;
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            if (_isCornSelected) return Items.Corn;
+            if (_isCarrotSelected) return Items.Carrot;
+            if (_isLettuceSelected) return Items.Lettuce;
+            if (_isStrawberriesSelected) return Items.Strawberry;
+        }
+        return Items.Count;
+    }
+
+    /// <summary>
+    /// Metodo para obtener el nombre de la semilla/cultivo seleccionado en singular/plural deoendiendo del amount
+    /// </summary>
+    /// <returns></returns>
+    private string GetSeedPlantName()
+    {
+        Items selectedItem = GetSelectedSeed();
+
+        string singularName = GetSingularName(selectedItem);
+        string pluralName = GetPluralName(selectedItem);
+
+        string _selected = _amount <= 1 ? singularName : pluralName;
+        return _selected;
+    }
+
+    /// <summary>
+    /// Comprueba que no se haya superado el limite de semillas/cultivos
+    /// </summary>
+    /// <returns></returns>
+    private bool HasReachedLimit()
+    {
+        Items selectedItem = GetSelectedSeed();
+        int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
+
+        if (SceneManager.GetActiveScene().name == "Escena_Compra")
+        {
+            return currentAmount + _amount >= 30;
+        }
+        else if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            return _amount >= currentAmount;
+        }
+
+        return false;
     }
     #endregion
 

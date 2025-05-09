@@ -32,7 +32,7 @@ public class CreditsScroller : MonoBehaviour
     /// Velocidad de desplazamiento vertical del contenido de los créditos.
     /// Cuanto mayor sea el valor, más lento será el scroll.
     /// </summary>
-    [SerializeField] private float ScrollSpeed = 20f;
+    [SerializeField] private float ScrollSpeed;
 
     #endregion
 
@@ -99,11 +99,6 @@ public class CreditsScroller : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    #endregion
-
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // No se requieren métodos privados adicionales por el momento.
-    #endregion   
+    #endregion  
 
 } // class CreditsScroller

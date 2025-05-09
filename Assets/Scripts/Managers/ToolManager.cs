@@ -1,6 +1,8 @@
 //---------------------------------------------------------
 // Script para gestionar la selección y deselección de herramientas.
 // Permite al jugador cambiar entre diferentes herramientas usando las teclas asignadas.
+// Gestiona la barra de la regadera, el icono de las semillas disponibles y otras características
+//  específicas de cada herramienta
 // Responsable: Alexia Pérez Santana
 // Nombre del juego: Roots of Life
 // Proyectos 1 - Curso 2024-25
@@ -14,7 +16,7 @@ using UnityEngine.UI;
 /// <summary>
 /// Clase encargada de gestionar la selección de herramientas 
 /// en el inventory del jugador. Al pulsar las teclas específicas, 
-/// se activa una Tool y se desactiva la anterior.
+/// se activa una Tool y se desactiva la anterior. Asi como sus características específicas
 /// </summary>
 public class ToolManager : MonoBehaviour
 {
@@ -98,9 +100,9 @@ public class ToolManager : MonoBehaviour
     /// </summary>
     private GameObject _currentTool;
 
-    private int currentToolIndex = 0; // 0: Guantes, 1: Regadera, 2: Hoz, 3: Pala, 4: Semillas
+    private int _currentToolIndex = 0; // 0: Guantes, 1: Regadera, 2: Hoz, 3: Pala, 4: Semillas
 
-    private const int maxToolIndex = 5; // total de herramientas
+    private const int _maxToolIndex = 5; // total de herramientas
 
 
     #endregion
@@ -174,13 +176,13 @@ public class ToolManager : MonoBehaviour
         // Cambiar herramienta con L1 / R1 del mando
         if (InputManager.Instance.ChangeToolUpWasPressedThisFrame())
         {
-            currentToolIndex = (currentToolIndex - 1 + maxToolIndex) % maxToolIndex;
-            SelectToolByIndex(currentToolIndex);
+            _currentToolIndex = (_currentToolIndex - 1 + _maxToolIndex) % _maxToolIndex;
+            SelectToolByIndex(_currentToolIndex);
         }
         else if (InputManager.Instance.ChangeToolDownWasPressedThisFrame())
         {
-            currentToolIndex = (currentToolIndex + 1) % maxToolIndex;
-            SelectToolByIndex(currentToolIndex);
+            _currentToolIndex = (_currentToolIndex + 1) % _maxToolIndex;
+            SelectToolByIndex(_currentToolIndex);
         }
 
     }
@@ -250,11 +252,22 @@ public class ToolManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Activa el selector de una herramienta
+    /// </summary>
+    /// <param name="Tool"></param>
     private void EnableSelector(GameObject Tool)
     {
         Tool.SetActive(true);
     }
 
+    /// <summary>
+    /// Desactiva el selector de una herramienta
+    /// </summary>
+    /// <param name="Tool1"></param>
+    /// <param name="Tool2"></param>
+    /// <param name="Tool3"></param>
+    /// <param name="Toll4"></param>
     private void DisableSelector(GameObject Tool1, GameObject Tool2, GameObject Tool3, GameObject Toll4)
     {
         Tool1.SetActive(false);
@@ -263,6 +276,10 @@ public class ToolManager : MonoBehaviour
         Toll4.SetActive(false);
     }
 
+    /// <summary>
+    /// Seleccionar las herramientas en funcion de index
+    /// </summary>
+    /// <param name="index"></param>
     private void SelectToolByIndex(int index)
     {
         switch (index)

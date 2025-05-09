@@ -1,6 +1,6 @@
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
+// Guardar los datos al salir del juego
 // Julia Vera Ruiz
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -15,6 +15,8 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    // ---- ATRIBUTOS SERIALIZABLES ----
+    #region Atributos Públicos
     [SerializeField]private Vector3 PlayerPosition;
     [SerializeField] private int[] Inventory;
     [SerializeField] private int ActivePlants;
@@ -32,6 +34,10 @@ public class SaveData
     [SerializeField] private bool[] checks;
     [SerializeField] private bool[] unlockedCrops = new bool[4]; // 0: Lechuga, 1: Zanahoria, 2: Fresa, 3: Maíz
 
+    #endregion
+
+    // ---- MÉTODOS GET ----
+    #region Métodos Get
     public Vector3 GetPlayerPosition() {  return PlayerPosition; }
     public int[] GetInventory() { return Inventory; }
     public int GetActivePlants() { return ActivePlants; }
@@ -48,7 +54,10 @@ public class SaveData
     public string[] GettextNotifications() { return textNotifications; }
     public bool[] Getchecks () { return checks; }
     public bool[] GetUnlockedCrops() { return unlockedCrops; }
+    #endregion
 
+    // ---- MÉTODOS SET ----
+    #region Métodos Set
     public void SetPlayerPosition(Vector3 playerPosition) { PlayerPosition = playerPosition; }
     public void SetInventory(int[] inventory) { Inventory = inventory; }
     public void SetActivePlants(int activePlants) { ActivePlants = activePlants; }
@@ -66,5 +75,6 @@ public class SaveData
     public void Setchecks(bool[] Checks) { checks = Checks; }
     public void SetUnlockedCrops(bool[] value) { unlockedCrops = value; }
 
+    #endregion
 } // class SaveData 
 // namespace
