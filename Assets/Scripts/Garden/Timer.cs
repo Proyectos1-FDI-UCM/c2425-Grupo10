@@ -85,29 +85,32 @@ public class Timer : MonoBehaviour
         UpdateGameTime(); //Actualizar el tiempo de juego
         DisplayTime(); //Mostrar el tiempo en pantalla
 
-        if (InputManager.Instance.ToggleFastTimeWasPressedThisFrame())
+        if (!GameManager.Instance.GetBuild())
         {
-            if (_isFastTime)
+            if (InputManager.Instance.ToggleFastTimeWasPressedThisFrame())
             {
-                _isFastTime = false;
-                _realSecondtoGameTime = _normalTimeSpeed;
-
-                // Notificar al GameManager cuando desactivamos el tiempo rápido
-                GameManager.Instance.OnTimeSpeedChanged(false);
-            }
-            else
-            {
-                _isFastTime = true;
-                _realSecondtoGameTime = _fastTimeSpeed;
-
-                // Notificar al GameManager cuando activamos el tiempo rápido
-                GameManager.Instance.OnTimeSpeedChanged(true);
-
-                // Llamar directamente para asegurar que se limpian todos los avisos visuales
-                GardenManager gardenManager = FindObjectOfType<GardenManager>();
-                if (gardenManager != null)
+                if (_isFastTime)
                 {
-                    gardenManager.ClearAllWarningSprites();
+                    _isFastTime = false;
+                    _realSecondtoGameTime = _normalTimeSpeed;
+
+                    // Notificar al GameManager cuando desactivamos el tiempo rápido
+                    GameManager.Instance.OnTimeSpeedChanged(false);
+                }
+                else
+                {
+                    _isFastTime = true;
+                    _realSecondtoGameTime = _fastTimeSpeed;
+
+                    // Notificar al GameManager cuando activamos el tiempo rápido
+                    GameManager.Instance.OnTimeSpeedChanged(true);
+
+                    // Llamar directamente para asegurar que se limpian todos los avisos visuales
+                    GardenManager gardenManager = FindObjectOfType<GardenManager>();
+                    if (gardenManager != null)
+                    {
+                        gardenManager.ClearAllWarningSprites();
+                    }
                 }
             }
         }

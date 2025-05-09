@@ -67,10 +67,10 @@ public class GardenManager : MonoBehaviour
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-
-    //// Tiempo desde el último riego
-    //private float _timeSinceLastWatering; 
-
+ 
+    /// <summary>
+    /// Transforms de las macetas
+    /// </summary>
     Transform[] _plants;
 
     /// <summary>
@@ -93,8 +93,19 @@ public class GardenManager : MonoBehaviour
     /// </summary>
     private bool _weedTutorial = false;
 
+    /// <summary>
+    /// Bools que se activan al completar tareas del tutorial
+    /// </summary>
     private bool _doneWeed = false;
+
+    /// <summary>
+    /// Bools que se activan al completar tareas del tutorial
+    /// </summary>
     private bool _donePlant = false;
+
+    /// <summary>
+    /// Bools que se activan al completar tareas del tutorial
+    /// </summary>
     private bool _done = false;
 
     #endregion
@@ -698,7 +709,10 @@ public class GardenManager : MonoBehaviour
         }
     }
 
-
+    /// <summary>
+    /// Maneja el tiempo cheat de tiempo
+    /// </summary>
+    /// <param name="isFastMode"></param>
     public void HandleTimeSpeedChange(bool isFastMode)
     {
         GardenData.SetFastTimeMode(isFastMode);
