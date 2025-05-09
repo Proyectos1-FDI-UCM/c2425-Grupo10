@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Gestión del sistema de tutoriales del juego
+// Javier Librada, Julia Vera y Alexia Pérez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -12,61 +12,84 @@ using UnityEngine.SceneManagement;
 
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// TutorialManager se encarga de gestionar el sistema de tutoriales del juego.
+/// Controla las fases del tutorial principal y los tutoriales específicos de cada escena,
+/// mostrando diálogos guiados, notificaciones y tareas para que el jugador aprenda
+/// los controles y mecánicas del juego de forma progresiva.
 /// </summary>
 public class TutorialManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-
-
-    ///<summary>
-    ///Ref al PlayerMovement
-    /// </summary>
-    [SerializeField] private PlayerMovement PlayerMovement;
-
-    ///<summary>
-    ///Ref al UIManager
-    /// </summary>
-    [SerializeField] private UIManager UIManager;
-
-    ///<summary>
-    ///Ref al soundManager
-    /// </summary>
-    [SerializeField] private SoundManager SoundManager;
-
-    ///<summary>
-    ///ref al notification manager
-    /// </summary>
-    [SerializeField] private NotificationManager NotificationManager;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
 
-    /// <summary>
-    /// Int para saber la fase del tutorial 
+    ///<summary>
+    ///Ref al PlayerMovement
     /// </summary>
-    [SerializeField] private int _tutorialPhase = 0;
+    private PlayerMovement PlayerMovement;
+
+    ///<summary>
+    ///Ref al UIManager
+    /// </summary>
+    private UIManager UIManager;
+
+    ///<summary>
+    ///Ref al soundManager
+    /// </summary>
+    private SoundManager SoundManager;
+
+    ///<summary>
+    ///ref al notification manager
+    /// </summary>
+    private NotificationManager NotificationManager;
 
     /// <summary>
-    /// Int para saber la fase del tutorial de compra 
+    /// Controla la fase actual del tutorial principal.
     /// </summary>
-    [SerializeField]private int _tutorialPhaseEscenas = 0;
+    private int _tutorialPhase = 0;
 
-    [SerializeField] private int _tutorialPhaseMejora = 0;
+    /// <summary>
+    /// Controla la fase del tutorial específico de las escenas de compra y venta.
+    /// </summary>
+    private int _tutorialPhaseEscenas = 0;
+
+    /// <summary>
+    /// Controla la fase del tutorial específico de la escena de mejora.
+    /// </summary>
+    private int _tutorialPhaseMejora = 0;
+
+    /// <summary>
+    /// Indica si ya se ha iniciado el tutorial de mejoras.
+    /// </summary>
     private bool tutorialMejora = false;
-    [SerializeField] private int _tutorialPhaseBanco = 0;
+
+    /// <summary>
+    /// Controla la fase del tutorial específico de la escena del banco.
+    /// </summary>
+    private int _tutorialPhaseBanco = 0;
+
+    /// <summary>
+    /// Indica si ya se ha iniciado el tutorial del banco.
+    /// </summary>
     private bool tutorialBanco = false;
 
+    /// <summary>
+    /// Indica si hay un tutorial específico de escena en progreso.
+    /// </summary>
     private bool _tutorialInProgress = false;
 
     /// <summary>
     /// Dialogo actual del tutorial
     /// </summary>
-    [SerializeField]private string _actualDialogueText;
+    private string _actualDialogueText;
+
+    /// <summary>
+    /// Texto del botón del diálogo actual (Continuar, Probar, Cerrar, etc.).
+    /// </summary>
     private string _actualDialogueButtonText;
 
     /// <summary>
@@ -75,46 +98,73 @@ public class TutorialManager : MonoBehaviour
     private string _actualNotificationText;
 
     /// <summary>
-    /// Dialogo Actual de las tareas de notificaciones
+    /// Texto de las tareas que aparecen en la notificación actual.
     /// </summary>
     private string _actualNotificationTaskText;
 
     /// <summary>
-    /// Booeano para saber si la notificacion esta activa
+    /// Indica si hay una notificación de tutorial activa.
     /// </summary>
     private bool _isNotificationActive = false;
 
     /// <summary>
-    /// Booeano para saber si el tutorial esta activo
+    /// Indica si hay un diálogo de tutorial activo.
     /// </summary>
     private bool _isDialogueActive = false;
 
-    ///<summary>
-    ///Notificacion activada
+    /// <summary>
+    /// ID de la notificación activada actualmente.
     /// </summary>
     private int _notificationActive = 0;
 
-    ///<summary>
-    ///Texto de madame moo con sus colores
+    /// <summary>
+    /// Etiqueta de color para el texto de Madame Moo en los diálogos.
     /// </summary>
     private string MadameMooColor = "<color=white>Madame Moo:</color>";
 
     /// <summary>
-    /// Subtareas totales
+    /// Total de subtareas que debe completar el jugador en la tarea actual.
     /// </summary>
-    [SerializeField]private int _toTaskCompleted = 0;
-    
-    /// <summary>
-    /// Tareas hechas
-    /// </summary>
-    [SerializeField]private int _taskDone = 0;
+    private int _toTaskCompleted = 0;
 
+    /// <summary>
+    /// Número de tareas que ya ha completado el jugador.
+    /// </summary>
+    private int _taskDone = 0;
+
+    /// <summary>
+    /// Indica si el jugador está en el tutorial principal.
+    /// </summary>
     private bool _isInMainTutorial = false;
+
+    /// <summary>
+    /// Texto que muestra la tecla de interacción según el dispositivo (teclado/controlador).
+    /// </summary>
     private string _use;
+
+    /// <summary>
+    /// Texto que muestra la tecla del mapa según el dispositivo (teclado/controlador).
+    /// </summary>
     private string _map;
+
+    /// <summary>
+    /// Texto que muestra la tecla del inventario según el dispositivo (teclado/controlador).
+    /// </summary>
     private string _inventory;
+
+    /// <summary>
+    /// Texto que muestra las teclas de selección de herramientas según el dispositivo.
+    /// </summary>
     private string _toolSelector;
+
+    /// <summary>
+    /// Texto que muestra la tecla de selección de semillas según el dispositivo.
+    /// </summary>
     private string _seedSelector;
+
+    /// <summary>
+    /// Texto que muestra la tecla para salir según el dispositivo (teclado/controlador).
+    /// </summary>
     private string _exit;
 
     #endregion
@@ -127,8 +177,7 @@ public class TutorialManager : MonoBehaviour
     // - Hay que borrar los que no se usen 
 
     /// <summary>
-    /// Start is called on the frame when a script is enabled just before 
-    /// any of the Update methods are called the first time.
+    /// Se ejecuta al iniciar el script. Obtiene una referencia al NotificationManager.
     /// </summary>
     void Start()
     {
@@ -138,10 +187,13 @@ public class TutorialManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// Se ejecuta cada frame. Actualiza las teclas según el dispositivo, controla
+    /// el inicio de los tutoriales específicos de cada escena y verifica la
+    /// compleción de tareas.
     /// </summary>
     void Update()
     {
+        // Actualizar textos de teclas según si se usa mando o teclado
         if (GameManager.Instance.GetControllerUsing())
         {
             _use = "Cuadrado/X";
@@ -161,6 +213,7 @@ public class TutorialManager : MonoBehaviour
             _exit = "Q";
         }
 
+        // Inicializar tutorial principal cuando termina la cinemática
         if (SceneManager.GetActiveScene().name != "Menu" || SceneManager.GetActiveScene().name != "Menu_Pausa")
         {
             InitializeReferences();
@@ -173,15 +226,20 @@ public class TutorialManager : MonoBehaviour
                 SoundManager.MadameMooSound();
             }
         }
+
+        // Buscar SoundManager si aún no se ha encontrado
         if (SoundManager == null)
         {
             SoundManager = FindObjectOfType<SoundManager>();
         }
+
         //if (InventoryManager.GetInventory(Items.Letuce) >= 1 && _tutorialPhase == 8) 
         //if (SceneManager.GetActiveScene().name == "Escena_Build" && _tutorialPhase == 9) 
         //{
         //    //NextDialogue();
         //}
+
+        // Iniciar tutoriales específicos según la escena actual
         if (SceneManager.GetActiveScene().name == "Escena_Compra" && _tutorialPhaseEscenas == 0)
         {
             UIManager.HideNotification("NoTutorial");
@@ -216,6 +274,8 @@ public class TutorialManager : MonoBehaviour
             tutorialBanco = true;
             NextDialogue();
         }
+
+        // Verificar si se han completado todas las tareas asignadas
         if (SceneManager.GetActiveScene().name == "Escena_Build" && _toTaskCompleted != 0)
         {
             if (_toTaskCompleted - _taskDone == 0)
@@ -231,16 +291,18 @@ public class TutorialManager : MonoBehaviour
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos públicos
-    
+
     /// <summary>
-    /// Metodo para saber si el boton ha sido pulsado
+    /// Gestiona las acciones a realizar cuando se pulsa un botón del diálogo del tutorial.
     /// </summary>
-    /// <param name="buttonText"></param>
+    /// <param name="buttonText">Texto del botón pulsado (Continuar, Probar, Cerrar).</param>
     public void OnTutorialButtonPressed(string buttonText)
     {
         Debug.Log("Boton:" + buttonText);
         if (buttonText == "Continuar")
         {
+
+            // Avanzar al siguiente diálogo
             Invoke("NextDialogue", 0.1f);
             if (SceneManager.GetActiveScene().name == "Escena_Build")
             {
@@ -260,10 +322,11 @@ public class TutorialManager : MonoBehaviour
         }
         else if (buttonText == "Probar")
         {
-                if (UIManager.GetInventoryVisible() == true)
-                {
-                    UIManager.ToggleInventory();
-                }
+            // Mostrar notificación de tarea y ocultar diálogo
+            if (UIManager.GetInventoryVisible() == true)
+            {
+                UIManager.ToggleInventory();
+            }
 
                 UIManager.ShowNotification(_actualNotificationText, _actualNotificationTaskText, 2, "Tutorial");
                 _isNotificationActive = true;
@@ -275,46 +338,55 @@ public class TutorialManager : MonoBehaviour
         }
         else if (buttonText == "Cerrar")
         {
+            // Cerrar diálogo y notificación
             UIManager.HideDialogueButton();
             UIManager.HideDialogue();
             UIManager.HideNotification("Tutorial");
         }
     }
-    ///<summary>
-    ///Metodo para obtener la fase del tutorial
+
+    /// <summary>
+    /// Obtiene la fase actual del tutorial principal.
     /// </summary>
+    /// <returns>Número de fase del tutorial principal.</returns>
     public int GetTutorialPhase()
     {
         return _tutorialPhase;
     }
 
     /// <summary>
-    /// Cambia la fase del tutorial, solo se usa al cargar el juego
+    /// Establece la fase del tutorial principal.
+    /// Solo se usa al cargar una partida guardada.
     /// </summary>
-    /// <param name="phase"></param>
+    /// <param name="phase">Nueva fase del tutorial principal.</param>
     public void SetTutorialPhase(int phase)
     {
         _tutorialPhase = phase;
     }
-    ///<summary>
-    ///Metodo para obtener la fase del tutorial (escena)
+
+    /// <summary>
+    /// Obtiene la fase actual del tutorial de escenas (compra/venta).
     /// </summary>
+    /// <returns>Número de fase del tutorial de escenas.</returns>
     public int GetTutorialPhaseEscena()
     {
         return _tutorialPhaseEscenas;
     }
 
     /// <summary>
-    /// Cambia la fase del tutorial (escena), solo se usa al cargar el juego
+    /// Establece la fase del tutorial de escenas.
+    /// Solo se usa al cargar una partida guardada.
     /// </summary>
-    /// <param name="phase"></param>
+    /// <param name="phase">Nueva fase del tutorial de escenas.</param>
     public void SetTutorialPhaseEscena(int phase)
     {
         _tutorialPhaseEscenas = phase;
     }
-    ///<summary>
-    ///Metodo para obtener la fase del tutorial (Mejora)
+
+    /// <summary>
+    /// Obtiene la fase actual del tutorial de mejoras.
     /// </summary>
+    /// <returns>Número de fase del tutorial de mejoras.</returns>
     public int GetTutorialPhaseMejora()
     {
         return _tutorialPhaseMejora;
@@ -328,27 +400,39 @@ public class TutorialManager : MonoBehaviour
     {
         _tutorialPhaseBanco = phase;
     }
-    ///<summary>
-    ///Metodo para obtener la fase del tutorial (Banco)
+
+    /// <summary>
+    /// Establece la fase del tutorial del banco.
+    /// Solo se usa al cargar una partida guardada.
     /// </summary>
+    /// <param name="phase">Nueva fase del tutorial del banco.</param>
     public int GetTutorialPhaseBanco()
     {
         return _tutorialPhaseBanco;
     }
 
     /// <summary>
-    /// Cambia la fase del tutorial (Mejora), solo se usa al cargar el juego
+    /// Establece la fase del tutorial del banco.
+    /// Solo se usa al cargar una partida guardada.
     /// </summary>
-    /// <param name="phase"></param>
+    /// <param name="phase">Nueva fase del tutorial del banco.</param>
     public void SetTutorialPhaseMejora(int phase)
     {
         _tutorialPhaseMejora = phase;
     }
+
+    /// <summary>
+    /// Indica si hay un diálogo de tutorial activo actualmente.
+    /// </summary>
+    /// <returns>True si hay un diálogo activo, false en caso contrario.</returns>
     public bool IsDialogueActive()
     {
         return _isDialogueActive;
     }
 
+    /// <summary>
+    /// Reinicia todos los datos del tutorial para una nueva partida.
+    /// </summary>
     public void ResetTutorialManager()
     {
         _tutorialPhase = 0;
@@ -366,32 +450,44 @@ public class TutorialManager : MonoBehaviour
         Debug.Log("ResetTutorial");
     }
 
-    ///<summary>
-    ///metodo para obtener el texto del dialogo actual
+    /// <summary>
+    /// Obtiene el texto del diálogo actual del tutorial.
     /// </summary>
+    /// <returns>Texto del diálogo actual.</returns>
     public string GetDialogueText()
     {
         return _actualDialogueText;
     }
 
-    ///<summary>
-    ///metodo para obtener el texto del dialogo actual
+    /// <summary>
+    /// Obtiene el texto del botón del diálogo actual del tutorial.
     /// </summary>
+    /// <returns>Texto del botón actual (Continuar, Probar, Cerrar).</returns>
     public string GetDialogueButtonText()
     {
         return _actualDialogueButtonText;
     }
+
+    /// <summary>
+    /// Incrementa el contador de subtareas completadas.
+    /// </summary>
     public void SubTask()
     {
         _taskDone++;
     }
+
+    /// <summary>
+    /// Establece el número total de subtareas que deben completarse.
+    /// </summary>
+    /// <param name="i">Número total de subtareas.</param>
     public void SetTask(int i)
     {
         _toTaskCompleted = i;
     }
 
-    ///<summary>
-    ///Metodo para avanzar en el dialogo
+    /// <summary>
+    /// Avanza a la siguiente fase del tutorial correspondiente
+    /// según la escena en la que se encuentre el jugador.
     /// </summary>
     public void NextDialogue()
     {
@@ -437,8 +533,8 @@ public class TutorialManager : MonoBehaviour
         }
     }
 
-    ///<summary>
-    ///Metodo para mostrar el dialogo actual(pulsando notificicacion)
+    /// <summary>
+    /// Muestra nuevamente el diálogo actual al pulsar en la notificación.
     /// </summary>
     public void ActualDialogue()
     {
@@ -446,14 +542,20 @@ public class TutorialManager : MonoBehaviour
         SoundManager.MadameMooSound();
     }
 
-    ///<summary>
-    ///Metodo para marcar la tarea como hecha
+    /// <summary>
+    /// Marca una tarea como completada en la notificación de tutorial.
     /// </summary>
+    /// <param name="checkbox">Índice del checkbox a marcar como completado.</param>
     public void CheckBox(int checkbox)
     {
         UIManager.Check(checkbox);
     }
 
+    /// <summary>
+    /// Modifica el texto de la notificación de tutorial actual.
+    /// </summary>
+    /// <param name="text">Nuevo texto principal de la notificación.</param>
+    /// <param name="task">Nuevo texto de las tareas de la notificación.</param>
     public void ModifyNotification (string text, string task)
     {
         _actualNotificationText = text;
@@ -466,8 +568,9 @@ public class TutorialManager : MonoBehaviour
 
 
 
-    ///<summary>
-    ///Metodo para asignar los tetxos dependiendo de la fase del tutorial
+    /// <summary>
+    /// Configura los textos de diálogos y notificaciones según la fase actual 
+    /// del tutorial principal.
     /// </summary>
     private void FindTutorialPhase()
     {
@@ -639,6 +742,11 @@ public class TutorialManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Configura los textos de diálogos y notificaciones según la fase actual 
+    /// del tutorial de escenas (compra/venta).
+    /// </summary>
+    /// <param name="i">Fase actual del tutorial de escenas.</param>
     private void FindTutorialPhase(int i)
     {
         if (SceneManager.GetActiveScene().name == "Escena_Compra")
@@ -675,6 +783,11 @@ public class TutorialManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// Configura los textos de diálogos y notificaciones según la fase actual 
+    /// del tutorial del banco.
+    /// </summary>
     private void FindTutorialPhaseBanco()
     {
             if (_tutorialPhaseBanco == 2)
@@ -730,6 +843,11 @@ public class TutorialManager : MonoBehaviour
 
 
     }
+
+    /// <summary>
+    /// Configura los textos de diálogos y notificaciones según la fase actual 
+    /// del tutorial de mejoras.
+    /// </summary>
     private void FindTutorialPhaseMejora()
     {
         if (_tutorialPhaseMejora == 2)
@@ -788,8 +906,9 @@ public class TutorialManager : MonoBehaviour
 
     }
 
-    ///<summary>
-    ///Metodo para asignar las referencias
+    /// <summary>
+    /// Inicializa las referencias a otros componentes necesarios para el funcionamiento
+    /// del sistema de tutoriales.
     /// </summary>
     private void InitializeReferences()
     {

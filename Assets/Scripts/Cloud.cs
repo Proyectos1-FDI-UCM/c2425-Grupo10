@@ -19,23 +19,23 @@ public class Cloud : MonoBehaviour
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
 
-    [SerializeField] private Transform NubeIzquierda;
-    [SerializeField] private Transform NubeIzquierda1;
-    [SerializeField] private Transform NubeIzquierda2;
-    [SerializeField] private Transform NubeIzquierda3;
-    [SerializeField] private Transform NubeIzquierda4;
+    /// <summary>
+    /// Referencia al transform de la nube izquierdas.
+    /// </summary>
+    [SerializeField] private Transform LeftCloud;
+    [SerializeField] private Transform LeftCloud1;
+    [SerializeField] private Transform LeftCloud2;
+    [SerializeField] private Transform LeftCloud3;
+    [SerializeField] private Transform LeftCloud4;
 
-    [SerializeField] private Transform NubeDerecha;
-    [SerializeField] private Transform NubeDerecha2;
-    [SerializeField] private Transform NubeDerecha1;
-    [SerializeField] private Transform NubeDerecha3;
-    [SerializeField] private Transform NubeDerecha4;
-
-    private float DistanciaSeparacion = 1200f;
-    private float DuracionNubes = 1f;
-    private float DuracionZoom = 1f;
-    private float ZoomCerca = 6f;
-    private float ZoomLejos = 10f;
+    /// <summary>
+    /// Referencia al transform de la nube derechas.
+    /// </summary>
+    [SerializeField] private Transform RightCloud;
+    [SerializeField] private Transform RightCloud2;
+    [SerializeField] private Transform RightCloud1;
+    [SerializeField] private Transform RightCloud3;
+    [SerializeField] private Transform RightCloud4;
 
     [SerializeField] private CinemachineVirtualCamera VirtualCamera;
     [SerializeField] private Camera Cam;
@@ -45,15 +45,40 @@ public class Cloud : MonoBehaviour
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
 
+
+    private float DistanciaSeparacion = 1200f;
+
+
+    private float DuracionNubes = 1f;
+
+
+    private float DuracionZoom = 1f;
+
+
+    private float ZoomCerca = 6f;
+
+
+    private float ZoomLejos = 10f;
+
+
     private static Cloud _instance;
 
+
     private Vector3 _posIniIzq, _posIniIzq1, _posIniIzq2, _posIniIzq3, _posIniIzq4, _posIniDer, _posIniDer1, _posIniDer2, _posIniDer3, _posIniDer4;
+
+
     private Vector3 _posOpenIzq, _posOpenIzq1, _posOpenIzq2, _posOpenIzq3, _posOpenIzq4, _posOpenDer, _posOpenDer1, _posOpenDer2, _posOpenDer3, _posOpenDer4;
 
+
     private float _tiempo = 0f;
+
+
     private bool _animando;
 
+
     private bool _aclarando;
+
+
     private AudioSource _audioSource;
 
     #endregion
@@ -83,18 +108,18 @@ public class Cloud : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _posIniIzq = NubeIzquierda.position;
-        _posIniIzq1 = NubeIzquierda1.position;
-        _posIniIzq2 = NubeIzquierda2.position;
-        _posIniIzq3 = NubeIzquierda3.position;
-        _posIniIzq4 = NubeIzquierda4.position;
+        _posIniIzq = LeftCloud.position;
+        _posIniIzq1 = LeftCloud1.position;
+        _posIniIzq2 = LeftCloud2.position;
+        _posIniIzq3 = LeftCloud3.position;
+        _posIniIzq4 = LeftCloud4.position;
 
 
-        _posIniDer = NubeDerecha.position;
-        _posIniDer1 = NubeDerecha1.position;
-        _posIniDer2 = NubeDerecha2.position;
-        _posIniDer3 = NubeDerecha3.position;
-        _posIniDer4 = NubeDerecha4.position;
+        _posIniDer = RightCloud.position;
+        _posIniDer1 = RightCloud1.position;
+        _posIniDer2 = RightCloud2.position;
+        _posIniDer3 = RightCloud3.position;
+        _posIniDer4 = RightCloud4.position;
 
 
         _posOpenIzq = _posIniIzq + Vector3.left * DistanciaSeparacion;
@@ -129,32 +154,32 @@ public class Cloud : MonoBehaviour
             // Animación de las nubes
             if (_aclarando)
             {
-                NubeIzquierda.position = Vector3.Lerp(_posIniIzq, _posOpenIzq, t);
-                NubeIzquierda1.position = Vector3.Lerp(_posIniIzq1, _posOpenIzq1, t);
-                NubeIzquierda2.position = Vector3.Lerp(_posIniIzq2, _posOpenIzq2, t);
-                NubeIzquierda3.position = Vector3.Lerp(_posIniIzq3, _posOpenIzq3, t);
-                NubeIzquierda4.position = Vector3.Lerp(_posIniIzq4, _posOpenIzq4, t);
+                LeftCloud.position = Vector3.Lerp(_posIniIzq, _posOpenIzq, t);
+                LeftCloud1.position = Vector3.Lerp(_posIniIzq1, _posOpenIzq1, t);
+                LeftCloud2.position = Vector3.Lerp(_posIniIzq2, _posOpenIzq2, t);
+                LeftCloud3.position = Vector3.Lerp(_posIniIzq3, _posOpenIzq3, t);
+                LeftCloud4.position = Vector3.Lerp(_posIniIzq4, _posOpenIzq4, t);
 
-                NubeDerecha.position = Vector3.Lerp(_posIniDer, _posOpenDer, t);
-                NubeDerecha1.position = Vector3.Lerp(_posIniDer1, _posOpenDer1, t);
-                NubeDerecha2.position = Vector3.Lerp(_posIniDer2, _posOpenDer2, t);
-                NubeDerecha3.position = Vector3.Lerp(_posIniDer3, _posOpenDer3, t);
-                NubeDerecha4.position = Vector3.Lerp(_posIniDer4, _posOpenDer4, t);
+                RightCloud.position = Vector3.Lerp(_posIniDer, _posOpenDer, t);
+                RightCloud1.position = Vector3.Lerp(_posIniDer1, _posOpenDer1, t);
+                RightCloud2.position = Vector3.Lerp(_posIniDer2, _posOpenDer2, t);
+                RightCloud3.position = Vector3.Lerp(_posIniDer3, _posOpenDer3, t);
+                RightCloud4.position = Vector3.Lerp(_posIniDer4, _posOpenDer4, t);
 
             }
             else
             {
-                NubeIzquierda.position = Vector3.Lerp(_posOpenIzq, _posIniIzq, t);
-                NubeIzquierda1.position = Vector3.Lerp(_posOpenIzq1, _posIniIzq1, t);
-                NubeIzquierda2.position = Vector3.Lerp(_posOpenIzq2, _posIniIzq2, t);
-                NubeIzquierda3.position = Vector3.Lerp(_posOpenIzq3, _posIniIzq3, t);
-                NubeIzquierda4.position = Vector3.Lerp(_posOpenIzq4, _posIniIzq4, t);
+                LeftCloud.position = Vector3.Lerp(_posOpenIzq, _posIniIzq, t);
+                LeftCloud1.position = Vector3.Lerp(_posOpenIzq1, _posIniIzq1, t);
+                LeftCloud2.position = Vector3.Lerp(_posOpenIzq2, _posIniIzq2, t);
+                LeftCloud3.position = Vector3.Lerp(_posOpenIzq3, _posIniIzq3, t);
+                LeftCloud4.position = Vector3.Lerp(_posOpenIzq4, _posIniIzq4, t);
 
-                NubeDerecha.position = Vector3.Lerp(_posOpenDer, _posIniDer, t);
-                NubeDerecha1.position = Vector3.Lerp(_posOpenDer1, _posIniDer1, t);
-                NubeDerecha2.position = Vector3.Lerp(_posOpenDer2, _posIniDer2, t);
-                NubeDerecha3.position = Vector3.Lerp(_posOpenDer3, _posIniDer3, t);
-                NubeDerecha4.position = Vector3.Lerp(_posOpenDer4, _posIniDer4, t);
+                RightCloud.position = Vector3.Lerp(_posOpenDer, _posIniDer, t);
+                RightCloud1.position = Vector3.Lerp(_posOpenDer1, _posIniDer1, t);
+                RightCloud2.position = Vector3.Lerp(_posOpenDer2, _posIniDer2, t);
+                RightCloud3.position = Vector3.Lerp(_posOpenDer3, _posIniDer3, t);
+                RightCloud4.position = Vector3.Lerp(_posOpenDer4, _posIniDer4, t);
 
             }
 

@@ -18,25 +18,21 @@ public class Visibility : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
-    /// <summary>
-    /// Referencia al Tilemap que se desea modificar.
-    /// </summary>
-    [SerializeField] private Tilemap Tilemap;
 
-    /// <summary>
-    /// Referencia al SpriteRenderer del árbol que se desea modificar.
-    /// </summary>
-    [SerializeField] private SpriteRenderer Tree;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
+   
+    /// <summary>
+    /// Referencia al Tilemap que se desea modificar.
+    /// </summary>
+    private Tilemap Tilemap;
+
+    /// <summary>
+    /// Referencia al SpriteRenderer del árbol que se desea modificar.
+    /// </summary>
+    private SpriteRenderer Tree;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -56,13 +52,6 @@ public class Visibility : MonoBehaviour
         Tree = GetComponent<SpriteRenderer>();
     }
 
-    /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
-    /// </summary>
-    void Update()
-    {
-        
-    }
     #endregion
 
     // ---- MÉTODOS PÚBLICOS ----

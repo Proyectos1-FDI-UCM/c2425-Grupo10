@@ -23,6 +23,10 @@ public class SceneTransition : MonoBehaviour
     /// SpriteRenderer utilizado para el efecto de desvanecimiento.
     /// </summary>
     [SerializeField] private Image FadeSprite;
+
+    /// <summary>
+    /// GameObject que contiene el componente de imagen para el efecto de desvanecimiento.
+    /// </summary>
     [SerializeField] private GameObject FadeObject;
 
     #endregion
@@ -41,20 +45,34 @@ public class SceneTransition : MonoBehaviour
     private float _fadeSpeed = 2f;
 
     /// <summary>
-    /// Booleanos para saber si se esta degradando para salir de escena o para entrar.
+    /// Indica si se está realizando un desvanecimiento para salir de la escena actual.
     /// </summary>
     private bool _fadingOut = false;
+
+    /// <summary>
+    /// Indica si se está realizando un desvanecimiento para entrar a la nueva escena.
+    /// </summary>
     private bool _fadingIn = true;
 
     /// <summary>
-    /// Nombre de la escena a la que quieres cambiar.
+    /// Nombre de la escena que se cargará después del efecto de desvanecimiento.
     /// </summary>
     private string _sceneToLoad;
 
+    /// <summary>
+    /// Indica si la cámara debe mostrar la vista final (casa en la playa).
+    /// </summary>
     private bool _isFinalCamera = false;
 
-    [SerializeField] private string _currentSceneName;
-    [SerializeField] private bool _shouldUseClouds;
+    /// <summary>
+    /// Almacena el nombre de la escena actual para referencia.
+    /// </summary>
+    private string _currentSceneName;
+
+    /// <summary>
+    /// Determina si se deben utilizar efectos de nubes durante la transición.
+    /// </summary>
+    private bool _shouldUseClouds;
 
     #endregion
 

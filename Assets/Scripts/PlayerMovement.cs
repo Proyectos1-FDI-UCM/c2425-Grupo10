@@ -46,11 +46,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private UIManager UIManager;
 
     /// <summary>
-    /// ref al tutorial manager
-    /// </summary>
-    [SerializeField] private TutorialManager TutorialManager;
-
-    /// <summary>
     /// reproductor de audio de pasos
     /// </summary>
     [SerializeField] private AudioSource AudioSource;
@@ -88,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
     /// <summary>
     /// Booleano que indica si el movimiento del jugador está habilitado.
     /// </summary>
-    [SerializeField] private bool _isMovementEnabled;
+    private bool _isMovementEnabled;
 
     /// <summary>
     /// Vector que contiene la entrada del jugador para el movimiento 
@@ -125,6 +120,11 @@ public class PlayerMovement : MonoBehaviour
     ///booleano para saber si estas cansado
     /// </summary>
     private bool _isTired = false;
+
+    /// <summary>
+    /// ref al tutorial manager
+    /// </summary>
+    private TutorialManager TutorialManager;
 
     #endregion
 
@@ -236,17 +236,26 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Movimiento Activado");
     }
 
+    /// <summary>
+    /// Obtiene el estado de cansancio del jugador.
+    /// </summary>
+    /// <returns>Verdadero si el jugador está cansado, falso en caso contrario.</returns>
     public bool GetPlayerTired()
     {
         return _isTired;
     }
 
+    /// <summary>
+    /// Modifica la posición del jugador a las coordenadas especificadas.
+    /// </summary>
+    /// <param name="position">Nueva posición del jugador en el mundo.</param>
     public void ChangePlayerPosition(Vector3 position)
     {
         gameObject.transform.position = position;
     }
-    ///<summary>
-    ///Metodo para desactivar el movimiento
+
+    /// <summary>
+    /// Método para desactivar el movimiento del jugador y detener cualquier sonido de pasos.
     /// </summary>
     public void DisablePlayerMovement()
     {
@@ -256,14 +265,19 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Movimiento desactivado");
     }
 
+    /// <summary>
+    /// Verifica si el movimiento del jugador está habilitado.
+    /// </summary>
+    /// <returns>Verdadero si el jugador puede moverse, falso en caso contrario.</returns>
     public bool IsMovementEnable()
     {
         return _isMovementEnabled;
     }
 
     /// <summary>
-    /// Método para obtener la última dirección de movimiento.
+    /// Obtiene la última dirección de movimiento registrada del jugador.
     /// </summary>
+    /// <returns>Vector2 que representa la última dirección de movimiento.</returns>
     public Vector2 GetLastMoveDirection()
     {
         return _lastMoveDirection;
@@ -323,8 +337,13 @@ public class PlayerMovement : MonoBehaviour
         UIManager.UpdateEnergyBar(_currentEnergy, maxEnergy);
     }
 
-    
 
+    /// <summary>
+    /// Convierte un vector de dirección en una de las cuatro direcciones cardinales
+    /// (norte, sur, este, oeste) según su componente dominante.
+    /// </summary>
+    /// <param name="dir">Vector de dirección a convertir.</param>
+    /// <returns>Vector normalizado apuntando a la dirección cardinal más cercana.</returns>
     private Vector2 RoundToCardinal(Vector2 dir)
     {
         
@@ -335,6 +354,10 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    /// <summary>
+    /// Obtiene el nombre de la escena actual que está cargada.
+    /// </summary>
+    /// <returns>String con el nombre de la escena actual.</returns>
     private string FindActualScene()
     {
         string _scene = SceneManager.GetActiveScene().name;
