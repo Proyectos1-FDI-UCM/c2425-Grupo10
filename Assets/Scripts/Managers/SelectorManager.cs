@@ -1,7 +1,7 @@
 //---------------------------------------------------------
-// Breve descripción del contenido del archivo
-// Responsable de la creación de este archivo
-// Nombre del juego
+// Selecciona entre las diferentes semillas
+// Alexia Pérez
+// Roots of Life
 // Proyectos 1 - Curso 2024-25
 //---------------------------------------------------------
 
@@ -10,8 +10,9 @@ using UnityEngine.UI;
 // Añadir aquí el resto de directivas using
 
 /// <summary>
-/// Antes de cada class, descripción de qué es y para qué sirve,
-/// usando todas las líneas que sean necesarias.
+/// Esta clase se encarga de seleccionar las diferentes semillas
+/// Dependiendo del input (mando/teclado...) usa unos controllers u otros
+/// Para las semillas se rota entre las distintos cultivos existentes 
 /// </summary>
 public class SelectorManager : MonoBehaviour
 {
@@ -339,15 +340,6 @@ public class SelectorManager : MonoBehaviour
         }
 
     }
-    #endregion
-
-    // ---- MÉTODOS PÚBLICOS ----
-    #region Métodos públicos
-    // Documentar cada método que aparece aquí con ///<summary>
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
-    // Ejemplo: GetPlayerController
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

@@ -23,33 +23,65 @@ public class SoundManager : MonoBehaviour
     // Ejemplo: MaxHealthPoints
 
     /// <summary>
-    /// Ref al notification manager
+    /// Referencia al notification manager
     /// </summary>
     [SerializeField] private NotificationManager NotificationManager;
 
+    /// <summary>
+    /// Audio Source
+    /// </summary>
     [SerializeField] private AudioSource AudioSource;
+
+    /// <summary>
+    /// Audio del Inventario
+    /// </summary>
     [SerializeField] private AudioClip Inventory;
+
+    /// <summary>
+    /// Audio al usar el input ESC
+    /// </summary>
     [SerializeField] private AudioClip Esc;
+
+    /// <summary>
+    /// Audio al usar el input Q
+    /// </summary>
     [SerializeField] private AudioClip Q;
+
+    /// <summary>
+    /// Audio al entrar a la casa
+    /// </summary>
     [SerializeField] private AudioClip HouseEnter;
+
+    /// <summary>
+    /// Audio de las interacciones
+    /// </summary>
     [SerializeField] private AudioClip Interactions;
+
+    /// <summary>
+    /// Audio del Slider (Banco)
+    /// </summary>
     [SerializeField] private AudioClip Sliders;
+
+    /// <summary>
+    /// Audio al usar el input E
+    /// </summary>
     [SerializeField] private AudioClip E;
+
+    /// <summary>
+    /// Audio de MadameMoo (Tutorial)
+    /// </summary>
     [SerializeField] private AudioClip MadameMoo;
+
+    /// <summary>
+    /// Audio de botón siguiente (Tutorial)
+    /// </summary>
     [SerializeField] private AudioClip NextButton;
+
+    /// <summary>
+    /// Audio al cargar nueva partida
+    /// </summary>
     [SerializeField] private AudioClip NewGame;
     
-
-    #endregion
-
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
-    // Documentar cada atributo que aparece aquí.
-    // El convenio de nombres de Unity recomienda que los atributos
-    // privados se nombren en formato _camelCase (comienza con _, 
-    // primera palabra en minúsculas y el resto con la 
-    // primera letra en mayúsculas)
-    // Ejemplo: _maxHealthPoints
 
     #endregion
 
@@ -90,6 +122,9 @@ public class SoundManager : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+    /// <summary>
+    /// Metodo para Activar el sonido del inventario
+    /// </summary>
     public void TabSound()
     { 
         AudioSource.clip = Inventory;
@@ -104,11 +139,19 @@ public class SoundManager : MonoBehaviour
         AudioSource.clip = NewGame;
         AudioSource.Play();
     }
+
+    /// <summary>
+    /// Método para Activar el sonido del menú
+    /// </summary>
     public void EscSound()
     {
         AudioSource.clip = Esc;
         AudioSource.Play();
     }
+
+    /// <summary>
+    /// Método que Activa el sonido de la vaca y modifica su rango
+    /// </summary>
     public void MadameMooSound()
     {
         AudioSource.clip = MadameMoo;
@@ -116,24 +159,37 @@ public class SoundManager : MonoBehaviour
         AudioSource.Play();
     }
 
+    /// <summary>
+    /// Método que Activa el sonido de botón
+    /// </summary>
     public void NextButtonSound()
     {
         AudioSource.clip = NextButton;
         AudioSource.Play();
     }
 
+
+    /// <summary>
+    /// Método que Activa el sonido del input Q
+    /// </summary>
     public void QSound()
     {
         AudioSource.clip = Q;
         AudioSource.Play();
     }
 
+    /// <summary>
+    /// Método que Activa el sonido de la casa
+    /// </summary>
     public void HouseSound()
     {
         AudioSource.clip = HouseEnter;
         AudioSource.Play();
     }
 
+    /// <summary>
+    /// Método que Activa el sonido del input E
+    /// </summary>
     public void ESound()
     {
         AudioSource.clip = E;
