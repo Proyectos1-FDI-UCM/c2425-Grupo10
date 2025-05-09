@@ -3140,7 +3140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!61 &205092572
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4345,8 +4344,6 @@ MonoBehaviour:
   BuySellButton: {fileID: 1936599716}
   IncreaseAmountButton: {fileID: 1554015544}
   DecreaseAmountButton: {fileID: 254581912}
-  _isInNpcArea: 0
-  _uiActive: 0
 --- !u!82 &275213581
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5976,7 +5973,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2062194125, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: -2129960101, guid: cf510505fe0976746953a637fcf187de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10254,7 +10251,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -225559739, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: 390155594, guid: 03d9efc26fb4b114c9c8b9aeb07e2b7c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10440,7 +10437,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -117554471, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: -386774338, guid: cf510505fe0976746953a637fcf187de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -27206,11 +27203,9 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 275213580}
-  TutorialManager: {fileID: 0}
   AudioSource: {fileID: 1195905029}
   GrassSteps: {fileID: 0}
   WoodSteps: {fileID: 8300000, guid: 79c1be814855bc8408efb47e3e13e00d, type: 3}
-  _isMovementEnabled: 0
 --- !u!61 &1195905024
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -29210,7 +29205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &1360035371 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -29279,7 +29273,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 714752390, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: -910391937, guid: cf510505fe0976746953a637fcf187de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

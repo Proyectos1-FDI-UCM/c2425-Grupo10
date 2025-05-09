@@ -2008,7 +2008,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1412303022, guid: f3bd2c0c0120a8c4fb5421ea96c76122, type: 3}
+  m_Sprite: {fileID: -390871645, guid: 03d9efc26fb4b114c9c8b9aeb07e2b7c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2402,11 +2402,9 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 898385390}
-  TutorialManager: {fileID: 0}
   AudioSource: {fileID: 230413360}
   GrassSteps: {fileID: 0}
   WoodSteps: {fileID: 8300000, guid: 79c1be814855bc8408efb47e3e13e00d, type: 3}
-  _isMovementEnabled: 0
 --- !u!212 &230413356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3619,7 +3617,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -943407040, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: -48979831, guid: cf510505fe0976746953a637fcf187de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6489,7 +6487,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -831747264, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: 1482976075, guid: cf510505fe0976746953a637fcf187de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11589,20 +11587,14 @@ MonoBehaviour:
   LettuceText: {fileID: 0}
   CarrotText: {fileID: 0}
   StrawberryText: {fileID: 0}
-  BuySellObj: {fileID: 150373548}
-  BuySellButton: {fileID: 150373550}
-  IncreaseAmountButton: {fileID: 416787597}
-  DecreaseAmountButton: {fileID: 819644843}
   SeedCornText: {fileID: 1485552756}
   SeedLettuceText: {fileID: 914091772}
   SeedCarrotText: {fileID: 1094072278}
   SeedStrawberryText: {fileID: 1516380690}
-  _isInNpcArea: 0
-  _uiActive: 0
-  _amount: 1
-  _tutorialNotificationID: 0
-  _isPauseMenuActive: 0
-  _isDialogueActive: 0
+  BuySellObj: {fileID: 150373548}
+  BuySellButton: {fileID: 150373550}
+  IncreaseAmountButton: {fileID: 416787597}
+  DecreaseAmountButton: {fileID: 819644843}
 --- !u!1 &900357686
 GameObject:
   m_ObjectHideFlags: 0
@@ -14307,7 +14299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 960633700, guid: 7eb3866ae26e79e4882cbc55b33a04ad, type: 3}
+  m_Sprite: {fileID: 1226445034, guid: cf510505fe0976746953a637fcf187de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -14444,7 +14436,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!1 &1094072276
 GameObject:
   m_ObjectHideFlags: 0
@@ -34404,7 +34395,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &1745384761 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
