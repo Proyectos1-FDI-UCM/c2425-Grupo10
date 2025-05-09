@@ -541,7 +541,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &116666130 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -911,8 +910,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FadeSprite: {fileID: 448902187}
   FadeObject: {fileID: 1566042672}
-  _currentSceneName: 
-  _shouldUseClouds: 0
 --- !u!224 &448902186
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1249,7 +1246,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Credits
-  SoundManager: {fileID: 0}
 --- !u!1 &523489464
 GameObject:
   m_ObjectHideFlags: 0
@@ -2006,7 +2002,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &695948511 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -2113,17 +2108,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6113e0e80cd58dc42b1865b961b5620c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NubeIzquierda: {fileID: 81302900}
-  NubeIzquierda1: {fileID: 1050174745}
-  NubeIzquierda2: {fileID: 597521745}
-  NubeIzquierda3: {fileID: 635954123}
-  NubeIzquierda4: {fileID: 44758848}
-  NubeDerecha: {fileID: 2004635251}
-  NubeDerecha2: {fileID: 574244358}
-  NubeDerecha1: {fileID: 2092368867}
-  NubeDerecha3: {fileID: 2045553221}
-  NubeDerecha4: {fileID: 967990886}
-  VirtualCamera: {fileID: 0}
+  LeftCloud: {fileID: 81302900}
+  LeftCloud1: {fileID: 1050174745}
+  LeftCloud2: {fileID: 597521745}
+  LeftCloud3: {fileID: 635954123}
+  LeftCloud4: {fileID: 44758848}
+  RightCloud: {fileID: 2004635251}
+  RightCloud2: {fileID: 574244358}
+  RightCloud1: {fileID: 2092368867}
+  RightCloud3: {fileID: 2045553221}
+  RightCloud4: {fileID: 967990886}
+  VirtualCam: {fileID: 0}
   Cam: {fileID: 0}
 --- !u!82 &800240382
 AudioSource:
@@ -2383,10 +2378,10 @@ MonoBehaviour:
   CreditsButton: {fileID: 1378875608}
   ExitGameButton: {fileID: 1916504218}
   Continue: {fileID: 917006353}
-  CambiarEscena: {fileID: 116666129}
   LoadingScreen: {fileID: 1422138510}
   PopUp: {fileID: 699775267}
   PopUpText: {fileID: 75535810}
+  CambiarEscena: {fileID: 116666129}
 --- !u!4 &823271000
 Transform:
   m_ObjectHideFlags: 0
@@ -3269,7 +3264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &1115517361 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -3929,7 +3923,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Credits
-  SoundManager: {fileID: 0}
 --- !u!114 &1378875608 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -4727,7 +4720,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &1667463065 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -5181,7 +5173,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: EXIT
-  SoundManager: {fileID: 0}
 --- !u!114 &1916504218 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
