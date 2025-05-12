@@ -2204,7 +2204,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCornPressed()
     {
-        SelectSeed(SeedOrPlantType.Corn, 70, "Maíz", "Maíces");
+        SelectSeed(SeedOrPlantType.Corn, 100, "Maíz", "Maíces");
     }
 
     /// <summary>
@@ -2220,7 +2220,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCarrotPressed()
     {
-        SelectSeed(SeedOrPlantType.Carrot, 30, "Zanahoria", "Zanahorias");
+        SelectSeed(SeedOrPlantType.Carrot, 50, "Zanahoria", "Zanahorias");
     }
 
     /// <summary>
@@ -2245,7 +2245,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonLettucePressed()
     {
-        SelectSeed(SeedOrPlantType.Lettuce, 15, "Lechuga", "Lechugas");
+        SelectSeed(SeedOrPlantType.Lettuce, 30, "Lechuga", "Lechugas");
 
         if (TutorialManager.GetTutorialPhase() == 21)
         {
@@ -2267,7 +2267,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonStrawberriesPressed()
     {
-        SelectSeed(SeedOrPlantType.Strawberry, 50, "Fresa", "Fresas");
+        SelectSeed(SeedOrPlantType.Strawberry, 80, "Fresa", "Fresas");
     }
 
     /// <summary>

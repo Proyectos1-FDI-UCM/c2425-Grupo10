@@ -107,6 +107,8 @@ public class Cloud : MonoBehaviour
     /// </summary>
     private bool _isClearing;
 
+    private bool _isFinalCamera = false;
+
     /// <summary>
     /// Referencia al componente de audio para reproducir sonidos de movimiento de nubes.
     /// </summary>
@@ -172,6 +174,7 @@ public class Cloud : MonoBehaviour
 
         // Comienza con las nubes ocultas (abiertas)
         HideClouds();
+        _isFinalCamera = false;
     }
 
     /// <summary>
@@ -179,6 +182,7 @@ public class Cloud : MonoBehaviour
     /// </summary>
     void Update()
     {
+        
         // Busca la cámara virtual si no está asignada
         if (VirtualCam == null)
             VirtualCam = FindObjectOfType<CinemachineVirtualCamera>();
@@ -239,7 +243,19 @@ public class Cloud : MonoBehaviour
 
             // Si ya ha alcanzado el final de la animación, detener la animación
             if (t >= 1f && cameraT >= 1f)
+            {
                 _isAnimating = false;
+                if (_isFinalCamera)
+                {
+                    FarZoom = 10f;
+                    CloseZoom = 6f;
+                    ZoomDuration = 1f;
+                    _isFinalCamera = false;
+                }
+            }
+                
+
+
         }
     }
 
@@ -311,8 +327,9 @@ public class Cloud : MonoBehaviour
     /// </summary>
     public void FinalCamera()
     {
+        _isFinalCamera = true;
         FarZoom = 25;
-        CloseZoom = 10;
+        CloseZoom = 12;
         ZoomDuration = 10;
     }
 

@@ -226,6 +226,15 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CheatsActivator"",
+                    ""type"": ""Button"",
+                    ""id"": ""ea36ba88-d2d9-456f-bb6c-73dee95aa87a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -855,6 +864,17 @@ namespace UnityEngine.InputSystem
                     ""action"": ""ToggleFastTime"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2755caf6-026f-4557-9607-a95632148860"",
+                    ""path"": ""<Keyboard>/f6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CheatsActivator"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1462,6 +1482,7 @@ namespace UnityEngine.InputSystem
             m_Player_AddMoney = m_Player.FindAction("AddMoney", throwIfNotFound: true);
             m_Player_NextDialogue = m_Player.FindAction("NextDialogue", throwIfNotFound: true);
             m_Player_ToggleFastTime = m_Player.FindAction("ToggleFastTime", throwIfNotFound: true);
+            m_Player_CheatsActivator = m_Player.FindAction("CheatsActivator", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1557,6 +1578,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_AddMoney;
         private readonly InputAction m_Player_NextDialogue;
         private readonly InputAction m_Player_ToggleFastTime;
+        private readonly InputAction m_Player_CheatsActivator;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1583,6 +1605,7 @@ namespace UnityEngine.InputSystem
             public InputAction @AddMoney => m_Wrapper.m_Player_AddMoney;
             public InputAction @NextDialogue => m_Wrapper.m_Player_NextDialogue;
             public InputAction @ToggleFastTime => m_Wrapper.m_Player_ToggleFastTime;
+            public InputAction @CheatsActivator => m_Wrapper.m_Player_CheatsActivator;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1658,6 +1681,9 @@ namespace UnityEngine.InputSystem
                 @ToggleFastTime.started += instance.OnToggleFastTime;
                 @ToggleFastTime.performed += instance.OnToggleFastTime;
                 @ToggleFastTime.canceled += instance.OnToggleFastTime;
+                @CheatsActivator.started += instance.OnCheatsActivator;
+                @CheatsActivator.performed += instance.OnCheatsActivator;
+                @CheatsActivator.canceled += instance.OnCheatsActivator;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1728,6 +1754,9 @@ namespace UnityEngine.InputSystem
                 @ToggleFastTime.started -= instance.OnToggleFastTime;
                 @ToggleFastTime.performed -= instance.OnToggleFastTime;
                 @ToggleFastTime.canceled -= instance.OnToggleFastTime;
+                @CheatsActivator.started -= instance.OnCheatsActivator;
+                @CheatsActivator.performed -= instance.OnCheatsActivator;
+                @CheatsActivator.canceled -= instance.OnCheatsActivator;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1932,6 +1961,7 @@ namespace UnityEngine.InputSystem
             void OnAddMoney(InputAction.CallbackContext context);
             void OnNextDialogue(InputAction.CallbackContext context);
             void OnToggleFastTime(InputAction.CallbackContext context);
+            void OnCheatsActivator(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

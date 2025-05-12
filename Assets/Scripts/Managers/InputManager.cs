@@ -93,6 +93,9 @@ public class InputManager : MonoBehaviour
     //cheat timer
     private InputAction _toggleFastTime;
 
+    //activar cheats
+    private InputAction _cheatsActivator;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -233,11 +236,22 @@ public class InputManager : MonoBehaviour
         return _toggleFastTime.IsPressed();
     }
 
+
+    public bool CheatsActivatorIsPressed()
+    {
+        return _cheatsActivator.IsPressed();
+    }
     /// <summary>
     /// Método para saber si el botón de Select (1/2/3/4/5) se ha pulsado en este frame
     /// Devolverá true en todos los frames en los que se mantenga pulsado
     /// <returns>True, si el botón está pulsado</returns>
     /// </summary>
+    /// 
+
+    public bool CheatsActivatorWasPressedThisFrame()
+    {
+        return _cheatsActivator.WasPressedThisFrame();
+    }
     public bool Select1WasPressedThisFrame()
     {
         return _select1.WasPressedThisFrame();
@@ -539,7 +553,8 @@ public class InputManager : MonoBehaviour
         //cheat acelerar timer
         _toggleFastTime = _theController.Player.ToggleFastTime;
 
-
+        //activador de cheats
+        _cheatsActivator = _theController.Player.CheatsActivator;
     }
 
     /// <summary>

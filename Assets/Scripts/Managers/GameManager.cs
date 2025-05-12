@@ -330,7 +330,10 @@ public class GameManager : MonoBehaviour
                 }
             }
         };
-
+        if(InputManager.Instance.CheatsActivatorWasPressedThisFrame())
+        {
+            Build = !Build;
+        }
         if (!Build)
         {
             if (InputManager.Instance.AddMoneyTestWasPressedThisFrame())
@@ -813,6 +816,7 @@ public class GameManager : MonoBehaviour
         InventoryManager.ModifyPlayerPosition(new Vector3(14.14f, -9.62f, 0));
         SaveTime(0f);
         _newGame = false;
+        Build = true;
         _isFinalScene = false;
         _unlockedCrops = new bool[4];
         _unlockedCrops[0] = true; // Lechuga desbloqueada por defecto
