@@ -4160,11 +4160,9 @@ MonoBehaviour:
   _currentEnergy: 0
   _fadingEnergy: 0.05
   UIManager: {fileID: 446521060}
-  TutorialManager: {fileID: 0}
   AudioSource: {fileID: 230413359}
   GrassSteps: {fileID: 0}
   WoodSteps: {fileID: 8300000, guid: 79c1be814855bc8408efb47e3e13e00d, type: 3}
-  _isMovementEnabled: 0
 --- !u!212 &230413356
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6418,7 +6416,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!114 &370124277 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7966080858036198732, guid: 1f2b5c3b9e3f047829e30da603853657, type: 3}
@@ -7109,20 +7106,14 @@ MonoBehaviour:
   LettuceText: {fileID: 0}
   CarrotText: {fileID: 0}
   StrawberryText: {fileID: 0}
-  BuySellObj: {fileID: 0}
-  BuySellButton: {fileID: 0}
-  IncreaseAmountButton: {fileID: 0}
-  DecreaseAmountButton: {fileID: 0}
   SeedCornText: {fileID: 0}
   SeedLettuceText: {fileID: 0}
   SeedCarrotText: {fileID: 0}
   SeedStrawberryText: {fileID: 0}
-  _isInNpcArea: 0
-  _uiActive: 0
-  _amount: 1
-  _tutorialNotificationID: 0
-  _isPauseMenuActive: 0
-  _isDialogueActive: 0
+  BuySellObj: {fileID: 0}
+  BuySellButton: {fileID: 0}
+  IncreaseAmountButton: {fileID: 0}
+  DecreaseAmountButton: {fileID: 0}
 --- !u!1 &461429384
 GameObject:
   m_ObjectHideFlags: 0
@@ -10708,7 +10699,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &753334426
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13503,7 +13494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1035724023
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14454,7 +14445,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Escena_Build
-  SoundManager: {fileID: 0}
 --- !u!1 &1103469034
 GameObject:
   m_ObjectHideFlags: 0
@@ -20915,7 +20905,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1500511877
 RectTransform:
   m_ObjectHideFlags: 0

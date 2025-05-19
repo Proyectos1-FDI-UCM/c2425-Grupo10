@@ -499,7 +499,7 @@ public class UIManager : MonoBehaviour
     /// Posiciones y velocidades
     /// </summary>
     private float _quickBarBaseY;           // Posición base de la QuickAccessBar (se mantiene siempre visible)
-    private float _visibleY = 300f;         // Posición Y del inventory cuando está visible
+    private float _visibleY = 250f;         // Posición Y del inventory cuando está visible
     private float _hiddenY = -300f;         // Posición Y del inventory cuando está oculto
     private float _quickBarOffset = 100f;   // Espacio entre inventory y QuickAccessBar
     private float _transitionSpeed = 10f;   // Velocidad de animación
@@ -1403,7 +1403,7 @@ public class UIManager : MonoBehaviour
             }
             else
             {
-                CarrotDescription.text = "Cultivo no descubierto, vende 10 Lechugas para desbloquear. Lechugas vendidas:\n" + GameManager.Instance.GetAmountSold("Lettuce");
+                CarrotDescription.text = "Cultivo no descubierto, vende 10 Lechugas para desbloquear.\nLechugas vendidas: " + GameManager.Instance.GetAmountSold("Lettuce");
                 StrawberryDescription.text = "Desbloquea el cultivo anterior para mas información.";
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
             }
@@ -1415,7 +1415,7 @@ public class UIManager : MonoBehaviour
             }
             else if (GameManager.Instance.GetAmountSold("Carrot") < 30 && GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
-                StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.Instance.GetAmountSold("Carrot");
+                StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear.\nZanahorias vendidas: " + GameManager.Instance.GetAmountSold("Carrot");
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
         }
 
@@ -1426,7 +1426,7 @@ public class UIManager : MonoBehaviour
             }
             else if (GameManager.Instance.GetAmountSold("Strawberry") < 50 && GameManager.Instance.GetAmountSold("Carrot") >= 30)
             {
-                CornDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear. Zanahorias vendidas:\n" + GameManager.Instance.GetAmountSold("Carrot");
+                CornDescription.text = "Cultivo no descubierto, vende 50 fresas para desbloquear. \nFresas vendidas: " + GameManager.Instance.GetAmountSold("Strawberry");
             }
 
 
