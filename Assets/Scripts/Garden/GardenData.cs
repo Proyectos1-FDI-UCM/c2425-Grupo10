@@ -226,7 +226,7 @@ public static class GardenData
     /// </summary>
     public static void ModifyGrowthTimer(int i, float value)
     {
-        Debug.Log($"GrowthTimer: {Garden[i].GrowthTimer}");
+        //Debug.Log($"GrowthTimer: {Garden[i].GrowthTimer}");
         Garden[i].GrowthTimer = value;
     }
 
@@ -353,6 +353,13 @@ public static class GardenData
     public static float GetMaxGrowthTime(Items item)
     {
         return CropsData[(int)item / ((int)Items.Count / 2)].MaxGrowthTime;
+    }
+
+    public static void ChangeItem(Items item)
+    {
+        
+        item = (Items)((int)item + 4);
+        Debug.Log(item);
     }
 
 

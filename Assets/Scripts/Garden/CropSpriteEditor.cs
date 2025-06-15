@@ -161,10 +161,18 @@ public class CropSpriteEditor : MonoBehaviour
         }
         else if (state == 4)
         {
-            _spriteRenderer.sprite = Sprites[4];
+            int numero = UnityEngine.Random.Range(0, 1);
+            if (numero == 0)
+            {
+                GardenData.ChangeItem(item);
+                _spriteRenderer.sprite = Sprites[5];
+            }
+            else
+                _spriteRenderer.sprite = Sprites[4];
         }
         else if (state == 5)
         {
+            
             _spriteRenderer.sprite = Sprites[4];
         }
         else if (state == -1)
@@ -192,7 +200,7 @@ public class CropSpriteEditor : MonoBehaviour
             _spriteRenderer.sprite = DeadSprites[0];
         }
         //Grown(transform); // Modifica el timer de crecimiento
-        Debug.Log("SpriteChanged" + state);
+        // Debug.Log("SpriteChanged" + state);
     }
 
     public int GetGrowthState()

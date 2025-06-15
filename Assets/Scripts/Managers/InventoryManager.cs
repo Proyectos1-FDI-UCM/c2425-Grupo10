@@ -11,8 +11,9 @@ using UnityEngine.UIElements;
 /// <summary>
 /// Items es un Enum que asocia la lista de items que puede tener el jugador con un entero
 /// Count es el total de items que puede tener el jugador
-/// De 0 - Count/2 -> Seeds (Seeds)
-/// De Count/2 - Count ->  Cultivos (Crops)
+/// De 0 - Count/3 -> Seeds (Seeds)
+/// De Count/3 - 2*Count/3 ->  Cultivos (Crops)
+/// /// De 2*Count/3 - Count ->  Cultivos dorados (GoldenCrops)
 /// </summary>
 public enum Items
 {
@@ -23,7 +24,11 @@ public enum Items
     Corn,
     Lettuce,
     Carrot,
-    Strawberry,
+    Strawberry, 
+    GoldCorn,
+    GoldLettuce,
+    GoldCarrot,
+    GoldStrawberry,
     Count
 }
 
@@ -107,7 +112,7 @@ public static class InventoryManager
     /// </summary>
     public static bool BoolModifyInventory(Items item, int quantity)
     {
-        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        if ((int)item >= (int)Items.Count / 3) // Es un cultivo 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity)
             {
@@ -115,6 +120,21 @@ public static class InventoryManager
                 return true;
             }
             else 
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+            }
+            return false;
+        }
+        else if ((int)item >= 2*(int)Items.Count / 3) // Es un cultivo dorado 
+        {
+            if (Inventory[(int)item] + quantity <= MaxCropQuantity)
+            {
+                Inventory[(int)item] += quantity;
+                Debug.Log("Se ha añadido un cultivo dorado");
+                return true;
+            }
+            else
             {
                 Debug.Log("InventarioLleno");
                 _inventoryFull = true;
@@ -163,9 +183,23 @@ public static class InventoryManager
     /// </summary>
     public static void ModifyInventory(Items item, int quantity)
     {
-        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        if ((int)item >= (int)Items.Count / 3) // Es un cultivo 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity) Inventory[(int)item] += quantity;
+            else
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+            }
+        }
+        if ((int)item >= 2*(int)Items.Count /3) // Es un cultivo dorado
+        {
+            if (Inventory[(int)item] + quantity <= MaxCropQuantity)
+            {
+                Inventory[(int)item] += quantity;
+                Debug.Log("Se ha añadido un cultivo dorado");
+            }
+
             else
             {
                 Debug.Log("InventarioLleno");
