@@ -2103,10 +2103,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonMovePressed()
     {
-        if (GameManager.Instance.GetTotalMoneyDeposited() >= 50000)
+        if (GameManager.Instance.GetTotalMoneyDeposited() >= 20000)
         {
             Debug.Log("Mudanza realizada con éxito.");
-            GameManager.Instance.DeductDepositedMoney(50000);
+            GameManager.Instance.DeductDepositedMoney(20000);
             InventoryManager.SetPlayerPosition(_newHousePosition);
             SceneTransition.Instance.FinalCamera();
             Cloud.Instance.FinalCamera();
