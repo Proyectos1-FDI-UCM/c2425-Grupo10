@@ -46,6 +46,11 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Animator ButtonAnimator;
 
+    ///<summary> 
+    /// referencia al animator del player
+    /// </summary>
+    [SerializeField] private Animator PlayerAnimator;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -87,6 +92,12 @@ public class FishingManager : MonoBehaviour
     /// Referencia al PlayerMovement
     /// </summary>
     private PlayerMovement _playerMovement;
+
+    /// <summary>
+    /// Referencia al Animator del jugador para manejar las animaciones.
+    /// </summary>
+    private Animator _playerAnimator;
+
 
     /// <summary>
     /// Indica si estamos en la posición desde la que se puede realizar la pesca
@@ -170,6 +181,7 @@ public class FishingManager : MonoBehaviour
             if (_fishingStarted)
             {
                 _uIManager.HideNotification("Fishing");
+                PlayerAnimator.SetBool("IsFishing", true);
                 // mgTimer = Tiempo del minijuego sin decimales
                 _miniGameTimer += Time.deltaTime;
                 int mgTimer = Mathf.FloorToInt(_miniGameTimer);
@@ -192,9 +204,10 @@ public class FishingManager : MonoBehaviour
                 else if (mgTimer == 4)
                 {
                     Signal.SetActive(false);
-                    if (_checks == 0)
+                    if (_checks == 0) // Fallo
                     {
                         EIcon.SetActive(false);
+                        PlayerAnimator.SetBool("WonFishing", false);
                         Debug.Log("Fallo, vuelve a intentarlo");
                         _fishingStarted = false;
                     }
@@ -217,6 +230,7 @@ public class FishingManager : MonoBehaviour
                     if (_checks == 1)
                     {
                         EIcon.SetActive(false);
+                        PlayerAnimator.SetBool("WonFishing", false);
                         Debug.Log("Fallo, vuelve a intentarlo");
                         _fishingStarted = false;
                     }
@@ -239,6 +253,7 @@ public class FishingManager : MonoBehaviour
                     {
                         EIcon.SetActive(false);
                         Debug.Log("Fallo, vuelve a intentarlo");
+                        PlayerAnimator.SetBool("WonFishing", false);
                         _fishingStarted = false;
                     }
 
@@ -247,6 +262,7 @@ public class FishingManager : MonoBehaviour
                 if (_checks == 3 && mgTimer == 12)
                 {
                     // LLamar al inventario, guardar
+                    PlayerAnimator.SetBool("WonFishing", true);
                     EIcon.SetActive(false);
                     Debug.Log("Has pescado");
                 }
