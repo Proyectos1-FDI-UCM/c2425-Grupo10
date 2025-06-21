@@ -338,6 +338,16 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI Notification5Text;
 
+    [Header("Notificacion 6")]
+    /// <summary>
+    /// Gameobject de la notificacion
+    /// </summary>
+    [SerializeField] private GameObject Notification6;
+
+    /// <summary>
+    /// Texto de la notificacion
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI Notification6Text;
 
     [Header("UI del Banco")]
 
@@ -624,6 +634,12 @@ public class UIManager : MonoBehaviour
     /// Tutorial notificacion activa
     /// </summary>
     private bool _isTutorialNotification = false;
+
+    /// <summary>
+    /// Pesca notificacion activa
+    /// </summary>
+    private bool _isFishingNotification = false;
+
     ///<summary>
     ///Otra notification activa
     /// </summary>
@@ -713,6 +729,9 @@ public class UIManager : MonoBehaviour
 
         NotificationManager.LoadNotification("Tutorial");
         NotificationManager.LoadNotification("NoTutorial");
+
+        NotificationManager.LoadNotification("Fishing");
+
         PlacesDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(0); });
         CharactersDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(1); });
         PlantsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(2); });
@@ -962,6 +981,11 @@ public class UIManager : MonoBehaviour
             notif = Notification5;
             notifText = Notification5Text;
         }
+        else if (notificationID == 6)
+        {
+            notif = Notification6;
+            notifText = Notification6Text;
+        }
 
 
         if (source == "Tutorial" && !_isTutorialNotification)
@@ -995,6 +1019,16 @@ public class UIManager : MonoBehaviour
             notif.transform.SetSiblingIndex(0);
 
             _isOtherNotification = true;
+        }
+        else if (source == "Fishing" && !_isFishingNotification)
+        {
+            notif.SetActive(true);
+            notifText.text = text;
+
+            // Colocar al principio del Vertical Layout Group
+            notif.transform.SetSiblingIndex(0);
+
+            _isFishingNotification = true;
         }
         else if (source == "Energy" && !_isEnergyNotification)
         {
@@ -1075,6 +1109,13 @@ public class UIManager : MonoBehaviour
             Notification1.SetActive(false);
             NotificationManager.DestroyNotification(source);
             _isOtherNotification = false;
+        }
+
+        else if (source == "Fishing" && _isFishingNotification)
+        {
+            Notification6.SetActive(false);
+            NotificationManager.DestroyNotification(source);
+            _isFishingNotification = false;
         }
         else if (source == "Energy" && _isEnergyNotification)
         {

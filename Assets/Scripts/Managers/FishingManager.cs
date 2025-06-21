@@ -132,6 +132,8 @@ public class FishingManager : MonoBehaviour
         InitializeReferences();
         InitializeTimers();
 
+       
+
         _fishing = false;
         _fishingStarted = false;
 
@@ -149,8 +151,11 @@ public class FishingManager : MonoBehaviour
         if (_fishing)
         {
             // LLamar a notificacion "Presiona E para pescar"
+            _uIManager.ShowNotification("Presiona E \npara pesca", "NoCounter", 6, "Fishing");
+            
             if (InputManager.Instance.UsarWasPressedThisFrame()) // Empieza el juego
             {
+                
                 _fishingStarted = true;
                 Notif.SetActive(true);
                 EIcon.SetActive(true);
@@ -158,10 +163,11 @@ public class FishingManager : MonoBehaviour
 
             if (_fishingStarted)
             {
+                _uIManager.HideNotification("Fishing");
                 // mgTimer = Tiempo del minijuego sin decimales
                 _miniGameTimer += Time.deltaTime;
                 int mgTimer = Mathf.FloorToInt(_miniGameTimer);
-                Debug.Log(mgTimer);
+                //Debug.Log(mgTimer);
 
                 if (_miniGameTimer >= 1) Notif.SetActive(false); // Desacticar notif
 
@@ -268,6 +274,8 @@ public class FishingManager : MonoBehaviour
         _fishingStarted = false;
         Notif.SetActive(false);
         EIcon.SetActive(false);
+        //_uIManager.HideNotification("NoCounter");
+        _uIManager.HideNotification("Fishing");
 
     }
 

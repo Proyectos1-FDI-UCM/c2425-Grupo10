@@ -87,6 +87,7 @@ public class NotificationManager : MonoBehaviour
     private bool _isEnergyNotificationCreated = false;
     private bool _isToolNotificationCreated = false;
     private bool _isWcNotificationCreated = false;
+    private bool _isFishingNotificationCreated = false;
     private bool _isInventoryNotificationCreated = false;
 
     [SerializeField]  private bool _check1 = false;
