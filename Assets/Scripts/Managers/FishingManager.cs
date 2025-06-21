@@ -41,6 +41,11 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject Notif;
 
+    /// <summary>
+    /// Animator
+    /// </summary>
+    [SerializeField] private Animator ButtonAnimator;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -137,6 +142,7 @@ public class FishingManager : MonoBehaviour
         _fishing = false;
         _fishingStarted = false;
 
+
         Notif.SetActive(false);
         EIcon.SetActive(false);
         Signal.SetActive(false);
@@ -176,6 +182,8 @@ public class FishingManager : MonoBehaviour
                     Signal.SetActive(true);
                     if (InputManager.Instance.UsarWasPressedThisFrame())
                     {
+                       // EIcon.SetActive(false);
+                        ButtonAnimator.Play("Press");
                         _checks = 1;
                         Debug.Log("CHECK 1");
                     }
@@ -186,6 +194,7 @@ public class FishingManager : MonoBehaviour
                     Signal.SetActive(false);
                     if (_checks == 0)
                     {
+                        EIcon.SetActive(false);
                         Debug.Log("Fallo, vuelve a intentarlo");
                         _fishingStarted = false;
                     }
@@ -197,6 +206,7 @@ public class FishingManager : MonoBehaviour
                     Signal.SetActive(true);
                     if (InputManager.Instance.UsarWasPressedThisFrame())
                     {
+                        ButtonAnimator.Play("Press");
                         _checks = 2;
                         Debug.Log("CHECK 2");
                     }
@@ -206,6 +216,7 @@ public class FishingManager : MonoBehaviour
                     Signal.SetActive(false);
                     if (_checks == 1)
                     {
+                        EIcon.SetActive(false);
                         Debug.Log("Fallo, vuelve a intentarlo");
                         _fishingStarted = false;
                     }
@@ -216,6 +227,7 @@ public class FishingManager : MonoBehaviour
                     Signal.SetActive(true);
                     if (InputManager.Instance.UsarWasPressedThisFrame())
                     {
+                        ButtonAnimator.Play("Press");
                         _checks = 3;
                         Debug.Log("CHECK 2");
                     }
@@ -225,6 +237,7 @@ public class FishingManager : MonoBehaviour
                     Signal.SetActive(false);
                     if (_checks == 2)
                     {
+                        EIcon.SetActive(false);
                         Debug.Log("Fallo, vuelve a intentarlo");
                         _fishingStarted = false;
                     }
@@ -234,6 +247,7 @@ public class FishingManager : MonoBehaviour
                 if (_checks == 3 && mgTimer == 12)
                 {
                     // LLamar al inventario, guardar
+                    EIcon.SetActive(false);
                     Debug.Log("Has pescado");
                 }
              }
@@ -274,6 +288,7 @@ public class FishingManager : MonoBehaviour
         _fishingStarted = false;
         Notif.SetActive(false);
         EIcon.SetActive(false);
+        Signal.SetActive(false);
         //_uIManager.HideNotification("NoCounter");
         _uIManager.HideNotification("Fishing");
 
