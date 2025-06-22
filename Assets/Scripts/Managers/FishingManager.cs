@@ -62,10 +62,7 @@ public class FishingManager : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    /// <summary>
-    /// Referencia al TutorialManager
-    /// </summary>
-    private TutorialManager _tutorialManager;
+    
 
     /// <summary>
     /// Referencia al NotificationManager
@@ -251,7 +248,9 @@ public class FishingManager : MonoBehaviour
                     if (InputManager.Instance.UsarWasPressedThisFrame())
                     {
                         ButtonAnimator.Play("Press");
-                        PlayerAnimator.SetTrigger("PressFishing");
+                        // PlayerAnimator.SetTrigger("PressFishing");
+                        PlayerAnimator.SetBool("WonFIshing", true);
+                        PlayerAnimator.SetBool("IsFishing", false);
                         _checks = 3;
                         Debug.Log("CHECK 2");
                     }
@@ -275,14 +274,14 @@ public class FishingManager : MonoBehaviour
                     else if (_checks == 3) // Ganar 
                     {
                         // LLamar al inventario, guardar
-                        PlayerAnimator.SetBool("IsFishing", false);
-                        PlayerAnimator.SetBool("WonFIshing", true);
+                        //PlayerAnimator.SetBool("IsFishing", false);
+                       // PlayerAnimator.SetBool("WonFIshing", true);
 
                         EIcon.SetActive(false);
                         Debug.Log("Has pescado");
 
-                      
 
+                        AddFishInventory();
                         ResetMiniGame();
 
 
@@ -340,6 +339,11 @@ public class FishingManager : MonoBehaviour
 
     }
 
+    private void AddFishInventory()
+    {
+        InventoryManager.BoolModifyInventory(Items.Fish, 1);
+        _uIManager.ActualizeInventory();
+    }
     private void ResetMiniGame()
     {
         _checks = 0;
@@ -349,7 +353,7 @@ public class FishingManager : MonoBehaviour
     }
     private void InitializeReferences()
     {
-        _tutorialManager = FindObjectOfType<TutorialManager>();
+      
         _notificationManager = FindObjectOfType<NotificationManager>();
         _uIManager = FindObjectOfType<UIManager>();
         _soundManager = FindObjectOfType<SoundManager>();

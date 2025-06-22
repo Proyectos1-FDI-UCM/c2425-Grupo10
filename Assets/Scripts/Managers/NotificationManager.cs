@@ -66,6 +66,11 @@ public class NotificationManager : MonoBehaviour
     private string _inventoryNotificationText = "";
 
     ///<summary>
+    ///Texto de la notificacion normal
+    /// </summary>
+    private string _fishingNotificationText = "";
+
+    ///<summary>
     ///Texto de la notificacion tutorail
     /// </summary>
     private string _tutorialNotificationText = "";
@@ -164,6 +169,11 @@ public class NotificationManager : MonoBehaviour
             _isInventoryNotificationCreated = true;
             _inventoryNotificationText = text;
         }
+        else if (source == "Fishing")
+        {
+            _isFishingNotificationCreated = true;
+            _inventoryNotificationText = text;
+        }
 
     }
     ///<summary>
@@ -236,6 +246,12 @@ public class NotificationManager : MonoBehaviour
             UIManager.ShowNotification(_wcNotificationText, "NoCounter", 1, "NoTutorial");
             SoundManager.NextButtonSound();
         }
+
+        else if (source == "Fishing" && _isFishingNotificationCreated)
+        {
+            UIManager.ShowNotification(_fishingNotificationText, "NoCounter", 1, "NoTutorial");
+            SoundManager.NextButtonSound();
+        }
     }
 
     ///<summary>
@@ -281,6 +297,11 @@ public class NotificationManager : MonoBehaviour
             _inventoryNotificationText = "";
             _isInventoryNotificationCreated = false;
         }
+        else if (source == "Fishing" && _isFishingNotificationCreated)
+        {
+            _fishingNotificationText = "";
+            _isFishingNotificationCreated = false;
+        }
     }
     ///<summary>
     ///Metodo para inicializar el soundmanager
@@ -321,6 +342,7 @@ public class NotificationManager : MonoBehaviour
         _isEnergyNotificationCreated = false;
         _isToolNotificationCreated = false;
         _isWcNotificationCreated= false;
+        _isFishingNotificationCreated = false;
         _check1 = false;
         _check2 = false;
         _check3 = false;
@@ -346,6 +368,7 @@ public class NotificationManager : MonoBehaviour
         _activeNotifications[3] = _isToolNotificationCreated;
         _activeNotifications[4] = _isWcNotificationCreated;
         _activeNotifications[5] = _isInventoryNotificationCreated;
+        _activeNotifications[6] = _isFishingNotificationCreated;
 
         return _activeNotifications;
 
@@ -359,6 +382,7 @@ public class NotificationManager : MonoBehaviour
         _isToolNotificationCreated = _activeNotifications[3];
         _isWcNotificationCreated = _activeNotifications[4];
         _isInventoryNotificationCreated = _activeNotifications[5];
+        _isFishingNotificationCreated = _activeNotifications[6];
     }
 
     public string[] SaveNotificationText()

@@ -509,7 +509,7 @@ public class UIManager : MonoBehaviour
     /// Posiciones y velocidades
     /// </summary>
     private float _quickBarBaseY;           // Posición base de la QuickAccessBar (se mantiene siempre visible)
-    private float _visibleY = 250f;         // Posición Y del inventory cuando está visible
+    private float _visibleY = 300f;         // Posición Y del inventory cuando está visible
     private float _hiddenY = -300f;         // Posición Y del inventory cuando está oculto
     private float _quickBarOffset = 100f;   // Espacio entre inventory y QuickAccessBar
     private float _transitionSpeed = 10f;   // Velocidad de animación

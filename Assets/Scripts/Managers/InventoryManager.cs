@@ -20,10 +20,12 @@ public enum Items
     LettuceSeed,
     CarrotSeed,
     StrawberrySeed,
+    Bait,
     Corn,
     Lettuce,
     Carrot,
     Strawberry,
+    Fish,
     Count
 }
 
