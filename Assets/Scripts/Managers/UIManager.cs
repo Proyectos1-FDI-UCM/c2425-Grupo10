@@ -408,6 +408,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button CarrotsButton;
     [SerializeField] private Button StrawberriesButton;
     [SerializeField] private Button CornsButton;
+    [SerializeField] private Button FishButton;
 
 
     [SerializeField] private Button LettuceSeedsButton;
@@ -467,10 +468,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI LettuceText;
     [SerializeField] private TextMeshProUGUI CarrotText;
     [SerializeField] private TextMeshProUGUI StrawberryText;
+    [SerializeField] private TextMeshProUGUI FishText;
     [SerializeField] private TextMeshProUGUI SeedCornText;
     [SerializeField] private TextMeshProUGUI SeedLettuceText;
     [SerializeField] private TextMeshProUGUI SeedCarrotText;
     [SerializeField] private TextMeshProUGUI SeedStrawberryText;
+   
 
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
@@ -597,6 +600,7 @@ public class UIManager : MonoBehaviour
     private bool _isLettuceSelected = false;
     private bool _isCarrotSelected = false;
     private bool _isStrawberriesSelected = false;
+    private bool _isFishSelected = false;
 
 
     /// <summary>
@@ -2313,6 +2317,23 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
+    public void ButtonBaitPressed()
+    {
+        SelectSeed(SeedOrPlantType.Bait, 40, "Cebo", "Cebos");
+    }
+
+    /// <summary>
+    /// llama al metodo de seleccionar con todas sus variables
+    /// </summary>
+    public void ButtonFishPressed()
+    {
+        SelectSeed(SeedOrPlantType.Fish, 60, "Pez", "Peces");
+    }
+
+
+    /// <summary>
     /// Metodo para aumentar la cantidad seleccionada en UI
     /// </summary>
     public void IncreaseAmount()
@@ -2479,13 +2500,13 @@ public class UIManager : MonoBehaviour
         LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
         CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
         StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
-
+        FishText.text = "x" + InventoryManager.GetInventoryItem(Items.Fish);
     }
 
     /// <summary>
     /// ENUM que contiene todos los cultivos/emillas
     /// </summary>
-    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed }
+    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, Fish, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed, Bait }
 
     /// <summary>
     /// asigna las variables dependiendo de la semilla seleccionada
@@ -2501,6 +2522,7 @@ public class UIManager : MonoBehaviour
         _isCarrotSelected = type == SeedOrPlantType.Carrot || type == SeedOrPlantType.CarrotSeed;
         _isLettuceSelected = type == SeedOrPlantType.Lettuce || type == SeedOrPlantType.LettuceSeed;
         _isStrawberriesSelected = type == SeedOrPlantType.Strawberry || type == SeedOrPlantType.StrawberriesSeed;
+        _isFishSelected = type == SeedOrPlantType.Fish || type == SeedOrPlantType.Bait;
 
         BuySellButton.Select();
         _amount = 1;
@@ -2521,11 +2543,13 @@ public class UIManager : MonoBehaviour
         else if (item == Items.Lettuce) return "lechuga";
         else if (item == Items.Corn) return "maíz";
         else if (item == Items.Strawberry) return "fresa";
+        else if (item == Items.Fish) return "peces";
 
         else if (item == Items.CarrotSeed) return "semilla de zanahoria";
         else if (item == Items.LettuceSeed) return "semilla de lechuga";
         else if (item == Items.CornSeed) return "semilla de  maíz";
         else if (item == Items.StrawberrySeed) return "semilla de fresa";
+        else if (item == Items.Bait) return "cebo";
         return "";
     }
 
@@ -2540,11 +2564,13 @@ public class UIManager : MonoBehaviour
         else if (item == Items.Lettuce) return "lechugas";
         else if (item == Items.Corn) return "maíces";
         else if (item == Items.Strawberry) return "fresas";
+        else if (item == Items.Fish) return "peces";
 
         else if (item == Items.CarrotSeed) return "semillas de zanahoria";
         else if (item == Items.LettuceSeed) return "semillas de lechuga";
         else if (item == Items.CornSeed) return "semillas de  maíz";
         else if (item == Items.StrawberrySeed) return "semillas de fresa";
+        else if (item == Items.Bait) return "cebos";
         return "";
     }
 
@@ -2560,6 +2586,7 @@ public class UIManager : MonoBehaviour
             if (_isCarrotSelected) return Items.CarrotSeed;
             if (_isLettuceSelected) return Items.LettuceSeed;
             if (_isStrawberriesSelected) return Items.StrawberrySeed;
+            if (_isFishSelected) return Items.Bait;
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
@@ -2567,6 +2594,7 @@ public class UIManager : MonoBehaviour
             if (_isCarrotSelected) return Items.Carrot;
             if (_isLettuceSelected) return Items.Lettuce;
             if (_isStrawberriesSelected) return Items.Strawberry;
+            if (_isFishSelected) return Items.Fish;
         }
         return Items.Count;
     }
