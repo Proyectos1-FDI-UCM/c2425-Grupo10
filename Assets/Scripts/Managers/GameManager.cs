@@ -591,52 +591,68 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Metodo para aumentar +1 la mejora del Huerto.
-    /// <summary>
+    /// Mejora el huerto si es posible
+    /// </summary>
     public void UpgradeGarden()
     {
         if (_gardenUpgrades < _maxGardenUpgrades)
         {
-            _gardenUpgrades += 1;
-        }
-        if (_gardenUpgrades == 1)
-        {
-            MoneyCount.UpgradeGardenLevel1();
-        }
-        else if (_gardenUpgrades == 2)
-        {
-            MoneyCount.UpgradeGardenLevel2();
-        }
-        else if (_gardenUpgrades == 3)
-        {
-            MoneyCount.UpgradeGardenLevel3();
-        }
-        else if (_gardenUpgrades == 4)
-        {
-            MoneyCount.UpgradeGardenLevel4();
+            // Cobrar dinero ANTES de aumentar el level
+            bool paymentSuccessful = false;
+
+            if (_gardenUpgrades == 0)
+            {
+                paymentSuccessful = MoneyCount.UpgradeGardenLevel1();
+            }
+            else if (_gardenUpgrades == 1)
+            {
+                paymentSuccessful = MoneyCount.UpgradeGardenLevel2();
+            }
+            else if (_gardenUpgrades == 2)
+            {
+                paymentSuccessful = MoneyCount.UpgradeGardenLevel3();
+            }
+            else if (_gardenUpgrades == 3)
+            {
+                paymentSuccessful = MoneyCount.UpgradeGardenLevel4();
+            }
+
+            // Solo aumentar el level si el pago fue exitoso
+            if (paymentSuccessful)
+            {
+                _gardenUpgrades += 1;
+            }
         }
     }
 
     /// <summary>
-    /// Metodo para aumentar +1 la mejora de la Regadera.
-    /// <summary>
+    /// Mejora la regadera si es posible
+    /// </summary>
     public void UpgradeWateringCan()
     {
         if (_wateringCanUpgrades < _maxWateringCanUpgrades)
         {
-            _wateringCanUpgrades += 1;
-        }
-        if (_wateringCanUpgrades == 1)
-        {
-            MoneyCount.UpgradeWateringCanLevel1();
-        }
-        else if (_wateringCanUpgrades == 2)
-        {
-            MoneyCount.UpgradeWateringCanLevel2();
-        }
-        else if (_wateringCanUpgrades == 3)
-        {
-            MoneyCount.UpgradeWateringCanLevel3();
+            // Cobrar dinero ANTES de aumentar el level
+            bool paymentSuccessful = false;
+
+            if (_wateringCanUpgrades == 0)
+            {
+                paymentSuccessful = MoneyCount.UpgradeWateringCanLevel1();
+            }
+            else if (_wateringCanUpgrades == 1)
+            {
+                paymentSuccessful = MoneyCount.UpgradeWateringCanLevel2();
+            }
+            else if (_wateringCanUpgrades == 2)
+            {
+                paymentSuccessful = MoneyCount.UpgradeWateringCanLevel3();
+            }
+
+            // Solo aumentar el level si el pago fue exitoso
+            if (paymentSuccessful)
+            {
+                _wateringCanUpgrades += 1;
+            }
         }
     }
 
@@ -971,8 +987,8 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void CheckCropUnlocks()
     {
-        // Verifica si se desbloquea la zanahoria (al vender 10 lechugas)
-        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 10)
+        // Verifica si se desbloquea la zanahoria (al vender 8 lechugas)
+        if (!_unlockedCrops[1] && _amountOfLettuceSold >= 8)
         {
             _unlockedCrops[1] = true;
 
@@ -983,8 +999,8 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // Verifica si se desbloquea la fresa (al vender 30 zanahorias)
-        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 30)
+        // Verifica si se desbloquea la fresa (al vender 12 zanahorias)
+        if (!_unlockedCrops[2] && _amountOfCarrotSold >= 12)
         {
             _unlockedCrops[2] = true;
 
@@ -994,8 +1010,8 @@ public class GameManager : MonoBehaviour
 
         }
 
-        // Verifica si se desbloquea el maíz (al vender 50 fresas)
-        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 50)
+        // Verifica si se desbloquea el maíz (al vender 20 fresas)
+        if (!_unlockedCrops[3] && _amountOfStrawberrySold >= 20)
         {
             _unlockedCrops[3] = true;
 

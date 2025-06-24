@@ -47,7 +47,7 @@ public class Timer : MonoBehaviour
     /// <summary>
     /// Convertir segundos de la vida real a tiempo de juego
     /// </summary>
-    private float _realSecondtoGameTime = 60f;
+    private float _realSecondtoGameTime = 120f;
 
     //cheat
     private bool _isFastTime = false;

@@ -1397,36 +1397,36 @@ public class UIManager : MonoBehaviour
             CharactersDropdown.value = 0;
             CharactersDropdown.Select();
             PlantsDropdown.value = 0;
-            if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
+            if (GameManager.Instance.GetAmountSold("Lettuce") >= 8)
             {
                 CarrotDescription.text = "Fiel y subterránea, crece bajo tierra como los secretos del bosque. A todos les encanta, y a los comerciantes también.";
             }
             else
             {
-                CarrotDescription.text = "Cultivo no descubierto, vende 10 Lechugas para desbloquear.\nLechugas vendidas: " + GameManager.Instance.GetAmountSold("Lettuce");
+                CarrotDescription.text = "Cultivo no descubierto, vende 8 Lechugas para desbloquear.\nLechugas vendidas: " + GameManager.Instance.GetAmountSold("Lettuce");
                 StrawberryDescription.text = "Desbloquea el cultivo anterior para mas información.";
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
             }
 
 
-            if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
+            if (GameManager.Instance.GetAmountSold("Carrot") >= 12)
             {
                 StrawberryDescription.text = "Pequeña, dulce y jugosa. Aunque tarda un poco más, su valor es alto. Ideal para quienes cultivan con amor (y paciencia).";
             }
-            else if (GameManager.Instance.GetAmountSold("Carrot") < 30 && GameManager.Instance.GetAmountSold("Lettuce") >= 10)
+            else if (GameManager.Instance.GetAmountSold("Carrot") < 12 && GameManager.Instance.GetAmountSold("Lettuce") >= 8)
             {
-                StrawberryDescription.text = "Cultivo no descubierto, vende 30 zanahorias para desbloquear.\nZanahorias vendidas: " + GameManager.Instance.GetAmountSold("Carrot");
+                StrawberryDescription.text = "Cultivo no descubierto, vende 12 zanahorias para desbloquear.\nZanahorias vendidas: " + GameManager.Instance.GetAmountSold("Carrot");
                 CornDescription.text = "Desbloquea el cultivo anterior para mas información.";
         }
 
 
-            if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
+            if (GameManager.Instance.GetAmountSold("Strawberry") >= 20)
             {
                 CornDescription.text = "Alto y orgulloso. Su crecimiento es lento pero produce mucho. Cuando lo cosechas, suena a victoria. Literalmente, crack.";
             }
-            else if (GameManager.Instance.GetAmountSold("Strawberry") < 50 && GameManager.Instance.GetAmountSold("Carrot") >= 30)
+            else if (GameManager.Instance.GetAmountSold("Strawberry") < 20 && GameManager.Instance.GetAmountSold("Carrot") >= 12)
             {
-                CornDescription.text = "Cultivo no descubierto, vende 50 fresas para desbloquear. \nFresas vendidas: " + GameManager.Instance.GetAmountSold("Strawberry");
+                CornDescription.text = "Cultivo no descubierto, vende 20 fresas para desbloquear. \nFresas vendidas: " + GameManager.Instance.GetAmountSold("Strawberry");
             }
 
 
@@ -1662,7 +1662,7 @@ public class UIManager : MonoBehaviour
 
             Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
 
-            if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
+            if (GameManager.Instance.GetAmountSold("Lettuce") >= 8)
             {
                 BlockMarketPlants[0].SetActive(false);
                 CarrotsButton.interactable = true;
@@ -1679,7 +1679,7 @@ public class UIManager : MonoBehaviour
                 CarrotsButton.navigation = navCarrot;
 
 
-                if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
+                if (GameManager.Instance.GetAmountSold("Carrot") >= 12)
                 {
                     BlockMarketPlants[1].SetActive(false);
                     StrawberriesButton.interactable = true;
@@ -1698,7 +1698,7 @@ public class UIManager : MonoBehaviour
 
 
 
-                    if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
+                    if (GameManager.Instance.GetAmountSold("Strawberry") >= 20)
                     {
                         BlockMarketPlants[2].SetActive(false);
                         CornsButton.interactable = true;
@@ -1748,7 +1748,7 @@ public class UIManager : MonoBehaviour
             // Botón Lechuga (siempre activo)
             Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
 
-            if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
+            if (GameManager.Instance.GetAmountSold("Lettuce") >= 8)
             {
                 BlockMarketSeeds[0].SetActive(false);
                 CarrotSeedsButton.interactable = true;
@@ -1765,7 +1765,7 @@ public class UIManager : MonoBehaviour
                 CarrotSeedsButton.navigation = navCarrot;
 
 
-                if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
+                if (GameManager.Instance.GetAmountSold("Carrot") >= 12)
                 {
                     BlockMarketSeeds[1].SetActive(false);
                     StrawberrySeedsButton.interactable = true;
@@ -1784,7 +1784,7 @@ public class UIManager : MonoBehaviour
 
 
 
-                    if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
+                    if (GameManager.Instance.GetAmountSold("Strawberry") >= 20)
                     {
                         BlockMarketSeeds[2].SetActive(false);
                         CornSeedsButton.interactable = true;
@@ -2077,7 +2077,7 @@ public class UIManager : MonoBehaviour
         _isDepositSelected = false; // Añadimos esta línea
         _isMovingSelected = false; // Añadimos esta línea
         _isWithdrawSelected = false; // Añadimos esta línea
-        DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 50.000 RootCoins!.";
+        DescriptionText.text = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 15.000 RootCoins!.";
         MoveButton.SetActive(true);
         if (TutorialManager.GetTutorialPhaseBanco() == 8) // Verifica si ha pulsado el botón + de venta
         {
@@ -2103,10 +2103,10 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonMovePressed()
     {
-        if (GameManager.Instance.GetTotalMoneyDeposited() >= 20000)
+        if (GameManager.Instance.GetTotalMoneyDeposited() >= 15000)
         {
             Debug.Log("Mudanza realizada con éxito.");
-            GameManager.Instance.DeductDepositedMoney(20000);
+            GameManager.Instance.DeductDepositedMoney(15000);
             InventoryManager.SetPlayerPosition(_newHousePosition);
             SceneTransition.Instance.FinalCamera();
             Cloud.Instance.FinalCamera();
@@ -2117,7 +2117,7 @@ public class UIManager : MonoBehaviour
         else
         {
             DescriptionText.text = "No tienes suficiente dinero.";
-            _newDescriptionText = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 50.000 RootCoins!.";
+            _newDescriptionText = "Has seleccionado la Casa Playa.\n ¡Compra esta casa por solo 15.000 RootCoins!.";
             Invoke("ChangeDescription", 1f);
             Debug.Log("No tienes suficiente dinero para mudarte.");
 
@@ -2196,7 +2196,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCornSeedPressed()
     {
-        SelectSeed(SeedOrPlantType.CornSeed, 70, "Semilla de Maíz", "Semillas de Maíz");
+        SelectSeed(SeedOrPlantType.CornSeed, 35, "Semilla de Maíz", "Semillas de Maíz");
     }
 
     /// <summary>
@@ -2204,7 +2204,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCornPressed()
     {
-        SelectSeed(SeedOrPlantType.Corn, 100, "Maíz", "Maíces");
+        SelectSeed(SeedOrPlantType.Corn, 70, "Maíz", "Maíces");
     }
 
     /// <summary>
@@ -2212,7 +2212,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCarrotSeedPressed()
     {
-        SelectSeed(SeedOrPlantType.CarrotSeed, 30, "Semilla de Zanahoria", "Semillas de Zanahoria");
+        SelectSeed(SeedOrPlantType.CarrotSeed, 15, "Semilla de Zanahoria", "Semillas de Zanahoria");
     }
 
     /// <summary>
@@ -2220,7 +2220,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonCarrotPressed()
     {
-        SelectSeed(SeedOrPlantType.Carrot, 50, "Zanahoria", "Zanahorias");
+        SelectSeed(SeedOrPlantType.Carrot, 35, "Zanahoria", "Zanahorias");
     }
 
     /// <summary>
@@ -2230,7 +2230,7 @@ public class UIManager : MonoBehaviour
     {
         if (TutorialManager.GetTutorialPhase() == 11 || TutorialManager.GetTutorialPhase() >= 14)
         {
-            SelectSeed(SeedOrPlantType.Lettuce, 15, "Semilla de Lechuga", "Semillas de Lechuga");
+            SelectSeed(SeedOrPlantType.Lettuce, 8, "Semilla de Lechuga", "Semillas de Lechuga");
 
             if (TutorialManager.GetTutorialPhase() == 11)
             {
@@ -2245,7 +2245,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonLettucePressed()
     {
-        SelectSeed(SeedOrPlantType.Lettuce, 30, "Lechuga", "Lechugas");
+        SelectSeed(SeedOrPlantType.Lettuce, 20, "Lechuga", "Lechugas");
 
         if (TutorialManager.GetTutorialPhase() == 21)
         {
@@ -2259,7 +2259,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonStrawberriesSeedPressed()
     {
-        SelectSeed(SeedOrPlantType.Strawberry, 50, "Semilla de Fresa", "Semillas de Fresa");
+        SelectSeed(SeedOrPlantType.Strawberry, 25, "Semilla de Fresa", "Semillas de Fresa");
     }
 
     /// <summary>
@@ -2267,7 +2267,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonStrawberriesPressed()
     {
-        SelectSeed(SeedOrPlantType.Strawberry, 80, "Fresa", "Fresas");
+        SelectSeed(SeedOrPlantType.Strawberry, 50, "Fresa", "Fresas");
     }
 
     /// <summary>
@@ -2607,7 +2607,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescriptionUpgrade("Aumenta la capacidad de agua por 750 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+        ShowDescriptionUpgrade("Aumenta la capacidad de agua por " + MoneyManager.Instance.GetWateringCanUpgradePrice() + " RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades); 
         if (TutorialManager.GetTutorialPhaseMejora() == 8)
         {
             Check(2);
@@ -2626,7 +2626,7 @@ public class UIManager : MonoBehaviour
         _isInventorySelected = false;
         _isSomethingSelected = true;
 
-        ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+        ShowDescriptionUpgrade("Expande el terreno de cultivos por 900 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
         if (TutorialManager.GetTutorialPhaseMejora() == 5)
         {
             Check(2);
@@ -2641,52 +2641,30 @@ public class UIManager : MonoBehaviour
     {
         if (_isUpgradeSelected && _isSomethingSelected)
         {
-            if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 750) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
+            if (_isWateringCanSelected)
             {
+                int currentLevel = GameManager.Instance.GetWateringCanUpgrades();
                 GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 1.500 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
-            }
-            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 1500) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
-            {
-                GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 3.000 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
-            }
-            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 3000) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
-            {
-                GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+
+                // Solo actualizar la descripción si la mejora fue exitosa
+                if (GameManager.Instance.GetWateringCanUpgrades() > currentLevel)
+                {
+                    ShowDescriptionUpgrade("Aumenta la capacidad de agua por " + MoneyManager.Instance.GetWateringCanUpgradePrice() + " RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                }
             }
         }
         else if (_isExtendSelected && _isSomethingSelected)
         {
             if (_isGardenSelected)
             {
-                if ((MoneyManager.GetMoneyCount() >= 1000) && (GameManager.Instance.GetGardenUpgrades() == 0))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.500 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 1500) && (GameManager.Instance.GetGardenUpgrades() == 1))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 2.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 2000) && (GameManager.Instance.GetGardenUpgrades() == 2))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 3.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 3000) && (GameManager.Instance.GetGardenUpgrades() == 3))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 5000) && (GameManager.Instance.GetGardenUpgrades() == 4))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
+                int currentLevel = GameManager.Instance.GetGardenUpgrades();
+                GameManager.Instance.UpgradeGarden();
 
+                // Solo actualizar la descripción si la mejora fue exitosa
+                if (GameManager.Instance.GetGardenUpgrades() > currentLevel)
+                {
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por " + MoneyManager.Instance.GetGardenUpgradePrice() + " RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
             }
         }
     }
