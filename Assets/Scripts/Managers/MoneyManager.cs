@@ -80,6 +80,18 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private UIManager UIManager;
 
+    [Header("Precios de Abono")]
+    /// <summary>
+    /// Precio del abono.
+    /// </summary>
+    [SerializeField] private int FertilizerPrice = 50; // Precio base del abono
+
+    [Header("Multiplicadores de Venta con Abono")]
+    /// <summary>
+    /// Multiplicador de precio para plantas con abono
+    /// </summary>
+    [SerializeField] private float FertilizerSaleMultiplier = 1.5f;
+
     #endregion
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados
@@ -404,7 +416,127 @@ public class MoneyManager : MonoBehaviour
     public bool UpgradeGardenLevel4() => UpgradeGarden();
 
     #endregion
-    
+
+    // ---- MÉTODOS PARA ABONO ----
+    #region Métodos de Abono
+
+    /// <summary>
+    /// Compra abono
+    /// </summary>
+    public void BuyFertilizer(int Quantity)
+    {
+        int totalCost = Quantity * FertilizerPrice;
+        if (DeductMoney(totalCost))
+        {
+            if (InventoryManager.BoolModifyInventory(Items.Fertilizer, Quantity))
+            {
+                Debug.Log($"Se han comprado {Quantity} abonos por {totalCost} RC.");
+                UIManager.ShowMoneyUI();
+            }
+            else
+            {
+                // Si no se puede añadir al inventario, devolver el dinero
+                AddMoney(totalCost);
+                Debug.Log("No hay espacio suficiente en el inventario para el abono.");
+            }
+        }
+        else
+        {
+            Debug.Log("No tienes suficiente dinero para comprar el abono.");
+        }
+    }
+
+    /// <summary>
+    /// Vende una cantidad específica de lechugas (versión sin abono).
+    /// </summary>
+    public void SellLettuceNormal(int Quantity) => SellNormal(Quantity, LettucePlantPrice, Items.Lettuce);
+
+    /// <summary>
+    /// Vende una cantidad específica de lechugas (versión con abono).
+    /// </summary>
+    public void SellLettuceFertilized(int Quantity) => SellFertilized(Quantity, LettucePlantPrice, Items.Lettuce);
+
+    /// <summary>
+    /// Vende una cantidad específica de maíz (versión sin abono).
+    /// </summary>
+    public void SellCornNormal(int Quantity) => SellNormal(Quantity, CornPlantPrice, Items.Corn);
+
+    /// <summary>
+    /// Vende una cantidad específica de maíz (versión con abono).
+    /// </summary>
+    public void SellCornFertilized(int Quantity) => SellFertilized(Quantity, CornPlantPrice, Items.Corn);
+
+    /// <summary>
+    /// Vende una cantidad específica de zanahorias (versión sin abono).
+    /// </summary>
+    public void SellCarrotNormal(int Quantity) => SellNormal(Quantity, CarrotPlantPrice, Items.Carrot);
+
+    /// <summary>
+    /// Vende una cantidad específica de zanahorias (versión con abono).
+    /// </summary>
+    public void SellCarrotFertilized(int Quantity) => SellFertilized(Quantity, CarrotPlantPrice, Items.Carrot);
+
+    /// <summary>
+    /// Vende una cantidad específica de fresas (versión sin abono).
+    /// </summary>
+    public void SellStrawberryNormal(int Quantity) => SellNormal(Quantity, StrawberryPlantPrice, Items.Strawberry);
+
+    /// <summary>
+    /// Vende una cantidad específica de fresas (versión con abono).
+    /// </summary>
+    public void SellStrawberryFertilized(int Quantity) => SellFertilized(Quantity, StrawberryPlantPrice, Items.Strawberry);
+
+    private void SellNormal(int Quantity, int Price, Items Item)
+    {
+        // Verificar que haya cultivos sin abono disponibles
+        int normalCrops = InventoryManager.GetNormalCropQuantity(Item);
+        if (normalCrops >= Quantity)
+        {
+            if (InventoryManager.ModifyNormalCropInventory(Item, -Quantity))
+            {
+                AddMoney(Quantity * Price);
+                Debug.Log($"Se han vendido {Quantity} {Item} normales por {Quantity * Price} RC.");
+                UIManager.ShowMoneyUI();
+            }
+        }
+        else
+        {
+            Debug.Log($"No tienes suficientes {Item} normales para vender.");
+        }
+    }
+
+    private void SellFertilized(int Quantity, int Price, Items Item)
+    {
+        // Verificar que haya cultivos con abono disponibles
+        int fertilizedCrops = InventoryManager.GetFertilizedCropQuantity(Item);
+        if (fertilizedCrops >= Quantity)
+        {
+            if (InventoryManager.ModifyFertilizedCropInventory(Item, -Quantity))
+            {
+                int enhancedPrice = Mathf.RoundToInt(Price * FertilizerSaleMultiplier);
+                AddMoney(Quantity * enhancedPrice);
+                Debug.Log($"Se han vendido {Quantity} {Item} con abono por {Quantity * enhancedPrice} RC.");
+                UIManager.ShowMoneyUI();
+            }
+        }
+        else
+        {
+            Debug.Log($"No tienes suficientes {Item} con abono para vender.");
+        }
+    }
+
+    /// <summary>
+    /// Obtiene el precio del abono
+    /// </summary>
+    public int GetFertilizerPrice() => FertilizerPrice;
+
+    /// <summary>
+    /// Obtiene el multiplicador de venta del abono
+    /// </summary>
+    public float GetFertilizerSaleMultiplier() => FertilizerSaleMultiplier;
+
+    #endregion
+
     #endregion // Métodos públicos
 }
 

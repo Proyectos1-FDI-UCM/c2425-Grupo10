@@ -13,6 +13,7 @@ using UnityEngine.UIElements;
 /// Count es el total de items que puede tener el jugador
 /// De 0 - Count/2 -> Seeds (Seeds)
 /// De Count/2 - Count ->  Cultivos (Crops)
+/// /// Fertilizer es un item especial que va aparte
 /// </summary>
 public enum Items
 {
@@ -24,6 +25,7 @@ public enum Items
     Lettuce,
     Carrot,
     Strawberry,
+    Fertilizer, // NUEVO ITEM: Abono
     Count
 }
 
@@ -60,25 +62,43 @@ public static class InventoryManager
     /// </summary>
     private static bool _inventoryFull = false;
 
+    /// <summary>
+    /// Inventario separado para cultivos con abono
+    /// Solo los cultivos (Corn, Lettuce, Carrot, Strawberry) pueden tener versión con abono
+    /// </summary>
+    private static int[] FertilizedCropsInventory = new int[4]; // Solo para los 4 tipos de cultivos
+
 
     // ---- MÉTODOS PÚBLICOS ----
     #region Métodos Públicos
-
     public static void ResetInventory()
     {
         for (int i = 0; i < Inventory.Length; i++)
         {
             Inventory[i] = 0;
         }
+        // NUEVO: También resetear inventario de cultivos con abono
+        ResetFertilizedCropsInventory();
     }
 
-        // ---- MÉTODOS SET ----
-        #region Métodos Set
-        /// <summary>
-        /// Modifica la Posición del Jugador
-        /// </summary>
-        /// <param name="position"></param>
-        public static void SetPlayerPosition(Vector3 position)
+    /// <summary>
+    /// Resetea el inventario de cultivos con abono
+    /// </summary>
+    public static void ResetFertilizedCropsInventory()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            FertilizedCropsInventory[i] = 0;
+        }
+    }
+
+    // ---- MÉTODOS SET ----
+    #region Métodos Set
+    /// <summary>
+    /// Modifica la Posición del Jugador
+    /// </summary>
+    /// <param name="position"></param>
+    public static void SetPlayerPosition(Vector3 position)
         {
             PlayerPosition = position;
         }
@@ -112,10 +132,21 @@ public static class InventoryManager
             MaxSeedQuantity = maxSeeds;
         }
 
-        #endregion
+        /// <summary>
+        /// Establece el inventario de cultivos con abono (para carga de partida)
+        /// </summary>
+        public static void SetFertilizedCropsInventory(int[] fertilizedInventory)
+        {
+            for (int i = 0; i < 4 && i < fertilizedInventory.Length; i++)
+            {
+                FertilizedCropsInventory[i] = fertilizedInventory[i];
+            }
+        }
 
-        // ---- MÉTODOS GET ----
-        #region Métodos Get
+    #endregion
+
+    // ---- MÉTODOS GET ----
+    #region Métodos Get
 
         /// <summary>
         /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
@@ -130,6 +161,7 @@ public static class InventoryManager
             return Inventory[(int)item];
         }
 
+        
         /// <summary>
         /// Guarda la Posición del Jugador
         /// </summary>
@@ -177,53 +209,113 @@ public static class InventoryManager
             return MaxCropQuantity;
         }
 
-        #endregion
-
-        // ---- MÉTODOS INVENTARIO ----
-        #region Métodos Inventario
-
         /// <summary>
-        /// Devuelve True si se efectua la modificación
-        /// Añade la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
+        /// Obtiene la cantidad de cultivos normales (sin abono) de un tipo específico
         /// </summary>
-        public static bool BoolModifyInventory(Items item, int quantity)
+        public static int GetNormalCropQuantity(Items item)
         {
-            if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+            if ((int)item >= (int)Items.Corn && (int)item <= (int)Items.Strawberry)
             {
-                if (Inventory[(int)item] + quantity <= MaxCropQuantity)
-                {
-                    Inventory[(int)item] += quantity;
-                    return true;
-                }
-                else 
-                {
-                    Debug.Log("InventarioLleno");
-                    _inventoryFull = true;
-                }
-                return false;
+                return Inventory[(int)item];
             }
-            else // Es una semilla
-            {
-                if (Inventory[(int)item] + quantity <= MaxSeedQuantity)
-                {
-                    Inventory[(int)item] += quantity;
-                    return true;
-                }
-                else
-                {
-                    Debug.Log("InventarioLleno");
-                    _inventoryFull = true;
-                }
-                return false;
-            }
+            return 0;
         }
 
         /// <summary>
-        /// Devuelve True si se efectua la modificación
-        /// Resta la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
-        /// IMPORTANTE - USAR NUMEROS POSITIVOS (ModifyInventorySubstract(Item.Corn, 5) - Resta 5 Maices)
+        /// Obtiene la cantidad de cultivos con abono de un tipo específico
         /// </summary>
-        public static bool BoolModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
+        public static int GetFertilizedCropQuantity(Items item)
+        {
+            int index = GetFertilizedCropIndex(item);
+            if (index >= 0)
+            {
+                return FertilizedCropsInventory[index];
+            }
+            return 0;
+        }
+
+        /// <summary>
+        /// Obtiene la cantidad total de un cultivo (normal + con abono)
+        /// </summary>
+        public static int GetTotalCropQuantity(Items item)
+        {
+            return GetNormalCropQuantity(item) + GetFertilizedCropQuantity(item);
+        }
+
+        /// <summary>
+        /// Obtiene el inventario de cultivos con abono (para guardado)
+        /// </summary>
+        public static int[] GetFertilizedCropsInventory()
+        {
+            int[] fertilizedInventory = new int[4];
+            for (int i = 0; i < 4; i++)
+            {
+                fertilizedInventory[i] = FertilizedCropsInventory[i];
+            }
+            return fertilizedInventory;
+        }
+    #endregion
+
+    // ---- MÉTODOS INVENTARIO ----
+    #region Métodos Inventario
+
+    /// <summary>
+    /// Devuelve True si se efectua la modificación
+    /// Añade la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
+    /// </summary>
+    public static bool BoolModifyInventory(Items item, int quantity)
+    {
+        // NUEVO: Manejar abono como item especial
+        if (item == Items.Fertilizer)
+        {
+            if (Inventory[(int)item] + quantity <= MaxSeedQuantity) // El abono usa límite de semillas
+            {
+                Inventory[(int)item] += quantity;
+                return true;
+            }
+            else
+            {
+                Debug.Log("InventarioLleno - No hay espacio para más abono");
+                _inventoryFull = true;
+                return false;
+            }
+        }
+        else if ((int)item >= (int)Items.Corn && (int)item <= (int)Items.Strawberry) // Es un cultivo 
+        {
+            if (Inventory[(int)item] + quantity <= MaxCropQuantity)
+            {
+                Inventory[(int)item] += quantity;
+                return true;
+            }
+            else
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+                return false;
+            }
+        }
+        else // Es una semilla
+        {
+            if (Inventory[(int)item] + quantity <= MaxSeedQuantity)
+            {
+                Inventory[(int)item] += quantity;
+                return true;
+            }
+            else
+            {
+                Debug.Log("InventarioLleno");
+                _inventoryFull = true;
+                return false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Devuelve True si se efectua la modificación
+    /// Resta la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos 
+    /// IMPORTANTE - USAR NUMEROS POSITIVOS (ModifyInventorySubstract(Item.Corn, 5) - Resta 5 Maices)
+    /// </summary>
+    public static bool BoolModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
         {
             if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
             {
@@ -237,7 +329,7 @@ public static class InventoryManager
                 else Debug.Log("InventarioInsuficiente");
                 return false;
             }
-        }
+    }
 
         /// <summary>
         /// Añade la cantidad (quantity) al inventory del Item (item) comprobando que los valores esten dentro de los parámetros permitidos
@@ -284,7 +376,112 @@ public static class InventoryManager
             }
         }
 
-            #endregion // métodos modificar inventario
+    /// <summary>
+    /// Añade cultivos con abono al inventario
+    /// </summary>
+    public static bool AddFertilizedCrop(Items item, int quantity)
+    {
+        int index = GetFertilizedCropIndex(item);
+        if (index >= 0)
+        {
+            // Verificar límite de inventario total
+            int totalCrops = GetTotalCropQuantity(item);
+            if (totalCrops + quantity <= MaxCropQuantity)
+            {
+                FertilizedCropsInventory[index] += quantity;
+                return true;
+            }
+            else
+            {
+                Debug.Log($"No hay espacio suficiente para {quantity} {item} con abono");
+                _inventoryFull = true;
+                return false;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Modifica el inventario de cultivos normales (sin abono)
+    /// </summary>
+    public static bool ModifyNormalCropInventory(Items item, int quantity)
+    {
+        if (quantity > 0)
+        {
+            // Añadir cultivos normales
+            int totalCrops = GetTotalCropQuantity(item);
+            if (totalCrops + quantity <= MaxCropQuantity)
+            {
+                Inventory[(int)item] += quantity;
+                return true;
+            }
+            else
+            {
+                _inventoryFull = true;
+                return false;
+            }
+        }
+        else
+        {
+            // Quitar cultivos normales
+            int currentNormal = GetNormalCropQuantity(item);
+            if (currentNormal >= -quantity)
+            {
+                Inventory[(int)item] += quantity; // quantity es negativo
+                return true;
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Modifica el inventario de cultivos con abono
+    /// </summary>
+    public static bool ModifyFertilizedCropInventory(Items item, int quantity)
+    {
+        int index = GetFertilizedCropIndex(item);
+        if (index >= 0)
+        {
+            if (quantity > 0)
+            {
+                // Añadir cultivos con abono
+                return AddFertilizedCrop(item, quantity);
+            }
+            else
+            {
+                // Quitar cultivos con abono
+                int currentFertilized = GetFertilizedCropQuantity(item);
+                if (currentFertilized >= -quantity)
+                {
+                    FertilizedCropsInventory[index] += quantity; // quantity es negativo
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    #endregion // métodos modificar inventario
 
     #endregion // métodos públicos
+
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+
+    /// <summary>
+    /// Mapea Items de cultivos a índices del array de cultivos con abono
+    /// </summary>
+    private static int GetFertilizedCropIndex(Items item)
+    {
+        switch (item)
+        {
+            case Items.Corn: return 0;
+            case Items.Lettuce: return 1;
+            case Items.Carrot: return 2;
+            case Items.Strawberry: return 3;
+            default: return -1; // No es un cultivo válido para abono
+        }
+    }
+
+    #endregion // métodos privados
 }

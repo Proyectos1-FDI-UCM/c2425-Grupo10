@@ -23,6 +23,13 @@ public struct Plant
     public Vector3 Position;
     public int Child;
 
+
+    // NUEVOS CAMPOS PARA ABONO
+    public bool HasFertilizer;  // Si la planta tiene abono aplicado
+    public float FertilizerAppliedTime; // Momento cuando se aplicó el abono
+    public float FertilizerMultiplier; // Multiplicador de crecimiento del abono
+
+
     /* 
 
      * Items - Tipo de cultivo
