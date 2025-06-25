@@ -37,9 +37,19 @@ public class FishingManager : MonoBehaviour
     [SerializeField] private GameObject Signal;
 
     /// <summary>
-    /// Animator
+    /// Animator del icono del botón E
     /// </summary>
     [SerializeField] private Animator ButtonAnimator;
+
+    /// <summary>
+    /// Animator del icono del botón E
+    /// </summary>
+  //  [SerializeField] private GameObject TimerBar;
+
+    /// <summary>
+    /// Animator de la barra con el tiempo
+    /// </summary>
+  //  [SerializeField] private Animator TimerAnimator;
 
     ///<summary> 
     /// referencia al animator del player
@@ -138,6 +148,7 @@ public class FishingManager : MonoBehaviour
 
         EIcon.SetActive(false);
         Signal.SetActive(false);
+     //   TimerBar.SetActive(false);
     }
 
     /// <summary>
@@ -156,7 +167,7 @@ public class FishingManager : MonoBehaviour
                 _fishingStarted = true;
                 
                 PlayerAnimator.SetBool("IsFishing", true);
-                EIcon.SetActive(true);
+             //   EIcon.SetActive(true);
             }
 
             if (_fishingStarted)
@@ -172,11 +183,16 @@ public class FishingManager : MonoBehaviour
                     
                     if (mgTimer == i * _tries) // Acierto
                     {
-                        Signal.SetActive(true);
+                       // Signal.SetActive(true);
+                        //TimerBar.SetActive(true);
+                        EIcon.SetActive(true);
+                        //TimerAnimator.Play("TimerBar");
 
                         if (InputManager.Instance.UsarWasPressedThisFrame())
                          {
+                           // TimerBar.SetActive(false);
                             ButtonAnimator.Play("Press");
+                            
                             _checks++;
 
                             if (i == _tries)
@@ -194,7 +210,9 @@ public class FishingManager : MonoBehaviour
                     }
                     else if (mgTimer == i * _tries + 1)
                     {
-                        Signal.SetActive(false);
+                        EIcon.SetActive(false);
+                        // Signal.SetActive(false);
+                    //    TimerBar.SetActive(false);
                         if (_checks == i - 1) // Fallo
                         {
                             EIcon.SetActive(false);
@@ -207,102 +225,7 @@ public class FishingManager : MonoBehaviour
                         }
                     }
                 }
-                //if (mgTimer == 3)
-                //{
-                //    Signal.SetActive(true);
-                //    if (InputManager.Instance.UsarWasPressedThisFrame())
-                //    {
-                //        ButtonAnimator.Play("Press");
-                //        PlayerAnimator.SetTrigger("PressFishing");
-                //        _checks = 1;
-                //    }
-                //}
-                        
-                //else if (mgTimer == 4)
-                //{
-                //    Signal.SetActive(false);
-                //    if (_checks == 0) // Fallo
-                //    {
-                //        EIcon.SetActive(false);
-
-                //        PlayerAnimator.SetBool("IsFishing", false);
-                //        PlayerAnimator.SetBool("WonFIshing", false);
-                        
-                //        Debug.Log("FALLO 1");
-                //        ResetMiniGame();
-                //    }
-                        
-                //}
-
-                //if (mgTimer == 6)
-                //{
-                //    Signal.SetActive(true);
-                //    if (InputManager.Instance.UsarWasPressedThisFrame())
-                //    {
-                //        ButtonAnimator.Play("Press");
-                //        PlayerAnimator.SetTrigger("PressFishing");
-                //        _checks = 2;
-                //        Debug.Log("CHECK 2");
-                //    }
-                //}
-                //else if (mgTimer == 7)
-                //{
-                //    Signal.SetActive(false);
-                //    if (_checks == 1) // Fallo
-                //    {
-                //        EIcon.SetActive(false);
-
-                //        PlayerAnimator.SetBool("IsFishing", false);
-                //        PlayerAnimator.SetBool("WonFIshing", false);
-                        
-                //        Debug.Log("Fallo, vuelve a intentarlo");
-                //        ResetMiniGame();
-                //    }
-                //}
-
-                //if (mgTimer == 9)
-                //{
-                //    Signal.SetActive(true);
-                //    if (InputManager.Instance.UsarWasPressedThisFrame())
-                //    {
-                //        ButtonAnimator.Play("Press");
-                //        // PlayerAnimator.SetTrigger("PressFishing");
-                //        PlayerAnimator.SetBool("WonFIshing", true);
-                //        PlayerAnimator.SetBool("IsFishing", false);
-                //        _checks = 3;
-                //        Debug.Log("CHECK 2");
-                //    }
-                //}
-                //else if (mgTimer == 10)
-                //{
-                //    Signal.SetActive(false);
-                //    if (_checks == 2) // Fallo
-                //    {
-                //        EIcon.SetActive(false);
-                //        Debug.Log("Fallo, vuelve a intentarlo");
-
-                //        PlayerAnimator.SetBool("IsFishing", false);
-                //        PlayerAnimator.SetBool("WonFIshing", false);
-
-                        
-
-                //        ResetMiniGame();
-
-                //    }
-                //    else if (_checks == 3) // Ganar 
-                //    {
-
-                //        EIcon.SetActive(false);
-                //        Debug.Log("Has pescado");
-
-
-                //        AddFishInventory();
-                //        ResetMiniGame();
-
-
-                //    }
-                //}
-               
+              
             }
 
         }
@@ -361,7 +284,8 @@ public class FishingManager : MonoBehaviour
         _miniGameTimer = 0;
         _fishingStarted = false;
         Signal.SetActive(false);
-
+      //  TimerBar.SetActive(false);
+        EIcon.SetActive(false);
     }
 
     /// <summary>
