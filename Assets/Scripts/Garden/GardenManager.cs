@@ -192,6 +192,13 @@ public class GardenManager : MonoBehaviour
             {
                 Items item = Plant.Item;
                 float MaxGrowth = GardenData.GetMaxGrowthTime(item);
+
+                // NUEVO: Aplicar modificador de abono al tiempo de crecimiento
+                if (Plant.HasFertilizer)
+                {
+                    MaxGrowth = GardenData.GetModifiedGrowthTime(item, true, Plant.FertilizerMultiplier);
+                }
+
                 float MaxWater = GardenData.GetMaxWaterTime(item);
                 float MaxDeath = GardenData.GetMaxDeathTime(item);
                 int State = Plant.State;
@@ -307,7 +314,7 @@ public class GardenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Cultiva: Modifica los valores de cultivo de una planta por su posición (es decir la desactiva)
+    /// Cosecha: Modifica los valores de la semilla (Recolecta) - MODIFICADO PARA ABONO
     /// </summary>
     public void Harvest(Transform transform)
     {
@@ -324,7 +331,23 @@ public class GardenManager : MonoBehaviour
             Debug.Log(Plant.State);
             if (Plant.State == 4)
             {
-                if (InventoryManager.BoolModifyInventory(Plant.Item, 1))
+                // NUEVO: Determinar si la planta tiene abono y añadir al inventario correspondiente
+                bool success = false;
+
+                if (Plant.HasFertilizer)
+                {
+                    // Añadir a inventario de cultivos con abono
+                    success = InventoryManager.AddFertilizedCrop(Plant.Item, 1);
+                    Debug.Log($"Cosechada planta con abono: {Plant.Item}");
+                }
+                else
+                {
+                    // Añadir a inventario normal
+                    success = InventoryManager.BoolModifyInventory(Plant.Item, 1);
+                    Debug.Log($"Cosechada planta normal: {Plant.Item}");
+                }
+
+                if (success)
                 {
                     GardenData.ModifyHarvestWarning(i, false);
                     CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
@@ -355,6 +378,10 @@ public class GardenManager : MonoBehaviour
                         GardenData.Deactivate(i);
                         cropSpriteEditor.Destroy();
                     }
+                }
+                else
+                {
+                    Debug.Log("No se pudo añadir al inventario - inventario lleno");
                 }
             }
         }
@@ -504,11 +531,10 @@ public class GardenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Método que carga los valores de las plantas entre escenas
+    /// Método que carga los valores de las plantas entre escenas (actualizado para abono)
     /// </summary>
     public void InitChangeScene()
     {
-
         for (int i = 0; i < _gardenSize[UpgradeLevel]; i++)
         {
             Plant plant = GardenData.GetPlant(i);
@@ -527,11 +553,18 @@ public class GardenManager : MonoBehaviour
                 if (cropSpriteEditor != null)
                 {
                     cropSpriteEditor.Growing(plant.State);
+
+                    //// NUEVO: Aplicar efectos de abono si la planta los tiene
+                    //if (plant.HasFertilizer)
+                    //{
+                    //    cropSpriteEditor.ShowFertilizerEffect();
+                    //    Debug.Log($"Efectos de abono restaurados para planta {i}");
+                    //}
                 }
             }
             Debug.Log($"Plant: {i} instanciated in child: {plant.Child}");
         }
-        Debug.Log("ChangeScene");
+        Debug.Log("ChangeScene with fertilizer effects");
     }
 
     /// <summary>
@@ -784,6 +817,7 @@ public class GardenManager : MonoBehaviour
 
         Debug.Log("Todos los avisos visuales de plantas han sido limpiados");
     }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
