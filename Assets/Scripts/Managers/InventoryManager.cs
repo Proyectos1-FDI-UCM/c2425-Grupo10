@@ -21,11 +21,13 @@ public enum Items
     CarrotSeed,
     StrawberrySeed,
     Bait,
+    Alpiste,
     Corn,
     Lettuce,
     Carrot,
     Strawberry,
     Fish,
+    Egg,
     Count
 }
 

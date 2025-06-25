@@ -37,11 +37,6 @@ public class FishingManager : MonoBehaviour
     [SerializeField] private GameObject Signal;
 
     /// <summary>
-    /// Notificación con instrucciones
-    /// </summary>
-    [SerializeField] private GameObject Notif;
-
-    /// <summary>
     /// Animator
     /// </summary>
     [SerializeField] private Animator ButtonAnimator;
@@ -61,13 +56,6 @@ public class FishingManager : MonoBehaviour
     // primera palabra en minúsculas y el resto con la 
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
-
-    
-
-    /// <summary>
-    /// Referencia al NotificationManager
-    /// </summary>
-    private NotificationManager _notificationManager;
 
     /// <summary>
     /// Referencia al UIManager
@@ -89,12 +77,6 @@ public class FishingManager : MonoBehaviour
     /// Referencia al PlayerMovement
     /// </summary>
     private PlayerMovement _playerMovement;
-
-    /// <summary>
-    /// Referencia al Animator del jugador para manejar las animaciones.
-    /// </summary>
-    private Animator _playerAnimator;
-
 
     /// <summary>
     /// Indica si estamos en la posición desde la que se puede realizar la pesca
@@ -126,6 +108,11 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     private int _checks;
 
+    /// <summary>
+    /// Numero de intentos
+    /// </summary>
+    private int _tries = 3;
+
 
     #endregion
 
@@ -145,13 +132,10 @@ public class FishingManager : MonoBehaviour
         InitializeReferences();
         InitializeTimers();
 
-       
-
         _fishing = false;
         _fishingStarted = false;
 
 
-        Notif.SetActive(false);
         EIcon.SetActive(false);
         Signal.SetActive(false);
     }
@@ -172,7 +156,6 @@ public class FishingManager : MonoBehaviour
                 _fishingStarted = true;
                 
                 PlayerAnimator.SetBool("IsFishing", true);
-                Notif.SetActive(true);
                 EIcon.SetActive(true);
             }
 
@@ -183,117 +166,144 @@ public class FishingManager : MonoBehaviour
                 // mgTimer = Tiempo del minijuego sin decimales
                 _miniGameTimer += Time.deltaTime;
                 int mgTimer = Mathf.FloorToInt(_miniGameTimer);
-                //Debug.Log(mgTimer);
 
-                if (_miniGameTimer >= 1) Notif.SetActive(false); // Desactivar notif
-
-                if (mgTimer == 3)
+                for (int i = 1; i < _tries + 1; i++)
                 {
-                    Signal.SetActive(true);
-                    if (InputManager.Instance.UsarWasPressedThisFrame())
+                    
+                    if (mgTimer == i * _tries) // Acierto
                     {
+                        Signal.SetActive(true);
+
+                        if (InputManager.Instance.UsarWasPressedThisFrame())
+                         {
+                            ButtonAnimator.Play("Press");
+                            _checks++;
+
+                            if (i == _tries)
+                            {
+                                PlayerAnimator.SetBool("WonFIshing", true);
+                                PlayerAnimator.SetBool("IsFishing", false);
+
+                                EIcon.SetActive(false);
+                                AddFishInventory();
+                                ResetMiniGame();
+                            }
+                            else PlayerAnimator.SetTrigger("PressFishing");
+                         }
                         
-                        ButtonAnimator.Play("Press");
-                        PlayerAnimator.SetTrigger("PressFishing");
-                        _checks = 1;
-                        Debug.Log("CHECK 1");
+                    }
+                    else if (mgTimer == i * _tries + 1)
+                    {
+                        Signal.SetActive(false);
+                        if (_checks == i - 1) // Fallo
+                        {
+                            EIcon.SetActive(false);
+
+                            PlayerAnimator.SetBool("IsFishing", false);
+                            PlayerAnimator.SetBool("WonFIshing", false);
+
+                            Debug.Log($"Fallo en {i}");
+                            ResetMiniGame();
+                        }
                     }
                 }
+                //if (mgTimer == 3)
+                //{
+                //    Signal.SetActive(true);
+                //    if (InputManager.Instance.UsarWasPressedThisFrame())
+                //    {
+                //        ButtonAnimator.Play("Press");
+                //        PlayerAnimator.SetTrigger("PressFishing");
+                //        _checks = 1;
+                //    }
+                //}
                         
-                else if (mgTimer == 4)
-                {
-                    Signal.SetActive(false);
-                    if (_checks == 0) // Fallo
-                    {
-                        EIcon.SetActive(false);
+                //else if (mgTimer == 4)
+                //{
+                //    Signal.SetActive(false);
+                //    if (_checks == 0) // Fallo
+                //    {
+                //        EIcon.SetActive(false);
 
-                        PlayerAnimator.SetBool("IsFishing", false);
-                        PlayerAnimator.SetBool("WonFIshing", false);
+                //        PlayerAnimator.SetBool("IsFishing", false);
+                //        PlayerAnimator.SetBool("WonFIshing", false);
                         
-                        Debug.Log("FALLO 1");
-                        ResetMiniGame();
-                    }
+                //        Debug.Log("FALLO 1");
+                //        ResetMiniGame();
+                //    }
                         
-                }
+                //}
 
-                if (mgTimer == 6)
-                {
-                    Signal.SetActive(true);
-                    if (InputManager.Instance.UsarWasPressedThisFrame())
-                    {
-                        ButtonAnimator.Play("Press");
-                        PlayerAnimator.SetTrigger("PressFishing");
-                        _checks = 2;
-                        Debug.Log("CHECK 2");
-                    }
-                }
-                else if (mgTimer == 7)
-                {
-                    Signal.SetActive(false);
-                    if (_checks == 1) // Fallo
-                    {
-                        EIcon.SetActive(false);
+                //if (mgTimer == 6)
+                //{
+                //    Signal.SetActive(true);
+                //    if (InputManager.Instance.UsarWasPressedThisFrame())
+                //    {
+                //        ButtonAnimator.Play("Press");
+                //        PlayerAnimator.SetTrigger("PressFishing");
+                //        _checks = 2;
+                //        Debug.Log("CHECK 2");
+                //    }
+                //}
+                //else if (mgTimer == 7)
+                //{
+                //    Signal.SetActive(false);
+                //    if (_checks == 1) // Fallo
+                //    {
+                //        EIcon.SetActive(false);
 
-                        PlayerAnimator.SetBool("IsFishing", false);
-                        PlayerAnimator.SetBool("WonFIshing", false);
+                //        PlayerAnimator.SetBool("IsFishing", false);
+                //        PlayerAnimator.SetBool("WonFIshing", false);
                         
-                        Debug.Log("Fallo, vuelve a intentarlo");
-                        ResetMiniGame();
-                    }
-                }
+                //        Debug.Log("Fallo, vuelve a intentarlo");
+                //        ResetMiniGame();
+                //    }
+                //}
 
-                if (mgTimer == 9)
-                {
-                    Signal.SetActive(true);
-                    if (InputManager.Instance.UsarWasPressedThisFrame())
-                    {
-                        ButtonAnimator.Play("Press");
-                        // PlayerAnimator.SetTrigger("PressFishing");
-                        PlayerAnimator.SetBool("WonFIshing", true);
-                        PlayerAnimator.SetBool("IsFishing", false);
-                        _checks = 3;
-                        Debug.Log("CHECK 2");
-                    }
-                }
-                else if (mgTimer == 10)
-                {
-                    Signal.SetActive(false);
-                    if (_checks == 2) // Fallo
-                    {
-                        EIcon.SetActive(false);
-                        Debug.Log("Fallo, vuelve a intentarlo");
+                //if (mgTimer == 9)
+                //{
+                //    Signal.SetActive(true);
+                //    if (InputManager.Instance.UsarWasPressedThisFrame())
+                //    {
+                //        ButtonAnimator.Play("Press");
+                //        // PlayerAnimator.SetTrigger("PressFishing");
+                //        PlayerAnimator.SetBool("WonFIshing", true);
+                //        PlayerAnimator.SetBool("IsFishing", false);
+                //        _checks = 3;
+                //        Debug.Log("CHECK 2");
+                //    }
+                //}
+                //else if (mgTimer == 10)
+                //{
+                //    Signal.SetActive(false);
+                //    if (_checks == 2) // Fallo
+                //    {
+                //        EIcon.SetActive(false);
+                //        Debug.Log("Fallo, vuelve a intentarlo");
 
-                        PlayerAnimator.SetBool("IsFishing", false);
-                        PlayerAnimator.SetBool("WonFIshing", false);
+                //        PlayerAnimator.SetBool("IsFishing", false);
+                //        PlayerAnimator.SetBool("WonFIshing", false);
 
                         
 
-                        ResetMiniGame();
+                //        ResetMiniGame();
 
-                    }
-                    else if (_checks == 3) // Ganar 
-                    {
-                        // LLamar al inventario, guardar
-                        //PlayerAnimator.SetBool("IsFishing", false);
-                       // PlayerAnimator.SetBool("WonFIshing", true);
+                //    }
+                //    else if (_checks == 3) // Ganar 
+                //    {
 
-                        EIcon.SetActive(false);
-                        Debug.Log("Has pescado");
+                //        EIcon.SetActive(false);
+                //        Debug.Log("Has pescado");
 
 
-                        AddFishInventory();
-                        ResetMiniGame();
+                //        AddFishInventory();
+                //        ResetMiniGame();
 
 
-                    }
-                   
-
-                }
+                //    }
+                //}
                
             }
-
-           
-
 
         }
         else _miniGameTimer = 0;
@@ -328,17 +338,18 @@ public class FishingManager : MonoBehaviour
     {
         _fishing = false;
         _fishingStarted = false;
-        Notif.SetActive(false);
         EIcon.SetActive(false);
         Signal.SetActive(false);
-        //_uIManager.HideNotification("NoCounter");
 
         ResetMiniGame();
+
         PlayerAnimator.SetBool("IsFishing", false);
         _uIManager.HideNotification("Fishing");
-
     }
 
+    /// <summary>
+    /// Añade 1 pez al inventario
+    /// </summary>
     private void AddFishInventory()
     {
         InventoryManager.BoolModifyInventory(Items.Fish, 1);
@@ -349,12 +360,15 @@ public class FishingManager : MonoBehaviour
         _checks = 0;
         _miniGameTimer = 0;
         _fishingStarted = false;
-        
+        Signal.SetActive(false);
+
     }
+
+    /// <summary>
+    /// Inicializar referencias a otros scripts
+    /// </summary>
     private void InitializeReferences()
     {
-      
-        _notificationManager = FindObjectOfType<NotificationManager>();
         _uIManager = FindObjectOfType<UIManager>();
         _soundManager = FindObjectOfType<SoundManager>();
         _timer = FindObjectOfType<Timer>();
@@ -362,6 +376,9 @@ public class FishingManager : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Inicializa los timers
+    /// </summary>
     private void InitializeTimers()
     {
         _currentTime = _timer.GetGameTimeInMinutes();

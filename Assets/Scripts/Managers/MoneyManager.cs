@@ -67,6 +67,11 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     [SerializeField] private int FishPrice;
 
+    /// <summary>
+    /// Precio de venta de la planta de un huevo.
+    /// </summary>
+    [SerializeField] private int EggPrice;
+
     [Header("Precios de Mejora de Regadera")]
     /// <summary>
     /// Array con los precios de mejora de la regadera en cada nivel.
@@ -197,6 +202,12 @@ public class MoneyManager : MonoBehaviour
     /// Vende una cantidad específica de peces.
     /// </summary>
     public void SellFish(int Quantity) => Sell(Quantity, FishPrice, Items.Fish);
+
+    /// <summary>
+    /// Vende una cantidad específica de huevos.
+    /// </summary>
+    public void SellEgg(int Quantity) => Sell(Quantity, EggPrice, Items.Egg);
+
 
     private void Sell(int Quantity, int Price, Items Item)
     {
