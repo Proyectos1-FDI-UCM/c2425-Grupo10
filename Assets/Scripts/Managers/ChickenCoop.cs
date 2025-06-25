@@ -64,6 +64,8 @@ public class ChickenCoop : MonoBehaviour
     /// </summary>
     private int _chickens = 3;
 
+    private bool coll = false;
+
     /// <summary>
     /// Referencia al tiempo en el juego
     /// </summary>
@@ -101,7 +103,8 @@ public class ChickenCoop : MonoBehaviour
     void Update()
     {
         _currentTime =  _timer.GetGameTimeInMinutes(); // En qué momento del día nos encontramos
-        int currTime = Mathf.FloorToInt(_currentTime) % (24 * _days); // Cada cuántas horas se pone 1 huevo según _days
+      //  int currTime = Mathf.FloorToInt(_currentTime) % (24 * _days); // Cada cuántas horas se pone 1 huevo según _days
+      int currTime = Mathf.FloorToInt(_currentTime) % (48 * _days); // Cada cuántas horas se pone 1 huevo según _days
 
         for (int i = 0; i < _layingTimes.Length; i++)
         {
@@ -109,6 +112,30 @@ public class ChickenCoop : MonoBehaviour
             {
                 _eggs++;
                 SetNewLayingTime(i);
+            }
+        }
+
+        if (coll)
+        {
+            Debug.Log("HUEVOS" + _eggs);
+            if (_eggs > 0)
+            {
+                _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
+
+
+                if (InputManager.Instance.UsarWasPressedThisFrame())
+                {
+                    _eggs--;
+                    _uIManager.HideNotification("NoTutorial");
+                    _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
+
+                    AddEggsInventory(1);
+                    // LLamar sonido
+                }
+            }
+            else if (_eggs == 0)
+            {
+                _uIManager.ShowNotification("No hay huevos...", "NoCounter", 1, "NoTutorial");
             }
         }
     }
@@ -167,29 +194,13 @@ public class ChickenCoop : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (_eggs > 0)
-        {
-            _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
-
-
-            if (InputManager.Instance.UsarWasPressedThisFrame())
-            {
-                _eggs--;
-                _uIManager.HideNotification("NoTutorial");
-                _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
-
-                AddEggsInventory(1);
-                // LLamar sonido
-            }
-        }
-        else if (_eggs == 0)
-        {
-            _uIManager.ShowNotification("No hay huevos...", "NoCounter", 1, "NoTutorial");
-        }
+        coll = true;
+        
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
+        coll = false;
         _uIManager.HideNotification("NoTutorial");
     }
     #endregion   

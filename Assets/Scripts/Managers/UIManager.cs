@@ -515,7 +515,7 @@ public class UIManager : MonoBehaviour
     /// Posiciones y velocidades
     /// </summary>
     private float _quickBarBaseY;           // Posición base de la QuickAccessBar (se mantiene siempre visible)
-    private float _visibleY = 320f;         // Posición Y del inventory cuando está visible
+    private float _visibleY = 310f;         // Posición Y del inventory cuando está visible
     private float _hiddenY = -300f;         // Posición Y del inventory cuando está oculto
     private float _quickBarOffset = 100f;   // Espacio entre inventory y QuickAccessBar
     private float _transitionSpeed = 10f;   // Velocidad de animación
@@ -2341,7 +2341,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ButtonEggPressed()
     {
-        SelectSeed(SeedOrPlantType.Fish, 60, "Huevo", "Huevos");
+        SelectSeed(SeedOrPlantType.Egg, 15, "Huevo", "Huevos");
     }
 
 
@@ -2520,7 +2520,7 @@ public class UIManager : MonoBehaviour
     /// <summary>
     /// ENUM que contiene todos los cultivos/emillas
     /// </summary>
-    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, Fish, Egg, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed, Bait, Alpiste }
+    private enum SeedOrPlantType { Corn, Carrot, Lettuce, Strawberry, Fish, Egg, CornSeed, CarrotSeed, LettuceSeed, StrawberriesSeed, Bait, Feed }
 
     /// <summary>
     /// asigna las variables dependiendo de la semilla seleccionada
@@ -2537,6 +2537,7 @@ public class UIManager : MonoBehaviour
         _isLettuceSelected = type == SeedOrPlantType.Lettuce || type == SeedOrPlantType.LettuceSeed;
         _isStrawberriesSelected = type == SeedOrPlantType.Strawberry || type == SeedOrPlantType.StrawberriesSeed;
         _isFishSelected = type == SeedOrPlantType.Fish || type == SeedOrPlantType.Bait;
+        _isEggSelected = type == SeedOrPlantType.Egg || type == SeedOrPlantType.Feed;
 
         BuySellButton.Select();
         _amount = 1;
@@ -2603,7 +2604,7 @@ public class UIManager : MonoBehaviour
             if (_isLettuceSelected) return Items.LettuceSeed;
             if (_isStrawberriesSelected) return Items.StrawberrySeed;
             if (_isFishSelected) return Items.Bait;
-            if (_isEggSelected) return Items.Alpiste;
+            if (_isEggSelected) return Items.Feed;
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {

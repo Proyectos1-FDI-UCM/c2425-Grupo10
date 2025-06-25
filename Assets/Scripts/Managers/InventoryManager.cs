@@ -21,7 +21,7 @@ public enum Items
     CarrotSeed,
     StrawberrySeed,
     Bait,
-    Alpiste,
+    Feed,
     Corn,
     Lettuce,
     Carrot,
