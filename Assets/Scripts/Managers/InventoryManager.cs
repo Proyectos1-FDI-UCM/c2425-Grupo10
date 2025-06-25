@@ -1,6 +1,6 @@
 //---------------------------------------------------------
 // Script para gestionar los datos del inventario
-// Responsable: Julia Vera Ruiz
+// Responsable: Julia Vera Ruiz, Alexia Pérez Santana
 // Nombre del juego: Roots of Life
 // Curso 2024-25
 //---------------------------------------------------------

@@ -51,6 +51,9 @@ public struct Plant
              
      * POSITION - Posicion en el juego
      * CHILD - Que hijo es la planta (Posicion en la carpeta)
+     *  HASFERTILIZER - Si la planta tiene abono aplicado
+     * FERTILIZERAPPLIEDTIME - Momento cuando se aplicó el abono
+     * FERTILIZERMULTIPLIER - Multiplicador de velocidad de crecimiento
      
     */
 }
@@ -123,6 +126,10 @@ public static class GardenData
         for (int i = 0; i < _garden.Length; i++)
         {
             _garden[i].Active = false;
+            // NUEVO: También resetear datos de abono
+            _garden[i].HasFertilizer = false;
+            _garden[i].FertilizerAppliedTime = 0f;
+            _garden[i].FertilizerMultiplier = 1.0f;
         }
     }
 
@@ -169,8 +176,8 @@ public static class GardenData
                 PlantActive = false;
             }
         }
-        if (!PlantActive) { 
-
+        if (!PlantActive)
+        {
             _garden[i].Position = transform.position;
             _garden[i].Active = true;
             _garden[i].Item = (Items)item;
@@ -180,6 +187,11 @@ public static class GardenData
             _garden[i].HarvestWarning = false;
             _garden[i].Child = transform.GetSiblingIndex(); // Guarda el index de la planta
             _garden[i].GrowthTimer = 0;
+
+            // NUEVO: Inicializar campos de abono
+            _garden[i].HasFertilizer = false;
+            _garden[i].FertilizerAppliedTime = 0f;
+            _garden[i].FertilizerMultiplier = 1.0f;
 
             _activePlants++;
             Debug.Log($"Planta creada Array: {i} y Pot: {_garden[i].Child}, Type: {_garden[i].Item.ToString()}");
@@ -207,7 +219,12 @@ public static class GardenData
             _garden[i].WaterWarning = false;
             _garden[i].DeathWarning = false;
             _garden[i].HarvestWarning = false;
-            _garden[i].Child =
+            _garden[i].Child = 0; // ← CORREGIDO
+
+            // NUEVO: También resetear datos de abono al desactivar
+            _garden[i].HasFertilizer = false;
+            _garden[i].FertilizerAppliedTime = 0f;
+            _garden[i].FertilizerMultiplier = 1.0f;
 
             _activePlants--;
         }
@@ -215,24 +232,97 @@ public static class GardenData
     }
 
     /// <summary>
-    /// Desactiva una planta según su idenx en el array
+    /// Desactiva una planta según su index en el array
     /// </summary>
     public static void Deactivate(int i)
     {
+        _garden[i].Position = Vector3.zero;
+        _garden[i].Active = false;
+        _garden[i].State = 0;
+        _garden[i].WaterTimer = 0;
+        _garden[i].GrowthTimer = 0;
+        _garden[i].WaterWarning = false;
+        _garden[i].DeathWarning = false;
+        _garden[i].HarvestWarning = false;
+        _garden[i].Child = 0; // ← CORREGIDO
 
-            _garden[i].Position = Vector3.zero;
-            _garden[i].Active = false;
-            _garden[i].State = 0;
-            _garden[i].WaterTimer = 0;
-            _garden[i].GrowthTimer = 0;
-            _garden[i].WaterWarning = false;
-            _garden[i].DeathWarning = false;
-            _garden[i].HarvestWarning = false;
-            _garden[i].Child =
+        // NUEVO: También resetear datos de abono al desactivar
+        _garden[i].HasFertilizer = false;
+        _garden[i].FertilizerAppliedTime = 0f;
+        _garden[i].FertilizerMultiplier = 1.0f;
 
-            _activePlants--;
-
+        _activePlants--;
     }
+
+    // ---- MÉTODOS DE ABONO ----
+    #region Métodos de Abono
+
+    /// <summary>
+    /// Modifica los datos de abono de una planta
+    /// </summary>
+    public static void ModifyFertilizer(int arrayIndex, bool hasFertilizer, float appliedTime, float multiplier)
+    {
+        if (arrayIndex >= 0 && arrayIndex < _garden.Length)
+        {
+            _garden[arrayIndex].HasFertilizer = hasFertilizer;
+            _garden[arrayIndex].FertilizerAppliedTime = appliedTime;
+            _garden[arrayIndex].FertilizerMultiplier = multiplier;
+        }
+    }
+
+    /// <summary>
+    /// Verifica si una planta tiene abono
+    /// </summary>
+    public static bool HasFertilizer(int arrayIndex)
+    {
+        if (arrayIndex >= 0 && arrayIndex < _garden.Length)
+        {
+            return _garden[arrayIndex].HasFertilizer;
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Obtiene el multiplicador de abono de una planta
+    /// </summary>
+    public static float GetFertilizerMultiplier(int arrayIndex)
+    {
+        if (arrayIndex >= 0 && arrayIndex < _garden.Length)
+        {
+            return _garden[arrayIndex].FertilizerMultiplier;
+        }
+        return 1.0f; // Sin abono = multiplicador normal
+    }
+
+    /// <summary>
+    /// Calcula el tiempo de crecimiento modificado por abono
+    /// </summary>
+    public static float GetModifiedGrowthTime(Items item, bool hasFertilizer, float multiplier)
+    {
+        float baseGrowthTime = GetMaxGrowthTime(item);
+
+        if (hasFertilizer)
+        {
+            return baseGrowthTime * (1.0f - multiplier); // Reduce el tiempo de crecimiento
+        }
+
+        return baseGrowthTime;
+    }
+
+    /// <summary>
+    /// Resetea los datos de abono al inicializar el jardín
+    /// </summary>
+    public static void ResetGardenFertilizer()
+    {
+        for (int i = 0; i < _garden.Length; i++)
+        {
+            _garden[i].HasFertilizer = false;
+            _garden[i].FertilizerAppliedTime = 0f;
+            _garden[i].FertilizerMultiplier = 1.0f;
+        }
+    }
+
+    #endregion
 
     /// <summary>
     /// Modifica el timer de Riego de una planta
@@ -335,7 +425,7 @@ public static class GardenData
         while (i < _garden.Length && !Found)
         {
             if (_garden[i].Position == transform.position) Found = true;
-           i++;
+            else i++;
         }
         if (i < _garden.Length && Found) Plant = _garden[i];
         return Plant;
