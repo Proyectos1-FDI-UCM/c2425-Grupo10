@@ -200,10 +200,7 @@ public class ToolManager : MonoBehaviour
         WaterBar.value = ActualWater / MaxWater;
     }
 
-    public int CurrentTool()
-    {
-        return _currentToolIndex;
-    }
+  
 
 
     #endregion

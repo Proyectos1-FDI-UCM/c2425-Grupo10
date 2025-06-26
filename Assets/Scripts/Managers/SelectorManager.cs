@@ -456,6 +456,11 @@ public class SelectorManager : MonoBehaviour
         Manager.ChangeSeed(_currentSeed); // Modifica el prefab de planta en funcion de la semilla seleccionada en el SeedManager
     }
 
+    public int CurrentTool()
+    {
+        return _toolSelector;
+    }
+
     #endregion
 }
 // class SelectorManager 
