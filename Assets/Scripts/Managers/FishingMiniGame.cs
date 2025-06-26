@@ -56,6 +56,30 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Animator PlayerAnimator;
 
+    /// <summary>
+    /// reproductor de audio de pasos
+    /// </summary>
+    [SerializeField] private AudioSource AudioSource;
+
+    /// <summary>
+    /// reproductor de audio de pasos
+    /// </summary>
+    [SerializeField] private AudioClip Splash;
+
+    /// <summary>
+    /// reproductor de audio de pasos
+    /// </summary>
+    [SerializeField] private AudioClip Win;
+
+    /// <summary>
+    /// reproductor de audio de pasos
+    /// </summary>
+    [SerializeField] private AudioClip Lose;
+
+    /// <summary>
+    /// reproductor de audio de pasos
+    /// </summary>
+    [SerializeField] private AudioClip Throw;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -167,11 +191,22 @@ public class FishingManager : MonoBehaviour
                 _fishingStarted = true;
                 
                 PlayerAnimator.SetBool("IsFishing", true);
-             //   EIcon.SetActive(true);
+                //   EIcon.SetActive(true);
+
+
+                //Sonido
+                 //   AudioSource.pitch = 2f;
+                    AudioSource.clip = Splash;
+                    AudioSource.Play();
+
+                    AudioSource.clip = Throw;
+                    AudioSource.Play();
+
             }
 
             if (_fishingStarted)
             {
+                _playerMovement.DisablePlayerMovement();
                 _uIManager.HideNotification("Fishing");
                 
                 // mgTimer = Tiempo del minijuego sin decimales
@@ -180,25 +215,42 @@ public class FishingManager : MonoBehaviour
 
                 for (int i = 1; i < _tries + 1; i++)
                 {
+                  
                     
                     if (mgTimer == i * _tries) // Acierto
                     {
-                       // Signal.SetActive(true);
+                        Signal.SetActive(true);
                         //TimerBar.SetActive(true);
                         EIcon.SetActive(true);
                         //TimerAnimator.Play("TimerBar");
+                       
 
                         if (InputManager.Instance.UsarWasPressedThisFrame())
                          {
                            // TimerBar.SetActive(false);
                             ButtonAnimator.Play("Press");
+                           
+                            
+                                AudioSource.clip = Splash;
+                                AudioSource.Play();
                             
                             _checks++;
 
-                            if (i == _tries)
+                            if (i == _tries) // Final de partida (ganar)
                             {
+                                // Animaciones
                                 PlayerAnimator.SetBool("WonFIshing", true);
                                 PlayerAnimator.SetBool("IsFishing", false);
+
+                                //Sonido
+                                if (AudioSource.clip != null) // Sonido
+                                {
+                                   
+                                    AudioSource.clip = Win;
+                                    AudioSource.Play();
+
+                                    
+                                }
 
                                 EIcon.SetActive(false);
                                 AddFishInventory();
@@ -211,8 +263,9 @@ public class FishingManager : MonoBehaviour
                     else if (mgTimer == i * _tries + 1)
                     {
                         EIcon.SetActive(false);
-                        // Signal.SetActive(false);
-                    //    TimerBar.SetActive(false);
+                        Signal.SetActive(false);
+                    //    TimerBar.SetActive(false);ç
+
                         if (_checks == i - 1) // Fallo
                         {
                             EIcon.SetActive(false);
@@ -220,13 +273,25 @@ public class FishingManager : MonoBehaviour
                             PlayerAnimator.SetBool("IsFishing", false);
                             PlayerAnimator.SetBool("WonFIshing", false);
 
-                            Debug.Log($"Fallo en {i}");
+                            //Sonido
+                            if (AudioSource.clip != null) // Sonido
+                            {
+                                AudioSource.clip = Lose;
+                                AudioSource.Play();
+
+                                AudioSource.clip = Throw;
+                                AudioSource.Play();
+                            }
+
                             ResetMiniGame();
                         }
                     }
+                   
                 }
+
               
             }
+           
 
         }
         else _miniGameTimer = 0;

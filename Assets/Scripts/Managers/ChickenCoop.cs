@@ -194,9 +194,13 @@ public class ChickenCoop : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        coll = true;
-        
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            coll = true;
+        }
+
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
