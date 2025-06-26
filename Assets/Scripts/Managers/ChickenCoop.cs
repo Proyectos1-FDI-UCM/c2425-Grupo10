@@ -22,6 +22,21 @@ public class ChickenCoop : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
+    /// <summary>
+    /// Máximo de huevos que puede poner una gallina en el rango de tiempo elegido (Days)
+    /// </summary>
+    [SerializeField] private int MaxEggs = 1;
+
+    /// <summary>
+    /// Cada cuantos dias se ponen huevos
+    /// </summary>
+    [SerializeField] private int Days = 2;
+
+    /// <summary>
+    /// Numero de gallinas
+    /// </summary>
+    [SerializeField] private int Chickens = 3;
+
 
     #endregion
 
@@ -50,24 +65,12 @@ public class ChickenCoop : MonoBehaviour
     private int _eggs;
 
     /// <summary>
-    /// Máximo de huevos que puede poner una gallina por el rango de tiempo elegido
+    /// Booleano para controlar si el jugador se encuentra en la posición correcta para recoger huevos
     /// </summary>
-    private int _maxEggs = 1;
-
-    /// <summary>
-    /// Cada cuantos dias se ponen huevos
-    /// </summary>
-    private int _days = 1;
-
-    /// <summary>
-    /// Numero de gallonas
-    /// </summary>
-    private int _chickens = 3;
-
     private bool coll = false;
 
     /// <summary>
-    /// Referencia al tiempo en el juego
+    /// Referencia al tiempo en el juego 
     /// </summary>
     private float _currentTime;
 
@@ -93,7 +96,7 @@ public class ChickenCoop : MonoBehaviour
     {
         InitializeReferences();
         _eggs = 0;
-        _layingTimes = new int [_maxEggs * _chickens];
+        _layingTimes = new int [MaxEggs * Chickens]; // Cada huevo de cada gallina tiene un momento distinto para su puesta
         SetNewLayingTimes();
     }
 
@@ -102,26 +105,23 @@ public class ChickenCoop : MonoBehaviour
     /// </summary>
     void Update()
     {
-        _currentTime =  _timer.GetGameTimeInMinutes(); // En qué momento del día nos encontramos
-      //  int currTime = Mathf.FloorToInt(_currentTime) % (24 * _days); // Cada cuántas horas se pone 1 huevo según _days
-      int currTime = Mathf.FloorToInt(_currentTime) % (48 * _days); // Cada cuántas horas se pone 1 huevo según _days
+        _currentTime =  _timer.GetGameTimeInMinutes();
+        int currTime = Mathf.FloorToInt(_currentTime) % (24 * Days); // Cada cuántas horas se pone 1 huevo
 
         for (int i = 0; i < _layingTimes.Length; i++)
         {
-            if (currTime == _layingTimes[i] && _eggs < _maxEggs)
+            if (currTime == _layingTimes[i] && _eggs < MaxEggs) // Se pone 1 huevo si hay sitio y se calcula el momento de la siguiente puesta 
             {
                 _eggs++;
                 SetNewLayingTime(i);
             }
         }
 
-        if (coll)
+        if (coll) // Recogida de 1 en 1
         {
-            Debug.Log("HUEVOS" + _eggs);
             if (_eggs > 0)
             {
                 _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
-
 
                 if (InputManager.Instance.UsarWasPressedThisFrame())
                 {
@@ -157,6 +157,8 @@ public class ChickenCoop : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+
+
     private void InitializeReferences()
     {
         _uIManager = FindObjectOfType<UIManager>();
@@ -180,7 +182,7 @@ public class ChickenCoop : MonoBehaviour
     /// </summary>
     private void SetNewLayingTime(int i)
     {
-      _layingTimes[i] = UnityEngine.Random.Range(0, (24 * _days));
+      _layingTimes[i] = UnityEngine.Random.Range(0, (24 * Days));
     }
 
 
@@ -192,6 +194,8 @@ public class ChickenCoop : MonoBehaviour
         InventoryManager.BoolModifyInventory(Items.Egg, quantity);
         _uIManager.ActualizeInventory();
     }
+
+
     private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

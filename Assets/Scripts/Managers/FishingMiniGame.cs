@@ -22,10 +22,16 @@ public class FishingManager : MonoBehaviour
     // públicos y de inspector se nombren en formato PascalCase
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
-    ///<summary>
-    ///Ref al PlayerMovement
-    /// </summary>
 
+    /// <summary>
+    /// Numero de intentos
+    /// </summary>
+    [SerializeField] private int Tries = 3;
+
+    /// <summary>
+    /// Duración de los intervalos entre intentos
+    /// </summary>
+    [SerializeField] private int Intervals = 4;
     /// <summary>
     /// Icono "Pulsar E"
     /// </summary>
@@ -118,7 +124,7 @@ public class FishingManager : MonoBehaviour
     private bool _fishing;
 
     /// <summary>
-    /// Indica si estamos en la posición desde la que se puede realizar la pesca
+    /// Indica si se está llevando a cabo el minijuego
     /// </summary>
     private bool _fishingStarted;
 
@@ -126,11 +132,6 @@ public class FishingManager : MonoBehaviour
     /// Timer del minijuego
     /// </summary>
     private float _miniGameTimer;
-
-    /// <summary>
-    /// Referencia al tiempo del juego (para la aparición de los peces)
-    /// </summary>
-    private float _currentTime;
 
     /// <summary>
     /// Tiempo de juego en segundos
@@ -141,12 +142,6 @@ public class FishingManager : MonoBehaviour
     /// Contador de aciertos
     /// </summary>
     private int _checks;
-
-    /// <summary>
-    /// Numero de intentos
-    /// </summary>
-    private int _tries = 3;
-
 
     #endregion
 
@@ -183,76 +178,62 @@ public class FishingManager : MonoBehaviour
         
         if (_fishing)
         {
-            // LLamar a notificacion "Presiona E para pescar"
             _uIManager.ShowNotification("Presiona E \npara pescar", "NoCounter", 6, "Fishing");
             
             if (InputManager.Instance.UsarWasPressedThisFrame()) // Empieza el juego
             {
                 _fishingStarted = true;
-                
+     
                 PlayerAnimator.SetBool("IsFishing", true);
                 //   EIcon.SetActive(true);
 
 
                 //Sonido
-                 //   AudioSource.pitch = 2f;
-                    AudioSource.clip = Splash;
-                    AudioSource.Play();
-
-                    AudioSource.clip = Throw;
-                    AudioSource.Play();
-
+                AudioSource.clip = Throw;
+                AudioSource.Play();
             }
 
             if (_fishingStarted)
             {
-                _playerMovement.DisablePlayerMovement();
                 _uIManager.HideNotification("Fishing");
                 
-                // mgTimer = Tiempo del minijuego sin decimales
-                _miniGameTimer += Time.deltaTime;
+                _miniGameTimer += Time.deltaTime;  // mgTimer = Tiempo del minijuego sin decimales
                 int mgTimer = Mathf.FloorToInt(_miniGameTimer);
 
-                for (int i = 1; i < _tries + 1; i++)
+                for (int i = 1; i < Tries + 1; i++)
                 {
-                  
-                    
-                    if (mgTimer == i * _tries) // Acierto
+                    if (mgTimer == i * Intervals) // Acierto
                     {
                         Signal.SetActive(true);
                         //TimerBar.SetActive(true);
                         EIcon.SetActive(true);
                         //TimerAnimator.Play("TimerBar");
                        
-
                         if (InputManager.Instance.UsarWasPressedThisFrame())
                          {
                            // TimerBar.SetActive(false);
                             ButtonAnimator.Play("Press");
                            
-                            
+                            if (AudioSource.clip != null)
+                            {
                                 AudioSource.clip = Splash;
                                 AudioSource.Play();
-                            
+                            }
                             _checks++;
 
-                            if (i == _tries) // Final de partida (ganar)
+                            if (i == Tries) // Final de partida (ganar)
                             {
                                 // Animaciones
                                 PlayerAnimator.SetBool("WonFIshing", true);
                                 PlayerAnimator.SetBool("IsFishing", false);
 
                                 //Sonido
-                                if (AudioSource.clip != null) // Sonido
+                                if (AudioSource.clip != null)
                                 {
-                                   
                                     AudioSource.clip = Win;
                                     AudioSource.Play();
-
-                                    
                                 }
 
-                                EIcon.SetActive(false);
                                 AddFishInventory();
                                 ResetMiniGame();
                             }
@@ -260,25 +241,20 @@ public class FishingManager : MonoBehaviour
                          }
                         
                     }
-                    else if (mgTimer == i * _tries + 1)
+                    else if (mgTimer == i * Intervals + 1)
                     {
                         EIcon.SetActive(false);
                         Signal.SetActive(false);
-                    //    TimerBar.SetActive(false);ç
+                    //    TimerBar.SetActive(false);
 
                         if (_checks == i - 1) // Fallo
                         {
-                            EIcon.SetActive(false);
-
                             PlayerAnimator.SetBool("IsFishing", false);
                             PlayerAnimator.SetBool("WonFIshing", false);
 
                             //Sonido
-                            if (AudioSource.clip != null) // Sonido
+                            if (AudioSource.clip != null) 
                             {
-                                AudioSource.clip = Lose;
-                                AudioSource.Play();
-
                                 AudioSource.clip = Throw;
                                 AudioSource.Play();
                             }
@@ -361,8 +337,6 @@ public class FishingManager : MonoBehaviour
         _uIManager = FindObjectOfType<UIManager>();
         _soundManager = FindObjectOfType<SoundManager>();
         _timer = FindObjectOfType<Timer>();
-        _playerMovement = FindObjectOfType<PlayerMovement>();
-
     }
 
     /// <summary>
@@ -370,8 +344,7 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     private void InitializeTimers()
     {
-        _currentTime = _timer.GetGameTimeInMinutes();
-        _miniGameDuration = 12; // Partida = 12 s
+        _miniGameDuration = Tries * Intervals + 1; // Cada intento se lleva a cabo cada 3s + comprobación del último intento (1s)
         _miniGameTimer = 0;
     }
     #endregion
