@@ -43,6 +43,12 @@ public class FishingManager : MonoBehaviour
     [SerializeField] private GameObject Signal;
 
     /// <summary>
+    /// Icono para indicar cuando presionar
+    /// </summary>
+    [SerializeField] private GameObject Gloves;
+
+
+    /// <summary>
     /// Animator del icono del botón E
     /// </summary>
     [SerializeField] private Animator ButtonAnimator;
@@ -109,6 +115,11 @@ public class FishingManager : MonoBehaviour
     private PlayerMovement _playerMovement;
 
     /// <summary>
+    /// Referencia al ToolManager
+    /// </summary>
+    private ToolManager _toolManager;
+
+    /// <summary>
     /// Indica si estamos en la posición desde la que se puede realizar la pesca
     /// </summary>
     private bool _fishing;
@@ -165,11 +176,11 @@ public class FishingManager : MonoBehaviour
     void Update()
     {
         
-        if (_fishing)
+        if (_fishing )
         {
             _uIManager.ShowNotification("Presiona E \npara pescar", "NoCounter", 6, "Fishing");
             
-            if (InputManager.Instance.UsarWasPressedThisFrame()) // Empieza el juego
+            if (Gloves.activeSelf && InputManager.Instance.UsarWasPressedThisFrame() && !_fishingStarted) // Empieza el juego
             {
                 _fishingStarted = true;
      
@@ -232,7 +243,7 @@ public class FishingManager : MonoBehaviour
 
                     else if (mgTimer == i * Intervals + 1)
                     {
-                      //  EIcon.SetActive(false);
+                        EIcon.SetActive(false);
 
                         if (_checks == i - 1) // Fallo
                         {
@@ -275,7 +286,9 @@ public class FishingManager : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        _fishing = true;
+        if (Gloves.activeSelf) _fishing = true;
+        else _fishing = false;
+      
     }
 
     
