@@ -32,6 +32,7 @@ public class FishingManager : MonoBehaviour
     /// Duración de los intervalos entre intentos
     /// </summary>
     [SerializeField] private int Intervals = 4;
+
     /// <summary>
     /// Icono "Pulsar E"
     /// </summary>
@@ -43,7 +44,7 @@ public class FishingManager : MonoBehaviour
     [SerializeField] private GameObject Signal;
 
     /// <summary>
-    /// Icono para indicar cuando presionar
+    /// Referencia a la herramienta de los guantes
     /// </summary>
     [SerializeField] private GameObject Gloves;
 

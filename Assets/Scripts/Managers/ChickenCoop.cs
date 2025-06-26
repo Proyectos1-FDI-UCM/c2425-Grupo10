@@ -37,7 +37,10 @@ public class ChickenCoop : MonoBehaviour
     /// </summary>
     [SerializeField] private int Chickens = 3;
 
-
+    /// <summary>
+    /// Referencia a la herramienta de los guantes
+    /// </summary>
+    [SerializeField] private GameObject Gloves;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -110,14 +113,14 @@ public class ChickenCoop : MonoBehaviour
 
         for (int i = 0; i < _layingTimes.Length; i++)
         {
-            if (currTime == _layingTimes[i] && _eggs < MaxEggs) // Se pone 1 huevo si hay sitio y se calcula el momento de la siguiente puesta 
+            if (currTime == _layingTimes[i] && _eggs < MaxEggs * Chickens) // Se pone 1 huevo si hay sitio y se calcula el momento de la siguiente puesta 
             {
                 _eggs++;
                 SetNewLayingTime(i);
             }
         }
 
-        if (coll) // Recogida de 1 en 1
+        if (coll && Gloves.activeSelf) // Recogida de 1 en 1
         {
             if (_eggs > 0)
             {
@@ -198,7 +201,7 @@ public class ChickenCoop : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && Gloves.activeSelf)
         {
             coll = true;
         }
