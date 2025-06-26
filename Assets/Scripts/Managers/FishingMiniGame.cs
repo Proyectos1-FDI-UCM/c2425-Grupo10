@@ -47,16 +47,6 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     [SerializeField] private Animator ButtonAnimator;
 
-    /// <summary>
-    /// Animator del icono del botón E
-    /// </summary>
-    [SerializeField] private GameObject ButtonEffect;
-
-    /// <summary>
-    /// Animator de la barra con el tiempo
-    /// </summary>
-    [SerializeField] private Animator ButtonEffectAnimator;
-
     ///<summary> 
     /// referencia al animator del player
     /// </summary>
@@ -167,7 +157,6 @@ public class FishingManager : MonoBehaviour
 
         EIcon.SetActive(false);
         Signal.SetActive(false);
-        ButtonEffect.SetActive(false);
     }
 
     /// <summary>
@@ -202,16 +191,15 @@ public class FishingManager : MonoBehaviour
                 {
                     if (mgTimer == i * Intervals) 
                     {
-                        ButtonEffectAnimator.Play("TimerBar");
-                        ButtonEffect.SetActive(true);
                         EIcon.SetActive(true);
-                       
+
+                        ButtonAnimator.Play("Effect");
+
                         if (InputManager.Instance.UsarWasPressedThisFrame()) // Acierto
                         {
-                            // ButtonEffect.SetActive(false);
-                            ButtonEffectAnimator.SetTrigger("Press");
-                            ButtonAnimator.Play("Press");
-                           
+                           ButtonAnimator.SetTrigger("Press");
+                            
+
                             if (AudioSource.clip != null)
                             {
                                 AudioSource.clip = Splash;
@@ -225,6 +213,7 @@ public class FishingManager : MonoBehaviour
                                 // Animaciones
                                 PlayerAnimator.SetBool("WonFIshing", true);
                                 PlayerAnimator.SetBool("IsFishing", false);
+                               
 
                                 //Sonido
                                 if (AudioSource.clip != null)
@@ -243,8 +232,7 @@ public class FishingManager : MonoBehaviour
 
                     else if (mgTimer == i * Intervals + 1)
                     {
-                        EIcon.SetActive(false);
-                        ButtonEffect.SetActive(false);
+                      //  EIcon.SetActive(false);
 
                         if (_checks == i - 1) // Fallo
                         {
@@ -318,7 +306,6 @@ public class FishingManager : MonoBehaviour
         _miniGameTimer = 0;
         _fishingStarted = false;
         Signal.SetActive(false);
-        ButtonEffect.SetActive(false);
         EIcon.SetActive(false);
     }
 
