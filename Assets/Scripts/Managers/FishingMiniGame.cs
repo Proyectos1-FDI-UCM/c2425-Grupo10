@@ -26,12 +26,12 @@ public class FishingManager : MonoBehaviour
     /// <summary>
     /// Numero de intentos
     /// </summary>
-    [SerializeField] private int Tries = 3;
+    [SerializeField] private int Tries = 4;
 
     /// <summary>
     /// Duración de los intervalos entre intentos
     /// </summary>
-    [SerializeField] private int Intervals = 4;
+    [SerializeField] private int Intervals = 3;
 
     /// <summary>
     /// Icono "Pulsar E"
