@@ -235,6 +235,24 @@ namespace UnityEngine.InputSystem
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShortcutFish"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed9b0170-d362-4eeb-b725-0f5a54abb9a2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShortcutEggs"",
+                    ""type"": ""Button"",
+                    ""id"": ""fb706166-f4be-40e3-a0d8-4d5826c51252"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -875,6 +893,50 @@ namespace UnityEngine.InputSystem
                     ""action"": ""CheatsActivator"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""101d2420-2a57-4b48-bc93-7ddac0eb77ce"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShortcutFish"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e0a80c45-a279-4170-9853-97477a7f1824"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShortcutFish"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc789a74-0c6d-46f0-b68d-a08715f81fbf"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShortcutEggs"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5813a7d0-3572-41f7-89c1-8517d29bf47f"",
+                    ""path"": ""<Keyboard>/g"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShortcutEggs"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1483,6 +1545,8 @@ namespace UnityEngine.InputSystem
             m_Player_NextDialogue = m_Player.FindAction("NextDialogue", throwIfNotFound: true);
             m_Player_ToggleFastTime = m_Player.FindAction("ToggleFastTime", throwIfNotFound: true);
             m_Player_CheatsActivator = m_Player.FindAction("CheatsActivator", throwIfNotFound: true);
+            m_Player_ShortcutFish = m_Player.FindAction("ShortcutFish", throwIfNotFound: true);
+            m_Player_ShortcutEggs = m_Player.FindAction("ShortcutEggs", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1579,6 +1643,8 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_NextDialogue;
         private readonly InputAction m_Player_ToggleFastTime;
         private readonly InputAction m_Player_CheatsActivator;
+        private readonly InputAction m_Player_ShortcutFish;
+        private readonly InputAction m_Player_ShortcutEggs;
         public struct PlayerActions
         {
             private @InputActionSettings m_Wrapper;
@@ -1606,6 +1672,8 @@ namespace UnityEngine.InputSystem
             public InputAction @NextDialogue => m_Wrapper.m_Player_NextDialogue;
             public InputAction @ToggleFastTime => m_Wrapper.m_Player_ToggleFastTime;
             public InputAction @CheatsActivator => m_Wrapper.m_Player_CheatsActivator;
+            public InputAction @ShortcutFish => m_Wrapper.m_Player_ShortcutFish;
+            public InputAction @ShortcutEggs => m_Wrapper.m_Player_ShortcutEggs;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -1684,6 +1752,12 @@ namespace UnityEngine.InputSystem
                 @CheatsActivator.started += instance.OnCheatsActivator;
                 @CheatsActivator.performed += instance.OnCheatsActivator;
                 @CheatsActivator.canceled += instance.OnCheatsActivator;
+                @ShortcutFish.started += instance.OnShortcutFish;
+                @ShortcutFish.performed += instance.OnShortcutFish;
+                @ShortcutFish.canceled += instance.OnShortcutFish;
+                @ShortcutEggs.started += instance.OnShortcutEggs;
+                @ShortcutEggs.performed += instance.OnShortcutEggs;
+                @ShortcutEggs.canceled += instance.OnShortcutEggs;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -1757,6 +1831,12 @@ namespace UnityEngine.InputSystem
                 @CheatsActivator.started -= instance.OnCheatsActivator;
                 @CheatsActivator.performed -= instance.OnCheatsActivator;
                 @CheatsActivator.canceled -= instance.OnCheatsActivator;
+                @ShortcutFish.started -= instance.OnShortcutFish;
+                @ShortcutFish.performed -= instance.OnShortcutFish;
+                @ShortcutFish.canceled -= instance.OnShortcutFish;
+                @ShortcutEggs.started -= instance.OnShortcutEggs;
+                @ShortcutEggs.performed -= instance.OnShortcutEggs;
+                @ShortcutEggs.canceled -= instance.OnShortcutEggs;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1962,6 +2042,8 @@ namespace UnityEngine.InputSystem
             void OnNextDialogue(InputAction.CallbackContext context);
             void OnToggleFastTime(InputAction.CallbackContext context);
             void OnCheatsActivator(InputAction.CallbackContext context);
+            void OnShortcutFish(InputAction.CallbackContext context);
+            void OnShortcutEggs(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

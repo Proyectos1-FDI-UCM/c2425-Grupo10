@@ -1121,7 +1121,7 @@ public class UIManager : MonoBehaviour
 
         else if (source == "Fishing" && _isFishingNotification)
         {
-            if (Notification6.activeSelf)Notification6.SetActive(false);
+            if (Notification6.activeSelf) Notification6.SetActive(false);
             NotificationManager.DestroyNotification(source);
             _isFishingNotification = false;
         }

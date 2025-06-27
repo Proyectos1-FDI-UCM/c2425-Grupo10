@@ -108,6 +108,11 @@ public class ChickenCoop : MonoBehaviour
     /// </summary>
     void Update()
     {
+        if (InputManager.Instance.ShorcutEggWasPressedThisFrame()) // Cheat
+        {
+            InventoryManager.ModifyInventory(Items.Egg, 1);
+        }
+
         _currentTime =  _timer.GetGameTimeInMinutes();
         int currTime = Mathf.FloorToInt(_currentTime) % (24 * Days); // Cada cuántas horas se pone 1 huevo
 

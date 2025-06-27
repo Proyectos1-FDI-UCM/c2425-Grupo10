@@ -80,6 +80,8 @@ public class InputManager : MonoBehaviour
     private InputAction _useShovel;
     private InputAction _ShorcutInventory;
     private InputAction _ShorcutSeeds;
+    private InputAction _ShorcutFish;
+    private InputAction _ShorcutEgg;
     private InputAction _map;
 
     // Nuevas acciones para cambio de herramienta
@@ -374,6 +376,26 @@ public class InputManager : MonoBehaviour
         return _ShorcutSeeds.WasPressedThisFrame();
     }
 
+    /// Método para saber si el botón de F está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool ShorcutFishWasPressedThisFrame()
+    {
+        return _ShorcutFish.WasPressedThisFrame();
+    }
+
+    /// Método para saber si el botón de G está pulsado
+    /// <returns>True, si el botón ha sido pulsado en este frame
+    /// y false, en otro caso
+    /// </returns>
+    /// </summary>
+    public bool ShorcutEggWasPressedThisFrame()
+    {
+        return _ShorcutEgg.WasPressedThisFrame();
+    }
+
     /// <summary>
     /// Método para saber si el botón de Tab está pulsado
     /// <returns>True, si el botón ha sido pulsado en este frame
@@ -537,6 +559,16 @@ public class InputManager : MonoBehaviour
         // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
         _ShorcutSeeds = _theController.Player.ShorcutSeed;
 
+        // ShortcutFish input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
+        _ShorcutFish = _theController.Player.ShortcutFish;
+
+        // ShortcutFish input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
+        _ShorcutEgg = _theController.Player.ShortcutEggs;
+
         // Map input system
         // El estado lo consultaremos a través de los métodos públicos que 
         // (MapIsPressed, MapWasPressedThisFrame )
@@ -547,6 +579,10 @@ public class InputManager : MonoBehaviour
         _changeToolDown = _theController.Player.ChangeToolDown; // Asigna la acción correspondiente
 
         //cheats de añadir dinero y pasar el tutorial
+        _addMoney = _theController.Player.AddMoney;
+        _nextDialogue = _theController.Player.NextDialogue;
+
+        //cheats de añadir huevos y peces
         _addMoney = _theController.Player.AddMoney;
         _nextDialogue = _theController.Player.NextDialogue;
 

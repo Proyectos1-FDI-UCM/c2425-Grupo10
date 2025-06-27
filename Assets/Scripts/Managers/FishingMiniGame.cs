@@ -185,7 +185,11 @@ public class FishingManager : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        if (InputManager.Instance.ShorcutFishWasPressedThisFrame()) // Cheat
+        {
+            InventoryManager.ModifyInventory(Items.Fish, 1);
+        }
+
         if (_fishing )
         {
             _uIManager.ShowNotification("Presiona E \npara pescar", "NoCounter", 6, "Fishing");
