@@ -129,13 +129,14 @@ public class ChickenCoop : MonoBehaviour
         {
             if (_eggs > 0)
             {
-                _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
+                if (_eggs == 1) _uIManager.ShowNotification($"Hay {_eggs} huevo \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
+                else  _uIManager.ShowNotification($"Hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
 
                 if (InputManager.Instance.UsarWasPressedThisFrame())
                 {
                     _eggs--;
                     _uIManager.HideNotification("NoTutorial");
-                    _uIManager.ShowNotification($"hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
+                    _uIManager.ShowNotification($"Hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
 
                     AddEggsInventory(1);
                     // LLamar sonido
