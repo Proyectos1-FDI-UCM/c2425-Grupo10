@@ -554,12 +554,12 @@ public class GardenManager : MonoBehaviour
                 {
                     cropSpriteEditor.Growing(plant.State);
 
-                    //// NUEVO: Aplicar efectos de abono si la planta los tiene
-                    //if (plant.HasFertilizer)
-                    //{
-                    //    cropSpriteEditor.ShowFertilizerEffect();
-                    //    Debug.Log($"Efectos de abono restaurados para planta {i}");
-                    //}
+                    // NUEVO: Aplicar efectos de abono si la planta los tiene
+                    if (plant.HasFertilizer)
+                    {
+                        cropSpriteEditor.ShowFertilizerEffect();
+                        Debug.Log($"Efectos de abono restaurados para planta {i}");
+                    }
                 }
             }
             Debug.Log($"Plant: {i} instanciated in child: {plant.Child}");

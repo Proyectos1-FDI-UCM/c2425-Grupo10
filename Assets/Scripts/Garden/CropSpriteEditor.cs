@@ -44,6 +44,24 @@ public class CropSpriteEditor : MonoBehaviour
 
     [SerializeField] private Items item;
 
+
+    // ---- NUEVOS ATRIBUTOS PARA ABONO ----
+    [Header("Efectos de Abono")]
+    /// <summary>
+    /// Sprite para mostrar efecto de suelo con abono
+    /// </summary>
+    [SerializeField] private Sprite FertilizedSoilSprite;
+
+    /// <summary>
+    /// GameObject para mostrar efectos de partículas de abono
+    /// </summary>
+    [SerializeField] private GameObject FertilizerParticles;
+
+    /// <summary>
+    /// Color tint para plantas con abono (más verde/vibrante)
+    /// </summary>
+    [SerializeField] private Color FertilizerTint = Color.green;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -66,6 +84,23 @@ public class CropSpriteEditor : MonoBehaviour
     /// </summary>
     /// 
     private SpriteRenderer _spriteRenderer;
+
+
+    // ---- ATRIBUTOS PRIVADOS PARA ABONO ----
+    /// <summary>
+    /// SpriteRenderer del suelo (para mostrar efecto de abono)
+    /// </summary>
+    private SpriteRenderer _soilRenderer;
+
+    /// <summary>
+    /// Color original de la planta
+    /// </summary>
+    private Color _originalColor;
+
+    /// <summary>
+    /// Si la planta está mostrando efectos de abono
+    /// </summary>
+    private bool _isShowingFertilizerEffect = false;
 
 
     #endregion
@@ -93,6 +128,10 @@ public class CropSpriteEditor : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _warning = transform.GetChild(0).transform.GetComponent<SpriteRenderer>();
+
+        // NUEVO: Inicializar componentes de abono
+        _soilRenderer = transform.parent.GetComponent<SpriteRenderer>(); // Sprite del suelo
+        _originalColor = _spriteRenderer.color;
 
         // Si estamos en tiempo rápido, desactivar inmediatamente
         if (IsFastTimeActive())
@@ -162,13 +201,16 @@ public class CropSpriteEditor : MonoBehaviour
         }
     }
 
+    // MODIFICAR EL MÉTODO Growing EXISTENTE para mantener efectos de abono:
     /// <summary>
-    /// Modifica los valores de crecimiento
+    /// Modifica los valores de crecimiento (actualizado para abono)
     /// </summary>
     public void Growing(int state)
     {
         _spriteRenderer.enabled = true;
-        if (state == 0) 
+
+        // Aplicar sprite según el estado
+        if (state == 0)
         {
             _spriteRenderer.sprite = Sprites[0];
         }
@@ -195,29 +237,36 @@ public class CropSpriteEditor : MonoBehaviour
         else if (state == -1)
         {
             _spriteRenderer.sprite = DeadSprites[1];
+            // Ocultar efectos de abono si la planta muere
+            HideFertilizerEffect();
         }
         else if (state == -2)
         {
             _spriteRenderer.sprite = DeadSprites[2];
+            HideFertilizerEffect();
         }
         else if (state == -3)
         {
             _spriteRenderer.sprite = DeadSprites[3];
+            HideFertilizerEffect();
         }
         else if (state == -4)
         {
-            _spriteRenderer.sprite = DeadSprites[3];
-        }
-        else if (state == -5)
-        {
             _spriteRenderer.sprite = DeadSprites[4];
+            HideFertilizerEffect();
         }
         else if (state == -6)
         {
-            _spriteRenderer.sprite = DeadSprites[0];
+            _spriteRenderer.sprite = Sprites[4]; // Mala hierba
+            HideFertilizerEffect();
         }
-        //Grown(transform); // Modifica el timer de crecimiento
-        Debug.Log("SpriteChanged" + state);
+
+        // NUEVO: Mantener efectos de abono si corresponde
+        if (_isShowingFertilizerEffect && state > 0 && state < 5)
+        {
+            _spriteRenderer.color = Color.Lerp(_originalColor, FertilizerTint, 0.3f);
+        }
+
     }
 
     /// <summary>
@@ -252,16 +301,83 @@ public class CropSpriteEditor : MonoBehaviour
 
         return false;
     }
-    #endregion
 
-    // ---- MÉTODOS PRIVADOS ----
-    #region Métodos Privados
-    // Documentar cada método que aparece aquí
-    // El convenio de nombres de Unity recomienda que estos métodos
-    // se nombren en formato PascalCase (palabras con primera letra
-    // mayúscula, incluida la primera letra)
 
-    #endregion
+    /// <summary>
+    /// Muestra efectos visuales de que la planta tiene abono
+    /// </summary>
+    public void ShowFertilizerEffect()
+    {
+        if (!_isShowingFertilizerEffect)
+        {
+            _isShowingFertilizerEffect = true;
 
-} // class CropSpriteEditor 
+            // Cambiar color del suelo para mostrar que tiene abono
+            if (_soilRenderer != null && FertilizedSoilSprite != null)
+            {
+                _soilRenderer.sprite = FertilizedSoilSprite;
+            }
+
+            // Aplicar tint verdoso a la planta
+            if (_spriteRenderer != null)
+            {
+                _spriteRenderer.color = Color.Lerp(_originalColor, FertilizerTint, 0.3f);
+            }
+
+            // Mostrar partículas si están configuradas
+            if (FertilizerParticles != null)
+            {
+                GameObject particles = Instantiate(FertilizerParticles, transform.position, Quaternion.identity);
+                particles.transform.SetParent(transform);
+                Destroy(particles, 2f); // Destruir después de 2 segundos
+            }
+
+            Debug.Log("Efectos de abono aplicados a la planta");
+        }
+    }
+
+    /// <summary>
+    /// Oculta efectos visuales de abono
+    /// </summary>
+    public void HideFertilizerEffect()
+    {
+        if (_isShowingFertilizerEffect)
+        {
+            _isShowingFertilizerEffect = false;
+
+            // Restaurar sprite original del suelo
+            if (_soilRenderer != null)
+            {
+                // Aquí deberías poner el sprite original del suelo
+                // _soilRenderer.sprite = originalSoilSprite;
+            }
+
+            // Restaurar color original de la planta
+            if (_spriteRenderer != null)
+            {
+                _spriteRenderer.color = _originalColor;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Verifica si la planta está mostrando efectos de abono
+    /// </summary>
+    public bool IsShowingFertilizerEffect()
+    {
+        return _isShowingFertilizerEffect;
+    }
+
+        #endregion
+
+        // ---- MÉTODOS PRIVADOS ----
+        #region Métodos Privados
+        // Documentar cada método que aparece aquí
+        // El convenio de nombres de Unity recomienda que estos métodos
+        // se nombren en formato PascalCase (palabras con primera letra
+        // mayúscula, incluida la primera letra)
+
+        #endregion
+
+    } // class CropSpriteEditor 
 // namespace
