@@ -1,0 +1,164 @@
+//---------------------------------------------------------
+// Breve descripción del contenido del archivo
+// Responsable de la creación de este archivo
+// Nombre del juego
+// Proyectos 1 - Curso 2024-25
+//---------------------------------------------------------
+
+using UnityEngine;
+using TMPro;
+// Añadir aquí el resto de directivas using
+
+
+/// <summary>
+/// Antes de cada class, descripción de qué es y para qué sirve,
+/// usando todas las líneas que sean necesarias.
+/// </summary>
+public class Guante : MonoBehaviour
+{
+    // ---- ATRIBUTOS DEL INSPECTOR ----
+    #region Atributos del Inspector (serialized fields)
+    // Documentar cada atributo que aparece aquí.
+    // El convenio de nombres de Unity recomienda que los atributos
+    // públicos y de inspector se nombren en formato PascalCase
+    // (palabras con primera letra mayúscula, incluida la primera letra)
+    // Ejemplo: MaxHealthPoints
+
+    ///<summary>
+    ///Objeto que hace referencia a la interfaz de compra de los guantes
+    ///<summary>
+    [SerializeField] public GameObject interfazGuante;
+
+    ///<summary>
+    ///Referencia al MoneyManager (a traves de la interfaz de botas)
+    ///<summary>
+    //[SerializeField] private MoneyManager MoneyManager;
+
+    ///<summary>
+    ///Referencia a la descripcion del guante
+    ///<summary>
+    [SerializeField] public TextMeshProUGUI descripcionGuante;
+
+    ///<summary>
+    ///Referencia al texto de "Ya lo has comprado"
+    ///<summary>
+    [SerializeField] public GameObject soldText;
+
+    ///<summary>
+    ///Referencia a los textos de la interfaz
+    ///<summary>
+    [SerializeField] public GameObject textos;
+
+    #endregion
+
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
+    // Documentar cada atributo que aparece aquí.
+    // El convenio de nombres de Unity recomienda que los atributos
+    // privados se nombren en formato _camelCase (comienza con _, 
+    // primera palabra en minúsculas y el resto con la 
+    // primera letra en mayúsculas)
+    // Ejemplo: _maxHealthPoints
+
+    private bool interfazActiva = false;
+    private bool _isGuanteSold = false;
+    private int costGuante = 1000;
+    private MoneyManager moneyManager;
+
+    #endregion
+
+    // ---- MÉTODOS DE MONOBEHAVIOUR ----
+    #region Métodos de MonoBehaviour
+
+    // Por defecto están los típicos (Update y Start) pero:
+    // - Hay que añadir todos los que sean necesarios
+    // - Hay que borrar los que no se usen 
+
+    /// <summary>
+    /// Start is called on the frame when a script is enabled just before 
+    /// any of the Update methods are called the first time.
+    /// </summary>
+    void Start()
+    {
+        interfazGuante.SetActive(false);
+        _isGuanteSold = false;
+        GameObject obj = GameObject.FindGameObjectWithTag("GameManager");
+        moneyManager = obj.GetComponent<MoneyManager>();
+    }
+
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
+    void Update()
+    {
+        
+    }
+    #endregion
+
+    // ---- MÉTODOS PÚBLICOS ----
+    #region Métodos públicos
+    // Documentar cada método que aparece aquí con ///<summary>
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
+    // Ejemplo: GetPlayerController
+
+    public bool InterfazActiva()
+    {
+        return interfazActiva;
+    }
+    public void ButtonBuyPressed()
+    {
+        if (interfazActiva && !_isGuanteSold)
+        {
+            if (moneyManager.GetMoneyCount() >= costGuante)
+            {
+                _isGuanteSold = true;
+                textos.SetActive(false);
+                soldText.gameObject.SetActive(true);
+                Debug.Log("Guantes vendidos");
+                moneyManager.DeductMoney(costGuante);
+            }
+        }
+    }
+
+    #endregion
+
+    // ---- MÉTODOS PRIVADOS ----
+    #region Métodos Privados
+    // Documentar cada método que aparece aquí
+    // El convenio de nombres de Unity recomienda que estos métodos
+    // se nombren en formato PascalCase (palabras con primera letra
+    // mayúscula, incluida la primera letra)
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Collision enter"); 
+            interfazGuante.SetActive(true);
+            interfazActiva = true;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+        //textoBotas.gameObject.SetActive(true);
+        //recuadro.gameObject.SetActive(true);
+        //comprar.gameObject.SetActive(true);
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Coliision exit"); 
+            interfazGuante.SetActive(false);
+            interfazActiva = false;
+            soldText.gameObject.SetActive(false);
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
+    #endregion   
+
+} // class Guante 
+// namespace

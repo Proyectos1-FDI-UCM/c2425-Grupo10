@@ -528,6 +528,44 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SeedLettuceText;
     [SerializeField] private TextMeshProUGUI SeedCarrotText;
     [SerializeField] private TextMeshProUGUI SeedStrawberryText;
+
+    [Header("UI de Tienda de ropa")]
+
+    ///<summary>
+    /// Boton para comprar las botas
+    /// </summary>
+    [SerializeField] private Button ButtonBotas;
+
+    ///<summary>
+    /// Boton para comprar el sombrero
+    /// </summary>
+    [SerializeField] private Button ButtonSombrero;
+
+    ///<summary>
+    /// Boton para comprar los guantes
+    /// </summary>
+    [SerializeField] private Button ButtonGuante;
+
+    ///<summary>
+    ///Referencias a las interfaces de compra de la tienda de ropa
+    ///<summary>
+    [SerializeField] public GameObject interfazBotas;
+    [SerializeField] public GameObject interfazSombrero;
+    [SerializeField] public GameObject interfazGuante;
+
+    ///<summary>
+    ///Referencias a las descripciones de la tienda de ropa
+    ///<summary>
+    [SerializeField] public TextMeshProUGUI descripcionBotas;
+    [SerializeField] public TextMeshProUGUI descripcionSombrero;
+    [SerializeField] public TextMeshProUGUI descripcionGuante;
+
+    ///<summary>
+    ///Referencia al texto de "Ya lo has comprado"
+    ///<summary>
+    [SerializeField] public TextMeshProUGUI soldText;
+
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -718,6 +756,7 @@ public class UIManager : MonoBehaviour
 
     private Vector3 _newHousePosition = new Vector3(70f, -55f, 0f);
 
+    
 
     #endregion
 
@@ -2549,8 +2588,6 @@ public class UIManager : MonoBehaviour
             Invoke("NextDialogue", 0f);
         }
     }
-
-
 
 
     public void DecreaseAmount()

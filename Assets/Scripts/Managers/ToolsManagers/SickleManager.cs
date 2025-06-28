@@ -219,7 +219,7 @@ public class SickleManager : MonoBehaviour
     {
         Transform Pot = FindNearestPot(transform, Pots);
   
-        Debug.Log("FindNearestPot: " + Pot);
+        //Debug.Log("FindNearestPot: " + Pot);
         //Debug.Log(GardenData.GetPlant(Pot.GetChild(0).transform).State);
 
         if (Pot != null)

@@ -143,8 +143,13 @@ public class CambiarEscena : MonoBehaviour
                     UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
                 }
             }
+            if (SceneManager.GetActiveScene().name == "Escena_Ines")
+            {
+                SceneTransition.Instance.ChangeScene(sceneName);
+                Debug.Log("Cambiando a escena: " + sceneName);
+            }
 
-                if (sceneName == "Escena_Compra")
+            if (sceneName == "Escena_Compra")
                 {
                     if (TutorialManager.GetTutorialPhase() >= 9)
                     {
@@ -199,6 +204,14 @@ public class CambiarEscena : MonoBehaviour
                     }
                     Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
                     InventoryManager.SetPlayerPosition(newPosition);
+                }
+                else if(sceneName == "Escena_Ines")
+                {
+                    SceneTransition.Instance.ChangeScene(sceneName);
+                    Debug.Log("Cambiando a escena: " + sceneName);
+                    Vector3 newPosition = InventoryManager.GetPlayerPosition() + new Vector3(0, -1, 0);
+                    InventoryManager.SetPlayerPosition(newPosition);
+
                 }
         }
     }

@@ -126,6 +126,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private bool _isTired = false;
 
+    private bool _botasSold = false;
+    private bool _sombreroSold = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -268,6 +270,18 @@ public class PlayerMovement : MonoBehaviour
     {
         return _lastMoveDirection;
     }
+
+    public void ChangeBotasSold()
+    {
+        _botasSold = true;
+        Debug.Log("Se han vendido las botas");
+    }
+    public void ChangeSombreroSold()
+    {
+        _sombreroSold = true;
+        Debug.Log("Se ha vendido el sombrero");
+    }
+
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
