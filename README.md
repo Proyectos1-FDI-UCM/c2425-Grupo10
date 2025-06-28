@@ -11,7 +11,7 @@ Mueves el personaje por el mundo y cultivas tus plantas a base de comprar las se
 ### Controles (teclado / Play / XBOX)
 
 - *ASDW O FLECHAS / JOYSTICK / JOYSTICK* - Movimiento
-- *PULSAR E / CUADRADO / X* - Usar / Recargar regadera / Interactuar
+- *PULSAR E / CUADRADO / X* - Usar / Recargar regadera / Interactuar / Pesca
 - *PULSAR M / PANEL / PANEL* - Mapa
 - *PULSAR 1, 2, 3, 4, 5 / L1-R1 / L1-R1* - Selector de herramientas
 	1 - Guantes 
@@ -38,6 +38,8 @@ Para Activar los Cheats PULSAR (F6)
 - Semillas: (Pulsar O) Añade una unidad de las semillas seleccionados
 - Cultivos: (Pulsar P) Añade una unidad de los cultivos seleccionados
 - Dinero: (Pulsar I) Añade Dinero
+- Pesca: (Pulsar F) Añade un pez.
+- Gallinero: (Pulsar G) Añade un huevo. 
 
 ### Consideraciones sobre los cheats
 
