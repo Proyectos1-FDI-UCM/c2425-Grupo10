@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     ///<summary>
     ///Energia maxima del jugador
     /// </summary>
-    [SerializeField] private int maxEnergy = 100;
+    [SerializeField] private static int maxEnergy = 100;
 
     ///<summary>
     ///energia actual del jugador
@@ -126,8 +126,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     private bool _isTired = false;
 
-    private bool _botasSold = false;
-    private bool _sombreroSold = false;
+    private static bool _botasSold = false;
+    private static bool _sombreroSold = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -279,9 +279,19 @@ public class PlayerMovement : MonoBehaviour
     public void ChangeSombreroSold()
     {
         _sombreroSold = true;
+        maxEnergy = maxEnergy * 2;
         Debug.Log("Se ha vendido el sombrero");
     }
 
+    public static bool Botas()
+    {
+        return _botasSold;
+    }
+
+    public static bool Sombrero()
+    {
+        return _sombreroSold;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -294,8 +304,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_isMovementEnabled)
         {
-            // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
-            _playerRb.MovePosition(_playerRb.position + _moveInput * Speed * Time.fixedDeltaTime);
+            if (_botasSold)
+            {
+                _playerRb.MovePosition(_playerRb.position + _moveInput * Speed * 2 * Time.fixedDeltaTime);
+            }
+            else 
+            { 
+                // Mueve al jugador según la entrada y la velocidad definida, ajustada al tiempo de cada frame.
+                _playerRb.MovePosition(_playerRb.position + _moveInput * Speed * Time.fixedDeltaTime);
+            }
         }
     }
 
@@ -337,7 +354,6 @@ public class PlayerMovement : MonoBehaviour
         UIManager.UpdateEnergyBar(_currentEnergy, maxEnergy);
     }
 
-    
 
     private Vector2 RoundToCardinal(Vector2 dir)
     {

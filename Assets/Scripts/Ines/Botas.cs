@@ -31,11 +31,6 @@ public class Botas : MonoBehaviour
     [SerializeField] public GameObject interfazBotas;
 
     ///<summary>
-    ///Referencia al MoneyManager (a traves de la interfaz de botas)
-    ///<summary>
-    //[SerializeField] private MoneyManager MoneyManager;
-
-    ///<summary>
     ///Referencia a la descripcion de las botas
     ///<summary>
     [SerializeField] public TextMeshProUGUI descripcionBotas;
@@ -141,11 +136,18 @@ public class Botas : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision enter");
-            interfazBotas.SetActive(true);
-            interfazActiva = true;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (PlayerMovement.Botas()) 
+            { 
+                soldText.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Collision enter");
+                interfazBotas.SetActive(true);
+                interfazActiva = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
     }
     private void OnCollisionExit2D(Collision2D collision)

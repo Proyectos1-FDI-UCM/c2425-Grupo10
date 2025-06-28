@@ -33,27 +33,29 @@ public class MoneyManager : MonoBehaviour
     /// </summary>
     private int GardenLevel = 0;
 
+    private static bool _guantesSold = false;
+
 
     [Header("Precios de Semillas")]
     /// <summary>
     /// Precio de la semilla de maíz.
     /// </summary>
-    [SerializeField] private int CornSeedPrice = 50;
+    private static int CornSeedPrice = 50;
 
     /// <summary>
     /// Precio de la semilla de zanahoria.
     /// </summary>
-    [SerializeField] private int CarrotSeedPrice = 20;
+    private static int CarrotSeedPrice = 20;
 
     /// <summary>
     /// Precio de la semilla de lechuga.
     /// </summary>
-    [SerializeField] private int LettuceSeedPrice = 15;
+    private static int LettuceSeedPrice = 15;
 
     /// <summary>
     /// Precio de la semilla de fresa.
     /// </summary>
-    [SerializeField] private int StrawberrySeedPrice = 30;
+    private static int StrawberrySeedPrice = 30;
 
 
     [Header("Precios de Venta de Plantas")]
@@ -164,6 +166,7 @@ public class MoneyManager : MonoBehaviour
     // Método genérico para comprar semillas
     public bool BuySeed(Items item, int price)
     {
+        Debug.Log("jhdcisjwñfbejjscjslkjcdjcnc nzskoaeidfjnvnvskldzpohjjefnjc nokejn");
         // Verifica si el jugador tiene suficiente dinero
         if (MoneyCount >= price)
         {
@@ -193,7 +196,35 @@ public class MoneyManager : MonoBehaviour
     public void BuyLettuceSeed() => BuySeed(Items.LettuceSeed, LettuceSeedPrice);
     public void BuyStrawberrySeed() => BuySeed(Items.StrawberrySeed, StrawberrySeedPrice);
 
-
+    public void ChangeSeedsPrice()
+    {
+        _guantesSold = true;
+        CornSeedPrice = 25;
+        CarrotSeedPrice = 10;
+        LettuceSeedPrice = 7;
+        StrawberrySeedPrice = 15;
+        Debug.Log("[MoneyManager] ¡Precios cambiados!");
+    }
+    public int GetCornSeedPrice()
+    {
+        return CornSeedPrice;
+    }
+    public int GetCarrotSeedPrice()
+    {
+        return CarrotSeedPrice;
+    }
+    public int GetLettuceSeedPrice()
+    {
+        return LettuceSeedPrice;
+    }
+    public int GetStrawberrySeedPrice()
+    {
+        return StrawberrySeedPrice;
+    }
+    public static bool Guante()
+    {
+        return _guantesSold;
+    }
 
 
     // ---- MÉTODOS PARA MODIFICAR EL DINERO ----

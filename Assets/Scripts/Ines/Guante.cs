@@ -30,11 +30,6 @@ public class Guante : MonoBehaviour
     [SerializeField] public GameObject interfazGuante;
 
     ///<summary>
-    ///Referencia al MoneyManager (a traves de la interfaz de botas)
-    ///<summary>
-    //[SerializeField] private MoneyManager MoneyManager;
-
-    ///<summary>
     ///Referencia a la descripcion del guante
     ///<summary>
     [SerializeField] public TextMeshProUGUI descripcionGuante;
@@ -117,6 +112,7 @@ public class Guante : MonoBehaviour
                 textos.SetActive(false);
                 soldText.gameObject.SetActive(true);
                 Debug.Log("Guantes vendidos");
+                moneyManager.ChangeSeedsPrice();
                 moneyManager.DeductMoney(costGuante);
             }
         }
@@ -135,15 +131,19 @@ public class Guante : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision enter"); 
-            interfazGuante.SetActive(true);
-            interfazActiva = true;
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.None;
+            if (MoneyManager.Guante())
+            {
+                soldText.SetActive(true);
+            }
+            else
+            {
+                Debug.Log("Collision enter");
+                interfazGuante.SetActive(true);
+                interfazActiva = true;
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
-        //textoBotas.gameObject.SetActive(true);
-        //recuadro.gameObject.SetActive(true);
-        //comprar.gameObject.SetActive(true);
     }
     private void OnCollisionExit2D(Collision2D collision)
     {

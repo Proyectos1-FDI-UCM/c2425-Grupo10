@@ -756,7 +756,8 @@ public class UIManager : MonoBehaviour
 
     private Vector3 _newHousePosition = new Vector3(70f, -55f, 0f);
 
-    
+
+    private MoneyManager moneyManager;
 
     #endregion
 
@@ -767,7 +768,9 @@ public class UIManager : MonoBehaviour
     {
         InitializeReferences();
         GameManager.Instance.InitializeUIManager();
-        
+
+        GameObject obj = GameObject.FindGameObjectWithTag("GameManager");
+        moneyManager = obj.GetComponent<MoneyManager>();
 
         if (SceneManager.GetActiveScene().name == "Escena_Build")
         {
@@ -798,6 +801,7 @@ public class UIManager : MonoBehaviour
 
         ControlsDropdown.value = 0;
         UpdateControls(0);
+
     }
 
     void Update()
@@ -2462,7 +2466,7 @@ public class UIManager : MonoBehaviour
         {
             _actualSeedSelected = "Semillas de Maiz";
         }
-        _cost = 50;
+        _cost = MoneyManager.GetCornSeedPrice();
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
         UpdateUI();
@@ -2487,7 +2491,7 @@ public class UIManager : MonoBehaviour
             {
                 _actualSeedSelected = "Semillas de Lechuga";
             }
-            _cost = 15;
+            _cost = MoneyManager.GetLettuceSeedPrice();
             DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
             UpdateUI();
@@ -2517,7 +2521,7 @@ public class UIManager : MonoBehaviour
         {
             _actualSeedSelected = "Semillas de Zanahoria";
         }
-        _cost = 20;
+        _cost = MoneyManager.GetCarrotSeedPrice();
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
         UpdateUI();
@@ -2540,7 +2544,7 @@ public class UIManager : MonoBehaviour
         {
             _actualSeedSelected = "Semillas de Fresa";
         }
-        _cost = 30;
+        _cost = MoneyManager.GetStrawberrySeedPrice();
         DescriptionText.text = ""; // Reseteamos el mensaje de "máximo de semillas"
 
         UpdateUI();
@@ -2589,6 +2593,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    
 
     public void DecreaseAmount()
     {

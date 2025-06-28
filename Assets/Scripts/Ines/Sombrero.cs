@@ -30,11 +30,6 @@ public class Sombrero : MonoBehaviour
     [SerializeField] public GameObject interfazSombrero;
 
     ///<summary>
-    ///Referencia al MoneyManager (a traves de la interfaz de botas)
-    ///<summary>
-    //[SerializeField] private MoneyManager MoneyManager;
-
-    ///<summary>
     ///Referencia a la descripcione del sombrero
     ///<summary>
     [SerializeField] public TextMeshProUGUI descripcionSombrero;
@@ -138,15 +133,19 @@ public class Sombrero : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Collision enter");
+            if (PlayerMovement.Sombrero())
+            {
+                soldText.SetActive(true);
+            }
+            else
+            { 
+                Debug.Log("Collision enter");
             interfazSombrero.SetActive(true);
             interfazActiva = true;
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
+            }
         }
-        //textoBotas.gameObject.SetActive(true);
-        //recuadro.gameObject.SetActive(true);
-        //comprar.gameObject.SetActive(true);
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
