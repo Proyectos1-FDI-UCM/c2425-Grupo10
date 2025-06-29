@@ -147,6 +147,15 @@ namespace UnityEngine.InputSystem
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""UseHands"",
+                    ""type"": ""Button"",
+                    ""id"": ""364bf766-b232-4b6d-ac26-0b8446a5562e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""ShorcutInventory"",
                     ""type"": ""Button"",
                     ""id"": ""c2fe0c04-4ab4-4670-aece-060d0d3c67d6"",
@@ -815,6 +824,39 @@ namespace UnityEngine.InputSystem
                     ""action"": ""FillWateringCan"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a5de072-7a3c-4a1d-b90c-7c923ba5604e"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseHands"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""832aed36-ede1-428a-8b09-50096e8a08b7"",
+                    ""path"": ""<XInputController>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseHands"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8e29d26a-70ca-4342-8ec6-7941678b0dd8"",
+                    ""path"": ""<DualShockGamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""UseHands"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1413,6 +1455,7 @@ namespace UnityEngine.InputSystem
             m_Player_UseWateringCan = m_Player.FindAction("UseWateringCan", throwIfNotFound: true);
             m_Player_UseSickle = m_Player.FindAction("UseSickle", throwIfNotFound: true);
             m_Player_UseShovel = m_Player.FindAction("UseShovel", throwIfNotFound: true);
+            m_Player_UseHands = m_Player.FindAction("UseHands", throwIfNotFound: true);
             m_Player_ShorcutInventory = m_Player.FindAction("ShorcutInventory", throwIfNotFound: true);
             m_Player_ShorcutSeed = m_Player.FindAction("ShorcutSeed", throwIfNotFound: true);
             m_Player_Map = m_Player.FindAction("Map", throwIfNotFound: true);
@@ -1506,6 +1549,7 @@ namespace UnityEngine.InputSystem
         private readonly InputAction m_Player_UseWateringCan;
         private readonly InputAction m_Player_UseSickle;
         private readonly InputAction m_Player_UseShovel;
+        private readonly InputAction m_Player_UseHands;
         private readonly InputAction m_Player_ShorcutInventory;
         private readonly InputAction m_Player_ShorcutSeed;
         private readonly InputAction m_Player_Map;
@@ -1530,6 +1574,7 @@ namespace UnityEngine.InputSystem
             public InputAction @UseWateringCan => m_Wrapper.m_Player_UseWateringCan;
             public InputAction @UseSickle => m_Wrapper.m_Player_UseSickle;
             public InputAction @UseShovel => m_Wrapper.m_Player_UseShovel;
+            public InputAction @UseHands => m_Wrapper.m_Player_UseHands;
             public InputAction @ShorcutInventory => m_Wrapper.m_Player_ShorcutInventory;
             public InputAction @ShorcutSeed => m_Wrapper.m_Player_ShorcutSeed;
             public InputAction @Map => m_Wrapper.m_Player_Map;
@@ -1585,6 +1630,9 @@ namespace UnityEngine.InputSystem
                 @UseShovel.started += instance.OnUseShovel;
                 @UseShovel.performed += instance.OnUseShovel;
                 @UseShovel.canceled += instance.OnUseShovel;
+                @UseHands.started += instance.OnUseHands;
+                @UseHands.performed += instance.OnUseHands;
+                @UseHands.canceled += instance.OnUseHands;
                 @ShorcutInventory.started += instance.OnShorcutInventory;
                 @ShorcutInventory.performed += instance.OnShorcutInventory;
                 @ShorcutInventory.canceled += instance.OnShorcutInventory;
@@ -1649,6 +1697,9 @@ namespace UnityEngine.InputSystem
                 @UseShovel.started -= instance.OnUseShovel;
                 @UseShovel.performed -= instance.OnUseShovel;
                 @UseShovel.canceled -= instance.OnUseShovel;
+                @UseHands.started -= instance.OnUseHands;
+                @UseHands.performed -= instance.OnUseHands;
+                @UseHands.canceled -= instance.OnUseHands;
                 @ShorcutInventory.started -= instance.OnShorcutInventory;
                 @ShorcutInventory.performed -= instance.OnShorcutInventory;
                 @ShorcutInventory.canceled -= instance.OnShorcutInventory;
@@ -1865,6 +1916,7 @@ namespace UnityEngine.InputSystem
             void OnUseWateringCan(InputAction.CallbackContext context);
             void OnUseSickle(InputAction.CallbackContext context);
             void OnUseShovel(InputAction.CallbackContext context);
+            void OnUseHands(InputAction.CallbackContext context);
             void OnShorcutInventory(InputAction.CallbackContext context);
             void OnShorcutSeed(InputAction.CallbackContext context);
             void OnMap(InputAction.CallbackContext context);

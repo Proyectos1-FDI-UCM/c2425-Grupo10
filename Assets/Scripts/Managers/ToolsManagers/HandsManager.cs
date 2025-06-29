@@ -6,7 +6,6 @@
 //---------------------------------------------------------
 
 using UnityEngine;
-using TMPro;
 // Añadir aquí el resto de directivas using
 
 
@@ -14,7 +13,7 @@ using TMPro;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class Guante : MonoBehaviour
+public class HandsManager : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -24,26 +23,15 @@ public class Guante : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    ///<summary>
-    ///Objeto que hace referencia a la interfaz de compra de los guantes
-    ///<summary>
-    [SerializeField] public GameObject interfazGuante;
+    ///<summary> 
+    ///Referencia al PlayerMovement
+    /// </summary>
+    [SerializeField] PlayerMovement PlayerMovement;
 
-    ///<summary>
-    ///Referencia a la descripcion del guante
-    ///<summary>
-    [SerializeField] public TextMeshProUGUI descripcionGuante;
-
-    ///<summary>
-    ///Referencia al texto de "Ya lo has comprado"
-    ///<summary>
-    [SerializeField] public GameObject soldText;
-
-    ///<summary>
-    ///Referencia a los textos de la interfaz
-    ///<summary>
-    [SerializeField] public GameObject textos;
-
+    ///<summary> 
+    /// referencia al animator del player
+    /// </summary>
+    [SerializeField] private Animator PlayerAnimator;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -55,14 +43,8 @@ public class Guante : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private bool interfazActiva = false;
-    private bool _isGuanteSold = false;
-    private int costGuante = 1000;
-    /// <summary>
-    /// Referencia al money manager
-    /// </summary>
-    private MoneyManager moneyManager;
-
+    private static int mushroomCount = 0;
+    private bool _isMushroomPicked = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -78,10 +60,7 @@ public class Guante : MonoBehaviour
     /// </summary>
     void Start()
     {
-        interfazGuante.SetActive(false);
-        _isGuanteSold = false;
-        GameObject obj = GameObject.FindGameObjectWithTag("GameManager");
-        moneyManager = obj.GetComponent<MoneyManager>();
+        
     }
 
     /// <summary>
@@ -100,27 +79,18 @@ public class Guante : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
-
-    public bool InterfazActiva()
+    
+    public void AddMushroom()
     {
-        return interfazActiva;
-    }
-    public void ButtonBuyPressed()
-    {
-        if (interfazActiva && !_isGuanteSold)
-        {
-            if (moneyManager.GetMoneyCount() >= costGuante)
-            {
-                _isGuanteSold = true;
-                textos.SetActive(false);
-                soldText.gameObject.SetActive(true);
-                Debug.Log("Guantes vendidos");
-                moneyManager.ChangeSeedsPrice();
-                moneyManager.DeductMoney(costGuante);
-            }
-        }
+        mushroomCount++;
+        InventoryManager.AddSeta();
+        Debug.Log("Setas recogidas: " + mushroomCount);
     }
 
+    //public int NewMushroomCount()
+    //{
+    //    mushroomCount = InventoryManager.GetMushroomCount();
+    //}
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -130,38 +100,7 @@ public class Guante : MonoBehaviour
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (MoneyManager.Guante())
-            {
-                soldText.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("Collision enter");
-                interfazGuante.SetActive(true);
-                interfazActiva = true;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("Coliision exit"); 
-            interfazGuante.SetActive(false);
-            interfazActiva = false;
-            soldText.gameObject.SetActive(false);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
+    #endregion
 
-    #endregion   
-
-} // class Guante 
+} // class HandsManager 
 // namespace

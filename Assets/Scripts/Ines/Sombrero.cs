@@ -60,6 +60,9 @@ public class Sombrero : MonoBehaviour
     private bool interfazActiva = false; 
     private bool _isSombreroSold = false;
     private int costSombrero = 600;
+    /// <summary>
+    /// Referencia al money manager
+    /// </summary>
     private MoneyManager moneyManager;
 
     #endregion

@@ -32,6 +32,7 @@ public enum Items
     Count
 }
 
+
 /// <summary>
 /// InventoryManager es una clase sin monobehaviour que maneja los datos del inventory
 /// Tiene un Enum para todos los items posibles que tenga el jugador (semillas y cultivos)
@@ -49,6 +50,8 @@ public static class InventoryManager
     /// Cantidad de cada Item que tiene el jugador
     /// </summary>
     private static int[] Inventory = new int[(int)Items.Count];
+
+    private static int setasCount = 0;
 
     /// <summary>
     /// Capacidad Máxima
@@ -98,6 +101,20 @@ public static class InventoryManager
     public static int GetInventoryItem(int item)
     {
         return Inventory[(int)item];
+    }
+
+    public static void AddSeta()
+    {
+        setasCount++;
+    }
+    public static void MinusSeta()
+    {
+        setasCount--;
+    }
+
+    public static int GetMushroomCount()
+    {
+        return setasCount;
     }
 
     public static void ModifyPlayerPosition(Vector3 position)

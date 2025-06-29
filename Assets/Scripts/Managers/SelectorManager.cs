@@ -44,7 +44,8 @@ public class SelectorManager : MonoBehaviour
     /// Referencia al GameObject que representa la herramienta "Guantes".
     /// Se activará cuando el jugador presione la tecla correspondiente.
     /// </summary>
-    [SerializeField] private GameObject GlovesTool;
+    //[SerializeField] private GameObject GlovesTool;
+
     /// <summary>
     /// Referencia al GameObject que representa el selector de "Guantes".
     /// Se activará cuando el jugador presione la tecla correspondiente.
@@ -127,16 +128,19 @@ public class SelectorManager : MonoBehaviour
     [SerializeField] private TutorialManager TutorialManager;
     [SerializeField] private UIManager UIManager;
     [SerializeField] private AudioSource AudioSource;
-    #endregion
-
-    // ---- ATRIBUTOS PRIVADOS ----
-    #region Atributos Privados (private fields)
 
     /// <summary>
     /// Referencia a la herramienta actualmente seleccionada.
     /// Solo una herramienta puede estar activa a la vez.
     /// </summary>
-    private GameObject _currentTool;
+    public GameObject _currentTool;
+    public GameObject GlovesTool;
+    #endregion
+
+    // ---- ATRIBUTOS PRIVADOS ----
+    #region Atributos Privados (private fields)
+
+
 
     /// <summary>
     /// Índice para controlar que semilla mostrar (Compartido para SeedsQAB y SeedsHand)

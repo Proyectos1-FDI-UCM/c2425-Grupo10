@@ -123,6 +123,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "UseHands",
+                    "type": "Button",
+                    "id": "364bf766-b232-4b6d-ac26-0b8446a5562e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "ShorcutInventory",
                     "type": "Button",
                     "id": "c2fe0c04-4ab4-4670-aece-060d0d3c67d6",
@@ -789,6 +798,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "FillWateringCan",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5a5de072-7a3c-4a1d-b90c-7c923ba5604e",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseHands",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "832aed36-ede1-428a-8b09-50096e8a08b7",
+                    "path": "<XInputController>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseHands",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8e29d26a-70ca-4342-8ec6-7941678b0dd8",
+                    "path": "<DualShockGamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseHands",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

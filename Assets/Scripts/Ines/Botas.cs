@@ -40,11 +40,14 @@ public class Botas : MonoBehaviour
     ///<summary>
     [SerializeField] public GameObject soldText;
 
-    ///<summary>
-    ///Referencia a los textos de la interfaz
-    ///<summary>
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
     [SerializeField] public GameObject textos;
 
+    /// <summary>
+    /// Refencia al Player Movement
+    /// </summary>
     [SerializeField] public PlayerMovement PlayerMovement;
 
 
@@ -62,6 +65,9 @@ public class Botas : MonoBehaviour
     private bool interfazActiva = false;
     private bool _isBotasSold;
     private int costBotas = 800;
+    /// <summary>
+    /// Referencia al money manager
+    /// </summary>
     private MoneyManager moneyManager;
 
     #endregion
@@ -107,6 +113,9 @@ public class Botas : MonoBehaviour
         return interfazActiva;
     }
 
+    /// <summary>
+    /// Método para pulsar el boton de compra de la interfaz
+    /// </summary>
     public void ButtonBuyPressed()
     {
         if (interfazActiva && !_isBotasSold)

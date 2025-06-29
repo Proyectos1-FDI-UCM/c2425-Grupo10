@@ -14,7 +14,7 @@ using TMPro;
 /// Antes de cada class, descripción de qué es y para qué sirve,
 /// usando todas las líneas que sean necesarias.
 /// </summary>
-public class Guante : MonoBehaviour
+public class Setas : MonoBehaviour
 {
     // ---- ATRIBUTOS DEL INSPECTOR ----
     #region Atributos del Inspector (serialized fields)
@@ -24,25 +24,20 @@ public class Guante : MonoBehaviour
     // (palabras con primera letra mayúscula, incluida la primera letra)
     // Ejemplo: MaxHealthPoints
 
-    ///<summary>
-    ///Objeto que hace referencia a la interfaz de compra de los guantes
-    ///<summary>
-    [SerializeField] public GameObject interfazGuante;
+    /// <summary>
+    /// Tiempo que tarda una seta en volver a aparecer
+    /// </summary>
+    [SerializeField] private float respawnTime = 10f;
 
-    ///<summary>
-    ///Referencia a la descripcion del guante
-    ///<summary>
-    [SerializeField] public TextMeshProUGUI descripcionGuante;
+    /// <summary>
+    /// Herramienta Hands
+    /// </summary>
+    [SerializeField] private GameObject Hands;
 
-    ///<summary>
-    ///Referencia al texto de "Ya lo has comprado"
-    ///<summary>
-    [SerializeField] public GameObject soldText;
-
-    ///<summary>
-    ///Referencia a los textos de la interfaz
-    ///<summary>
-    [SerializeField] public GameObject textos;
+    /// <summary>
+    /// Texto que indica la cantidad de setas recogidas
+    /// </summary>
+    //[SerializeField] private TextMeshProUGUI CountText;
 
     #endregion
 
@@ -55,13 +50,25 @@ public class Guante : MonoBehaviour
     // primera letra en mayúsculas)
     // Ejemplo: _maxHealthPoints
 
-    private bool interfazActiva = false;
-    private bool _isGuanteSold = false;
-    private int costGuante = 1000;
     /// <summary>
-    /// Referencia al money manager
+    /// Booleano para saber si la seta es accesible
     /// </summary>
-    private MoneyManager moneyManager;
+    private bool isAvailable = true;
+
+    /// <summary>
+    /// Refencian al sprite de la seta
+    /// </summary>
+    private Renderer mushroomRenderer;
+
+    /// <summary>
+    /// Refencia al collider de la seta
+    /// </summary>
+    private Collider2D mushroomCollider;
+
+    private TextMeshProUGUI CountText;
+
+    private int costSetas=10;
+
 
     #endregion
 
@@ -78,10 +85,9 @@ public class Guante : MonoBehaviour
     /// </summary>
     void Start()
     {
-        interfazGuante.SetActive(false);
-        _isGuanteSold = false;
-        GameObject obj = GameObject.FindGameObjectWithTag("GameManager");
-        moneyManager = obj.GetComponent<MoneyManager>();
+        mushroomRenderer = GetComponent<Renderer>();
+        mushroomCollider = GetComponent<Collider2D>();
+        CountText = GameObject.Find("CountText").GetComponent<TextMeshProUGUI>();
     }
 
     /// <summary>
@@ -89,7 +95,8 @@ public class Guante : MonoBehaviour
     /// </summary>
     void Update()
     {
-        
+        int cantidadSetas = InventoryManager.GetMushroomCount();
+        CountText.text = "x" + cantidadSetas.ToString();
     }
     #endregion
 
@@ -101,24 +108,22 @@ public class Guante : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
-    public bool InterfazActiva()
+    public void TryCollect(SelectorManager selectorManager)
     {
-        return interfazActiva;
-    }
-    public void ButtonBuyPressed()
-    {
-        if (interfazActiva && !_isGuanteSold)
+        if (!isAvailable) return;
+        if (selectorManager._currentTool == selectorManager.GlovesTool)
         {
-            if (moneyManager.GetMoneyCount() >= costGuante)
+            if (InputManager.Instance.UseHandsIsPressed())
             {
-                _isGuanteSold = true;
-                textos.SetActive(false);
-                soldText.gameObject.SetActive(true);
-                Debug.Log("Guantes vendidos");
-                moneyManager.ChangeSeedsPrice();
-                moneyManager.DeductMoney(costGuante);
+                InventoryManager.AddSeta();
+                StartCoroutine(HideAndRespawn());
             }
         }
+    }
+
+    public void SellButtonPressed()
+    {
+
     }
 
     #endregion
@@ -129,39 +134,33 @@ public class Guante : MonoBehaviour
     // El convenio de nombres de Unity recomienda que estos métodos
     // se nombren en formato PascalCase (palabras con primera letra
     // mayúscula, incluida la primera letra)
+    private System.Collections.IEnumerator HideAndRespawn()
+    {
+        isAvailable = false;
+        mushroomRenderer.enabled = false;
+        mushroomCollider.enabled = false;
+        Debug.Log("La seta ha desaparecido");
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (MoneyManager.Guante())
-            {
-                soldText.SetActive(true);
-            }
-            else
-            {
-                Debug.Log("Collision enter");
-                interfazGuante.SetActive(true);
-                interfazActiva = true;
-                Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
-            }
-        }
+        yield return new WaitForSeconds(respawnTime);
+
+        isAvailable = true;
+        mushroomRenderer.enabled = true;
+        mushroomCollider.enabled = true;
+        Debug.Log("La seta vuelto a aparecer");
+
     }
-    private void OnCollisionExit2D(Collision2D collision)
+
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log("Coliision exit"); 
-            interfazGuante.SetActive(false);
-            interfazActiva = false;
-            soldText.gameObject.SetActive(false);
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            GameObject toolManagerObj = GameObject.FindGameObjectWithTag("ToolManager");
+            SelectorManager selectorManager = toolManagerObj.GetComponent<SelectorManager>();
+            TryCollect(selectorManager);
         }
     }
 
     #endregion   
 
-} // class Guante 
+} // class Setas 
 // namespace

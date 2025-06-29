@@ -79,6 +79,7 @@ public class InputManager : MonoBehaviour
     private InputAction _fillWateringCan;
     private InputAction _useSickle;
     private InputAction _useShovel;
+    private InputAction _useHands;
     private InputAction _ShorcutInventory;
     private InputAction _ShorcutSeeds;
     private InputAction _map;
@@ -212,6 +213,11 @@ public class InputManager : MonoBehaviour
     {
         return _fillWateringCan.IsPressed();
     }
+    public bool UseHandsIsPressed()
+    {
+        return _useHands.IsPressed();
+    }
+
 
     public bool ChangeToolUpIsPressed() => _changeToolUp.IsPressed();
     public bool ChangeToolDownIsPressed() => _changeToolDown.IsPressed();
@@ -319,6 +325,11 @@ public class InputManager : MonoBehaviour
     public bool UseShovelWasPressedThisFrame()
     {
         return _useShovel.WasPressedThisFrame();
+    }
+
+    public bool UseHandsWasPressedThisFrame()
+    {
+        return _useHands.WasPressedThisFrame();
     }
 
     /// <summary>
@@ -495,6 +506,11 @@ public class InputManager : MonoBehaviour
         // El estado lo consultaremos a través de los métodos públicos que 
         // (UseShovelIsPressed, UseShovelWasPressedThisFrame )
         _useShovel = _theController.Player.UseShovel;
+
+        // Use Hands input system
+        // El estado lo consultaremos a través de los métodos públicos que 
+        // (UseHandsIsPressed, UseHandslWasPressedThisFrame )
+        _useHands = _theController.Player.UseHands;
 
         // ShortcutInventory input system
         // El estado lo consultaremos a través de los métodos públicos que 
