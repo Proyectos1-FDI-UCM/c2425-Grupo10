@@ -237,14 +237,6 @@ public class FishingManager : MonoBehaviour
                                 // Animaciones
                                 PlayerAnimator.SetBool("WonFIshing", true);
                                 PlayerAnimator.SetBool("IsFishing", false);
-                               
-
-                                //Sonido
-                                if (AudioSource.clip != null)
-                                {
-                                    AudioSource.clip = Win;
-                                    AudioSource.Play();
-                                }
 
                                 AddFishInventory();
                               //  ResetMiniGame();
@@ -275,7 +267,17 @@ public class FishingManager : MonoBehaviour
 
                             ResetMiniGame();
                         }
-                        else if (i == Tries) ResetMiniGame();
+                        else if (i == Tries) 
+                        {
+                            //Sonido
+                            if (AudioSource.clip != null)
+                            {
+                                AudioSource.clip = Win;
+                                AudioSource.Play();
+                            }
+
+                            ResetMiniGame();
+                        }
 
                         _pressed = false;
                     }
