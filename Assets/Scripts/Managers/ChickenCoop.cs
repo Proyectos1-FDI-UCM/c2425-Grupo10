@@ -126,15 +126,16 @@ public class ChickenCoop : MonoBehaviour
         {
             _eggs = MaxEggs * Chickens;
         }
+        
 
-        for (int i = 0; i < _layingTimes.Length; i++)
-        {
-            if (currTime == _layingTimes[i] && _eggs < MaxEggs * Chickens) // Se pone 1 huevo si hay sitio y se calcula el momento de la siguiente puesta 
+            for (int i = 0; i < _layingTimes.Length; i++)
             {
-                _eggs++;
-                SetNewLayingTime(i);
+                if (currTime == _layingTimes[i] && _eggs < MaxEggs * Chickens) // Se pone 1 huevo si hay sitio y se calcula el momento de la siguiente puesta 
+                {
+                    _eggs++;
+                    SetNewLayingTime(i);
+                }
             }
-        }
 
         if (coll && Gloves.activeSelf) // Recogida de 1 en 1
         {
@@ -225,7 +226,7 @@ public class ChickenCoop : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player") && Gloves.activeSelf)
+        if (collision.gameObject.CompareTag("Player") && Gloves.activeSelf && TutorialManager.GetTutorialPhase() >= 26)
         {
             coll = true;
         }

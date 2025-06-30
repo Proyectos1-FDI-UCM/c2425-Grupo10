@@ -319,7 +319,7 @@ public class FishingManager : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (Gloves.activeSelf) _fishing = true;
+        if (Gloves.activeSelf && TutorialManager.GetTutorialPhase() >= 25) _fishing = true;
         else _fishing = false;
       
     }
