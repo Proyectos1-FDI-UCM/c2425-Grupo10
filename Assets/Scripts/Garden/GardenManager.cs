@@ -74,6 +74,12 @@ public class GardenManager : MonoBehaviour
     /// Prefab para suelo normal (sin abono)
     /// </summary>
     [SerializeField] private GameObject NormalSoilPrefab;
+
+    [Header("Prefab de Mala Hierba")]
+    /// <summary>
+    /// Prefab específico para la mala hierba
+    /// </summary>
+    [SerializeField] private GameObject WeedPrefab;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -325,7 +331,7 @@ public class GardenManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Cosecha: Modifica los valores de la semilla (Recolecta) - MODIFICADO PARA ABONO
+    /// Cosecha: Modifica los valores de la semilla (Recolecta) - SIMPLIFICADO
     /// </summary>
     public void Harvest(Transform transform)
     {
@@ -363,8 +369,12 @@ public class GardenManager : MonoBehaviour
                     GardenData.ModifyHarvestWarning(i, false);
 
                     // AÑADIR PARA ESTADÍSTICAS
-                    StatsManager.Instance.AddPlantHarvested();
+                    if (StatsManager.Instance != null)
+                    {
+                        StatsManager.Instance.AddPlantHarvested();
+                    }
 
+                    // OBTENER REFERENCIA AL CROP SPRITE EDITOR ANTES DE CUALQUIER CAMBIO
                     CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
 
                     int random;
@@ -377,9 +387,15 @@ public class GardenManager : MonoBehaviour
 
                     if (random == 0)
                     {
+                        // APARECE MALA HIERBA - USAR EL SISTEMA EXISTENTE
                         GardenData.ModifyState(i, (-6));
-                        cropSpriteEditor.Warning("Desactivate");
-                        cropSpriteEditor.Growing(-6);
+
+                        if (cropSpriteEditor != null)
+                        {
+                            cropSpriteEditor.Warning("Desactivate");
+                            cropSpriteEditor.Growing(-6); // Esto debería cambiar el sprite a mala hierba
+                            Debug.Log("Planta convertida a mala hierba usando el sistema existente");
+                        }
 
                         if (_tutorialManager.GetTutorialPhase() == 19 && !_done)
                         {
@@ -390,8 +406,14 @@ public class GardenManager : MonoBehaviour
                     }
                     else
                     {
+                        // NO APARECE MALA HIERBA - DESTRUIR COMPLETAMENTE
                         GardenData.Deactivate(i);
-                        cropSpriteEditor.Destroy();
+
+                        if (cropSpriteEditor != null)
+                        {
+                            cropSpriteEditor.Destroy();
+                            Debug.Log("Planta cosechada y removida completamente");
+                        }
                     }
                 }
                 else
@@ -835,11 +857,19 @@ public class GardenManager : MonoBehaviour
 
     /// <summary>
     /// Cambia el prefab del suelo cuando se aplica abono
+    /// DESACTIVADO - LOS PREFABS DE SUELO CAUSAN PROBLEMAS
     /// </summary>
     /// <param name="plantingSpotIndex">Índice del PlantingSpot</param>
     /// <param name="hasFertilizer">Si tiene abono o no</param>
     public void ChangeSoilPrefab(int plantingSpotIndex, bool hasFertilizer)
     {
+        // MÉTODO DESACTIVADO - Los prefabs de suelo están causando crashes
+        Debug.Log($"ChangeSoilPrefab DESACTIVADO - PlantingSpot: {plantingSpotIndex}, Fertilizer: {hasFertilizer}");
+
+        // NO hacer nada - el abono funcionará sin cambiar el suelo visualmente
+        return;
+
+        /* CÓDIGO ORIGINAL COMENTADO:
         if (plantingSpotIndex >= 0 && plantingSpotIndex < PlantingSpots.transform.childCount)
         {
             Transform plantingSpot = PlantingSpots.transform.GetChild(plantingSpotIndex);
@@ -881,6 +911,7 @@ public class GardenManager : MonoBehaviour
                 }
             }
         }
+        */
     }
 
     /// <summary>

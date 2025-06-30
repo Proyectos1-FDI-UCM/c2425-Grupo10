@@ -28,7 +28,7 @@ public class PlayerStats
     public int CornSold = 0;
 
     // Logros desbloqueados
-    public bool[] AchievementsUnlocked = new bool[10];
+    public bool[] AchievementsUnlocked = new bool[6];
 }
 
 /// <summary>
@@ -67,32 +67,25 @@ public class StatsManager : MonoBehaviour
     /// Array con los títulos de todos los logros disponibles
     /// </summary>
     private string[] _achievementTitles = {
+        "¡Principiante!",
         "¡Primer Granjero!",
         "¡Granjero Experto!",
-        "¡Millonario!",
-        "¡Rey de las Lechugas!",
-        "¡Zanahoria Dorada!",
-        "¡Fresa Perfecta!",
-        "¡Maestro del Maíz!",
+        "¡Recolector!",
         "¡Cosechador Experto!",
-        "¡Magnate Agrícola!",
-        "¡Leyenda de la Granja!"
+        "¡Millonario!",
     };
 
     /// <summary>
     /// Array con las descripciones de todos los logros disponibles
     /// </summary>
     private string[] _achievementDescriptions = {
+        "Has ganado 500 RootCoins",
         "Has plantado 10 plantas",
         "Has plantado 50 plantas",
-        "Has ganado 1000 RootCoins",
-        "Has vendido 20 lechugas",
-        "Has vendido 15 zanahorias",
-        "Has vendido 10 fresas",
-        "Has vendido 5 maíces",
+        "Has cosechado 50 plantas",
         "Has cosechado 100 plantas",
         "Has ganado 10000 RootCoins",
-        "Has plantado 200 plantas"
+
     };
     #endregion
 
@@ -280,65 +273,42 @@ public class StatsManager : MonoBehaviour
     /// </summary>
     private void CheckAchievements()
     {
-        // Logro 0: Plantar 10 plantas
-        if (PlayerStats.TotalPlantsPlanted >= 10 && !PlayerStats.AchievementsUnlocked[0])
+        // Logro 0: Ganar 500 RootCoins (Principiante)
+        if (PlayerStats.TotalMoneyEarned >= 500 && !PlayerStats.AchievementsUnlocked[0])
         {
             UnlockAchievement(0);
         }
 
-        // Logro 1: Plantar 50 plantas
-        if (PlayerStats.TotalPlantsPlanted >= 50 && !PlayerStats.AchievementsUnlocked[1])
+        // Logro 1: Plantar 10 plantas (Primer Granjero)
+        if (PlayerStats.TotalPlantsPlanted >= 10 && !PlayerStats.AchievementsUnlocked[1])
         {
             UnlockAchievement(1);
         }
 
-        // Logro 2: Ganar 1000 RootCoins
-        if (PlayerStats.TotalMoneyEarned >= 1000 && !PlayerStats.AchievementsUnlocked[2])
+        // Logro 2: Plantar 50 plantas (Granjero Experto)
+        if (PlayerStats.TotalPlantsPlanted >= 50 && !PlayerStats.AchievementsUnlocked[2])
         {
             UnlockAchievement(2);
         }
 
-        // Logro 3: Vender 20 lechugas
-        if (PlayerStats.LettucesSold >= 20 && !PlayerStats.AchievementsUnlocked[3])
+        // Logro 3: Cosechar 50 plantas (Recolector)
+        if (PlayerStats.TotalPlantsHarvested >= 50 && !PlayerStats.AchievementsUnlocked[3])
         {
             UnlockAchievement(3);
         }
 
-        // Logro 4: Vender 15 zanahorias
-        if (PlayerStats.CarrotsSold >= 15 && !PlayerStats.AchievementsUnlocked[4])
+        // Logro 4: Cosechar 100 plantas (Cosechador Experto)
+        if (PlayerStats.TotalPlantsHarvested >= 100 && !PlayerStats.AchievementsUnlocked[4])
         {
             UnlockAchievement(4);
         }
 
-        // Logro 5: Vender 10 fresas
-        if (PlayerStats.StrawberriesSold >= 10 && !PlayerStats.AchievementsUnlocked[5])
+        // Logro 5: Ganar 10000 RootCoins (Millonario)
+        if (PlayerStats.TotalMoneyEarned >= 10000 && !PlayerStats.AchievementsUnlocked[5])
         {
             UnlockAchievement(5);
         }
 
-        // Logro 6: Vender 5 maíces
-        if (PlayerStats.CornSold >= 5 && !PlayerStats.AchievementsUnlocked[6])
-        {
-            UnlockAchievement(6);
-        }
-
-        // Logro 7: Cosechar 100 plantas
-        if (PlayerStats.TotalPlantsHarvested >= 100 && !PlayerStats.AchievementsUnlocked[7])
-        {
-            UnlockAchievement(7);
-        }
-
-        // Logro 8: Ganar 10000 RootCoins
-        if (PlayerStats.TotalMoneyEarned >= 10000 && !PlayerStats.AchievementsUnlocked[8])
-        {
-            UnlockAchievement(8);
-        }
-
-        // Logro 9: Plantar 200 plantas
-        if (PlayerStats.TotalPlantsPlanted >= 200 && !PlayerStats.AchievementsUnlocked[9])
-        {
-            UnlockAchievement(9);
-        }
     }
 
     /// <summary>

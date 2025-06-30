@@ -516,6 +516,11 @@ public class UIManager : MonoBehaviour
     /// Botón para abrir el panel de estadísticas
     /// </summary>
     [SerializeField] private Button StatsButton;
+
+    // <summary>
+    /// Panel de estadísticas (para activar/desactivar)
+    /// </summary>
+    [SerializeField] private GameObject StatsPanel;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -715,6 +720,11 @@ public class UIManager : MonoBehaviour
     private bool _isLibraryActive = false;
 
     /// <summary>
+    /// Indica si el panel de estadísticas está activo
+    /// </summary>
+    private bool _isStatsActive = false;
+
+    /// <summary>
     /// bool para saber si los controles están activos
     /// </summary>
     private bool _isControlsActive;
@@ -779,7 +789,7 @@ public class UIManager : MonoBehaviour
         //ESTADÍSTICAS 
         if (StatsButton != null)
         {
-            StatsButton.onClick.AddListener(() => StatsUI.ShowStats());
+            StatsButton.onClick.AddListener(ShowStats);  // CAMBIAR AQUÍ
             Debug.Log("Botón de estadísticas configurado correctamente");
         }
         else
@@ -787,13 +797,17 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("StatsButton no está asignado en UIManager");
         }
 
-        if (StatsUI == null)
+        // Inicializar StatsUI si no está asignado
+        if (StatsUI == null && StatsPanel != null)
         {
-            StatsUI = FindObjectOfType<StatsUI>();
-            if (StatsUI == null)
-            {
-                Debug.LogWarning("No se encontró StatsUI en la escena");
-            }
+            StatsUI = StatsPanel.GetComponent<StatsUI>();
+        }
+
+        // Asegurar que el panel esté oculto al inicio
+        if (StatsPanel != null)
+        {
+            StatsPanel.SetActive(false);
+            _isStatsActive = false;
         }
     }
 
@@ -810,7 +824,13 @@ public class UIManager : MonoBehaviour
          {
             HideLibrary();
          }
-        
+
+        // Controlar salida del panel de estadísticas con la misma tecla
+        if (InputManager.Instance.SalirIsPressed() && _isStatsActive == true)
+        {
+            HideStats();
+        }
+
         if (InputManager.Instance.ExitWasPressedThisFrame() && _isPauseMenuActive == false)
         {
             ShowPauseMenu();
@@ -1638,6 +1658,69 @@ public class UIManager : MonoBehaviour
         ToolsDropdown.onValueChanged.AddListener(delegate { UpdateLibrary(3); });
 
     }
+
+    /// <summary>
+    /// Alterna la visibilidad del panel de estadísticas
+    /// </summary>
+    public void ToggleStats()
+    {
+        if (_isStatsActive)
+        {
+            HideStats();
+        }
+        else
+        {
+            ShowStats();
+        }
+    }
+
+    /// <summary>
+    /// Muestra el panel de estadísticas (llama a StatsUI)
+    /// </summary>
+    public void ShowStats()
+    {
+        if (StatsPanel != null && StatsUI != null)
+        {
+            // Ocultar otros paneles si están activos
+            if (_isLibraryActive) HideLibrary();
+            if (_isPauseMenuActive) HidePauseMenu();
+
+            // Llamar al método ShowStats() de StatsUI
+            StatsUI.ShowStats();
+            _isStatsActive = true;
+
+            // Desactivar movimiento del jugador
+            PlayerMovement.DisablePlayerMovement();
+
+            Debug.Log("Panel de estadísticas mostrado desde UIManager");
+        }
+        else
+        {
+            Debug.LogError("StatsPanel o StatsUI no están asignados");
+        }
+    }
+
+    /// <summary>
+    /// Oculta el panel de estadísticas (llama a StatsUI)
+    /// </summary>
+    public void HideStats()
+    {
+        if (StatsUI != null)
+        {
+            // Llamar al método HideStats() de StatsUI
+            StatsUI.HideStats();
+            _isStatsActive = false;
+
+            // Reactivar movimiento del jugador
+            if (!_isPauseMenuActive && !_isLibraryActive && !_isDialogueActive)
+            {
+                PlayerMovement.EnablePlayerMovement();
+            }
+
+            Debug.Log("Panel de estadísticas ocultado desde UIManager");
+        }
+    }
+
     /// <summary>
     /// oculta el panel de controles
     /// </summary>
@@ -2653,16 +2736,37 @@ public class UIManager : MonoBehaviour
         Items selectedItem = GetSelectedSeed();
         int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
         _selected = GetSeedPlantName();
+
         if (_amount <= currentAmount)
         {
-            int totalGanado = _amount * _cost;
+            // USAR LOS MÉTODOS CORRECTOS DEL MONEYMANAGER
+            switch (selectedItem)
+            {
+                case Items.Lettuce:
+                    Debug.Log("=== VENDIENDO LECHUGAS NORMALES ===");
+                    MoneyManager.SellLettuceNormal(_amount);
+                    break;
+                case Items.Carrot:
+                    Debug.Log("=== VENDIENDO ZANAHORIAS NORMALES ===");
+                    MoneyManager.SellCarrotNormal(_amount);
+                    break;
+                case Items.Strawberry:
+                    Debug.Log("=== VENDIENDO FRESAS NORMALES ===");
+                    MoneyManager.SellStrawberryNormal(_amount);
+                    break;
+                case Items.Corn:
+                    Debug.Log("=== VENDIENDO MAÍZ NORMAL ===");
+                    MoneyManager.SellCornNormal(_amount);
+                    break;
+                default:
+                    Debug.LogError($"Tipo de cultivo no reconocido: {selectedItem}");
+                    break;
+            }
 
-            MoneyManager.AddMoney(totalGanado);
-            InventoryManager.ModifyInventorySubstract(selectedItem, _amount);
+            // Actualizar contadores del GameManager (mantener funcionalidad existente)
             GameManager.Instance.AddAmountSold(GetSelectedSeed(), _amount);
 
             _amount = 1;
-
             UpdateUI();
             ActualizarCantidadPlantsUI();
         }

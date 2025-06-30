@@ -202,14 +202,26 @@ public class MoneyManager : MonoBehaviour
 
     private void Sell(int Quantity, int Price, Items Item)
     {
+        Debug.Log($"=== Sell LEGACY llamado: {Quantity} {Item} ===");
+
         // Verifica si el jugador tiene suficientes cultivos en el inventory.
         if (InventoryManager.BoolModifyInventorySubstract(Item, Quantity))
         {
             AddMoney(Quantity * Price); // Agrega el dinero ganado por la venta
 
-            // AÑADIR PARA ESTADÍSTICAS
-            StatsManager.Instance.AddMoneyEarned(Quantity * Price);
-            StatsManager.Instance.AddCropSold(Item, Quantity);
+            // REGISTRAR ESTADÍSTICAS - CON DEBUG
+            Debug.Log("=== REGISTRANDO EN STATSMANAGER (LEGACY) ===");
+            if (StatsManager.Instance != null)
+            {
+                StatsManager.Instance.AddMoneyEarned(Quantity * Price);
+                StatsManager.Instance.AddCropSold(Item, Quantity);
+                Debug.Log($"ESTADÍSTICA REGISTRADA: {Quantity} {Item} vendidos (legacy)");
+                Debug.Log($"DINERO REGISTRADO: {Quantity * Price}");
+            }
+            else
+            {
+                Debug.LogError("StatsManager.Instance es NULL!");
+            }
 
             Debug.Log($"Se han vendido {Quantity} {Item} por {Quantity * Price} RC.");
         }
@@ -493,13 +505,32 @@ public class MoneyManager : MonoBehaviour
 
     private void SellNormal(int Quantity, int Price, Items Item)
     {
+        Debug.Log($"=== SellNormal llamado: {Quantity} {Item} ===");
+
         // Verificar que haya cultivos sin abono disponibles
         int normalCrops = InventoryManager.GetNormalCropQuantity(Item);
+        Debug.Log($"Cultivos normales disponibles: {normalCrops}");
+
         if (normalCrops >= Quantity)
         {
             if (InventoryManager.ModifyNormalCropInventory(Item, -Quantity))
             {
                 AddMoney(Quantity * Price);
+
+                // REGISTRAR ESTADÍSTICAS - CON DEBUG
+                Debug.Log("=== REGISTRANDO EN STATSMANAGER ===");
+                if (StatsManager.Instance != null)
+                {
+                    StatsManager.Instance.AddMoneyEarned(Quantity * Price);
+                    StatsManager.Instance.AddCropSold(Item, Quantity);
+                    Debug.Log($"ESTADÍSTICA REGISTRADA: {Quantity} {Item} vendidos");
+                    Debug.Log($"DINERO REGISTRADO: {Quantity * Price}");
+                }
+                else
+                {
+                    Debug.LogError("StatsManager.Instance es NULL!");
+                }
+
                 Debug.Log($"Se han vendido {Quantity} {Item} normales por {Quantity * Price} RC.");
                 UIManager.ShowMoneyUI();
             }
@@ -512,15 +543,35 @@ public class MoneyManager : MonoBehaviour
 
     private void SellFertilized(int Quantity, int Price, Items Item)
     {
+        Debug.Log($"=== SellFertilized llamado: {Quantity} {Item} ===");
+
         // Verificar que haya cultivos con abono disponibles
         int fertilizedCrops = InventoryManager.GetFertilizedCropQuantity(Item);
+        Debug.Log($"Cultivos con abono disponibles: {fertilizedCrops}");
+
         if (fertilizedCrops >= Quantity)
         {
             if (InventoryManager.ModifyFertilizedCropInventory(Item, -Quantity))
             {
-                int enhancedPrice = Mathf.RoundToInt(Price * FertilizerSaleMultiplier);
-                AddMoney(Quantity * enhancedPrice);
-                Debug.Log($"Se han vendido {Quantity} {Item} con abono por {Quantity * enhancedPrice} RC.");
+                // Los cultivos con abono valen el doble
+                int totalPrice = Quantity * Price * 2;
+                AddMoney(totalPrice);
+
+                // REGISTRAR ESTADÍSTICAS - CON DEBUG
+                Debug.Log("=== REGISTRANDO EN STATSMANAGER (FERTILIZED) ===");
+                if (StatsManager.Instance != null)
+                {
+                    StatsManager.Instance.AddMoneyEarned(totalPrice);
+                    StatsManager.Instance.AddCropSold(Item, Quantity);
+                    Debug.Log($"ESTADÍSTICA REGISTRADA: {Quantity} {Item} con abono vendidos");
+                    Debug.Log($"DINERO REGISTRADO: {totalPrice}");
+                }
+                else
+                {
+                    Debug.LogError("StatsManager.Instance es NULL!");
+                }
+
+                Debug.Log($"Se han vendido {Quantity} {Item} con abono por {totalPrice} RC.");
                 UIManager.ShowMoneyUI();
             }
         }

@@ -257,7 +257,7 @@ public class CropSpriteEditor : MonoBehaviour
         }
         else if (state == -6)
         {
-            _spriteRenderer.sprite = Sprites[4]; // Mala hierba
+            _spriteRenderer.sprite = DeadSprites[0]; // CORRECTO - MalasHierbas
             HideFertilizerEffect();
         }
 
@@ -339,7 +339,7 @@ public class CropSpriteEditor : MonoBehaviour
     }
 
     /// <summary>
-    /// Oculta efectos visuales de abono (VERSIÓN SIMPLIFICADA)
+    /// Oculta efectos visuales de abono (VERSIÓN SIMPLIFICADA SIN PREFABS)
     /// </summary>
     public void HideFertilizerEffect()
     {
@@ -347,6 +347,8 @@ public class CropSpriteEditor : MonoBehaviour
         {
             _isShowingFertilizerEffect = false;
 
+            // COMENTADO - Los prefabs de suelo causan problemas
+            /*
             // NUEVO: Avisar al GardenManager para restaurar el prefab del suelo
             GardenManager gardenManager = FindObjectOfType<GardenManager>();
             if (gardenManager != null)
@@ -354,15 +356,17 @@ public class CropSpriteEditor : MonoBehaviour
                 int spotIndex = gardenManager.FindPlantingSpotIndex(transform.position);
                 gardenManager.ChangeSoilPrefab(spotIndex, false);
             }
+            */
 
             // Restaurar color original de la planta
             if (_spriteRenderer != null)
             {
                 _spriteRenderer.color = _originalColor;
             }
+
+            Debug.Log("Efectos de abono ocultados (sin cambiar prefab de suelo)");
         }
     }
-
     /// <summary>
     /// Verifica si la planta está mostrando efectos de abono
     /// </summary>

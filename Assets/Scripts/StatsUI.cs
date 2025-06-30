@@ -49,6 +49,21 @@ public class StatsUI : MonoBehaviour
     /// </summary>
     [SerializeField] private TextMeshProUGUI PlantsHarvestedText;
 
+    /// <summary>
+    /// Texto que muestra el total de cultivos vendidos
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI TotalSalesText;
+
+    /// <summary>
+    /// Texto que muestra el cultivo favorito del jugador
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI FavoriteCropText;
+
+    /// <summary>
+    /// Texto que muestra el progreso de logros desbloqueados
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI ProgressText;
+
     [Header("Estadísticas por Cultivo")]
     /// <summary>
     /// Texto que muestra el número de lechugas vendidas
@@ -87,9 +102,9 @@ public class StatsUI : MonoBehaviour
     [SerializeField] private TextMeshProUGUI[] AchievementDescriptions;
 
     /// <summary>
-    /// Array de imágenes que representan los iconos de los logros
+    /// Array de textos que representan los iconos de los logros (usando emojis)
     /// </summary>
-    [SerializeField] private Image[] AchievementIcons;
+    [SerializeField] private TextMeshProUGUI[] AchievementIcons;
 
     /// <summary>
     /// Color que se usa para los logros desbloqueados
@@ -140,8 +155,45 @@ public class StatsUI : MonoBehaviour
     /// </summary>
     public void ShowStats()
     {
+        //Debug.Log("ShowStats llamado en StatsUI");
+        //InitializeReferences(); // Forzar re-inicialización
+
+        //if (StatsPanel != null)
+        //{
+        //    UpdateStatsDisplay();
+        //    UpdateAchievementsDisplay();
+        //    StatsPanel.SetActive(true);
+        //    _isPanelVisible = true;
+        //    Debug.Log("Panel de estadísticas mostrado");
+        //}
+        //else
+        //{
+        //    Debug.LogError("StatsPanel no está asignado en StatsUI");
+        //}
+
+        Debug.Log("=== SHOWSTATS LLAMADO ===");
+        InitializeReferences();
+
         if (StatsPanel != null)
         {
+            // VERIFICAR QUE LOS DATOS EXISTEN
+            if (_statsManager != null)
+            {
+                PlayerStats stats = _statsManager.GetStats();
+                Debug.Log($"DATOS EN STATSMANAGER - Lechugas vendidas: {stats.LettucesSold}");
+                Debug.Log($"DATOS EN STATSMANAGER - Dinero ganado: {stats.TotalMoneyEarned}");
+                Debug.Log($"DATOS EN STATSMANAGER - Plantas plantadas: {stats.TotalPlantsPlanted}");
+            }
+            else
+            {
+                Debug.LogError("_statsManager es NULL");
+            }
+
+            // VERIFICAR QUE LAS REFERENCIAS EXISTEN
+            Debug.Log($"LettucesSoldText asignado: {LettucesSoldText != null}");
+            Debug.Log($"MoneyEarnedText asignado: {MoneyEarnedText != null}");
+            Debug.Log($"PlantsPlantedText asignado: {PlantsPlantedText != null}");
+
             UpdateStatsDisplay();
             UpdateAchievementsDisplay();
             StatsPanel.SetActive(true);
@@ -212,11 +264,26 @@ public class StatsUI : MonoBehaviour
     /// </summary>
     private void InitializeReferences()
     {
+        // Buscar StatsManager activamente
         _statsManager = StatsManager.Instance;
 
+        // Si sigue siendo null, buscar en la escena
         if (_statsManager == null)
         {
-            Debug.LogError("No se pudo encontrar StatsManager en la escena");
+            StatsManager foundManager = FindObjectOfType<StatsManager>();
+            if (foundManager != null)
+            {
+                _statsManager = foundManager;
+                Debug.Log("StatsManager encontrado mediante FindObjectOfType");
+            }
+            else
+            {
+                Debug.LogError("No se pudo encontrar StatsManager en la escena");
+            }
+        }
+        else
+        {
+            Debug.Log("StatsManager.Instance encontrado correctamente");
         }
     }
 
@@ -225,14 +292,14 @@ public class StatsUI : MonoBehaviour
     /// </summary>
     private void SetupUI()
     {
-        if (CloseButton != null)
-        {
-            CloseButton.onClick.AddListener(HideStats);
-        }
-        else
-        {
-            Debug.LogWarning("CloseButton no está asignado en StatsUI");
-        }
+        //    if (CloseButton != null)
+        //    {
+        //        CloseButton.onClick.AddListener(HideStats);
+        //    }
+        //    else
+        //    {
+        //        Debug.LogWarning("CloseButton no está asignado en StatsUI");
+        //    }
     }
 
     /// <summary>
@@ -240,6 +307,13 @@ public class StatsUI : MonoBehaviour
     /// </summary>
     private void UpdateStatsDisplay()
     {
+        // Intentar obtener StatsManager si es null
+        if (_statsManager == null)
+        {
+            _statsManager = StatsManager.Instance;
+        }
+
+        // Verificar nuevamente
         if (_statsManager == null)
         {
             Debug.LogError("StatsManager no está disponible para actualizar estadísticas");
@@ -249,17 +323,34 @@ public class StatsUI : MonoBehaviour
         PlayerStats stats = _statsManager.GetStats();
 
         // Actualizar estadísticas generales
-        UpdateTextIfNotNull(PlantsPlantedText, stats.TotalPlantsPlanted.ToString());
-        UpdateTextIfNotNull(MoneyEarnedText, stats.TotalMoneyEarned.ToString() + " RC");
-        UpdateTextIfNotNull(PlantsHarvestedText, stats.TotalPlantsHarvested.ToString());
+        UpdateTextIfNotNull(PlantsPlantedText, "Plantas plantadas: " + stats.TotalPlantsPlanted.ToString());
+        UpdateTextIfNotNull(MoneyEarnedText, "Dinero ganado: " + stats.TotalMoneyEarned.ToString() + " RC");
+        UpdateTextIfNotNull(PlantsHarvestedText, "Plantas cosechadas: " + stats.TotalPlantsHarvested.ToString());
+
+        // Calcular total de ventas
+        int totalSales = stats.LettucesSold + stats.CarrotsSold + stats.StrawberriesSold + stats.CornSold;
+        UpdateTextIfNotNull(TotalSalesText, "Total ventas: " + totalSales.ToString());
+
+        // Calcular cultivo favorito
+        string favoriteCrop = GetFavoriteCrop(stats);
+        UpdateTextIfNotNull(FavoriteCropText, "Cultivo favorito: " + favoriteCrop);
+
+        // Calcular progreso de logros
+        int unlockedCount = 0;
+        for (int i = 0; i < stats.AchievementsUnlocked.Length; i++)
+        {
+            if (stats.AchievementsUnlocked[i]) unlockedCount++;
+        }
+        int progressPercentage = (unlockedCount * 100) / 6; // 6 logros totales
+        UpdateTextIfNotNull(ProgressText, "Logros: " + unlockedCount + "/6 (" + progressPercentage + "%)");
 
         // Actualizar estadísticas por cultivo
-        UpdateTextIfNotNull(LettucesSoldText, stats.LettucesSold.ToString());
-        UpdateTextIfNotNull(CarrotsSoldText, stats.CarrotsSold.ToString());
-        UpdateTextIfNotNull(StrawberriesSoldText, stats.StrawberriesSold.ToString());
-        UpdateTextIfNotNull(CornSoldText, stats.CornSold.ToString());
+        UpdateTextIfNotNull(LettucesSoldText, "Lechugas: " + stats.LettucesSold.ToString());
+        UpdateTextIfNotNull(CarrotsSoldText, "Zanahorias: " + stats.CarrotsSold.ToString());
+        UpdateTextIfNotNull(StrawberriesSoldText, "Fresas: " + stats.StrawberriesSold.ToString());
+        UpdateTextIfNotNull(CornSoldText, "Maíz: " + stats.CornSold.ToString());
 
-        Debug.Log("Estadísticas actualizadas en la UI");
+        Debug.Log("Estadísticas actualizadas en la UI correctamente");
     }
 
     /// <summary>
@@ -267,46 +358,56 @@ public class StatsUI : MonoBehaviour
     /// </summary>
     private void UpdateAchievementsDisplay()
     {
+        // Intentar obtener StatsManager si es null
+        if (_statsManager == null)
+        {
+            _statsManager = StatsManager.Instance;
+        }
+
+        // Verificar nuevamente
         if (_statsManager == null)
         {
             Debug.LogError("StatsManager no está disponible para actualizar logros");
             return;
         }
 
-        int maxAchievements = Mathf.Min(AchievementObjects.Length, AchievementTitles.Length);
+        //LIMITAR A 6 LOGROS:
+        int maxAchievements = Mathf.Min(6, AchievementObjects.Length, AchievementTitles.Length);
 
         for (int i = 0; i < maxAchievements; i++)
         {
             bool isUnlocked = _statsManager.IsAchievementUnlocked(i);
 
             // Actualizar título
-            if (AchievementTitles[i] != null)
+            if (i < AchievementTitles.Length && AchievementTitles[i] != null)
             {
                 AchievementTitles[i].text = _statsManager.GetAchievementTitle(i);
                 AchievementTitles[i].color = isUnlocked ? UnlockedColor : LockedColor;
             }
 
             // Actualizar descripción
-            if (AchievementDescriptions[i] != null)
+            if (i < AchievementDescriptions.Length && AchievementDescriptions[i] != null)
             {
                 AchievementDescriptions[i].text = _statsManager.GetAchievementDescription(i);
                 AchievementDescriptions[i].color = isUnlocked ? Color.white : LockedColor;
             }
 
-            // Actualizar icono
-            if (AchievementIcons[i] != null)
+            // Actualizar icono (ahora es texto con emoji)
+            if (i < AchievementIcons.Length && AchievementIcons[i] != null)
             {
+                // Cambiar el emoji según si está desbloqueado o no
+                AchievementIcons[i].text = isUnlocked ? "■ " : "□";
                 AchievementIcons[i].color = isUnlocked ? UnlockedColor : LockedColor;
             }
 
-            // Actualizar visibilidad del objeto completo si es necesario
-            if (AchievementObjects[i] != null)
+            // Mostrar/ocultar el objeto del logro si es necesario
+            if (i < AchievementObjects.Length && AchievementObjects[i] != null)
             {
                 AchievementObjects[i].SetActive(true);
             }
         }
 
-        Debug.Log("Logros actualizados en la UI");
+        Debug.Log("Logros actualizados en la UI correctamente");
     }
 
     /// <summary>
@@ -326,6 +427,27 @@ public class StatsUI : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Calcula cuál es el cultivo más vendido del jugador
+    /// </summary>
+    /// <param name="stats">Estadísticas del jugador</param>
+    /// <returns>Nombre del cultivo favorito</returns>
+    private string GetFavoriteCrop(PlayerStats stats)
+    {
+        int maxSold = Mathf.Max(stats.LettucesSold, stats.CarrotsSold, stats.StrawberriesSold, stats.CornSold);
+
+        if (maxSold == 0)
+        {
+            return "Ninguno";
+        }
+
+        if (stats.LettucesSold == maxSold) return "Lechuga";
+        if (stats.CarrotsSold == maxSold) return "Zanahoria";
+        if (stats.StrawberriesSold == maxSold) return "Fresa";
+        if (stats.CornSold == maxSold) return "Maíz";
+
+        return "Ninguno";
+    }
     #endregion
 
 } // class StatsUI 
