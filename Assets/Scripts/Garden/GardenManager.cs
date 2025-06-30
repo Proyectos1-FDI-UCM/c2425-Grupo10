@@ -98,6 +98,7 @@ public class GardenManager : MonoBehaviour
     private bool done = false;
 
     [SerializeField] Plant[] Garden;
+    [SerializeField] int[] Inventory;
 
     #endregion
 
@@ -185,6 +186,8 @@ public class GardenManager : MonoBehaviour
 
             }
         }
+
+        Inventory = InventoryManager.GetInventory();
 
         if (GameManager.Instance.GetGardenUpgrades() > UpgradeLevel)
         {

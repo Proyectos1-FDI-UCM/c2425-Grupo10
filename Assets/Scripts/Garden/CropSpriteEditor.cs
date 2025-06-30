@@ -161,7 +161,7 @@ public class CropSpriteEditor : MonoBehaviour
         }
         else if (state == 4)
         {
-            int numero = UnityEngine.Random.Range(0, 1);
+            int numero = UnityEngine.Random.Range(0, 2);
             if (numero == 0)
             {
                 Items Item = GardenData.ChangeItem(item);

@@ -1925,6 +1925,8 @@ public class UIManager : MonoBehaviour
     public void ActualizeInventory()
     {
         TextMeshProUGUI _units;
+        //Inventory = new int[(int)Items.Count];
+
 
         // Muestra las semillas
         for (int i = 0; i < (int)Items.Count / 3; i++)
@@ -1970,8 +1972,9 @@ public class UIManager : MonoBehaviour
                 }
             }
             else InventoryIcons.transform.GetChild(i).gameObject.SetActive(false);
-            
+
         }
+        // Muestra los cultivos dorados
         for (int i = 2 * ((int)Items.Count / 3); i < ((int)Items.Count); i++) // Muestra los cultivos dorados
         {
             int j = i + (int)Items.Count;
