@@ -41,6 +41,12 @@ public class ChickenCoop : MonoBehaviour
     /// Referencia a la herramienta de los guantes
     /// </summary>
     [SerializeField] private GameObject Gloves;
+
+    /// <summary>
+    /// Ref al tutorial manager
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -116,6 +122,11 @@ public class ChickenCoop : MonoBehaviour
         _currentTime =  _timer.GetGameTimeInMinutes();
         int currTime = Mathf.FloorToInt(_currentTime) % (24 * Days); // Cada cuántas horas se pone 1 huevo
 
+        if (TutorialManager.GetTutorialPhase() == 26) // Tutorial
+        {
+            _eggs = MaxEggs * Chickens;
+        }
+
         for (int i = 0; i < _layingTimes.Length; i++)
         {
             if (currTime == _layingTimes[i] && _eggs < MaxEggs * Chickens) // Se pone 1 huevo si hay sitio y se calcula el momento de la siguiente puesta 
@@ -139,7 +150,12 @@ public class ChickenCoop : MonoBehaviour
                     _uIManager.ShowNotification($"Hay {_eggs} huevos \n pulsa E para\n recoger", "NoCounter", 1, "NoTutorial");
 
                     AddEggsInventory(1);
-                    // LLamar sonido
+
+                    if (TutorialManager.GetTutorialPhase() == 26) // Tutorial
+                    {
+                        TutorialManager.CheckBox(0);
+                        TutorialManager.NextDialogue();
+                    }
                 }
             }
             else if (_eggs == 0)
@@ -173,6 +189,8 @@ public class ChickenCoop : MonoBehaviour
         _uIManager = FindObjectOfType<UIManager>();
        // _soundManager = FindObjectOfType<SoundManager>();
         _timer = FindObjectOfType<Timer>();
+
+        TutorialManager = FindObjectOfType<TutorialManager>();
     }
 
     /// <summary>

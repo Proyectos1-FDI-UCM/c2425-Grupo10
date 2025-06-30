@@ -851,7 +851,7 @@ public class UIManager : MonoBehaviour
                 FinalButton.Select();
             }
         }
-        if (TutorialManager.GetTutorialPhase() >= 25)
+        if (TutorialManager.GetTutorialPhase() >= 27)
         {
             LibraryButton.SetActive(true);
         }
@@ -1414,7 +1414,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (TutorialManager.GetTutorialPhase() < 26)
+            if (TutorialManager.GetTutorialPhase() < 28)
             {
                 ShowNotification("Termina el tutorial\n para ir al menú.", "NoCounter", 4, "Tool");
                 HidePauseMenu();

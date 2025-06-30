@@ -727,13 +727,28 @@ public class TutorialManager : MonoBehaviour
             _actualDialogueText = MadameMooColor + " Cada moneda que ganes es un paso más cerca de mudarte a tu casa soñada.\n ¡Connie, estás empezando a florecer! Ya estás preparada para visitar todo el pueblo.";
             _actualDialogueButtonText = "Continuar";
         }
+        if (_tutorialPhase == 25) // Pesca
+        {
+            _actualDialogueText = MadameMooColor + " Casi se me olvida... Hay dos cosas más que puedes hacer. En primer lugar, date un paseo por el MUELLE del lago, ¡Con cuidado de no caerte! Si tienes destreza quzás te llevas un pez y todo.";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationTaskText = "[ ] Pesca";
+        }
+        if (_tutorialPhase == 26) // Gallinero
+        {
+            _actualDialogueText = MadameMooColor + "¡Madre mía Connie, eres la caña! Y yo casi comediante, pero ahora pasamos a lo siguiente. Echa un ojo por el GALLINERO, en la puerta de la caseta quizás te espera una sorpresa... ¡O una futura tortilla!";
+            _actualDialogueButtonText = "Probar";
+            _actualNotificationTaskText = "[ ] Huevos";
+        }
 
-        if (_tutorialPhase == 25)
+
+        if (_tutorialPhase == 27)
         {
             _actualDialogueText = MadameMooColor + " ¡Ay! Querida, mientras entras en todas las casas ¡vigila tu energía! Arriba a la derecha tienes la barra de energía que disminuye al correr. Para recuperar energia simplemente deberás estar quieta, pero seguro que con la edad que tienes ya lo sabias... ¿Como? ¡Connie yo estoy como nueva! No inventes...";
             _actualDialogueButtonText = "Continuar";
         }
-        if (_tutorialPhase == 26)
+
+        
+        if (_tutorialPhase == 28)
         {
             _actualDialogueText = MadameMooColor + " ¡Así que eso es todo por ahora...Casi se me olvidaba, para que no te olvides de las cosas como me pasa a mi, consulta la enciclopedia en el menú para resolver tus dudas. Ahora si, ¡Muuucha suerte ahí fuera!";
             _actualDialogueButtonText = "Cerrar";

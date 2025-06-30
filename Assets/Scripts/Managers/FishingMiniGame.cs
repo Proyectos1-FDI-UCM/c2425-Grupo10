@@ -34,9 +34,15 @@ public class FishingManager : MonoBehaviour
     [SerializeField] private int Intervals = 3;
 
     /// <summary>
-    /// Icono "Pulsar E"
+    /// Ref al tutorial manager
+    /// </summary>
+    [SerializeField] private TutorialManager TutorialManager;
+
+    /// <summary>
+    /// Icono "Pulsar E" con efectos
     /// </summary>
     [SerializeField] private GameObject EIcon;
+
     /// <summary>
     /// Icono "Pulsar E"
     /// </summary>
@@ -49,7 +55,7 @@ public class FishingManager : MonoBehaviour
 
 
     /// <summary>
-    /// Animator del icono del botón E
+    /// Animator efectos del icono del botón E
     /// </summary>
     [SerializeField] private Animator ButtonAnimator;
 
@@ -64,27 +70,22 @@ public class FishingManager : MonoBehaviour
     [SerializeField] private Animator PlayerAnimator;
 
     /// <summary>
-    /// reproductor de audio de pasos
+    /// reproductor de audio de pesca
     /// </summary>
     [SerializeField] private AudioSource AudioSource;
 
     /// <summary>
-    /// reproductor de audio de pasos
+    /// Sonido salpicadura
     /// </summary>
     [SerializeField] private AudioClip Splash;
 
     /// <summary>
-    /// reproductor de audio de pasos
+    /// Sonido victoria
     /// </summary>
     [SerializeField] private AudioClip Win;
 
     /// <summary>
-    /// reproductor de audio de pasos
-    /// </summary>
-    [SerializeField] private AudioClip Lose;
-
-    /// <summary>
-    /// reproductor de audio de pasos
+    /// Sonido lanzar caña
     /// </summary>
     [SerializeField] private AudioClip Throw;
     #endregion
@@ -102,6 +103,10 @@ public class FishingManager : MonoBehaviour
     /// Referencia al UIManager
     /// </summary>
     private UIManager _uIManager;
+    /// <summary>
+    /// Referencia al UIManager
+    /// </summary>
+    private TutorialManager _tutorialManager;
 
 
     /// <summary>
@@ -190,6 +195,8 @@ public class FishingManager : MonoBehaviour
             InventoryManager.ModifyInventory(Items.Fish, 1);
         }
 
+      
+
         if (_fishing )
         {
             _uIManager.ShowNotification("Presiona E \npara pescar", "NoCounter", 6, "Fishing");
@@ -269,11 +276,16 @@ public class FishingManager : MonoBehaviour
                         }
                         else if (i == Tries) 
                         {
-                            //Sonido
-                            if (AudioSource.clip != null)
+                            if (AudioSource.clip != null) // Sonido
                             {
                                 AudioSource.clip = Win;
                                 AudioSource.Play();
+                            }
+
+                            if (TutorialManager.GetTutorialPhase() == 25) // Tutorial
+                            {
+                                TutorialManager.CheckBox(0);
+                                TutorialManager.NextDialogue();
                             }
 
                             ResetMiniGame();
@@ -350,6 +362,8 @@ public class FishingManager : MonoBehaviour
         _uIManager = FindObjectOfType<UIManager>();
         _soundManager = FindObjectOfType<SoundManager>();
         _timer = FindObjectOfType<Timer>();
+
+        TutorialManager = FindObjectOfType<TutorialManager>();
     }
 
     /// <summary>
