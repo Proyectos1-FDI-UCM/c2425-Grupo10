@@ -349,6 +349,14 @@ public class MoneyManager : MonoBehaviour
             {
                 _wateringCanLevel++;
                 Debug.Log("Regadera mejorada a nivel " + _wateringCanLevel);
+
+                // Actualizar el WateringCanManager
+                WateringCanManager wateringCanManager = FindObjectOfType<WateringCanManager>();
+                if (wateringCanManager != null)
+                {
+                    wateringCanManager.UpgradeWateringCan(_wateringCanLevel);
+                }
+
                 UIManager.ShowMoneyUI();
                 return true;
             }
@@ -358,6 +366,40 @@ public class MoneyManager : MonoBehaviour
             Debug.Log("La regadera ya está al nivel máximo.");
         }
         return false;
+    }
+
+
+
+    /// <summary>
+    /// Obtiene el precio de la siguiente mejora de regadera
+    /// </summary>
+    public int GetWateringCanUpgradePrice()
+    {
+        if (_wateringCanLevel < WateringCanUpgradePrices.Length)
+        {
+            return WateringCanUpgradePrices[_wateringCanLevel];
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// Obtiene el precio de la siguiente mejora de huerto
+    /// </summary>
+    public int GetGardenUpgradePrice()
+    {
+        if (_gardenLevel < GardenUpgradePrices.Length)
+        {
+            return GardenUpgradePrices[_gardenLevel];
+        }
+        return 0;
+    }
+
+    /// <summary>
+    /// Acceso público al MoneyManager
+    /// </summary>
+    public static MoneyManager GetInstance()
+    {
+        return _instance;
     }
 
     /// <summary>
@@ -425,7 +467,7 @@ public class MoneyManager : MonoBehaviour
     public bool UpgradeGardenLevel4() => UpgradeGarden();
 
     #endregion
-    
+
     #endregion // Métodos públicos
 }
 
