@@ -63,11 +63,22 @@ public class GardenManager : MonoBehaviour
     /// Carpeta con todas las posiciones en las que el jugador puede plantar
     /// </summary>
     [SerializeField] private GameObject[] Prefabs = new GameObject[(int)Items.Count / 2];
+
+    [Header("Prefabs de Abono")]
+    /// <summary>
+    /// Prefab para suelo con abono (más oscuro)
+    /// </summary>
+    [SerializeField] private GameObject FertilizedSoilPrefab;
+
+    /// <summary>
+    /// Prefab para suelo normal (sin abono)
+    /// </summary>
+    [SerializeField] private GameObject NormalSoilPrefab;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
     #region Atributos Privados (private fields)
- 
+
     /// <summary>
     /// Transforms de las macetas
     /// </summary>
@@ -818,6 +829,74 @@ public class GardenManager : MonoBehaviour
         Debug.Log("Todos los avisos visuales de plantas han sido limpiados");
     }
 
+    /// <summary>
+    /// Cambia el prefab del suelo cuando se aplica abono
+    /// </summary>
+    /// <param name="plantingSpotIndex">Índice del PlantingSpot</param>
+    /// <param name="hasFertilizer">Si tiene abono o no</param>
+    public void ChangeSoilPrefab(int plantingSpotIndex, bool hasFertilizer)
+    {
+        if (plantingSpotIndex >= 0 && plantingSpotIndex < PlantingSpots.transform.childCount)
+        {
+            Transform plantingSpot = PlantingSpots.transform.GetChild(plantingSpotIndex);
+
+            // Encontrar el objeto del suelo actual (probablemente un hijo del PlantingSpot)
+            Transform currentSoil = plantingSpot.Find("Soil"); // Ajusta el nombre si es diferente
+            if (currentSoil == null)
+            {
+                // Si no hay un objeto llamado "Soil", buscar el primer hijo que no sea la planta
+                for (int i = 0; i < plantingSpot.childCount; i++)
+                {
+                    Transform child = plantingSpot.GetChild(i);
+                    if (!child.name.Contains("Crop") && !child.name.Contains("Plant"))
+                    {
+                        currentSoil = child;
+                        break;
+                    }
+                }
+            }
+
+            if (currentSoil != null)
+            {
+                Vector3 soilPosition = currentSoil.position;
+                Quaternion soilRotation = currentSoil.rotation;
+
+                // Destruir el suelo actual
+                DestroyImmediate(currentSoil.gameObject);
+                GameObject newSoilPrefab = hasFertilizer ? FertilizedSoilPrefab : NormalSoilPrefab;
+
+                if (newSoilPrefab != null)
+                {
+                    GameObject newSoil = Instantiate(newSoilPrefab, soilPosition, soilRotation);
+                    newSoil.transform.SetParent(plantingSpot);
+                    Debug.Log($"Suelo cambiado - Con abono: {hasFertilizer}");
+                }
+                else
+                {
+                    Debug.LogError($"Prefab de suelo es null - HasFertilizer: {hasFertilizer}");
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    /// Encuentra el índice del PlantingSpot basado en la posición de la planta
+    /// </summary>
+    public int FindPlantingSpotIndex(Vector3 plantPosition)
+    {
+        for (int i = 0; i < PlantingSpots.transform.childCount; i++)
+        {
+            Transform spot = PlantingSpots.transform.GetChild(i);
+
+            // Buscar si hay una planta en este spot con la posición dada
+            Plant plant = GardenData.GetPlant(i);
+            if (plant.Active && Vector3.Distance(plant.Position, plantPosition) < 0.1f)
+            {
+                return i;
+            }
+        }
+        return -1; // No encontrado
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----

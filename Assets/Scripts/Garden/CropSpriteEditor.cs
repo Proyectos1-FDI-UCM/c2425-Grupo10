@@ -304,7 +304,7 @@ public class CropSpriteEditor : MonoBehaviour
 
 
     /// <summary>
-    /// Muestra efectos visuales de que la planta tiene abono
+    /// Muestra efectos visuales de que la planta tiene abono (VERSIÓN SIMPLIFICADA)
     /// </summary>
     public void ShowFertilizerEffect()
     {
@@ -312,10 +312,12 @@ public class CropSpriteEditor : MonoBehaviour
         {
             _isShowingFertilizerEffect = true;
 
-            // Cambiar color del suelo para mostrar que tiene abono
-            if (_soilRenderer != null && FertilizedSoilSprite != null)
+            // NUEVO: Avisar al GardenManager para que cambie el prefab del suelo
+            GardenManager gardenManager = FindObjectOfType<GardenManager>();
+            if (gardenManager != null)
             {
-                _soilRenderer.sprite = FertilizedSoilSprite;
+                int spotIndex = gardenManager.FindPlantingSpotIndex(transform.position);
+                gardenManager.ChangeSoilPrefab(spotIndex, true);
             }
 
             // Aplicar tint verdoso a la planta
@@ -329,7 +331,7 @@ public class CropSpriteEditor : MonoBehaviour
             {
                 GameObject particles = Instantiate(FertilizerParticles, transform.position, Quaternion.identity);
                 particles.transform.SetParent(transform);
-                Destroy(particles, 2f); // Destruir después de 2 segundos
+                Destroy(particles, 2f);
             }
 
             Debug.Log("Efectos de abono aplicados a la planta");
@@ -337,7 +339,7 @@ public class CropSpriteEditor : MonoBehaviour
     }
 
     /// <summary>
-    /// Oculta efectos visuales de abono
+    /// Oculta efectos visuales de abono (VERSIÓN SIMPLIFICADA)
     /// </summary>
     public void HideFertilizerEffect()
     {
@@ -345,11 +347,12 @@ public class CropSpriteEditor : MonoBehaviour
         {
             _isShowingFertilizerEffect = false;
 
-            // Restaurar sprite original del suelo
-            if (_soilRenderer != null)
+            // NUEVO: Avisar al GardenManager para restaurar el prefab del suelo
+            GardenManager gardenManager = FindObjectOfType<GardenManager>();
+            if (gardenManager != null)
             {
-                // Aquí deberías poner el sprite original del suelo
-                // _soilRenderer.sprite = originalSoilSprite;
+                int spotIndex = gardenManager.FindPlantingSpotIndex(transform.position);
+                gardenManager.ChangeSoilPrefab(spotIndex, false);
             }
 
             // Restaurar color original de la planta

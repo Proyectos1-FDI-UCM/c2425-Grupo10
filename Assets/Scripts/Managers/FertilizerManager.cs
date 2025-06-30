@@ -73,6 +73,35 @@ public class FertilizerManager : MonoBehaviour
         _gameTimer = FindObjectOfType<Timer>();
         if (InputManager == null)
             InputManager = InputManager.Instance;
+
+        // NUEVO: Asignar PlayerTransform automáticamente si no está asignado
+        if (PlayerTransform == null)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                PlayerTransform = player.transform;
+                Debug.Log("PlayerTransform asignado automáticamente");
+            }
+            else
+            {
+                Debug.LogError("No se encontró el jugador. Asegúrate de que el jugador tenga el tag 'Player'");
+            }
+        }
+
+        // NUEVO: Asignar GardenManager automáticamente si no está asignado
+        if (GardenManager == null)
+        {
+            GardenManager = FindObjectOfType<GardenManager>();
+            if (GardenManager != null)
+            {
+                Debug.Log("GardenManager asignado automáticamente");
+            }
+            else
+            {
+                Debug.LogError("No se encontró GardenManager en la escena");
+            }
+        }
     }
 
     /// <summary>
@@ -132,6 +161,12 @@ public class FertilizerManager : MonoBehaviour
             {
                 // Aplicar abono
                 GardenData.ModifyFertilizer(plantIndex, true, _gameTimer.GetGameTimeInHours(), FertilizerGrowthMultiplier);
+
+                // Cambiar el prefab del suelo a uno con abono
+                if (GardenManager != null)
+                {
+                    GardenManager.ChangeSoilPrefab(plantIndex, true);
+                }
 
                 // Consumir abono del inventario
                 InventoryManager.ModifyInventorySubstract(Items.Fertilizer, 1);

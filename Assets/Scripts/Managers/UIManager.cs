@@ -2102,32 +2102,35 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        // Cultivos CON ABONO (slots 8-15: 2 slots por cultivo con abono)
-        for (int cropType = 0; cropType < 4; cropType++) // 4 tipos de cultivos
+        // Después de mostrar cultivos normales, añadir cultivos con abono (slots 8-15)
+        for (int cropType = 0; cropType < 4; cropType++)
         {
-            Items item = (Items)cropType; // 0=Corn, 1=Lettuce, 2=Carrot, 3=Strawberry
-            quantity = InventoryManager.GetFertilizedCropQuantity(item);
+            int fertilizedQuantity = InventoryManager.GetFertilizedCropQuantity((Items)(cropType + 4));
 
-            if (quantity > 0)
+            if (fertilizedQuantity > 0)
             {
-                // Slot 1 del cultivo con abono (índices 8-11)
-                InventoryIconsCrops[cropType + 8].SetActive(true);
-                if (quantity <= 20)
+                // Slot para cultivo con abono (slots 8-11)
+                int fertilizedSlotIndex = cropType + 8;
+                if (fertilizedSlotIndex < InventoryIconsCrops.Length)
                 {
-                    _units = InventoryIconsCrops[cropType + 8].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                    _units.text = "x" + quantity;
-                }
-                else
-                {
-                    _units = InventoryIconsCrops[cropType + 8].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                    _units.text = "x20";
-
-                    // Slot 2 del cultivo con abono (índices 12-15)
-                    if (quantity > 20)
+                    InventoryIconsCrops[fertilizedSlotIndex].SetActive(true);
+                    if (fertilizedQuantity <= 20)
                     {
-                        InventoryIconsCrops[cropType + 12].SetActive(true);
-                        _units = InventoryIconsCrops[cropType + 12].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        _units.text = "x" + (quantity - 20);
+                        _units = InventoryIconsCrops[fertilizedSlotIndex].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        _units.text = "x" + fertilizedQuantity;
+                    }
+                    else
+                    {
+                        _units = InventoryIconsCrops[fertilizedSlotIndex].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        _units.text = "x20";
+
+                        // Segundo slot si hay más de 20
+                        if (fertilizedSlotIndex + 4 < InventoryIconsCrops.Length)
+                        {
+                            InventoryIconsCrops[fertilizedSlotIndex + 4].SetActive(true);
+                            _units = InventoryIconsCrops[fertilizedSlotIndex + 4].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                            _units.text = "x" + (fertilizedQuantity - 20);
+                        }
                     }
                 }
             }
