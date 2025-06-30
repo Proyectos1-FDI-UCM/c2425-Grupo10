@@ -1769,13 +1769,35 @@ public class UIManager : MonoBehaviour
             // Botón Lechuga (siempre activo)
             Navigation navLettuce = new Navigation { mode = Navigation.Mode.Explicit };
 
+            // Desbloquear abono primero para incluirlo en la navegación
+            bool isFertilizerUnlocked = GameManager.Instance.IsFertilizerUnlocked();
+            if (isFertilizerUnlocked)
+            {
+                if (BlockMarketSeeds.Length > 3)
+                {
+                    BlockMarketSeeds[3].SetActive(false);
+                }
+                if (FertilizerButton != null)
+                {
+                    FertilizerButton.interactable = true;
+                }
+            }
+
             if (GameManager.Instance.GetAmountSold("Lettuce") >= 10)
             {
                 BlockMarketSeeds[0].SetActive(false);
                 CarrotSeedsButton.interactable = true;
 
-                // Lechuga -> Zanahoria
-                navLettuce.selectOnRight = CarrotSeedsButton;
+                // Lechuga -> Zanahoria (o Abono si está disponible y no hay zanahoria seleccionada)
+                if (isFertilizerUnlocked && FertilizerButton != null)
+                {
+                    navLettuce.selectOnRight = CarrotSeedsButton;
+                    navLettuce.selectOnLeft = FertilizerButton; // Abono a la izquierda
+                }
+                else
+                {
+                    navLettuce.selectOnRight = CarrotSeedsButton;
+                }
                 navLettuce.selectOnDown = BuySellButton;
                 LettuceSeedsButton.navigation = navLettuce;
 
@@ -1783,8 +1805,15 @@ public class UIManager : MonoBehaviour
                 Navigation navCarrot = new Navigation { mode = Navigation.Mode.Explicit };
                 navCarrot.selectOnLeft = LettuceSeedsButton;
                 navCarrot.selectOnDown = BuySellButton;
-                CarrotSeedsButton.navigation = navCarrot;
 
+                // Configurar navegación del abono
+                if (isFertilizerUnlocked && FertilizerButton != null)
+                {
+                    Navigation navFertilizer = new Navigation { mode = Navigation.Mode.Explicit };
+                    navFertilizer.selectOnRight = LettuceSeedsButton;
+                    navFertilizer.selectOnDown = BuySellButton;
+                    FertilizerButton.navigation = navFertilizer;
+                }
 
                 if (GameManager.Instance.GetAmountSold("Carrot") >= 30)
                 {
@@ -1802,8 +1831,6 @@ public class UIManager : MonoBehaviour
                     navStrawberry.selectOnLeft = CarrotSeedsButton;
                     navStrawberry.selectOnDown = BuySellButton;
                     StrawberrySeedsButton.navigation = navStrawberry;
-
-
 
                     if (GameManager.Instance.GetAmountSold("Strawberry") >= 50)
                     {
@@ -1824,19 +1851,27 @@ public class UIManager : MonoBehaviour
                     }
                     else
                     {
-                        //CornSeedsButton.interactable = false;
                         StrawberrySeedsButton.navigation = navStrawberry;
                     }
                 }
                 else
                 {
-                    //StrawberrySeedsButton.interactable = false;
                     CarrotSeedsButton.navigation = navCarrot;
                 }
             }
             else
             {
-                //CarrotSeedsButton.interactable = false;
+                // Solo lechuga disponible
+                if (isFertilizerUnlocked && FertilizerButton != null)
+                {
+                    navLettuce.selectOnLeft = FertilizerButton;
+
+                    // Configurar navegación del abono
+                    Navigation navFertilizer = new Navigation { mode = Navigation.Mode.Explicit };
+                    navFertilizer.selectOnRight = LettuceSeedsButton;
+                    navFertilizer.selectOnDown = BuySellButton;
+                    FertilizerButton.navigation = navFertilizer;
+                }
                 navLettuce.selectOnDown = BuySellButton;
                 LettuceSeedsButton.navigation = navLettuce;
             }
@@ -1978,6 +2013,22 @@ public class UIManager : MonoBehaviour
                 _units.text = "x" + quantity;
             }
         }
+
+        // AÑADIR ESTO PARA EL ABONO:
+        // Mostrar abono (posición especial)
+        int fertilizerQuantity = InventoryManager.GetInventoryItem(Items.Fertilizer);
+        if (fertilizerQuantity > 0)
+        {
+            // Asumiendo que tienes un slot específico para el abono en InventoryIconsSeeds
+            // Necesitas verificar qué índice usar en el array InventoryIconsSeeds[]
+            if (InventoryIconsSeeds.Length > 4) // Verificar que existe el slot
+            {
+                InventoryIconsSeeds[4].SetActive(true); // Índice 4 para el abono
+                _units = InventoryIconsSeeds[4].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                _units.text = "x" + fertilizerQuantity;
+            }
+        }
+
 
         // Muestra los cultivos
         for (int i = 0; i < (int)Items.Count/2; i++)
@@ -2415,8 +2466,13 @@ public class UIManager : MonoBehaviour
                 DescriptionText.text = "No tienes suficiente dinero.";
             }
             _amount = 1;
-            UpdateUI();
+           
             ActualizarCantidadSeedsUI();
+
+            int totalCosto = _amount * _cost;
+            _selected = GetSeedPlantName();
+            PriceAmountText.text = _amount + " " + _selected + " = " + totalCosto + "RC";
+            UpdateUI();
         }
         else
         {
