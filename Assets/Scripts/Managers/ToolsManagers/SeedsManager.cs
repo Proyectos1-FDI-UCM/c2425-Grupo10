@@ -261,13 +261,6 @@ public class SeedsManager : MonoBehaviour
         PlayerMovement.EnablePlayerMovement();
 
     }
-
-
-    public static void ChangeItem(ref Items item)
-    {
-        item = (Items)((int)item + 4);
-        Debug.Log(item);
-    }
     #endregion
 
 

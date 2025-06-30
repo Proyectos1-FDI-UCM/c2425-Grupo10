@@ -129,6 +129,7 @@ public static class InventoryManager
     /// </summary>
     public static bool BoolModifyInventory(Items item, int quantity)
     {
+        Inventory = new int[(int)Items.Count];
         if ((int)item >= (int)Items.Count / 3 && (int)item < 2 * ((int)Items.Count / 3)) // Es un cultivo 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity)
@@ -145,6 +146,7 @@ public static class InventoryManager
         }
         else if ((int)item >= 2 * (int)Items.Count / 3) // Es un cultivo dorado 
         {
+            Debug.Log($"item: {item}, int: {(int)item}, inventoryLength: {Inventory.Length}");
             if (Inventory[(int)item] + quantity <= MaxCropQuantity)
             {
                 Inventory[(int)item] += quantity;

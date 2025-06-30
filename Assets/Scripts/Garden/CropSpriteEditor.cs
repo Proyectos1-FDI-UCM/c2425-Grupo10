@@ -44,8 +44,6 @@ public class CropSpriteEditor : MonoBehaviour
 
     [SerializeField] private Items item;
 
-    private SeedsManager seedsManager;
-
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -101,9 +99,6 @@ public class CropSpriteEditor : MonoBehaviour
 
             //Warning("Water");
         }
-        GameObject obj = GameObject.FindGameObjectWithTag("Seeds");
-        seedsManager = obj.GetComponent<SeedsManager>();
-
     }
 
     #endregion
