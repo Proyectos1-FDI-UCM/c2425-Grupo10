@@ -24,7 +24,7 @@ public enum Items
     Corn,
     Lettuce,
     Carrot,
-    Strawberry, 
+    Strawberry,
     GoldCorn,
     GoldLettuce,
     GoldCarrot,
@@ -44,7 +44,7 @@ public static class InventoryManager
     /// <summary>
     /// Posicion del Jugador
     /// </summary>
-    private static Vector3 PlayerPosition = new Vector3 (14.14f, -9.62f, 0);
+    private static Vector3 PlayerPosition = new Vector3(14.14f, -9.62f, 0);
 
     /// <summary>
     /// Cantidad de cada Item que tiene el jugador
@@ -93,7 +93,7 @@ public static class InventoryManager
     /// <summary>
     /// Devuelve un entero, la cantidad de dicho item que tiene el jugador
     /// </summary>
-    public static int GetInventoryItem(Items item)  
+    public static int GetInventoryItem(Items item)
     {
         return Inventory[(int)item];
     }
@@ -129,21 +129,21 @@ public static class InventoryManager
     /// </summary>
     public static bool BoolModifyInventory(Items item, int quantity)
     {
-        if ((int)item >= (int)Items.Count / 3) // Es un cultivo 
+        if ((int)item >= (int)Items.Count / 3 && (int)item < 2 * ((int)Items.Count / 3)) // Es un cultivo 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity)
             {
                 Inventory[(int)item] += quantity;
                 return true;
             }
-            else 
+            else
             {
                 Debug.Log("InventarioLleno");
                 _inventoryFull = true;
             }
             return false;
         }
-        else if ((int)item >= 2*(int)Items.Count / 3) // Es un cultivo dorado 
+        else if ((int)item >= 2 * (int)Items.Count / 3) // Es un cultivo dorado 
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity)
             {
@@ -181,7 +181,7 @@ public static class InventoryManager
     /// </summary>
     public static bool BoolModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
     {
-        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        if ((int)item >= (int)Items.Count / 3) // Es un cultivo 
         {
             if (Inventory[(int)item] - quantity <= 0) Inventory[(int)item] -= quantity;
             else Debug.Log("InventarioInsuficiente");
@@ -209,7 +209,7 @@ public static class InventoryManager
                 _inventoryFull = true;
             }
         }
-        if ((int)item >= 2*(int)Items.Count /3) // Es un cultivo dorado
+        if ((int)item >= 2 * (int)Items.Count / 3) // Es un cultivo dorado
         {
             if (Inventory[(int)item] + quantity <= MaxCropQuantity)
             {
@@ -241,7 +241,7 @@ public static class InventoryManager
     /// </summary>
     public static void ModifyInventorySubstract(Items item, int quantity) // (Se puede restar con números negativos)
     {
-        if ((int)item >= (int)Items.Count / 2) // Es un cultivo 
+        if ((int)item >= (int)Items.Count / 3) // Es un cultivo 
         {
             if (Inventory[(int)item] - quantity >= 0) Inventory[(int)item] -= quantity;
             else Debug.Log("InventarioInsuficiente");
@@ -257,7 +257,7 @@ public static class InventoryManager
     /// <summary>
     /// Cambia la cantidad máxima de cultivos que puedes guardar en el inventory
     /// </summary>
-    public static void SetMaxCrops (int maxCrops)
+    public static void SetMaxCrops(int maxCrops)
     {
         MaxCropQuantity = maxCrops;
     }
@@ -301,5 +301,6 @@ public static class InventoryManager
     {
         return MaxSeedQuantity;
     }
+
 
 }

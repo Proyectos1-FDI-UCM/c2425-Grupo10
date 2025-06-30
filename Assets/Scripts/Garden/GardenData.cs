@@ -36,6 +36,7 @@ public struct Plant
              * Fase2 = 2
              * Fase3 = 3
              * Fase4 = 4
+             * Dorada = 5
              * MuerteFase1 = -1
              * MuerteFase2 = -2
              * MuerteFase3 = -3
@@ -334,7 +335,7 @@ public static class GardenData
     /// <param name="item"></param>
     public static float GetMaxWaterTime(Items item)
     {
-        return CropsData[(int)item / ((int)Items.Count / 2)].MaxWaterTime;
+        return CropsData[(int)item / ((int)Items.Count / 3)].MaxWaterTime;
     }
 
     /// <summary>
@@ -343,7 +344,7 @@ public static class GardenData
     /// <param name="item"></param>
     public static float GetMaxDeathTime(Items item)
     {
-        return CropsData[(int)item / ((int)Items.Count/2)].MaxDeathTime;
+        return CropsData[(int)item / ((int)Items.Count/3)].MaxDeathTime;
     }
 
     /// <summary>
@@ -352,14 +353,22 @@ public static class GardenData
     /// <param name="item"></param>
     public static float GetMaxGrowthTime(Items item)
     {
-        return CropsData[(int)item / ((int)Items.Count / 2)].MaxGrowthTime;
+        return CropsData[(int)item / ((int)Items.Count / 3)].MaxGrowthTime;
     }
 
-    public static void ChangeItem(Items item)
+    /// <summary>
+    /// Modifica el item de una planta
+    /// </summary>
+    public static void ModifyItem(Plant plant, Items item)
     {
-        
-        item = (Items)((int)item + 4);
+        Garden[System.Array.IndexOf(Garden, plant) - 1].Item = item;
+    }
+
+    public static Items ChangeItem(Items item)
+    {
+        item = (Items)((int)item + (int)Items.Count / 3);
         Debug.Log(item);
+        return item;
     }
 
 

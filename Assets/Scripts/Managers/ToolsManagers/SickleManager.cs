@@ -256,7 +256,6 @@ public class SickleManager : MonoBehaviour
     /// </summary>
     private Transform FindNearestPot(Transform Player, Transform[] Pots)
     {
-        Debug.Log("FindNearestPot");
 
         Transform NearestPot = null;
 

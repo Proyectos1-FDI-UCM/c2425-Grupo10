@@ -1900,10 +1900,6 @@ public class UIManager : MonoBehaviour
         TutorialManager = FindObjectOfType<TutorialManager>();
         NotificationManager = FindObjectOfType<NotificationManager>();
     }
-
-
-
-    
     #endregion
 
     // ---- BUILD ----
@@ -1921,6 +1917,7 @@ public class UIManager : MonoBehaviour
         return _isInventoryVisible;
     }
 
+
     /// <summary>
     /// Actualiza la cantidad de los items del inventory
     /// No comprueba si hay inventory suficiente para mostrar los items porque ya lo comprueba InventoryManager
@@ -1930,7 +1927,7 @@ public class UIManager : MonoBehaviour
         TextMeshProUGUI _units;
 
         // Muestra las semillas
-        for (int i = 0; i < (int)Items.Count / 2; i++)
+        for (int i = 0; i < (int)Items.Count / 3; i++)
         {
             GameObject _crops = InventoryIcons.transform.GetChild(i).gameObject;
             if (InventoryManager.GetInventoryItem(i) != 0)
@@ -1943,14 +1940,14 @@ public class UIManager : MonoBehaviour
         }
 
         // Muestra los cultivos
-        for (int i = (int)Items.Count / 2; i < (int)Items.Count; i++)
+        for (int i = (int)Items.Count / 3; i < 2 * (int)Items.Count / 3; i++)
         {
             if (InventoryManager.GetInventoryItem(i) != 0)
             {
                 int actualSlot = 1; // El Slot actual que está estableciendo
                 bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
 
-                while (actualSlot < 5 && !fullSlot)
+                while (actualSlot < 4 && !fullSlot)
                 {
                     GameObject _crops = InventoryIcons.transform.GetChild(i * actualSlot).gameObject;
                     _crops.SetActive(true);
@@ -1973,6 +1970,19 @@ public class UIManager : MonoBehaviour
                 }
             }
             else InventoryIcons.transform.GetChild(i).gameObject.SetActive(false);
+            
+        }
+        for (int i = 2 * ((int)Items.Count / 3); i < ((int)Items.Count); i++) // Muestra los cultivos dorados
+        {
+            int j = i + (int)Items.Count;
+            GameObject _crops = InventoryIcons.transform.GetChild(j).gameObject;
+            if (InventoryManager.GetInventoryItem(i) != 0)
+            {
+                _crops.SetActive(true);
+                _units = _crops.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                _units.text = "x" + InventoryManager.GetInventoryItem(i);
+            }
+            else _crops.SetActive(false);
         }
 
     }

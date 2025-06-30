@@ -143,7 +143,7 @@ public class CambiarEscena : MonoBehaviour
                     UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
                 }
             }
-            if (SceneManager.GetActiveScene().name == "Escena_Ines")
+            if (SceneManager.GetActiveScene().name == "Escena_Venta")
             {
                 SceneTransition.Instance.ChangeScene(sceneName);
                 Debug.Log("Cambiando a escena: " + sceneName);

@@ -167,7 +167,7 @@ public class SeedsManager : MonoBehaviour
                 InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
                 Plant.transform.SetParent(Pot);
 
-                GardenData.Active(Pot.transform, (int)_seed + ((int)Items.Count/2));
+                GardenData.Active(Pot.transform, (int)_seed + ((int)Items.Count / 3));
 
                 CropSpriteEditor crop = Plant.GetComponent<CropSpriteEditor>();
                 crop.Warning("Water");
@@ -260,6 +260,13 @@ public class SeedsManager : MonoBehaviour
 
         PlayerMovement.EnablePlayerMovement();
 
+    }
+
+
+    public static void ChangeItem(ref Items item)
+    {
+        item = (Items)((int)item + 4);
+        Debug.Log(item);
     }
     #endregion
 

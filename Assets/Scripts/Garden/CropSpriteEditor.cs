@@ -44,6 +44,8 @@ public class CropSpriteEditor : MonoBehaviour
 
     [SerializeField] private Items item;
 
+    private SeedsManager seedsManager;
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -99,6 +101,9 @@ public class CropSpriteEditor : MonoBehaviour
 
             //Warning("Water");
         }
+        GameObject obj = GameObject.FindGameObjectWithTag("Seeds");
+        seedsManager = obj.GetComponent<SeedsManager>();
+
     }
 
     #endregion
@@ -164,7 +169,9 @@ public class CropSpriteEditor : MonoBehaviour
             int numero = UnityEngine.Random.Range(0, 1);
             if (numero == 0)
             {
-                GardenData.ChangeItem(item);
+                Items Item = GardenData.ChangeItem(item);
+                Plant plant = GardenData.GetPlant(transform);
+                GardenData.ModifyItem(plant, Item);
                 _spriteRenderer.sprite = Sprites[5];
             }
             else

@@ -132,7 +132,6 @@ public class GardenManager : MonoBehaviour
         Garden = GardenData.GetGarden();
         for (int i = 0; i < GardenSize[UpgradeLevel]; i++)
         {
-            //Debug.Log(GardenData.GetPlant(i).Item);
 
             Plant Plant = GardenData.GetPlant(i);
 
@@ -164,22 +163,18 @@ public class GardenManager : MonoBehaviour
                  if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater && (gameTimer.GetGameTimeInHours() - Plant.WaterTimer) < MaxWater + (MaxDeath/2) && State > 0 && State < 4 )
                 {
                     WaterWarning(GardenData.GetPlant(i), i);
-                    //GardenData.ModifyWaterWarning(i);
                 }
 
                  // Aviso Muerte
                 if ((gameTimer.GetGameTimeInHours() - Plant.WaterTimer) >= MaxWater + (MaxDeath / 2) && gameTimer.GetGameTimeInHours() - Plant.WaterTimer < MaxWater + MaxDeath && State > 0 && State < 4 )
                 {
-                    Debug.Log("Aviso Muerte");
                     DeathWarning(GardenData.GetPlant(i), i);
-                    
                 }
 
                 // Muerte
                 if (gameTimer.GetGameTimeInHours() - Plant.WaterTimer >= MaxWater + MaxDeath && State > 0 && State < 4)
                 {
                     Death(Plant, i);
-                    Debug.Log("Muerte");
                 }
 
                 //Cosechar
