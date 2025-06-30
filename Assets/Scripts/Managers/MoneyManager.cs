@@ -206,6 +206,11 @@ public class MoneyManager : MonoBehaviour
         if (InventoryManager.BoolModifyInventorySubstract(Item, Quantity))
         {
             AddMoney(Quantity * Price); // Agrega el dinero ganado por la venta
+
+            // AÑADIR PARA ESTADÍSTICAS
+            StatsManager.Instance.AddMoneyEarned(Quantity * Price);
+            StatsManager.Instance.AddCropSold(Item, Quantity);
+
             Debug.Log($"Se han vendido {Quantity} {Item} por {Quantity * Price} RC.");
         }
         else

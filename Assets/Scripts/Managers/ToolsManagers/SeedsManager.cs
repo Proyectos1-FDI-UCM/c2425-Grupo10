@@ -238,6 +238,9 @@ public class SeedsManager : MonoBehaviour
                         // Activar en GardenData
                         GardenData.Active(Pot.transform, (int)_seed + ((int)Items.Count / 2));
 
+                        // AÑADIR PARA ESTADÍSTICAS
+                        StatsManager.Instance.AddPlantPlanted();
+
                         // Configurar warnings y efectos
                         CropSpriteEditor crop = Plant.GetComponent<CropSpriteEditor>();
                         if (crop != null)

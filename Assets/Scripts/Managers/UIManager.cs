@@ -505,6 +505,17 @@ public class UIManager : MonoBehaviour
     /// Boton para comprar la mejora/ampliacion
     /// </summary>
     [SerializeField] private GameObject DecreaseAmountButton;
+
+    [Header("Sistema de Estadísticas")]
+    /// <summary>
+    /// Referencia al componente StatsUI para mostrar estadísticas
+    /// </summary>
+    [SerializeField] private StatsUI StatsUI;
+
+    /// <summary>
+    /// Botón para abrir el panel de estadísticas
+    /// </summary>
+    [SerializeField] private Button StatsButton;
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -764,6 +775,26 @@ public class UIManager : MonoBehaviour
 
         ControlsDropdown.value = 0;
         UpdateControls(0);
+
+        //ESTADÍSTICAS 
+        if (StatsButton != null)
+        {
+            StatsButton.onClick.AddListener(() => StatsUI.ShowStats());
+            Debug.Log("Botón de estadísticas configurado correctamente");
+        }
+        else
+        {
+            Debug.LogWarning("StatsButton no está asignado en UIManager");
+        }
+
+        if (StatsUI == null)
+        {
+            StatsUI = FindObjectOfType<StatsUI>();
+            if (StatsUI == null)
+            {
+                Debug.LogWarning("No se encontró StatsUI en la escena");
+            }
+        }
     }
 
     void Update()
@@ -821,6 +852,17 @@ public class UIManager : MonoBehaviour
                 new Vector2(QuickAccessBar.anchoredPosition.x, targetQuickBarY),
                 Time.deltaTime * _transitionSpeed
             );
+
+            // ESTADÍSTICAS - Tecla J para abrir estadísticas
+            if (Input.GetKeyDown(KeyCode.J) && SceneManager.GetActiveScene().name == "Escena_Build")
+            {
+                if (StatsUI != null && !_isDialogueActive && !_isPauseMenuActive)
+                {
+                    StatsUI.ToggleStats();
+                    Debug.Log("Estadísticas activadas con tecla J");
+                }
+            }
+
             if (!_isMapVisible && !_isInventoryVisible && InputManager.Instance.MapWasPressedThisFrame() && !_isDialogueActive && !_isPauseMenuActive && !_isControlsActive && !_isLibraryActive)
             {
                 Map.SetActive(true);

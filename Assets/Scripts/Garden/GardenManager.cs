@@ -361,6 +361,10 @@ public class GardenManager : MonoBehaviour
                 if (success)
                 {
                     GardenData.ModifyHarvestWarning(i, false);
+
+                    // AÑADIR PARA ESTADÍSTICAS
+                    StatsManager.Instance.AddPlantHarvested();
+
                     CropSpriteEditor cropSpriteEditor = transform.GetChild(0).GetComponent<CropSpriteEditor>();
 
                     int random;

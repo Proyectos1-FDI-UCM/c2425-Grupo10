@@ -826,6 +826,10 @@ public class GameManager : MonoBehaviour
         // NUEVO: Resetear datos de abono
         GardenData.ResetGardenFertilizer();
 
+        // AÑADIR PARA ESTADÍSTICAS
+        if (StatsManager.Instance != null)
+            StatsManager.Instance.ResetStats();
+
         InventoryManager.ResetInventory();
 
         // NUEVO: Resetear inventario de cultivos con abono
@@ -878,6 +882,10 @@ public class GameManager : MonoBehaviour
         data.SetTutorialPhaseBanco(TutorialManager.GetTutorialPhaseBanco());
         data.SetUnlockedCrops(_unlockedCrops);
 
+        // AÑADIR PARA ESTADÍSTICAS
+        if (StatsManager.Instance != null)
+            data.SetPlayerStats(StatsManager.Instance.GetStats());
+
         string json = JsonUtility.ToJson(data, true);
         System.IO.File.WriteAllText(Application.persistentDataPath + "/savefile.json", json);
 
@@ -914,6 +922,10 @@ public class GameManager : MonoBehaviour
             TutorialManager.SetTutorialPhaseMejora(data.GetTutorialPhaseMejora());
             TutorialManager.SetTutorialPhaseBanco(data.GetTutorialPhaseBanco());
             _unlockedCrops = data.GetUnlockedCrops();
+
+            // AÑADIR PARA ESTADÍSTICAS
+            if (StatsManager.Instance != null)
+                StatsManager.Instance.LoadStats(data.GetPlayerStats());
 
             Debug.Log("Partida cargada correctamente");
 

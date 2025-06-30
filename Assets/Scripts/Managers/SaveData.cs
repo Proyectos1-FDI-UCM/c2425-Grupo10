@@ -34,6 +34,8 @@ public class SaveData
     [SerializeField] private bool[] checks;
     [SerializeField] private bool[] unlockedCrops = new bool[4]; // 0: Lechuga, 1: Zanahoria, 2: Fresa, 3: Maíz
 
+    [SerializeField] private PlayerStats playerStats = new PlayerStats();
+
     #endregion
 
     // ---- MÉTODOS GET ----
@@ -54,6 +56,8 @@ public class SaveData
     public string[] GettextNotifications() { return textNotifications; }
     public bool[] Getchecks () { return checks; }
     public bool[] GetUnlockedCrops() { return unlockedCrops; }
+
+    public PlayerStats GetPlayerStats() { return playerStats; }
     #endregion
 
     // ---- MÉTODOS SET ----
@@ -74,6 +78,8 @@ public class SaveData
     public void SettextNotifications(string[] TextNotifications) { textNotifications = TextNotifications; }
     public void Setchecks(bool[] Checks) { checks = Checks; }
     public void SetUnlockedCrops(bool[] value) { unlockedCrops = value; }
+
+    public void SetPlayerStats(PlayerStats stats) { playerStats = stats; }
 
     #endregion
 } // class SaveData 
