@@ -890,7 +890,8 @@ public class UIManager : MonoBehaviour
                 }
                 if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
                 {
-                    Check(0);
+                    if (TutorialManager.GetTutorialPhase() < 25 || TutorialManager.GetTutorialPhase() == 20) Check(0);
+                    else CheckBox[0].SetActive(false);
                     //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
                 }
                 EnableInterfaz();
@@ -1783,6 +1784,19 @@ public class UIManager : MonoBehaviour
                 navLettuce.selectOnDown = BuySellButton;
                 LettuceButton.navigation = navLettuce;
             }
+
+            if (TutorialManager.GetTutorialPhase() > 25)
+            {
+                BlockMarketPlants[3].SetActive(false);
+                FishButton.interactable = true;
+            }
+            if(TutorialManager.GetTutorialPhase() > 26)
+            {
+                BlockMarketPlants[4].SetActive(false);
+                EggButton.interactable = true;
+            }
+
+
             DescriptionText.text = "";
             PriceAmountText.text = "";
             int totalCosto = _amount * _cost;
