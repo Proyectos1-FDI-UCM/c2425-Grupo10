@@ -394,6 +394,7 @@ public class UIManager : MonoBehaviour
     /// </summary>
     [SerializeField] private GameObject[] BlockMarketSeeds;
     [SerializeField] private GameObject[] BlockMarketPlants;
+    [SerializeField] private GameObject[] BlockMarketPlantsAbono; // Array de 4 elementos para bloquear botones de abono
     [SerializeField] private Button LettuceButton;
     [SerializeField] private Button CarrotsButton;
     [SerializeField] private Button StrawberriesButton;
@@ -469,10 +470,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SeedStrawberryText;
 
     /// <summary>
+    /// Textos de la cantidad de cultivos con abono que tienes en el inventario
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI LettuceAbonoText;
+    [SerializeField] private TextMeshProUGUI CarrotAbonoText;
+    [SerializeField] private TextMeshProUGUI CornAbonoText;
+    [SerializeField] private TextMeshProUGUI StrawberryAbonoText;
+
+    /// <summary>
     /// Texto que muestra la cantidad de abono en el inventario
     /// </summary>
     [SerializeField] private TextMeshProUGUI FertilizerText;
-
+    [Header("Botones de Venta con Abono")]
+    [SerializeField] private Button SellLettuceFertilizedButton;
+    [SerializeField] private Button SellCarrotFertilizedButton;
+    [SerializeField] private Button SellCornFertilizedButton;
+    [SerializeField] private Button SellStrawberryFertilizedButton;
 
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
@@ -725,6 +738,16 @@ public class UIManager : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Escena_Banco" || SceneManager.GetActiveScene().name == "Escena_Venta" || SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Compra")
         {
             ResetInterfaz();
+
+            // Conectar botones de venta con abono
+            if (SceneManager.GetActiveScene().name == "Escena_Venta" && SellLettuceFertilizedButton != null)
+            {
+                SellLettuceFertilizedButton.onClick.AddListener(() => MoneyManager.SellLettuceFertilized(1));
+                SellCarrotFertilizedButton.onClick.AddListener(() => MoneyManager.SellCarrotFertilized(1));
+                SellCornFertilizedButton.onClick.AddListener(() => MoneyManager.SellCornFertilized(1));
+                SellStrawberryFertilizedButton.onClick.AddListener(() => MoneyManager.SellStrawberryFertilized(1));
+            }
+
         }
 
         MoneyManager.InitializeUIManager();
@@ -1688,6 +1711,11 @@ public class UIManager : MonoBehaviour
                 BlockMarketPlants[0].SetActive(false);
                 CarrotsButton.interactable = true;
 
+                // AÑADIR ESTAS LÍNEAS:
+                // Desbloquear botones de abono cuando se desbloquean los cultivos
+                if (BlockMarketPlantsAbono.Length > 0) BlockMarketPlantsAbono[0].SetActive(false); // Lechuga con abono (índice 6->0)
+                if (BlockMarketPlantsAbono.Length > 1) BlockMarketPlantsAbono[1].SetActive(false); // Zanahoria con abono (índice 3->1)
+
                 // Lechuga -> Zanahoria
                 navLettuce.selectOnRight = CarrotsButton;
                 navLettuce.selectOnDown = BuySellButton;
@@ -1704,6 +1732,9 @@ public class UIManager : MonoBehaviour
                 {
                     BlockMarketPlants[1].SetActive(false);
                     StrawberriesButton.interactable = true;
+
+                    // AÑADIR:
+                    if (BlockMarketPlantsAbono.Length > 2) BlockMarketPlantsAbono[2].SetActive(false); // Fresa con abono (índice 4->2)
 
                     // Zanahoria -> Fresa
                     navCarrot.selectOnRight = StrawberriesButton;
@@ -1723,6 +1754,9 @@ public class UIManager : MonoBehaviour
                     {
                         BlockMarketPlants[2].SetActive(false);
                         CornsButton.interactable = true;
+
+                        // AÑADIR:
+                        if (BlockMarketPlantsAbono.Length > 3) BlockMarketPlantsAbono[3].SetActive(false); // Maíz con abono (índice 5->3)
 
                         // Fresa -> Maíz
                         navStrawberry.selectOnRight = CornsButton;
@@ -1909,6 +1943,9 @@ public class UIManager : MonoBehaviour
             LettuceButton.Select();
             ActualizarCantidadPlantsUI();
             GameManager.Instance.CheckCropUnlocks();
+
+            // NJUEVO:
+            UpdateFertilizedButtons();
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Compra")
         {
@@ -1996,10 +2033,20 @@ public class UIManager : MonoBehaviour
     /// Actualiza la cantidad de los items del inventory
     /// No comprueba si hay inventory suficiente para mostrar los items porque ya lo comprueba InventoryManager
     /// </summary>
+    /// <summary>
+    /// Actualiza la cantidad de los items del inventory
+    /// No comprueba si hay inventory suficiente para mostrar los items porque ya lo comprueba InventoryManager
+    /// </summary>
     public void ActualizeInventory()
     {
         TextMeshProUGUI _units;
         int quantity;
+
+        // Ocultar todos los iconos primero
+        for (int i = 0; i < InventoryIconsCrops.Length; i++)
+        {
+            InventoryIconsCrops[i].SetActive(false);
+        }
 
         // Muestra las semillas
         for (int i = 0; i < (int)Items.Count / 2; i++)
@@ -2007,63 +2054,84 @@ public class UIManager : MonoBehaviour
             quantity = InventoryManager.GetInventoryItem(i);
             if (quantity != 0)
             {
-
                 InventoryIconsSeeds[i].SetActive(true);
                 _units = InventoryIconsSeeds[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 _units.text = "x" + quantity;
             }
         }
 
-        // AÑADIR ESTO PARA EL ABONO:
         // Mostrar abono (posición especial)
         int fertilizerQuantity = InventoryManager.GetInventoryItem(Items.Fertilizer);
         if (fertilizerQuantity > 0)
         {
-            // Asumiendo que tienes un slot específico para el abono en InventoryIconsSeeds
-            // Necesitas verificar qué índice usar en el array InventoryIconsSeeds[]
-            if (InventoryIconsSeeds.Length > 4) // Verificar que existe el slot
+            if (InventoryIconsSeeds.Length > 4)
             {
-                InventoryIconsSeeds[4].SetActive(true); // Índice 4 para el abono
+                InventoryIconsSeeds[4].SetActive(true);
                 _units = InventoryIconsSeeds[4].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                 _units.text = "x" + fertilizerQuantity;
             }
         }
 
-
-        // Muestra los cultivos
-        for (int i = 0; i < (int)Items.Count/2; i++)
+        // Cultivos NORMALES (slots 0-7: 2 slots por cultivo)
+        for (int cropType = 0; cropType < 4; cropType++) // 4 tipos de cultivos
         {
-            if (InventoryManager.GetInventoryItem(i + (int)Items.Count / 2) != 0)
+            quantity = InventoryManager.GetInventoryItem(cropType + 4); // +4 porque cultivos empiezan en índice 4
+
+            if (quantity > 0)
             {
-                int actualSlot = 0; // El Slot actual que está estableciendo
-                bool fullSlot = false; // Es true si el Slot es igual que la cantidad máxima por Slot
-
-                quantity = InventoryManager.GetInventoryItem(i + (int)Items.Count / 2);
-
-                while (actualSlot < 4 && !fullSlot)
+                // Slot 1 del cultivo normal
+                InventoryIconsCrops[cropType].SetActive(true);
+                if (quantity <= 20)
                 {
-                    if (quantity != 0)
+                    _units = InventoryIconsCrops[cropType].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                    _units.text = "x" + quantity;
+                }
+                else
+                {
+                    _units = InventoryIconsCrops[cropType].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                    _units.text = "x20";
+
+                    // Slot 2 del cultivo normal
+                    if (quantity > 20)
                     {
-                        InventoryIconsCrops[i + actualSlot * (int)Items.Count / 2].SetActive(true);
-                    }
-                    if (quantity < 10)
-                    {
-                        _units = InventoryIconsCrops[i + actualSlot * ((int)Items.Count / 2)].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        _units.text = "x" + quantity;
-                        fullSlot = true;
-                    }
-                    else
-                    {
-                        _units = InventoryIconsCrops[i + actualSlot * ((int)Items.Count / 2)].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        _units.text = "x" + 10;
-                        quantity = quantity - 10;
-                        actualSlot++;
+                        InventoryIconsCrops[cropType + 4].SetActive(true);
+                        _units = InventoryIconsCrops[cropType + 4].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        _units.text = "x" + (quantity - 20);
                     }
                 }
+            }
+        }
 
+        // Cultivos CON ABONO (slots 8-15: 2 slots por cultivo con abono)
+        for (int cropType = 0; cropType < 4; cropType++) // 4 tipos de cultivos
+        {
+            Items item = (Items)cropType; // 0=Corn, 1=Lettuce, 2=Carrot, 3=Strawberry
+            quantity = InventoryManager.GetFertilizedCropQuantity(item);
 
-            }        
-        }    
+            if (quantity > 0)
+            {
+                // Slot 1 del cultivo con abono (índices 8-11)
+                InventoryIconsCrops[cropType + 8].SetActive(true);
+                if (quantity <= 20)
+                {
+                    _units = InventoryIconsCrops[cropType + 8].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                    _units.text = "x" + quantity;
+                }
+                else
+                {
+                    _units = InventoryIconsCrops[cropType + 8].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                    _units.text = "x20";
+
+                    // Slot 2 del cultivo con abono (índices 12-15)
+                    if (quantity > 20)
+                    {
+                        InventoryIconsCrops[cropType + 12].SetActive(true);
+                        _units = InventoryIconsCrops[cropType + 12].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        _units.text = "x" + (quantity - 20);
+                    }
+                }
+            }
+        }
     }
     /// <summary>
     /// Actualiza la barra de la energia con los valores maximao y actual
@@ -2365,6 +2433,46 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Método para vender lechuga con abono
+    /// </summary>
+    public void ButtonSellLettuceFertilizedPressed()
+    {
+        MoneyManager.SellLettuceFertilized(1);
+        UpdateFertilizedButtons();
+        ActualizarCantidadPlantsUI();
+    }
+
+    /// <summary>
+    /// Método para vender zanahoria con abono
+    /// </summary>
+    public void ButtonSellCarrotFertilizedPressed()
+    {
+        MoneyManager.SellCarrotFertilized(1);
+        UpdateFertilizedButtons();
+        ActualizarCantidadPlantsUI();
+    }
+
+    /// <summary>
+    /// Método para vender maíz con abono
+    /// </summary>
+    public void ButtonSellCornFertilizedPressed()
+    {
+        MoneyManager.SellCornFertilized(1);
+        UpdateFertilizedButtons();
+        ActualizarCantidadPlantsUI();
+    }
+
+    /// <summary>
+    /// Método para vender fresa con abono
+    /// </summary>
+    public void ButtonSellStrawberryFertilizedPressed()
+    {
+        MoneyManager.SellStrawberryFertilized(1);
+        UpdateFertilizedButtons();
+        ActualizarCantidadPlantsUI();
+    }
+
+    /// <summary>
     /// Metodo para aumentar la cantidad seleccionada en UI
     /// </summary>
     public void IncreaseAmount()
@@ -2525,7 +2633,20 @@ public class UIManager : MonoBehaviour
             Invoke("NextDialogue", 0f);
         }
     }
-
+    public void UpdateFertilizedButtons()
+    {
+        if (SceneManager.GetActiveScene().name == "Escena_Venta")
+        {
+            if (SellLettuceFertilizedButton != null)
+                SellLettuceFertilizedButton.interactable = InventoryManager.GetFertilizedCropQuantity(Items.Lettuce) > 0;
+            if (SellCarrotFertilizedButton != null)
+                SellCarrotFertilizedButton.interactable = InventoryManager.GetFertilizedCropQuantity(Items.Carrot) > 0;
+            if (SellCornFertilizedButton != null)
+                SellCornFertilizedButton.interactable = InventoryManager.GetFertilizedCropQuantity(Items.Corn) > 0;
+            if (SellStrawberryFertilizedButton != null)
+                SellStrawberryFertilizedButton.interactable = InventoryManager.GetFertilizedCropQuantity(Items.Strawberry) > 0;
+        }
+    }
 
 
     #endregion
@@ -2562,6 +2683,17 @@ public class UIManager : MonoBehaviour
         LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
         CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
         StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
+
+        // AÑADIR ESTAS LÍNEAS PARA MOSTRAR CULTIVOS CON ABONO:
+        // Necesitas crear variables TextMeshProUGUI para estos textos en el Inspector
+        if (LettuceAbonoText != null)
+            LettuceAbonoText.text = "x" + InventoryManager.GetFertilizedCropQuantity(Items.Lettuce);
+        if (CarrotAbonoText != null)
+            CarrotAbonoText.text = "x" + InventoryManager.GetFertilizedCropQuantity(Items.Carrot);
+        if (CornAbonoText != null)
+            CornAbonoText.text = "x" + InventoryManager.GetFertilizedCropQuantity(Items.Corn);
+        if (StrawberryAbonoText != null)
+            StrawberryAbonoText.text = "x" + InventoryManager.GetFertilizedCropQuantity(Items.Strawberry);
 
     }
 

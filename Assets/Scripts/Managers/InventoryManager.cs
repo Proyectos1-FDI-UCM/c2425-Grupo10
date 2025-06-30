@@ -58,6 +58,11 @@ public static class InventoryManager
     private static int MaxCropQuantity = 40; // Cantidad máxima de espacio disponible en el inventory para los cultivos
 
     /// <summary>
+    /// Máximo de cultivos con abono por tipo (2 slots x 20 = 40)
+    /// </summary>
+    private const int MaxFertilizedCropQuantity = 40;
+
+    /// <summary>
     /// Bool que se activa si el inventario está lleno para algún elemento
     /// </summary>
     private static bool _inventoryFull = false;
@@ -410,7 +415,7 @@ public static class InventoryManager
         {
             // Añadir cultivos normales
             int totalCrops = GetTotalCropQuantity(item);
-            if (totalCrops + quantity <= MaxCropQuantity)
+            if (totalCrops + quantity <= MaxCropQuantity) // Ahora máximo 40
             {
                 Inventory[(int)item] += quantity;
                 return true;
@@ -444,8 +449,18 @@ public static class InventoryManager
         {
             if (quantity > 0)
             {
-                // Añadir cultivos con abono
-                return AddFertilizedCrop(item, quantity);
+                // Añadir cultivos con abono - verificar límite
+                int currentFertilized = GetFertilizedCropQuantity(item);
+                if (currentFertilized + quantity <= MaxFertilizedCropQuantity) // Máximo 40
+                {
+                    FertilizedCropsInventory[index] += quantity;
+                    return true;
+                }
+                else
+                {
+                    _inventoryFull = true;
+                    return false;
+                }
             }
             else
             {
