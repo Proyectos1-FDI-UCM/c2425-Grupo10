@@ -493,6 +493,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI LettuceText;
     [SerializeField] private TextMeshProUGUI CarrotText;
     [SerializeField] private TextMeshProUGUI StrawberryText;
+    [SerializeField] private TextMeshProUGUI SeedGoldCornText;
+    [SerializeField] private TextMeshProUGUI SeedGoldLettuceText;
+    [SerializeField] private TextMeshProUGUI SeedGoldCarrotText;
+    [SerializeField] private TextMeshProUGUI SeedGoldStrawberryText;
     [SerializeField] private TextMeshProUGUI MushroomText;
 
 
@@ -668,6 +672,10 @@ public class UIManager : MonoBehaviour
     private bool _isLettuceSelected = false;
     private bool _isCarrotSelected = false;
     private bool _isStrawberriesSelected = false;
+    private bool _isGoldCornSelected = false;
+    private bool _isGoldLettuceSelected = false;
+    private bool _isGoldCarrotSelected = false;
+    private bool _isGoldStrawberriesSelected = false;
     private bool _isSetasSelected = false;
 
 
@@ -1975,7 +1983,7 @@ public class UIManager : MonoBehaviour
 
         }
         // Muestra los cultivos dorados
-        for (int i = 2 * ((int)Items.Count / 3); i < ((int)Items.Count); i++) // Muestra los cultivos dorados
+        for (int i = 2 * ((int)Items.Count / 3); i < ((int)Items.Count); i++) 
         {
             int j = i + (int)Items.Count;
             GameObject _crops = InventoryIcons.transform.GetChild(j).gameObject;
@@ -2197,7 +2205,8 @@ public class UIManager : MonoBehaviour
     {
         _isSomethingSelected = true;
         _isCornSelected = true;
-        _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = _isSetasSelected = false;
+        _isLettuceSelected = _isCarrotSelected = _isStrawberriesSelected = _isGoldCornSelected = _isGoldLettuceSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
+
         SellButton.Select();
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
         _cost = 90;
@@ -2214,7 +2223,7 @@ public class UIManager : MonoBehaviour
     {
         _isSomethingSelected = true;
         _isLettuceSelected = true;
-        _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = _isSetasSelected = false;
+        _isCornSelected = _isCarrotSelected = _isStrawberriesSelected = _isGoldCornSelected = _isGoldLettuceSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
         SellButton.Select();
 
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
@@ -2239,7 +2248,7 @@ public class UIManager : MonoBehaviour
     {
         _isSomethingSelected = true;
         _isCarrotSelected = true;
-        _isLettuceSelected = _isCornSelected = _isStrawberriesSelected = _isSetasSelected = false;
+        _isLettuceSelected = _isCornSelected = _isStrawberriesSelected = _isGoldCornSelected = _isGoldLettuceSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
         SellButton.Select();
 
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
@@ -2257,7 +2266,7 @@ public class UIManager : MonoBehaviour
     {
         _isSomethingSelected = true;
         _isStrawberriesSelected = true;
-        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isSetasSelected = false;
+        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isGoldCornSelected = _isGoldLettuceSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
         SellButton.Select();
 
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
@@ -2266,11 +2275,63 @@ public class UIManager : MonoBehaviour
         DescriptionText.text = "1 fresa = 40 RootCoins.";
         UpdateUI();
     }
+    public void ButtonGoldCornPressed()
+    {
+        _isSomethingSelected = true;
+        _isGoldCornSelected = true;
+        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isStrawberriesSelected = _isGoldLettuceSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
+        SellButton.Select();
+
+        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        ActualizarTextoCantidad();
+        _cost = 250;
+        DescriptionText.text = "1 maiz dorado = 250 RootCoins.";
+        UpdateUI();
+    }
+    public void ButtonGoldLettucePressed()
+    {
+        _isSomethingSelected = true;
+        _isGoldLettuceSelected = true;
+        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isStrawberriesSelected = _isGoldCornSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
+        SellButton.Select();
+
+        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        ActualizarTextoCantidad();
+        _cost = 75;
+        DescriptionText.text = "1 lechuga dorada = 75 RootCoins.";
+        UpdateUI();
+    }
+    public void ButtonGoldCarrotPressed()
+    {
+        _isSomethingSelected = true;
+        _isGoldCarrotSelected = true;
+        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isStrawberriesSelected = _isGoldLettuceSelected = _isGoldCornSelected = _isGoldStrawberriesSelected = _isSetasSelected = false;
+        SellButton.Select();
+
+        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        ActualizarTextoCantidad();
+        _cost = 125;
+        DescriptionText.text = "1 zanahoria dorada = 125 RootCoins.";
+        UpdateUI();
+    }
+    public void ButtonGoldStrawberriesPressed()
+    {
+        _isSomethingSelected = true;
+        _isGoldStrawberriesSelected = true;
+        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isGoldCarrotSelected = _isGoldLettuceSelected = _isGoldCornSelected = _isStrawberriesSelected = _isSetasSelected = false;
+        SellButton.Select();
+
+        _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
+        ActualizarTextoCantidad();
+        _cost = 200;
+        DescriptionText.text = "1 fresa dorada = 200 RootCoins.";
+        UpdateUI();
+    }
     public void ButtonSetasPressed()
     {
         _isSomethingSelected = true;
         _isSetasSelected = true;
-        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isStrawberriesSelected = false;
+        _isLettuceSelected = _isCarrotSelected = _isCornSelected = _isStrawberriesSelected = _isGoldCornSelected = _isGoldLettuceSelected = _isGoldCarrotSelected = _isGoldStrawberriesSelected = false;
         SellButton.Select();
 
         _amountBuying = 1; // Reinicia la cantidad al cambiar de cultivo
@@ -2312,6 +2373,26 @@ public class UIManager : MonoBehaviour
             cantidadDisponible = InventoryManager.GetInventoryItem(Items.Strawberry);
             precioUnitario = 40;
         }
+        else if (_isGoldCornSelected)
+        {
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.GoldCorn);
+            precioUnitario = 250;
+        }
+        else if (_isGoldLettuceSelected)
+        {
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.GoldLettuce);
+            precioUnitario = 75;
+        }
+        else if (_isGoldCarrotSelected)
+        {
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.GoldCarrot);
+            precioUnitario = 125;
+        }
+        else if (_isGoldStrawberriesSelected)
+        {
+            cantidadDisponible = InventoryManager.GetInventoryItem(Items.GoldStrawberry);
+            precioUnitario = 200;
+        }
         else if (_isSetasSelected)
         {
             cantidadDisponible = InventoryManager.GetMushroomCount();
@@ -2340,7 +2421,12 @@ public class UIManager : MonoBehaviour
             _isCornSelected ? Items.Corn :
             _isLettuceSelected ? Items.Lettuce :
             _isCarrotSelected ? Items.Carrot :
-            Items.Strawberry, _amountBuying
+            _isStrawberriesSelected ? Items.Strawberry :
+            _isGoldCornSelected ? Items.GoldCorn :
+            _isGoldLettuceSelected ? Items.GoldLettuce :
+            _isGoldCarrotSelected ? Items.GoldCarrot :
+            Items.GoldStrawberry,
+            _amountBuying
         );
         if ( _isLettuceSelected )
         {
@@ -2357,6 +2443,22 @@ public class UIManager : MonoBehaviour
         else if (_isCornSelected)
         {
             GameManager.Instance.AddAmountSold("Corn", _amountBuying);
+        }
+        else if (_isGoldCornSelected)
+        {
+            GameManager.Instance.AddAmountSold("GoldCorn", _amountBuying);
+        }
+        else if (_isGoldLettuceSelected)
+        {
+            GameManager.Instance.AddAmountSold("GoldLettuce", _amountBuying);
+        }
+        else if (_isGoldCarrotSelected)
+        {
+            GameManager.Instance.AddAmountSold("GoldCarrot", _amountBuying);
+        }
+        else if (_isGoldStrawberriesSelected)
+        {
+            GameManager.Instance.AddAmountSold("GoldStrawberries", _amountBuying);
         }
         else if (_isSetasSelected)
         {
@@ -2391,6 +2493,10 @@ public class UIManager : MonoBehaviour
         else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
         else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
         else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
+        else if (_isGoldCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldCorn);
+        else if (_isGoldLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldLettuce);
+        else if (_isGoldCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldCarrot);
+        else if (_isGoldStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldStrawberry);
         else if (_isSetasSelected) maxCantidad = InventoryManager.GetMushroomCount();
 
         if (_amountBuying < maxCantidad)
@@ -2415,6 +2521,10 @@ public class UIManager : MonoBehaviour
         else if (_isLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Lettuce);
         else if (_isCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Carrot);
         else if (_isStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.Strawberry);
+        else if (_isGoldCornSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldCorn);
+        else if (_isGoldLettuceSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldLettuce);
+        else if (_isGoldCarrotSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldCarrot);
+        else if (_isGoldStrawberriesSelected) maxCantidad = InventoryManager.GetInventoryItem(Items.GoldStrawberry);
         else if (_isSetasSelected) maxCantidad = InventoryManager.GetMushroomCount();
 
         if (_amountBuying > 1)
@@ -2446,6 +2556,10 @@ public class UIManager : MonoBehaviour
         else if (_isLettuceSelected) precioUnitario = 20;
         else if (_isCarrotSelected) precioUnitario = 65;
         else if (_isStrawberriesSelected) precioUnitario = 40;
+        else if (_isGoldCornSelected) precioUnitario = 250;
+        else if (_isGoldLettuceSelected) precioUnitario = 75;
+        else if (_isGoldCarrotSelected) precioUnitario = 125;
+        else if (_isGoldStrawberriesSelected) precioUnitario = 200;
         else if (_isSetasSelected) precioUnitario = 10;
 
         int totalGanado = _amountBuying * precioUnitario;
@@ -2481,6 +2595,10 @@ public class UIManager : MonoBehaviour
         LettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.Lettuce);
         CarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.Carrot);
         StrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.Strawberry);
+        SeedGoldCornText.text = "x" + InventoryManager.GetInventoryItem(Items.GoldCorn);
+        SeedGoldLettuceText.text = "x" + InventoryManager.GetInventoryItem(Items.GoldLettuce);
+        SeedGoldCarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.GoldCarrot);
+        SeedGoldStrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.GoldStrawberry);
         MushroomText.text = "x" + InventoryManager.GetMushroomCount();
     }
     #endregion

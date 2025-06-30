@@ -27,7 +27,7 @@ public class Setas : MonoBehaviour
     /// <summary>
     /// Tiempo que tarda una seta en volver a aparecer
     /// </summary>
-    [SerializeField] private float respawnTime = 10f;
+    [SerializeField] private float respawnTime = 120f;
 
     /// <summary>
     /// Herramienta Hands

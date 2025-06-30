@@ -115,6 +115,7 @@ public class CambiarEscena : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log("Colisiona");
             if (SceneManager.GetActiveScene().name == "Escena_Build")
             {
                 SavePosition();
@@ -143,7 +144,7 @@ public class CambiarEscena : MonoBehaviour
                     UIManager.ShowNotification("Avanza en el tutorial \npara salir", "NoCounter", 1, "NoTutorial");
                 }
             }
-            if (SceneManager.GetActiveScene().name == "Escena_Venta")
+            if (SceneManager.GetActiveScene().name == "Escena_Ines")
             {
                 SceneTransition.Instance.ChangeScene(sceneName);
                 Debug.Log("Cambiando a escena: " + sceneName);
