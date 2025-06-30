@@ -239,6 +239,9 @@ public class TutorialManager : MonoBehaviour
         //    //NextDialogue();
         //}
 
+        if (_tutorialPhase > 20) _tutorialPhaseEscenas = -1;
+
+
         // Iniciar tutoriales específicos según la escena actual
         if (SceneManager.GetActiveScene().name == "Escena_Compra" && _tutorialPhaseEscenas == 0)
         {

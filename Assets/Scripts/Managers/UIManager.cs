@@ -1116,7 +1116,7 @@ public class UIManager : MonoBehaviour
         }
         else if (source == "NoTutorial" && _isOtherNotification)
         {
-            if (Notification6.activeSelf) Notification1.SetActive(false);
+            if (Notification1.activeSelf) Notification1.SetActive(false);
             NotificationManager.DestroyNotification(source);
             _isOtherNotification = false;
         }
