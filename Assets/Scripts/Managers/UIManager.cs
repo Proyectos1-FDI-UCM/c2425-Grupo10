@@ -895,6 +895,7 @@ public class UIManager : MonoBehaviour
                     //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
                 }
                 EnableInterfaz();
+                UpdateUI();
             }
             
         }
@@ -1785,11 +1786,12 @@ public class UIManager : MonoBehaviour
                 LettuceButton.navigation = navLettuce;
             }
 
-            if (TutorialManager.GetTutorialPhase() > 25)
+            if (TutorialManager.GetTutorialPhase() > 25) // Huevos y peces
             {
                 BlockMarketPlants[3].SetActive(false);
                 FishButton.interactable = true;
             }
+
             if(TutorialManager.GetTutorialPhase() > 26)
             {
                 BlockMarketPlants[4].SetActive(false);
@@ -2784,7 +2786,7 @@ public class UIManager : MonoBehaviour
                 else if ((MoneyManager.GetMoneyCount() >= 1400) && (GameManager.Instance.GetGardenUpgrades() == 3))
                 {
                     GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 5.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.600 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
                 }
                 else if ((MoneyManager.GetMoneyCount() >= 1600) && (GameManager.Instance.GetGardenUpgrades() == 4))
                 {
