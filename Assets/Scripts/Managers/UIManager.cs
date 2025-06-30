@@ -2489,7 +2489,9 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            DescriptionText.text = $"No tienes suficientes cultivos de {_selected} para vender.";
+           DescriptionText.text = $"No tienes suficientes cultivos de {_selected} para vender.";
+           if (_selected == "huevo" || _selected == "huevos") DescriptionText.text = $"No tienes suficientes huevos para vender.";
+            if (_selected == "pez" || _selected == "peces") DescriptionText.text = $"No tienes suficientes peces para vender.";
         }
 
         int phase = TutorialManager.GetTutorialPhase();
