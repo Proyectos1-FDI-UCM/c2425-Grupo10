@@ -501,7 +501,7 @@ public class TutorialManager : MonoBehaviour
             UIManager.HideNotification("Tutorial");
             _isNotificationActive = false;
         }
-        else if (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta") 
+        else if (_tutorialPhase < 27 && (SceneManager.GetActiveScene().name == "Escena_Compra" || SceneManager.GetActiveScene().name == "Escena_Venta")) 
         {
             _tutorialPhaseEscenas++;
             FindTutorialPhase(_tutorialPhaseEscenas);

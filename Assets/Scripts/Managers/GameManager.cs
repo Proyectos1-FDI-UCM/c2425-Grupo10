@@ -624,11 +624,13 @@ public class GameManager : MonoBehaviour
     {
         if (_wateringCanUpgrades < _maxWateringCanUpgrades)
         {
-            _wateringCanUpgrades += 1;
+            _wateringCanUpgrades = _wateringCanUpgrades + 1;
         }
+
         if (_wateringCanUpgrades == 1)
         {
             MoneyCount.UpgradeWateringCanLevel1();
+            
         }
         else if (_wateringCanUpgrades == 2)
         {

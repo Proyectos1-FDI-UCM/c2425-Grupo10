@@ -6073,6 +6073,14 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: EggPrice
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
+      propertyPath: FishPrice
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: MoneyCount
       value: 10
       objectReference: {fileID: 0}
@@ -6106,35 +6114,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: GardenUpgradePrices.Array.data[0]
-      value: 1000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: GardenUpgradePrices.Array.data[1]
-      value: 1500
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: GardenUpgradePrices.Array.data[2]
-      value: 2000
+      value: 1200
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: GardenUpgradePrices.Array.data[3]
-      value: 3000
+      value: 1400
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: GardenUpgradePrices.Array.data[4]
-      value: 5000
+      value: 1600
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: WateringCanUpgradePrices.Array.data[0]
-      value: 750
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: WateringCanUpgradePrices.Array.data[1]
-      value: 1500
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7169075296061298459, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: WateringCanUpgradePrices.Array.data[2]
-      value: 3000
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 7219990337915446216, guid: 7c3ccf50908234e1f9b635b00f95edce, type: 3}
       propertyPath: m_LocalPosition.x

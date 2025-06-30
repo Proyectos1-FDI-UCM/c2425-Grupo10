@@ -890,7 +890,7 @@ public class UIManager : MonoBehaviour
                 }
                 if (SceneManager.GetActiveScene().name == "Escena_Mejora" || SceneManager.GetActiveScene().name == "Escena_Venta")
                 {
-                    if (TutorialManager.GetTutorialPhase() < 25 || TutorialManager.GetTutorialPhase() == 20) Check(0);
+                    if (TutorialManager.GetTutorialPhase() < 25 || TutorialManager.GetTutorialPhase() > 26) Check(0);
                     else CheckBox[0].SetActive(false);
                     //if (TutorialManager.GetTutorialPhase() == 20 ) NextDialogue();
                 }
@@ -1116,7 +1116,7 @@ public class UIManager : MonoBehaviour
         }
         else if (source == "NoTutorial" && _isOtherNotification)
         {
-            Notification1.SetActive(false);
+            if (Notification6.activeSelf) Notification1.SetActive(false);
             NotificationManager.DestroyNotification(source);
             _isOtherNotification = false;
         }
@@ -2748,56 +2748,35 @@ public class UIManager : MonoBehaviour
     {
         if (_isUpgradeSelected && _isSomethingSelected)
         {
-            if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 150) && (GameManager.Instance.GetWateringCanUpgrades() == 0))
+            if (_isWateringCanSelected)
             {
-                GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 500 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
-            }
-            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 500) && (GameManager.Instance.GetWateringCanUpgrades() == 1))
-            {
-                GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua por 800 RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
-            }
-            else if (_isWateringCanSelected && (MoneyManager.GetMoneyCount() >= 800) && (GameManager.Instance.GetWateringCanUpgrades() == 2))
-            {
-                GameManager.Instance.UpgradeWateringCan();
-                ShowDescriptionUpgrade("Aumenta la capacidad de agua.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                int currentLevel = GameManager.Instance.GetWateringCanUpgrades();
+                if (MoneyManager.GetWateringCanUpgrade() == currentLevel) GameManager.Instance.UpgradeWateringCan();
+                 Debug.Log("Actual " +  currentLevel + " .Nueva " + GameManager.Instance.GetWateringCanUpgrades());
+                // Solo actualizar la descripción si la mejora fue exitosa
+                if (GameManager.Instance.GetWateringCanUpgrades() > currentLevel)
+                {
+                    ShowDescriptionUpgrade("Aumenta la capacidad de agua por " + MoneyManager.Instance.GetWateringCanUpgradePrice() + " RootCoins.", GameManager.Instance.GetWateringCanUpgrades(), _maxWCUpgrades);
+                }
+
+                //MoneyManager.DeductMoney(MoneyManager.Instance.GetWateringCanUpgradePrice());
             }
         }
         else if (_isExtendSelected && _isSomethingSelected)
         {
             if (_isGardenSelected)
             {
-                if ((MoneyManager.GetMoneyCount() >= 800) && (GameManager.Instance.GetGardenUpgrades() == 0))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.000 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 1000) && (GameManager.Instance.GetGardenUpgrades() == 1))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.200 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 1200) && (GameManager.Instance.GetGardenUpgrades() == 2))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.400 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 1400) && (GameManager.Instance.GetGardenUpgrades() == 3))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos por 1.600 RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
-                else if ((MoneyManager.GetMoneyCount() >= 1600) && (GameManager.Instance.GetGardenUpgrades() == 4))
-                {
-                    GameManager.Instance.UpgradeGarden();
-                    ShowDescriptionUpgrade("Expande el terreno de cultivos.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
-                }
+                int currentLevel = GameManager.Instance.GetGardenUpgrades();
+                GameManager.Instance.UpgradeGarden();
 
+                // Solo actualizar la descripción si la mejora fue exitosa
+                if (GameManager.Instance.GetGardenUpgrades() > currentLevel)
+                {
+                    ShowDescriptionUpgrade("Expande el terreno de cultivos por " + MoneyManager.Instance.GetGardenUpgradePrice() + " RootCoins.", GameManager.Instance.GetGardenUpgrades(), _maxGardenUpgrades);
+                }
             }
         }
     }
-
     #endregion
 
     // ---- METODOS PRIVADOS (MEJORA) ----

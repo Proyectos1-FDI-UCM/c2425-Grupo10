@@ -383,6 +383,14 @@ public class MoneyManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Obtiene el precio de la siguiente mejora de regadera
+    /// </summary>
+    public int GetWateringCanUpgrade()
+    {
+        return _wateringCanLevel;
+    }
+
+    /// <summary>
     /// Obtiene el precio de la siguiente mejora de huerto
     /// </summary>
     public int GetGardenUpgradePrice()
