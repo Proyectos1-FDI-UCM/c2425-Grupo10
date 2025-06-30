@@ -23,7 +23,7 @@ public class PlayerMovement : MonoBehaviour
     /// Velocidad a la que el jugador se mueve en el mundo 2D.
     /// Se puede ajustar desde el Inspector de Unity.
     /// </summary>
-    [SerializeField] private float Speed = 3f;
+    [SerializeField] private float Speed = 4.5f;
 
     ///<summary>
     ///Energia maxima del jugador
