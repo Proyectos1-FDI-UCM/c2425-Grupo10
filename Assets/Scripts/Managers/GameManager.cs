@@ -235,6 +235,12 @@ public class GameManager : MonoBehaviour
     // 0: Lechuga, 1: Zanahoria, 2: Fresa, 3: Maíz
     private bool[] _unlockedCrops = new bool[4] { true, false, false, false };
 
+
+    // ---- NUEVOS CAMPOS PARA DESBLOQUEO DE ABONO ----
+    /// <summary>
+    /// Booleano para saber si el abono está desbloqueado
+    /// </summary>
+    private bool _isFertilizerUnlocked = false;
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -809,10 +815,22 @@ public class GameManager : MonoBehaviour
         _amountOfLettuceSold = 0;
         _amountOfCornSold = 0;
         _amountOfStrawberrySold = 0;
+
+        // NUEVO: Resetear estado del abono
+        _isFertilizerUnlocked = false;
+
         TutorialManager.ResetTutorialManager();
         NotificationManager.ResetNotificationManager();
         GardenData.ResetGarden();
+
+        // NUEVO: Resetear datos de abono
+        GardenData.ResetGardenFertilizer();
+
         InventoryManager.ResetInventory();
+
+        // NUEVO: Resetear inventario de cultivos con abono
+        InventoryManager.ResetFertilizedCropsInventory();
+
         InventoryManager.ModifyPlayerPosition(new Vector3(14.14f, -9.62f, 0));
         SaveTime(0f);
         _newGame = false;
@@ -822,7 +840,7 @@ public class GameManager : MonoBehaviour
         _unlockedCrops[0] = true; // Lechuga desbloqueada por defecto
 
 
-        Debug.Log("Partida Reiniciada correctamente");
+        Debug.Log("Partida Reiniciada correctamente con sistema de abono");
 
     }
 
@@ -976,9 +994,23 @@ public class GameManager : MonoBehaviour
         {
             _unlockedCrops[1] = true;
 
-            // Mostrar la notificación en la UI
-            UIManager.ShowNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", 4, "Tool");
-            Invoke("HideSeedNotification", 2f);
+            // NUEVO: También desbloquear el abono junto con las zanahorias
+            if (!_isFertilizerUnlocked)
+            {
+                _isFertilizerUnlocked = true;
+
+                // Mostrar notificación especial para el abono
+                UIManager.ShowNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", 4, "Tool");
+
+                // Programar segunda notificación para el abono
+                Invoke("ShowFertilizerUnlockNotification", 3f);
+            }
+            else
+            {
+                // Solo mostrar notificación de zanahoria si el abono ya estaba desbloqueado
+                UIManager.ShowNotification("¡Has desbloqueado \nla zanahoria!", "NoCounter", 4, "Tool");
+                Invoke("HideSeedNotification", 2f);
+            }
 
 
         }
@@ -1011,6 +1043,24 @@ public class GameManager : MonoBehaviour
     {
         _isInCinematic = false;
     }
+
+    /// <summary>
+    /// Verifica si el abono está desbloqueado
+    /// </summary>
+    /// <returns>True si el abono está desbloqueado</returns>
+    public bool IsFertilizerUnlocked()
+    {
+        return _isFertilizerUnlocked;
+    }
+
+    /// <summary>
+    /// Establece el estado de desbloqueo del abono
+    /// </summary>
+    /// <param name="unlocked">True para desbloquear el abono</param>
+    public void SetFertilizerUnlocked(bool unlocked)
+    {
+        _isFertilizerUnlocked = unlocked;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -1038,6 +1088,18 @@ public class GameManager : MonoBehaviour
     {
         UIManager.HideNotification("Tool");
     }
+
+
+    // NUEVO MÉTODO PRIVADO:
+    /// <summary>
+    /// Muestra la notificación de desbloqueo del abono
+    /// </summary>
+    private void ShowFertilizerUnlockNotification()
+    {
+        UIManager.ShowNotification("¡Nuevo item disponible: \n¡ABONO!\nMejora tus cultivos \ncon la tecla E", "NoCounter", 6, "Tool");
+        Invoke("HideSeedNotification", 4f);
+    }
+
     #endregion
 } // class GameManager 
 // namespace

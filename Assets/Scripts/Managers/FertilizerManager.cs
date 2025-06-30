@@ -44,7 +44,7 @@ public class FertilizerManager : MonoBehaviour
     /// <summary>
     /// AudioSource para el sonido de aplicar abono
     /// </summary>
-    [SerializeField] private AudioSource FertilizerAudio;
+    [SerializeField] private AudioClip FertilizerAudio;
 
     #endregion
 
@@ -167,6 +167,12 @@ public class FertilizerManager : MonoBehaviour
 
         return false;
     }
+
+    public void SetFertilizerSelected(bool selected)
+    {
+        // Por ahora, no hace nada
+        // Más adelante puedes añadir lógica específica aquí
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -231,22 +237,22 @@ public class FertilizerManager : MonoBehaviour
     /// </summary>
     private void PlayFertilizerEffects(Transform plantTransform)
     {
-        // Reproducir sonido
+        // Reproducir sonido usando AudioSource.PlayClipAtPoint (VERSIÓN SIMPLE)
         if (FertilizerAudio != null)
         {
-            FertilizerAudio.Play();
+            AudioSource.PlayClipAtPoint(FertilizerAudio, plantTransform.position, 0.7f);
         }
 
         // Aquí podrías añadir efectos de partículas, animaciones, etc.
         // Por ejemplo:
         // GameObject particles = Instantiate(fertilizerParticlesPrefab, plantTransform.position, Quaternion.identity);
 
-        // Cambiar el color del suelo para indicar que tiene abono
-        //CropSpriteEditor cropEditor = plantTransform.GetChild(0).GetComponent<CropSpriteEditor>();
-        //if (cropEditor != null)
-        //{
-        //    cropEditor.ShowFertilizerEffect();
-        //}
+        //Cambiar el color del suelo para indicar que tiene abono
+        CropSpriteEditor cropEditor = plantTransform.GetChild(0).GetComponent<CropSpriteEditor>();
+        if (cropEditor != null)
+        {
+            cropEditor.ShowFertilizerEffect();
+        }
     }
 
     #endregion

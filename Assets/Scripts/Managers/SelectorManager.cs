@@ -145,6 +145,11 @@ public class SelectorManager : MonoBehaviour
     private int _currentSeed;
 
     /// <summary>
+    /// Índice máximo (incluye abono como última opción)
+    /// </summary>
+    private int _maxSeedIndex = 4; // 0:Maíz, 1:Lechuga, 2:Zanahoria, 3:Fresa, 4:Abono
+
+    /// <summary>
     /// Referencia al SpriteRenderer
     /// </summary>
     private SpriteRenderer _spriteRenderer;
@@ -171,8 +176,6 @@ public class SelectorManager : MonoBehaviour
     /// Inicializa el estado de las herramientas al inicio del juego,
     /// asegurándose de que ninguna esté activada.
     /// </summary>
-    /// -Seleccionar la herramienta utilizada con las teclas 1-5.
-
     void Start()
     {
         TutorialManager = FindObjectOfType<TutorialManager>();
@@ -184,17 +187,24 @@ public class SelectorManager : MonoBehaviour
         DisableSelector(ShovelTool, SeedTool, WateringCanTool, SickleTool, ShovelSelector, SeedSelector, WateringCanSelector, SickleSelector);
 
         //Selector de semillas
-
         _spriteRenderer = SeedTool.GetComponent<SpriteRenderer>();
 
         _currentSeed = 1; // Aparece la lechuga como primera semilla del array por defecto 
-        for (int i = 1; i < SeedsQAB.Length; i++)
+
+        // Desactivar TODOS los seeds
+        for (int i = 0; i < SeedsQAB.Length; i++)
         {
-            SeedsQAB[i].SetActive(false);
+            if (SeedsQAB[i] != null)
+            {
+                SeedsQAB[i].SetActive(false);
+            }
         }
 
-        if (SeedsQAB.Length > 0 && _spriteRenderer != null) ShowSeedSelected();
-        //Selector de semillas
+        // Mostrar la lechuga inicial (siempre, sin verificar desbloqueos)
+        if (SeedsQAB.Length > 0 && _spriteRenderer != null)
+        {
+            ShowSeedOrFertilizerSelected();
+        }
     }
 
     /// <summary>
@@ -228,38 +238,22 @@ public class SelectorManager : MonoBehaviour
 
             }
 
-            if (InputManager.Instance.Select5WasPressedThisFrame() || _toolSelector == 4)
+            // *** LÓGICA COMPLETAMENTE REESCRITA PARA TECLA 5 ***
+            if (InputManager.Instance.Select5WasPressedThisFrame())
             {
-                _toolSelector = -1;
-                SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
-                if (SeedTool.activeInHierarchy) _currentSeed++;
-                if (_currentSeed == SeedsQAB.Length) _currentSeed = 0;
-
-
-                PlayerAnimator.SetBool("HasWateringCan", false);
-                PlayerAnimator.SetBool("HasSeedBag", true);
-                PlayerAnimator.SetBool("HasSickle", false);
-                PlayerAnimator.SetBool("HasShovel", false);
-
-
-                ToggleTool(SeedTool);
-                EnableSelector(SeedSelector);
-                UIManager.HideWaterBar();
-
-                DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
-                LevelManager.Instance.ChangeTool(5);
-
-                //Cambio de semillas
-
-                SeedsQAB[_currentSeed].SetActive(false); // Desactivar semilla actual
-
-                //if (SeedTool.activeInHierarchy) _currentSeed++; 
-
-                // if (_currentSeed == SeedsQAB.Length) _currentSeed = 0; 
-
-                ShowSeedSelected();
-
-                //Cambio de semillas
+                // Si YA estamos en tool selector 4 (semillas), entonces CAMBIAR semilla
+                if (_toolSelector == 4)
+                {
+                    Debug.Log("Ya estamos en herramienta semillas, cambiando semilla...");
+                    CycleSeedSelection();
+                }
+                else
+                {
+                    // Si NO estamos en tool selector 4, entonces ACTIVAR herramienta semillas
+                    Debug.Log("Activando herramienta semillas por primera vez...");
+                    _toolSelector = 4;
+                    ActivateSeedTool();
+                }
             }
 
             if (InputManager.Instance.Select4WasPressedThisFrame() || _toolSelector == 3)
@@ -342,8 +336,43 @@ public class SelectorManager : MonoBehaviour
     }
     #endregion
 
+    // ---- MÉTODOS PUBLICOS ----
+    #region Métodos Publicos
+
+    /// <summary>
+    /// NUEVO: Verifica si la semilla/abono actual se puede usar
+    /// </summary>
+    public bool CanUseCurrentSeed()
+    {
+        return IsItemUnlocked(_currentSeed);
+    }
+
+
+    #endregion
+
     // ---- MÉTODOS PRIVADOS ----
     #region Métodos Privados
+
+    /// <summary>
+    /// NUEVO: Método para activar la herramienta semillas sin cambiar la semilla actual
+    /// </summary>
+    private void ActivateSeedTool()
+    {
+        PlayerAnimator.SetBool("HasWateringCan", false);
+        PlayerAnimator.SetBool("HasSeedBag", true);
+        PlayerAnimator.SetBool("HasSickle", false);
+        PlayerAnimator.SetBool("HasShovel", false);
+
+        ToggleTool(SeedTool);
+        EnableSelector(SeedSelector);
+        UIManager.HideWaterBar();
+
+        DisableSelector(ShovelTool, GlovesTool, WateringCanTool, SickleTool, ShovelSelector, GlovesSelector, WateringCanSelector, SickleSelector);
+        LevelManager.Instance.ChangeTool(5);
+
+        // Mostrar la semilla actual SIN cambiarla
+        ShowSeedOrFertilizerSelected();
+    }
 
     /// <summary>
     /// Activa la herramienta seleccionada o la deselecciona si ya está activa.
@@ -445,16 +474,121 @@ public class SelectorManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Muestra la semilla seleccionada tanto en la mano del jugador como en la quickAccessBar
+    /// Muestra la semilla o abono seleccionado (SIN VERIFICAR DESBLOQUEOS)
     /// </summary>
-    private void ShowSeedSelected()
+    private void ShowSeedOrFertilizerSelected()
     {
-        SeedsQAB[_currentSeed].SetActive(true);
-        AudioSource.Play();
-        //_spriteRenderer.sprite = SeedsHand[_currentSeed];
+        Debug.Log($"ShowSeedOrFertilizerSelected llamado con _currentSeed: {_currentSeed}");
+
+        // Desactivar todos los GameObjects
+        for (int i = 0; i < SeedsQAB.Length; i++)
+        {
+            if (SeedsQAB[i] != null)
+            {
+                SeedsQAB[i].SetActive(false);
+            }
+        }
+
+        // Activar el GameObject correspondiente (SIEMPRE, sin verificar desbloqueos)
+        if (_currentSeed < SeedsQAB.Length && SeedsQAB[_currentSeed] != null)
+        {
+            SeedsQAB[_currentSeed].SetActive(true);
+            Debug.Log($"Activando UI semilla/abono en índice: {_currentSeed}");
+        }
+        else
+        {
+            Debug.LogError($"No se puede activar SeedsQAB[{_currentSeed}] - fuera de rango o es null");
+        }
+
+        // Reproducir sonido
+        if (AudioSource != null)
+        {
+            AudioSource.Play();
+        }
+
+        // Notificar al SeedsManager
         SeedsManager Manager = SeedTool.GetComponent<SeedsManager>();
-        Manager.ChangeSeed(_currentSeed); // Modifica el prefab de planta en funcion de la semilla seleccionada en el SeedManager
+        if (Manager != null)
+        {
+            if (_currentSeed < 4) // Es una semilla
+            {
+                // MAPEAR CORRECTAMENTE: 0=Lechuga, 1=Zanahoria, 2=Fresa, 3=Maíz
+                int seedIndexForManager = MapSelectorToSeedManager(_currentSeed);
+                Manager.ChangeSeed(seedIndexForManager);
+                Manager.ChangeSeed(_currentSeed);
+                UIManager.UpdateSeedDisplay(_currentSeed);
+                Debug.Log($"Notificado SeedsManager - semilla: {_currentSeed}");
+            }
+            else // Es abono (_currentSeed == 4)
+            {
+                Manager.ChangeToFertilizer();
+                UIManager.UpdateFertilizerDisplay();
+                Debug.Log("Notificado SeedsManager - modo abono");
+            }
+        }
+        else
+        {
+            Debug.LogError("No se encontró SeedsManager en SeedTool");
+        }
     }
+
+    /// <summary>
+    /// Mapea el índice del selector al índice que espera SeedsManager
+    /// Selector: 0=Lechuga, 1=Zanahoria, 2=Fresa, 3=Maíz, 4=Abono
+    /// SeedsManager: 0=Maíz, 1=Lechuga, 2=Zanahoria, 3=Fresa
+    /// </summary>
+    private int MapSelectorToSeedManager(int selectorIndex)
+    {
+        switch (selectorIndex)
+        {
+            case 0: return 1; // Lechuga: Selector 0 → SeedsManager 1
+            case 1: return 2; // Zanahoria: Selector 1 → SeedsManager 2  
+            case 2: return 3; // Fresa: Selector 2 → SeedsManager 3
+            case 3: return 0; // Maíz: Selector 3 → SeedsManager 0
+            default: return 1; // Por defecto lechuga
+        }
+    }
+
+    /// <summary>
+    /// Verifica si un item está desbloqueado (CON MAPEO CORREGIDO)
+    /// </summary>
+    private bool IsItemUnlocked(int selectorIndex)
+    {
+        bool unlocked = false;
+
+        if (selectorIndex < 4) // Es una semilla
+        {
+            int seedManagerIndex = MapSelectorToSeedManager(selectorIndex);
+            unlocked = GameManager.Instance.IsCropUnlocked(seedManagerIndex);
+        }
+        else if (selectorIndex == 4) // Es abono
+        {
+            unlocked = GameManager.Instance.IsFertilizerUnlocked();
+        }
+
+        return unlocked;
+    }
+
+    /// <summary>
+    /// Maneja el ciclo de selección de semillas/abono (SIN VERIFICAR DESBLOQUEOS)
+    /// </summary>
+    private void CycleSeedSelection()
+    {
+        Debug.Log($"=== CycleSeedSelection iniciado - _currentSeed actual: {_currentSeed} ===");
+
+        // Simplemente incrementar el índice sin verificar desbloqueos
+        _currentSeed++;
+        if (_currentSeed > _maxSeedIndex)
+        {
+            _currentSeed = 0; // Volver al principio (maíz)
+        }
+
+        Debug.Log($"=== CycleSeedSelection terminado - nuevo _currentSeed: {_currentSeed} ===");
+
+        // Mostrar la nueva selección (siempre)
+        ShowSeedOrFertilizerSelected();
+    }
+
 
     #endregion
 }

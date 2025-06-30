@@ -405,6 +405,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Button StrawberrySeedsButton;
     [SerializeField] private Button CornSeedsButton;
 
+    /// <summary>
+    /// Botón para seleccionar abono en la tienda
+    /// </summary>
+    [SerializeField] private Button FertilizerButton;
+
+
     [SerializeField] private Button DepositeMoneyButton;
     [SerializeField] private Button ExtendButton;
 
@@ -461,6 +467,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI SeedLettuceText;
     [SerializeField] private TextMeshProUGUI SeedCarrotText;
     [SerializeField] private TextMeshProUGUI SeedStrawberryText;
+
+    /// <summary>
+    /// Texto que muestra la cantidad de abono en el inventario
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI FertilizerText;
+
 
     /// <summary>
     /// Boton para comprar la mejora/ampliacion
@@ -588,6 +600,15 @@ public class UIManager : MonoBehaviour
     private bool _isCarrotSelected = false;
     private bool _isStrawberriesSelected = false;
 
+    /// <summary>
+    /// Bool para saber si el abono está seleccionado
+    /// </summary>
+    private bool _isFertilizerSelected = false;
+
+    /// <summary>
+    /// Precio del abono por unidad
+    /// </summary>
+    private const int FERTILIZER_PRICE = 15; // 15 RootCoins por abono
 
     /// <summary>
     /// Booleano para saber si el jugador ha pulsado algun boton
@@ -2270,6 +2291,28 @@ public class UIManager : MonoBehaviour
         SelectSeed(SeedOrPlantType.Strawberry, 80, "Fresa", "Fresas");
     }
 
+
+    /// <summary>
+    /// Método llamado cuando se presiona el botón de abono
+    /// </summary>
+    public void ButtonFertilizerPressed()
+    {
+        // Solo permitir compra de abono si está desbloqueado
+        if (GameManager.Instance.IsFertilizerUnlocked())
+        {
+            SelectFertilizer(FERTILIZER_PRICE, "abono", "abonos");
+
+            if (TutorialManager.GetTutorialPhase() >= 11)
+            {
+                // Si hay tutorial activo, no hacer nada especial por ahora
+            }
+        }
+        else
+        {
+            DescriptionText.text = "El abono aún no está disponible. ¡Vende 10 lechugas para desbloquearlo!";
+        }
+    }
+
     /// <summary>
     /// Metodo para aumentar la cantidad seleccionada en UI
     /// </summary>
@@ -2341,15 +2384,31 @@ public class UIManager : MonoBehaviour
         Items selectedItem = GetSelectedSeed();
         int currentAmount = InventoryManager.GetInventoryItem(selectedItem);
         _selected = GetSeedPlantName();
-        if (_amount + currentAmount <= 30)
+
+        // Determinar límite máximo según el tipo de item
+        int maxLimit = 30; // Por defecto para semillas
+        if (selectedItem == Items.Fertilizer)
+        {
+            maxLimit = 30; // El abono también tiene límite de 30
+        }
+
+        if (_amount + currentAmount <= maxLimit)
         {
             int totalCost = _amount * _cost;
 
             if (MoneyManager.GetMoneyCount() >= totalCost)
             {
                 MoneyManager.DeductMoney(totalCost);
-                InventoryManager.ModifyInventory(GetSelectedSeed(), _amount);
-                DescriptionText.text = "Compra realizada con éxito.";
+                InventoryManager.ModifyInventory(selectedItem, _amount);
+
+                if (selectedItem == Items.Fertilizer)
+                {
+                    DescriptionText.text = $"¡Compra realizada! {_amount} {_selected} adquirido(s).";
+                }
+                else
+                {
+                    DescriptionText.text = "Compra realizada con éxito.";
+                }
             }
             else
             {
@@ -2361,10 +2420,10 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            DescriptionText.text = $"Ya tienes el máximo de {_selected} (30).";
+            DescriptionText.text = $"Ya tienes el máximo de {_selected} ({maxLimit}).";
         }
 
-
+        // Tutorial check (mantener funcionalidad existente)
         if (TutorialManager.GetTutorialPhase() == 13)
         {
             Check(0);
@@ -2427,6 +2486,16 @@ public class UIManager : MonoBehaviour
         SeedCarrotText.text = "x" + InventoryManager.GetInventoryItem(Items.CarrotSeed);
         SeedStrawberryText.text = "x" + InventoryManager.GetInventoryItem(Items.StrawberrySeed);
 
+        // VERIFICAR QUE ESTA LÍNEA ESTÉ PRESENTE Y FERTILIZER TEXT ESTÉ ASIGNADO
+        if (FertilizerText != null)
+        {
+            FertilizerText.text = "x" + InventoryManager.GetInventoryItem(Items.Fertilizer);
+            Debug.Log($"Actualizando cantidad abono: {InventoryManager.GetInventoryItem(Items.Fertilizer)}");
+        }
+        else
+        {
+            Debug.LogError("FertilizerText es null - no está asignado en el inspector");
+        }
     }
     /// <summary>
     /// muetsra la cantidad de plantas que tiene el jugador de cada tipo
@@ -2469,41 +2538,43 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// obtiene el nombre del item seleccionado en singular
+    /// obtiene el nombre del item seleccionado en singular (VERIFICAR QUE INCLUYA ABONO)
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
     private string GetSingularName(Items item)
     {
-        if (item == Items.Carrot) return "zanahoria";
-        else if (item == Items.Lettuce) return "lechuga";
-        else if (item == Items.Corn) return "maíz";
-        else if (item == Items.Strawberry) return "fresa";
-
-        else if (item == Items.CarrotSeed) return "semilla de zanahoria";
-        else if (item == Items.LettuceSeed) return "semilla de lechuga";
-        else if (item == Items.CornSeed) return "semilla de  maíz";
-        else if (item == Items.StrawberrySeed) return "semilla de fresa";
-        return "";
+        switch (item)
+        {
+            case Items.Carrot: return "zanahoria";
+            case Items.Lettuce: return "lechuga";
+            case Items.Corn: return "maíz";
+            case Items.Strawberry: return "fresa";
+            case Items.CarrotSeed: return "semilla de zanahoria";
+            case Items.LettuceSeed: return "semilla de lechuga";
+            case Items.CornSeed: return "semilla de maíz";
+            case Items.StrawberrySeed: return "semilla de fresa";
+            case Items.Fertilizer: return "abono"; // ASEGÚRATE DE QUE ESTÁ AQUÍ
+            default: return "desconocido";
+        }
     }
 
     /// <summary>
-    /// obtiene el nombre del item seleccionado en plural
+    /// obtiene el nombre del item seleccionado en plural (VERIFICAR QUE INCLUYA ABONO)
     /// </summary>
-    /// <param name="item"></param>
-    /// <returns></returns>
     private string GetPluralName(Items item)
     {
-        if (item == Items.Carrot) return "zanahorias";
-        else if (item == Items.Lettuce) return "lechugas";
-        else if (item == Items.Corn) return "maíces";
-        else if (item == Items.Strawberry) return "fresas";
-
-        else if (item == Items.CarrotSeed) return "semillas de zanahoria";
-        else if (item == Items.LettuceSeed) return "semillas de lechuga";
-        else if (item == Items.CornSeed) return "semillas de  maíz";
-        else if (item == Items.StrawberrySeed) return "semillas de fresa";
-        return "";
+        switch (item)
+        {
+            case Items.Carrot: return "zanahorias";
+            case Items.Lettuce: return "lechugas";
+            case Items.Corn: return "maíces";
+            case Items.Strawberry: return "fresas";
+            case Items.CarrotSeed: return "semillas de zanahoria";
+            case Items.LettuceSeed: return "semillas de lechuga";
+            case Items.CornSeed: return "semillas de maíz";
+            case Items.StrawberrySeed: return "semillas de fresa";
+            case Items.Fertilizer: return "abonos"; // ASEGÚRATE DE QUE ESTÁ AQUÍ
+            default: return "desconocidos";
+        }
     }
 
     /// <summary>
@@ -2518,6 +2589,7 @@ public class UIManager : MonoBehaviour
             if (_isCarrotSelected) return Items.CarrotSeed;
             if (_isLettuceSelected) return Items.LettuceSeed;
             if (_isStrawberriesSelected) return Items.StrawberrySeed;
+            if (_isFertilizerSelected) return Items.Fertilizer; // NUEVO
         }
         else if (SceneManager.GetActiveScene().name == "Escena_Venta")
         {
@@ -2525,6 +2597,7 @@ public class UIManager : MonoBehaviour
             if (_isCarrotSelected) return Items.Carrot;
             if (_isLettuceSelected) return Items.Lettuce;
             if (_isStrawberriesSelected) return Items.Strawberry;
+            // El abono no se vende, solo se compra
         }
         return Items.Count;
     }
@@ -2716,4 +2789,80 @@ public class UIManager : MonoBehaviour
 
 
     #endregion
+
+
+    // ---- ABONO ----
+    #region Abono
+
+    // ---- METODOS PUBLICOS (ABONO) ----
+    #region Metodos Publicos (Abono)
+    /// <summary>
+    /// Actualiza la UI para mostrar la cantidad de la semilla seleccionada
+    /// </summary>
+    /// <param name="seedIndex">Índice de la semilla (0=Maíz, 1=Lechuga, 2=Zanahoria, 3=Fresa)</param>
+    public void UpdateSeedDisplay(int seedIndex)
+    {
+        // Convertir índice a Items enum
+        Items seedItem = (Items)seedIndex;
+
+        // Aquí puedes actualizar algún texto específico de UI si lo necesitas
+        // Por ejemplo, cambiar el color del selector, mostrar información extra, etc.
+
+        Debug.Log($"Semilla seleccionada: {seedItem}");
+    }
+
+    /// <summary>
+    /// Actualiza la UI para mostrar que el abono está seleccionado
+    /// </summary>
+    public void UpdateFertilizerDisplay()
+    {
+        // Aquí puedes actualizar la UI específicamente para el abono
+        // Por ejemplo, cambiar color del selector, mostrar consejos de uso, etc.
+
+        Debug.Log("Abono seleccionado");
+    }
+
+    /// <summary>
+    /// Muestra información sobre cómo usar el abono
+    /// </summary>
+    public void ShowFertilizerInfo()
+    {
+        ShowNotification("Usa E cerca de una planta\npara aplicar abono", "NoCounter", 3, "Tool");
+    }
+
+
+    #endregion
+
+    // ---- METODOS PRIVADOS (ABONO) ----
+    #region Metodos Privados (ABONO)
+
+    /// <summary>
+    /// Selecciona el abono para comprar
+    /// </summary>
+    /// <param name="cost">Precio del abono</param>
+    /// <param name="singularName">Nombre singular</param>
+    /// <param name="pluralName">Nombre plural</param>
+    private void SelectFertilizer(int cost, string singularName, string pluralName)
+    {
+        _isSomethingSelected = true;
+        _isFertilizerSelected = true;
+
+        // Desactivar otros items seleccionados
+        _isCornSelected = false;
+        _isCarrotSelected = false;
+        _isLettuceSelected = false;
+        _isStrawberriesSelected = false;
+
+        BuySellButton.Select();
+        _amount = 1;
+        _cost = cost;
+        _selected = _amount <= 1 ? singularName : pluralName;
+        DescriptionText.text = "Mejora el crecimiento de tus plantas con abono nutritivo.";
+        UpdateUI();
+    }
+
+    #endregion
+
+    #endregion
+
 } // class UIManager

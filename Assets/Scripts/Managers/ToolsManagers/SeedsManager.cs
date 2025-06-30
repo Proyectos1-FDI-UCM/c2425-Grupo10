@@ -88,6 +88,22 @@ public class SeedsManager : MonoBehaviour
     ///Audio de plantar
     /// </summary>
     [SerializeField] private AudioSource PlantAudio;
+
+
+    // NUEVOS CAMPOS:
+    /// <summary>
+    /// Referencia al FertilizerManager
+    /// </summary>
+    [SerializeField] private FertilizerManager FertilizerManager;
+
+    /// <summary>
+    /// Texto cantidad de abono
+    /// </summary>
+    [SerializeField] private TextMeshProUGUI AmountFertilizerText;
+
+   
+
+
     #endregion
 
     // ---- ATRIBUTOS PRIVADOS ----
@@ -123,6 +139,12 @@ public class SeedsManager : MonoBehaviour
     /// Tutorial Manager
     /// </summary>
     private TutorialManager _tutorialManager;
+
+    /// <summary>
+    /// Si está en modo abono
+    /// </summary>
+    private bool _isFertilizerMode = false;
+
     #endregion
 
     // ---- MÉTODOS DE MONOBEHAVIOUR ----
@@ -138,56 +160,117 @@ public class SeedsManager : MonoBehaviour
     /// </summary>
     void Start()
     {
-        _pots = new Transform[PlantingSpots.transform.childCount]; // Inicia el tamaño del array al tamaño del total de hijos de la carpeta PlantingSpots
+        // Inicializar array de posiciones para plantar
+        _pots = new Transform[PlantingSpots.transform.childCount];
         for (int i = 0; i < PlantingSpots.transform.childCount; i++)
         {
-            _pots[i] = PlantingSpots.transform.GetChild(i).transform; // Establece en el array todos los transforms de los lugares para plantar (dentro de la carpeta PlantingSpots)
+            _pots[i] = PlantingSpots.transform.GetChild(i).transform;
         }
 
+        // Buscar referencias si no están asignadas
         _tutorialManager = FindObjectOfType<TutorialManager>();
-        PlantAudio = GetComponent<AudioSource>();
-}
+
+        if (PlantAudio == null)
+        {
+            PlantAudio = GetComponent<AudioSource>();
+        }
+
+        if (FertilizerManager == null)
+        {
+            FertilizerManager = FindObjectOfType<FertilizerManager>();
+        }
+
+        // Inicializar con lechuga por defecto
+        ChangeSeed(1); // Lechuga como primera semilla por defecto
+
+        Debug.Log("SeedsManager inicializado correctamente");
+    }
 
     /// <summary>
-    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// Update (MODIFICADO para incluir abono)
     /// </summary>
     void Update()
     {
-        if (InputManager.Instance.UsarWasPressedThisFrame() && InventoryManager.GetInventoryItem(_seed) > 0)
+        // Detectar input para usar (tecla E)
+        if (InputManager.Instance.UsarWasPressedThisFrame())
         {
-            Transform Pot = FindNearestPot(transform, _pots); // Busca un lugar disponible para plantar
-            if (Pot != null) // Si lo encuentra, instancia el prefab de la semilla seleccionada
+            if (_isFertilizerMode)
             {
-                if (_tutorialManager.GetTutorialPhase() == 14)
+                // MODO ABONO: Aplicar abono a plantas cercanas
+                if (InventoryManager.GetInventoryItem(Items.Fertilizer) > 0)
                 {
-                    _tutorialManager.CheckBox(0);
-                    _tutorialManager.Invoke("NextDialogue", 0.6f);
+                    if (FertilizerManager != null)
+                    {
+                        FertilizerManager.TryApplyFertilizer();
+                    }
+                    else
+                    {
+                        Debug.LogError("FertilizerManager no está asignado");
+                    }
                 }
-                GameObject Plant = Instantiate(_prefab, Pot.position, Quaternion.identity);
-                InventoryManager.ModifyInventorySubstract((Items)_seed, 1);
-                Plant.transform.SetParent(Pot);
-
-                GardenData.Active(Pot.transform, (int)_seed + ((int)Items.Count/2));
-
-                CropSpriteEditor crop = Plant.GetComponent<CropSpriteEditor>();
-                crop.Warning("Water");
-
-                PlayerAnimator.SetBool("Planting", true);
-                PlantAudio.Play();
-                Invoke("NotPlanting", 0.4f);
-                PlayerMovement.DisablePlayerMovement();
+                else
+                {
+                    Debug.Log("No tienes abono en el inventario");
+                }
             }
+            else
+            {
+                // MODO SEMILLAS: Plantar semilla (lógica existente)
+                if (InventoryManager.GetInventoryItem(_seed) > 0)
+                {
+                    Transform Pot = FindNearestPot(transform, _pots);
+                    if (Pot != null)
+                    {
+                        // Tutorial check
+                        if (_tutorialManager.GetTutorialPhase() == 14)
+                        {
+                            _tutorialManager.CheckBox(0);
+                            _tutorialManager.Invoke("NextDialogue", 0.6f);
+                        }
 
+                        // Crear la planta
+                        GameObject Plant = Instantiate(_prefab, Pot.position, Quaternion.identity);
+                        Plant.transform.SetParent(Pot);
+
+                        // Consumir semilla del inventario
+                        InventoryManager.ModifyInventorySubstract(_seed, 1);
+
+                        // Activar en GardenData
+                        GardenData.Active(Pot.transform, (int)_seed + ((int)Items.Count / 2));
+
+                        // Configurar warnings y efectos
+                        CropSpriteEditor crop = Plant.GetComponent<CropSpriteEditor>();
+                        if (crop != null)
+                        {
+                            crop.Warning("Water");
+                        }
+
+                        // Animación y sonido
+                        PlayerAnimator.SetBool("Planting", true);
+                        if (PlantAudio != null)
+                        {
+                            PlantAudio.Play();
+                        }
+
+                        Invoke("NotPlanting", 0.4f);
+                        PlayerMovement.DisablePlayerMovement();
+
+                        Debug.Log($"Plantada: {_nameSeed} en posición {Pot.position}");
+                    }
+                    else
+                    {
+                        Debug.Log("No hay lugares disponibles para plantar cerca");
+                    }
+                }
+                else
+                {
+                    Debug.Log($"No tienes semillas de {_nameSeed} en el inventario");
+                }
+            }
         }
-        if (UIManager.GetInventoryVisible() == false)
-        {
-            AmountOfSeeds.SetActive(true);
-            AmountSeedsText.text = "x" + InventoryManager.GetInventoryItem(_seed).ToString();
-        }
-        else 
-        {
-            AmountOfSeeds.SetActive(false);
-        }
+
+        // Actualizar UI de cantidad
+        UpdateUI();
     }
 
     #endregion
@@ -200,19 +283,98 @@ public class SeedsManager : MonoBehaviour
     // mayúscula, incluida la primera letra)
     // Ejemplo: GetPlayerController
 
+
     /// <summary>
-    /// Este método se llama desde ToolsManager
-    /// Dependiendo de la semilla seleccionada inicia un prefab u otro
+    /// Cambia al modo abono
     /// </summary>
-    public void ChangeSeed(int Seed)
+    public void ChangeToFertilizer()
     {
-        _seed = (Items)Seed;
-        if (Seed == (int)Items.CornSeed) _prefab = PrefabSeeds0;
-        else if (Seed == (int)Items.LettuceSeed) _prefab = PrefabSeeds1;
-        else if (Seed == (int)Items.CarrotSeed) _prefab = PrefabSeeds2;
-        else if (Seed == (int)Items.StrawberrySeed) _prefab = PrefabSeeds3;
+        _isFertilizerMode = true;
+
+        // Actualizar texto para mostrar cantidad de abono
+        if (AmountSeedsText != null)
+        {
+            AmountSeedsText.text = "x" + InventoryManager.GetInventoryItem(Items.Fertilizer).ToString();
+        }
+
+        Debug.Log("Modo abono activado");
     }
 
+    /// <summary>
+    /// Cambia a una semilla específica
+    /// </summary>
+    /// <param name="Seed">Índice de la semilla (0=Maíz, 1=Lechuga, 2=Zanahoria, 3=Fresa)</param>
+    public void ChangeSeed(int Seed)
+    {
+        _isFertilizerMode = false; // IMPORTANTE: Desactivar modo abono al cambiar a semilla
+
+        // Mapear índice del selector a Items enum correcto
+        switch (Seed)
+        {
+            case 0:
+                _seed = Items.CornSeed;
+                _prefab = PrefabSeeds0;
+                _nameSeed = "Maíz";
+                break;
+            case 1:
+                _seed = Items.LettuceSeed;
+                _prefab = PrefabSeeds1;
+                _nameSeed = "Lechuga";
+                break;
+            case 2:
+                _seed = Items.CarrotSeed;
+                _prefab = PrefabSeeds2;
+                _nameSeed = "Zanahoria";
+                break;
+            case 3:
+                _seed = Items.StrawberrySeed;
+                _prefab = PrefabSeeds3;
+                _nameSeed = "Fresa";
+                break;
+            default:
+                Debug.LogError("Índice de semilla inválido: " + Seed);
+                _seed = Items.LettuceSeed;
+                _prefab = PrefabSeeds1;
+                _nameSeed = "Lechuga";
+                break;
+        }
+
+        // Actualizar texto de cantidad en UI
+        if (AmountSeedsText != null)
+        {
+            AmountSeedsText.text = "x" + InventoryManager.GetInventoryItem(_seed).ToString();
+        }
+
+        Debug.Log($"Semilla cambiada a: {_nameSeed}");
+    }
+
+
+    /// <summary>
+    /// Verifica si está en modo abono
+    /// </summary>
+    /// <returns>True si está en modo abono</returns>
+    public bool IsFertilizerMode()
+    {
+        return _isFertilizerMode;
+    }
+
+    /// <summary>
+    /// Obtiene la semilla actual seleccionada
+    /// </summary>
+    /// <returns>Items enum de la semilla actual</returns>
+    public Items GetCurrentSeed()
+    {
+        return _seed;
+    }
+
+    /// <summary>
+    /// Obtiene el nombre de la semilla actual
+    /// </summary>
+    /// <returns>Nombre legible de la semilla actual</returns>
+    public string GetCurrentSeedName()
+    {
+        return _nameSeed;
+    }
     #endregion
 
     // ---- MÉTODOS PRIVADOS ----
@@ -261,10 +423,42 @@ public class SeedsManager : MonoBehaviour
         PlayerMovement.EnablePlayerMovement();
 
     }
+
+    /// <summary>
+    /// Actualiza la interfaz de usuario
+    /// </summary>
+    private void UpdateUI()
+    {
+        if (UIManager != null && !UIManager.GetInventoryVisible())
+        {
+            if (AmountOfSeeds != null)
+            {
+                AmountOfSeeds.SetActive(true);
+            }
+
+            if (AmountSeedsText != null)
+            {
+                if (_isFertilizerMode)
+                {
+                    AmountSeedsText.text = "x" + InventoryManager.GetInventoryItem(Items.Fertilizer).ToString();
+                }
+                else
+                {
+                    AmountSeedsText.text = "x" + InventoryManager.GetInventoryItem(_seed).ToString();
+                }
+            }
+        }
+        else
+        {
+            if (AmountOfSeeds != null)
+            {
+                AmountOfSeeds.SetActive(false);
+            }
+        }
+    }
+
+
     #endregion
-
-
-
 
 } // class SeedsManager 
 // namespace
